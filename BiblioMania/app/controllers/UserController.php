@@ -6,17 +6,14 @@
  * Time: 21:35
  */
 
-class User_Controller extends BaseController{
+class UserController extends BaseController{
 
     public function goToCreateUser() {
-        return View::make('createUser');
+        return View::make('createUser')->with(array('title' => 'Create user'));
     }
 
     public function createUser() {
         $userService = App::make('UserService');
-        if(Auth::user()->admin == false){
-            return Redirect::to('getBooks');
-        }
         $userdata = array(
             'email' => Input::get('email'),
             'password' => Input::get('password')

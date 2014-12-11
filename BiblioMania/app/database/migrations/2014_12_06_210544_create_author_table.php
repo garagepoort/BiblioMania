@@ -15,7 +15,7 @@ class CreateAuthorTable extends Migration {
 			$table->string('image')->nullable();
 	        $table->date('date_of_death')->nullable();
 	        $table->date('date_of_birth')->nullable();
-	        $table->unsignedInteger('country_id');
+	        $table->unsignedInteger('country_id')->nullable();
 	        $table->timestamps();
 		    $table->foreign('country_id')->references('id')->on('country');
 		});

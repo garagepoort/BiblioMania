@@ -9,4 +9,8 @@ class GiftInfo extends Eloquent {
     	'occasion'
 	);
 
+	public function personal_book_info(){
+    	return $this->belongsTo('PersonalBookInfo');
+    }
+
 }

@@ -15,17 +15,10 @@ class Book extends Eloquent {
     	'publisher_id',
     	'publication_date',
     	'country_id',
-    	'language_id',
     	'number_of_pages',
-    	'number_of_prints',
+    	'print',
     	'serie_id',
-    	'publisher_serie_id',
-    	'read',
-    	'owned',
-    	'buy_info_id',
-    	'gift_info_id',
-    	'rating',
-    	'retail_price'
+    	'publisher_serie_id'
     	);
 
     public function author(){
@@ -43,30 +36,27 @@ class Book extends Eloquent {
 	public function country(){
     	return $this->belongsTo('Country');
 	}
-
-	public function language(){
-    	return $this->belongsTo('Language');
-	}
-
+    
 	public function serie(){
     	return $this->belongsTo('Serie');
 	}
 
-	public function publisher_serie(){
-    	return $this->belongsTo('PublisherSerie');
-	}
+    public function publisher_serie(){
+        return $this->belongsTo('PublisherSerie');
+    }
 
-	public function buy_info(){
-    	return $this->belongsTo('BuyInfo');
+	public function personal_book_info(){
+    	return $this->hasOne('PersonalBookInfo');
 	}
-
-	public function gift_info(){
-    	return $this->belongsTo('GiftInfo');
-	}
-
+    
 	public function awards()
     {
         return $this->belongsToMany('BookAward', 'book_book_award');
+    }
+
+    public function reading_dates()
+    {
+        return $this->belongsToMany('ReadingDate', 'book_reading_date');
     }
 
     public function films()

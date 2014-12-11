@@ -1,8 +1,5 @@
 @extends('main')
 
-@section('sidebar')
-@stop
-
 @section('content')
         <div class="row">
             <div class="page-header"><h2>{{ trans('messages.login.title') }}</h2></div>
@@ -16,8 +13,8 @@
             {{ Form::open(array('url' => 'login', 'class' => 'form-horizontal')) }}
               <table id='loginTable'>
                   <tr>
-                      <td>{{ Form::label('usernameLabel', trans('messages.login.label.user') , array('class' => 'control-label loginLabel')); }}</td>
-                      <td>{{ Form::text('username', '', array('id' => 'usernameInputLogin','class' => 'form-control input-sm', 'placeholder' => trans('messages.login.placeholder.user'), 'required' => 'true')); }}</td>
+                      <td>{{ Form::label('emailLabel', trans('messages.login.label.email') , array('class' => 'control-label loginLabel')); }}</td>
+                      <td>{{ Form::text('email', '', array('id' => 'emailInputLogin','class' => 'form-control input-sm', 'placeholder' => trans('messages.login.placeholder.email'), 'required' => 'true')); }}</td>
                   </tr>
                   <tr>
                       <td>{{ Form::label('passwordLabel', trans('messages.login.label.password') , array('class' => 'control-label loginLabel')); }}</td>

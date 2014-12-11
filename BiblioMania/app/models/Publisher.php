@@ -10,4 +10,9 @@ class Publisher extends Eloquent {
     	return $this->belongsToMany('Country', 'publisher_country');
 	}
 
+	public function books()
+    {
+        return $this->hasMany('Book');
+    }
+
 }

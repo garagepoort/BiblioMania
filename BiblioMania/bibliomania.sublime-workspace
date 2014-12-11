@@ -4,6 +4,50 @@
 		"selected_items":
 		[
 			[
+				"publ",
+				"publisher"
+			],
+			[
+				"c",
+				"country"
+			],
+			[
+				"pu",
+				"publisher"
+			],
+			[
+				"au",
+				"author_name"
+			],
+			[
+				"author",
+				"author_model"
+			],
+			[
+				"auth",
+				"author_model"
+			],
+			[
+				"countr",
+				"countryId"
+			],
+			[
+				"cov",
+				"covers"
+			],
+			[
+				"mar",
+				"margin-top"
+			],
+			[
+				"back",
+				"background-color"
+			],
+			[
+				"publi",
+				"publisher_serie_id"
+			],
+			[
 				"ma",
 				"margin"
 			],
@@ -152,10 +196,6 @@
 				"rowArray"
 			],
 			[
-				"mar",
-				"margin-bottom"
-			],
-			[
 				"margin",
 				"margin-top"
 			],
@@ -202,10 +242,6 @@
 			[
 				"contr",
 				"contract"
-			],
-			[
-				"c",
-				"collection"
 			],
 			[
 				"beta",
@@ -328,10 +364,6 @@
 				"accessToken"
 			],
 			[
-				"au",
-				"authUrl"
-			],
-			[
 				"hu",
 				"huurder"
 			],
@@ -343,6 +375,62 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "app/models/Book.php",
+			"settings":
+			{
+				"buffer_size": 1252,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/views/book/createBook.blade.php",
+			"settings":
+			{
+				"buffer_size": 3694,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/views/book/create/bookInfo.blade.php",
+			"settings":
+			{
+				"buffer_size": 7506,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/controllers/BookController.php",
+			"settings":
+			{
+				"buffer_size": 3316,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/views/main.blade.php",
+			"settings":
+			{
+				"buffer_size": 2814,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/models/Author.php",
+			"settings":
+			{
+				"buffer_size": 457,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/models/Publisher.php",
+			"settings":
+			{
+				"buffer_size": 300,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -368,6 +456,81 @@
 	},
 	"file_history":
 	[
+		"/Users/david/Development/BiblioMania/BiblioMania/app/database/migrations/2014_12_06_214001_create_book_table.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/database/migrations/2014_12_06_210544_create_author_table.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/views/book/create/authorInfo.blade.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/views/main.blade.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/models/BuyInfo.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/routes.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/models/GiftInfo.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/database/migrations/2014_12_06_214003_create_buy_info_table.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/database/migrations/2014_12_06_214002_create_personal_book_info_table.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/database/migrations/2014_12_06_214809_create_gift_info_table.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/database/migrations/2014_12_07_123150_create_personal_book_info_reading_date_table.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/models/Book.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/models/PersonalBookInfo.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/database/migrations/2014_12_06_222418_create_film_table.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/database/migrations/2014_12_07_123044_create_reading_date_table.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/views/book/create/firstPrintInfo.blade.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/models/FirstPrintInfo.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/views/book/create/bookInfo.blade.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/database/migrations/2014_12_06_220634_create_book_table.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/views/book/createBook.blade.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/views/book/create/personalBookInfo.blade.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/controllers/BookController.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/views/book/create/publisherInfo.blade.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/public/assets/css/myLayout.css",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/database/migrations/2014_12_06_215614_create_first_print_info_table.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/ioc.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/service/LanguageService.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/service/CountryService.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/database/language_feeder.sql",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/models/Language.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/database/country_feeder.sql",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/models/Publisher.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/models/Author.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/views/createBook.blade.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/views/login.blade.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/views/book/boekInfo.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/database/migrations/2014_12_07_123150_create_book_reading_date_table.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/models/ReadingDate.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/controllers/LoginController.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/views/books.blade.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/views/navigationbar.blade.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/controllers/UserController.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/service/user/UserService.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/domain/user/UserRepository.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/composer.json",
+		"/Users/david/Development/BiblioMania/BiblioMania/bootstrap/start.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/lang/en/messages.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/domain/user/UserManager.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/models/Film.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/models/Genre.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/models/PublisherSerie.html",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/models/Serie.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/models/Country.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/database/migrations/2014_12_06_215355_create_serie_table.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/models/BookAward.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/models/AuthorAward.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/database/migrations/2014_12_06_213656_create_author_author_award_table.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/database/migrations/2014_12_06_222018_create_book_book_award_table.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/models/City.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/database/migrations/2014_12_06_215355_create__serie_table.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/database/migrations/2014_12_06_210500_create_author_award_table.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/database/migrations/2014_12_06_221911_create_book_award_table.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/database/migrations/2014_12_06_221911_create_book_price_table.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/database/migrations/2014_12_06_210500_create_author_price_table.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/database/migrations/2014_12_06_215610_create_language_table.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/database/migrations/2014_12_06_210520_create_country_table.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/database/migrations/2014_12_06_215206_create_publisher_serie_table.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/database/migrations/2014_12_06_213656_create_author_authorprice_table.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/database/migrations/2014_12_06_213421_create_genre_table.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/config/local/database.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/database/migrations/2014_12_06_205956_create_author_table.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/database/migrations/2014_12_06_204433_create_users_table.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/database/migrations/2014_12_06_212243_create_publisher_table.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/database/migrations/2014_12_06_213212_create_city_table.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/database/migrations/2014_12_06_212831_create_publisher_country_table.php",
 		"/Users/david/Development/kve/app/models/GameManager.php",
 		"/Users/david/Development/kve/app/models/flipcards.txt",
 		"/Users/david/Development/kve/app/models/FlipCard.php",
@@ -420,82 +583,7 @@
 		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/domain/user/UserManager.php",
 		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/tests/TestCase.php",
 		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/bootstrap/start.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/config/app.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/composer.json",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/database/seeds/UserSeeder.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/config/testing/database.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/config/auth.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/phpunit.xml",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/domain/user/User.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/service/user/UserService.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/controllers/UserController.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/tests/unit/betaling/BetalingServiceTest.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/database/migrations/2014_11_17_180643_create_user_table.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/bootstrap/autoload.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/vendor/autoload.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/vendor/composer/autoload_files.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/domain/user/UserRepository.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/tests/betaling/BetalingServiceTest.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/service/DateService.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/domain/betaling/Betaling.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/domain/betaling/BetalingRepository.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/domain/contract/Contract.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/tests/ui/AbstractUITest.html",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/domain/betaling/BetalingManager.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/domain/betaling/pdf/PdfGenerator.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/domain/betaling/DuplicateBetalingException.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/ioc.ph",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/database/seeds/ContractenSeeder.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/database/seeds/BetalingenSeeder.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/database/seeds/PandSeeder.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/database/migrations/2014_11_17_180839_create_panden_table.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/database/migrations/2014_11_17_180947_create_contracten_table.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/database/migrations/2014_11_17_181249_create_betalingen_table.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/database/migrations/2014_11_17_181955_create_google_api_token_table.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/domain/Huurder/Huurder.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/filters.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/views/huurder/editHuurder.blade.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/tests/ExampleTest.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/database/migrations/2014_09_26_092720_create_panden_table.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/database/migrations/2014_11_11_073844_create_contract_table.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/database/migrations/2014_11_13_195259_add_column_contract_to_betalingen.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/database/seeds/DatabaseSeeder.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/database/seeds/PandSeeder.html",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/database/migrations/2014_09_27_092718_add_deprecated_flag_on_huurder.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/database/migrations/2014_09_26_092718_create_user_table.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/database/migrations/2014_09_26_092719_create_huurder_table.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/routes.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/views/contract/createOrEditContract.blade.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/views/contract/contractDetail.blade.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/tests/betaling/BetalingServiceTest",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/views/huurder/createOrEditHuurder.blade.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/views/huurder/huurder.blade.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/storage/views/4ede1f17d471563f8fedaacec5f5f97b",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/views/contract/editContract.blade.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/lang/en/messages.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/lang/nl/messages.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/database/migrations/2014_11_15_191718_migrate_contract_filenames.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/views/contract/createContract.blade.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/views/huurder/betalendeHuurders.blade.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/views/betaling/betalingenRow.blade.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/views/contract/contract.blade.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/views/overzichtBetalingen.blade.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/views/contract/contracten.blade.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/views/betaling/addBetaling.blade.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/database/migrations/2014_11_10_210858_create_and_insert_pand_table.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/database/migrations/2014_11_11_191647_add_contract_colum_to_betaling.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/database/migrations/2014_11_01_101332_create_google_api_token_table.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/views/betaling/betalingDetail.blade.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/domain/pand/Pand.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/domain/ViewFolder.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/domain/user/GoogleApiRepository.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/controllers/Oauth2Controller.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/domain/user/GoogleApiToken.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/config/local/properties.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/jobs/BackupDatabaseJob.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/config/deploy.rb",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/jobs/hello.txt",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/config/production/properties.php"
+		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/config/app.php"
 	],
 	"find":
 	{
@@ -506,6 +594,7 @@
 		"height": 0.0,
 		"where_history":
 		[
+			"/Users/david/Development/BiblioMania",
 			"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp",
 			"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/tests/betaling",
 			"",
@@ -518,6 +607,12 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			">\n",
+			"country(id, name, code)",
+			"`countries`",
+			"containerDiv",
+			"usern",
+			"CreateBookBookAwardTable",
 			"$imageLocation",
 			"  ",
 			"$names",
@@ -601,6 +696,8 @@
 		"regex": false,
 		"replace_history":
 		[
+			"country(id, code, name)",
+			"country(id, name, code)",
 			"$this->imageLocation",
 			"$this->names",
 			"$this->",
@@ -619,8 +716,200 @@
 	"groups":
 	[
 		{
+			"selected": 3,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "app/models/Book.php",
+					"settings":
+					{
+						"buffer_size": 1252,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								680,
+								680
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "app/views/book/createBook.blade.php",
+					"settings":
+					{
+						"buffer_size": 3694,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1900,
+								1900
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 212.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "app/views/book/create/bookInfo.blade.php",
+					"settings":
+					{
+						"buffer_size": 7506,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1595,
+								1606
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 199.0,
+						"translation.y": 239.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "app/controllers/BookController.php",
+					"settings":
+					{
+						"buffer_size": 3316,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2126,
+								2126
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 623.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "app/views/main.blade.php",
+					"settings":
+					{
+						"buffer_size": 2814,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1701,
+								1701
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 11.0,
+						"translation.y": 439.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "app/models/Author.php",
+					"settings":
+					{
+						"buffer_size": 457,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								454,
+								380
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "app/models/Publisher.php",
+					"settings":
+					{
+						"buffer_size": 300,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								221,
+								221
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -666,6 +955,186 @@
 		"selected_items":
 		[
 			[
+				"publis",
+				"app/models/Publisher.php"
+			],
+			[
+				"publ",
+				"app/models/Publisher.php"
+			],
+			[
+				"",
+				"app/models/Author.php"
+			],
+			[
+				"author",
+				"app/models/Author.php"
+			],
+			[
+				"authin",
+				"app/views/book/create/authorInfo.blade.php"
+			],
+			[
+				"main",
+				"app/views/main.blade.php"
+			],
+			[
+				"authorin",
+				"app/views/book/create/authorInfo.blade.php"
+			],
+			[
+				"rout",
+				"app/routes.php"
+			],
+			[
+				"bookcontr",
+				"app/controllers/BookController.php"
+			],
+			[
+				"bookin",
+				"app/views/book/create/bookInfo.blade.php"
+			],
+			[
+				"createbook",
+				"app/views/book/createBook.blade.php"
+			],
+			[
+				"giftin",
+				"app/models/GiftInfo.php"
+			],
+			[
+				"buyinf",
+				"app/models/BuyInfo.php"
+			],
+			[
+				"book",
+				"app/models/Book.php"
+			],
+			[
+				"person",
+				"app/models/PersonalBookInfo.php"
+			],
+			[
+				"boo",
+				"app/models/Book.php"
+			],
+			[
+				"createbo",
+				"app/views/book/createBook.blade.php"
+			],
+			[
+				"bookinfo",
+				"app/views/book/create/bookInfo.blade.php"
+			],
+			[
+				"printi",
+				"app/models/FirstPrintInfo.php"
+			],
+			[
+				"firstprin",
+				"app/views/book/create/firstPrintInfo.blade.php"
+			],
+			[
+				"publisherin",
+				"app/views/book/create/publisherInfo.blade.php"
+			],
+			[
+				"authorinf",
+				"app/views/book/create/authorInfo.blade.php"
+			],
+			[
+				"my",
+				"public/assets/css/myLayout.css"
+			],
+			[
+				"buy",
+				"app/models/BuyInfo.php"
+			],
+			[
+				"firs",
+				"app/models/FirstPrintInfo.php"
+			],
+			[
+				"firstprint",
+				"app/models/FirstPrintInfo.php"
+			],
+			[
+				"ioc",
+				"app/ioc.php"
+			],
+			[
+				"bookconr",
+				"app/controllers/BookController.php"
+			],
+			[
+				"lang",
+				"app/models/Language.php"
+			],
+			[
+				"ml",
+				"public/assets/css/myLayout.css"
+			],
+			[
+				"myl",
+				"public/assets/css/myLayout.css"
+			],
+			[
+				"login",
+				"app/views/login.blade.php"
+			],
+			[
+				"bookcontro",
+				"app/controllers/BookController.php"
+			],
+			[
+				"main.blade",
+				"app/views/main.blade.php"
+			],
+			[
+				"login.",
+				"app/views/login.blade.php"
+			],
+			[
+				"userre",
+				"app/domain/user/UserRepository.php"
+			],
+			[
+				"userser",
+				"app/service/user/UserService.php"
+			],
+			[
+				"autho",
+				"app/models/Author.php"
+			],
+			[
+				"compo",
+				"composer.json"
+			],
+			[
+				"user",
+				"app/controllers/UserController.php"
+			],
+			[
+				"ro",
+				"app/routes.php"
+			],
+			[
+				"start",
+				"bootstrap/start.php"
+			],
+			[
+				"users",
+				"app/service/user/UserService.php"
+			],
+			[
+				"usercontr",
+				"app/controllers/UserController.php"
+			],
+			[
+				"createbookbookawardtable",
+				"app/database/migrations/2014_12_06_222018_create_book_book_award_table.php"
+			],
+			[
 				"custom",
 				"public/assets/css/custom.css"
 			],
@@ -682,10 +1151,6 @@
 				"vendor/predis/predis/tests/Predis/Option/CustomOptionTest.php"
 			],
 			[
-				"main",
-				"app/views/main.blade.php"
-			],
-			[
 				"cust",
 				"public/assets/css/custom.css"
 			],
@@ -694,24 +1159,12 @@
 				"app/models/FlipCard.php"
 			],
 			[
-				"ioc",
-				"app/ioc.php"
-			],
-			[
-				"start",
-				"bootstrap/start.php"
-			],
-			[
 				"route",
 				"app/routes.php"
 			],
 			[
 				"kers",
 				"app/controllers/KerstController.php"
-			],
-			[
-				"compo",
-				"composer.json"
 			],
 			[
 				"index.p",
@@ -810,10 +1263,6 @@
 				"bootstrap/testingAutoload.php"
 			],
 			[
-				"users",
-				"app/database/seeds/UserSeeder.php"
-			],
-			[
 				"usersee",
 				"app/database/seeds/UserSeeder.php"
 			],
@@ -822,16 +1271,8 @@
 				"app/controllers/LoginController.php"
 			],
 			[
-				"user",
-				"app/domain/user/User.php"
-			],
-			[
 				"abstract",
 				"app/tests/ui/AbstractUITestCase.php"
-			],
-			[
-				"login",
-				"app/views/login.blade.php"
 			],
 			[
 				"huurdeco",
@@ -867,10 +1308,6 @@
 			],
 			[
 				"userc",
-				"app/controllers/UserController.php"
-			],
-			[
-				"usercontr",
 				"app/controllers/UserController.php"
 			],
 			[
@@ -1022,10 +1459,6 @@
 				"app/views/admin/adminPagina.blade.php"
 			],
 			[
-				"",
-				"app/views/login.blade.php"
-			],
-			[
 				"login.b",
 				"app/views/login.blade.php"
 			],
@@ -1048,6 +1481,6 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 148.0,
+	"side_bar_width": 245.0,
 	"status_bar_visible": true
 }

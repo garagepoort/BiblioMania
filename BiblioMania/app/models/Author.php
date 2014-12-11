@@ -1,10 +1,10 @@
 <?php
 
 
-class Country extends Eloquent {
+class Author extends Eloquent {
     protected $table = 'author';
 
-    protected $fillable = array('name', 'firstname', 'image'. 'date_of_death'. 'date_of_birth', 'country_id');
+    protected $fillable = array('name', 'firstname', 'image', 'date_of_death', 'date_of_birth', 'country_id');
 
     public function country(){
     	return $this->belongsTo('Country');
@@ -13,6 +13,11 @@ class Country extends Eloquent {
 	public function awards()
     {
         return $this->belongsToMany('AuthorAward', 'author_author_award');
+    }
+
+    public function books()
+    {
+        return $this->hasMany('Book');
     }
 
 }

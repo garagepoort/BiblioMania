@@ -2,25 +2,32 @@
     <head> 
         <title> {{ $title }} </title> 
     </head>
+
     {{ HTML::script('assets/js/jquery.js'); }}
-    {{ HTML::script('assets/js/jasny-bootstrap.js'); }}
     {{ HTML::script('assets/js/bootstrap.js'); }}
     {{ HTML::script('assets/datepicker/js/bootstrap-datepicker.js') }}
 
-    <!-- ANGULAR FILES
-    {{ HTML::script('assets/js/angular/angularjs.js'); }}
-    {{ HTML::script('assets/js/angular/app.js'); }}
-    -->
+    <!-- JQUERY-UI -->
+    {{ HTML::script('assets/jquery-ui/jquery-ui.js') }}
+    {{ HTML::style('assets/jquery-ui/jquery-ui.css') }}
+
     {{ HTML::style('/assets/css/bootstrap.css') }}
-    {{ HTML::style('/assets/css/jasny-bootstrap.css') }}
     {{ HTML::style('assets/datepicker/css/datepicker.css') }}
     {{ HTML::style('assets/css/bootstrap-theme.css') }}
     {{ HTML::style('assets/css/myLayout.css') }}
 
+    <!-- JASNY -->
+    {{ HTML::script('assets/jasny-bootstrap/js/jasny-bootstrap.min.js') }}
+    {{ HTML::style('assets/jasny-bootstrap/css/jasny-bootstrap.min.css') }}
+
+    <!-- BOOTSTRAP-VALIDATOR -->
+    {{ HTML::script('assets/bootstrapvalidator/dist/js/bootstrapValidator.min.js') }}
+    {{ HTML::script('assets/bootstrapvalidator/dist/js/language/be_NL.js') }}
+    {{ HTML::style('assets/bootstrapvalidator/dist/css/bootstrapValidator.min.css') }}
     <body>
 
     @section('header')
-        <div class="navbar navbar-default navbar-fixed-top">
+        <div class="titleBar navbar navbar-default navbar-fixed-top">
             <div class="container">
                 <a class="navbar-brand" href="#">
                     <strong>{{ trans('messages.titelbalk.titel') }}</strong>
@@ -38,16 +45,8 @@
         </div>
     @show
 
-    <div class="container" style="margin-top: 80px">
-        <div class="row">
-            @include('navigationbar')
-
-            <div class="col-md-10">
-                <div class="container well col-md-8 editorContainer">
-                    @yield('content')
-                </div>
-            </div>
-        </div>
+    <div class="container contentContainer" style="margin-top: 80px">
+            @yield('content')
     </div>
     <script type="text/javascript">
         $(function() {

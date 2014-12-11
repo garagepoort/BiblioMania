@@ -5,6 +5,7 @@ class FirstPrintInfo extends Eloquent {
     protected $table = 'first_print_info';
 
     protected $fillable = array('title', 
+        'subtitle',
     	'publisher_id', 
     	'publication_date', 
     	'country_id', 
