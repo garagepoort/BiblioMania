@@ -10,6 +10,26 @@
 	    return new CountryService;
 	});
 
+	App::singleton('AuthorService', function()
+	{
+	    return new AuthorService;
+	});
+
+	App::singleton('FirstPrintInfoService', function()
+	{
+	    return new FirstPrintInfoService;
+	});
+
+	App::singleton('PersonalBookInfoService', function()
+	{
+	    return new PersonalBookInfoService;
+	});
+
+	App::singleton('PublisherService', function()
+	{
+	    return new PublisherService;
+	});
+
 	App::singleton('LanguageService', function()
 	{
 	    return new LanguageService;

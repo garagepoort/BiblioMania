@@ -1,0 +1,298 @@
+@font-face {
+  font-family: "vincent";
+  src: url("../fonts/Vincent-Regular.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "baron";
+  src: url("../fonts/baron_black.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "parisish";
+  src: url("../fonts/Parisish.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "vincent";
+  font-weight: bold;
+  src: url("../fonts/Vincent-Regular.otf") format("opentype");
+}
+
+@font: "parisish";
+@background-color: #DDDCC5;
+@font-color: #DDDCC5;
+@inverse-font-color: #611427;
+@main-color: #611427;
+@font-size: 20px;
+
+body {
+  font-family: @font;
+  color: @font-color;
+  font-size: @font-size;
+  background-color: @background-color;
+}
+
+div.tableDiv{
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  margin-left: auto ;
+  margin-right: auto ;
+  width: 500px;
+}
+
+small.help-block {
+  color: @font-color;
+}
+
+select {
+  color: @inverse-font-color;
+}
+
+/*PLACEHOLDERS*/
+.form-control::-webkit-input-placeholder { /* WebKit browsers */
+    color: @inverse-font-color;
+   opacity:  1;
+}
+.form-control:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    @inverse-font-color;
+   opacity:  1;
+}
+.form-control::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    @inverse-font-color;
+   opacity:  1;
+}
+.form-control:-ms-input-placeholder { /* Internet Explorer 10+ */
+   color: @inverse-font-color;
+}
+
+.contentContainer {
+  margin-left: auto ;
+  margin-right: auto ;
+  width: 800px;
+  /*background-color: #AF885F;*/
+  /*color: #8E2800;*/
+}
+
+.createBookDiv {
+  width: 100%;
+}
+
+.loginLabel {
+	margin-right: 10px;
+}
+
+#loginTable td {
+	padding-bottom: 5px;
+}
+
+.ui-widget * { outline: none; }
+
+
+/*TABS*/
+.tab-container {
+  margin-top: 20px;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.tab-container fieldset legend {
+  color: @font-color;
+  border-bottom: 1px solid @font-color;
+}
+
+.form-container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.label-gray {
+  color: #aaa;
+}
+
+.tab-content {
+    border-left: 1px solid @main-color;
+    border-right: 1px solid @main-color;
+    border-bottom: 1px solid @main-color;
+    padding: 10px;
+    background-color: @main-color;
+}
+
+li a {
+  color: @font-color;
+  background-color: @main-color;
+}
+
+.nav-tabs {
+  font-family: "vincent";
+    margin-bottom: 0;
+}
+
+/*END TABS*/
+
+/*GENRES*/
+
+.genres-container {
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+.genre-listitem{
+  /*border-radius: 25px;*/
+  cursor: pointer;
+  padding-left: 10px;
+}
+
+.genres-header {
+  padding-left: 16px;
+}
+
+.well {
+  background-color: @font-color;
+  background: @font-color;
+  color: @inverse-font-color;
+}
+/*END GENRES*/
+
+/*REVIEW STARS*/
+ .animated {
+    -webkit-transition: height 0.2s;
+    -moz-transition: height 0.2s;
+    transition: height 0.2s;
+}
+
+.stars
+{
+    margin: 20px 0;
+    font-size: 24px;
+    color: #d17581;
+}
+
+
+/*NAVBAR*/
+
+.navbar-default {
+  background-color: @inverse-font-color;
+  border-color: @inverse-font-color;
+}
+.navbar-default .navbar-brand {
+  color: @font-color;
+}
+.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
+  color: @font-color;
+}
+.navbar-default .navbar-text {
+  color: @font-color;
+}
+.navbar-default .navbar-nav > li > a {
+  color: @font-color;
+}
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+  color: @font-color;
+}
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+  color: @font-color;
+  background-color: @main-color;
+}
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+  color: @font-color;
+  background-color: @main-color;
+}
+.navbar-default .navbar-toggle {
+  border-color: @main-color;
+}
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+  background-color: @main-color;
+}
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: @main-color;
+}
+.navbar-default .navbar-collapse,
+.navbar-default .navbar-form {
+  border-color: @main-color;
+}
+.navbar-default .navbar-link {
+  color: @font-color;
+}
+.navbar-default .navbar-link:hover {
+  color: @font-color;
+}
+.navbar-default .navbar-nav .open .dropdown-menu > li > a {
+  color: @font-color;
+}
+.navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+  color: @font-color;
+}
+.navbar-default .navbar-nav .open .dropdown-menu > .active > a, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+  color: @font-color;
+  background-color: @main-color;
+}
+
+div.navbar-collapse {
+  background-color: @main-color;
+}
+
+a.navbar-brand {
+  background-color: @main-color;
+  font-family: "baron";
+}
+
+div.container-fluid {
+  background-color: @main-color;
+}
+
+
+
+/*TYPEAHEAD*/
+
+.tt-query, /* UPDATE: newer versions use tt-input instead of tt-query */
+.tt-hint {
+    /*width: 396px;*/
+    /*height: 30px;*/
+    padding: 8px 12px;
+    font-size: 14px;
+    line-height: 30px;
+    border: 2px solid #ccc;
+    /*border-radius: 8px;*/
+    outline: none;
+}
+
+.tt-query { /* UPDATE: newer versions use tt-input instead of tt-query */
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+
+.tt-hint {
+    color: #999
+}
+
+.tt-dropdown-menu {
+    /*width: 422px;*/
+    margin-top: 12px;
+    padding: 8px 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    color: @inverse-font-color;
+}
+
+.tt-suggestion {
+    padding: 3px 20px;
+    font-size: 18px;
+    line-height: 24px;
+}
+
+.tt-suggestion.tt-is-under-cursor { /* UPDATE: newer versions use .tt-suggestion.tt-cursor */
+    color: #fff;
+    background-color: #0097cf;
+
+}
+
+.tt-suggestion p {
+    margin: 0;
+}

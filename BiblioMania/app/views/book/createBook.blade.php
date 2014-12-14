@@ -1,7 +1,7 @@
 @extends('main')
 
 @section('content')
-{{ Form::open(array('url' => 'createBook', 'class' => 'form-horizontal createBookForm')); }}
+{{ Form::open(array('url' => 'createBook', 'class' => 'form-horizontal createBookForm', 'autocomplete' => 'off')); }}
 <div role="tabpanel">
 
   <!-- Nav tabs -->
@@ -39,18 +39,17 @@
 </div>
 {{ Form::close(); }}
 <script>
-  $(function() {
-    $( "#tabs" ).tabs({
-      collapsible: false
-    });
-  });
 
   $("#book_author").bind("keyup paste", function() {
-    $("#author_name").val($(this).val());
+    var trimmedValue = $(this).val().replace(" ","");
+    var result = trimmedValue.split(",");
+    $("#author_name").val(result[0]);
+    $("#author_firstname").val(result[1]);
   });
 
   $(document).ready(function() {
             $('.createBookForm').bootstrapValidator({
+                message: 'This value is not valid',
                 message: 'This value is not valid',
                 feedbackIcons: {
                     valid: 'glyphicon glyphicon-ok',
@@ -88,6 +87,33 @@
                         validators: {
                             notEmpty: {
                                 message: 'Het uitgever moet ingevuld zijn.'
+                            }
+                        }
+                    },
+                    book_print: {
+                        message: 'De uitgever is niet ingevuld',
+                        validators: {
+                            regexp: {
+                                regexp: '^[0-9]$',
+                                message: 'Kan enkel cijfers zijn'
+                            }
+                        }
+                    },
+                    book_number_of_pages: {
+                        message: 'De uitgever is niet ingevuld',
+                        validators: {
+                            regexp: {
+                                regexp: '^[0-9]$',
+                                message: 'Kan enkel cijfers zijn'
+                            }
+                        }
+                    },
+                    //FIRST PRINT
+                    first_print_isbn: {
+                         validators: {
+                            regexp: {
+                                regexp: '^[0-9]{13}$',
+                                message: 'Exact 13 cijfers'
                             }
                         }
                     }

@@ -14,6 +14,7 @@ class CreatePersonalBookInfoTable extends Migration {
 			$table->unsignedInteger('book_id')->unique();
 			$table->integer('rating');
 			$table->double('retail_price')->nullable();
+			$table->text('review')->nullable();
 	        $table->timestamps();
 		    $table->foreign('book_id')->references('id')->on('book');
 		});

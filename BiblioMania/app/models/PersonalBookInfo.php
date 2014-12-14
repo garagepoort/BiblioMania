@@ -5,7 +5,8 @@ class PersonalBookInfo extends Eloquent {
     protected $fillable = array(
     	'owned',
     	'rating',
-    	'retail_price'
+    	'retail_price',
+        'review'
 	);
 	public function buy_info(){
     	return $this->hasOne('BuyInfo');
@@ -18,11 +19,6 @@ class PersonalBookInfo extends Eloquent {
     public function reading_dates()
     {
         return $this->belongsToMany('ReadingDate', 'book_reading_date');
-    }
-
-    public function films()
-    {
-        return $this->hasMany('Film');
     }
 
 }

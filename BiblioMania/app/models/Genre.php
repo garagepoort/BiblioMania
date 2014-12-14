@@ -12,4 +12,8 @@ class Genre extends Eloquent {
     	return $this->belongsTo('Genre', 'parent_id');
 	}
 
+	public function child_genres(){
+		return $this->hasMany('Genre', 'parent_id');
+	}
+
 }

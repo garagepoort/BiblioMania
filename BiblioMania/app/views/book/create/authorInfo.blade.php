@@ -12,10 +12,13 @@
         
         <!-- NAME -->
         <div class="form-group">
-            {{ Form::label('authorNameLabel', 'Naam:', array('class' => 'col-md-3')); }}
+            {{ Form::label('authorNameLabel', 'Naam voornaam:', array('class' => 'col-md-3')); }}
             {{ $errors->first('author') }}
-            <div class="col-md-8">
-                {{ Form::text('author_name', '', array('id'=>'author_name','class' => 'form-control', 'placeholder' => 'Naam', 'required' => 'true')); }}
+            <div class="col-md-4">
+                {{ Form::text('author_name', '', array('id'=>'author_name','class' => 'form-control', 'placeholder' => 'naam', 'required' => 'true')); }}
+            </div>
+            <div class="col-md-4">
+                {{ Form::text('author_firstname', '', array('id'=>'author_firstname','class' => 'form-control', 'placeholder' => 'voornaam', 'required' => 'true')); }}
             </div>
         </div>
 
@@ -24,7 +27,7 @@
             {{ Form::label('birthDateLabel', 'Geboorte datum:', array('class' => 'col-md-3')); }}
             {{ $errors->first('date_of_birth') }}
             <div class="col-md-3">
-                {{ Form::text('date_of_birth', '', array('class' => 'input-sm datepicker', 'placeholder' => 'select date', 'data-format' => 'dd-MM-yyyy')); }}
+                {{ Form::text('author_date_of_birth', '', array('class' => 'input-sm datepicker', 'placeholder' => 'select date', 'data-format' => 'dd-MM-yyyy')); }}
             </div>
         </div>
         
@@ -33,7 +36,7 @@
             {{ Form::label('deathDateLabel', 'Sterfte datum:', array('class' => 'col-md-3')); }}
             {{ $errors->first('date_of_death') }}
             <div class="col-md-3">
-                {{ Form::text('date_of_death', '', array('class' => 'input-sm datepicker', 'placeholder' => 'select date', 'data-format' => 'dd-MM-yyyy')); }}
+                {{ Form::text('author_date_of_death', '', array('class' => 'input-sm datepicker', 'placeholder' => 'select date', 'data-format' => 'dd-MM-yyyy')); }}
             </div>
         </div>
 
@@ -55,15 +58,5 @@
     </fieldset>
 </div>
  <script>
-      $(function() {
-        var availableTags = [
-          "ActionScript",
-          "AppleScript",
-          "Asp",
-          "BASIC"
-        ];
-        $( "#author" ).autocomplete({
-          source: availableTags
-        });
-      });
+      
   </script>

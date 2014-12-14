@@ -4,28 +4,44 @@
 		"selected_items":
 		[
 			[
+				"u",
+				"ul	Tag"
+			],
+			[
+				"author",
+				"author_name"
+			],
+			[
+				"auht",
+				"author_date_of_birth"
+			],
+			[
+				"auth",
+				"author_date_of_death"
+			],
+			[
+				"pu",
+				"publisher_name"
+			],
+			[
 				"publ",
-				"publisher"
+				"publisherService"
+			],
+			[
+				"authr",
+				"author_name"
+			],
+			[
+				"a",
+				"authorService"
 			],
 			[
 				"c",
 				"country"
 			],
 			[
-				"pu",
-				"publisher"
-			],
-			[
 				"au",
 				"author_name"
-			],
-			[
-				"author",
-				"author_model"
-			],
-			[
-				"auth",
-				"author_model"
 			],
 			[
 				"countr",
@@ -384,18 +400,10 @@
 			}
 		},
 		{
-			"file": "app/views/book/createBook.blade.php",
+			"file": "app/service/AuthorService.php",
 			"settings":
 			{
-				"buffer_size": 3694,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/views/book/create/bookInfo.blade.php",
-			"settings":
-			{
-				"buffer_size": 7506,
+				"buffer_size": 592,
 				"line_ending": "Unix"
 			}
 		},
@@ -403,7 +411,31 @@
 			"file": "app/controllers/BookController.php",
 			"settings":
 			{
-				"buffer_size": 3316,
+				"buffer_size": 3429,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/views/book/create/bookInfo.blade.php",
+			"settings":
+			{
+				"buffer_size": 7038,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/views/book/create/genreList.blade.php",
+			"settings":
+			{
+				"buffer_size": 415,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/models/Genre.php",
+			"settings":
+			{
+				"buffer_size": 309,
 				"line_ending": "Unix"
 			}
 		},
@@ -411,23 +443,7 @@
 			"file": "app/views/main.blade.php",
 			"settings":
 			{
-				"buffer_size": 2814,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/models/Author.php",
-			"settings":
-			{
-				"buffer_size": 457,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/models/Publisher.php",
-			"settings":
-			{
-				"buffer_size": 300,
+				"buffer_size": 2899,
 				"line_ending": "Unix"
 			}
 		}
@@ -456,10 +472,19 @@
 	},
 	"file_history":
 	[
+		"/Users/david/Development/BiblioMania/BiblioMania/app/views/book/create/authorInfo.blade.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/views/book/createBook.blade.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/controllers/BookController.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/views/book/create/bookInfo.blade.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/public/assets/css/myLayout.css",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/service/PublisherService.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/service/AuthorService.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/views/main.blade.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/models/Publisher.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/ioc.php",
+		"/Users/david/Development/BiblioMania/BiblioMania/app/models/Author.php",
 		"/Users/david/Development/BiblioMania/BiblioMania/app/database/migrations/2014_12_06_214001_create_book_table.php",
 		"/Users/david/Development/BiblioMania/BiblioMania/app/database/migrations/2014_12_06_210544_create_author_table.php",
-		"/Users/david/Development/BiblioMania/BiblioMania/app/views/book/create/authorInfo.blade.php",
-		"/Users/david/Development/BiblioMania/BiblioMania/app/views/main.blade.php",
 		"/Users/david/Development/BiblioMania/BiblioMania/app/models/BuyInfo.php",
 		"/Users/david/Development/BiblioMania/BiblioMania/app/routes.php",
 		"/Users/david/Development/BiblioMania/BiblioMania/app/models/GiftInfo.php",
@@ -473,22 +498,15 @@
 		"/Users/david/Development/BiblioMania/BiblioMania/app/database/migrations/2014_12_07_123044_create_reading_date_table.php",
 		"/Users/david/Development/BiblioMania/BiblioMania/app/views/book/create/firstPrintInfo.blade.php",
 		"/Users/david/Development/BiblioMania/BiblioMania/app/models/FirstPrintInfo.php",
-		"/Users/david/Development/BiblioMania/BiblioMania/app/views/book/create/bookInfo.blade.php",
 		"/Users/david/Development/BiblioMania/BiblioMania/app/database/migrations/2014_12_06_220634_create_book_table.php",
-		"/Users/david/Development/BiblioMania/BiblioMania/app/views/book/createBook.blade.php",
 		"/Users/david/Development/BiblioMania/BiblioMania/app/views/book/create/personalBookInfo.blade.php",
-		"/Users/david/Development/BiblioMania/BiblioMania/app/controllers/BookController.php",
 		"/Users/david/Development/BiblioMania/BiblioMania/app/views/book/create/publisherInfo.blade.php",
-		"/Users/david/Development/BiblioMania/BiblioMania/public/assets/css/myLayout.css",
 		"/Users/david/Development/BiblioMania/BiblioMania/app/database/migrations/2014_12_06_215614_create_first_print_info_table.php",
-		"/Users/david/Development/BiblioMania/BiblioMania/app/ioc.php",
 		"/Users/david/Development/BiblioMania/BiblioMania/app/service/LanguageService.php",
 		"/Users/david/Development/BiblioMania/BiblioMania/app/service/CountryService.php",
 		"/Users/david/Development/BiblioMania/BiblioMania/app/database/language_feeder.sql",
 		"/Users/david/Development/BiblioMania/BiblioMania/app/models/Language.php",
 		"/Users/david/Development/BiblioMania/BiblioMania/app/database/country_feeder.sql",
-		"/Users/david/Development/BiblioMania/BiblioMania/app/models/Publisher.php",
-		"/Users/david/Development/BiblioMania/BiblioMania/app/models/Author.php",
 		"/Users/david/Development/BiblioMania/BiblioMania/app/views/createBook.blade.php",
 		"/Users/david/Development/BiblioMania/BiblioMania/app/views/login.blade.php",
 		"/Users/david/Development/BiblioMania/BiblioMania/app/views/book/boekInfo.php",
@@ -581,9 +599,7 @@
 		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/views/login.blade.php",
 		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/views/sidebar.php",
 		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/domain/user/UserManager.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/tests/TestCase.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/bootstrap/start.php",
-		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/config/app.php"
+		"/Users/david/Development/HuurApplicatie/bendani-huurapplicatie/huurApp/app/tests/TestCase.php"
 	],
 	"find":
 	{
@@ -607,6 +623,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"this",
+			"book_countryId",
 			">\n",
 			"country(id, name, code)",
 			"`countries`",
@@ -716,7 +734,7 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 4,
 			"sheets":
 			[
 				{
@@ -749,46 +767,44 @@
 				},
 				{
 					"buffer": 1,
-					"file": "app/views/book/createBook.blade.php",
+					"file": "app/service/AuthorService.php",
 					"settings":
 					{
-						"buffer_size": 3694,
+						"buffer_size": 592,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1900,
-								1900
+								265,
+								265
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/PHP/PHP.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 212.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "app/views/book/create/bookInfo.blade.php",
+					"file": "app/controllers/BookController.php",
 					"settings":
 					{
-						"buffer_size": 7506,
+						"buffer_size": 3429,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1595,
-								1606
+								333,
+								333
 							]
 						],
 						"settings":
@@ -797,53 +813,26 @@
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
-						"translation.x": 199.0,
-						"translation.y": 239.0,
+						"translation.x": 0.0,
+						"translation.y": 55.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 3,
-					"file": "app/controllers/BookController.php",
+					"file": "app/views/book/create/bookInfo.blade.php",
 					"settings":
 					{
-						"buffer_size": 3316,
+						"buffer_size": 7038,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2126,
-								2126
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 623.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "app/views/main.blade.php",
-					"settings":
-					{
-						"buffer_size": 2814,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1701,
-								1701
+								5079,
+								5079
 							]
 						],
 						"settings":
@@ -852,26 +841,52 @@
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
-						"translation.x": 11.0,
-						"translation.y": 439.0,
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 5,
-					"file": "app/models/Author.php",
+					"buffer": 4,
+					"file": "app/views/book/create/genreList.blade.php",
 					"settings":
 					{
-						"buffer_size": 457,
+						"buffer_size": 415,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								454,
-								380
+								176,
+								176
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "app/models/Genre.php",
+					"settings":
+					{
+						"buffer_size": 309,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								256,
+								256
 							]
 						],
 						"settings":
@@ -886,23 +901,25 @@
 				},
 				{
 					"buffer": 6,
-					"file": "app/models/Publisher.php",
+					"file": "app/views/main.blade.php",
 					"settings":
 					{
-						"buffer_size": 300,
+						"buffer_size": 2899,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								221,
-								221
+								863,
+								863
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/PHP/PHP.tmLanguage"
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -955,8 +972,40 @@
 		"selected_items":
 		[
 			[
+				"main",
+				"app/views/main.blade.php"
+			],
+			[
+				"genre",
+				"app/models/Genre.php"
+			],
+			[
+				"bookin",
+				"app/views/book/create/bookInfo.blade.php"
+			],
+			[
+				"bookcontro",
+				"app/controllers/BookController.php"
+			],
+			[
+				"authorser",
+				"app/service/AuthorService.php"
+			],
+			[
+				"authorin",
+				"app/views/book/create/authorInfo.blade.php"
+			],
+			[
+				"my",
+				"public/assets/css/myLayout.css"
+			],
+			[
 				"publis",
 				"app/models/Publisher.php"
+			],
+			[
+				"ioc",
+				"app/ioc.php"
 			],
 			[
 				"publ",
@@ -975,24 +1024,12 @@
 				"app/views/book/create/authorInfo.blade.php"
 			],
 			[
-				"main",
-				"app/views/main.blade.php"
-			],
-			[
-				"authorin",
-				"app/views/book/create/authorInfo.blade.php"
-			],
-			[
 				"rout",
 				"app/routes.php"
 			],
 			[
 				"bookcontr",
 				"app/controllers/BookController.php"
-			],
-			[
-				"bookin",
-				"app/views/book/create/bookInfo.blade.php"
 			],
 			[
 				"createbook",
@@ -1043,10 +1080,6 @@
 				"app/views/book/create/authorInfo.blade.php"
 			],
 			[
-				"my",
-				"public/assets/css/myLayout.css"
-			],
-			[
 				"buy",
 				"app/models/BuyInfo.php"
 			],
@@ -1057,10 +1090,6 @@
 			[
 				"firstprint",
 				"app/models/FirstPrintInfo.php"
-			],
-			[
-				"ioc",
-				"app/ioc.php"
 			],
 			[
 				"bookconr",
@@ -1081,10 +1110,6 @@
 			[
 				"login",
 				"app/views/login.blade.php"
-			],
-			[
-				"bookcontro",
-				"app/controllers/BookController.php"
 			],
 			[
 				"main.blade",
@@ -1457,14 +1482,6 @@
 			[
 				"adminpa",
 				"app/views/admin/adminPagina.blade.php"
-			],
-			[
-				"login.b",
-				"app/views/login.blade.php"
-			],
-			[
-				"language",
-				"app/controllers/LanguageController.php"
 			]
 		],
 		"width": 0.0
