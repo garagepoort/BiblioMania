@@ -148,6 +148,8 @@ class BookController extends BaseController {
                 return Redirect::to('/createBook')->withErrors(array('book_cover_image' => 'Cover image could not be uploaded'))->withInput();
             }
             $coverImage = $destinationPath.'/'.$filename;
+        }else{
+            $coverImage = 'images/questionCover.png';
         }
 
         return $coverImage;

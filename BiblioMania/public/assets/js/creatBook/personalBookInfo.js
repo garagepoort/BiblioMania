@@ -23,4 +23,13 @@ $(document).ready(function() {
             });
            $("#personal_info_reading_date_input").val(dates);
         });
+
+        $('#star').raty({
+            score : 0,
+            number: 10,
+            path: 'assets/raty-2.7.0/lib/images',
+            click: function(score, evt) {
+                $('star-rating-input').val(score);
+            }
+        });
     });

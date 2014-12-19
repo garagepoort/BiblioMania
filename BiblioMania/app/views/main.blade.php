@@ -38,6 +38,12 @@
     {{ HTML::script('assets/bootstrap-star-rating/js/star-rating.min.js') }}
     {{ HTML::style('assets/bootstrap-star-rating/css/star-rating.min.css') }}
 
+    <!-- RATY -->
+    {{ HTML::script('assets/raty-2.7.0/lib/jquery.raty.js') }}
+    {{ HTML::style('assets/raty-2.7.0/lib/jquery.raty.css') }}
+
+
+
 
     <body>
 
@@ -81,22 +87,7 @@
             </div><!-- /.navbar-collapse -->
         </div>
     </nav>
-        <!-- div class="titleBar navbar navbar-default navbar-fixed-top">
-            <div class="container">
-                <a class="navbar-brand" href="#">
-                    <strong>{{ trans('messages.titelbalk.titel') }}</strong>
-                </a>
-                @if(UserManager::isLoggedIn() == true)
-                    <button id="addButton" class="btn btn-primary clickableRow navbar-btn" href=" {{ URL::to('logOut') }}">
-                        <span class="glyphicon glyphicon-log-out"></span> {{ trans('messages.titelbalk.afmelden') }}
-                    </button>
-                @endif
-                <div class="pull-right navbar-btn" id="languageDiv">
-                    {{ HTML::link('changeLanguage/nl', "nl", array('title' => 'NL')) }}
-                    {{ HTML::link('changeLanguage/en', "en", array('title' => 'EN')) }}
-                </div>
-            </div>
-        </div> -->
+
     @show
 
     <div class="container contentContainer">

@@ -48,13 +48,14 @@
                 </div>
             </div>
 
-        <!-- RATING -->
-      	<div class="row" id="post-review-box">
-                <div class="col-md-12">
-                    <textarea class="form-control animated" cols="50" id="new-review" name="personal_info_review" placeholder="Enter your review here..." rows="5"></textarea>
-          	         <input name="personal_info_rating" id="star-rating" class="rating" min=1 max=10 step=2 data-size="xs">   
-                </div>
+        <div class="form-group">
+            {{ Form::label('rating_label', 'Rating:', array('class' => 'col-md-3')); }}
+            <div id="star" class="col-md-6">
             </div>
-
+            <input id="star-rating-input" name="personal_info_rating" hidden value="">   
+        </div>
+    
     </fieldset>
 </div>
+
+

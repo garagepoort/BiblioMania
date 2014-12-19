@@ -1,30 +1,43 @@
 @extends('main')
 
 @section('content')
-        <div class="row">
-            <div class="page-header"><h2>{{ trans('messages.login.title') }}</h2></div>
+<div class="loginPanel">
+        <div class="page-header"><h2>Login</h2></div>
 
-            @if(Session::has('message'))
-            <div id="loginAlertMessage" class="alert-danger alert">
-                <strong>{{ Session::get('message') }}</strong>
+        @if(Session::has('message'))
+        <div id="loginAlertMessage" class="alert-danger alert">
+            <strong>{{ Session::get('message') }}</strong>
+        </div>
+        @endif
+
+        {{ Form::open(array('url' => 'login', 'class' => 'form-horizontal')) }}
+
+        <fieldset>
+
+            <!-- email input-->
+            <div class="form-group">
+                {{ Form::label('emailLabel', 'Email:' , array('class' => 'control-label loginLabel col-md-3')); }}
+                <div class="col-md-5">
+                    {{ Form::text('email', '', array('id' => 'emailInputLogin','class' => 'form-control input-sm', 'placeholder' => trans('messages.login.placeholder.email'), 'required' => 'true')); }}
+                </div>
             </div>
-            @endif
-            <legend><h3>{{ trans('messages.login.info') }}</h3></legend>
-            {{ Form::open(array('url' => 'login', 'class' => 'form-horizontal')) }}
-              <table id='loginTable'>
-                  <tr>
-                      <td>{{ Form::label('emailLabel', trans('messages.login.label.email') , array('class' => 'control-label loginLabel')); }}</td>
-                      <td>{{ Form::text('email', '', array('id' => 'emailInputLogin','class' => 'form-control input-sm', 'placeholder' => trans('messages.login.placeholder.email'), 'required' => 'true')); }}</td>
-                  </tr>
-                  <tr>
-                      <td>{{ Form::label('passwordLabel', trans('messages.login.label.password') , array('class' => 'control-label loginLabel')); }}</td>
-                      <td>{{ Form::password('password', array('id' => 'passwordInputLogin','class' => 'form-control input-sm', 'placeholder' => trans('messages.login.placeholder.password'), 'required' => 'true')); }}</td>
-                  </tr>
-                  <tr>
-                      <td>{{ Form::submit('Login', array('id' => 'loginButton','class' => 'btn btn-block btn-success')) }}</td>
-                  </tr>
 
-              </table>
-            {{ Form::close() }}
-        </div> <!--./row -->
+            <!-- password input -->
+            <div class="form-group">
+                {{ Form::label('passwordLabel', 'Paswoord:', array('class' => 'control-label loginLabel col-md-3')); }}
+                <div class="col-md-5">
+                    {{ Form::password('password', array('id' => 'passwordInputLogin','class' => 'form-control input-sm', 'placeholder' => trans('messages.login.placeholder.password'), 'required' => 'true')); }}
+                </div>
+            </div>
+
+            <!-- Button (Double) -->
+            <div class="form-group">
+                <div class="col-md-3"></div>
+                <div class="col-md-3">
+                    {{ Form::submit('Login', array('id' => 'loginButton','class' => 'btn btn-block btn-success loginButton')) }}
+                </div>
+            </div>
+        </fieldset>
+        {{ Form::close() }}
+</div>
 @stop
