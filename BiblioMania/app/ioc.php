@@ -15,6 +15,11 @@
 	    return new AuthorService;
 	});
 
+	App::singleton('ReadingDateService', function()
+	{
+	    return new ReadingDateService;
+	});
+
 	App::singleton('FirstPrintInfoService', function()
 	{
 	    return new FirstPrintInfoService;

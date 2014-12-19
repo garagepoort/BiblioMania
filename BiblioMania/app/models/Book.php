@@ -10,7 +10,7 @@ class Book extends Eloquent {
     	'author_id', 
     	'ISBN', 
     	'type_of_cover', 
-    	'cover_image',
+    	'coverImage',
     	'genre_id',
     	'publisher_id',
     	'publication_date',
@@ -18,7 +18,8 @@ class Book extends Eloquent {
     	'number_of_pages',
     	'print',
     	'serie_id',
-    	'publisher_serie_id'
+    	'publisher_serie_id',
+        'user_id'
     	);
 
     public function author(){
@@ -52,11 +53,6 @@ class Book extends Eloquent {
 	public function awards()
     {
         return $this->belongsToMany('BookAward', 'book_book_award');
-    }
-
-    public function reading_dates()
-    {
-        return $this->belongsToMany('ReadingDate', 'book_reading_date');
     }
 
     public function films()

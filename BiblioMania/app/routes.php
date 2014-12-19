@@ -16,7 +16,8 @@ Route::group(array('before' => 'auth'), function() {
     Route::get('getBooks', 'BookController@getBooks');
     Route::get('createBook', 'BookController@goToCreateBook');
     Route::post('createBook', 'BookController@createBook');
-	Route::get('logOut', 'LoginController@login');
+    Route::get('logOut', 'LoginController@login');
+	Route::get('getAuthorsJson', 'AuthorController@getAuthors');
 });
 
 //ALL

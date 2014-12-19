@@ -21,10 +21,14 @@
 
 @font: "parisish";
 @background-color: #DDDCC5;
+@container-color: #611427;
 @font-color: #DDDCC5;
 @inverse-font-color: #611427;
 @main-color: #611427;
-@font-size: 20px;
+@font-size: 16px;
+@book-detail-background-color: #1D2326;
+
+@tab-color: #611427;
 
 body {
   font-family: @font;
@@ -34,8 +38,6 @@ body {
 }
 
 div.tableDiv{
-  -moz-border-radius: 5px;
-  border-radius: 5px;
   margin-left: auto ;
   margin-right: auto ;
   width: 500px;
@@ -46,6 +48,10 @@ small.help-block {
 }
 
 select {
+  color: @inverse-font-color;
+}
+
+.datepicker {
   color: @inverse-font-color;
 }
 
@@ -66,17 +72,90 @@ select {
    color: @inverse-font-color;
 }
 
+/*END PLACEHOLDERS*/
+
 .contentContainer {
   margin-left: auto ;
   margin-right: auto ;
-  width: 800px;
+  margin-top: 50px;
+  width: 1000px;
+  background-color: @container-color;
   /*background-color: #AF885F;*/
   /*color: #8E2800;*/
 }
 
+/*BOOKS*/
 .createBookDiv {
-  width: 100%;
+  width: 800px;
+  margin-right: auto;
+  margin-left: auto;
 }
+
+.create-book-div{
+  width: 800px;
+  margin-right: auto;
+  margin-left: auto; 
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.buyOrGiftPanel{
+  margin-bottom: 40px;
+}
+
+.table.books-table tbody tr td { 
+     border-top: none; 
+     text-align: center;
+ }
+
+div.books-container {
+  width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.book-detail-div {
+  /*left: 0;*/
+  float: right;
+  position: fixed;
+  opacity: 0.95;
+  top: 0px;
+  background-color: @book-detail-background-color;
+  right: -450px;
+  width: 450px;
+  height: 100vh;
+  /*border: solid 1px @background-color;*/
+}
+
+.book-detail-container {
+  width: 80%;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/*#book-detail-coverimage{
+  -webkit-box-reflect: below 0px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(70%, transparent) , to(rgba(250, 250, 250, 0.1)));
+}*/
+
+.book-details-info-container {
+  margin-top: 20px;
+}
+
+.bookCoverLink {
+  width: 100px;
+  height: 150px;
+  cursor: pointer;
+}
+/*END BOOKS*/
+
+/*PAGINATION*/
+.pagination li {
+  background-color: @background-color;
+}
+/*END PAGINATION*/
 
 .loginLabel {
 	margin-right: 10px;
@@ -113,21 +192,22 @@ select {
 }
 
 .tab-content {
-    border-left: 1px solid @main-color;
-    border-right: 1px solid @main-color;
-    border-bottom: 1px solid @main-color;
+    border-left: 1px solid @tab-color;
+    border-right: 1px solid @tab-color;
+    border-bottom: 1px solid @tab-color;
     padding: 10px;
-    background-color: @main-color;
+    background-color: @tab-color;
 }
 
 li a {
   color: @font-color;
-  background-color: @main-color;
+  background-color: #1D2326;
 }
 
 .nav-tabs {
   font-family: "vincent";
     margin-bottom: 0;
+    border-bottom: none;
 }
 
 /*END TABS*/
@@ -172,6 +252,16 @@ li a {
     color: #d17581;
 }
 
+.reading-date-plus {
+  cursor: pointer;
+}
+.reading-date-min {
+  cursor: pointer;
+}
+
+#reading-dates-table tbody tr {
+  margin: 10px; 
+}
 
 /*NAVBAR*/
 
@@ -247,52 +337,11 @@ div.container-fluid {
 
 
 
-/*TYPEAHEAD*/
+/*AUTOCOMPLETE*/
 
-.tt-query, /* UPDATE: newer versions use tt-input instead of tt-query */
-.tt-hint {
-    /*width: 396px;*/
-    /*height: 30px;*/
-    padding: 8px 12px;
-    font-size: 14px;
-    line-height: 30px;
-    border: 2px solid #ccc;
-    /*border-radius: 8px;*/
-    outline: none;
-}
-
-.tt-query { /* UPDATE: newer versions use tt-input instead of tt-query */
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-}
-
-.tt-hint {
-    color: #999
-}
-
-.tt-dropdown-menu {
-    /*width: 422px;*/
-    margin-top: 12px;
-    padding: 8px 0;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
-    box-shadow: 0 5px 10px rgba(0,0,0,.2);
-    color: @inverse-font-color;
-}
-
-.tt-suggestion {
-    padding: 3px 20px;
-    font-size: 18px;
-    line-height: 24px;
-}
-
-.tt-suggestion.tt-is-under-cursor { /* UPDATE: newer versions use .tt-suggestion.tt-cursor */
-    color: #fff;
-    background-color: #0097cf;
-
-}
-
-.tt-suggestion p {
-    margin: 0;
-}
+.autocomplete-suggestions { border: 1px solid #999; background: #FFF; overflow: auto; }
+.autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; color: @inverse-font-color}
+.autocomplete-selected { background: #F0F0F0; }
+.autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }
+.autocomplete-group { padding: 2px 5px; }
+.autocomplete-group strong { display: block; border-bottom: 1px solid #000; }

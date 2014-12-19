@@ -2,7 +2,6 @@
     <fieldset>
 
     <legend>Boek info</legend>
-
         @if ($errors->has())
             @foreach ($errors->all() as $error)  
                 <div id="bookInfoMessage" class="alert-danger alert">
@@ -98,15 +97,11 @@
            <!-- GENRE -->
            <div class="form-group">
                 {{ Form::label('bookGenreLabel', 'Genre:', array('class' => 'col-md-2')); }}
-                <div class="col-md-5">
                 <input id="book_genre_input" type="text" name="book_genre" hidden>
-                {{ Form::label('', '', array('id'=>'bookGenreLabel_input', 'class' => 'col-md-8')); }}
-                </div>
-            </div>
-            <div class="well genres-container">
-                <div class="form-group">
-                    <div class="collapsible genres-header" class="col-md-2">Genres</div>
-                    <div class="col-md-10">
+                
+                <div class="well genres-container col-md-8">
+                    <div class="collapsible genres-header"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Genres:</div>
+                    <div>
                         @include('book/create/genreList', array('genres' => $genres))
                     </div>
                 </div>
@@ -140,81 +135,12 @@
 
     </fieldset>
 </div>
- <script>
-    $(function() {
 
-        var substringMatcher = function(strs) {
-          return function findMatches(q, cb) {
-            var matches, substrRegex;
-         
-            // an array that will be populated with substring matches
-            matches = [];
-         
-            // regex used to determine if a string contains the substring `q`
-            substrRegex = new RegExp(q, 'i');
-         
-            // iterate through the pool of strings and for any string that
-            // contains the substring `q`, add it to the `matches` array
-            $.each(strs, function(i, str) {
-              if (substrRegex.test(str)) {
-                // the typeahead jQuery plugin expects suggestions to a
-                // JavaScript object, refer to typeahead docs for more info
-                matches.push({ value: str });
-              }
-            });
-         
-            cb(matches);
-          };
-        };
-             
-        var states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California',
-          'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii',
-          'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana',
-          'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota',
-          'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire',
-          'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota',
-          'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island',
-          'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
-          'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
-        ];
-
-       $('#book_author').typeahead({
-          hint: true,
-          highlight: true,
-          minLength: 1
-        },
-        {
-          name: 'author',
-          displayKey: 'value',
-          source: substringMatcher(states)
-        });
+<script type="text/javascript">
+    var authors_json = {{ $authors_json }};
+    var author_names = [];
+    $.each(authors_json, function(index, obj){
+        author_names[author_names.length] = obj.name + ', ' + obj.firstname;
     });
-
-    $(document).ready(function() {
-    //collapsible management
-        $('.collapsible').collapsible();
-
-        $(".genre-listitem").hover(function(){
-            if (!$(this).hasClass("clickedGenre")) {
-                $(this).css("background-color","#611427");
-                $(this).css("color","#DDDCC5");
-            }
-        },function(){
-            if (!$(this).hasClass("clickedGenre")) {
-                $(this).css("background-color","#DDDCC5");
-                $(this).css("color","#611427");
-            }
-        });
-
-        $(".genre-listitem").click(function(){
-            $(".clickedGenre").css("background-color","#611427");
-            $(".clickedGenre").css("color","#DDDCC5");
-            $(".clickedGenre").removeClass("clickedGenre");
-            $(this).addClass("clickedGenre");
-            $("#bookGenreLabel_input").text($(this).attr("name"));
-            $("#book_genre_input").val($(this).attr("genreId"));
-        });
-    });
-
-
-  </script>
+</script>
+ {{ HTML::script('assets/js/creatBook/bookInfo.js'); }}

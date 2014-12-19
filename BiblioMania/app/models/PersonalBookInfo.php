@@ -18,7 +18,11 @@ class PersonalBookInfo extends Eloquent {
 
     public function reading_dates()
     {
-        return $this->belongsToMany('ReadingDate', 'book_reading_date');
+        return $this->belongsToMany('ReadingDate', 'personal_book_info_reading_date');
+    }
+
+    public function set_owned($owned){
+        $this->attributes['owned'] = $owned?1:0;
     }
 
 }

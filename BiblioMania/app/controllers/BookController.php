@@ -6,7 +6,12 @@ class BookController extends BaseController {
 
 	public function getBooks()
 	{
-		return View::make('books')->with(array('title' => 'Boeken'));
+        $books = Book::where("user_id", "=", Auth::user()->id)->paginate(25);
+		return View::make('books')->with(array(
+            'title' => 'Boeken',
+            'books' => $books,
+            'books_json' => $books->toJson()
+            ));
 	}
 
 	public function goToCreateBook()
@@ -19,7 +24,8 @@ class BookController extends BaseController {
 			'countries' => App::make('CountryService')->getCountries(),
 			'languages' => App::make('LanguageService')->getLanguages(),
             'covers' => $covers,
-			'genres' => $genres
+			'genres' => $genres,
+            'authors_json' => json_encode(Author::where("user_id", "=", Auth::user()->id)->get())
 			));
 	}
 
@@ -46,11 +52,7 @@ class BookController extends BaseController {
         if($validator->fails()){
             return Redirect::to('/createBook')->withErrors($validator)->withInput();
         }else{
-            $book_cover_image_file = null;
-            if (Input::hasFile('book_cover_image'))
-            {
-                $book_cover_image_file = $this->checkCoverImage();
-            }
+            $book_cover_image_file = $this->checkCoverImage();
 
             //BOOK INPUT
         	$book_title = Input::get("book_title");
@@ -78,6 +80,8 @@ class BookController extends BaseController {
             $personal_info_owned = Input::get('personal_info_owned');
             $personal_info_review = Input::get('personal_info_review');
             $personal_info_rating = Input::get('personal_info_rating');
+            $personal_info_retail_price = Input::get('personal_info_retail_price');
+            $personal_info_reading_dates = Input::get('personal_info_reading_dates');
 
 
             //AUTHOR INPUT
@@ -108,12 +112,17 @@ class BookController extends BaseController {
                 'author_id' => $book_author_model->id,
                 'publisher_id' => $book_publisher->id,
                 'first_print_info_id' => $first_print_info->id,
-                'coverImage' => $book_cover_image_file
+                'coverImage' => $book_cover_image_file,
+                'user_id' => Auth::user()->id
             ));
             $book->save();
 
-            $personalBookInfoService->save($book->id, $personal_info_owned, $personal_info_review, $personal_info_rating);
-
+            $string_reading_dates = explode(",", $personal_info_reading_dates);
+            $reading_dates = array();
+            foreach ($string_reading_dates as $string_reading_date) {
+                array_push($reading_dates, DateTime::createFromFormat('d/m/Y', $string_reading_date));
+            }
+            $personalBookInfoService->save($book->id, $personal_info_owned, $personal_info_review, $personal_info_rating, $personal_info_retail_price, $reading_dates);
         }
 	}
 

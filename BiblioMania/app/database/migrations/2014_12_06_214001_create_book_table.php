@@ -24,6 +24,7 @@ class CreateBookTable extends Migration {
 			$table->unsignedInteger('serie_id')->nullable();
 			$table->unsignedInteger('publisher_serie_id')->nullable();
 			$table->unsignedInteger('first_print_info_id')->nullable();
+			$table->unsignedInteger('user_id');
 	        $table->timestamps();
 
 		    $table->foreign('publisher_id')->references('id')->on('publisher');
@@ -32,6 +33,7 @@ class CreateBookTable extends Migration {
 		    $table->foreign('serie_id')->references('id')->on('serie');
 		    $table->foreign('publisher_serie_id')->references('id')->on('publisher_serie');
 		    $table->foreign('first_print_info_id')->references('id')->on('first_print_info');
+		    $table->foreign('user_id')->references('id')->on('users');
 		});
 	}
 

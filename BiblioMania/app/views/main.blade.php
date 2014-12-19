@@ -18,8 +18,8 @@
     {{ HTML::script('assets/jasny-bootstrap/js/jasny-bootstrap.min.js') }}
     {{ HTML::style('assets/jasny-bootstrap/css/jasny-bootstrap.min.css') }}
 
-    <!-- TYPEAHEAD -->
-    {{ HTML::script('assets/js/typeahead.bundle.js') }}
+    <!-- AUTOCOMPLETE -->
+    {{ HTML::script('assets/js/jquery.autocomplete.min.js') }}
 
     <!-- BOOTSTRAP-VALIDATOR -->
     {{ HTML::script('assets/bootstrapvalidator/dist/js/bootstrapValidator.min.js') }}
@@ -99,7 +99,7 @@
         </div> -->
     @show
 
-    <div class="container contentContainer" style="margin-top: 80px">
+    <div class="container contentContainer">
             @yield('content')
     </div>
     <script type="text/javascript">
