@@ -12,7 +12,7 @@ class CreateFilmTable extends Migration {
 			$table->increments('id');
 	        $table->string('title');
 	        $table->unsignedInteger('book_id');
-	        $table->timestamps();
+	        $table->nullableTimestamps();
 	        $table->foreign('book_id')->references('id')->on('book');
 		});
 	}

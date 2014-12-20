@@ -27,7 +27,7 @@
             {{ Form::label('birthDateLabel', 'Geboorte datum:', array('class' => 'col-md-3')); }}
             {{ $errors->first('date_of_birth') }}
             <div class="col-md-3">
-                {{ Form::text('author_date_of_birth', '', array('class' => 'input-sm datepicker', 'placeholder' => 'select date', 'data-format' => 'dd-MM-yyyy')); }}
+                {{ Form::text('author_date_of_birth', '', array('id'=>'author_date_of_birth', 'class' => 'input-sm datepicker', 'placeholder' => 'select date', 'data-format' => 'dd-MM-yyyy')); }}
             </div>
         </div>
         
@@ -36,7 +36,7 @@
             {{ Form::label('deathDateLabel', 'Sterfte datum:', array('class' => 'col-md-3')); }}
             {{ $errors->first('date_of_death') }}
             <div class="col-md-3">
-                {{ Form::text('author_date_of_death', '', array('class' => 'input-sm datepicker', 'placeholder' => 'select date', 'data-format' => 'dd-MM-yyyy')); }}
+                {{ Form::text('author_date_of_death', '', array('id'=>'author_date_of_death', 'class' => 'input-sm datepicker', 'placeholder' => 'select date', 'data-format' => 'dd-MM-yyyy')); }}
             </div>
         </div>
 

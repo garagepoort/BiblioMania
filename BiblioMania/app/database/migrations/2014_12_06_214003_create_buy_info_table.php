@@ -16,7 +16,7 @@ class CreateBuyInfoTable extends Migration {
 			$table->string('shop')->nullable();
 			$table->unsignedInteger('city_id')->nullable();
 			$table->unsignedInteger('personal_book_info_id')->unique();
-	        $table->timestamps();
+	        $table->nullableTimestamps();
 		    $table->foreign('city_id')->references('id')->on('city');
 		    $table->foreign('personal_book_info_id')->references('id')->on('personal_book_info');
 		});

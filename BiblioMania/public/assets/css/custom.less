@@ -19,8 +19,14 @@
   src: url("../fonts/Vincent-Regular.otf") format("opentype");
 }
 
+* {
+  -webkit-border-radius: 0 !important;
+     -moz-border-radius: 0 !important;
+          border-radius: 0 !important;
+}
+
 @font: "parisish";
-@background-color: #DDDCC5;
+@background-color: #f99;
 @container-color: #611427;
 @font-color: #DDDCC5;
 @inverse-font-color: #611427;
@@ -85,6 +91,13 @@ select {
 }
 
 /*BOOKS*/
+
+legend.sub-border {
+    width:inherit; /* Or auto */
+    padding:0 10px; /* To give a bit of padding on the left and right */
+    border-bottom:none;
+}
+
 .createBookDiv {
   width: 800px;
   margin-right: auto;
@@ -178,9 +191,9 @@ div.books-container {
   margin-left: auto;
 }
 
-.createUserPanel input {
+/*.createUserPanel input {
   color: @inverse-font-color;
-}
+}*/
 
 /*END CREATE USER*/
 
@@ -191,8 +204,8 @@ div.books-container {
 .tab-container {
   margin-top: 20px;
   width: 90%;
-  margin-left: auto;
-  margin-right: auto;
+  /*margin-left: auto;*/
+  /*margin-right: auto;*/
 }
 
 .tab-container fieldset legend {
@@ -238,6 +251,7 @@ li a {
   padding-right: 10px;
   padding-top: 0px;
   padding-bottom: 0px;
+  cursor: pointer;
 }
 
 .genre-listitem{
@@ -251,9 +265,9 @@ li a {
 }
 
 .well {
-  background-color: @font-color;
-  background: @font-color;
-  color: @inverse-font-color;
+  background-color: @inverse-font-color;
+  background: @inverse-font-color;
+  color: @font-color;
 }
 /*END GENRES*/
 

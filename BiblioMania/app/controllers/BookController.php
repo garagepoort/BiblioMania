@@ -38,6 +38,8 @@ class BookController extends BaseController {
             'book_print' => 'numeric',
             'book_publication_date' => 'required|date_format:"d/m/Y"',
             'book_publisher' => 'required',
+            'book_serie' => 'required',
+            'book_publisher_serie' => 'required',
             'book_genre' => 'required',
             'author_name' => 'required',
             'author_firstname' => 'required',
@@ -66,6 +68,8 @@ class BookController extends BaseController {
             $book_genre_id = Input::get('book_genre');
             $book_type_of_cover = Input::get('book_type_of_cover');
             $book_publisher_name = Input::get('book_publisher');
+            $book_publisher_serie = Input::get('book_publisher_serie');
+            $book_serie = Input::get('book_serie');
 
             //FIRST PRINT INPUT
             $first_print_title = Input::get("first_print_title");
@@ -95,10 +99,14 @@ class BookController extends BaseController {
             $publisherService = App::make('PublisherService');
             $firstPrintInfoService = App::make('FirstPrintInfoService');
             $personalBookInfoService = App::make('PersonalBookInfoService');
+            $publisherSerieService = App::make('PublisherSerieService');
+            $bookSerieService = App::make('BookSerieService');
 
             $book_author_model = $authorService->saveOrUpdate($book_author_name, $book_author_firstname, $book_author_date_of_birth, $book_author_date_of_death);
             $book_publisher = $publisherService->saveOrUpdate($book_publisher_name, Country::find($book_countryId));
             $first_print_info = $firstPrintInfoService->saveOrUpdate($first_print_title, $first_print_subtitle, $first_print_isbn, $first_print_publication_date, $first_print_publisher_name, $first_print_countryId, $first_print_languageId);
+            $publisherSerie = $publisherSerieService->findOrSave($book_publisher_serie);
+            $bookSerie = $bookSerieService->findOrSave($book_serie);
 
 			$book = new Book(array(
                 'title' => $book_title,
@@ -113,7 +121,9 @@ class BookController extends BaseController {
                 'publisher_id' => $book_publisher->id,
                 'first_print_info_id' => $first_print_info->id,
                 'coverImage' => $book_cover_image_file,
-                'user_id' => Auth::user()->id
+                'user_id' => Auth::user()->id,
+                'publisher_serie_id' => $publisherSerie->id,
+                'serie_id' => $bookSerie->id
             ));
             $book->save();
 
@@ -123,6 +133,8 @@ class BookController extends BaseController {
                 array_push($reading_dates, DateTime::createFromFormat('d/m/Y', $string_reading_date));
             }
             $personalBookInfoService->save($book->id, $personal_info_owned, $personal_info_review, $personal_info_rating, $personal_info_retail_price, $reading_dates);
+            
+            return Redirect::to('/getBooks');
         }
 	}
 

@@ -6,8 +6,11 @@ class PersonalBookInfo extends Eloquent {
     	'owned',
     	'rating',
     	'retail_price',
-        'review'
+        'review',
+        'book_id',
+        'reason_not_owned'
 	);
+    
 	public function buy_info(){
     	return $this->hasOne('BuyInfo');
 	}

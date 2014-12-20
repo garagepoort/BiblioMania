@@ -13,34 +13,26 @@
         {{ Form::open(array('url' => 'createUser', 'class' => 'form-horizontal')) }}
         <fieldset>
 
-            <!-- Text input-->
-            <div class="form-group">
-                {{ Form::label('usernameLabel', 'Username:', array('class' => 'col-md-3 control-label')) }}
-                <div class="col-md-5">
-                    {{ Form::text('username', '', array('class' => 'form-control input-md', 'placeholder' => 'Username', 'required' => 'true')); }}
-                </div>
-            </div>
-
             <!-- Email input -->
             <div class="form-group">
                 {{ Form::label('emailLabel', 'Email:', array('class' => 'col-md-3 control-label')) }}
                 <div class="col-md-5">
-                    {{ Form::text('email', '', array('class' => 'form-control input-md', 'placeholder' => 'email', 'required' => 'true', 'type' => 'email')); }}
+                    {{ Form::text('email', '', array('class' => 'form-control input-sm', 'placeholder' => 'email', 'required' => 'true', 'type' => 'email')); }}
                 </div>
             </div>
 
             <!-- Password input-->
             <div class="form-group">
                 {{ Form::label('passwordLabel', 'Password:', array('class' => 'col-md-3 control-label')) }}
-                <div class="col-md-5">
-                    {{ Form::password('password', '', array('class' => 'form-control input-md passwordInput', 'placeholder' => 'Password', 'required' => 'true')); }}
+                <div class="col-md-3">
+                    {{ Form::password('password', array('class' => 'form-control input-sm passwordInput', 'placeholder' => 'Password', 'required' => 'true')); }}
                 </div>
             </div>
 
             <div class="form-group">
                 {{ Form::label('confirmPasswordLabel', 'Confirm Password:', array('class' => 'col-md-3 control-label')) }}
-                <div class="col-md-5">
-                    {{ Form::password('confirmPassword', '', array('class' => 'form-control input-md passwordInput', 'placeholder' => 'Confirm Password', 'required' => 'true')); }}
+                <div class="col-md-3">
+                    {{ Form::password('confirmPassword', array('class' => 'form-control input-sm passwordInput', 'placeholder' => 'Confirm Password', 'required' => 'true')); }}
                 </div>
             </div>
 

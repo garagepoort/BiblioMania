@@ -12,7 +12,7 @@ class CreateCityTable extends Migration {
 			$table->increments('id');
 			$table->string('name');
 			$table->unsignedInteger('country_id');
-	        $table->timestamps();
+	        $table->nullableTimestamps();
 		    $table->foreign('country_id')->references('id')->on('country');
 		});
 	}

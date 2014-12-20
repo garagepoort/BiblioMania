@@ -2,23 +2,27 @@
 
 @section('content')
 <div class="create-book-div">
-    <h1>Nieuw boek</h1>
+    <h1 id="book-info-title">Nieuw boek</h1>
     {{ Form::open(array('url' => 'createBook', 'class' => 'form-horizontal createBookForm', 'autocomplete' => 'off', 'files' => 'true')); }}
     <div role="tabpanel">
 
       <!-- Nav tabs -->
       <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Boek</a></li>
-        <li role="presentation"><a href="#authorTab" aria-controls="authorTab" role="tab" data-toggle="tab">Auteur</a></li>
-        <li role="presentation"><a href="#first_print_info_tab" aria-controls="first_print_info_tab" role="tab" data-toggle="tab">Eerste druk</a></li>
-        <li role="presentation"><a href="#personal_info_tab" aria-controls="personal_info_tab" role="tab" data-toggle="tab">Persoonlijke info</a></li>
-        <li role="presentation"><a href="#buy_info_tab" aria-controls="buy_info_tab" role="tab" data-toggle="tab">Koop info</a></li>
+        <li role="presentation" class="active"><a id="book-info-tab-link" href="#home" aria-controls="home" role="tab" data-toggle="tab">Boek</a></li>
+        <li role="presentation"><a id="extra-info-tab-link" href="#extra" aria-controls="home" role="tab" data-toggle="tab">Extra boek info</a></li>
+        <li role="presentation"><a id="author-info-tab-link" href="#authorTab" aria-controls="authorTab" role="tab" data-toggle="tab">Auteur</a></li>
+        <li role="presentation"><a id="first-print-info-tab-link" href="#first_print_info_tab" aria-controls="first_print_info_tab" role="tab" data-toggle="tab">Eerste druk</a></li>
+        <li role="presentation"><a id="personal-info-tab-link" href="#personal_info_tab" aria-controls="personal_info_tab" role="tab" data-toggle="tab">Persoonlijke info</a></li>
+        <li role="presentation"><a id="buy-info-tab-link" href="#buy_info_tab" aria-controls="buy_info_tab" role="tab" data-toggle="tab">Koop info</a></li>
       </ul>
 
       <!-- Tab panes -->
       <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="home">
           @include('book/create/bookInfo')
+        </div>    
+        <div role="tabpanel" class="tab-pane" id="extra">
+          @include('book/create/extraBookInfo')
         </div>
         <div role="tabpanel" class="tab-pane" id="authorTab">
           @include('book/create/authorInfo')
@@ -43,14 +47,6 @@
     </div>
     {{ Form::close(); }}
     <script>
-
-      $("#book_author").bind("keyup paste", function() {
-        var trimmedValue = $(this).val().replace(" ","");
-        var result = trimmedValue.split(",");
-        $("#author_name").val(result[0]);
-        $("#author_firstname").val(result[1]);
-      });
-
       $(document).ready(function() {
                 $('.createBookForm').bootstrapValidator({
                     message: 'This value is not valid',
@@ -98,7 +94,7 @@
                             message: 'De uitgever is niet ingevuld',
                             validators: {
                                 regexp: {
-                                    regexp: '^[0-9]$',
+                                    regexp: '^[0-9]*$',
                                     message: 'Kan enkel cijfers zijn'
                                 }
                             }
@@ -107,7 +103,7 @@
                             message: 'De uitgever is niet ingevuld',
                             validators: {
                                 regexp: {
-                                    regexp: '^[0-9]$',
+                                    regexp: '^[0-9]*$',
                                     message: 'Kan enkel cijfers zijn'
                                 }
                             }

@@ -12,7 +12,7 @@ class CreatePublisherCountryTable extends Migration {
 			$table->increments('id');
 			$table->unsignedInteger('publisher_id');
 			$table->unsignedInteger('country_id');
-	        $table->timestamps();
+	        $table->nullableTimestamps();
 		    $table->foreign('publisher_id')->references('id')->on('publisher');
 		    $table->foreign('country_id')->references('id')->on('country');
 		});

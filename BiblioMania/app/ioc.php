@@ -15,6 +15,17 @@
 	    return new AuthorService;
 	});
 
+	App::singleton('PublisherSerieService', function()
+	{
+	    return new PublisherSerieService;
+	});
+
+
+	App::singleton('BookSerieService', function()
+	{
+	    return new BookSerieService;
+	});
+
 	App::singleton('ReadingDateService', function()
 	{
 	    return new ReadingDateService;

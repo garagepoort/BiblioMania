@@ -1,6 +1,5 @@
 <?php
 
-
 class PublisherSerie extends Eloquent {
     protected $table = 'publisher_serie';
 

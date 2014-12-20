@@ -18,7 +18,7 @@ class CreateFirstPrintInfoTable extends Migration {
 			$table->unsignedInteger('language_id')->nullable();
 			$table->String('ISBN', 13)->nullable()->unique();
 			$table->string('cover_image')->nullable();
-	        $table->timestamps();
+	        $table->nullableTimestamps();
 
 		    $table->foreign('publisher_id')->references('id')->on('publisher');
 		    $table->foreign('country_id')->references('id')->on('country');

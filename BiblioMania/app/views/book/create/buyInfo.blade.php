@@ -12,5 +12,14 @@
                 </div>
             </div>
 
+
+        <!-- COVER PRICE -->
+        <div class="form-group">
+            {{ Form::label('$personal_info_retail_price_label', 'Cover prijs:', array('class' => 'col-md-2')); }}
+            <div class="col-md-3">
+                {{ Form::text('personal_info_retail_price', '', array('id'=>'personal_info_retail_price','class' => 'form-control input-md', 'placeholder' => 'prijs', 'type' => 'number')); }}
+            </div>
+        </div>
+
         </div>
 </fieldset>

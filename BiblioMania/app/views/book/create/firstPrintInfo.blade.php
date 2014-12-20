@@ -13,7 +13,7 @@
             <div class="form-group">
                 {{ Form::label('firstprint_titleLabel', 'Titel:', array('class' => 'col-md-2')); }}
                 <div class="col-md-9">
-                    {{ Form::text('first_print_title', '', array('class' => 'form-control', 'placeholder' => 'titel', 'type' => 'text')); }}
+                    {{ Form::text('first_print_title', '', array('id'=>'first_print_title', 'class' => 'form-control', 'placeholder' => 'titel', 'type' => 'text')); }}
                 </div>
             </div>
 
@@ -21,7 +21,7 @@
             <div class="form-group">
                 {{ Form::label('first_print_subtitleLabel', 'Ondertitel:', array('class' => 'col-md-2 label-gray')); }}
                 <div class="col-md-9">
-                    {{ Form::text('first_print_subtitle', '', array('class' => 'form-control', 'placeholder' => 'ondertitel', 'type' => 'text')); }}
+                    {{ Form::text('first_print_subtitle', '', array('id'=>'first_print_subtitle', 'class' => 'form-control', 'placeholder' => 'ondertitel', 'type' => 'text')); }}
                 </div>
             </div>
 
@@ -29,7 +29,7 @@
                 <!-- ISBN -->
                 {{ Form::label('first_print_isbnLabel', 'ISBN:', array('class' => 'col-md-2')); }}
                 <div class="col-md-3">
-                    {{ Form::text('first_print_isbn', '', array('class' => 'form-control', 'placeholder' => 'isbn', 'type' => 'number')); }}
+                    {{ Form::text('first_print_isbn', '', array('id'=>'first_print_isbn', 'class' => 'form-control', 'placeholder' => 'isbn', 'type' => 'number')); }}
                 </div>
             </div>
 
@@ -59,7 +59,7 @@
                 <!-- PUBLISHER -->
                 {{ Form::label('first_print_publisherLabel', 'Uitgever:', array('class' => 'col-md-2')); }}
                 <div class="col-md-5">
-                    {{ Form::text('first_print_publisher', '', array('id'=>'publisher','class' => 'form-control', 'placeholder' => 'publisher', 'type' => 'text')); }}
+                    {{ Form::text('first_print_publisher', '', array('id'=>'first_print_publisher','class' => 'form-control', 'placeholder' => 'publisher', 'type' => 'text')); }}
                 </div>
             </div>
 
@@ -67,7 +67,7 @@
                 <!-- PUBLICATION DATE -->
                 {{ Form::label('firstPrintPublicationDateInfo', 'Publicatie:', array('class' => 'col-md-2')); }}
                 <div class="col-md-3">
-                    {{ Form::text('first_print_publication_date', '', array('class' => 'input-sm datepicker', 'placeholder' => 'select date')); }}
+                    {{ Form::text('first_print_publication_date', '', array('id'=>'first_print_publication_date', 'class' => 'input-sm datepicker', 'placeholder' => 'select date')); }}
                 </div>
             </div>
 

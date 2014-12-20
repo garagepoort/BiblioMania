@@ -14,7 +14,7 @@ class CreateGiftInfoTable extends Migration {
 			$table->string('from')->nullable();
 			$table->string('occasion')->nullable();
 			$table->unsignedInteger('personal_book_info_id')->unique();
-	        $table->timestamps();
+	        $table->nullableTimestamps();
 		    $table->foreign('personal_book_info_id')->references('id')->on('personal_book_info');
 		});
 	}

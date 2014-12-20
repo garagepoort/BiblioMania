@@ -2,7 +2,7 @@
 class FirstPrintInfoService {
 
 	public function saveOrUpdate($title, $subtitle, $isbn, $publication_date, $publisherName, $countryId, $languageId){
-		$firstPrintInfo = FirstPrintInfo::where('isbn', '=', $isbn)
+		$firstPrintInfo = FirstPrintInfo::where('ISBN', '=', $isbn)
 	            ->first();
 
         if (is_null($firstPrintInfo)) {

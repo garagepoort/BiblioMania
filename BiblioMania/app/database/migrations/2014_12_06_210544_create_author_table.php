@@ -17,7 +17,7 @@ class CreateAuthorTable extends Migration {
 	        $table->date('date_of_birth')->nullable();
 	        $table->unsignedInteger('country_id')->nullable();
 	        $table->unsignedInteger('user_id');
-	        $table->timestamps();
+	        $table->nullableTimestamps();
 		    $table->foreign('country_id')->references('id')->on('country');
 		    $table->foreign('user_id')->references('id')->on('users');
 		});

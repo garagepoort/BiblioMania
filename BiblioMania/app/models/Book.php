@@ -19,7 +19,8 @@ class Book extends Eloquent {
     	'print',
     	'serie_id',
     	'publisher_serie_id',
-        'user_id'
+        'user_id',
+        'first_print_info_id'
     	);
 
     public function author(){

@@ -10,8 +10,8 @@ class CreateSerieTable extends Migration {
 		Schema::create('serie', function($table)
 		{
 			$table->increments('id');
-			$table->date('name')->nullable();
-	        $table->timestamps();
+			$table->string('name')->nullable();
+	        $table->nullableTimestamps();
 		});
 	}
 

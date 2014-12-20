@@ -15,7 +15,7 @@
             <div class="form-group">
                 {{ Form::label('titleLabel', 'Titel:', array('class' => 'col-md-2')); }}
                 <div class="col-md-9">
-                    {{ Form::text('book_title', '', array('class' => 'form-control', 'placeholder' => 'titel', 'required' => 'true', 'type' => 'text')); }}
+                    {{ Form::text('book_title', '', array('id'=>'book_title_input', 'class' => 'form-control', 'placeholder' => 'titel', 'required' => 'true', 'type' => 'text')); }}
                 </div>
             </div>
 
@@ -23,7 +23,7 @@
             <div class="form-group">
                 {{ Form::label('subtitleLabel', 'Ondertitel:', array('class' => 'col-md-2 label-gray')); }}
                 <div class="col-md-9">
-                    {{ Form::text('book_subtitle', '', array('class' => 'form-control', 'placeholder' => 'ondertitel', 'type' => 'text')); }}
+                    {{ Form::text('book_subtitle', '', array('id'=>'book_subtitle_input', 'class' => 'form-control', 'placeholder' => 'ondertitel', 'type' => 'text')); }}
                 </div>
             </div>
 
@@ -31,7 +31,7 @@
                 <!-- AUTHOR -->
                 {{ Form::label('authorLabel', 'Auteur:', array('class' => 'col-md-2')); }}
                 <div class="col-md-5">
-                    {{ Form::text('book_author', '', array('id'=>'book_author','class' => 'form-control typeahead', 'placeholder' => 'auteur', 'required' => 'true', 'type' => 'text')); }}
+                    {{ Form::text('book_author', '', array('id'=>'book_author_input','class' => 'form-control typeahead', 'placeholder' => 'auteur', 'required' => 'true', 'type' => 'text')); }}
                 </div>
             </div>
 
@@ -39,20 +39,39 @@
                 <!-- ISBN -->
                 {{ Form::label('isbnLabel', 'ISBN:', array('class' => 'col-md-2', 'for' => 'book_isbn')); }}
                 <div class="col-md-5">
-                    {{ Form::text('book_isbn', '', array('class' => 'form-control', 'placeholder' => 'isbn', 'required' => 'true', 'type' => 'number')); }}
+                    {{ Form::text('book_isbn', '', array('id'=>'book_isbn_input', 'class' => 'form-control', 'placeholder' => 'isbn', 'required' => 'true', 'type' => 'number')); }}
+                </div>
+            </div>
+
+           <!-- GENRE -->
+           <div class="form-group">
+                {{ Form::label('bookGenreLabel', 'Genre:', array('class' => 'col-md-2')); }}
+                <input id="book_genre_input" type="text" name="book_genre" hidden>
+                
+                <div class="genres-container col-md-8">
+                    <div class="collapsible genres-header" id="genres-header"><span id="genresGlyphicon" class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Genres:</div>
+                    <div>
+                        @include('book/create/genreList', array('genres' => $genres))
+                    </div>
+                </div>
+            </div>
+
+
+            <legend>Uitgever</legend>
+
+                <div class="form-group">
+                <!-- PUBLISHER -->
+                {{ Form::label('publisherLabel', 'Uitgever:', array('class' => 'col-md-2')); }}
+                <div class="col-md-5">
+                    {{ Form::text('book_publisher', '', array('id'=>'book_publisher_input','class' => 'form-control', 'placeholder' => 'publisher', 'required' => 'true', 'type' => 'text')); }}
                 </div>
             </div>
 
             <div class="form-group">
-                <!-- PAGES -->
-                {{ Form::label('authorLabel', 'Paginas:', array('class' => 'col-md-2')); }}
-                <div class="col-md-2">
-                    {{ Form::text('book_number_of_pages', '', array('id'=>'book_number_of_pages','class' => 'form-control', 'placeholder' => 'paginas', 'type' => 'number')); }}
-                </div>
-                <!-- PRINT -->
-                {{ Form::label('printLabel', 'Print:', array('class' => 'col-md-1')); }}
-                <div class="col-md-2">
-                    {{ Form::text('book_print', '', array('class' => 'form-control', 'placeholder' => 'print', 'type' => 'number')); }}
+                <!-- PUBLICATION DATE -->
+                {{ Form::label('bookPublicationDateInfo', 'Publicatie:', array('class' => 'col-md-2')); }}
+                <div class="col-md-3">
+                    {{ Form::text('book_publication_date', '', array('id'=>'book_publication_date_input', 'class' => 'input-sm datepicker', 'placeholder' => 'select date', 'required' => 'true')); }}
                 </div>
             </div>
 
@@ -76,60 +95,6 @@
                         @endforeach
                     </select>
                 </div>
-            </div>
-
-            <div class="form-group">
-                <!-- PUBLISHER -->
-                {{ Form::label('publisherLabel', 'Uitgever:', array('class' => 'col-md-2')); }}
-                <div class="col-md-5">
-                    {{ Form::text('book_publisher', '', array('id'=>'publisher','class' => 'form-control', 'placeholder' => 'publisher', 'required' => 'true', 'type' => 'text')); }}
-                </div>
-            </div>
-
-            <div class="form-group">
-                <!-- PUBLICATION DATE -->
-                {{ Form::label('bookPublicationDateInfo', 'Publicatie:', array('class' => 'col-md-2')); }}
-                <div class="col-md-3">
-                    {{ Form::text('book_publication_date', '', array('class' => 'input-sm datepicker', 'placeholder' => 'select date', 'required' => 'true')); }}
-                </div>
-            </div>
-
-           <!-- GENRE -->
-           <div class="form-group">
-                {{ Form::label('bookGenreLabel', 'Genre:', array('class' => 'col-md-2')); }}
-                <input id="book_genre_input" type="text" name="book_genre" hidden>
-                
-                <div class="well genres-container col-md-8">
-                    <div class="collapsible genres-header"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Genres:</div>
-                    <div>
-                        @include('book/create/genreList', array('genres' => $genres))
-                    </div>
-                </div>
-            </div>
-
-            <!-- IMAGE -->
-            <div class="form-group">
-              {{ Form::label('imageBookLabel', 'Cover:', array('class' => 'col-md-2')); }}
-                <!-- {{ $errors->first('book_image') }} -->
-              <div class="col-md-4">
-                  <div class="fileinput fileinput-new" data-provides="fileinput">
-                    <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
-                    <div>
-                      <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span>{{ Form::file('book_cover_image') }}</span>
-                      <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
-                    </div>
-                  </div>
-              </div>
-
-                <!-- {{ Form::label('bookTypeOfCoverLabel', 'Cover type:', array('class' => 'col-md-2')); }} -->
-                <!-- {{ $errors->first('book_typeOfCover') }} -->
-                <div class="col-md-4">
-                    <select id="bookTypeOfCoverSelect" name="book_type_of_cover" class="input-sm">
-                        @foreach($covers as $cover)
-                        <option value="{{ $cover }}">{{ $cover }}</option>
-                        @endforeach
-                    </select>
-                </div> 
             </div>
         </div>
 
