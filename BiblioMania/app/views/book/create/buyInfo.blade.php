@@ -2,24 +2,72 @@
 
 <legend>Koop info</legend>
 
-<div class="form-container">
-   
+    <div class="form-container">
+       
             <div class="form-group">
                 <!-- BUY DATE -->
-                {{ Form::label('buyInfoBuyDate', 'Publicatie:', array('class' => 'col-md-2')); }}
+                {{ Form::label('buyInfoBuyDate', 'Aankoopdatum:', array('class' => 'col-md-3')); }}
                 <div class="col-md-3">
-                    {{ Form::text('buy_buy_date', '', array('class' => 'input-sm datepicker', 'placeholder' => 'select date', 'required' => 'true')); }}
+                    {{ Form::text('buy_info_buy_date', '', array('id'=>'buy_info_buy_date', 'class' => 'input-sm datepicker', 'placeholder' => 'aankoopdatum')); }}
                 </div>
             </div>
 
-
-        <!-- COVER PRICE -->
-        <div class="form-group">
-            {{ Form::label('$personal_info_retail_price_label', 'Cover prijs:', array('class' => 'col-md-2')); }}
-            <div class="col-md-3">
-                {{ Form::text('personal_info_retail_price', '', array('id'=>'personal_info_retail_price','class' => 'form-control input-md', 'placeholder' => 'prijs', 'type' => 'number')); }}
+            <!-- BUY PRICE -->
+            <div class="form-group">
+                {{ Form::label('buy_info_price_payed_label', 'Aankoop prijs:', array('class' => 'col-md-3')); }}
+                <div class="col-md-3">
+                    {{ Form::text('buy_info_price_payed', '', array('id'=>'buy_info_price_payed','class' => 'form-control input-sm', 'placeholder' => 'prijs', 'type' => 'number')); }}
+                </div>
             </div>
-        </div>
 
-        </div>
+            <!-- COVER PRICE -->
+            <div class="form-group">
+                {{ Form::label('book_info_retail_price_label', 'Cover prijs:', array('class' => 'col-md-3')); }}
+                <div class="col-md-3">
+                    {{ Form::text('buy_book_info_retail_price', '', array('id'=>'buy_book_info_retail_price','class' => 'form-control input-sm', 'placeholder' => 'prijs', 'type' => 'number')); }}
+                </div>
+            </div>
+
+            <!-- RECOMMENDED BY -->
+            <div class="form-group">
+                {{ Form::label('buy_info_recommended_by_label', 'Aanbevolen door:', array('class' => 'col-md-3')); }}
+                <div class="col-md-5">
+                    {{ Form::text('buy_info_recommended_by', '', array('id'=>'buy_info_recommended_by','class' => 'form-control input-sm', 'placeholder' => 'aanbevolen door')); }}
+                </div>
+            </div>
+
+              <!-- SHOP -->
+            <div class="form-group">
+                {{ Form::label('buy_info_shop_label', 'Winkel:', array('class' => 'col-md-3')); }}
+                <div class="col-md-5">
+                    {{ Form::text('buy_info_shop', '', array('id'=>'buy_info_shop','class' => 'form-control input-sm', 'placeholder' => 'winkel')); }}
+                </div>
+            </div>  
+            <!-- SHOP CITY-->
+            <div class="form-group">
+                {{ Form::label('buy_info_shop_label', 'Stad winkel:', array('class' => 'col-md-3')); }}
+                <div class="col-md-5">
+                    {{ Form::text('buy_info_city', '', array('id'=>'buy_info_city','class' => 'form-control input-sm', 'placeholder' => 'stad winkel')); }}
+                </div>
+            </div>
+
+             <!-- COUNTRY -->
+            <div class="form-group">
+                {{ Form::label('buyInfoShopCountryLabel', 'Land winkel:', array('class' => 'col-md-3')); }}
+                <div class="col-md-5">
+                    <select id="buyInfoShopCountrySelect" name="buy_info_countryId" class="input-sm">
+                        @foreach($countries as $country)
+                        <option value="{{ $country->id }}" 
+                            @if ($country->name === 'Belgium')
+                                selected
+                            @endif
+                        >
+                            {{ $country->name }}
+                        </option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
+    </div>
 </fieldset>

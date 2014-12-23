@@ -13,6 +13,14 @@
         {{ Form::open(array('url' => 'createUser', 'class' => 'form-horizontal')) }}
         <fieldset>
 
+            <!-- Username input -->
+            <div class="form-group">
+                {{ Form::label('usernameLabel', 'Username:', array('class' => 'col-md-3 control-label')) }}
+                <div class="col-md-5">
+                    {{ Form::text('username', '', array('class' => 'form-control input-sm', 'placeholder' => 'username', 'required' => 'true')); }}
+                </div>
+            </div>
+
             <!-- Email input -->
             <div class="form-group">
                 {{ Form::label('emailLabel', 'Email:', array('class' => 'col-md-3 control-label')) }}

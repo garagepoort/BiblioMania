@@ -61,6 +61,10 @@ select {
   color: @inverse-font-color;
 }
 
+legend {
+  color: @font-color;
+}
+
 /*PLACEHOLDERS*/
 .form-control::-webkit-input-placeholder { /* WebKit browsers */
     color: @inverse-font-color;
@@ -84,7 +88,7 @@ select {
   margin-left: auto ;
   margin-right: auto ;
   margin-top: 50px;
-  width: 1000px;
+  width: 88%;
   background-color: @container-color;
   /*background-color: #AF885F;*/
   /*color: #8E2800;*/
@@ -122,7 +126,7 @@ legend.sub-border {
  }
 
 div.books-container {
-  width: 800px;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
   margin-top: 50px;
@@ -136,8 +140,8 @@ div.books-container {
   opacity: 0.95;
   top: 0px;
   background-color: @book-detail-background-color;
-  right: -450px;
-  width: 450px;
+  right: -600px;
+  width: 600px;
   height: 100vh;
   /*border: solid 1px @background-color;*/
 }
@@ -158,12 +162,28 @@ div.books-container {
 }
 
 .bookCoverLink {
-  width: 100px;
-  height: 150px;
+  width: 142px;
+  height: 226px;
   cursor: pointer;
 }
 /*END BOOKS*/
 
+/*AUTHOR*/
+.author-container {
+  color: @font-color;
+  width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.author-image-div {
+  margin-right: 15px;
+  float: left;
+  margin-bottom: 20px;
+}
+/*END AUTHOR*/
 /*PAGINATION*/
 .pagination li {
   background-color: @background-color;

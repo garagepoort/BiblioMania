@@ -28,4 +28,13 @@ class PersonalBookInfo extends Eloquent {
         $this->attributes['owned'] = $owned?1:0;
     }
 
+    public function get_owned(){
+        $owned = $this->attributes['owned'];
+        if($owned == 0){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
 }

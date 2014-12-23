@@ -14,16 +14,13 @@ class UserController extends BaseController{
 
     public function createUser() {
         $userService = App::make('UserService');
-        $userdata = array(
-            'email' => Input::get('email'),
-            'password' => Input::get('password')
-        );
 
         $user = new User();
         $password = Input::get('password');
         $confirmPassword = Input::get('confirmPassword');
 
         if(strcmp ($password, $confirmPassword) == 0){
+            $user->username = Input::get('username');
             $user->email = Input::get('email');
             $user->password = Hash::make(Input::get('password'));
             $userService->saveUser($user);

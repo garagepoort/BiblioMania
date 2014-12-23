@@ -14,10 +14,14 @@ class Author extends Eloquent {
     {
         return $this->belongsToMany('AuthorAward', 'author_author_award');
     }
-
+    
     public function books()
     {
-        return $this->hasMany('Book');
+        return $this->belongsToMany('Book', 'book_author');
     }
 
+    public function oeuvre()
+    {
+        return $this->hasMany('BookFromAuthor');
+    }
 }

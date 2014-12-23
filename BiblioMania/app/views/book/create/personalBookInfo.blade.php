@@ -18,7 +18,7 @@
                 {{ Form::checkbox('personal_info_owned', 'personal_info_owned', 'true' ,array('id'=>'personal-info-owned-checkbox')); }}
             </div>
         </div>
-        <div class="form-group" id="reason-not-owned-panel">
+        <div class="form-group" id="reason-not-owned-panel" hidden>
             {{ Form::label('personal_info_ownedLabel', 'Reden niet in collectie:', array('class' => 'col-md-3')); }}
             <div class="col-md-2">
                 {{ Form::label('personal_info_reason_not_owned_borrowed', 'Geleend') }}

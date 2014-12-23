@@ -14,14 +14,14 @@ $(document).ready(function(){
                 
                 div.promise().done(function(){
                     fillInBookInfo(book);
-                    openBookDetail();
+                    openBookDetail(bookId);
                 }); 
 
                 lastClickedBookId = bookId;
                 
             }else if (div.hasClass('visible') === false){
                 fillInBookInfo(book);
-                openBookDetail();
+                openBookDetail(bookId);
                 lastClickedBookId = bookId;
 
                 div.promise().done(function(){
@@ -39,7 +39,7 @@ $(document).ready(function(){
         bookDetailAnimationBusy = true;
         var detail = $('.book-detail-div');
         detail.animate({
-            right: "-=450"
+            right: "-=600"
         });
 
         detail.promise().done(function(){
@@ -48,11 +48,15 @@ $(document).ready(function(){
         });
     }
 
-    function openBookDetail(){
+    function openBookDetail(bookId){
         bookDetailAnimationBusy = true;
         var detail = $('.book-detail-div');
+        $.get( "ajax/test.html", function( data ) {
+          $( ".result" ).html( data );
+        });
+
         detail.animate({
-            right: "+=450"
+            right: "+=600"
         });
         detail.promise().done(function(){
             bookDetailAnimationBusy = false;

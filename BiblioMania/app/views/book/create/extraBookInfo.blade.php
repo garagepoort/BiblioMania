@@ -16,14 +16,14 @@
                 <!-- PAGES -->
                 {{ Form::label('authorLabel', "Pagina's:", array('class' => 'col-md-3')); }}
                 <div class="col-md-3">
-                    {{ Form::text('book_number_of_pages', '', array('id'=>'book_number_of_pages_input','class' => 'form-control', 'placeholder' => 'paginas', 'type' => 'number')); }}
+                    {{ Form::text('book_number_of_pages', '', array('id'=>'book_number_of_pages_input','class' => 'form-control input-sm', 'placeholder' => 'paginas', 'type' => 'number')); }}
                 </div>
             </div>
             <div class="form-group">
                 <!-- PRINT -->
                 {{ Form::label('printLabel', 'Print:', array('class' => 'col-md-3')); }}
                 <div class="col-md-3">
-                    {{ Form::text('book_print', '', array('id'=>'book_print_input', 'class' => 'form-control', 'placeholder' => 'print', 'type' => 'number')); }}
+                    {{ Form::text('book_print', '', array('id'=>'book_print_input', 'class' => 'form-control input-sm', 'placeholder' => 'print', 'type' => 'number')); }}
                 </div>
             </div>
         </div>
@@ -33,7 +33,7 @@
             <!-- Book serie -->
             {{ Form::label('bookSerieLabel', "Boekenreeks:", array('class' => 'col-md-3')); }}
             <div class="col-md-3">
-                {{ Form::text('book_serie', '', array('id'=>'book_serie_input','class' => 'form-control', 'placeholder' => '')); }}
+                {{ Form::text('book_serie', '', array('id'=>'book_serie_input','class' => 'form-control input-sm', 'placeholder' => '')); }}
             </div>
         </div>
 
@@ -41,7 +41,7 @@
             <!-- PUBLISHER SERIE -->
             {{ Form::label('publisherSerieLabel', 'Uitgeverreeks:', array('class' => 'col-md-3')); }}
             <div class="col-md-3">
-                {{ Form::text('book_publisher_serie', '', array('id'=>'publisher_serie_input', 'class' => 'form-control', 'placeholder' => '')); }}
+                {{ Form::text('book_publisher_serie', '', array('id'=>'publisher_serie_input', 'class' => 'form-control input-sm', 'placeholder' => '')); }}
             </div>
         </div>
 

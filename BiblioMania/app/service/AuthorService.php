@@ -2,10 +2,10 @@
 
 class AuthorService {
 
-	public function saveOrUpdate($name, $firstname, $date_of_birth, $date_of_death){
+	public function saveOrUpdate($name, $infix, $firstname, $authorImage = null, $date_of_birth = null, $date_of_death = null){
 		$author_model = Author::where('name', '=', $name)
                 ->where('firstname', '=', $firstname)
-	            ->where('user_id', '=', Auth::user()->id)
+                ->where('infix', '=', $infix)
 	            ->first();
 
         if (is_null($author_model)) {
@@ -14,9 +14,10 @@ class AuthorService {
         
         $author_model->name = $name;
         $author_model->firstname = $firstname;
+        $author_model->infix = $infix;
         $author_model->date_of_birth = $date_of_birth;
         $author_model->date_of_death = $date_of_death;
-        $author_model->user_id = Auth::user()->id;
+        $author_model->image = $authorImage;
     	
     	$author_model->save();
         return $author_model;

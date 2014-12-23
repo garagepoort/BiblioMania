@@ -1,49 +1,43 @@
-<html ng-app="Huur">
+<html>
     <head> 
         <title> {{ $title }} </title> 
+            {{ HTML::script('assets/js/jquery.js'); }}
+
+        <!-- BOOTSTRAP -->
+        {{ HTML::script('assets/js/bootstrap.js'); }}
+        {{ HTML::style('/assets/css/bootstrap.css') }}
+        {{ HTML::style('assets/css/bootstrap-theme.css') }}
+
+        <!-- DATEPICKER -->
+        {{ HTML::script('assets/datepicker/js/bootstrap-datepicker.js') }}
+        {{ HTML::style('assets/datepicker/css/datepicker.css') }}
+
+        <!-- JASNY -->
+        {{ HTML::script('assets/jasny-bootstrap/js/jasny-bootstrap.min.js') }}
+        {{ HTML::style('assets/jasny-bootstrap/css/jasny-bootstrap.min.css') }}
+
+        <!-- AUTOCOMPLETE -->
+        {{ HTML::script('assets/js/jquery.autocomplete.min.js') }}
+
+        <!-- BOOTSTRAP-VALIDATOR -->
+        {{ HTML::script('assets/bootstrapvalidator/dist/js/bootstrapValidator.min.js') }}
+        {{ HTML::script('assets/bootstrapvalidator/dist/js/language/be_NL.js') }}
+        {{ HTML::style('assets/bootstrapvalidator/dist/css/bootstrapValidator.min.css') }}
+
+        <!-- COLLAPSIBLE -->
+        {{ HTML::script('assets/js/jquery.collapsible.js') }}
+
+        <!-- LESS SCRIPTS -->
+        {{ HTML::style('assets/css/custom.css') }}
+
+        <!-- STAR RATING -->
+        {{ HTML::script('assets/bootstrap-star-rating/js/star-rating.min.js') }}
+        {{ HTML::style('assets/bootstrap-star-rating/css/star-rating.min.css') }}
+
+        <!-- RATY -->
+        {{ HTML::script('assets/raty-2.7.0/lib/jquery.raty.js') }}
+        {{ HTML::style('assets/raty-2.7.0/lib/jquery.raty.css') }}
     </head>
-
-    {{ HTML::script('assets/js/jquery.js'); }}
-
-    <!-- BOOTSTRAP -->
-    {{ HTML::script('assets/js/bootstrap.js'); }}
-    {{ HTML::style('/assets/css/bootstrap.css') }}
-    {{ HTML::style('assets/css/bootstrap-theme.css') }}
-
-    <!-- DATEPICKER -->
-    {{ HTML::script('assets/datepicker/js/bootstrap-datepicker.js') }}
-    {{ HTML::style('assets/datepicker/css/datepicker.css') }}
-
-    <!-- JASNY -->
-    {{ HTML::script('assets/jasny-bootstrap/js/jasny-bootstrap.min.js') }}
-    {{ HTML::style('assets/jasny-bootstrap/css/jasny-bootstrap.min.css') }}
-
-    <!-- AUTOCOMPLETE -->
-    {{ HTML::script('assets/js/jquery.autocomplete.min.js') }}
-
-    <!-- BOOTSTRAP-VALIDATOR -->
-    {{ HTML::script('assets/bootstrapvalidator/dist/js/bootstrapValidator.min.js') }}
-    {{ HTML::script('assets/bootstrapvalidator/dist/js/language/be_NL.js') }}
-    {{ HTML::style('assets/bootstrapvalidator/dist/css/bootstrapValidator.min.css') }}
-
-    <!-- COLLAPSIBLE -->
-    {{ HTML::script('assets/js/jquery.collapsible.js') }}
-
-    <!-- LESS SCRIPTS -->
-    <link rel="stylesheet/less" type="text/css" href="assets/css/custom.less">
-    <!-- LESS -->
-    {{ HTML::script('assets/js/less.min.js') }}
-
-    <!-- STAR RATING -->
-    {{ HTML::script('assets/bootstrap-star-rating/js/star-rating.min.js') }}
-    {{ HTML::style('assets/bootstrap-star-rating/css/star-rating.min.css') }}
-
-    <!-- RATY -->
-    {{ HTML::script('assets/raty-2.7.0/lib/jquery.raty.js') }}
-    {{ HTML::style('assets/raty-2.7.0/lib/jquery.raty.css') }}
-
-
-
 
     <body>
 

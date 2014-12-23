@@ -16,9 +16,9 @@
 
             <!-- email input-->
             <div class="form-group">
-                {{ Form::label('emailLabel', 'Email:' , array('class' => 'control-label loginLabel col-md-3')); }}
+                {{ Form::label('usernameLabel', 'Username:' , array('class' => 'control-label loginLabel col-md-3')); }}
                 <div class="col-md-5">
-                    {{ Form::text('email', '', array('id' => 'emailInputLogin','class' => 'form-control input-sm', 'placeholder' => trans('messages.login.placeholder.email'), 'required' => 'true')); }}
+                    {{ Form::text('username', '', array('id' => 'usernameInputLogin','class' => 'form-control input-sm', 'placeholder' => trans('messages.login.placeholder.username'), 'required' => 'true')); }}
                 </div>
             </div>
 

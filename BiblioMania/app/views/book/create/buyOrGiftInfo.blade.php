@@ -1,5 +1,3 @@
- {{ HTML::script('assets/js/creatBook/personalBookInfo.js'); }}
-
 <div class="tab-container ">
     <fieldset>
 
@@ -11,11 +9,25 @@
         </div>
         @endif
         <div class="buyOrGiftPanel">
-            <div>
-                Gekocht: {{ Form::radio('buyOrGift', 'buy', true) }}
-                Gekregen: {{ Form::radio('buyOrGift', 'gift') }}
-            </div>
+            <table>
+                <tr>
+                    <td>
+                        Gekocht: {{ Form::radio('buyOrGift', 'BUY', true, array('id'=>'buyRadioButton')) }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Gekregen: {{ Form::radio('buyOrGift', 'GIFT', false, array('id'=>'giftRadioButton')) }}
+                    </td>
+                </tr>
+            </table>   
         </div>
-        @include('book/create/buyInfo')
+        <div id="buyInfoPanel">
+            @include('book/create/buyInfo')
+        </div>
+        <div id="giftInfoPanel" hidden>
+            @include('book/create/giftInfo')
+        </div>
     </fieldset>
 </div>
+ {{ HTML::script('assets/js/creatBook/buyOrGiftInfo.js'); }}

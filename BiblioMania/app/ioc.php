@@ -15,6 +15,21 @@
 	    return new AuthorService;
 	});
 
+	App::singleton('BuyInfoService', function()
+	{
+	    return new BuyInfoService;
+	});
+
+	App::singleton('GiftInfoService', function()
+	{
+	    return new GiftInfoService;
+	});
+
+	App::singleton('CityService', function()
+	{
+	    return new CityService;
+	});
+
 	App::singleton('PublisherSerieService', function()
 	{
 	    return new PublisherSerieService;

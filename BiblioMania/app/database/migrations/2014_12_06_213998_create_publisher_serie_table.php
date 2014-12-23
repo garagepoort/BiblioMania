@@ -10,8 +10,10 @@ class CreatePublisherSerieTable extends Migration {
 		Schema::create('publisher_serie', function($table)
 		{
 			$table->increments('id');
-			$table->string('name')->nullable();
+			$table->string('name');
+			$table->unsignedInteger('publisher_id');
 	        $table->nullableTimestamps();
+			$table->foreign('publisher_id')->references('id')->on('publisher');
 		});
 	}
 

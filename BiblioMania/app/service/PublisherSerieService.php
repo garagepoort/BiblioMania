@@ -2,13 +2,16 @@
 
 class PublisherSerieService {
 
-    public function findOrSave($name){
+    public function findOrSave($name, $publisher_id){
 
-    	$serie = PublisherSerie::where(array('name'=> $name))->first();
+    	$serie = PublisherSerie::where(array('name'=> $name))
+            ->where('publisher_id', '=', $publisher_id)
+            ->first();
 
         if (is_null($serie)) {
         	$serie = new PublisherSerie(array(
-            	'name' => $name
+            	'name' => $name,
+                'publisher_id' => $publisher_id
         	));
         	$serie->save();
         }

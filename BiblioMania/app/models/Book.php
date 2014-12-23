@@ -7,7 +7,6 @@ class Book extends Eloquent {
     protected $fillable = array(
     	'title', 
     	'subtitle', 
-    	'author_id', 
     	'ISBN', 
     	'type_of_cover', 
     	'coverImage',
@@ -20,7 +19,8 @@ class Book extends Eloquent {
     	'serie_id',
     	'publisher_serie_id',
         'user_id',
-        'first_print_info_id'
+        'first_print_info_id',
+        'retail_price'
     	);
 
     public function author(){
@@ -51,9 +51,14 @@ class Book extends Eloquent {
     	return $this->hasOne('PersonalBookInfo');
 	}
     
-	public function awards()
+    public function awards()
     {
         return $this->belongsToMany('BookAward', 'book_book_award');
+    }
+
+	public function authors()
+    {
+        return $this->belongsToMany('Author', 'book_author');
     }
 
     public function films()

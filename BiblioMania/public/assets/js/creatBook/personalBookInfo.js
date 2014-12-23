@@ -29,15 +29,15 @@ $(document).ready(function() {
         number: 10,
         path: 'assets/raty-2.7.0/lib/images',
         click: function(score, evt) {
-            $('star-rating-input').val(score);
+            $('#star-rating-input').val(score);
         }
     });
 
     $('#personal-info-owned-checkbox').change(function() {
         if($(this).is(':checked')) {
-            $('reason-not-owned-panel').hide(1000);
+            $('#reason-not-owned-panel').hide(250);
         }else{
-            $('reason-not-owned-panel').show(1000);
+            $('#reason-not-owned-panel').show(250);
         }    
     });
 });

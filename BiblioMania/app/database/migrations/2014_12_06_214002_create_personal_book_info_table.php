@@ -11,7 +11,7 @@ class CreatePersonalBookInfoTable extends Migration {
 		{
 			$table->increments('id');
 			$table->boolean('owned');
-			$table->boolean('reason_not_owned');
+			$table->string('reason_not_owned');
 			$table->unsignedInteger('book_id')->unique();
 			$table->integer('rating');
 			$table->double('retail_price')->nullable();
