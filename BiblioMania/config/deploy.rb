@@ -1,8 +1,8 @@
 # config valid only for Capistrano 3.1
 lock '3.2.1'
 
-set :application, 'HuurApplicatie'
-set :repo_url, 'git@bitbucket.org/garagepoort/bibliomania.git'
+set :application, 'BiblioMania'
+set :repo_url, 'git@bitbucket.org:garagepoort/bibliomania.git'
 set :tmp_dir, "/home/garagepoort/tmp"
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
