@@ -125,12 +125,23 @@ legend.sub-border {
      text-align: center;
  }
 
+.book-detail-main-info {
+  margin-bottom: 20px;
+}
+
+.book-detail-other-info {
+  margin-top: 20px;
+}
+
 div.books-container {
   width: 100%;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 50px;
   margin-bottom: 50px;
+}
+
+.book-collection-info-panel {
+  width: 500px;
 }
 
 .book-detail-div {
@@ -152,10 +163,13 @@ div.books-container {
   margin-left: auto;
   margin-right: auto;
 }
-
-/*#book-detail-coverimage{
-  -webkit-box-reflect: below 0px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(70%, transparent) , to(rgba(250, 250, 250, 0.1)));
-}*/
+.pagination {
+  padding-top: 20px;
+  width: 100%;
+}
+#book-detail-coverimage{
+  float: left;
+}
 
 .book-details-info-container {
   margin-top: 20px;
@@ -322,6 +336,9 @@ li a {
   background-color: @inverse-font-color;
   border-color: @inverse-font-color;
 }
+.navbar-inner {
+  background-color: @inverse-font-color;
+}
 .navbar-default .navbar-brand {
   color: @font-color;
 }
@@ -333,9 +350,11 @@ li a {
 }
 .navbar-default .navbar-nav > li > a {
   color: @font-color;
+  background-color: @inverse-font-color;
 }
 .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
-  color: @font-color;
+  color: @inverse-font-color;
+  background-color: @font-color;
 }
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
   color: @font-color;

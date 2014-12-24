@@ -23,8 +23,10 @@ class Book extends Eloquent {
         'retail_price'
     	);
 
-    public function author(){
-    	return $this->belongsTo('Author');
+    protected $with = array('authors', 'publisher', 'genre', 'personal_book_info', 'first_print_info');
+
+    public function authors(){
+    	return $this->belongsToMany('Author', 'book_author');
 	}
 
 	public function genre(){
@@ -48,17 +50,16 @@ class Book extends Eloquent {
     }
 
 	public function personal_book_info(){
-    	return $this->hasOne('PersonalBookInfo');
+    	return $this->hasOne('PersonalBookInfo', 'book_id');
 	}
+
+    public function first_print_info(){
+        return $this->belongsTo('FirstPrintInfo', 'book_id');
+    }
     
     public function awards()
     {
         return $this->belongsToMany('BookAward', 'book_book_award');
-    }
-
-	public function authors()
-    {
-        return $this->belongsToMany('Author', 'book_author');
     }
 
     public function films()

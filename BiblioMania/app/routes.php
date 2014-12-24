@@ -14,13 +14,16 @@
 //USER
 Route::group(array('before' => 'auth'), function() {
     Route::get('getBooks', 'BookController@getBooks');
+    Route::get('getBooksFromSearch', 'BookController@getBooksFromSearch');
     Route::get('createBook', 'BookController@goToCreateBook');
     Route::post('createBook', 'BookController@createBook');
     Route::get('logOut', 'LoginController@login');
     Route::get('importBooks', 'BookImportController@importBooks');
     Route::get('getAuthor/{id}', 'AuthorController@getAuthor');
     Route::get('getAuthors', 'AuthorController@getAuthors');
+    Route::get('scaleImages', 'ImageController@scaleImages');
 });
+
 
 //ALL
 Route::get('login', 'LoginController@goToLogin');

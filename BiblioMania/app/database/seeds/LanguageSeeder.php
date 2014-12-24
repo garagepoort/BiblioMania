@@ -9,8 +9,8 @@ class LanguageSeeder extends Seeder {
 	 */
 	public function run()
 	{
-		DB::statement("INSERT INTO LANGUAGE (language) VALUES ('Nederlands')");
-		DB::statement("INSERT INTO LANGUAGE (language) VALUES ('Engels')");
+		DB::statement("INSERT INTO language (language) VALUES ('Nederlands')");
+		DB::statement("INSERT INTO language (language) VALUES ('Engels')");
 	}
 
 }

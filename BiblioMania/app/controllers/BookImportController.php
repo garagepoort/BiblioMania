@@ -3,9 +3,21 @@
 class BookImportController extends BaseController {
 
 	private $logger;
+	private $bookTitle;
+	private $bookSubTitle;
+	private $bookISBN;
+	private $bookTypeOfCover;
+	private $bookRetailPrice;
+	private $personalInfoOwned;
+
+	private $authorName;
+	private $authorFirstName;
+	private $authorInfix;
 
 	public function importBooks(){
+
 		ini_set('max_execution_time', 300);
+		ini_set('memory_limit', '1024M');
 		$this->logger = new Katzgrau\KLogger\Logger(app_path().'/storage/logs');
 
 		$directory = dirname(__FILE__);
@@ -13,9 +25,12 @@ class BookImportController extends BaseController {
 		if ($handle) {
 		    while (($line = fgets($handle)) !== false) {
 		        $values = explode("|", $line);
+		        $this->setValues($values);
+
 		        $authors = $this->importAuthors($values);
 		        $publisher = $this->importPublisher($values);
 		        $book = $this->importBook($values, $publisher);
+		        $this->importPersonalBookInfo($values, $book->id);
 		        foreach ($authors as $author) {
             		$book->authors()->sync([$author->id], false);
 		        }
@@ -26,6 +41,7 @@ class BookImportController extends BaseController {
 		$this->matchOeuvres();
 		fclose($handle);
 		ini_set('max_execution_time', 30);
+		ini_set('memory_limit', '16M');
 	}
 
 	private function importAuthors($values){
@@ -60,6 +76,16 @@ class BookImportController extends BaseController {
 		return $publisherService->saveOrUpdate($name, $country);
 	}
 
+	private function importPersonalBookInfo($values, $book_id){
+		$personalBookInfo = new PersonalBookInfo(array(
+			'book_id' => $book_id,
+			'rating' => $values[44]
+		));
+
+		$personalBookInfo->set_owned($this->personalInfoOwned);
+		$personalBookInfo->save();
+	}
+
 	private function importOeuvre($values, $author){
 		$oeuvre = explode('\n', $values[46]);
 		foreach ($oeuvre as $title) {
@@ -84,19 +110,19 @@ class BookImportController extends BaseController {
 
 	private function importBook($values, $publisher){
 		$path = explode('\\', $values[19]);
-		$coverImage = Auth::user()->username . '/' . end($path);
+		$coverImage = 'bookImages/' . Auth::user()->username . '/' . end($path);
 		$book = new Book(array(
-                'title' => $values[9],
+                'title' => $this->bookTitle,
                 'subtitle' => $values[48],
                 'type_of_cover' => $values[13],
-                'ISBN' => $values[11],
+                'ISBN' => $values[10],
                 'publisher_id' => $publisher->id,
                 'number_of_pages' => $values[57],
                 'print' => $values[27],
-                'retail_price' => $values[58],
+                'retail_price' => $this->bookRetailPrice,
                 'genre_id' => 1,
                 'coverImage' => $coverImage,
-                'user_id' => Auth::user()->id,
+                'user_id' => Auth::user()->id
         ));
         if (!empty($values[11])) {
         	$book->publication_date = DateTime::createFromFormat('Y-m-d', $values[11].'-01-01');
@@ -112,7 +138,6 @@ class BookImportController extends BaseController {
 			$author = Author::find($oeuvre->author_id);
 			$this->logger->info('author id: ' . $author->id);
 			foreach ($author->books as $book) {
-				$this->logger->info('try match: ' . $title . ' -- ' . strtolower($book->title));
 				$pos = strpos($title, strtolower($book->title));
 				if ($pos !== false) {
 					$book->book_from_author_id = $oeuvre->id;
@@ -131,6 +156,21 @@ class BookImportController extends BaseController {
 	    	return $result;
 	    }
 	    return '';
+	}
+
+	private function setValues($values){
+		$this->bookTitle = $values[9];
+		if(count(explode(" ", $values[47])) > 1){
+			$this->bookRetailPrice = explode(" ", $values[47])[1];
+		}else{
+			$this->bookRetailPrice = $values[47];
+		}
+		$inCollection = $values[64];
+		if($inCollection === 'In verzameling'){
+			$this->personalInfoOwned = true;
+		}else{
+			$this->personalInfoOwned = false;
+		}
 	}
 
 	function startsWith($haystack, $needle)

@@ -36,6 +36,7 @@ class CreateBookTable extends Migration {
 		    $table->foreign('user_id')->references('id')->on('users');
 		    $table->foreign('book_from_author_id')->references('id')->on('book_from_author');
 		});
+
 	}
 
 	public function down()

@@ -6,7 +6,7 @@ $(document).ready(function(){
         if(bookDetailAnimationBusy === false){
          	var div = $('.book-detail-div');
             var bookId = $(this).attr('bookId');
-            var book = $.grep(books, function(e){ return e.id == bookId; });
+            var book = $.grep(books, function(e){ return e.id == bookId; })[0];
 
          	if(div.hasClass('visible') && lastClickedBookId !== bookId){ 
                 
@@ -15,7 +15,7 @@ $(document).ready(function(){
                 div.promise().done(function(){
                     fillInBookInfo(book);
                     openBookDetail(bookId);
-                }); 
+                });
 
                 lastClickedBookId = bookId;
                 
@@ -27,7 +27,9 @@ $(document).ready(function(){
                 div.promise().done(function(){
                     bookDetailAnimationBusy = false;
                 });
-         	}
+         	}else{
+                closeBookDetail();   
+            }
         }
   	});
 
@@ -67,10 +69,24 @@ $(document).ready(function(){
 
 
     function fillInBookInfo(book){
-            $('#book-detail-title').text(book[0].title);
-            $('#book-detail-subtitle').text(book[0].subtitle);
-            $('#book-detail-coverimage').attr('src', book[0].coverImage);
-            $('#book-detail-author').text(book[0].author);
-            $('#book-detail-isbn').text(book[0].ISBN);
+            $('#book-detail-title').text(book.title);
+            $('#book-detail-subtitle').text(book.subtitle);
+            $('#book-detail-coverimage').attr('src', baseUrl + "/" + book.coverImage);
+            $('#book-detail-author').text(book.authors[0].firstname + " " + book.authors[0].infix + " " + book.authors[0].name);
+            $('#book-detail-isbn').text(book.ISBN);
+            $('#book-detail-publisher').text(book.publisher.name);
+            $('#book-detail-genre').text(book.genre.name);
+            $('#book-detail-publication-date').text(book.publication_date);
+            $('#book-detail-number-of-pages').text(book.number_of_pages);
+            $('#book-detail-print').text(book.print);
+
+            $('#book-detail-retail-price').text(book.retail_price);
+
+             $('#star-detail').raty({
+                score : book.personal_book_info.rating,
+                number: 10,
+                readOnly: true,
+                path: baseUrl + "/" + 'assets/raty-2.7.0/lib/images'
+            });
     }
 });

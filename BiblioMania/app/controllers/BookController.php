@@ -4,18 +4,42 @@ class BookController extends BaseController {
 
 	private $bookFolder = "book/";
 
-	public function getBooks()
+    private function cmp($a, $b)
+    {
+        return strcmp($a->name, $b->name);
+    }
+
+	public function getBooks($order = 'title')
 	{
-        $books = Book::join('book_author as ba', 'Book.id', '=', 'ba.book_id')
-                        ->join('Author', 'ba.author_id', '=', 'Author.id')
-                        ->orderBy('Author.name')
-                        ->paginate(60);
+
+        $books = Book::where('user_id' , '=', Auth::user()->id)->orderBy('title')->paginate(60);
+        // usort($books->getCollection(), array($this, "cmp"));
+
 		return View::make('books')->with(array(
+            'title' => 'Boeken',
+            'books' => $books,
+            'books_json' => $books->toJson(),
+            'total_value_library' => App::make('BookService')->getValueOfLibrary(),
+            'total_amount_of_books' => App::make('BookService')->getTotalAmountOfBooksInLibrary()
+            ));
+	}
+
+    public function getBooksFromSearch(){
+        $criteria = Input::get('criteria');
+        $books = Book::where('user_id' , '=', Auth::user()->id)
+                ->where(function ($query) use ($criteria){
+                     $query->where('title', 'LIKE', '%'.$criteria.'%')
+                    ->orWhere('subtitle', 'LIKE', '%'.$criteria.'%');
+                })
+                ->orderBy('title')
+                ->paginate(60);
+
+        return View::make('books')->with(array(
             'title' => 'Boeken',
             'books' => $books,
             'books_json' => $books->toJson()
             ));
-	}
+    }
 
     public function getJsonBook($book_id){
         return Book::find($book_id);

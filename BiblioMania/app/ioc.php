@@ -15,6 +15,11 @@
 	    return new AuthorService;
 	});
 
+	App::singleton('BookService', function()
+	{
+	    return new BookService;
+	});
+
 	App::singleton('BuyInfoService', function()
 	{
 	    return new BuyInfoService;
