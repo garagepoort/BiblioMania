@@ -210,8 +210,8 @@ class BookController extends BaseController {
             $logger->info("Input file for cover image found. Uploading cover image");
             $file = Input::file('book_cover_image');
 
-            $userEmail = Auth::user()->email;
-            $destinationPath = $userEmail;
+            $userUsername = Auth::user()->username;
+            $destinationPath = 'bookImages/' . $userUsername;
 
             $filename = $file->getClientOriginalName();
             $filename = str_random(8).'_'.$filename;
