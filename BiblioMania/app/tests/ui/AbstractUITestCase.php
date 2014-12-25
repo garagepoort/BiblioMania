@@ -20,7 +20,7 @@ class AbstractUITestCase extends AbstractIntegrationTestCase
         $this->driver->get('http://localhost:8888/BiblioMania/login');
         $this->assertAtPage('Login');
 
-        $emailInput = $this->findElementById('emailInputLogin');
+        $emailInput = $this->findElementById('usernameInputLogin');
         $passwordInput = $this->findElementById('passwordInputLogin');
         $loginButton = $this->findElementById('loginButton');
 

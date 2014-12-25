@@ -5,7 +5,7 @@
 		</div>
 		<div class="book-detail-container">
 			<h1 id="book-detail-title">title</h1>
-			<h4 id="book-detail-subtitle">subtit</h4>
+			<h4 id="book-detail-subtitle">subtitle</h4>
 			<div class="book-detail-main-info">
 				<img id="book-detail-coverimage" src="" width="142px" height="226px"/>
 				<div id="star-detail" class="col-md-6"></div>
@@ -42,7 +42,7 @@
 			</div>
 
 			<div class="book-detail-extra-info">
-				<legend>extra info</legend>
+				<legend>Extra info</legend>
 				<div class="control-group">
 						{{ Form::label('retailPrice', 'Cover prijs:' , array('class' => 'control-label col-md-4')); }}
 						{{ Form::label('retailPrice', "retailPrice" , array('id'=>'book-detail-retail-price' ,'class' => 'control-label col-md-8')); }}

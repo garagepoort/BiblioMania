@@ -25,6 +25,10 @@
           border-radius: 0 !important;
 }
 
+img {
+  background: url('images/questionCover.png') no-repeat;
+}
+
 @font: "parisish";
 @background-color: #f99;
 @container-color: #611427;
@@ -60,6 +64,32 @@ select {
 .datepicker {
   color: @inverse-font-color;
 }
+
+/*DATEPICKER*/
+div.datepicker-days table thead tr th {
+  color: @inverse-font-color;
+}
+
+div.datepicker-years table thead tr th {
+  color: @inverse-font-color;
+}
+
+div.datepicker-months table thead tr th {
+  color: @inverse-font-color;
+}
+
+div.datepicker-days table tbody tr td {
+  color: @inverse-font-color;
+}
+
+div.datepicker-months table tbody tr td span{
+  color: @inverse-font-color;
+}
+
+div.datepicker-years table tbody tr td span{
+  color: @inverse-font-color;
+}
+/*END DATEPICKER*/
 
 legend {
   color: @font-color;
@@ -120,6 +150,10 @@ legend.sub-border {
   margin-bottom: 40px;
 }
 
+.title-table{
+  margin-bottom: 20px;
+}
+
 .table.books-table tbody tr td { 
      border-top: none; 
      text-align: center;
@@ -143,6 +177,10 @@ div.books-container {
 .book-collection-info-panel {
   width: 500px;
 }
+.book-collection-filter-panel{
+  width: 500px;
+  margin-bottom: 40px;
+}
 
 .book-detail-div {
   /*left: 0;*/
@@ -158,13 +196,13 @@ div.books-container {
 }
 
 .book-detail-container {
-  width: 80%;
+  width: 90%;
   margin-top: 20px;
   margin-left: auto;
   margin-right: auto;
 }
 .pagination {
-  padding-top: 20px;
+  padding-top: 40px;
   width: 100%;
 }
 #book-detail-coverimage{
@@ -251,6 +289,11 @@ div.books-container {
   width: 100%;
   margin-left: auto;
   margin-right: auto;
+}
+
+.filterDialog {
+  background-color: @inverse-font-color;
+
 }
 
 .label-gray {

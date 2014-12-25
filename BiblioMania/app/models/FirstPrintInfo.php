@@ -7,7 +7,7 @@ class FirstPrintInfo extends Eloquent {
     protected $fillable = array('title', 
         'subtitle',
     	'publisher_id', 
-    	'publication_date', 
+    	'publication_date_id', 
     	'country_id', 
     	'language_id', 
     	'ISBN', 
@@ -17,6 +17,10 @@ class FirstPrintInfo extends Eloquent {
 	public function publisher(){
     	return $this->belongsTo('Publisher');
 	}
+
+    public function publication_date(){
+        return $this->belongsTo('Date', 'publication_date_id');
+    }
 
 	public function country(){
     	return $this->belongsTo('Country');

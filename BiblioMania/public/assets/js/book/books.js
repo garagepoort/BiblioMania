@@ -67,7 +67,6 @@ $(document).ready(function(){
 
     }
 
-
     function fillInBookInfo(book){
             $('#book-detail-title').text(book.title);
             $('#book-detail-subtitle').text(book.subtitle);
@@ -89,4 +88,13 @@ $(document).ready(function(){
                 path: baseUrl + "/" + 'assets/raty-2.7.0/lib/images'
             });
     }
+    
+    $("#filterButton").click(function(){
+        if($('#book-collection-filter-panel').is(":visible")){
+            $('#book-collection-filter-panel').hide();
+        }else{
+            $('#book-collection-filter-panel').show();
+        }
+    });
+
 });

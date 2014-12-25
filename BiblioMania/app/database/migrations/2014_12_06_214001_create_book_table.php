@@ -13,11 +13,12 @@ class CreateBookTable extends Migration {
 			$table->string('title');
 			$table->string('subtitle')->nullable();
 			$table->string('ISBN', 13);
+			$table->text('summary')->nullable();
 			$table->string('type_of_cover');
 			$table->string('coverImage');
 			$table->unsignedInteger('genre_id');
 			$table->unsignedInteger('publisher_id');
-			$table->date('publication_date')->nullable();
+			$table->unsignedInteger('publication_date_id')->nullable();
 			$table->integer('number_of_pages');
 			$table->integer('print');
 			$table->double('retail_price')->nullable();
@@ -35,6 +36,7 @@ class CreateBookTable extends Migration {
 		    $table->foreign('first_print_info_id')->references('id')->on('first_print_info');
 		    $table->foreign('user_id')->references('id')->on('users');
 		    $table->foreign('book_from_author_id')->references('id')->on('book_from_author');
+		    $table->foreign('publication_date_id')->references('id')->on('date');
 		});
 
 	}

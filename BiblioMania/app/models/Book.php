@@ -12,7 +12,7 @@ class Book extends Eloquent {
     	'coverImage',
     	'genre_id',
     	'publisher_id',
-    	'publication_date',
+    	'publication_date_id',
     	'country_id',
     	'number_of_pages',
     	'print',
@@ -20,7 +20,8 @@ class Book extends Eloquent {
     	'publisher_serie_id',
         'user_id',
         'first_print_info_id',
-        'retail_price'
+        'retail_price',
+        'summary'
     	);
 
     protected $with = array('authors', 'publisher', 'genre', 'personal_book_info', 'first_print_info');
@@ -40,6 +41,10 @@ class Book extends Eloquent {
 	public function country(){
     	return $this->belongsTo('Country');
 	}
+
+    public function publication_date(){
+        return $this->belongsTo('Date', 'publication_date_id');
+    }
     
 	public function serie(){
     	return $this->belongsTo('Serie');

@@ -12,7 +12,11 @@ class BookController extends BaseController {
 	public function getBooks($order = 'title')
 	{
 
-        $books = Book::where('user_id' , '=', Auth::user()->id)->orderBy('title')->paginate(60);
+        // $books = Book::where('user_id' , '=', Auth::user()->id)->orderBy('title')->paginate(60);
+        $books = Book::with(array('authors' => function($query) {
+                $query->orderBy('name', 'DESC');
+            }))->paginate(60);
+        // $paginator = Paginator::make($items, $totalItems, $perPage);
         // usort($books->getCollection(), array($this, "cmp"));
 
 		return View::make('books')->with(array(
@@ -20,9 +24,11 @@ class BookController extends BaseController {
             'books' => $books,
             'books_json' => $books->toJson(),
             'total_value_library' => App::make('BookService')->getValueOfLibrary(),
-            'total_amount_of_books' => App::make('BookService')->getTotalAmountOfBooksInLibrary()
+            'total_amount_of_books' => App::make('BookService')->getTotalAmountOfBooksInLibrary(),
+            'total_amount_of_books_owned' => App::make('BookService')->getTotalAmountOfBooksOwned(),
+            'bookFilters' => BookFilter::getFilters()
             ));
-	}
+    }
 
     public function getBooksFromSearch(){
         $criteria = Input::get('criteria');
@@ -34,10 +40,19 @@ class BookController extends BaseController {
                 ->orderBy('title')
                 ->paginate(60);
 
+        $books = Book::where('user_id' , '=', Auth::user()->id)->get();
+        // $filteredBooks = $books->filter(function($book){
+        //     if($book->) 
+        // });
+
         return View::make('books')->with(array(
             'title' => 'Boeken',
             'books' => $books,
-            'books_json' => $books->toJson()
+            'books_json' => $books->toJson(),
+            'total_value_library' => App::make('BookService')->getValueOfLibrary(),
+            'total_amount_of_books' => App::make('BookService')->getTotalAmountOfBooksInLibrary(),
+            'total_amount_of_books_owned' => App::make('BookService')->getTotalAmountOfBooksOwned(),
+            'bookFilters' => BookFilter::getFilters()
             ));
     }
 
@@ -56,7 +71,8 @@ class BookController extends BaseController {
 			'languages' => App::make('LanguageService')->getLanguages(),
             'covers' => $covers,
 			'genres' => $genres,
-            'authors_json' => json_encode(Author::all())
+            'authors_json' => json_encode(Author::all()),
+            'publishers_json' => json_encode(Publisher::all())
 			));
 	}
 
@@ -70,8 +86,6 @@ class BookController extends BaseController {
             'book_print' => 'numeric',
             'book_publication_date' => 'required|date_format:"d/m/Y"',
             'book_publisher' => 'required',
-            'book_serie' => 'required',
-            'book_publisher_serie' => 'required',
             'book_genre' => 'required',
             'author_name' => 'required',
             'author_firstname' => 'required',
@@ -157,7 +171,7 @@ class BookController extends BaseController {
             }
 
             
-            $book_author_model = $authorService->saveOrUpdate($book_author_name, null, $book_author_firstname, $book_author_date_of_birth, $book_author_date_of_death);
+            $book_author_model = $authorService->saveOrUpdate($book_author_name, null, $book_author_firstname, null, $book_author_date_of_birth, $book_author_date_of_death);
             $book_publisher = $publisherService->saveOrUpdate($book_publisher_name, Country::find($book_countryId));
             $publisherSerie = $publisherSerieService->findOrSave($book_publisher_serie, $book_publisher->id);
             $bookSerie = $bookSerieService->findOrSave($book_serie);
@@ -170,7 +184,7 @@ class BookController extends BaseController {
                 'ISBN' => $book_isbn,
                 'number_of_pages' => $book_number_of_pages,
                 'print' => $book_print,
-                'publication_date' => $book_publication_date,
+                'publication_date_id' => App::make('DateService')->createDateFromDateTime($book_publication_date)->id,
                 'genre_id' => $book_genre_id,
                 'type_of_cover' => $book_type_of_cover,
                 'publisher_id' => $book_publisher->id,
@@ -210,8 +224,8 @@ class BookController extends BaseController {
             $logger->info("Input file for cover image found. Uploading cover image");
             $file = Input::file('book_cover_image');
 
-            $userEmail = Auth::user()->email;
-            $destinationPath = $userEmail;
+            $userUsername = Auth::user()->username;
+            $destinationPath = 'bookImages/' . $userUsername;
 
             $filename = $file->getClientOriginalName();
             $filename = str_random(8).'_'.$filename;

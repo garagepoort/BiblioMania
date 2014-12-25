@@ -2,7 +2,8 @@
 class FirstPrintInfoService {
 
 	public function saveOrUpdate($title, $subtitle, $isbn, $publication_date, $publisherName, $countryId, $languageId){
-		$firstPrintInfo = FirstPrintInfo::where('ISBN', '=', $isbn)
+		$publication_date_id = App::make('DateService')->createDateFromDateTime($publication_date)->id;
+        $firstPrintInfo = FirstPrintInfo::where('ISBN', '=', $isbn)
 	            ->first();
 
         if (is_null($firstPrintInfo)) {
@@ -13,7 +14,7 @@ class FirstPrintInfoService {
 
         $firstPrintInfo->title = $title;
         $firstPrintInfo->subtitle = $subtitle;
-        $firstPrintInfo->publication_date = $publication_date;
+        $firstPrintInfo->publication_date_id = $publication_date_id;
         $firstPrintInfo->publisher_id = $publisher->id;
         $firstPrintInfo->ISBN = $isbn;
         $firstPrintInfo->country_id = $countryId;

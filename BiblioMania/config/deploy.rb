@@ -36,14 +36,14 @@ set :pty, true
 
 # namespace :deploy do
 
-#   desc 'update composer'
-#   task :restart do
-#     on roles(:app) do
-#       execute "cd ~/myApps/huurApp/current/huurApp && php composer.phar update && php artisan migrate"
-#     end
-#       # Your restart mechanism here, for example:
-#       # execute :touch, release_path.join('tmp/restart.txt')
-#   end
+  desc 'update composer'
+  task :restart do
+    on roles(:app) do
+      execute "cd ~/myApps/BiblioMania/current/BiblioMania && php composer.phar update"
+    end
+      # Your restart mechanism here, for example:
+      # execute :touch, release_path.join('tmp/restart.txt')
+  end
  
-#   after :publishing, :restart
-# end
+  after :publishing, :restart
+end

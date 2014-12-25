@@ -1,5 +1,6 @@
 <html>
     <head> 
+        <meta charset="UTF-8">
         <title> {{ $title }} </title> 
             {{ HTML::script('assets/js/jquery.js'); }}
 
@@ -37,6 +38,11 @@
         <!-- RATY -->
         {{ HTML::script('assets/raty-2.7.0/lib/jquery.raty.js') }}
         {{ HTML::style('assets/raty-2.7.0/lib/jquery.raty.css') }}
+
+        <!-- JQUERY UI -->
+<!--         {{ HTML::script('assets/js/jquery-ui-1.11.2/jquery-ui.min.css'); }}
+        {{ HTML::script('assets/js/jquery-ui-1.11.2/jquery-ui.min.js'); }} -->
+
     </head>
 
     <body>

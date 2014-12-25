@@ -75,11 +75,14 @@ class CreateBookPageTest extends AbstractUITestCase
         $this->assertEquals($this->subtitle, $book->subtitle);
         $this->assertEquals($this->number_of_pages, $book->number_of_pages);
         $this->assertEquals($this->print, $book->print);
-        $this->assertEquals("2014-12-16", $book->publication_date);
+        $publication_date = Date::find($book->publication_date_id);
+        $this->assertEquals(16, $publication_date->day);
+        $this->assertEquals(12, $publication_date->month);
+        $this->assertEquals(2014, $publication_date->year);
         $this->assertEquals($this->book_info_retail_price, $book->retail_price);
 
         //AUTHOR
-        $author = Author::find($book->author_id);
+        $author = Author::find($book->authors[0]->id);
         $this->assertEquals($author->name, 'author');
         $this->assertEquals($author->firstname, 'authorson');
         $this->assertEquals($author->date_of_birth, '2011-12-16');
@@ -87,10 +90,14 @@ class CreateBookPageTest extends AbstractUITestCase
 
         //FIRST PRINT INFO
         $firstPrintInfo = FirstPrintInfo::find($book->first_print_info_id);
+        $publication_date = Date::find($firstPrintInfo->publication_date_id);
+
         $this->assertEquals($firstPrintInfo->title, $this->first_print_title);
         $this->assertEquals($firstPrintInfo->subtitle, $this->first_print_subtitle);
         $this->assertEquals($firstPrintInfo->ISBN, $this->first_print_isbn);
-        $this->assertEquals($firstPrintInfo->publication_date, '2000-12-16');
+        $this->assertEquals($publication_date->day , 16);
+        $this->assertEquals($publication_date->month, 12);
+        $this->assertEquals($publication_date->year, 2000);
         $firstPrintPub = Publisher::find($firstPrintInfo->publisher_id);
         $this->assertEquals($firstPrintPub->name, $this->first_print_publisher);
 

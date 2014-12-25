@@ -10,6 +10,11 @@
 	    return new CountryService;
 	});
 
+	App::singleton('DateService', function()
+	{
+	    return new DateService;
+	});
+
 	App::singleton('AuthorService', function()
 	{
 	    return new AuthorService;

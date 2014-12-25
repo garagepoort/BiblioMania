@@ -2,11 +2,15 @@ var genresOpen =false;
 
 $(function() {
 
-    $('#book_author').autocomplete({
+    $('#book_author_input').autocomplete({
         lookup: window.author_names
     });
 
-    $("#book_author_input").on("keyup paste", function() {
+    $('#book_publisher_input').autocomplete({
+        lookup: window.publisher_names
+    });
+
+    $("#book_author_input").on("keyup paste change", function() {
         var trimmedValue = $(this).val().replace(" ","");
         var result = trimmedValue.split(",");
         $("#author_name").val(result[0]);

@@ -11,6 +11,9 @@ class BookService {
 	}
 
 	public function getTotalAmountOfBooksOwned(){
-		return  DB::table('personal_book_info')->where('user_id', '=', Auth::user()->id)->count();
+		return  Book::join('personal_book_info', 'book_id', '=', 'book.id')
+					->where('user_id', '=', Auth::user()->id)
+					->where('personal_book_info.owned', '=', 1)
+					->count();
 	}
 }
