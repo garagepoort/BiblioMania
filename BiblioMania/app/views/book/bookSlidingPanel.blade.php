@@ -41,24 +41,36 @@
 				</div>
 			</div>
 
-			<div class="book-detail-extra-info">
-				<legend>Extra info</legend>
-				<div class="control-group">
-						{{ Form::label('retailPrice', 'Cover prijs:' , array('class' => 'control-label col-md-4')); }}
-						{{ Form::label('retailPrice', "retailPrice" , array('id'=>'book-detail-retail-price' ,'class' => 'control-label col-md-8')); }}
-				</div>
+			<div class="book-detail-summary">
+				<legend>Samenvatting</legend>
+				<p id="book-detail-summary"></p>
 			</div>
+			<table class="book-detail-info-table">
+				<tr>
+					<td>
+						<div class="book-detail-extra-info">
+							<legend>Extra info</legend>
+							<div class="control-group">
+									{{ Form::label('retailPrice', 'Cover prijs:' , array('class' => 'control-label col-md-6')); }}
+									{{ Form::label('retailPrice', "retailPrice" , array('id'=>'book-detail-retail-price' ,'class' => 'control-label col-md-6')); }}
+							</div>
+						</div>
+					</td>
+					<td>
+						<div class="book-detail-first-print-info">
+							<legend>Eerste druk</legend>
+							<div class="control-group">
+									{{ Form::label('firstPrintTitleLabel', 'Title:' , array('class' => 'control-label col-md-6')); }}
+									{{ Form::label('firstPrintTitle', "firstPrintTitle" , array('id'=>'book-detail-first-print-title' ,'class' => 'control-label col-md-6')); }}
+							</div>
+							<div class="control-group">
+								{{ Form::label('firstPrintISBNLabel', 'ISBN:' , array('class' => 'control-label col-md-6')); }}
+								{{ Form::label('firstPrintISBN', "firstPrintISBN" , array('id'=>'book-detail-first-print-isbn' ,'class' => 'control-label col-md-6')); }}
+							</div>
+						</div>
+					</td>
+				</tr>
+			</table>
 
-			<div class="book-detail-first-print-info">
-				<legend>Eerste druk</legend>
-				<div class="control-group">
-						{{ Form::label('firstPrintTitleLabel', 'Title:' , array('class' => 'control-label col-md-4')); }}
-						{{ Form::label('firstPrintTitle', "firstPrintTitle" , array('id'=>'book-detail-first-print-title' ,'class' => 'control-label col-md-8')); }}
-				</div>
-				<div class="control-group">
-					{{ Form::label('firstPrintISBNLabel', 'ISBN:' , array('class' => 'control-label col-md-4')); }}
-					{{ Form::label('firstPrintISBN', "firstPrintISBN" , array('id'=>'book-detail-first-print-isbn' ,'class' => 'control-label col-md-8')); }}
-				</div>
-			</div>
 		</div>
 </div>

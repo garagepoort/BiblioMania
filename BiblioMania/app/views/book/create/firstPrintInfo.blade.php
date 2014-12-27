@@ -37,11 +37,7 @@
                 <!-- COUNTRY -->
                     {{ Form::label('first_print_CountryLabel', 'Land:', array('class' => 'col-md-2')); }}
                     <div class="col-md-5">
-                        <select id="first_print_CountrySelect" name="first_print_countryId" class="input-sm">
-                            @foreach($countries as $country)
-                            <option value="{{ $country->id }}">{{ $country->name }}</option>
-                            @endforeach
-                        </select>
+                        {{ Form::text('first_print_country', '', array('id'=>'first_print_country','class' => 'form-control typeahead', 'placeholder' => 'land', 'required' => 'true', 'type' => 'text')); }}
                     </div>
 
                 <!-- LANGUAGE -->
@@ -66,9 +62,19 @@
              <div class="form-group">
                 <!-- PUBLICATION DATE -->
                 {{ Form::label('firstPrintPublicationDateInfo', 'Publicatie:', array('class' => 'col-md-2')); }}
-                <div class="col-md-3">
-                    {{ Form::text('first_print_publication_date', '', array('id'=>'first_print_publication_date', 'class' => 'input-sm datepicker', 'placeholder' => 'select date')); }}
+                <div class="col-md-7">
+                    <table>
+                        <tr>
+                            <td>Dag:</td>
+                            <td style='padding: 0 10px;'>{{ Form::text('first_print_publication_date_day', '', array('id'=>'first_print_publication_date_day', 'class' => 'form-control', 'style' => 'width: 80px', 'maxlength'=>'2')); }}</td>
+                            <td>Maand:</td>
+                            <td style='padding: 0 10px;'>{{ Form::text('first_print_publication_date_month', '', array('id'=>'first_print_publication_date_month', 'class' => 'form-control', 'style' => 'width: 80px', 'maxlength'=>'2')); }}</td>
+                            <td>Jaar:</td>
+                            <td style='padding: 0 10px;'>{{ Form::text('first_print_publication_date_year', '', array('id'=>'first_print_publication_date_year', 'class' => 'input-sm form-control', 'style' => 'width: 80px', 'maxlength'=>'4')); }}</td>
+                        </tr>
+                    </table>
                 </div>
+
             </div>
 
             <!-- IMAGE -->

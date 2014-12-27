@@ -9,7 +9,10 @@ class CreateBookPageTest extends AbstractUITestCase
     public $number_of_pages = '12';
     public $print = '100';
     public $publisherName = 'publisher_test';
-    public $publication_date = '16/12/2014';
+    public $publisherCountry = 'publisherCountry';
+    public $publication_date_day = '16';
+    public $publication_date_month = '12';
+    public $publication_date_year = '2014';
     public $author_date_of_birth = '16/12/2011';
     public $author_date_of_death = '16/12/2018';
 
@@ -20,7 +23,10 @@ class CreateBookPageTest extends AbstractUITestCase
     public $first_print_subtitle = 'sub first print';
     public $first_print_isbn = '1234567892345';
     public $first_print_publisher = 'first print publisher';
-    public $first_print_publication_date = '16/12/2000';
+    public $first_print_publication_date_day = '16';
+    public $first_print_publication_date_month = '12';
+    public $first_print_publication_date_year = '2000';
+    public $first_print_country = 'FirstPrintCountry';
 
     public $buy_info_buy_date = "15/12/2004";
     public $book_info_retail_price = 500;
@@ -28,6 +34,7 @@ class CreateBookPageTest extends AbstractUITestCase
     public $buy_info_recommended_by = 'gerry';
     public $buy_info_shop = 'shop';
     public $buy_info_city = 'city';
+    public $buy_info_country = 'country';
 
 
     public function testCreateBook_createsBookCorrect_andRedirectsToBook(){
@@ -48,7 +55,10 @@ class CreateBookPageTest extends AbstractUITestCase
         $this->findElementById('first_print_subtitle')->sendKeys($this->first_print_subtitle);
         $this->findElementById('first_print_isbn')->sendKeys($this->first_print_isbn);
         $this->findElementById('first_print_publisher')->sendKeys($this->first_print_publisher);
-        $this->findElementById('first_print_publication_date')->sendKeys($this->first_print_publication_date);
+        $this->findElementById('first_print_publication_date_day')->sendKeys($this->first_print_publication_date_day);
+        $this->findElementById('first_print_publication_date_month')->sendKeys($this->first_print_publication_date_month);
+        $this->findElementById('first_print_publication_date_year')->sendKeys($this->first_print_publication_date_year);
+        $this->findElementById('first_print_country')->sendKeys($this->first_print_country);
         // PERSONAL INFO
         $this->findElementById('personal-info-tab-link')->click();
         $this->findElementById('personal-info-owned-checkbox')->click();
@@ -61,6 +71,7 @@ class CreateBookPageTest extends AbstractUITestCase
         $this->findElementById('buy_info_recommended_by')->sendKeys($this->buy_info_recommended_by);
         $this->findElementById('buy_info_shop')->sendKeys($this->buy_info_shop);
         $this->findElementById('buy_info_city')->sendKeys($this->buy_info_city);
+        $this->findElementById('buy_info_country')->sendKeys($this->buy_info_country);
         
         // SUBMIT
         $this->findElementById('bookSubmitButton')->click();    
@@ -76,9 +87,9 @@ class CreateBookPageTest extends AbstractUITestCase
         $this->assertEquals($this->number_of_pages, $book->number_of_pages);
         $this->assertEquals($this->print, $book->print);
         $publication_date = Date::find($book->publication_date_id);
-        $this->assertEquals(16, $publication_date->day);
-        $this->assertEquals(12, $publication_date->month);
-        $this->assertEquals(2014, $publication_date->year);
+        $this->assertEquals(16, $this->publication_date_day);
+        $this->assertEquals(12, $this->publication_date_month);
+        $this->assertEquals(2014, $this->publication_date_year);
         $this->assertEquals($this->book_info_retail_price, $book->retail_price);
 
         //AUTHOR
@@ -95,9 +106,10 @@ class CreateBookPageTest extends AbstractUITestCase
         $this->assertEquals($firstPrintInfo->title, $this->first_print_title);
         $this->assertEquals($firstPrintInfo->subtitle, $this->first_print_subtitle);
         $this->assertEquals($firstPrintInfo->ISBN, $this->first_print_isbn);
-        $this->assertEquals($publication_date->day , 16);
-        $this->assertEquals($publication_date->month, 12);
-        $this->assertEquals($publication_date->year, 2000);
+        $this->assertEquals($firstPrintInfo->country->name, $this->first_print_country);
+        $this->assertEquals($publication_date->day , $this->first_print_publication_date_day);
+        $this->assertEquals($publication_date->month, $this->first_print_publication_date_month);
+        $this->assertEquals($publication_date->year, $this->first_print_publication_date_year);
         $firstPrintPub = Publisher::find($firstPrintInfo->publisher_id);
         $this->assertEquals($firstPrintPub->name, $this->first_print_publisher);
 
@@ -105,6 +117,7 @@ class CreateBookPageTest extends AbstractUITestCase
         // PUBLISHER
         $publisher = Publisher::find($book->publisher_id);
         $this->assertEquals($publisher->name, $this->publisherName);
+        $this->assertEquals($publisher->countries[0]->name, $this->publisherCountry);
 
         // PUBLISHERSERIE
         $publisherSerie = PublisherSerie::find($book->publisher_serie_id);
@@ -127,6 +140,7 @@ class CreateBookPageTest extends AbstractUITestCase
         $this->assertEquals($buyInfo->recommended_by, $this->buy_info_recommended_by);
         $this->assertEquals($buyInfo->shop, $this->buy_info_shop);
         $this->assertEquals($buyInfo->city->name, $this->buy_info_city);
+        $this->assertEquals($buyInfo->city->country->name, $this->buy_info_country);
 
         $this->assertAtPage('Boeken');
     }
@@ -137,7 +151,10 @@ class CreateBookPageTest extends AbstractUITestCase
         $this->findElementById('book_author_input')->sendKeys($this->author);
         $this->findElementById('book_isbn_input')->sendKeys($this->isbn);
         $this->findElementById('book_publisher_input')->sendKeys($this->publisherName);
-        $this->findElementById('book_publication_date_input')->sendKeys($this->publication_date);
+        $this->findElementById('book_publication_date_day')->sendKeys($this->publication_date_day);
+        $this->findElementById('book_publication_date_month')->sendKeys($this->publication_date_month);
+        $this->findElementById('book_publication_date_year')->sendKeys($this->publication_date_year);
+        $this->findElementById('book_country')->sendKeys($this->publisherCountry);
         $this->driver->findElement(WebDriverBy::xpath("//div[@id='genres-header']"))->click();
         $this->driver->manage()->timeouts()->implicitlyWait(3000);
         $this->driver->findElement(WebDriverBy::xpath("//li[@name='YA']"))->click();

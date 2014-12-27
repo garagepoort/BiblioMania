@@ -39,9 +39,9 @@
         {{ HTML::script('assets/raty-2.7.0/lib/jquery.raty.js') }}
         {{ HTML::style('assets/raty-2.7.0/lib/jquery.raty.css') }}
 
-        <!-- JQUERY UI -->
-<!--         {{ HTML::script('assets/js/jquery-ui-1.11.2/jquery-ui.min.css'); }}
-        {{ HTML::script('assets/js/jquery-ui-1.11.2/jquery-ui.min.js'); }} -->
+        <!-- SHORTEN -->
+        {{ HTML::script('assets/js/jquery.shorten.js') }}
+
 
     </head>
 
@@ -82,7 +82,9 @@
         $(function() {
             $(".datepicker").datepicker({
                 format:"dd/mm/yyyy",
-                autoclose: true
+                autoclose: true,
+                todayHighlight: true,
+                todayBtn: "linked"
             });
         });
     </script>
@@ -96,6 +98,7 @@
             month = d.getMonth();
             year = d.getYear();
         });
+        
         function redirectOnChange(sel){
             window.document.location = $("option:selected", sel).attr("href");
         }

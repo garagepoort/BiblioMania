@@ -53,20 +53,10 @@
 
              <!-- COUNTRY -->
             <div class="form-group">
-                {{ Form::label('buyInfoShopCountryLabel', 'Land winkel:', array('class' => 'col-md-3')); }}
-                <div class="col-md-5">
-                    <select id="buyInfoShopCountrySelect" name="buy_info_countryId" class="input-sm">
-                        @foreach($countries as $country)
-                        <option value="{{ $country->id }}" 
-                            @if ($country->name === 'Belgium')
-                                selected
-                            @endif
-                        >
-                            {{ $country->name }}
-                        </option>
-                        @endforeach
-                    </select>
-                </div>
+                 {{ Form::label('buy_info_country_label', 'Land:', array('class' => 'col-md-3')); }}
+                    <div class="col-md-5">
+                        {{ Form::text('buy_info_country', '', array('id'=>'buy_info_country','class' => 'form-control typeahead', 'placeholder' => 'land', 'required' => 'true', 'type' => 'text')); }}
+                    </div>
             </div>
 
     </div>

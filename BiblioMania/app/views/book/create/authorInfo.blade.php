@@ -12,7 +12,7 @@
         
         <!-- NAME -->
         <div class="form-group">
-            {{ Form::label('authorNameLabel', 'Naam voornaam:', array('class' => 'col-md-3')); }}
+            {{ Form::label('authorNameLabel', 'Naam:', array('class' => 'col-md-3')); }}
             <div class="col-md-4">
                 {{ Form::text('author_name', '', array('id'=>'author_name','class' => 'form-control', 'placeholder' => 'naam', 'required' => 'true')); }}
             </div>

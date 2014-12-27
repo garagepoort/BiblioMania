@@ -17,5 +17,21 @@ class DateService {
 		$date->save();
 		return $date;
 	}
+
+	public function getDays(){
+		$days = [];
+		for ($i=1; $i <= 31; $i++) { 
+			array_push($days, $i);
+		}
+		return $days;
+	}
+
+	public function getMonths(){
+		$months = [];
+		for ($i=1; $i <= 12; $i++) { 
+			array_push($months, $i);
+		}
+		return $months;
+	}
 	
 }

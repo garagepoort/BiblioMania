@@ -89,6 +89,18 @@ div.datepicker-months table tbody tr td span{
 div.datepicker-years table tbody tr td span{
   color: @inverse-font-color;
 }
+
+div.datepicker-days table tfoot tr th {
+  color: @inverse-font-color;
+}
+
+div.datepicker-months table tfoot tr th {
+  color: @inverse-font-color;
+}
+
+div.datepicker-years table tfoot tr th {
+  color: @inverse-font-color;
+}
 /*END DATEPICKER*/
 
 legend {
@@ -182,8 +194,17 @@ div.books-container {
   margin-bottom: 40px;
 }
 
+.book-detail-info-table{
+  width: 100%;
+}
+
+.book-detail-info-table tbody tr td{
+  vertical-align:top;
+}
+
 .book-detail-div {
   /*left: 0;*/
+  overflow: scroll;
   float: right;
   position: fixed;
   opacity: 0.95;

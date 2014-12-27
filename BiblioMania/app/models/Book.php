@@ -24,7 +24,7 @@ class Book extends Eloquent {
         'summary'
     	);
 
-    protected $with = array('authors', 'publisher', 'genre', 'personal_book_info', 'first_print_info');
+    protected $with = array('authors', 'publisher', 'genre', 'personal_book_info', 'first_print_info', 'publication_date');
 
     public function authors(){
     	return $this->belongsToMany('Author', 'book_author');
@@ -45,7 +45,7 @@ class Book extends Eloquent {
     public function publication_date(){
         return $this->belongsTo('Date', 'publication_date_id');
     }
-    
+
 	public function serie(){
     	return $this->belongsTo('Serie');
 	}
@@ -59,7 +59,7 @@ class Book extends Eloquent {
 	}
 
     public function first_print_info(){
-        return $this->belongsTo('FirstPrintInfo', 'book_id');
+        return $this->belongsTo('FirstPrintInfo', 'first_print_info_id');
     }
     
     public function awards()

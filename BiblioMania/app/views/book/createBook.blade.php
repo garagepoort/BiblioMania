@@ -46,81 +46,16 @@
         </div>
     </div>
     {{ Form::close(); }}
-    <script>
-      $(document).ready(function() {
-                $('.createBookForm').bootstrapValidator({
-                    message: 'This value is not valid',
-                    message: 'This value is not valid',
-                    feedbackIcons: {
-                        valid: 'glyphicon glyphicon-ok',
-                        invalid: 'glyphicon glyphicon-remove',
-                        validating: 'glyphicon glyphicon-refresh'
-                    },
-                    fields: {
-                      //BOOK
-                        book_title: {
-                            message: 'The title is not valid',
-                            validators: {
-                                notEmpty: {
-                                    message: 'De titel moet ingevuld zijn.'
-                                }
-                            }
-                        },
-                        book_author: {
-                            message: 'De auteur is niet ok',
-                            validators: {
-                                notEmpty: {
-                                    message: 'De auteur moet ingevuld zijn.'
-                                }
-                            }
-                        },
-                        book_isbn: {
-                            validators: {
-                                regexp: {
-                                    regexp: '^[0-9]{13}$',
-                                    message: 'Exact 13 cijfers'
-                                }
-                            }
-                        },
-                        book_publisher: {
-                            message: 'De uitgever is niet ingevuld',
-                            validators: {
-                                notEmpty: {
-                                    message: 'Het uitgever moet ingevuld zijn.'
-                                }
-                            }
-                        },
-                        book_print: {
-                            message: 'De uitgever is niet ingevuld',
-                            validators: {
-                                regexp: {
-                                    regexp: '^[0-9]*$',
-                                    message: 'Kan enkel cijfers zijn'
-                                }
-                            }
-                        },
-                        book_number_of_pages: {
-                            message: 'De uitgever is niet ingevuld',
-                            validators: {
-                                regexp: {
-                                    regexp: '^[0-9]*$',
-                                    message: 'Kan enkel cijfers zijn'
-                                }
-                            }
-                        },
-                        //FIRST PRINT
-                        first_print_isbn: {
-                             validators: {
-                                regexp: {
-                                    regexp: '^[0-9]{13}$',
-                                    message: 'Exact 13 cijfers'
-                                }
-                            }
-                        }
-                    }
-                });
-            });
-      </script>
+
+    <script type="text/javascript">
+        var country_json = {{ $countries_json }};
+        var country_names = [];
+        $.each(country_json, function(index, obj){
+            country_names[country_names.length] = obj.name;
+        });
+    </script>
+    {{ HTML::script('assets/js/creatBook/createBook.js'); }}
+
 </div>
 
 @stop

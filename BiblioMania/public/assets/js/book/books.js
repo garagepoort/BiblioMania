@@ -75,18 +75,41 @@ $(document).ready(function(){
             $('#book-detail-isbn').text(book.ISBN);
             $('#book-detail-publisher').text(book.publisher.name);
             $('#book-detail-genre').text(book.genre.name);
-            $('#book-detail-publication-date').text(book.publication_date);
+            $('#book-detail-publication-date').text(dateToString(book.publication_date));
             $('#book-detail-number-of-pages').text(book.number_of_pages);
             $('#book-detail-print').text(book.print);
+            $('#book-detail-summary').text(book.summary);
+
+            $('#book-detail-summary').shorten({
+                moreText: 'meer',
+                lessText: 'minder'
+            });
+            
+            $('#book-detail-first-print-title').text(book.first_print_info.title);
+            $('#book-detail-first-print-isbn').text(book.first_print_info.ISBN);
 
             $('#book-detail-retail-price').text(book.retail_price);
 
-             $('#star-detail').raty({
+            $('#star-detail').raty({
                 score : book.personal_book_info.rating,
                 number: 10,
                 readOnly: true,
                 path: baseUrl + "/" + 'assets/raty-2.7.0/lib/images'
             });
+    }
+
+    function dateToString(date){
+        result = "";
+        if(date.day != null){
+            result = date.day + "-";
+        }
+        if(date.month != null){
+            result = result + date.month + "-";
+        }
+        if(date.year != null){
+            result = result + date.year;
+        }
+        return result
     }
     
     $("#filterButton").click(function(){

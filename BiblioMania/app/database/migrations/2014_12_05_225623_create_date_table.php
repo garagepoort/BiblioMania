@@ -10,8 +10,8 @@ class CreateDateTable extends Migration {
 		Schema::create('date', function($table)
 		{
 			$table->increments('id');
-	        $table->tinyInteger('day')->nullable;
-	        $table->tinyInteger('month')->nullable;
+	        $table->tinyInteger('day')->nullable();
+	        $table->tinyInteger('month')->nullable();
 	        $table->integer('year');
 		});
 	}

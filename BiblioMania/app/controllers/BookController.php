@@ -62,15 +62,16 @@ class BookController extends BaseController {
 
 	public function goToCreateBook()
 	{
+        $dateService = App::make('DateService');
 		$covers = array("Hard cover", "Soft cover", "Other");
         $genres = Genre::where('parent_id' , '=', null)->get();
 
 		return View::make($this->bookFolder . 'createBook')->with(array(
 			'title' => 'Boek toevoegen',
-			'countries' => App::make('CountryService')->getCountries(),
-			'languages' => App::make('LanguageService')->getLanguages(),
+            'languages' => App::make('LanguageService')->getLanguages(),
             'covers' => $covers,
-			'genres' => $genres,
+            'genres' => $genres,
+			'countries_json' => json_encode(App::make('CountryService')->getCountries()),
             'authors_json' => json_encode(Author::all()),
             'publishers_json' => json_encode(Publisher::all())
 			));
@@ -84,7 +85,6 @@ class BookController extends BaseController {
             'book_isbn' => 'required|numeric|digits:13',
             'book_number_of_pages' => 'numeric',
             'book_print' => 'numeric',
-            'book_publication_date' => 'required|date_format:"d/m/Y"',
             'book_publisher' => 'required',
             'book_genre' => 'required',
             'author_name' => 'required',
@@ -102,12 +102,11 @@ class BookController extends BaseController {
         }else{
             $authorService = App::make('AuthorService');
             $publisherService = App::make('PublisherService');
-            $firstPrintInfoService = App::make('FirstPrintInfoService');
-            $personalBookInfoService = App::make('PersonalBookInfoService');
             $publisherSerieService = App::make('PublisherSerieService');
             $bookSerieService = App::make('BookSerieService');
             $buyInfoService = App::make('BuyInfoService');
             $giftInfoService = App::make('GiftInfoService');
+            $countryService = App::make('CountryService');
 
             $book_cover_image_file = $this->checkCoverImage();
 
@@ -117,34 +116,16 @@ class BookController extends BaseController {
             $book_isbn = Input::get("book_isbn");
             $book_number_of_pages = Input::get("book_number_of_pages");
             $book_print = Input::get("book_print");
-            $book_countryId = Input::get('book_countryId');
+            $book_country = Input::get('book_country');
             $book_language = Input::get('book_languageId');
-            $book_publication_date = DateTime::createFromFormat('d/m/Y', Input::get('book_publication_date'));
+            $book_publication_date_day = Input::get('book_publication_date_day');
+            $book_publication_date_month = Input::get('book_publication_date_month');
+            $book_publication_date_year = Input::get('book_publication_date_year');
             $book_genre_id = Input::get('book_genre');
             $book_type_of_cover = Input::get('book_type_of_cover');
             $book_publisher_name = Input::get('book_publisher');
             $book_publisher_serie = Input::get('book_publisher_serie');
             $book_serie = Input::get('book_serie');
-            
-
-            //FIRST PRINT INPUT
-            $first_print_title = Input::get("first_print_title");
-            $first_print_subtitle = Input::get("first_print_subtitle");
-            $first_print_isbn = Input::get("first_print_isbn");
-            $first_print_countryId = Input::get('first_print_countryId');
-            $first_print_languageId = Input::get('first_print_languageId');
-            $first_print_publication_date = DateTime::createFromFormat('d/m/Y', Input::get('first_print_publication_date'));
-            $first_print_publisher_name = Input::get('first_print_publisher');
-
-            
-
-            //PERSONAL INFO INPUT
-            $personal_info_owned = Input::get('personal_info_owned');
-            $personal_info_reason_not_owned = Input::get('personal_info_reason_not_owned');
-            $personal_info_review = Input::get('personal_info_review');
-            $personal_info_rating = Input::get('personal_info_rating');
-            $personal_info_retail_price = Input::get('personal_info_retail_price');
-            $personal_info_reading_dates = Input::get('personal_info_reading_dates');
 
 
             //AUTHOR INPUT
@@ -161,7 +142,7 @@ class BookController extends BaseController {
                 $buy_info_recommended_by = Input::get('buy_info_recommended_by');
                 $buy_info_shop = Input::get('buy_info_shop');
                 $buy_info_city = Input::get('buy_info_city');
-                $buy_info_countryId = Input::get('buy_info_countryId');
+                $buy_info_country = Input::get('buy_info_country');
                 $book_info_retail_price = Input::get('buy_book_info_retail_price');
             }else{
                 $gift_info_receipt_date = Input::get('gift_info_receipt_date');
@@ -170,13 +151,13 @@ class BookController extends BaseController {
                 $book_info_retail_price = Input::get('gift_book_info_retail_price');
             }
 
+            $publisher_country = $countryService->findOrSave($book_country);
             
             $book_author_model = $authorService->saveOrUpdate($book_author_name, null, $book_author_firstname, null, $book_author_date_of_birth, $book_author_date_of_death);
-            $book_publisher = $publisherService->saveOrUpdate($book_publisher_name, Country::find($book_countryId));
+            $book_publisher = $publisherService->saveOrUpdate($book_publisher_name, $publisher_country);
             $publisherSerie = $publisherSerieService->findOrSave($book_publisher_serie, $book_publisher->id);
             $bookSerie = $bookSerieService->findOrSave($book_serie);
-            $first_print_info = $firstPrintInfoService->saveOrUpdate($first_print_title, $first_print_subtitle, $first_print_isbn, $first_print_publication_date, $first_print_publisher_name, $first_print_countryId, $first_print_languageId);
-            
+            $first_print_info = $this->createFirstPrintInfo();
 
             $book = new Book(array(
                 'title' => $book_title,
@@ -184,7 +165,7 @@ class BookController extends BaseController {
                 'ISBN' => $book_isbn,
                 'number_of_pages' => $book_number_of_pages,
                 'print' => $book_print,
-                'publication_date_id' => App::make('DateService')->createDateFromDateTime($book_publication_date)->id,
+                'publication_date_id' => App::make('DateService')->createDate($book_publication_date_day, $book_publication_date_month, $book_publication_date_year)->id,
                 'genre_id' => $book_genre_id,
                 'type_of_cover' => $book_type_of_cover,
                 'publisher_id' => $book_publisher->id,
@@ -198,21 +179,70 @@ class BookController extends BaseController {
             $book->save();
             $book->authors()->sync([$book_author_model->id], false);
 
-            $string_reading_dates = explode(",", $personal_info_reading_dates);
-            $reading_dates = array();
-            foreach ($string_reading_dates as $string_reading_date) {
-                array_push($reading_dates, DateTime::createFromFormat('d/m/Y', $string_reading_date));
-            }
-            $personal_book_info = $personalBookInfoService->save($book->id, $personal_info_owned, $personal_info_reason_not_owned, $personal_info_review, $personal_info_rating, $personal_info_retail_price, $reading_dates);
-            
+            $personal_book_info = $this->createPersonalBookInfo($book);
+
             if(Input::get('buyOrGift') == 'BUY'){
-                $buyInfoService->save($personal_book_info->id, $buy_info_buy_date, $buy_info_price_payed, $buy_info_recommended_by, $buy_info_shop, $buy_info_city, $buy_info_countryId);
+                $buy_info_country = $countryService->findOrSave($buy_info_country);
+                $buyInfoService->save($personal_book_info->id, $buy_info_buy_date, $buy_info_price_payed, $buy_info_recommended_by, $buy_info_shop, $buy_info_city, $buy_info_country->id);
             }else{
                 $giftInfoService->save($personal_book_info->id, $gift_info_receipt_date, $gift_info_occasion, $gift_info_from);
             }
             return Redirect::to('/getBooks');
         }
 	}
+
+    private function createFirstPrintInfo(){
+        $firstPrintInfoService = App::make('FirstPrintInfoService');
+
+        $first_print_title = Input::get("first_print_title");
+        $first_print_subtitle = Input::get("first_print_subtitle");
+        $first_print_isbn = Input::get("first_print_isbn");
+        $first_print_country = Input::get('first_print_country');
+        $first_print_languageId = Input::get('first_print_languageId');
+        $first_print_publication_date_day = Input::get('first_print_publication_date_day');
+        $first_print_publication_date_month = Input::get('first_print_publication_date_month');
+        $first_print_publication_date_year = Input::get('first_print_publication_date_year');
+        $first_print_publisher_name = Input::get('first_print_publisher');
+
+        $country = App::make('CountryService')->findOrSave($first_print_country);
+
+        $first_print_publication_date = App::make('DateService')->createDate($first_print_publication_date_day, $first_print_publication_date_month, $first_print_publication_date_year);
+        $first_print = $firstPrintInfoService->saveOrUpdate($first_print_title, 
+                $first_print_subtitle, 
+                $first_print_isbn, 
+                $first_print_publication_date, 
+                $first_print_publisher_name, 
+                $country->id, 
+                $first_print_languageId);
+        return $first_print;
+    }
+
+    private function createPersonalBookInfo($book){
+        $personalBookInfoService = App::make('PersonalBookInfoService');
+
+        $personal_info_owned = Input::get('personal_info_owned');
+        $personal_info_reason_not_owned = Input::get('personal_info_reason_not_owned');
+        $personal_info_review = Input::get('personal_info_review');
+        $personal_info_rating = Input::get('personal_info_rating');
+        $personal_info_retail_price = Input::get('personal_info_retail_price');
+        $personal_info_reading_dates = Input::get('personal_info_reading_dates');
+
+        $string_reading_dates = explode(",", $personal_info_reading_dates);
+        $reading_dates = array();
+        foreach ($string_reading_dates as $string_reading_date) {
+            array_push($reading_dates, DateTime::createFromFormat('d/m/Y', $string_reading_date));
+        }
+
+        $personal_book_info = $personalBookInfoService->save($book->id, 
+            $personal_info_owned, 
+            $personal_info_reason_not_owned, 
+            $personal_info_review, 
+            $personal_info_rating, 
+            $personal_info_retail_price, 
+            $reading_dates);
+            
+        return $personal_book_info;
+    }
 
     private function checkCoverImage(){
         $logger = new Katzgrau\KLogger\Logger(app_path().'/storage/logs');
