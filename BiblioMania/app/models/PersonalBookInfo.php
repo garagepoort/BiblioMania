@@ -3,13 +3,16 @@ class PersonalBookInfo extends Eloquent {
     protected $table = 'personal_book_info';
 
     protected $fillable = array(
-    	'owned',
+        'owned',
+    	'read',
     	'rating',
     	'retail_price',
         'review',
         'book_id',
         'reason_not_owned'
 	);
+
+    protected $with = array('gift_info', 'buy_info');
     
 	public function buy_info(){
     	return $this->hasOne('BuyInfo');
@@ -31,6 +34,18 @@ class PersonalBookInfo extends Eloquent {
     public function get_owned(){
         $owned = $this->attributes['owned'];
         if($owned == 0){
+            return false;
+        }else{
+            return true;
+        }
+    } 
+    public function set_read($read){
+        $this->attributes['read'] = $read?1:0;
+    }
+
+    public function get_read(){
+        $read = $this->attributes['read'];
+    if($read == 0){
             return false;
         }else{
             return true;

@@ -1,5 +1,6 @@
 $(document).ready(function() {
-                
+
+
                 $('#book_country').autocomplete({
                     lookup: window.country_names
                 });
@@ -11,8 +12,7 @@ $(document).ready(function() {
                     lookup: window.country_names
                 });
 
-
-
+                // VALIDATORS
                 $('.createBookForm').bootstrapValidator({
                     message: 'This value is not valid',
                     message: 'This value is not valid',
@@ -88,6 +88,24 @@ $(document).ready(function() {
                                     min: 1,
                                     max: 12,
                                     message: 'De maand moet tussen 1 en 12 liggen'
+                                }
+                            }
+                        },
+                        book_publication_date_year: {
+                            validators: {
+                                between: {
+                                    min: 1000,
+                                    max: 9999,
+                                    message: 'Het jaar moet uit 4 cijfers bestaan'
+                                }
+                            }
+                        },
+                        author_bookfromAuthor_publication_year: {
+                            validators: {
+                                between: {
+                                    min: 1000,
+                                    max: 9999,
+                                    message: 'Het jaar moet uit 4 cijfers bestaan'
                                 }
                             }
                         },

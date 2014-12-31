@@ -37,14 +37,6 @@
             </div>
         </div>
 
-         <!-- BOOK FROM AUTHOR -->
-        <div class="form-group">
-            {{ Form::label('bookFromAuthorLabel', 'Oeuvre:', array('class' => 'col-md-3')); }}
-            <div class="col-md-3">
-                {{ Form::text('author_book_from_author', '', array('id'=>'author_book_from_author', 'class' => 'input-sm', 'placeholder' => 'book')); }}
-            </div>
-        </div>
-
         <!-- IMAGE -->
         <div class="form-group">
           {{ Form::label('imageAuthorLabel', 'Afbeelding:', array('class' => 'col-md-3')); }}
@@ -59,8 +51,14 @@
           </div>
         </div>
 
+        <div id='author-oeuvre-panel'>
+            <input id="book-from-author-id-input" hidden name="bookFromAuthorTitle" />
+            <legend>Oeuvre<span style="margin-left:10px" class="oeuvre-edit-icon fa fa-pencil-square-o"></span></legend>
+            <ul id='author-oeuvre-list'>
+            </ul>
+            <textarea id='oeuvre-textarea' style="display:none;" name="oeuvre" cols="100" rows="10"></textarea>
+        </div>
+
     </fieldset>
 </div>
- <script>
-      
-  </script>
+{{ HTML::script('assets/js/creatBook/authorInfo.js'); }}

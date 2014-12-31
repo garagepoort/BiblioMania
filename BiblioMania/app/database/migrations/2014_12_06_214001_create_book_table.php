@@ -18,6 +18,7 @@ class CreateBookTable extends Migration {
 			$table->string('coverImage');
 			$table->unsignedInteger('genre_id');
 			$table->unsignedInteger('publisher_id');
+			$table->unsignedInteger('publisher_country_id');
 			$table->unsignedInteger('publication_date_id')->nullable();
 			$table->integer('number_of_pages');
 			$table->integer('print');
@@ -30,6 +31,7 @@ class CreateBookTable extends Migration {
 	        $table->nullableTimestamps();
 
 		    $table->foreign('publisher_id')->references('id')->on('publisher');
+		    $table->foreign('publisher_country_id')->references('id')->on('country');
 		    $table->foreign('genre_id')->references('id')->on('genre');
 		    $table->foreign('serie_id')->references('id')->on('serie');
 		    $table->foreign('publisher_serie_id')->references('id')->on('publisher_serie');

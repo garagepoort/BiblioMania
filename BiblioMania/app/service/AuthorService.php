@@ -15,11 +15,24 @@ class AuthorService {
         $author_model->name = $name;
         $author_model->firstname = $firstname;
         $author_model->infix = $infix;
-        $author_model->date_of_birth = $date_of_birth;
-        $author_model->date_of_death = $date_of_death;
-        $author_model->image = $authorImage;
+
+        if($this->notNullAndNotEmpty($date_of_birth)){
+            $author_model->date_of_birth = $date_of_birth;
+        }
+
+        if($this->notNullAndNotEmpty($date_of_death)){
+            $author_model->date_of_death = $date_of_death;
+        }
+        
+        if($this->notNullAndNotEmpty($authorImage)){
+            $author_model->image = $authorImage;
+        }
     	
     	$author_model->save();
         return $author_model;
 	}
+
+    private function notNullAndNotEmpty($var){
+        return $var != null && !empty($var);
+    }
 }

@@ -10,14 +10,6 @@ $(function() {
         lookup: window.publisher_names
     });
 
-    $("#book_author_input").on("keyup paste change", function() {
-        var trimmedValue = $(this).val().replace(" ","");
-        var result = trimmedValue.split(",");
-        $("#author_name").val(result[0]);
-        $("#author_firstname").val(result[1]);
-    });
-
-
    $('.collapsible').collapsible();
 
     $(".genre-listitem").hover(function(){

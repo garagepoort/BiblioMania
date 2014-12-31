@@ -65,6 +65,9 @@ select {
   color: @inverse-font-color;
 }
 
+.oeuvre-edit-icon {
+  cursor: pointer;
+}
 /*DATEPICKER*/
 div.datepicker-days table thead tr th {
   color: @inverse-font-color;
@@ -158,8 +161,31 @@ legend.sub-border {
   margin-bottom: 40px;
 }
 
+.green-linked-div {
+  background-color: green;
+  padding: 3px 10px;
+  border-radius: 3px !important;
+  margin-left: 10px;
+  text-align: center;
+}
+
+.author-oeuvre-linked-book-title {
+  color: #428bca;
+}
+
+#oeuvre-textarea {
+  color: black;
+  display: inline-block;
+  margin-left: 20px;
+}
+
 .buyOrGiftPanel{
   margin-bottom: 40px;
+}
+
+.author-oeuvre-link-icon {
+  padding-left: 10px;
+  cursor: pointer;
 }
 
 .title-table{
@@ -198,8 +224,53 @@ div.books-container {
   width: 100%;
 }
 
-.book-detail-info-table tbody tr td{
+table.book-detail-info-table > tbody > tr > td {
+  padding-top: 30px;
+  width: 50%;
+}
+
+.book-detail-small-info-panel {
+  width: 90%;
+}
+
+.book-detail-small-info-panel > legend{
+  border: none;
+  margin-bottom: 10px;
+}
+
+.book-detail-small-info-panel > table{
+  width: 100%;
+}
+
+.book-detail-small-info-panel > table > tbody > tr > td:nth-child(2){
+  width: 100%;
+  text-align: left;
+  padding-left: 10px;
+}
+
+.book-detail-small-info-panel > table > tbody > tr > td{
+  white-space: nowrap;
+}
+
+
+.book-detail-main-info-table {
+    width: 50%;
+    margin-left: 170px;
+}
+
+table.book-detail-main-info-table td {
+  padding: 2px;
+  white-space: nowrap;
+}
+
+table.book-detail-info-table td{
   vertical-align:top;
+}
+
+.book-detail-summary {
+  float: left;
+  margin-top: 20px;
+  text-align: justify;
 }
 
 .book-detail-div {
@@ -210,8 +281,8 @@ div.books-container {
   opacity: 0.95;
   top: 0px;
   background-color: @book-detail-background-color;
-  right: -600px;
-  width: 600px;
+  right: -700px;
+  width: 700px;
   height: 100vh;
   /*border: solid 1px @background-color;*/
 }
@@ -329,9 +400,17 @@ div.books-container {
     background-color: @tab-color;
 }
 
-li a {
+ul.nav li a {
   color: @font-color;
   background-color: #1D2326;
+}
+
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:focus,
+ul.nav li a:hover {
+  color: @inverse-font-color;
+  background-color: @font-color;
+  border: 1px solid @font-color;
 }
 
 .nav-tabs {

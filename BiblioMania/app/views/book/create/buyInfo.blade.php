@@ -55,7 +55,7 @@
             <div class="form-group">
                  {{ Form::label('buy_info_country_label', 'Land:', array('class' => 'col-md-3')); }}
                     <div class="col-md-5">
-                        {{ Form::text('buy_info_country', '', array('id'=>'buy_info_country','class' => 'form-control typeahead', 'placeholder' => 'land', 'required' => 'true', 'type' => 'text')); }}
+                        {{ Form::text('buy_info_country', '', array('id'=>'buy_info_country','class' => 'form-control typeahead', 'placeholder' => 'land', 'type' => 'text')); }}
                     </div>
             </div>
 

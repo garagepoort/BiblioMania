@@ -10,9 +10,11 @@ class FirstPrintInfo extends Eloquent {
     	'publication_date_id', 
     	'country_id', 
     	'language_id', 
-    	'ISBN', 
+    	'ISBN',
     	'cover_image'
 	);
+
+    protected $with = array('publication_date', 'country', 'publisher');
 
 	public function publisher(){
     	return $this->belongsTo('Publisher');

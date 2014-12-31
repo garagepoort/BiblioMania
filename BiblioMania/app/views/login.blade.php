@@ -18,7 +18,7 @@
             <div class="form-group">
                 {{ Form::label('usernameLabel', 'Username:' , array('class' => 'control-label loginLabel col-md-3')); }}
                 <div class="col-md-5">
-                    {{ Form::text('username', '', array('id' => 'usernameInputLogin','class' => 'form-control input-sm', 'placeholder' => trans('messages.login.placeholder.username'), 'required' => 'true')); }}
+                    {{ Form::text('username', '', array('id' => 'usernameInputLogin','class' => 'form-control input-sm', 'placeholder' => 'username', 'required' => 'true')); }}
                 </div>
             </div>
 
@@ -26,7 +26,7 @@
             <div class="form-group">
                 {{ Form::label('passwordLabel', 'Paswoord:', array('class' => 'control-label loginLabel col-md-3')); }}
                 <div class="col-md-5">
-                    {{ Form::password('password', array('id' => 'passwordInputLogin','class' => 'form-control input-sm', 'placeholder' => trans('messages.login.placeholder.password'), 'required' => 'true')); }}
+                    {{ Form::password('password', array('id' => 'passwordInputLogin','class' => 'form-control input-sm', 'placeholder' => 'password', 'required' => 'true')); }}
                 </div>
             </div>
 

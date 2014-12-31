@@ -10,9 +10,19 @@
 	    return new CountryService;
 	});
 
+	App::singleton('OeuvreService', function()
+	{
+	    return new OeuvreService;
+	});
+
 	App::singleton('DateService', function()
 	{
 	    return new DateService;
+	});
+
+	App::singleton('BookFromAuthorService', function()
+	{
+	    return new BookFromAuthorService;
 	});
 
 	App::singleton('AuthorService', function()

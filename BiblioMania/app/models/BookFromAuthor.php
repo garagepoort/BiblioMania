@@ -6,6 +6,8 @@ class BookFromAuthor extends Eloquent {
 
     protected $fillable = array('title', 'publication_year', 'author_id');
 
+    protected $with = array('books');
+
     public function author(){
     	return $this->belongsTo('Author');
 	}

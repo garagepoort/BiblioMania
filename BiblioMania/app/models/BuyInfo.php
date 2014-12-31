@@ -6,6 +6,8 @@ class BuyInfo extends Eloquent {
 
     protected $fillable = array('buy_date', 'price_payed', 'recommended_by', 'shop', 'city_id');
 
+    protected $with = array('city');
+
 	public function city()
     {
         return $this->belongsTo('City');

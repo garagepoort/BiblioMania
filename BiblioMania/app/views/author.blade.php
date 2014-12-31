@@ -25,7 +25,7 @@
     			<tr>
     				<td>
 						@if(count($bookFromAuthor->books) === 1)
-							<a href="{{ URL::to('getBook', array('id' => $bookFromAuthor->books[0]->id)) }}">{{ $bookFromAuthor->title }}</a>
+							<a href="{{ URL::to('getBooks/'.$bookFromAuthor->books[0]->id) }}">{{ $bookFromAuthor->title }}</a>
     					@else
     						{{ $bookFromAuthor->title }}
     					@endif

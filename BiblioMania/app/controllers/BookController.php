@@ -9,15 +9,28 @@ class BookController extends BaseController {
         return strcmp($a->name, $b->name);
     }
 
-	public function getBooks($order = 'title')
+	public function getBooks($id = null)
 	{
+        $with = array(
+                'authors' => function($query) {
+                    $query->orderBy('name', 'DESC');
+                },
+                'publisher', 
+                'genre', 
+                'personal_book_info', 
+                'first_print_info',
+                'publication_date', 
+                'country',
+                'publisher_serie', 
+                'serie');
 
-        // $books = Book::where('user_id' , '=', Auth::user()->id)->orderBy('title')->paginate(60);
-        $books = Book::with(array('authors' => function($query) {
-                $query->orderBy('name', 'DESC');
-            }))->paginate(60);
-        // $paginator = Paginator::make($items, $totalItems, $perPage);
-        // usort($books->getCollection(), array($this, "cmp"));
+        if($id==null){
+            $books = Book::with($with)
+            ->paginate(60);
+        }else{
+            $books = Book::with($with)
+            ->where('id', '=', $id)->paginate(60);
+        }
 
 		return View::make('books')->with(array(
             'title' => 'Boeken',
@@ -32,7 +45,19 @@ class BookController extends BaseController {
 
     public function getBooksFromSearch(){
         $criteria = Input::get('criteria');
-        $books = Book::where('user_id' , '=', Auth::user()->id)
+        $books = Book::with(array(
+                    'authors' => function($query) {
+                        $query->orderBy('name', 'DESC');
+                    }, 
+                    'publisher', 
+                    'genre', 
+                    'personal_book_info', 
+                    'first_print_info',
+                    'publication_date', 
+                    'country',
+                    'publisher_serie', 
+                    'serie'))
+                ->where('user_id' , '=', Auth::user()->id)
                 ->where(function ($query) use ($criteria){
                      $query->where('title', 'LIKE', '%'.$criteria.'%')
                     ->orWhere('subtitle', 'LIKE', '%'.$criteria.'%');
@@ -40,7 +65,7 @@ class BookController extends BaseController {
                 ->orderBy('title')
                 ->paginate(60);
 
-        $books = Book::where('user_id' , '=', Auth::user()->id)->get();
+        // $books = Book::where('user_id' , '=', Auth::user()->id)->get();
         // $filteredBooks = $books->filter(function($book){
         //     if($book->) 
         // });
@@ -72,7 +97,7 @@ class BookController extends BaseController {
             'covers' => $covers,
             'genres' => $genres,
 			'countries_json' => json_encode(App::make('CountryService')->getCountries()),
-            'authors_json' => json_encode(Author::all()),
+            'authors_json' => json_encode(Author::with('oeuvre')->get()),
             'publishers_json' => json_encode(Publisher::all())
 			));
 	}
@@ -153,12 +178,13 @@ class BookController extends BaseController {
 
             $publisher_country = $countryService->findOrSave($book_country);
             
-            $book_author_model = $authorService->saveOrUpdate($book_author_name, null, $book_author_firstname, null, $book_author_date_of_birth, $book_author_date_of_death);
+            $book_author_model = $authorService->saveOrUpdate($book_author_name, '', $book_author_firstname, null, $book_author_date_of_birth, $book_author_date_of_death);
             $book_publisher = $publisherService->saveOrUpdate($book_publisher_name, $publisher_country);
             $publisherSerie = $publisherSerieService->findOrSave($book_publisher_serie, $book_publisher->id);
             $bookSerie = $bookSerieService->findOrSave($book_serie);
             $first_print_info = $this->createFirstPrintInfo();
 
+            $book_from_author_id = $this->createBookFromAuthorLink($book_author_model->id);
             $book = new Book(array(
                 'title' => $book_title,
                 'subtitle' => $book_subtitle,
@@ -169,13 +195,16 @@ class BookController extends BaseController {
                 'genre_id' => $book_genre_id,
                 'type_of_cover' => $book_type_of_cover,
                 'publisher_id' => $book_publisher->id,
+                'publisher_country_id' => $publisher_country->id,
                 'first_print_info_id' => $first_print_info->id,
                 'coverImage' => $book_cover_image_file,
                 'user_id' => Auth::user()->id,
                 'publisher_serie_id' => $publisherSerie->id,
                 'serie_id' => $bookSerie->id,
-                'retail_price' => $book_info_retail_price
+                'retail_price' => $book_info_retail_price,
+                'book_from_author_id' => $book_from_author_id
             ));
+        
             $book->save();
             $book->authors()->sync([$book_author_model->id], false);
 
@@ -189,7 +218,22 @@ class BookController extends BaseController {
             }
             return Redirect::to('/getBooks');
         }
-	}
+    }
+
+    private function createBookFromAuthorLink($author_id){
+        $bookFromAuthorTitle = Input::get('bookFromAuthorTitle');
+
+        App::make('OeuvreService')->linkNewOeuvreFromAuthor($author_id, Input::get('oeuvre'));
+
+        $bookFromAuthorToBeLinked = BookFromAuthor::where('title', '=', $bookFromAuthorTitle)
+            ->where('author_id', '=' , $author_id)
+            ->first();
+
+        if($bookFromAuthorToBeLinked != null){
+            return $bookFromAuthorToBeLinked->id;
+        }  
+        return null;
+    }
 
     private function createFirstPrintInfo(){
         $firstPrintInfoService = App::make('FirstPrintInfoService');

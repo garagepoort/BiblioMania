@@ -10,6 +10,7 @@ class BookImportController extends BaseController {
 	private $bookTypeOfCover;
 	private $bookRetailPrice;
 	private $personalInfoOwned;
+	private $personalInfoRead;
 
 	private $authorName;
 	private $authorFirstName;
@@ -21,6 +22,11 @@ class BookImportController extends BaseController {
 	private $firstPrintPublicationDate;
 	private $firstPrintPublisherName;
 	private $firstPrintPublisherCountry;
+
+	private $giftFrom;
+	private $price_payed;
+	private $shop;
+	private $buy_date;
 
 	public function importBooks(){
 
@@ -39,7 +45,8 @@ class BookImportController extends BaseController {
 		        $publisher = $this->importPublisher($values);
 		        $firstPrintInfo = $this->importFirstPrintInfo($values);
 		        $book = $this->importBook($values, $publisher, $firstPrintInfo);
-		        $this->importPersonalBookInfo($values, $book->id);
+		        $personalBookInfo = $this->importPersonalBookInfo($values, $book->id);
+		        $this->importBuyOrGiftInfo($personalBookInfo);
 		        foreach ($authors as $author) {
             		$book->authors()->sync([$author->id], false);
 		        }
@@ -47,10 +54,18 @@ class BookImportController extends BaseController {
 		} else {
 		    // error opening the file.
 		} 
-		$this->matchOeuvres();
+		OeuvreMatcher::matchOeuvres();
 		fclose($handle);
 		ini_set('max_execution_time', 30);
 		ini_set('memory_limit', '16M');
+	}
+
+	private function importBuyOrGiftInfo($personalBookInfo){
+		if(empty($this->giftFrom)){
+			return BuyInfoImporter::importBuyInfo($personalBookInfo->id, $this->buy_date, $this->price_payed, $this->shop);
+		}else{
+			return GiftInfoImporter::importGiftInfo($personalBookInfo->id, $this->giftFrom, $this->buy_date);
+		}
 	}
 
 	private function importFirstPrintInfo($values){
@@ -58,10 +73,10 @@ class BookImportController extends BaseController {
 		$date = DateImporter::getPublicationDate($values[53]);
 		return App::make('FirstPrintInfoService')->saveOrUpdate(
 			$this->firstPrintTitle, 
-			null, 
-			null, 
+			null,
+			null,
 			$date, 
-			$this->firstPrintPublisherName, 
+			$this->firstPrintPublisherName,
 			$country->id, 
 			null);
 	}
@@ -71,7 +86,7 @@ class BookImportController extends BaseController {
 		$authorService = App::make('AuthorService');
 		$authors = [];
 		$path = explode('\\', $values[18]);
-		$authorImage = Auth::user()->username . '/' . end($path);
+		$authorImage = 'bookImages/' .Auth::user()->username . '/' . end($path);
 		$author = $authorService->saveOrUpdate($values[2], $values[1], $values[0], $authorImage);
 		array_push($authors, $author);
 		$this->importOeuvre($values, $author);
@@ -105,7 +120,9 @@ class BookImportController extends BaseController {
 		));
 
 		$personalBookInfo->set_owned($this->personalInfoOwned);
+		$personalBookInfo->set_read($this->personalInfoRead);
 		$personalBookInfo->save();
+		return $personalBookInfo;
 	}
 
 	private function importOeuvre($values, $author){
@@ -133,6 +150,9 @@ class BookImportController extends BaseController {
 	private function importBook($values, $publisher, $firstPrintInfo){
 		$path = explode('\\', $values[19]);
 		$coverImage = 'bookImages/' . Auth::user()->username . '/' . end($path);
+		$countryName = $values[41];
+		$country = App::make('CountryService')->findOrSave($countryName);
+
 		$book = new Book(array(
                 'title' => $this->bookTitle,
                 'subtitle' => $this->bookSubtitle,
@@ -140,6 +160,7 @@ class BookImportController extends BaseController {
                 'type_of_cover' => $values[13],
                 'ISBN' => $this->bookISBN,
                 'publisher_id' => $publisher->id,
+                'publisher_country_id' => $country->id,
                 'number_of_pages' => $values[57],
                 'print' => $values[27],
                 'retail_price' => $this->bookRetailPrice,
@@ -154,21 +175,6 @@ class BookImportController extends BaseController {
     	}
         $book->save();
         return $book;
-	}
-	
-	private function matchOeuvres(){
-		$oeuvres = BookFromAuthor::all();
-		foreach ($oeuvres as $oeuvre) {
-			$title = strtolower($oeuvre->title);
-			$author = Author::find($oeuvre->author_id);
-			foreach ($author->books as $book) {
-				$pos = strpos($title, strtolower($book->title));
-				if ($pos !== false) {
-					$book->book_from_author_id = $oeuvre->id;
-					$book->save();
-				}
-			}
-		}
 	}
 
 	private function get_string_between($string, $start, $end){
@@ -201,11 +207,26 @@ class BookImportController extends BaseController {
 			$this->personalInfoOwned = false;
 		}
 
+		$read = $values[66];
+		if($read === 'ja'){
+			$this->personalInfoRead = true;
+		}else{
+			$this->personalInfoRead = false;
+		}
+
 		$this->firstPrintTitle = $values[55];
+		if(empty($this->firstPrintTitle)){
+			$this->firstPrintTitle = $this->bookTitle;
+		}
 		$this->firstPrintLanguage = $values[54];
 		$this->firstPrintPublicationDate = $values[53];
 		$this->firstPrintPublisherName = $values[56];
 		$this->firstPrintPublisherCountry = $values[50];
+
+		$this->giftFrom = $values[33];
+		$this->price_payed = $values[16];
+		$this->shop = $values[65];
+		$this->buy_date = DateTime::createFromFormat('d-m-y', $values[15]);
 	}
 
 	function startsWith($haystack, $needle)

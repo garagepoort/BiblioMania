@@ -44,9 +44,13 @@
                     </tr>
                 </table>
             </div>
-            <div class="col-md-2">
-                <span class="reading-date-plus glyphicon glyphicon-plus"></span>
-                <span class="reading-date-min glyphicon glyphicon-minus"></span>
+            <div class="col-md-2" style="padding-top: 4px">
+
+                <span class="reading-date-plus">
+                    <!-- {{ HTML::image('images/plus.svg', 'notfound', array('width' => '48px', 'height' => '48px')) }} -->
+                    <span class="reading-date-min fa fa-plus fa-lg"></span>
+                </span>
+                <span class="reading-date-min fa fa-minus fa-lg" style="margin-left: 4px"></span>
             </div>
         </div>
 

@@ -13,7 +13,7 @@
 
 //USER
 Route::group(array('before' => 'auth'), function() {
-    Route::get('getBooks', 'BookController@getBooks');
+    Route::get('getBooks/{id?}', 'BookController@getBooks');
     Route::get('getBooksFromSearch', 'BookController@getBooksFromSearch');
     Route::get('createBook', 'BookController@goToCreateBook');
     Route::post('createBook', 'BookController@createBook');

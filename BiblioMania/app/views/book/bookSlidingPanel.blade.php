@@ -10,63 +10,144 @@
 				<img id="book-detail-coverimage" src="" width="142px" height="226px"/>
 				<div id="star-detail" class="col-md-6"></div>
 				<div class="book-details-info-container">
-					<div class="control-group">
-						{{ Form::label('authorLabel', 'Auteur:' , array('class' => 'control-label col-md-4')); }}
-						{{ Form::label('auteur', "auteur" , array('id'=>'book-detail-author' ,'class' => 'control-label col-md-4')); }}
-					</div>
-					<div class="control-group">
-						{{ Form::label('isbnLabel', 'ISBN:' , array('class' => 'control-label col-md-4')); }}
-						{{ Form::label('isbn', "ISBN" , array('id'=>'book-detail-isbn' ,'class' => 'control-label col-md-4')); }}
-					</div>
-					<div class="control-group">
-						{{ Form::label('publisherLabel', 'Publisher:' , array('class' => 'control-label col-md-4')); }}
-						{{ Form::label('publisher', "Publisher" , array('id'=>'book-detail-publisher' ,'class' => 'control-label col-md-4')); }}
-					</div>
-					<div class="control-group">
-						{{ Form::label('genreLabel', 'Genre:' , array('class' => 'control-label col-md-4')); }}
-						{{ Form::label('genre', "genre" , array('id'=>'book-detail-genre' ,'class' => 'control-label col-md-4')); }}
-					</div>
-					<div class="control-group">
-						{{ Form::label('genreLabel', 'Publicatie datum:' , array('class' => 'control-label col-md-4')); }}
-						{{ Form::label('publicatiedatum', "publicatiedatum" , array('id'=>'book-detail-publication-date' ,'class' => 'control-label col-md-4')); }}
-					</div>
-					<div class="control-group">
-						{{ Form::label('number_of_pages_label', "Pagina's:" , array('class' => 'control-label col-md-4')); }}
-						{{ Form::label('number_of_pages', "paginas" , array('id'=>'book-detail-number-of-pages' ,'class' => 'control-label col-md-4')); }}
-					</div>
-					<div class="control-group">
-						{{ Form::label('printLabel', 'Druk:' , array('class' => 'control-label col-md-4')); }}
-						{{ Form::label('print', "print" , array('id'=>'book-detail-print' ,'class' => 'control-label col-md-4')); }}
-					</div>
+					<table class="book-detail-main-info-table">
+						<tr>
+							<td><label>Auteur:</label></td>
+							<td><label id='book-detail-author'></label></td>
+						</tr>
+						<tr>
+							<td><label>ISBN:</label></td>
+							<td><label id='book-detail-isbn'></label></td>
+						</tr>
+						<tr>
+							<td><label>Uitgever</label></td>
+							<td><label id='book-detail-publisher'></label></td>
+						</tr>
+						<tr>
+							<td><label>Land</label></td>
+							<td><label id='book-detail-country'></label></td>
+						</tr>
+						<tr>
+							<td><label>Publicatiedatum:</label></td>
+							<td><label id='book-detail-publication-date'></label></td>
+						</tr>
+						<tr>
+							<td><label>Genre:</label></td>
+							<td><label id='book-detail-genre'></label></td>
+						</tr>
+						<tr>
+							<td><label>Boekenreeks:</label></td>
+							<td><label id='book-detail-serie'></label></td>
+						</tr>
+						<tr>
+							<td><label>Uitgeverreeks:</label></td>
+							<td><label id='book-detail-publisher-serie'></label></td>
+						</tr>
+					</table>
 				</div>
 			</div>
 
 			<div class="book-detail-summary">
-				<legend>Samenvatting</legend>
 				<p id="book-detail-summary"></p>
 			</div>
+
 			<table class="book-detail-info-table">
 				<tr>
 					<td>
-						<div class="book-detail-extra-info">
-							<legend>Extra info</legend>
-							<div class="control-group">
-									{{ Form::label('retailPrice', 'Cover prijs:' , array('class' => 'control-label col-md-6')); }}
-									{{ Form::label('retailPrice', "retailPrice" , array('id'=>'book-detail-retail-price' ,'class' => 'control-label col-md-6')); }}
-							</div>
+						<div class="book-detail-small-info-panel">
+							<table>
+								<tr>
+									<td><label>Cover prijs:</label></td>
+									<td><label id='book-detail-retail-price'></label></td>
+								</tr>
+								<tr>
+									<td><label>Pagina's:</label></td>
+									<td><label id='book-detail-number-of-pages'></label></td>
+								</tr>
+								<tr>
+									<td><label>Druk:</label></td>
+									<td><label id='book-detail-print'></label></td>
+								</tr>
+							</table>
 						</div>
 					</td>
 					<td>
-						<div class="book-detail-first-print-info">
+						<div class="book-detail-small-info-panel">
+							<table>
+								<tr>
+									<td><label>In collectie:</label></td>
+									<td><input onclick="return false" type="checkbox" id='book-detail-owned'></td>
+								</tr>
+								<tr>
+									<td><label>Gelezen:</label></td>
+									<td><input onclick="return false" type="checkbox" id='book-detail-read'/></td>
+								</tr>
+								<tr class="buy-info-tr">
+									<td><label>Aanschafdatum:</label></td>
+									<td><label id='book-detail-buy-info-date'></label></td>
+								</tr>
+								<tr class="buy-info-tr">
+									<td><label>Aankoopprijs:</label></td>
+									<td><label id='book-detail-buy-info-price-payed'></label></td>
+								</tr>
+								<tr class="buy-info-tr">
+									<td><label>Winkel:</label></td>
+									<td><label id='book-detail-buy-info-shop'></label></td>
+								</tr>
+								<tr class="buy-info-tr">
+									<td><label>Stad winkel:</label></td>
+									<td><label id='book-detail-buy-info-city'></label></td>
+								</tr>
+								<tr class="buy-info-tr">
+									<td><label>Aanbevolen door:</label></td>
+									<td><label id='book-detail-buy-info-recommended-by'></label></td>
+								</tr>
+								<tr class="gift-info-tr">
+									<td><label>Ontvangstdatum:</label></td>
+									<td><label id='book-detail-gift-info-date'></label></td>
+								</tr>
+								<tr class="gift-info-tr">
+									<td><label>Gekregen van:</label></td>
+									<td><label id='book-detail-gift-info-from'></label></td>
+								</tr>
+								<tr class="gift-info-tr">
+									<td><label>Gelegenheid:</label></td>
+									<td><label id='book-detail-gift-info-occasion'></label></td>
+								</tr>
+							</table>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<div class="book-detail-small-info-panel">
 							<legend>Eerste druk</legend>
-							<div class="control-group">
-									{{ Form::label('firstPrintTitleLabel', 'Title:' , array('class' => 'control-label col-md-6')); }}
-									{{ Form::label('firstPrintTitle', "firstPrintTitle" , array('id'=>'book-detail-first-print-title' ,'class' => 'control-label col-md-6')); }}
-							</div>
-							<div class="control-group">
-								{{ Form::label('firstPrintISBNLabel', 'ISBN:' , array('class' => 'control-label col-md-6')); }}
-								{{ Form::label('firstPrintISBN', "firstPrintISBN" , array('id'=>'book-detail-first-print-isbn' ,'class' => 'control-label col-md-6')); }}
-							</div>
+							<table>
+								<tr>
+									<td><label>Titel:</label></td>
+									<td><label id='book-detail-first-print-title'></label></td>
+								</tr>
+								<tr>
+									<td><label>Ondertitel:</label></td>
+									<td><label id='book-detail-first-print-subtitle'></label></td>
+								</tr>
+								<tr>
+									<td><label>ISBN:</label></td>
+									<td><label id='book-detail-first-print-isbn'></label></td>
+								</tr>
+								<tr>
+									<td><label>Land:</label></td>
+									<td><label id='book-detail-first-print-country'></label></td>
+								</tr>
+								<tr>
+									<td><label>Uitgever:</label></td>
+									<td><label id='book-detail-first-print-publisher'></label></td>
+								</tr>
+								<tr>
+									<td><label>Publicatie datum:</label></td>
+									<td><label id='book-detail-first-print-publication-date'></label></td>
+								</tr>
+							</table>
 						</div>
 					</td>
 				</tr>
