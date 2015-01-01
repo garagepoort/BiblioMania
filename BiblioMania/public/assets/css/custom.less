@@ -29,6 +29,10 @@ img {
   background: url('images/questionCover.png') no-repeat;
 }
 
+input {
+  color: @inverse-font-color;
+}
+
 @font: "parisish";
 @background-color: #f99;
 @container-color: #611427;
@@ -61,13 +65,35 @@ select {
   color: @inverse-font-color;
 }
 
+.modal-body {
+  color: @inverse-font-color;
+}
+
+.glyphicon, .fa, .clickable {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  cursor: pointer;
+}
+
+.glyphicon:hover, .fa:hover, .clickable:hover{
+  color: black;
+}
+
+.clickedGenre {
+  color: black;
+  font-weight: bold;
+}
+
+a:hover {
+  color: black ;
+  background-color: #def ;
+}
+
+
 .datepicker {
   color: @inverse-font-color;
 }
 
-.oeuvre-edit-icon {
-  cursor: pointer;
-}
 /*DATEPICKER*/
 div.datepicker-days table thead tr th {
   color: @inverse-font-color;
@@ -127,6 +153,10 @@ legend {
    color: @inverse-font-color;
 }
 
+.genre-list {
+  list-style-type: none;
+}
+
 /*END PLACEHOLDERS*/
 
 .contentContainer {
@@ -173,12 +203,19 @@ legend.sub-border {
   color: #428bca;
 }
 
-#oeuvre-textarea {
+#oeuvre-textarea-panel {
   color: black;
   display: inline-block;
-  margin-left: 20px;
+  margin-left: 30px;
 }
 
+.oeuvre-author-pencil {
+  cursor: pointer;
+}
+
+#oeuvreButton {
+  margin-top: 10px;
+}
 .buyOrGiftPanel{
   margin-bottom: 40px;
 }

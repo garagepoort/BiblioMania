@@ -11,6 +11,5 @@ class OeuvreService {
             $bookFromAuthorService->save($author_id, $res[1], $res[0]);
         }
 
-        OeuvreMatcher::matchOeuvresFromAuthor(Author::find($author_id));
 	}
 }

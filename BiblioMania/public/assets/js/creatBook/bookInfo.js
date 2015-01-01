@@ -12,24 +12,10 @@ $(function() {
 
    $('.collapsible').collapsible();
 
-    $(".genre-listitem").hover(function(){
-        if (!$(this).hasClass("clickedGenre")) {
-            $(this).css("background-color","#DDDCC5");
-            $(this).css("color","#611427");
-        }
-    },function(){
-        if (!$(this).hasClass("clickedGenre")) {
-            $(this).css("background-color","#611427");
-            $(this).css("color","#DDDCC5");
-        }
-    });
-
     $(".genre-listitem").click(function(){
-        $(".clickedGenre").css("background-color","#611427");
-        $(".clickedGenre").css("color","#DDDCC5");
         $(".clickedGenre").removeClass("clickedGenre");
         $(this).addClass("clickedGenre");
-        $(".genres-header").text('Genres: selected ' + $(this).attr("name"));
+        $("#genresGlyphicon").text('    Genre: ' + $(this).attr("name"));
         $("#book_genre_input").val($(this).attr("genreId"));
     });
 

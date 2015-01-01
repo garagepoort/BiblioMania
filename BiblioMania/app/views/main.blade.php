@@ -43,6 +43,11 @@
         <!-- SHORTEN -->
         {{ HTML::script('assets/js/jquery.shorten.js') }}
 
+        <!-- DIALOG -->
+        {{ HTML::script('assets/bootstrap3-dialog-master/dist/js/bootstrap-dialog.js') }}
+        {{ HTML::style('assets/bootstrap3-dialog-master/dist/css/bootstrap-dialog.css') }}
+
+
 
     </head>
 

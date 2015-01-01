@@ -105,11 +105,18 @@ $(function() {
     }
 
     $('.oeuvre-edit-icon').on('click', function(){
-        if($('#oeuvre-textarea').is(":visible")){
+        if($('#oeuvre-textarea-panel').is(":visible")){
             createOeuvreList();
-            $('#oeuvre-textarea').hide();
+            $('#oeuvre-textarea-panel').hide();
         }else{
-            $('#oeuvre-textarea').show();
+            $('#oeuvre-textarea-panel').show();
+        }
+    });
+
+    $('#oeuvreButton').on('click', function(){
+        if($('#oeuvre-textarea-panel').is(":visible")){
+            createOeuvreList();
+            $('#oeuvre-textarea-panel').hide();
         }
     });
 

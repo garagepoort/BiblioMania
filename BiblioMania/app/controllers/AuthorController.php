@@ -13,9 +13,29 @@ class AuthorController extends BaseController {
 	}
 
 	public function getAuthor($author_id){
+		$author = Author::with('oeuvre')->find($author_id);
 		return View::make('author')->with(array(
 			'title' => 'Auteur',
-			'author' => Author::find($author_id)
+			'author' => $author,
+            'author_json' => json_encode($author)
 		));
+	}
+
+	public function deleteBookFromAuthor(){
+		$id = Input::get('bookFromAuthorId');
+		App::make('BookFromAuthorService')->delete($id);
+	}
+
+	public function editBookFromAuthor(){
+		$author_id = Input::get('authorId');
+		$id = Input::get('bookFromAuthorId');
+		$title = Input::get('title');
+		$year = Input::get('publication_year');
+		App::make('BookFromAuthorService')->edit($id, $title, $year);
+		return Response::json(Author::with('oeuvre')->find($author_id));
+	}
+
+	public function getAuthorWithOeuvreJson($authorId){
+		return json_encode(Author::with('oeuvre')->find($author_id));
 	}
 }

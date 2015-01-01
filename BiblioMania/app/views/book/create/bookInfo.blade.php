@@ -49,7 +49,7 @@
                 <input id="book_genre_input" type="text" name="book_genre" hidden>
                 
                 <div class="genres-container col-md-8">
-                    <div class="collapsible genres-header" id="genres-header"><span id="genresGlyphicon" class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Genres:</div>
+                    <div class="collapsible genres-header" id="genres-header"><span id="genresGlyphicon" class="glyphicon glyphicon-chevron-right" aria-hidden="true">    Genres:</span></div>
                     <div>
                         @include('book/create/genreList', array('genres' => $genres))
                     </div>

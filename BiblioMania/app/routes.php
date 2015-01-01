@@ -22,6 +22,8 @@ Route::group(array('before' => 'auth'), function() {
     Route::get('getAuthor/{id}', 'AuthorController@getAuthor');
     Route::get('getAuthors', 'AuthorController@getAuthors');
     Route::get('scaleImages', 'ImageController@scaleImages');
+    Route::post('deleteBookFromAuthor', 'AuthorController@deleteBookFromAuthor');
+    Route::post('editBookFromAuthor', 'AuthorController@editBookFromAuthor');
 });
 
 
