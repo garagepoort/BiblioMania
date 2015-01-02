@@ -42,7 +42,7 @@ $(document).ready(function(){
                 var book = books[(6*i)+j];
                 var imageString = baseUrl + "/" + book.coverImage;
                 trString = trString + '<td>';
-                trString = trString + "<img src='" + imageString + "' bookid='" + book.id + "' class='bookCoverLink'>";
+                trString = trString + "<img src=\"" + imageString + "\" bookid='" + book.id + "' class='bookCoverLink'>";
                 trString = trString + '</td>';
             }
             trString = trString + '</tr>';
