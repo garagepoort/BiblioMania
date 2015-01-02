@@ -14,6 +14,7 @@
 //USER
 Route::group(array('before' => 'auth'), function() {
     Route::get('getBooks/{id?}', 'BookController@getBooks');
+    Route::get('getNextBooks', 'BookController@getNextBooks');
     Route::get('getBooksFromSearch', 'BookController@getBooksFromSearch');
     Route::get('createBook', 'BookController@goToCreateBook');
     Route::post('createBook', 'BookController@createBook');
@@ -21,6 +22,7 @@ Route::group(array('before' => 'auth'), function() {
     Route::get('importBooks', 'BookImportController@importBooks');
     Route::get('getAuthor/{id}', 'AuthorController@getAuthor');
     Route::get('getAuthors', 'AuthorController@getAuthors');
+    Route::get('getAuthorsWithOeuvreJson', 'AuthorController@getAuthorsWithOeuvreJson');
     Route::get('scaleImages', 'ImageController@scaleImages');
     Route::post('deleteBookFromAuthor', 'AuthorController@deleteBookFromAuthor');
     Route::post('editBookFromAuthor', 'AuthorController@editBookFromAuthor');

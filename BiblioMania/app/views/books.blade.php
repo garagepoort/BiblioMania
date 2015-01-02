@@ -54,30 +54,13 @@
             {{ Form::label('value', $total_value_library  . ' euro', array('class' => 'control-label col-md-3')); }}
         </div>
     </div>
-	<table class="table books-table">
-	    <tbody >
-
-    	 @for ($i = 0; $i <= count($books)/6; $i++)
-        	<tr>
-        		{{-- */
-        			$columns = 6;
-        			 if($i*6+6 > count($books)){
-        				$columns =  fmod(count($books), 6);
-        			}
-        		/* --}}
-        		@for ($j = 0; $j < $columns; $j++)
-			    	<td>
-                        {{ HTML::image($books[(6*$i)+$j]->coverImage, 'notfound', array(
-                        'bookId' => $books[(6*$i)+$j]->id, 
-                        'class' => 'bookCoverLink', 
-                        'onError'=>"this.onError=null;this.src='" . URL::to('/') . "/images/questionCover.png';")) }}
-                	</td>
-				@endfor
-			</tr>
-		@endfor
-		{{ $books->appends(Request::except('page'))->links() }}
+	<table class="table books-table" id="books-container-table">
+	    <tbody class="infinite-container">
 	    </tbody>
 	</table>
+    <div id="books-loading-waypoint" style="text-align:center;">
+        {{ HTML::image('images/ajax-loader.gif', 'loader', array('id'=>'loader-icon')) }}
+    </div>
 
 	@include('book/bookSlidingPanel')
 </div>

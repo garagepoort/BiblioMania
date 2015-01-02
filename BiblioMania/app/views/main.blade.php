@@ -47,6 +47,10 @@
         {{ HTML::script('assets/bootstrap3-dialog-master/dist/js/bootstrap-dialog.js') }}
         {{ HTML::style('assets/bootstrap3-dialog-master/dist/css/bootstrap-dialog.css') }}
 
+        <!-- AUTOSCROLL -->
+        {{ HTML::script('assets/waypoints/lib/jquery.waypoints.min.js') }}
+        {{ HTML::script('assets/waypoints/lib/shortcuts/infinite.min.js') }}
+
 
 
     </head>

@@ -23,7 +23,6 @@ class BookController extends BaseController {
                 'country',
                 'publisher_serie', 
                 'serie');
-
         if($id==null){
             $books = Book::with($with)
             ->paginate(60);
@@ -41,6 +40,23 @@ class BookController extends BaseController {
             'total_amount_of_books_owned' => App::make('BookService')->getTotalAmountOfBooksOwned(),
             'bookFilters' => BookFilter::getFilters()
             ));
+    }
+
+    public function getNextBooks(){
+        $with = array(
+                'authors' => function($query) {
+                    $query->orderBy('name', 'DESC');
+                },
+                'publisher', 
+                'genre', 
+                'personal_book_info', 
+                'first_print_info',
+                'publication_date', 
+                'country',
+                'publisher_serie', 
+                'serie');
+        $books = Book::with($with)->paginate(60);
+        return $books->toJson();
     }
 
     public function getBooksFromSearch(){
@@ -97,7 +113,7 @@ class BookController extends BaseController {
             'covers' => $covers,
             'genres' => $genres,
 			'countries_json' => json_encode(App::make('CountryService')->getCountries()),
-            'authors_json' => json_encode(Author::with('oeuvre')->get()),
+            'authors_json' => json_encode(Author::with('oeuvre')->get(['id','name', 'firstname', 'infix'])),
             'publishers_json' => json_encode(Publisher::all())
 			));
 	}

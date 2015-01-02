@@ -35,7 +35,7 @@ class AuthorController extends BaseController {
 		return Response::json(Author::with('oeuvre')->find($author_id));
 	}
 
-	public function getAuthorWithOeuvreJson($authorId){
-		return json_encode(Author::with('oeuvre')->find($author_id));
+	public function getAuthorsWithOeuvreJson(){
+		return Response::json(Author::with('oeuvre')->all());
 	}
 }

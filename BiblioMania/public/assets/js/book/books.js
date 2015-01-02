@@ -1,37 +1,87 @@
 $(document).ready(function(){
     var lastClickedBookId = undefined;
     var bookDetailAnimationBusy = false;
+    books_page =1;
 
-    $('.bookCoverLink').click(function() {
-        if(bookDetailAnimationBusy === false){
-         	var div = $('.book-detail-div');
-            var bookId = $(this).attr('bookId');
-            var book = $.grep(books, function(e){ return e.id == bookId; })[0];
+    var waypoint = new Waypoint({
+        element: $('#books-loading-waypoint'),
+        handler: function(direction) {
+            if(direction === 'down'){
+                $('#loader-icon').show();
+                $.get(baseUrl + "/getNextBooks?page=" + books_page,
+                            function(data,status){
+                                if(status === "success"){
+                                    fillInBookContainer(JSON.parse(data));
+                                    books_page = books_page + 1;
+                                }
+                                $('#loader-icon').hide();
+                            }
+                    ).fail(function(){
+                        $('#loader-icon').hide();
+                        BootstrapDialog.show({
+                            message: 'Er ging iets mis. Refresh de pagina even en probeer opnieuw!'
+                        });
+                    });
+            }
+        },
+        offset: 'bottom-in-view'
+    });
 
-         	if(div.hasClass('visible') && lastClickedBookId !== bookId){ 
-                
-         		closeBookDetail();
-                
-                div.promise().done(function(){
+    function fillInBookContainer(data){
+        var books = data.data;
+
+        for (var i = 0; i < books.length/6; i++ ) {
+            var columns = 6;
+            if(i*6+6 > books.length){
+                columns =  books.length % 6;
+            }
+
+            var trString = "<tr>";
+
+            for (j = 0; j < columns; j++){
+                var book = books[(6*i)+j];
+                var imageString = baseUrl + "/" + book.coverImage;
+                trString = trString + '<td>';
+                trString = trString + "<img src='" + imageString + "' bookid='" + book.id + "' class='bookCoverLink'>";
+                trString = trString + '</td>';
+            }
+            trString = trString + '</tr>';
+            $('#books-container-table > tbody:last').append(trString);
+        }
+
+        $('.bookCoverLink').click(function() {
+            if(bookDetailAnimationBusy === false){
+                var div = $('.book-detail-div');
+                var bookId = $(this).attr('bookId');
+                var book = $.grep(books, function(e){ return e.id == bookId; })[0];
+
+                if(div.hasClass('visible') && lastClickedBookId !== bookId){ 
+                    
+                    closeBookDetail();
+                    
+                    div.promise().done(function(){
+                        fillInBookInfo(book);
+                        openBookDetail(bookId);
+                    });
+
+                    lastClickedBookId = bookId;
+                    
+                }else if (div.hasClass('visible') === false){
                     fillInBookInfo(book);
                     openBookDetail(bookId);
-                });
+                    lastClickedBookId = bookId;
 
-                lastClickedBookId = bookId;
-                
-            }else if (div.hasClass('visible') === false){
-                fillInBookInfo(book);
-                openBookDetail(bookId);
-                lastClickedBookId = bookId;
-
-                div.promise().done(function(){
-                    bookDetailAnimationBusy = false;
-                });
-         	}else{
-                closeBookDetail();   
+                    div.promise().done(function(){
+                        bookDetailAnimationBusy = false;
+                    });
+                }else{
+                    closeBookDetail();   
+                }
             }
-        }
-  	});
+        });
+
+        Waypoint.refreshAll();
+    }
 
     $('#book-detail-close-div').click(function(){
         closeBookDetail();
