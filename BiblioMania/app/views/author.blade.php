@@ -26,7 +26,7 @@
     			<tr>
     				<td oeuvre-id={{ $bookFromAuthor->id }}>
 						@if(count($bookFromAuthor->books) > 0)
-							<span class="author-oeuvre-link"><a class="author-oeuvre-title" href="{{ URL::to('getBooks/'.$bookFromAuthor->books[0]->id) }}">{{ $bookFromAuthor->title }}</a></span>
+							<span class="author-oeuvre-link"><a class="author-oeuvre-title" href="{{ URL::to('getBooks?book_id='.$bookFromAuthor->books[0]->id) }}">{{ $bookFromAuthor->title }}</a></span>
     					@else
     						<span class="author-oeuvre-link"><span class="author-oeuvre-title">{{ $bookFromAuthor->title }}</span></span>
     					@endif

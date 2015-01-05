@@ -9,54 +9,29 @@ class BookController extends BaseController {
         return strcmp($a->name, $b->name);
     }
 
-	public function getBooks($id = null)
+	public function getBooks()
 	{
-        $with = array(
-                'authors' => function($query) {
-                    $query->orderBy('name', 'DESC');
-                },
-                'publisher', 
-                'genre', 
-                'personal_book_info', 
-                'first_print_info',
-                'publication_date', 
-                'country',
-                'publisher_serie', 
-                'serie');
-        if($id==null){
-            $books = Book::with($with)
-            ->paginate(60);
-        }else{
-            $books = Book::with($with)
-            ->where('id', '=', $id)->paginate(60);
-        }
-
+        $bookId = Input::get('book_id');
 		return View::make('books')->with(array(
             'title' => 'Boeken',
-            'books' => $books,
-            'books_json' => $books->toJson(),
+            'order_by_options' => App::make('BookService')->getOrderByValues(),
+            'book_id' => $bookId,
             'total_value_library' => App::make('BookService')->getValueOfLibrary(),
             'total_amount_of_books' => App::make('BookService')->getTotalAmountOfBooksInLibrary(),
             'total_amount_of_books_owned' => App::make('BookService')->getTotalAmountOfBooksOwned(),
             'bookFilters' => BookFilter::getFilters()
-            ));
+        ));
     }
 
     public function getNextBooks(){
-        $with = array(
-                'authors' => function($query) {
-                    $query->orderBy('name', 'DESC');
-                },
-                'publisher', 
-                'genre', 
-                'personal_book_info', 
-                'first_print_info',
-                'publication_date', 
-                'country',
-                'publisher_serie', 
-                'serie');
-        $books = Book::with($with)->paginate(60);
-        return $books->toJson();
+        $book_title = Input::get('bookTitle');
+        $book_subtitle = Input::get('book_subtitle');
+        $book_id = Input::get('book_id');
+        $book_author_name = Input::get('book_author_name');
+        $book_author_firstname = Input::get('book_author_firstname');
+        $orderBy = Input::get('order_by');
+
+        return App::make('BookService')->getFilteredBooks($book_id, $book_title, $book_subtitle, $book_author_name, $book_author_firstname, $orderBy);
     }
 
     public function getBooksFromSearch(){
@@ -71,7 +46,7 @@ class BookController extends BaseController {
                     'first_print_info',
                     'publication_date', 
                     'country',
-                    'publisher_serie', 
+                    'publisher_serie',
                     'serie'))
                 ->where('user_id' , '=', Auth::user()->id)
                 ->where(function ($query) use ($criteria){
@@ -80,11 +55,6 @@ class BookController extends BaseController {
                 })
                 ->orderBy('title')
                 ->paginate(60);
-
-        // $books = Book::where('user_id' , '=', Auth::user()->id)->get();
-        // $filteredBooks = $books->filter(function($book){
-        //     if($book->) 
-        // });
 
         return View::make('books')->with(array(
             'title' => 'Boeken',

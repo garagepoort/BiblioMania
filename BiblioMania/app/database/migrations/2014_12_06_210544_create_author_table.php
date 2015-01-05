@@ -12,6 +12,7 @@ class CreateAuthorTable extends Migration {
 			$table->increments('id');
 			$table->string('name');
 			$table->string('firstname');
+			$table->string('gender');
 			$table->string('infix')->nullable();
 			$table->string('image')->nullable();
 	        $table->date('date_of_death')->nullable();

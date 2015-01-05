@@ -86,7 +86,10 @@ class BookImportController extends BaseController {
 		$authorService = App::make('AuthorService');
 		$authors = [];
 		$path = explode('\\', $values[18]);
-		$authorImage = 'bookImages/' .Auth::user()->username . '/' . end($path);
+		$authorImage = 'images/questionCover.png';
+		if(!empty(end($path))){
+			$authorImage = 'bookImages/' .Auth::user()->username . '/' . end($path);
+		}
 		$author = $authorService->saveOrUpdate($values[2], $values[1], $values[0], $authorImage);
 		array_push($authors, $author);
 		$this->importOeuvre($values, $author);

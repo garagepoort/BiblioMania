@@ -4,7 +4,8 @@ $(function() {
 
         $( ".author-oeuvre-link" ).each(function( index ) {
             if($(this).find('span.oeuvre-author-pencil').length != 0){
-                $('span',this).remove();
+                $('.oeuvre-author-pencil',this).remove();
+                $('.oeuvre-author-cross',this).remove();
             }else{ 
                 $(this).append('<span aria-hidden="true" style="margin-left:10px" class="fa fa-pencil-square oeuvre-author-pencil oeuvre-author-edit-icon" width="10px">');
                 $(this).append('<span aria-hidden="true" style="margin-left:10px" class="fa fa-times-circle oeuvre-author-cross" width="10px">');

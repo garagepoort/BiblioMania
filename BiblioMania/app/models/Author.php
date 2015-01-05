@@ -4,7 +4,7 @@
 class Author extends Eloquent {
     protected $table = 'author';
 
-    protected $fillable = array('name', 'firstname', 'image', 'date_of_death', 'date_of_birth', 'country_id', 'oeuvre');
+    protected $fillable = array('name', 'firstname', 'image', 'date_of_death', 'date_of_birth', 'country_id', 'oeuvre', 'gender');
 
     public function country(){
     	return $this->belongsTo('Country');

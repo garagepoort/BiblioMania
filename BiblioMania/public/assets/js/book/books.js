@@ -2,38 +2,103 @@ $(document).ready(function(){
     var lastClickedBookId = undefined;
     var bookDetailAnimationBusy = false;
     books_page =1;
+    nextBooksUrl = "/getNextBooks?";
 
     var waypoint = new Waypoint({
         element: $('#books-loading-waypoint'),
         handler: function(direction) {
             if(direction === 'down'){
                 $('#loader-icon').show();
-                $.get(baseUrl + "/getNextBooks?page=" + books_page,
-                            function(data,status){
-                                if(status === "success"){
-                                    fillInBookContainer(JSON.parse(data));
-                                    books_page = books_page + 1;
-                                }
-                                $('#loader-icon').hide();
-                            }
-                    ).fail(function(){
-                        $('#loader-icon').hide();
-                        BootstrapDialog.show({
-                            message: 'Er ging iets mis. Refresh de pagina even en probeer opnieuw!'
-                        });
-                    });
+                loadNextBooks();
             }
         },
         offset: 'bottom-in-view'
     });
 
+    $("#searchBooksInput").keyup(function (e) {
+        if (e.keyCode == 13) {
+            doSearchBooks();    
+        }
+    });
+
+    $('#searchBooksButton').on('click', function(){
+        doSearchBooks();
+    });
+
+    $('#book-filters-button').on('click', function(){
+        doFilterBooks();
+    });
+
+    $('#orderby-select-box').change(function(){
+        nextBooksUrl = nextBooksUrl + 'order_by=' + $('#orderby-select-box').val() +'&';
+        books_page = 1;
+        $('#books-container-table > tbody').empty();
+        loadNextBooks();
+    });
+
+    function doSearchBooks(){
+        window.book_id = null;
+        if($('#searchBooksInput').val() !== ''){
+            nextBooksUrl = "/getNextBooks?bookTitle=" + $('#searchBooksInput').val() + "&";
+        }else{
+            nextBooksUrl = "/getNextBooks?";
+        }
+        books_page = 1;
+        $('#books-container-table > tbody').empty();
+        loadNextBooks();
+    }
+
+    function doFilterBooks(){
+        nextBooksUrl = "/getNextBooks?";
+        if($('#title-filter-input').val()){
+            nextBooksUrl = nextBooksUrl + "bookTitle=" + $('#title-filter-input').val()  + "&";
+        }
+        if($('#subtitle-filter-input').val()){
+            nextBooksUrl = nextBooksUrl + "book_subtitle=" + $('#subtitle-filter-input').val()  + "&";
+        }
+        if($('#author-name-filter-input').val()){
+            nextBooksUrl = nextBooksUrl + "book_author_name=" + $('#author-name-filter-input').val()  + "&";
+        }
+        if($('#author-firstname-filter-input').val()){
+            nextBooksUrl = nextBooksUrl + "book_author_firstname=" + $('#author-firstname-filter-input').val()  + "&";
+        }
+        books_page = 1;
+        $('#books-container-table > tbody').empty();
+        loadNextBooks();
+    }
+
+    function loadNextBooks(){
+        $('#loader-icon').show();
+        $.get(getNextBooksUrl(),
+            function(data,status){
+                if(status === "success"){
+                    fillInBookContainer(data);
+                    books_page = books_page + 1;
+                }
+                $('#loader-icon').hide();
+            }
+        ).fail(function(){
+            $('#loader-icon').hide();
+            BootstrapDialog.show({
+                message: 'Er ging iets mis. Refresh de pagina even en probeer opnieuw!'
+            });
+        });
+    }
+    function getNextBooksUrl(){
+        if(window.book_id){
+            return window.baseUrl + nextBooksUrl + "page=" + books_page + "&book_id=" + window.book_id;
+        }
+        return window.baseUrl + nextBooksUrl + "page=" + books_page;
+    }
+
     function fillInBookContainer(data){
         var books = data.data;
+        var amountBooks = Object.keys(books).length;
 
-        for (var i = 0; i < books.length/6; i++ ) {
+        for (var i = 0; i < amountBooks/6; i++ ) {
             var columns = 6;
-            if(i*6+6 > books.length){
-                columns =  books.length % 6;
+            if(i*6+6 > amountBooks){
+                columns =  amountBooks % 6;
             }
 
             var trString = "<tr>";

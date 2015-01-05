@@ -68,16 +68,20 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav">
                 <li>{{ HTML::link('getBooks', 'Boeken', array('id'=>'booksNavigationLink', 'title' => 'Boeken')) }}</li>
-                <li><a href="#">Auteurs</a></li>
+                <li>{{ HTML::link('getAuthors', 'Auteurs', array('id'=>'authorsNavigationLink', 'title' => 'Auteurs')) }}</li>
               </ul>
               
               <ul class="nav navbar-nav navbar-right">
-                {{ Form::open(array('url' => 'getBooksFromSearch', 'method' => 'GET' ,'class' => 'navbar-form navbar-left')) }}
-                    <div class="form-group">
-                      <input type="text" class="form-control" placeholder="Search" name="criteria">
-                    </div>
-                    {{ Form::submit('Search', array('class' => 'btn btn-default')) }}
-                {{ Form::close() }}
+                    <table>
+                        <tr>
+                            <td>
+                                <input id="searchBooksInput" type="text" class="form-control" placeholder="Search" name="criteria">
+                            </td>
+                            <td>
+                                <button id="searchBooksButton" class="btn btn-default">Zoeken</button>
+                            </td>
+                        </tr>
+                    </table>
               </ul>
             </div><!-- /.navbar-collapse -->
         </div>

@@ -2,9 +2,8 @@
 
 @section('content')
 <script type="text/javascript">
-    var data = {{ $books_json }};
-    var books = data.data;
     var baseUrl = "{{ URL::to('/') }}";
+    var book_id = "{{ $book_id }}";
 </script>
 {{ HTML::script('assets/js/book/books.js'); }}
 
@@ -21,22 +20,14 @@
                 <button href="createBook" class='clickableRow btn btn-default'>Nieuw boek</button>
             </td>
         </tr>
+        <tr>
+            <td>Sorteer op: {{ Form::select('order', $order_by_options, null, array('id' => 'orderby-select-box')); }}</td>
+        </tr>
     </table>
 
 
     <div id="book-collection-filter-panel" class="book-collection-filter-panel" hidden>
-        <legend>Filter</legend>
-        <div class="form-group">
-            <!-- FILTERS -->
-                {{ Form::label('filterLabel', 'Filter op:', array('class' => 'col-md-3')); }}
-                <div class="col-md-5">
-                    <select id="filterSelect" name="filter_value" class="input-sm">
-                        @foreach($bookFilters as $bookFilter)
-                        <option value="{{ $bookFilter->columnName }}">{{ $bookFilter->viewName }}</option>
-                        @endforeach
-                    </select>
-                </div>
-        </div>
+        @include('book/bookFilters')
     </div>
 
     <div class="book-collection-info-panel">
