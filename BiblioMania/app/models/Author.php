@@ -17,7 +17,7 @@ class Author extends Eloquent {
     
     public function books()
     {
-        return $this->belongsToMany('Book', 'book_author');
+        return $this->belongsToMany('Book', 'book_author')->withPivot('preferred');
     }
 
     public function oeuvre()

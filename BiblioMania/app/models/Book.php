@@ -28,7 +28,7 @@ class Book extends Eloquent {
     protected $with = array('publication_date', 'first_print_info');
 
     public function authors(){
-    	return $this->belongsToMany('Author', 'book_author');
+    	return $this->belongsToMany('Author', 'book_author')->withPivot('preferred');
 	}
 
 	public function genre(){

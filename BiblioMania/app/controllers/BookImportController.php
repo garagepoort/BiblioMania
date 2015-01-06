@@ -47,8 +47,14 @@ class BookImportController extends BaseController {
 		        $book = $this->importBook($values, $publisher, $firstPrintInfo);
 		        $personalBookInfo = $this->importPersonalBookInfo($values, $book->id);
 		        $this->importBuyOrGiftInfo($personalBookInfo);
-		        foreach ($authors as $author) {
-            		$book->authors()->sync([$author->id], false);
+		        $count =1;
+				foreach ($authors as $author) {
+					if($count == 1){
+            			$book->authors()->attach($author->id, array('preferred' => true));
+					}else{
+						$book->authors()->attach($author->id, array('preferred' => false));
+					}
+					$count++;
 		        }
 		    }
 		} else {
@@ -101,7 +107,7 @@ class BookImportController extends BaseController {
 
 		if(!empty($values[6]) || !empty($values[8]) ){
 			$authorService->saveOrUpdate($values[8], $values[7], $values[6]);
-			$author = array_push($authors, $author);
+			array_push($authors, $author);
 		}
 		
 		return $authors;

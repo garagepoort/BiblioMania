@@ -12,6 +12,8 @@ class BookController extends BaseController {
 	public function getBooks()
 	{
         $bookId = Input::get('book_id');
+        Session::put('books', App::make('BookService')->getBooks());
+
 		return View::make('books')->with(array(
             'title' => 'Boeken',
             'order_by_options' => App::make('BookService')->getOrderByValues(),
@@ -192,7 +194,7 @@ class BookController extends BaseController {
             ));
         
             $book->save();
-            $book->authors()->sync([$book_author_model->id], false);
+            $book->authors()->sync(array($book_author_model->id => array('preferred' => true)), false);
 
             $personal_book_info = $this->createPersonalBookInfo($book);
 

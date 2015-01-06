@@ -12,6 +12,7 @@ class CreateBookAuthorTable extends Migration {
 			$table->increments('id');
 			$table->unsignedInteger('book_id');
 			$table->unsignedInteger('author_id');
+			$table->boolean('preferred');
 	        $table->nullableTimestamps();
 		    $table->foreign('book_id')->references('id')->on('book');
 		    $table->foreign('author_id')->references('id')->on('author');

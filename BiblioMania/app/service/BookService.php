@@ -26,15 +26,15 @@ class BookService {
                 'authors' => function($query) {
                     $query->orderBy('name', 'DESC');
                 },
-                'publisher', 
-                'genre', 
-                'personal_book_info', 
+                'publisher',
+                'genre',
+                'personal_book_info',
                 'first_print_info',
-                'publication_date', 
+                'publication_date',
                 'country',
-                'publisher_serie', 
+                'publisher_serie',
                 'serie');
-		return Books::with($with)->where('user_id', '=', Auth::user()->id)->get();
+		return Book::where('user_id', '=', Auth::user()->id)->get();
 	}
 
 	public function getFilteredBooks($book_id, $book_title, $book_subtitle, $book_author_name, $book_author_firstname, $orderBy){
@@ -56,49 +56,47 @@ class BookService {
                     ->paginate(60);
         }
 
-        $books = Book::with($with)->where('user_id' , '=', Auth::user()->id);
+        $books = Book::with($with)
+            ->select(DB::raw('book.*'))
+            ->join('book_author', 'book_author.book_id', '=', 'book.id')
+            ->join('author', 'book_author.author_id', '=', 'author.id')
+            ->join('personal_book_info', 'personal_book_info.book_id', '=', 'book.id')
+            ->join('first_print_info', 'first_print_info.id', '=', 'book.first_print_info_id')
+            ->join('date', 'date.id', '=', 'book.publication_date_id')
+            ->where('book_author.preferred' , '=', 1)
+            ->where('user_id' , '=', Auth::user()->id);
 
         if($book_title != null){
-            $books = $books->where('title', 'LIKE', '%'.$book_title.'%');
+            $books = $books->where('book.title', 'LIKE', '%'.$book_title.'%');
         }
         if($book_subtitle !=null){
-            $books = $books->where('subtitle', 'LIKE', '%'.$book_subtitle.'%');
+            $books = $books->where('book.subtitle', 'LIKE', '%'.$book_subtitle.'%');
         }
         if($book_author_name != null){
-            $books = $books->whereHas('authors', function($q) use ($book_author_name){
-                $q->where('name', 'LIKE', '%'.$book_author_name.'%');
-            });
+            $books = $books->where('author.name', 'LIKE', '%'.$book_author_name.'%');
         }
         if($book_author_firstname != null) {
-            $books = $books->whereHas('authors', function ($q) use ($book_author_firstname) {
-                $q->where('firstname', 'LIKE', '%' . $book_author_firstname . '%');
-            });
+            $books = $books->where('author.firstname', 'LIKE', '%' . $book_author_firstname . '%');
         }
 
-        $books = $books->get();
+        if($orderBy == 'title'){
+            $books = $books->orderBy('title');
+        }
+        if($orderBy == 'subtitle'){
+            $books = $books->orderBy('subtitle');
+        }
+        if($orderBy == 'rating'){
+            $books = $books->orderBy('personal_book_info.rating', 'DESC');
+        }
+        if($orderBy == 'author'){
+            $books = $books->orderBy('author.name');
+        }
 
-        $books = $books->sortByDesc(function($book) use ($orderBy)
-		{
-			if($orderBy == 'title'){
-		    	return $book->title;
-			}
-			if($orderBy == 'subtitle'){
-		    	return $book->subtitle;
-			}
-            if($orderBy == 'author'){
-		    	return $book->authors[0]->name;
-			}
-            if($orderBy == 'rating'){
-		    	return $book->personal_book_info->rating;
-			}
-		    return $book->authors[0]->name;
-		});
-
-        $perPage = 60;
-        $currentPage = Input::get('page') - 1;
-        $pagedData = array_slice($books->toArray(), $currentPage * $perPage, $perPage);
-        $books = Paginator::make($pagedData, count($books), $perPage);
-		return $books;
+        $books = $books->orderBy('author.name');
+        $books = $books->orderBy('date.year', 'ASC');
+        $books = $books->orderBy('date.month', 'ASC');
+        $books = $books->orderBy('date.day', 'ASC');
+        return $books->paginate(60);
 	}
 
     private function sortBooks($orderBy = 'author', $books){
