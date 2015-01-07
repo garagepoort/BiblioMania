@@ -12,7 +12,6 @@ class BookController extends BaseController {
 	public function getBooks()
 	{
         $bookId = Input::get('book_id');
-        Session::put('books', App::make('BookService')->getBooks());
 
 		return View::make('books')->with(array(
             'title' => 'Boeken',
@@ -121,7 +120,6 @@ class BookController extends BaseController {
             $giftInfoService = App::make('GiftInfoService');
             $countryService = App::make('CountryService');
 
-            $book_cover_image_file = $this->checkCoverImage();
 
             //BOOK INPUT
             $book_title = Input::get("book_title");
@@ -140,14 +138,21 @@ class BookController extends BaseController {
             $book_publisher_serie = Input::get('book_publisher_serie');
             $book_serie = Input::get('book_serie');
 
-
             //AUTHOR INPUT
             $book_author_name = Input::get('author_name');
             $book_author_firstname = Input::get('author_firstname');
             $book_author_date_of_birth = DateTime::createFromFormat('d/m/Y', Input::get('author_date_of_birth'));
             $book_author_date_of_death = DateTime::createFromFormat('d/m/Y', Input::get('author_date_of_death'));
 
-            
+            //COVER INFO
+            $coverInfoSelfUpload = Input::get('coverInfoSelfUpload');
+            $coverInfoUrl = Input::get('coverInfoUrl');
+            if($coverInfoSelfUpload){
+                $book_cover_image_file = $this->checkCoverImage();
+            }else{
+                $book_cover_image_file = App::make('ImageService')->getImageFromUrl($coverInfoUrl, $book_title);
+            }
+
             if(Input::get('buyOrGift') == 'BUY'){
                 //BUY INFO INPUT
                 $buy_info_buy_date = DateTime::createFromFormat('d/m/Y', Input::get('buy_info_buy_date'));

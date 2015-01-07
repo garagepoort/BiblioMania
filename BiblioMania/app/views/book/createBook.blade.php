@@ -14,6 +14,7 @@
         <li role="presentation"><a id="first-print-info-tab-link" href="#first_print_info_tab" aria-controls="first_print_info_tab" role="tab" data-toggle="tab">Eerste druk</a></li>
         <li role="presentation"><a id="personal-info-tab-link" href="#personal_info_tab" aria-controls="personal_info_tab" role="tab" data-toggle="tab">Persoonlijke info</a></li>
         <li role="presentation"><a id="buy-info-tab-link" href="#buy_info_tab" aria-controls="buy_info_tab" role="tab" data-toggle="tab">Koop info</a></li>
+        <li role="presentation"><a id="cover-tab-link" href="#cover_tab" aria-controls="cover_tab" role="tab" data-toggle="tab">Cover info</a></li>
       </ul>
 
       <!-- Tab panes -->
@@ -36,6 +37,9 @@
         <div role="tabpanel" class="tab-pane" id="buy_info_tab">
           @include('book/create/buyOrGiftInfo')
         </div>
+        <div role="tabpanel" class="tab-pane" id="cover_tab">
+          @include('book/create/coverInfo')
+        </div>
       </div>
     </div>
 
@@ -54,7 +58,7 @@
             country_names[country_names.length] = obj.name;
         });
     </script>
-    {{ HTML::script('assets/js/creatBook/createBook.js'); }}
+    {{ HTML::script('assets/js/createBook/createBook.js'); }}
 
 </div>
 

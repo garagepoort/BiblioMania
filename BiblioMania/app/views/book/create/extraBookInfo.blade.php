@@ -45,32 +45,5 @@
             </div>
         </div>
 
-        <legend>Cover info</legend>
-
-            <!-- IMAGE -->
-            <div class="form-group">
-              {{ Form::label('imageBookLabel', 'Cover:', array('class' => 'col-md-3')); }}
-                <!-- {{ $errors->first('book_image') }} -->
-              <div class="col-md-4">
-                  <div class="fileinput fileinput-new" data-provides="fileinput">
-                    <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
-                    <div>
-                      <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span>{{ Form::file('book_cover_image') }}</span>
-                      <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
-                    </div>
-                  </div>
-              </div>
-
-                <!-- {{ Form::label('bookTypeOfCoverLabel', 'Cover type:', array('class' => 'col-md-2')); }} -->
-                <!-- {{ $errors->first('book_typeOfCover') }} -->
-                <div class="col-md-4">
-                    <select id="bookTypeOfCoverSelect" name="book_type_of_cover" class="input-sm">
-                        @foreach($covers as $cover)
-                        <option value="{{ $cover }}">{{ $cover }}</option>
-                        @endforeach
-                    </select>
-                </div> 
-            </div>
-
     </fieldset>
 </div>

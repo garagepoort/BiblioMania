@@ -5,14 +5,26 @@ $(function() {
     var lastSetAuthorFirstname;
     var lastSetAuthorInfix;
 
-    $('#author-info-tab-link').click(function(){
-        var trimmedValue = $('#book_author_input').val().replace(" ","");
+    $('#book_author_input').focusout(function(){
+        var trimmedValue = $('#book_author_input').val();
         var result = trimmedValue.split(",");
-        if(lastSetAuthorName !== result[0] || lastSetAuthorFirstname !== result[1]){
-            $("#author_name").val(result[0]);
-            $("#author_firstname").val(result[1]);
-            lastSetAuthorName = result[0];
-            lastSetAuthorFirstname = result[1];
+        if(lastSetAuthorName !== result[0].trim() || lastSetAuthorFirstname !== result[1].trim()){
+            $("#author_name").val(result[0].trim());
+            $("#author_firstname").val(result[1].trim());
+            lastSetAuthorName = result[0].trim();
+            lastSetAuthorFirstname = result[1].trim();
+            fillInOeuvre();
+        }
+    });
+
+    $('#author-info-tab-link').click(function(){
+        var trimmedValue = $('#book_author_input').val();
+        var result = trimmedValue.split(",");
+        if(lastSetAuthorName !== result[0].trim() || lastSetAuthorFirstname !== result[1].trim()){
+            $("#author_name").val(result[0].trim());
+            $("#author_firstname").val(result[1].trim());
+            lastSetAuthorName = result[0].trim();
+            lastSetAuthorFirstname = result[1].trim();
             fillInOeuvre();
         }
     });

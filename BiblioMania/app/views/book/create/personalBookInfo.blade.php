@@ -1,4 +1,4 @@
- {{ HTML::script('assets/js/creatBook/personalBookInfo.js'); }}
+ {{ HTML::script('assets/js/createBook/personalBookInfo.js'); }}
 
 <div class="tab-container ">
     <fieldset>

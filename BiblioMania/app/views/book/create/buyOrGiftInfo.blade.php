@@ -30,4 +30,4 @@
         </div>
     </fieldset>
 </div>
- {{ HTML::script('assets/js/creatBook/buyOrGiftInfo.js'); }}
+ {{ HTML::script('assets/js/createBook/buyOrGiftInfo.js'); }}

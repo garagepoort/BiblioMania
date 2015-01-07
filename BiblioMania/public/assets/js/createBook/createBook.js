@@ -16,6 +16,7 @@ $(document).ready(function() {
                 $('.createBookForm').bootstrapValidator({
                     message: 'This value is not valid',
                     message: 'This value is not valid',
+                    ignore: '',
                     feedbackIcons: {
                         valid: 'glyphicon glyphicon-ok',
                         invalid: 'glyphicon glyphicon-remove',

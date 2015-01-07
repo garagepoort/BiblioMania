@@ -10,6 +10,11 @@
 	    return new CountryService;
 	});
 
+	App::singleton('ImageService', function()
+	{
+	    return new ImageService;
+	});
+
 	App::singleton('OeuvreService', function()
 	{
 	    return new OeuvreService;

@@ -46,7 +46,7 @@
            <!-- GENRE -->
            <div class="form-group">
                 {{ Form::label('bookGenreLabel', 'Genre:', array('class' => 'col-md-2')); }}
-                <input id="book_genre_input" type="text" name="book_genre" hidden>
+                <input id="book_genre_input" type="text" name="book_genre" hidden required>
                 
                 <div class="genres-container col-md-8">
                     <div class="collapsible genres-header" id="genres-header"><span id="genresGlyphicon" class="glyphicon glyphicon-chevron-right" aria-hidden="true">    Genres:</span></div>
@@ -119,4 +119,4 @@
         publisher_names[publisher_names.length] = obj.name;
     });
 </script>
- {{ HTML::script('assets/js/creatBook/bookInfo.js'); }}
+ {{ HTML::script('assets/js/createBook/bookInfo.js'); }}

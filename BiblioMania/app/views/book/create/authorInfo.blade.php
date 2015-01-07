@@ -64,4 +64,4 @@
 
     </fieldset>
 </div>
-{{ HTML::script('assets/js/creatBook/authorInfo.js'); }}
+{{ HTML::script('assets/js/createBook/authorInfo.js'); }}

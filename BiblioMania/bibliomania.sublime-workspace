@@ -523,7 +523,7 @@
 			"file": "app/service/BookService.php",
 			"settings":
 			{
-				"buffer_size": 2972,
+				"buffer_size": 4317,
 				"line_ending": "Unix"
 			}
 		},
@@ -539,7 +539,7 @@
 			"file": "public/assets/js/book/books.js",
 			"settings":
 			{
-				"buffer_size": 10959,
+				"buffer_size": 10965,
 				"line_ending": "Unix"
 			}
 		},
@@ -547,7 +547,7 @@
 			"file": "app/views/books.blade.php",
 			"settings":
 			{
-				"buffer_size": 2240,
+				"buffer_size": 2247,
 				"line_ending": "Unix"
 			}
 		},
@@ -555,7 +555,7 @@
 			"file": "public/assets/js/creatBook/bookInfo.js",
 			"settings":
 			{
-				"buffer_size": 1118,
+				"buffer_size": 0,
 				"line_ending": "Unix"
 			}
 		}
@@ -909,23 +909,25 @@
 					"file": "app/service/BookService.php",
 					"settings":
 					{
-						"buffer_size": 2972,
+						"buffer_size": 4317,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2457,
-								2457
+								0,
+								0
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/PHP/PHP.tmLanguage"
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
-						"translation.x": 7.0,
-						"translation.y": 729.0,
+						"translation.x": 16.0,
+						"translation.y": 700.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -963,15 +965,15 @@
 					"file": "public/assets/js/book/books.js",
 					"settings":
 					{
-						"buffer_size": 10959,
+						"buffer_size": 10965,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								29,
-								29
+								0,
+								0
 							]
 						],
 						"settings":
@@ -991,15 +993,15 @@
 					"file": "app/views/books.blade.php",
 					"settings":
 					{
-						"buffer_size": 2240,
+						"buffer_size": 2247,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								733,
-								733
+								0,
+								0
 							]
 						],
 						"settings":
@@ -1019,7 +1021,7 @@
 					"file": "public/assets/js/creatBook/bookInfo.js",
 					"settings":
 					{
-						"buffer_size": 1118,
+						"buffer_size": 0,
 						"regions":
 						{
 						},

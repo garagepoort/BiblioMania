@@ -2,8 +2,10 @@
     <head>
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"> 
         <meta charset="UTF-8">
-        <title> {{ $title }} </title> 
-            {{ HTML::script('assets/js/jquery.js'); }}
+        <title> {{ $title }} </title>
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+        {{ HTML::script('assets/js/jquery.js'); }}
 
         <!-- BOOTSTRAP -->
         {{ HTML::script('assets/js/bootstrap.js'); }}

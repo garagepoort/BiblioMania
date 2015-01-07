@@ -37,7 +37,7 @@
                 <!-- COUNTRY -->
                     {{ Form::label('first_print_CountryLabel', 'Land:', array('class' => 'col-md-2')); }}
                     <div class="col-md-5">
-                        {{ Form::text('first_print_country', '', array('id'=>'first_print_country','class' => 'form-control typeahead', 'placeholder' => 'land', 'required' => 'true', 'type' => 'text')); }}
+                        {{ Form::text('first_print_country', '', array('id'=>'first_print_country','class' => 'form-control typeahead', 'placeholder' => 'land', 'type' => 'text')); }}
                     </div>
 
                 <!-- LANGUAGE -->
