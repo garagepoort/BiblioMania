@@ -41,7 +41,7 @@ $(document).ready(function(){
                 var imageString = baseUrl + "/" + author.image;
                 trString = trString + '<td>';
                 trString = trString + "<a href='" + baseUrl + "/getAuthor/" + author.id +  "'><img src=\"" + imageString + "\" authorid='" + author.id + "' class='authorCoverLink'></a>";
-                trString = trString + "<p>" + author.name + " " + author.firstname +"</p>";
+                trString = trString + "<p>" + author.firstname + " " + author.name +"</p>";
                 trString = trString + '</td>';
             }
             trString = trString + '</tr>';

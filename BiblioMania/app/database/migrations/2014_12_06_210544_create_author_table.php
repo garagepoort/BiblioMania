@@ -15,11 +15,13 @@ class CreateAuthorTable extends Migration {
 			$table->string('gender');
 			$table->string('infix')->nullable();
 			$table->string('image')->nullable();
-	        $table->date('date_of_death')->nullable();
-	        $table->date('date_of_birth')->nullable();
+			$table->unsignedInteger('date_of_death_id')->nullable();
+			$table->unsignedInteger('date_of_birth_id')->nullable();
 	        $table->unsignedInteger('country_id')->nullable();
 	        $table->nullableTimestamps();
 		    $table->foreign('country_id')->references('id')->on('country');
+			$table->foreign('date_of_death_id')->references('id')->on('date');
+			$table->foreign('date_of_birth_id')->references('id')->on('date');
 		});
 	}
 

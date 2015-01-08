@@ -25,15 +25,21 @@
         <div class="form-group">
             {{ Form::label('birthDateLabel', 'Geboorte datum:', array('class' => 'col-md-3')); }}
             <div class="col-md-3">
-                {{ Form::text('author_date_of_birth', '', array('id'=>'author_date_of_birth', 'class' => 'input-sm datepicker', 'placeholder' => 'select date', 'data-format' => 'dd-MM-yyyy')); }}
+                @include('book/create/dateInputFragment', array('label' => 'Geboorte datum:',
+                                       'dateDayName'=>'author_date_of_birth_day',
+                                       'dateMonthName'=>'author_date_of_birth_month',
+                                       'dateYearName'=>'author_date_of_birth_year'))
             </div>
         </div>
-        
+
         <!-- DEATH DATE -->
         <div class="form-group">
             {{ Form::label('deathDateLabel', 'Sterfte datum:', array('class' => 'col-md-3')); }}
             <div class="col-md-3">
-                {{ Form::text('author_date_of_death', '', array('id'=>'author_date_of_death', 'class' => 'input-sm datepicker', 'placeholder' => 'select date', 'data-format' => 'dd-MM-yyyy')); }}
+                @include('book/create/dateInputFragment', array('label' => 'Sterfte datum:',
+                                                    'dateDayName'=>'author_date_of_death_day',
+                                                    'dateMonthName'=>'author_date_of_death_month',
+                                                    'dateYearName'=>'author_date_of_death_year'))
             </div>
         </div>
 

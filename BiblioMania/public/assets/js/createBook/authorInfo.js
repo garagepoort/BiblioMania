@@ -5,18 +5,6 @@ $(function() {
     var lastSetAuthorFirstname;
     var lastSetAuthorInfix;
 
-    $('#book_author_input').focusout(function(){
-        var trimmedValue = $('#book_author_input').val();
-        var result = trimmedValue.split(",");
-        if(lastSetAuthorName !== result[0].trim() || lastSetAuthorFirstname !== result[1].trim()){
-            $("#author_name").val(result[0].trim());
-            $("#author_firstname").val(result[1].trim());
-            lastSetAuthorName = result[0].trim();
-            lastSetAuthorFirstname = result[1].trim();
-            fillInOeuvre();
-        }
-    });
-
     $('#author-info-tab-link').click(function(){
         var trimmedValue = $('#book_author_input').val();
         var result = trimmedValue.split(",");
@@ -46,7 +34,7 @@ $(function() {
     });
 
     function fillInOeuvre(){
-        var author = $.grep(authors_json, function(e){ return e.name == $("#author_name").val() && e.firstname == $("#author_firstname").val(); })[0];
+        var author = $.grep(authors_json, function(e){ return e.name === $("#author_name").val() && e.firstname === $("#author_firstname").val(); })[0];
         if(author != null){
             lastKnownAuthor = author;
             createOeuvreList();

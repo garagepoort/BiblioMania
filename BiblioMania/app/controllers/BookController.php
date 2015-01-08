@@ -75,7 +75,7 @@ class BookController extends BaseController {
 	public function goToCreateBook()
 	{
         $dateService = App::make('DateService');
-		$covers = array("Hard cover", "Soft cover", "Other");
+		$covers = array("Hard cover", "Soft cover", "dwarsligger", "e-book");
         $genres = Genre::where('parent_id' , '=', null)->get();
 
 		return View::make($this->bookFolder . 'createBook')->with(array(
@@ -141,8 +141,15 @@ class BookController extends BaseController {
             //AUTHOR INPUT
             $book_author_name = Input::get('author_name');
             $book_author_firstname = Input::get('author_firstname');
-            $book_author_date_of_birth = DateTime::createFromFormat('d/m/Y', Input::get('author_date_of_birth'));
-            $book_author_date_of_death = DateTime::createFromFormat('d/m/Y', Input::get('author_date_of_death'));
+            $book_author_date_of_birth_day = Input::get('author_date_of_birth_day');
+            $book_author_date_of_birth_month = Input::get('author_date_of_birth_month');
+            $book_author_date_of_birth_year = Input::get('author_date_of_birth_year');
+            $book_author_date_of_death_day = Input::get('author_date_of_death_day');
+            $book_author_date_of_death_month = Input::get('author_date_of_death_month');
+            $book_author_date_of_death_year = Input::get('author_date_of_death_year');
+
+            $book_author_date_of_birth_id = App::make('DateService')->createDate($book_author_date_of_birth_day, $book_author_date_of_birth_month, $book_author_date_of_birth_year)->id;
+            $book_author_date_of_death_id = App::make('DateService')->createDate($book_author_date_of_death_day, $book_author_date_of_death_month, $book_author_date_of_death_year)->id;
 
             //COVER INFO
             $coverInfoSelfUpload = Input::get('coverInfoSelfUpload');
@@ -171,7 +178,7 @@ class BookController extends BaseController {
 
             $publisher_country = $countryService->findOrSave($book_country);
             
-            $book_author_model = $authorService->saveOrUpdate($book_author_name, '', $book_author_firstname, null, $book_author_date_of_birth, $book_author_date_of_death);
+            $book_author_model = $authorService->saveOrUpdate($book_author_name, '', $book_author_firstname, null, $book_author_date_of_birth_id, $book_author_date_of_death_id);
             $book_publisher = $publisherService->saveOrUpdate($book_publisher_name, $publisher_country);
             $publisherSerie = $publisherSerieService->findOrSave($book_publisher_serie, $book_publisher->id);
             $bookSerie = $bookSerieService->findOrSave($book_serie);

@@ -2,7 +2,7 @@
 
 class AuthorService {
 
-	public function saveOrUpdate($name, $infix, $firstname, $authorImage = null, $date_of_birth = null, $date_of_death = null){
+	public function saveOrUpdate($name, $infix, $firstname, $authorImage = null, $date_of_birth_id = null, $date_of_death_id = null){
 		$author_model = Author::where('name', '=', $name)
                 ->where('firstname', '=', $firstname)
                 ->where('infix', '=', $infix)
@@ -16,12 +16,12 @@ class AuthorService {
         $author_model->firstname = $firstname;
         $author_model->infix = $infix;
 
-        if($this->notNullAndNotEmpty($date_of_birth)){
-            $author_model->date_of_birth = $date_of_birth;
+        if($this->notNullAndNotEmpty($date_of_birth_id)){
+            $author_model->date_of_birth_id = $date_of_birth_id;
         }
 
-        if($this->notNullAndNotEmpty($date_of_death)){
-            $author_model->date_of_death = $date_of_death;
+        if($this->notNullAndNotEmpty($date_of_death_id)){
+            $author_model->date_of_death_id = $date_of_death_id;
         }
         
         if($this->notNullAndNotEmpty($authorImage)){

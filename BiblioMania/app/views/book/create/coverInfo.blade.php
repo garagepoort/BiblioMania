@@ -66,12 +66,7 @@
                 </tbody>
             </table>
 
-            <div id="branding"  style="float: left;"></div><br />
-            <div id="content">
-                <table id="cover-image-table" class="create-book-cover-image-table">
-                </table>
-            </div>
-            <input id="cover-info-url-input" name="coverInfoUrl" hidden>
+            @include('googleImageSearch', array('imageUrlInput' => 'coverInfoUrl'))
         </div>
     </fieldset>
     {{ HTML::script('assets/js/createBook/coverInfo.js'); }}

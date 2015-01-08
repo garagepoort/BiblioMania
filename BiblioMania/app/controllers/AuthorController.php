@@ -10,7 +10,7 @@ class AuthorController extends BaseController {
 	}
 
 	public function getNextAuthors(){
-		return Author::paginate(60)->toJson();
+		return Author::orderBy('name')->orderBy('firstname')->paginate(60)->toJson();
 	}
 
 	public function getAuthor($author_id){
