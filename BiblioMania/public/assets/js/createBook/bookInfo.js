@@ -12,6 +12,15 @@ $(function() {
 
    $('.collapsible').collapsible();
 
+    var genreId = $("#book_genre_input").val();
+    if(genreId !== ''){
+        var selectedGenre = $(".genre-listitem[genreId=" + genreId + "]" );
+        if(selectedGenre != null){
+            selectedGenre.addClass("clickedGenre");
+            $("#genresGlyphicon").text('    Genre: ' + selectedGenre.attr("name"));
+        }
+    }
+
     $(".genre-listitem").click(function(){
         $(".clickedGenre").removeClass("clickedGenre");
         $(this).addClass("clickedGenre");

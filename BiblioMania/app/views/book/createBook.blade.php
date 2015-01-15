@@ -3,7 +3,8 @@
 @section('content')
 <div class="create-book-div">
     <h1 id="book-info-title">Nieuw boek</h1>
-    {{ Form::open(array('url' => 'createBook', 'class' => 'form-horizontal createBookForm', 'autocomplete' => 'off', 'files' => 'true')); }}
+    {{ Form::open(array('id'=>'createOrEditBookForm', 'url' => 'createOrEditBook', 'class' => 'form-horizontal createBookForm', 'autocomplete' => 'off', 'files' => 'true')); }}
+    <input id="book-id-input" name="book_id" hidden value={{ $book_id }}>
     <div role="tabpanel">
 
       <!-- Nav tabs -->

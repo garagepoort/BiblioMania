@@ -1,6 +1,5 @@
 <?php
 
-
 class GiftInfo extends Eloquent {
     protected $table = 'gift_info';
 

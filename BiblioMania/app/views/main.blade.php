@@ -118,6 +118,7 @@
         function redirectOnChange(sel){
             window.document.location = $("option:selected", sel).attr("href");
         }
+        var baseUrl = "{{ URL::to('/') }}";
     </script>
     </body>
 </html>

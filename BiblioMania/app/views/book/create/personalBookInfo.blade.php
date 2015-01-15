@@ -15,7 +15,7 @@
         <div class="form-group">
             {{ Form::label('personal_info_ownedLabel', 'In collectie:', array('class' => 'col-md-3')); }}
             <div class="col-md-4">
-                {{ Form::checkbox('personal_info_owned', 'personal_info_owned', 'true' ,array('id'=>'personal-info-owned-checkbox')); }}
+                {{ Form::checkbox('personal_info_owned', $personal_info_owned, $personal_info_owned ,array('id'=>'personal-info-owned-checkbox')); }}
             </div>
         </div>
         <div class="form-group" id="reason-not-owned-panel" hidden>
@@ -35,21 +35,13 @@
         <div class="form-group">
             {{ Form::label('personal_info_reading_dates_label', 'Lees datum / data:', array('class' => 'col-md-3')); }}
             <div class="col-md-3">
-                <input id="personal_info_reading_date_input" name="personal_info_reading_dates" hidden>
+                <input id="personal_info_reading_date_input" name="personal_info_reading_dates" hidden value={{ $personal_info_reading_date_input }}>
                 <table id="reading-dates-table">
-                    <tr>
-                        <td>
-                            <input style="margin-bottom: 10px;" name="reading_date_counter" placeholder="select date" class="input-sm datepicker reading-date">
-                        </td>
-                    </tr>
                 </table>
             </div>
             <div class="col-md-2" style="padding-top: 4px">
 
-                <span class="reading-date-plus">
-                    <!-- {{ HTML::image('images/plus.svg', 'notfound', array('width' => '48px', 'height' => '48px')) }} -->
-                    <span class="reading-date-min fa fa-plus fa-lg"></span>
-                </span>
+                <span class="reading-date-plus fa fa-plus fa-lg"></span>
                 <span class="reading-date-min fa fa-minus fa-lg" style="margin-left: 4px"></span>
             </div>
         </div>
@@ -58,7 +50,7 @@
             {{ Form::label('rating_label', 'Rating:', array('class' => 'col-md-3')); }}
             <div id="star" class="col-md-6">
             </div>
-            <input id="star-rating-input" name="personal_info_rating" hidden value="">   
+            <input id="star-rating-input" name="personal_info_rating" hidden value={{ $personal_info_rating }}>
         </div>
     
     </fieldset>

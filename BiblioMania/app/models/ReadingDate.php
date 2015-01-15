@@ -1,6 +1,5 @@
 <?php
 
-
 class ReadingDate extends Eloquent {
     protected $table = 'reading_date';
 

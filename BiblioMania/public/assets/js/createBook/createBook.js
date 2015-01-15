@@ -75,6 +75,7 @@ $(document).ready(function() {
                             }
                         },
                         book_publication_date_day: {
+                            feedbackIcons: 'false',
                             validators: {
                                 between: {
                                     min: 1,
@@ -84,6 +85,7 @@ $(document).ready(function() {
                             }
                         },
                         book_publication_date_month: {
+                            feedbackIcons: false,
                             validators: {
                                 between: {
                                     min: 1,
@@ -93,6 +95,67 @@ $(document).ready(function() {
                             }
                         },
                         book_publication_date_year: {
+                            feedbackIcons: false,
+                            validators: {
+                                between: {
+                                    min: 1000,
+                                    max: 9999,
+                                    message: 'Het jaar moet uit 4 cijfers bestaan'
+                                }
+                            }
+                        },
+                        author_date_of_birth_day: {
+                            feedbackIcons: false,
+                            validators: {
+                                between: {
+                                    min: 1,
+                                    max: 31,
+                                    message: 'De dag moet tussen 1 en 31 liggen'
+                                }
+                            }
+                        },
+                        author_date_of_birth_month: {
+                            feedbackIcons: false,
+                            validators: {
+                                between: {
+                                    min: 1,
+                                    max: 12,
+                                    message: 'De maand moet tussen 1 en 12 liggen'
+                                }
+                            }
+                        },
+                        author_date_of_birth_year: {
+                            feedbackIcons: false,
+                            validators: {
+                                between: {
+                                    min: 1000,
+                                    max: 9999,
+                                    message: 'Het jaar moet uit 4 cijfers bestaan'
+                                }
+                            }
+                        },
+                        author_date_of_death_day: {
+                            feedbackIcons: false,
+                            validators: {
+                                between: {
+                                    min: 1,
+                                    max: 31,
+                                    message: 'De dag moet tussen 1 en 31 liggen'
+                                }
+                            }
+                        },
+                        author_date_of_death_month: {
+                            feedbackIcons: false,
+                            validators: {
+                                between: {
+                                    min: 1,
+                                    max: 12,
+                                    message: 'De maand moet tussen 1 en 12 liggen'
+                                }
+                            }
+                        },
+                        author_date_of_death_year: {
+                            feedbackIcons: false,
                             validators: {
                                 between: {
                                     min: 1000,

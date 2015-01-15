@@ -9,15 +9,17 @@
             <strong>{{ Session::get('message') }}</strong>
         </div>
         @endif
-        
+
+        {{ HTML::image($author_image, 'author image', array('id'=>'loader-icon')) }}
+
         <!-- NAME -->
         <div class="form-group">
             {{ Form::label('authorNameLabel', 'Naam:', array('class' => 'col-md-3')); }}
             <div class="col-md-4">
-                {{ Form::text('author_name', '', array('id'=>'author_name','class' => 'form-control', 'placeholder' => 'naam', 'required' => 'true')); }}
+                {{ Form::text('author_name', $author_name, array('id'=>'author_name','class' => 'form-control', 'placeholder' => 'naam', 'required' => 'true')); }}
             </div>
             <div class="col-md-4">
-                {{ Form::text('author_firstname', '', array('id'=>'author_firstname','class' => 'form-control', 'placeholder' => 'voornaam', 'required' => 'true')); }}
+                {{ Form::text('author_firstname', $author_firstname, array('id'=>'author_firstname','class' => 'form-control', 'placeholder' => 'voornaam', 'required' => 'true')); }}
             </div>
         </div>
 
@@ -28,7 +30,10 @@
                 @include('book/create/dateInputFragment', array('label' => 'Geboorte datum:',
                                        'dateDayName'=>'author_date_of_birth_day',
                                        'dateMonthName'=>'author_date_of_birth_month',
-                                       'dateYearName'=>'author_date_of_birth_year'))
+                                       'dateYearName'=>'author_date_of_birth_year',
+                                        'dateDayValue' => $author_date_of_birth_day,
+                                        'dateMonthValue' => $author_date_of_birth_month,
+                                        'dateYearValue' => $author_date_of_birth_year))
             </div>
         </div>
 
@@ -39,7 +44,10 @@
                 @include('book/create/dateInputFragment', array('label' => 'Sterfte datum:',
                                                     'dateDayName'=>'author_date_of_death_day',
                                                     'dateMonthName'=>'author_date_of_death_month',
-                                                    'dateYearName'=>'author_date_of_death_year'))
+                                                    'dateYearName'=>'author_date_of_death_year',
+                                                    'dateDayValue' => $author_date_of_death_day,
+                                                    'dateMonthValue' => $author_date_of_death_month,
+                                                    'dateYearValue' => $author_date_of_death_year))
             </div>
         </div>
 
@@ -50,7 +58,7 @@
               <div class="fileinput fileinput-new" data-provides="fileinput">
                 <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
                 <div>
-                  <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input type="file" name="..."></span>
+                  <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span>{{ Form::file('author_image') }}</span>
                   <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
                 </div>
               </div>

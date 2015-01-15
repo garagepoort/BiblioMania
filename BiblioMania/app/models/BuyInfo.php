@@ -1,6 +1,5 @@
 <?php
 
-
 class BuyInfo extends Eloquent {
     protected $table = 'buy_info';
 

@@ -1,17 +1,19 @@
 <?php
 
-class CityService {
-	
-	public function save($cityName, $country_id){
+class CityService
+{
 
-		$city = City::where('country_id', '=', $country_id)->where('name', '=', $cityName)->first();
+    public function save($cityName, $country_id)
+    {
 
-		if(is_null($city)){
-			$city = new City();
-			$city->name = $cityName;
-			$city->country_id = $country_id;
-			$city->save();
-		}
-		return $city;
-	}
+        $city = City::where('country_id', '=', $country_id)->where('name', '=', $cityName)->first();
+
+        if (is_null($city)) {
+            $city = new City();
+            $city->name = $cityName;
+            $city->country_id = $country_id;
+            $city->save();
+        }
+        return $city;
+    }
 }

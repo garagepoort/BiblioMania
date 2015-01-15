@@ -12,12 +12,12 @@
             <table>
                 <tr>
                     <td>
-                        Gekocht: {{ Form::radio('buyOrGift', 'BUY', true, array('id'=>'buyRadioButton')) }}
+                        Gekocht: {{ Form::radio('buyOrGift', 'BUY', $buyInfoSet, array('id'=>'buyRadioButton')) }}
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        Gekregen: {{ Form::radio('buyOrGift', 'GIFT', false, array('id'=>'giftRadioButton')) }}
+                        Gekregen: {{ Form::radio('buyOrGift', 'GIFT', $giftInfoSet, array('id'=>'giftRadioButton')) }}
                     </td>
                 </tr>
             </table>   

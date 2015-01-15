@@ -28,6 +28,7 @@ class CreateBookTable extends Migration {
 			$table->unsignedInteger('first_print_info_id')->nullable();
 			$table->unsignedInteger('user_id');
 			$table->unsignedInteger('book_from_author_id')->nullable();
+			$table->unsignedInteger('language_id')->nullable();
 	        $table->nullableTimestamps();
 
 		    $table->foreign('publisher_id')->references('id')->on('publisher');
@@ -39,6 +40,7 @@ class CreateBookTable extends Migration {
 		    $table->foreign('user_id')->references('id')->on('users');
 		    $table->foreign('book_from_author_id')->references('id')->on('book_from_author');
 		    $table->foreign('publication_date_id')->references('id')->on('date');
+			$table->foreign('language_id')->references('id')->on('language');
 		});
 
 	}

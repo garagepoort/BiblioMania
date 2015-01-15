@@ -1,6 +1,5 @@
 <?php
 
-
 class Serie extends Eloquent {
     protected $table = 'serie';
 

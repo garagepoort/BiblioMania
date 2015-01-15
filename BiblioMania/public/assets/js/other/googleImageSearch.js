@@ -11,7 +11,6 @@ function searchComplete() {
         var contentDiv = $('#google-image-search-table');
         contentDiv.empty();
 
-        // Loop through our results, printing them to the page.
         var results = imageSearch.results;
 
 
@@ -28,8 +27,8 @@ function searchComplete() {
             var result = results[i];
             var tableData = $("<td></td>");
 
-            var newImg = $('<img width="150px" height="150px">');
-            newImg.attr('src', result.tbUrl);
+            var newImg = $('<img width="150px">');
+            newImg.attr('src', result.url);
             newImg.attr('imageUrl', result.url);
 
             tableData.append(newImg);
@@ -39,7 +38,7 @@ function searchComplete() {
             newImg.on('click', function(){
                 $('.google-selected-image').removeClass("google-selected-image");
                 $(this).addClass("google-selected-image");
-                $('#'+imageUrlInput).val($(this).attr('imageUrl'));
+                $('#'+window.imageUrlInput).val($(this).attr('imageUrl'));
             });
         }
     }

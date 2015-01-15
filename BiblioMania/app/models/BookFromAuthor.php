@@ -1,6 +1,4 @@
 <?php
-
-
 class BookFromAuthor extends Eloquent {
     protected $table = 'book_from_author';
 

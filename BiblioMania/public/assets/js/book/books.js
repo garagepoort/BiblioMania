@@ -114,6 +114,11 @@ $(document).ready(function(){
             $('#books-container-table > tbody:last').append(trString);
         }
 
+        $('.bookCoverLink').dblclick(function(){
+            var bookId = $(this).attr('bookId');
+            window.location = baseUrl + "/editBook/" + bookId;
+        });
+
         $('.bookCoverLink').click(function() {
             if(bookDetailAnimationBusy === false){
                 var div = $('.book-detail-div');
@@ -225,6 +230,7 @@ $(document).ready(function(){
             showOrHide($('#book-detail-first-print-title'), book.first_print_info.title);
             showOrHide($('#book-detail-first-print-subtitle'), book.first_print_info.subtitle);
             showOrHide($('#book-detail-first-print-country'), book.first_print_info.country.name);
+            showOrHide($('#book-detail-first-print-language'), book.first_print_info.language.language);
             showOrHide($('#book-detail-first-print-isbn'), book.first_print_info.ISBN);
             showOrHide($('#book-detail-first-print-publisher'), book.first_print_info.publisher.name);
             showOrHide($('#book-detail-first-print-publication-date'), dateToString(book.first_print_info.publication_date));

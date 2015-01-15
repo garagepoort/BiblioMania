@@ -1,4 +1,5 @@
 <?php
+
 class PersonalBookInfo extends Eloquent {
     protected $table = 'personal_book_info';
 
@@ -12,7 +13,7 @@ class PersonalBookInfo extends Eloquent {
         'reason_not_owned'
 	);
 
-    protected $with = array('gift_info', 'buy_info');
+    protected $with = array('gift_info', 'buy_info', 'reading_dates');
     
 	public function buy_info(){
     	return $this->hasOne('BuyInfo');

@@ -38,7 +38,6 @@
 </div>
 <script type="text/javascript">
     var author_json = {{ $author_json }};
-    var baseUrl = "{{ URL::to('/') }}";
 </script>
 {{ HTML::script('assets/js/author/author.js'); }}
 @stop

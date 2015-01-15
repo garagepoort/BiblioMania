@@ -15,7 +15,7 @@
             <div class="form-group">
                 {{ Form::label('titleLabel', 'Titel:', array('class' => 'col-md-2')); }}
                 <div class="col-md-9">
-                    {{ Form::text('book_title', '', array('id'=>'book_title_input', 'class' => 'form-control', 'placeholder' => 'titel', 'required' => 'true', 'type' => 'text')); }}
+                    {{ Form::text('book_title', $book_title, array('id'=>'book_title_input', 'class' => 'form-control', 'placeholder' => 'titel', 'required' => 'true', 'type' => 'text')); }}
                 </div>
             </div>
 
@@ -23,7 +23,7 @@
             <div class="form-group">
                 {{ Form::label('subtitleLabel', 'Ondertitel:', array('class' => 'col-md-2 label-gray')); }}
                 <div class="col-md-9">
-                    {{ Form::text('book_subtitle', '', array('id'=>'book_subtitle_input', 'class' => 'form-control', 'placeholder' => 'ondertitel', 'type' => 'text')); }}
+                    {{ Form::text('book_subtitle', $book_subtitle, array('id'=>'book_subtitle_input', 'class' => 'form-control', 'placeholder' => 'ondertitel', 'type' => 'text')); }}
                 </div>
             </div>
 
@@ -31,7 +31,7 @@
                 <!-- AUTHOR -->
                 {{ Form::label('authorLabel', 'Auteur:', array('class' => 'col-md-2')); }}
                 <div class="col-md-5">
-                    {{ Form::text('book_author', '', array('id'=>'book_author_input','class' => 'form-control typeahead', 'placeholder' => 'auteur', 'required' => 'true', 'type' => 'text')); }}
+                    {{ Form::text('book_author', $author_name . ', ' . $author_firstname , array('id'=>'book_author_input','class' => 'form-control typeahead', 'placeholder' => 'auteur', 'required' => 'true', 'type' => 'text')); }}
                 </div>
             </div>
 
@@ -39,14 +39,14 @@
                 <!-- ISBN -->
                 {{ Form::label('isbnLabel', 'ISBN:', array('class' => 'col-md-2', 'for' => 'book_isbn')); }}
                 <div class="col-md-5">
-                    {{ Form::text('book_isbn', '', array('id'=>'book_isbn_input', 'class' => 'form-control', 'placeholder' => 'isbn', 'required' => 'true', 'type' => 'number')); }}
+                    {{ Form::text('book_isbn', $book_isbn, array('id'=>'book_isbn_input', 'class' => 'form-control', 'placeholder' => 'isbn', 'required' => 'true', 'type' => 'number')); }}
                 </div>
             </div>
 
            <!-- GENRE -->
            <div class="form-group">
                 {{ Form::label('bookGenreLabel', 'Genre:', array('class' => 'col-md-2')); }}
-                <input id="book_genre_input" type="text" name="book_genre" hidden required>
+                <input id="book_genre_input" type="text" name="book_genre" hidden required value={{ $book_genre_input }}>
                 
                 <div class="genres-container col-md-8">
                     <div class="collapsible genres-header" id="genres-header"><span id="genresGlyphicon" class="glyphicon glyphicon-chevron-right" aria-hidden="true">    Genres:</span></div>
@@ -63,7 +63,7 @@
                 <!-- PUBLISHER -->
                 {{ Form::label('publisherLabel', 'Uitgever:', array('class' => 'col-md-2')); }}
                 <div class="col-md-5">
-                    {{ Form::text('book_publisher', '', array('id'=>'book_publisher_input','class' => 'form-control', 'placeholder' => 'publisher', 'required' => 'true', 'type' => 'text')); }}
+                    {{ Form::text('book_publisher', $book_publisher, array('id'=>'book_publisher_input','class' => 'form-control', 'placeholder' => 'publisher', 'required' => 'true', 'type' => 'text')); }}
                 </div>
             </div>
 
@@ -74,7 +74,11 @@
                     @include('book/create/dateInputFragment', array('label' => 'Publicatie',
                                                 'dateDayName'=>'book_publication_date_day',
                                                 'dateMonthName'=>'book_publication_date_month',
-                                                'dateYearName'=>'book_publication_date_year'))
+                                                'dateYearName'=>'book_publication_date_year',
+                                                'dateDayValue' => $book_publication_date_day,
+                                                'dateMonthValue' => $book_publication_date_month,
+                                                'dateYearValue' => $book_publication_date_year
+                                                ))
                 </div>
             </div>
 
@@ -82,17 +86,13 @@
                 <!-- COUNTRY -->
                 {{ Form::label('bookCountryLabel', 'Land:', array('class' => 'col-md-2')); }}
                 <div class="col-md-5">
-                    {{ Form::text('book_country', '', array('id'=>'book_country','class' => 'form-control typeahead', 'placeholder' => 'land', 'required' => 'true', 'type' => 'text')); }}
+                    {{ Form::text('book_country', $book_country, array('id'=>'book_country','class' => 'form-control typeahead', 'placeholder' => 'land', 'required' => 'true', 'type' => 'text')); }}
                 </div>
 
                 <!-- LANGUAGE -->
                 {{ Form::label('bookLanguageLabel', 'Taal:', array('class' => 'col-md-1', 'style' => 'text-align: right')); }}
                 <div class="col-md-3">
-                    <select id="bookLanguageSelect" name="book_languageId" class="input-sm">
-                        @foreach($languages as $language)
-                        <option value="{{ $language->id }}">{{ $language->language }}</option>
-                        @endforeach
-                    </select>
+                    {{ Form::select('book_languageId', $languages, $book_languageId, array('class' => 'input-sm')); }}
                 </div>
             </div>
         </div>

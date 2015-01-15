@@ -1,6 +1,4 @@
 <?php
-
-
 class AuthorAward extends Eloquent {
     protected $table = 'author_award';
 

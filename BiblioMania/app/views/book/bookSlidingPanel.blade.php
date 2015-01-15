@@ -140,6 +140,10 @@
 									<td><label id='book-detail-first-print-country'></label></td>
 								</tr>
 								<tr>
+									<td><label>Taal:</label></td>
+									<td><label id='book-detail-first-print-language'></label></td>
+								</tr>
+								<tr>
 									<td><label>Uitgever:</label></td>
 									<td><label id='book-detail-first-print-publisher'></label></td>
 								</tr>

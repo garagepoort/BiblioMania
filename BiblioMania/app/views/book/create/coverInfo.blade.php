@@ -2,20 +2,19 @@
     <fieldset>
 
         <legend>Cover info</legend>
+
+
         <div class="cover-info-top-panel">
             <!-- {{ Form::label('bookTypeOfCoverLabel', 'Cover type:', array('class' => 'col-md-2')); }} -->
             <!-- {{ $errors->first('book_typeOfCover') }} -->
             <div class="col-md-4">
-                <select id="bookTypeOfCoverSelect" name="book_type_of_cover" class="input-sm">
-                    @foreach($covers as $cover)
-                        <option value="{{ $cover }}">{{ $cover }}</option>
-                    @endforeach
-                </select>
+                {{ Form::select('book_type_of_cover', $covers, $book_type_of_cover, array('class' => 'input-sm')); }}
             </div>
             <div>
                 <span style="margin-right: 10px">Ik wil zelf een afbeelding uploaden:</span><input id="cover-info-self-upload-checkbox" type="checkbox" name="coverInfoSelfUpload"/>
             </div>
         </div>
+        {{ HTML::image($book_cover_image, 'book cover image', array('id'=>'loader-icon')) }}
             <!-- IMAGE -->
 
         <div id="cover-info-self-upload-panel" class="form-group" hidden>
@@ -39,7 +38,7 @@
                 <tbody>
                     <tr>
                         <td>
-                            <input type="checkbox" checked />
+                            <input id="cover-info-author-search-checkbox" type="checkbox" checked />
                         </td>
                         <td>
                             Auteur naam
@@ -48,7 +47,7 @@
 
                     <tr>
                         <td>
-                            <input type="checkbox" checked />
+                            <input id="cover-info-isbn-search-checkbox" type="checkbox" checked />
                         </td>
                         <td>
                             ISBN
@@ -57,7 +56,7 @@
 
                     <tr>
                         <td>
-                            <input type="checkbox" checked />
+                            <input id="cover-info-title-search-checkbox" type="checkbox" checked />
                         </td>
                         <td>
                             Titel

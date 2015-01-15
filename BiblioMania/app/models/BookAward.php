@@ -1,6 +1,4 @@
 <?php
-
-
 class BookAward extends Eloquent {
     protected $table = 'book_award';
 

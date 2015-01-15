@@ -1,7 +1,10 @@
 <?php
-class ImageService {
 
-    public function getImageFromUrl($url, $filename){
+class ImageService
+{
+
+    public function getImageFromUrl($url, $filename)
+    {
         $img = file_get_contents($url);
         $im = imagecreatefromstring($img);
         $width = imagesx($im);
@@ -13,7 +16,7 @@ class ImageService {
 
         imagecopyresized($thumb, $im, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
 
-        $filename = 'bookImages/' . Auth::user()->username . '/' . str_random(8). '_' .$filename.'.jpg';
+        $filename = 'bookImages/' . Auth::user()->username . '/' . str_random(8) . '_' . $filename . '.jpg';
         imagejpeg($thumb, $filename); //save image as jpg
 
         imagedestroy($thumb);

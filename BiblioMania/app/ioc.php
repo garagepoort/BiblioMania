@@ -7,7 +7,7 @@
 
 	App::singleton('CountryService', function()
 	{
-	    return new CountryService;
+	    return new CountryService();
 	});
 
 	App::singleton('ImageService', function()
@@ -22,17 +22,17 @@
 
 	App::singleton('DateService', function()
 	{
-	    return new DateService;
+	    return new DateService();
 	});
 
 	App::singleton('BookFromAuthorService', function()
 	{
-	    return new BookFromAuthorService;
+	    return new BookFromAuthorService();
 	});
 
 	App::singleton('AuthorService', function()
 	{
-	    return new AuthorService;
+	    return new AuthorService();
 	});
 
 	App::singleton('BookService', function()

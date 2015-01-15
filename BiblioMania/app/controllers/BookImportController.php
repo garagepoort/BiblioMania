@@ -75,43 +75,22 @@ class BookImportController extends BaseController {
 	}
 
 	private function importFirstPrintInfo($values){
-		$country = App::make('CountryService')->findOrSave($this->firstPrintPublisherCountry);
-		$date = DateImporter::getPublicationDate($values[53]);
-		return App::make('FirstPrintInfoService')->saveOrUpdate(
-			$this->firstPrintTitle, 
-			null,
-			null,
-			$date, 
-			$this->firstPrintPublisherName,
-			$country->id, 
-			null);
+		return FirstPrintInfoImporter::importFirstPrintInfo(
+				$this->firstPrintTitle,
+				'',
+				$this->firstPrintISBN,
+				$this->firstPrintPublisherCountry,
+				$this->firstPrintLanguage,
+				$this->firstPrintPublisherName,
+				$values[53]);
 	}
 
 	private function importAuthors($values){
-		//first author
-		$authorService = App::make('AuthorService');
-		$authors = [];
-		$path = explode('\\', $values[18]);
-		$authorImage = 'images/questionCover.png';
-		$endPath = end($path);
-		if($endPath){
-			$authorImage = 'bookImages/' .Auth::user()->username . '/' . $endPath;
-		}
-		$author = $authorService->saveOrUpdate($values[2], $values[1], $values[0], $authorImage);
-		array_push($authors, $author);
-		$this->importOeuvre($values, $author);
 
-		if(!empty($values[3]) || !empty($values[5]) ){
-			$author = $authorService->saveOrUpdate($values[5], $values[4], $values[3]);
-			array_push($authors, $author);
-		}
-
-		if(!empty($values[6]) || !empty($values[8]) ){
-			$authorService->saveOrUpdate($values[8], $values[7], $values[6]);
-			array_push($authors, $author);
-		}
-		
-		return $authors;
+		return AuthorImporter::importAuthors($values[2], $values[0], $values[1],
+										$values[5], $values[3], $values[4],
+										$values[8], $values[6], $values[7],
+										$values[18], $values[46]);
 	}
 
 	private function importPublisher($values){
@@ -132,37 +111,20 @@ class BookImportController extends BaseController {
 		$personalBookInfo->set_owned($this->personalInfoOwned);
 		$personalBookInfo->set_read($this->personalInfoRead);
 		$personalBookInfo->save();
-		return $personalBookInfo;
-	}
-
-	private function importOeuvre($values, $author){
-		$oeuvre = explode('\n', $values[46]);
-		foreach ($oeuvre as $title) {
-			if($title != ''){	
-				
-				$title = str_replace('*', '', $title);
-				$title = trim($title);
-				$year = $this->get_string_between($title, '(', ')');
-				
-				$foundBookFromAuthor = BookFromAuthor::where('title', '=', $title)->where('author_id', '=', $author->id)->first();
-				if(is_null($foundBookFromAuthor)){
-					$bookFromAuthor = new BookFromAuthor(array(
-						'title' => $title,
-						'publication_year' => $year,
-						'author_id' => $author->id
-					));
-					$bookFromAuthor->save();
-				}
-			}
+		if($values[42] != ''){
+			$reading_date = DateTime::createFromFormat('d-m-y', $values[42]);
+			$reading_date = App::make('ReadingDateService')->saveOrFind($reading_date);
+			$personalBookInfo->reading_dates()->attach($reading_date->id);
 		}
+
+		return $personalBookInfo;
 	}
 
 	private function importBook($values, $publisher, $firstPrintInfo){
 		$path = explode('\\', $values[19]);
 		$coverImage = 'bookImages/' . Auth::user()->username . '/' . end($path);
-		$countryName = $values[41];
-		$country = App::make('CountryService')->findOrSave($countryName);
-
+		$country = App::make('CountryService')->findOrSave($values[41]);
+		$language = App::make('LanguageService')->findOrSave($values[61]);
 		$book = new Book(array(
                 'title' => $this->bookTitle,
                 'subtitle' => $this->bookSubtitle,
@@ -177,6 +139,7 @@ class BookImportController extends BaseController {
                 'genre_id' => 1,
                 'coverImage' => $coverImage,
                 'first_print_info_id' => $firstPrintInfo->id,
+                'language_id' => $language->id,
                 'user_id' => Auth::user()->id
         ));
     	$date = DateImporter::getPublicationDate($values[59]);
@@ -254,4 +217,5 @@ class BookImportController extends BaseController {
 
 	    return (substr($haystack, -$length) === $needle);
 	}
+
 }

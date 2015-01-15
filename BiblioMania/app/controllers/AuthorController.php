@@ -22,6 +22,10 @@ class AuthorController extends BaseController {
 		));
 	}
 
+	public function getOeuvreForAuthor($author_id){
+		return Author::find($author_id)->oeuvre;
+	}
+
 	public function deleteBookFromAuthor(){
 		$id = Input::get('bookFromAuthorId');
 		App::make('BookFromAuthorService')->delete($id);

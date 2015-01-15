@@ -1,6 +1,4 @@
 <?php
-
-
 class FirstPrintInfo extends Eloquent {
     protected $table = 'first_print_info';
 
@@ -14,7 +12,7 @@ class FirstPrintInfo extends Eloquent {
     	'cover_image'
 	);
 
-    protected $with = array('publication_date', 'country', 'publisher');
+    protected $with = array('publication_date', 'country', 'publisher', 'language');
 
 	public function publisher(){
     	return $this->belongsTo('Publisher');

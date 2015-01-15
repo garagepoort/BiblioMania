@@ -17,11 +17,13 @@ Route::group(array('before' => 'auth'), function() {
     Route::get('getNextBooks', 'BookController@getNextBooks');
     Route::get('getBooksFromSearch', 'BookController@getBooksFromSearch');
     Route::get('createBook', 'BookController@goToCreateBook');
-    Route::post('createBook', 'BookController@createBook');
+    Route::post('createOrEditBook', 'BookController@createOrEditBook');
+    Route::get('editBook/{id}', 'BookController@goToEditBook');
     Route::get('logOut', 'LoginController@login');
     Route::get('importBooks', 'BookImportController@importBooks');
     Route::get('getAuthor/{id}', 'AuthorController@getAuthor');
     Route::get('getAuthors', 'AuthorController@getAuthors');
+    Route::get('getOeuvreForAuthor/{id}', 'AuthorController@getOeuvreForAuthor');
     Route::get('getNextAuthors', 'AuthorController@getNextAuthors');
     Route::get('getAuthorsWithOeuvreJson', 'AuthorController@getAuthorsWithOeuvreJson');
     Route::get('scaleImages', 'ImageController@scaleImages');

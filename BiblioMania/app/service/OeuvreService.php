@@ -1,9 +1,11 @@
 <?php
 
-class OeuvreService {
+class OeuvreService
+{
 
-	public function linkNewOeuvreFromAuthor($author_id, $oeuvreText){
-        if(!empty($oeuvreText)){
+    public function linkNewOeuvreFromAuthor($author_id, $oeuvreText)
+    {
+        if (!empty($oeuvreText)) {
             $titles = explode("\n", $oeuvreText);
             $bookFromAuthorService = App::make('BookFromAuthorService');
 
@@ -12,5 +14,5 @@ class OeuvreService {
                 $bookFromAuthorService->save($author_id, $res[1], $res[0]);
             }
         }
-	}
+    }
 }

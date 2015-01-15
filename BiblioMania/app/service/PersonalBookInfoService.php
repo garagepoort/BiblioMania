@@ -1,26 +1,32 @@
 <?php
-class PersonalBookInfoService {
 
-	public function save($bookId, $owned, $reason_not_owned, $review, $rating, $retail_price, $reading_dates){
-		$personalInfoBook = new PersonalBookInfo();
+class PersonalBookInfoService
+{
 
-                $personalInfoBook->book_id = $bookId;
-                $personalInfoBook->set_owned($owned);
-                $personalInfoBook->review = $review;
-                $personalInfoBook->rating = $rating;
-                $personalInfoBook->retail_price = $retail_price;
+    public function save($bookId, $owned, $reason_not_owned, $review, $rating, $retail_price, $reading_dates)
+    {
+        $personalInfoBook = PersonalBookInfo::where('book_id', '=', $bookId)->first();
+        if ($personalInfoBook == null) {
+            $personalInfoBook = new PersonalBookInfo();
+        }
 
-                if($owned == false){
-                        $personalInfoBook->reason_not_owned = $reason_not_owned;
-                }
-                $personalInfoBook->save();
+        $personalInfoBook->book_id = $bookId;
+        $personalInfoBook->set_owned($owned);
+        $personalInfoBook->review = $review;
+        $personalInfoBook->rating = $rating;
+        $personalInfoBook->retail_price = $retail_price;
 
-                $readingDateService = App::make('ReadingDateService');
+        if ($owned == false) {
+            $personalInfoBook->reason_not_owned = $reason_not_owned;
+        }
+        $personalInfoBook->save();
 
-                foreach ($reading_dates as $date) {
-                        $readingDate = $readingDateService->saveOrFind($date);
-                        $personalInfoBook->reading_dates()->sync([$readingDate->id], false);
-                }
-                return $personalInfoBook;
-	}
+        $readingDateService = App::make('ReadingDateService');
+
+        foreach ($reading_dates as $date) {
+            $readingDate = $readingDateService->saveOrFind($date);
+            $personalInfoBook->reading_dates()->sync([$readingDate->id], false);
+        }
+        return $personalInfoBook;
+    }
 }

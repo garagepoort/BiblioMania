@@ -1,6 +1,5 @@
 <?php
 
-
 class Book extends Eloquent {
     protected $table = 'book';
 
@@ -22,10 +21,18 @@ class Book extends Eloquent {
         'first_print_info_id',
         'retail_price',
         'summary',
-        'book_from_author_id'
+        'book_from_author_id',
+		'language_id'
     	);
     
     protected $with = array('publication_date', 'first_print_info');
+
+	public function preferredAuthor(){
+		if(!$this->authors->isEmpty()){
+			return $this->authors->first();
+		}
+		return new Author;
+	}
 
     public function authors(){
     	return $this->belongsToMany('Author', 'book_author')->withPivot('preferred');
@@ -72,5 +79,9 @@ class Book extends Eloquent {
     {
         return $this->hasMany('Film');
     }
+
+	public function language(){
+		return $this->belongsTo('Language');
+	}
 
 }

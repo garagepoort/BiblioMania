@@ -36,8 +36,16 @@ $(function() {
     function fillInOeuvre(){
         var author = $.grep(authors_json, function(e){ return e.name === $("#author_name").val() && e.firstname === $("#author_firstname").val(); })[0];
         if(author != null){
-            lastKnownAuthor = author;
-            createOeuvreList();
+            var oeuvre;
+            $.get(baseUrl + "/getOeuvreForAuthor/" + author.id,
+            function(data,status){
+                if(status === "success"){
+                    oeuvre = data;
+                    lastKnownAuthor = author;
+                    createOeuvreList(oeuvre);
+                }
+            }).fail(function(){
+            });
         }else{
             $('#oeuvre-textarea').val('');
             lastKnownAuthor = null;
@@ -46,12 +54,12 @@ $(function() {
         }
     }
 
-    function createOeuvreList(){
+    function createOeuvreList(oeuvre){
         var res = $('#oeuvre-textarea').val().split("\n");
         var list= ""
 
         if(lastKnownAuthor !== null){
-            $.each(lastKnownAuthor.oeuvre, function(index, obj){
+            $.each(oeuvre, function(index, obj){
                 list = list + "<li bookFromAuthorTitle='" + obj.title + "'>";
                 if(obj.books.length == 0){
                      list = list + obj.title;
