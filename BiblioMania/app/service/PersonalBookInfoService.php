@@ -25,7 +25,7 @@ class PersonalBookInfoService
 
         foreach ($reading_dates as $date) {
             $readingDate = $readingDateService->saveOrFind($date);
-            $personalInfoBook->reading_dates()->sync([$readingDate->id], false);
+            $personalInfoBook->reading_dates()->sync([$readingDate->id]);
         }
         return $personalInfoBook;
     }

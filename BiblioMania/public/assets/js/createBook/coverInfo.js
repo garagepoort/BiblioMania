@@ -40,6 +40,6 @@ $(document).ready(function() {
         if(isbnSearchCheckbox.is(':checked')){
             searchString = searchString + $('#book_isbn_input').val();
         }
-        imageSearch.execute(searchString);
+        executeGoogleSearch(searchString);
     }
 });

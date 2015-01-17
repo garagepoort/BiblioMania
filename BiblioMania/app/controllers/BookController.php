@@ -136,12 +136,16 @@ class BookController extends BaseController
             $publisher_country = $countryService->findOrSave(Input::get('book_country'));
             $book_publisher = $publisherService->saveOrUpdate(Input::get('book_publisher'), $publisher_country);
 
-            $book_author_date_of_birth_id = App::make('DateService')->createDate(Input::get('author_date_of_birth_day'), Input::get('author_date_of_birth_month'),
-                Input::get('author_date_of_birth_year'))->id;
-            $book_author_date_of_death_id = App::make('DateService')->createDate(Input::get('author_date_of_death_day'), Input::get('author_date_of_death_month'),
-                Input::get('author_date_of_death_year'))->id;
-            $book_author_model = App::make('AuthorService')->saveorUpdate(Input::get('author_name'), '', Input::get('author_firstname', $this->checkCoverImage('author_image')),
-                null, $book_author_date_of_birth_id, $book_author_date_of_death_id);
+            $book_author_date_of_birth_id = $this->createDate(Input::get('author_date_of_birth_day'), Input::get('author_date_of_birth_month'), Input::get('author_date_of_birth_year'));
+            $book_author_date_of_death_id = $this->createDate(Input::get('author_date_of_death_day'), Input::get('author_date_of_death_month'), Input::get('author_date_of_death_year'));
+
+            $book_author_model = App::make('AuthorService')->saveorUpdate(
+                Input::get('author_name'), '',
+                Input::get('author_firstname',
+                $this->checkCoverImage('author_image')),
+                null,
+                $book_author_date_of_birth_id,
+                $book_author_date_of_death_id);
 
             $book_from_author_id = $this->createBookFromAuthorLink($book_author_model->id);
             $first_print_info = $this->createFirstPrintInfo();
@@ -215,7 +219,7 @@ class BookController extends BaseController
         $book->retail_price = $book_info_retail_price;
         $book->book_from_author_id = $book_from_author_id;
         $book->save();
-        $book->authors()->sync(array($book_author_model->id => array('preferred' => true)), false);
+        $book->authors()->sync(array($book_author_model->id => array('preferred' => true)));
         return $book;
     }
 
@@ -312,7 +316,7 @@ class BookController extends BaseController
     {
         $result = array();
         $result['book_id'] = '';
-        $result['book_title'] = '';
+        $result['book_title'] = 'Nieuw boek';
         $result['book_subtitle'] = '';
         $result['book_isbn'] = '';
         $result['book_number_of_pages'] = '';
@@ -361,13 +365,14 @@ class BookController extends BaseController
         $result['book_type_of_cover'] = '';
         $result['giftInfoSet'] = false;
         $result['buyInfoSet'] = true;
+        $result['book_from_author_title'] = '';
         return $result;
     }
 
     private function createEditBookArray($bookId)
     {
-        $book = Book::with(array('personal_book_info'))->find($bookId);
-        $author = Author::find($book->authors->first()->id);
+        $book = Book::with(array('personal_book_info', 'book_from_author'))->find($bookId);
+        $author = Author::with(array('date_of_birth', 'date_of_death'))->find($book->authors->first()->id);
 
         $result = $this->createEmptyBookArray();
         $result['book_id'] = $bookId;
@@ -449,15 +454,15 @@ class BookController extends BaseController
         }
 
         if ($author->date_of_birth != null) {
-            $result['author_date_of_birth_day'] = $book->date_of_birth->day;
-            $result['author_date_of_birth_month'] = $book->date_of_birth->month;
-            $result['author_date_of_birth_year'] = $book->date_of_birth->year;
+            $result['author_date_of_birth_day'] = $author->date_of_birth->day;
+            $result['author_date_of_birth_month'] = $author->date_of_birth->month;
+            $result['author_date_of_birth_year'] = $author->date_of_birth->year;
         }
 
         if ($author->date_of_death != null) {
-            $result['author_date_of_death_day'] = $book->date_of_death->day;
-            $result['author_date_of_death_month'] = $book->date_of_death->month;
-            $result['author_date_of_death_year'] = $book->date_of_death->year;
+            $result['author_date_of_death_day'] = $author->date_of_death->day;
+            $result['author_date_of_death_month'] = $author->date_of_death->month;
+            $result['author_date_of_death_year'] = $author->date_of_death->year;
         }
 
         if ($book->personal_book_info->buy_info != null) {
@@ -489,7 +494,22 @@ class BookController extends BaseController
             $result['buyInfoSet'] = false;
         }
 
+        if($book->book_from_author != null){
+            $result['book_from_author_title'] = $book->book_from_author->title;
+        }
+
         return $result;
+    }
+
+    private function createDate($author_date_day, $author_date_month, $author_date_year)
+    {
+        if (!empty($author_date_day) && !empty($author_date_month) && !empty($author_date_year)) {
+            return App::make('DateService')->createDate($author_date_day,
+                $author_date_month,
+                $author_date_year)->id;
+        }
+
+        return null;
     }
 
 

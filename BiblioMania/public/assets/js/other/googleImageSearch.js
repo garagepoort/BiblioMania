@@ -41,6 +41,8 @@ function searchComplete() {
                 $('#'+window.imageUrlInput).val($(this).attr('imageUrl'));
             });
         }
+        $('#loader-icon').hide();
+        $('#google-image-search-table').show();
     }
 }
 
@@ -58,3 +60,9 @@ function OnLoad() {
     google.search.Search.getBranding('branding');
 }
 google.setOnLoadCallback(OnLoad);
+
+function executeGoogleSearch(searchString){
+    $('#google-image-search-table').hide();
+    $('#loader-icon').show();
+    imageSearch.execute(searchString);
+}

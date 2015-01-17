@@ -14,7 +14,6 @@
                 <span style="margin-right: 10px">Ik wil zelf een afbeelding uploaden:</span><input id="cover-info-self-upload-checkbox" type="checkbox" name="coverInfoSelfUpload"/>
             </div>
         </div>
-        {{ HTML::image($book_cover_image, 'book cover image', array('id'=>'loader-icon')) }}
             <!-- IMAGE -->
 
         <div id="cover-info-self-upload-panel" class="form-group" hidden>

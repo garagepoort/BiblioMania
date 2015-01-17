@@ -18,15 +18,19 @@ class AuthorService
         $author_model->firstname = $firstname;
         $author_model->infix = $infix;
 
-        if (AuthorService::notNullAndNotEmpty($date_of_birth_id)) {
+        if (!empty($date_of_birth_id)) {
             $author_model->date_of_birth_id = $date_of_birth_id;
+        }else{
+            $author_model->date_of_birth_id = null;
         }
 
-        if (AuthorService::notNullAndNotEmpty($date_of_death_id)) {
+        if (!empty($date_of_death_id)) {
             $author_model->date_of_death_id = $date_of_death_id;
+        }else{
+            $author_model->date_of_death_id = null;
         }
 
-        if (AuthorService::notNullAndNotEmpty($authorImage)) {
+        if (!empty($authorImage)) {
             $author_model->image = $authorImage;
         }
 
@@ -34,8 +38,4 @@ class AuthorService
         return $author_model;
     }
 
-    private function notNullAndNotEmpty($var)
-    {
-        return $var != null && !empty($var);
-    }
 }

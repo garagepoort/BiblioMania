@@ -69,6 +69,10 @@ class Book extends Eloquent {
     public function first_print_info(){
         return $this->belongsTo('FirstPrintInfo', 'first_print_info_id');
     }
+
+    public function book_from_author(){
+        return $this->belongsTo('BookFromAuthor', 'book_from_author_id');
+    }
     
     public function awards()
     {

@@ -1,5 +1,6 @@
 <div id="content">
-    <table id="google-image-search-table" class="google-image-search-table">
+    {{ HTML::image('images/ajax-loader.gif', 'loader', array('id'=>'loader-icon', 'class'=>'googleSearchLoader')) }}
+    <table id="google-image-search-table" class="google-image-search-table" hidden>
     </table>
 </div>
 <div id="branding"  style="float: left;"></div><br />

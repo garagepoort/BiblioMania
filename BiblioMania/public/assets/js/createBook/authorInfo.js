@@ -5,6 +5,10 @@ $(function() {
     var lastSetAuthorFirstname;
     var lastSetAuthorInfix;
 
+    if($('#book-id-input').val() !== ''){
+
+    }
+
     $('#author-info-tab-link').click(function(){
         var trimmedValue = $('#book_author_input').val();
         var result = trimmedValue.split(",");
@@ -62,11 +66,15 @@ $(function() {
             $.each(oeuvre, function(index, obj){
                 list = list + "<li bookFromAuthorTitle='" + obj.title + "'>";
                 if(obj.books.length == 0){
-                     list = list + obj.title;
-                 }else{
+                    list = list + obj.title;
+                }else{
                     list = list + "<span class='author-oeuvre-linked-book-title'>" + obj.title + "</span>";
                 }
-                list = list + "<span class='author-oeuvre-link-icon fa fa-chain-broken'></span>";
+                if(obj.title === $('#book-from-author-id-input').val()){
+                    list = list + "<span class='author-oeuvre-link-icon fa fa-chain linked'></span><span id='active-linked' class='green-linked-div'>linked</b></span>";
+                }else{
+                    list = list + "<span class='author-oeuvre-link-icon fa fa-chain-broken'></span>";
+                }
                 list = list +'</li>'
             });
         }
@@ -105,7 +113,7 @@ $(function() {
     }
 
     function link(linkedIcon){
-        linkedIcon.parent().append("<span id='active-linked' class='green-linked-div'>linked</b></span");
+        linkedIcon.parent().append("<span id='active-linked' class='green-linked-div'>linked</b></span>");
         linkedIcon.removeClass('fa-chain-broken');
         linkedIcon.addClass('fa-chain');
         linkedIcon.addClass('linked');

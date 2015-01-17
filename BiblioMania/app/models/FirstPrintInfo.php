@@ -29,5 +29,4 @@ class FirstPrintInfo extends Eloquent {
 	public function language(){
     	return $this->belongsTo('Language');
 	}
-
 }

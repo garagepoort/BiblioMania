@@ -10,8 +10,6 @@
         </div>
         @endif
 
-        {{ HTML::image($author_image, 'author image', array('id'=>'loader-icon')) }}
-
         <!-- NAME -->
         <div class="form-group">
             {{ Form::label('authorNameLabel', 'Naam:', array('class' => 'col-md-3')); }}
@@ -66,7 +64,7 @@
         </div>
 
         <div id='author-oeuvre-panel'>
-            <input id="book-from-author-id-input" hidden name="bookFromAuthorTitle" />
+            <input id="book-from-author-id-input" hidden name="bookFromAuthorTitle" value="{{ $book_from_author_title }}"/>
             <legend>Oeuvre<span style="margin-left:10px" class="oeuvre-edit-icon fa fa-pencil-square-o"></span></legend>
             <ul id='author-oeuvre-list'>
             </ul>

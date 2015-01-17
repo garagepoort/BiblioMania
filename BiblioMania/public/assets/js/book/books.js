@@ -4,16 +4,7 @@ $(document).ready(function(){
     books_page =1;
     nextBooksUrl = "/getNextBooks?";
 
-    var waypoint = new Waypoint({
-        element: $('#books-loading-waypoint'),
-        handler: function(direction) {
-            if(direction === 'down'){
-                $('#loader-icon').show();
-                loadNextBooks();
-            }
-        },
-        offset: 'bottom-in-view'
-    });
+    loadNextBooks();
 
     $("#searchBooksInput").keyup(function (e) {
         if (e.keyCode == 13) {
@@ -74,8 +65,12 @@ $(document).ready(function(){
                 if(status === "success"){
                     fillInBookContainer(data);
                     books_page = books_page + 1;
+                    if(data.current_page !== data.last_page){
+                        loadNextBooks();
+                    }else{
+                        $('#loader-icon').hide();
+                    }
                 }
-                $('#loader-icon').hide();
             }
         ).fail(function(){
             $('#loader-icon').hide();
@@ -84,6 +79,7 @@ $(document).ready(function(){
             });
         });
     }
+
     function getNextBooksUrl(){
         if(window.book_id){
             return window.baseUrl + nextBooksUrl + "page=" + books_page + "&book_id=" + window.book_id;
@@ -227,14 +223,22 @@ $(document).ready(function(){
             });
 
             // FIRST PRINT
-            showOrHide($('#book-detail-first-print-title'), book.first_print_info.title);
-            showOrHide($('#book-detail-first-print-subtitle'), book.first_print_info.subtitle);
-            showOrHide($('#book-detail-first-print-country'), book.first_print_info.country.name);
-            showOrHide($('#book-detail-first-print-language'), book.first_print_info.language.language);
-            showOrHide($('#book-detail-first-print-isbn'), book.first_print_info.ISBN);
-            showOrHide($('#book-detail-first-print-publisher'), book.first_print_info.publisher.name);
-            showOrHide($('#book-detail-first-print-publication-date'), dateToString(book.first_print_info.publication_date));
 
+            if(book.first_print_info != null) {
+                showOrHide($('#book-detail-first-print-title'), book.first_print_info.title);
+                showOrHide($('#book-detail-first-print-subtitle'), book.first_print_info.subtitle);
+                showOrHide($('#book-detail-first-print-isbn'), book.first_print_info.ISBN);
+                showOrHide($('#book-detail-first-print-publication-date'), dateToString(book.first_print_info.publication_date));
+                if(book.first_print_info.country != null){
+                    showOrHide($('#book-detail-first-print-country'), book.first_print_info.country.name);
+                }
+                if(book.first_print_info.language != null) {
+                    showOrHide($('#book-detail-first-print-language'), book.first_print_info.language.language);
+                }
+                if(book.first_print_info.publisher != null) {
+                    showOrHide($('#book-detail-first-print-publisher'), book.first_print_info.publisher.name);
+                }
+            }
             // EXTRA INFO
             showOrHide($('#book-detail-retail-price'), "€ " + book.retail_price);
             showOrHide($('#book-detail-number-of-pages'), book.number_of_pages);
