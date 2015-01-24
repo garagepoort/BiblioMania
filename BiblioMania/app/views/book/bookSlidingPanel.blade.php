@@ -8,43 +8,50 @@
 			<h4 id="book-detail-subtitle">subtitle</h4>
 			<div class="book-detail-main-info">
 				<img id="book-detail-coverimage" src="" width="142px" height="226px"/>
-				<div id="star-detail" class="col-md-6"></div>
-				<div class="book-details-info-container">
-					<table class="book-detail-main-info-table">
-						<tr>
-							<td><label>Auteur:</label></td>
-							<td><label id='book-detail-author'></label></td>
-						</tr>
-						<tr>
-							<td><label>ISBN:</label></td>
-							<td><label id='book-detail-isbn'></label></td>
-						</tr>
-						<tr>
-							<td><label>Uitgever</label></td>
-							<td><label id='book-detail-publisher'></label></td>
-						</tr>
-						<tr>
-							<td><label>Land</label></td>
-							<td><label id='book-detail-country'></label></td>
-						</tr>
-						<tr>
-							<td><label>Publicatiedatum:</label></td>
-							<td><label id='book-detail-publication-date'></label></td>
-						</tr>
-						<tr>
-							<td><label>Genre:</label></td>
-							<td><label id='book-detail-genre'></label></td>
-						</tr>
-						<tr>
-							<td><label>Boekenreeks:</label></td>
-							<td><label id='book-detail-serie'></label></td>
-						</tr>
-						<tr>
-							<td><label>Uitgeverreeks:</label></td>
-							<td><label id='book-detail-publisher-serie'></label></td>
-						</tr>
-					</table>
-				</div>
+				<table>
+					<tr>
+						<div id="star-detail" class="col-md-6"></div>
+					</tr>
+					<tr>
+						<div class="book-details-info-container">
+							<table class="book-detail-main-info-table">
+								<tr>
+									<td><label>Auteur:</label></td>
+									<td><label id='book-detail-author'></label></td>
+								</tr>
+								<tr>
+									<td><label>ISBN:</label></td>
+									<td><label id='book-detail-isbn'></label></td>
+								</tr>
+								<tr>
+									<td><label>Uitgever</label></td>
+									<td><label id='book-detail-publisher'></label></td>
+								</tr>
+								<tr>
+									<td><label>Land</label></td>
+									<td><label id='book-detail-country'></label></td>
+								</tr>
+								<tr>
+									<td><label>Publicatiedatum:</label></td>
+									<td><label id='book-detail-publication-date'></label></td>
+								</tr>
+								<tr>
+									<td><label>Genre:</label></td>
+									<td><label id='book-detail-genre'></label></td>
+								</tr>
+								<tr>
+									<td><label>Boekenreeks:</label></td>
+									<td><label id='book-detail-serie'></label></td>
+								</tr>
+								<tr>
+									<td><label>Uitgeverreeks:</label></td>
+									<td><label id='book-detail-publisher-serie'></label></td>
+								</tr>
+							</table>
+						</div>
+					</tr>
+				</table>
+
 			</div>
 
 			<div class="book-detail-summary">

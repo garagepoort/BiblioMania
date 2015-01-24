@@ -1,14 +1,47 @@
 $(document).ready(function(){
     var lastClickedBookId = undefined;
     var bookDetailAnimationBusy = false;
-    books_page =1;
+    var bookSearchRequest;
     nextBooksUrl = "/getNextBooks?";
 
-    loadNextBooks();
+    if(window.book_id != null){
+        bookSearchRequest = startLoadingPaged(window.baseUrl + nextBooksUrl + "book_id=" + window.book_id, 1, fillInBookContainer);
+    }else{
+        bookSearchRequest = startLoadingPaged(window.baseUrl + nextBooksUrl, 1, fillInBookContainer);
+    }
+
+    $('#orderby-select-box').change(function(){
+        $('#books-container-table > tbody').empty();
+        abortLoadingPaged();
+        startLoadingPaged(window.baseUrl + "/getNextBooks?" + 'order_by=' + $('#orderby-select-box').val(), 1, fillInBookContainer);
+    });
+
+    function doSearchBooks(){
+        window.book_id = null;
+        var url = window.baseUrl + "/getNextBooks?bookTitle=" + $('#searchBooksInput').val();
+        $('#books-container-table > tbody').empty();
+        abortLoadingPaged();
+        startLoadingPaged(url, 1, fillInBookContainer);
+    }
+
+    function doFilterBooks(){
+        var url = window.baseUrl + "/getNextBooks?";
+        var params = {
+            bookTitle:$('#title-filter-input').val(),
+            book_subtitle:$('#subtitle-filter-input').val(),
+            book_author_name:$('#author-name-filter-input').val(),
+            book_author_firstname:$('#author-firstname-filter-input').val()
+        };
+        url = url + jQuery.param( params );
+
+        $('#books-container-table > tbody').empty();
+        abortLoadingPaged();
+        startLoadingPaged(url, 1, fillInBookContainer);
+    }
 
     $("#searchBooksInput").keyup(function (e) {
         if (e.keyCode == 13) {
-            doSearchBooks();    
+            doSearchBooks();
         }
     });
 
@@ -19,73 +52,6 @@ $(document).ready(function(){
     $('#book-filters-button').on('click', function(){
         doFilterBooks();
     });
-
-    $('#orderby-select-box').change(function(){
-        nextBooksUrl = nextBooksUrl + 'order_by=' + $('#orderby-select-box').val() +'&';
-        books_page = 1;
-        $('#books-container-table > tbody').empty();
-        loadNextBooks();
-    });
-
-    function doSearchBooks(){
-        window.book_id = null;
-        if($('#searchBooksInput').val() !== ''){
-            nextBooksUrl = "/getNextBooks?bookTitle=" + $('#searchBooksInput').val() + "&";
-        }else{
-            nextBooksUrl = "/getNextBooks?";
-        }
-        books_page = 1;
-        $('#books-container-table > tbody').empty();
-        loadNextBooks();
-    }
-
-    function doFilterBooks(){
-        nextBooksUrl = "/getNextBooks?";
-        if($('#title-filter-input').val()){
-            nextBooksUrl = nextBooksUrl + "bookTitle=" + $('#title-filter-input').val()  + "&";
-        }
-        if($('#subtitle-filter-input').val()){
-            nextBooksUrl = nextBooksUrl + "book_subtitle=" + $('#subtitle-filter-input').val()  + "&";
-        }
-        if($('#author-name-filter-input').val()){
-            nextBooksUrl = nextBooksUrl + "book_author_name=" + $('#author-name-filter-input').val()  + "&";
-        }
-        if($('#author-firstname-filter-input').val()){
-            nextBooksUrl = nextBooksUrl + "book_author_firstname=" + $('#author-firstname-filter-input').val()  + "&";
-        }
-        books_page = 1;
-        $('#books-container-table > tbody').empty();
-        loadNextBooks();
-    }
-
-    function loadNextBooks(){
-        $('#loader-icon').show();
-        $.get(getNextBooksUrl(),
-            function(data,status){
-                if(status === "success"){
-                    fillInBookContainer(data);
-                    books_page = books_page + 1;
-                    if(data.current_page !== data.last_page){
-                        loadNextBooks();
-                    }else{
-                        $('#loader-icon').hide();
-                    }
-                }
-            }
-        ).fail(function(){
-            $('#loader-icon').hide();
-            BootstrapDialog.show({
-                message: 'Er ging iets mis. Refresh de pagina even en probeer opnieuw!'
-            });
-        });
-    }
-
-    function getNextBooksUrl(){
-        if(window.book_id){
-            return window.baseUrl + nextBooksUrl + "page=" + books_page + "&book_id=" + window.book_id;
-        }
-        return window.baseUrl + nextBooksUrl + "page=" + books_page;
-    }
 
     function fillInBookContainer(data){
         var books = data.data;
@@ -225,19 +191,28 @@ $(document).ready(function(){
             // FIRST PRINT
 
             if(book.first_print_info != null) {
+                $('book-detail-small-info-panel').show();
                 showOrHide($('#book-detail-first-print-title'), book.first_print_info.title);
                 showOrHide($('#book-detail-first-print-subtitle'), book.first_print_info.subtitle);
                 showOrHide($('#book-detail-first-print-isbn'), book.first_print_info.ISBN);
                 showOrHide($('#book-detail-first-print-publication-date'), dateToString(book.first_print_info.publication_date));
                 if(book.first_print_info.country != null){
                     showOrHide($('#book-detail-first-print-country'), book.first_print_info.country.name);
+                }else{
+                    showOrHide($('#book-detail-first-print-country'), '');
                 }
                 if(book.first_print_info.language != null) {
                     showOrHide($('#book-detail-first-print-language'), book.first_print_info.language.language);
+                }else{
+                    showOrHide($('#book-detail-first-print-language'), '');
                 }
                 if(book.first_print_info.publisher != null) {
                     showOrHide($('#book-detail-first-print-publisher'), book.first_print_info.publisher.name);
+                }else{
+                    showOrHide($('#book-detail-first-print-publisher'), '');
                 }
+            }else{
+                $('book-detail-small-info-panel').hide();
             }
             // EXTRA INFO
             showOrHide($('#book-detail-retail-price'), "€ " + book.retail_price);

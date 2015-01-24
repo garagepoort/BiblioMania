@@ -43,7 +43,7 @@
                 <!-- LANGUAGE -->
                 {{ Form::label('first_print_LanguageLabel', 'Taal:', array('class' => 'col-md-1', 'style' => 'text-align: right')); }}
                 <div class="col-md-3">
-                    {{ Form::select('book_languageId', $languages, $book_languageId, array('class' => 'input-sm')); }}
+                    {{ Form::select('book_languageId', $languages, $book_languageId, array('class' => 'input-sm form-control')); }}
                 </div>
             </div>
 

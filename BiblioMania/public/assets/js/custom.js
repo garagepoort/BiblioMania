@@ -1,0 +1,47 @@
+var request;
+
+function showConfirmDialog(title, message, action){
+    BootstrapDialog.show({
+        title: title,
+        message: message,
+        buttons: [
+            {
+                icon: "fa fa-check-circle",
+                label: 'Ja',
+                cssClass: 'btn-primary',
+                action: function(dialogItself){
+                    action();
+                    dialogItself.close();
+                }
+            },
+            {
+                icon: "fa fa-times-circle",
+                label: 'Annuleer',
+                cssClass: 'btn-warning',
+                action: function(dialogItself){
+                    dialogItself.close();
+                }
+            }]
+    });
+}
+
+function startLoadingPaged(url, page, action){
+    $('#loader-icon').show();
+    request = $.get(url + "&page=" + page,
+        function(data, status){
+            if(status === "success"){
+                action(data);
+                if(data.current_page !== data.last_page){
+                    var nextPage = data.current_page + 1;
+                    startLoadingPaged(url, nextPage, action);
+                }else{
+                    $('#loader-icon').hide();
+                }
+            }
+        }
+    );
+}
+
+function abortLoadingPaged(){
+    request.abort();
+}

@@ -31,7 +31,7 @@
                 <!-- AUTHOR -->
                 {{ Form::label('authorLabel', 'Auteur:', array('class' => 'col-md-2')); }}
                 <div class="col-md-5">
-                    {{ Form::text('book_author', $author_name . ', ' . $author_firstname , array('id'=>'book_author_input','class' => 'form-control typeahead', 'placeholder' => 'auteur', 'required' => 'true', 'type' => 'text')); }}
+                    {{ Form::text('book_author', $author_name_book_info, array('id'=>'book_author_input','class' => 'form-control typeahead', 'placeholder' => 'auteur', 'required' => 'true', 'type' => 'text')); }}
                 </div>
             </div>
 
@@ -92,7 +92,7 @@
                 <!-- LANGUAGE -->
                 {{ Form::label('bookLanguageLabel', 'Taal:', array('class' => 'col-md-1', 'style' => 'text-align: right')); }}
                 <div class="col-md-3">
-                    {{ Form::select('book_languageId', $languages, $book_languageId, array('class' => 'input-sm')); }}
+                    {{ Form::select('book_languageId', $languages, $book_languageId, array('class' => 'input-sm form-control')); }}
                 </div>
             </div>
         </div>

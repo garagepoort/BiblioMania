@@ -1,3 +1,606 @@
+@font-face {
+  font-family: "vincent";
+  src: url("../fonts/Vincent-Regular.otf") format("opentype");
+}
+@font-face {
+  font-family: "baron";
+  src: url("../fonts/baron_black.otf") format("opentype");
+}
+@font-face {
+  font-family: "parisish";
+  src: url("../fonts/Parisish.ttf") format("opentype");
+}
+@font-face {
+  font-family: "vincent";
+  font-weight: bold;
+  src: url("../fonts/Vincent-Regular.otf") format("opentype");
+}
+* {
+  -webkit-border-radius: 0 !important;
+  -moz-border-radius: 0 !important;
+  border-radius: 0 !important;
+}
+img {
+  background: url('images/questionCover.png') no-repeat;
+}
+input {
+  color: #2d6ca2;
+}
+.input-xs {
+  height: 22px;
+  padding: 5px 5px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 3px;
+}
+body {
+  font-family: "";
+  color: #2d6ca2;
+  font-size: 16px;
+  background-color: #428bca;
+}
+div.tableDiv {
+  margin-left: auto ;
+  margin-right: auto ;
+  width: 500px;
+}
+small.help-block {
+  color: #2d6ca2;
+}
+select {
+  color: #ffffff;
+}
+.modal-body {
+  color: #ffffff;
+}
+.glyphicon,
+.fa,
+.clickable {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  cursor: pointer;
+}
+.glyphicon:hover,
+.fa:hover,
+.clickable:hover {
+  color: black;
+}
+.clickedGenre {
+  color: black;
+  font-weight: bold;
+}
+a:hover {
+  color: black ;
+  background-color: #def ;
+}
+.datepicker {
+  color: #ffffff;
+}
+.popover-title {
+  color: #ffffff;
+}
+.title-panel {
+  width: 100%;
+  padding-left: 20px;
+  background-color: #2d6ca2;
+  color: #ffffff;
+  font-family: "vincent";
+  font-size: 36px;
+}
 /*DATEPICKER*/
-@font-face{font-family:"vincent";src:url("../fonts/Vincent-Regular.otf") format("opentype")}@font-face{font-family:"baron";src:url("../fonts/baron_black.otf") format("opentype")}@font-face{font-family:"parisish";src:url("../fonts/Parisish.otf") format("opentype")}@font-face{font-family:"vincent";font-weight:700;src:url("../fonts/Vincent-Regular.otf") format("opentype")}*{-webkit-border-radius:0!important;-moz-border-radius:0!important;border-radius:0!important}img{background:url('images/questionCover.png') no-repeat}input{color:#611427}.input-xs{height:22px;padding:5px 5px;font-size:12px;line-height:1.5;border-radius:3px}body{font-family:"parisish";color:#dddcc5;font-size:16px;background-color:#f99}div.tableDiv{margin-left:auto;margin-right:auto;width:500px}small.help-block{color:#dddcc5}select{color:#611427}.modal-body{color:#611427}.glyphicon,.fa,.clickable{-moz-user-select:none;-webkit-user-select:none;cursor:pointer}.glyphicon:hover,.fa:hover,.clickable:hover{color:#000}.clickedGenre{color:#000;font-weight:700}a:hover{color:#000;background-color:#def}.datepicker{color:#611427}div.datepicker-days table thead tr th{color:#611427}div.datepicker-years table thead tr th{color:#611427}div.datepicker-months table thead tr th{color:#611427}div.datepicker-days table tbody tr td{color:#611427}div.datepicker-months table tbody tr td span{color:#611427}div.datepicker-years table tbody tr td span{color:#611427}div.datepicker-days table tfoot tr th{color:#611427}div.datepicker-months table tfoot tr th{color:#611427}div.datepicker-years table tfoot tr th{color:#611427}legend{color:#dddcc5}.form-control::-webkit-input-placeholder{color:#611427;opacity:1}.form-control:-moz-placeholder{color:#611427;opacity:1}.form-control::-moz-placeholder{color:#611427;opacity:1}.form-control:-ms-input-placeholder{color:#611427}.genre-list{list-style-type:none}.contentContainer{margin-left:auto;margin-right:auto;margin-top:50px;width:88%;background-color:#611427}.book-filters-table tbody tr td{padding:5px}legend.sub-border{width:inherit;padding:0 10px;border-bottom:0}.createBookDiv{width:800px;margin-right:auto;margin-left:auto}.create-book-div{width:800px;margin-right:auto;margin-left:auto;margin-top:40px;margin-bottom:40px}.google-image-search-table tbody tr td{padding:10px}.googleSearchLoader{margin-left:auto;margin-right:auto;display:block}.cover-info-filter-table tbody tr td{padding-left:10px}.cover-info-top-panel{margin-bottom:20px}.google-selected-image{border:8px solid deepskyblue}.green-linked-div{background-color:green;padding:3px 10px;border-radius:3px!important;margin-left:10px;text-align:center}.author-oeuvre-linked-book-title{color:#428bca}#oeuvre-textarea-panel{color:#000;display:inline-block;margin-left:30px}.oeuvre-author-pencil{cursor:pointer}#oeuvreButton{margin-top:10px}.buyOrGiftPanel{margin-bottom:40px}.author-oeuvre-link-icon{padding-left:10px;cursor:pointer}.title-table{margin-bottom:20px}.table.books-table tbody tr td{border-top:0;text-align:center}.table.authors-table tbody tr td{border-top:0;text-align:center}.book-detail-main-info{margin-bottom:20px}.book-detail-other-info{margin-top:20px}div.books-container{width:100%;margin-left:auto;margin-right:auto;margin-bottom:50px}.book-collection-info-panel{width:500px}.book-collection-filter-panel{width:500px;margin-bottom:40px}.book-detail-info-table{width:100%}table.book-detail-info-table>tbody>tr>td{padding-top:30px;width:50%}.book-detail-small-info-panel{width:90%}.book-detail-small-info-panel>legend{border:0;margin-bottom:10px}.book-detail-small-info-panel>table{width:100%}.book-detail-small-info-panel>table>tbody>tr>td:nth-child(2){width:100%;text-align:left;padding-left:10px}.book-detail-small-info-panel>table>tbody>tr>td{white-space:nowrap}.book-detail-main-info-table{width:50%;margin-left:170px}table.book-detail-main-info-table td{padding:2px;white-space:nowrap}table.book-detail-info-table td{vertical-align:top}.book-detail-summary{float:left;margin-top:20px;text-align:justify}.book-detail-div{overflow:scroll;float:right;position:fixed;opacity:.95;top:0;background-color:#1d2326;right:-700px;width:700px;height:100vh}.book-detail-container{width:90%;margin-top:20px;margin-left:auto;margin-right:auto}.pagination{padding-top:40px;width:100%}#book-detail-coverimage{float:left}.book-details-info-container{margin-top:20px}.bookCoverLink{width:142px;height:226px;cursor:pointer}.authorCoverLink{width:142px;height:226px;cursor:pointer}.author-container{color:#dddcc5;width:800px;margin-left:auto;margin-right:auto;margin-top:50px;margin-bottom:50px}.author-image-div{margin-right:15px;float:left;margin-bottom:20px}.pagination li{background-color:#f99}.loginLabel{margin-right:10px}.loginPanel{width:800px;margin-right:auto;margin-left:auto}.loginButton{margin-left:10px}.createUserPanel{width:800px;margin-right:auto;margin-left:auto}.ui-widget *{outline:0}.tab-container{margin-top:20px;width:90%}.tab-container fieldset legend{color:#dddcc5;border-bottom:1px solid #dddcc5}.form-container{width:100%;margin-left:auto;margin-right:auto}.filterDialog{background-color:#611427}.label-gray{color:#aaa}.tab-content{border-left:1px solid #611427;border-right:1px solid #611427;border-bottom:1px solid #611427;padding:10px;background-color:#611427}ul.nav li a{color:#dddcc5;background-color:#1D2326}.nav-tabs>li.active>a,.nav-tabs>li.active>a:focus,ul.nav li a:hover{color:#611427;background-color:#dddcc5;border:1px solid #dddcc5}.nav-tabs{font-family:"vincent";margin-bottom:0;border-bottom:0}.genres-container{padding-left:10px;padding-right:10px;padding-top:0;padding-bottom:0;cursor:pointer}.genre-listitem{cursor:pointer;padding-left:10px}.genres-header{padding-left:16px}.well{background-color:#611427;background:#611427;color:#dddcc5}.animated{-webkit-transition:height .2s;-moz-transition:height .2s;transition:height .2s}.stars{margin:20px 0;font-size:24px;color:#d17581}.reading-date-plus{cursor:pointer}.reading-date-min{cursor:pointer}#reading-dates-table tbody tr{margin:10px}.navbar-default{background-color:#611427;border-color:#611427}.navbar-inner{background-color:#611427}.navbar-default .navbar-brand{color:#dddcc5}.navbar-default .navbar-brand:hover,.navbar-default .navbar-brand:focus{color:#dddcc5}.navbar-default .navbar-text{color:#dddcc5}.navbar-default .navbar-nav>li>a{color:#dddcc5;background-color:#611427}.navbar-default .navbar-nav>li>a:hover,.navbar-default .navbar-nav>li>a:focus{color:#611427;background-color:#dddcc5}.navbar-default .navbar-nav>.active>a,.navbar-default .navbar-nav>.active>a:hover,.navbar-default .navbar-nav>.active>a:focus{color:#dddcc5;background-color:#611427}.navbar-default .navbar-nav>.open>a,.navbar-default .navbar-nav>.open>a:hover,.navbar-default .navbar-nav>.open>a:focus{color:#dddcc5;background-color:#611427}.navbar-default .navbar-toggle{border-color:#611427}.navbar-default .navbar-toggle:hover,.navbar-default .navbar-toggle:focus{background-color:#611427}.navbar-default .navbar-toggle .icon-bar{background-color:#611427}.navbar-default .navbar-collapse,.navbar-default .navbar-form{border-color:#611427}.navbar-default .navbar-link{color:#dddcc5}.navbar-default .navbar-link:hover{color:#dddcc5}.navbar-default .navbar-nav .open .dropdown-menu>li>a{color:#dddcc5}.navbar-default .navbar-nav .open .dropdown-menu>li>a:hover,.navbar-default .navbar-nav .open .dropdown-menu>li>a:focus{color:#dddcc5}.navbar-default .navbar-nav .open .dropdown-menu>.active>a,.navbar-default .navbar-nav .open .dropdown-menu>.active>a:hover,.navbar-default .navbar-nav .open .dropdown-menu>.active>a:focus{color:#dddcc5;background-color:#611427}div.navbar-collapse{background-color:#611427}a.navbar-brand{background-color:#611427;font-family:"baron"}div.container-fluid{background-color:#611427}.autocomplete-suggestions{border:1px solid #999;background:#FFF;overflow:auto}.autocomplete-suggestion{padding:2px 5px;white-space:nowrap;overflow:hidden;color:#611427}.autocomplete-selected{background:#F0F0F0}.autocomplete-suggestions strong{font-weight:400;color:#39F}.autocomplete-group{padding:2px 5px}.autocomplete-group strong{display:block;border-bottom:1px solid #000}
-/* This beautiful CSS-File has been crafted with LESS (lesscss.org) and compiled by simpLESS (wearekiss.com/simpless) */
+div.datepicker-days table thead tr th {
+  color: #ffffff;
+}
+div.datepicker-years table thead tr th {
+  color: #ffffff;
+}
+div.datepicker-months table thead tr th {
+  color: #ffffff;
+}
+div.datepicker-days table tbody tr td {
+  color: #ffffff;
+}
+div.datepicker-months table tbody tr td span {
+  color: #ffffff;
+}
+div.datepicker-years table tbody tr td span {
+  color: #ffffff;
+}
+div.datepicker-days table tfoot tr th {
+  color: #ffffff;
+}
+div.datepicker-months table tfoot tr th {
+  color: #ffffff;
+}
+div.datepicker-years table tfoot tr th {
+  color: #ffffff;
+}
+/*END DATEPICKER*/
+legend {
+  color: #2d6ca2;
+}
+/*PLACEHOLDERS*/
+.form-control::-webkit-input-placeholder {
+  /* WebKit browsers */
+  color: #ffffff;
+  opacity: 1;
+}
+.form-control:-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  color: #ffffff;
+  opacity: 1;
+}
+.form-control::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  color: #ffffff;
+  opacity: 1;
+}
+.form-control:-ms-input-placeholder {
+  /* Internet Explorer 10+ */
+  color: #ffffff;
+}
+.genre-list {
+  list-style-type: none;
+}
+/*END PLACEHOLDERS*/
+.contentContainer {
+  margin-left: auto ;
+  margin-right: auto ;
+  margin-top: 50px;
+  width: 88%;
+  background-color: #ffffff;
+  border: 5px solid #2d6ca2;
+  /*background-color: #AF885F;*/
+  /*color: #8E2800;*/
+}
+.contentPanel {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+/*BOOKS*/
+.book-filters-table tbody tr td {
+  padding: 5px;
+}
+legend.sub-border {
+  width: inherit;
+  /* Or auto */
+  padding: 0 10px;
+  /* To give a bit of padding on the left and right */
+  border-bottom: none;
+}
+.createBookDiv {
+  width: 800px;
+  margin-right: auto;
+  margin-left: auto;
+}
+.create-book-div {
+  width: 800px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+.google-image-search-table tbody tr td {
+  padding: 10px;
+}
+.googleSearchLoader {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  margin-top: 20px;
+}
+.cover-info-filter-table tbody tr td {
+  padding-left: 10px;
+}
+.cover-info-top-panel {
+  margin-bottom: 20px;
+}
+.google-selected-image {
+  border: 8px solid deepskyblue;
+}
+.green-linked-div {
+  background-color: green;
+  padding: 3px 10px;
+  border-radius: 3px !important;
+  margin-left: 10px;
+  text-align: center;
+}
+.author-oeuvre-linked-book-title {
+  color: #428bca;
+}
+#oeuvre-textarea-panel {
+  color: black;
+  display: inline-block;
+  margin-left: 30px;
+}
+.oeuvre-author-pencil {
+  cursor: pointer;
+}
+#oeuvreButton {
+  margin-top: 10px;
+}
+.buyOrGiftPanel {
+  margin-bottom: 40px;
+}
+.author-oeuvre-link-icon {
+  padding-left: 10px;
+  cursor: pointer;
+}
+.title-table {
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+.table.books-table tbody tr td {
+  border-top: none;
+  text-align: center;
+}
+.table.authors-table tbody tr td {
+  border-top: none;
+  text-align: center;
+}
+.book-detail-main-info {
+  margin-bottom: 20px;
+}
+.book-detail-other-info {
+  margin-top: 20px;
+}
+div.books-container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 50px;
+}
+.book-collection-info-panel {
+  width: 500px;
+}
+.book-collection-filter-panel {
+  width: 500px;
+  margin-bottom: 40px;
+}
+.book-detail-info-table {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+table.book-detail-info-table > tbody > tr > td {
+  padding-top: 30px;
+  width: 50%;
+}
+.book-detail-small-info-panel {
+  width: 90%;
+}
+.book-detail-small-info-panel > legend {
+  border: none;
+  margin-bottom: 10px;
+}
+.book-detail-small-info-panel > table {
+  width: 100%;
+}
+.book-detail-small-info-panel > table > tbody > tr > td:nth-child(2) {
+  width: 100%;
+  text-align: left;
+  padding-left: 10px;
+}
+.book-detail-small-info-panel > table > tbody > tr > td {
+  white-space: nowrap;
+}
+.book-detail-main-info-table {
+  width: 50%;
+  margin-left: 170px;
+}
+table.book-detail-main-info-table td {
+  padding: 2px;
+  white-space: nowrap;
+}
+table.book-detail-info-table td {
+  vertical-align: top;
+}
+.book-detail-summary {
+  float: left;
+  margin-top: 20px;
+  text-align: justify;
+}
+.book-detail-summary p {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.book-detail-div {
+  /*left: 0;*/
+  overflow: scroll;
+  float: right;
+  position: fixed;
+  opacity: 0.95;
+  top: 0px;
+  background-color: #1d2326;
+  right: -700px;
+  width: 700px;
+  height: 100vh;
+  /*border: solid 1px @background-color;*/
+}
+.book-detail-container {
+  width: 90%;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.pagination {
+  padding-top: 40px;
+  width: 100%;
+}
+#book-detail-coverimage {
+  float: left;
+}
+.book-details-info-container {
+  margin-top: 20px;
+}
+.bookCoverLink {
+  width: 142px;
+  height: 226px;
+  cursor: pointer;
+}
+.authorCoverLink {
+  width: 142px;
+  height: 226px;
+  cursor: pointer;
+}
+/*END BOOKS*/
+/*AUTHOR*/
+.author-container {
+  color: #2d6ca2;
+  width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+.author-image-div {
+  margin-right: 15px;
+  float: left;
+  margin-bottom: 20px;
+}
+/*END AUTHOR*/
+.list-container {
+  width: 88%;
+  margin-left: auto;
+  margin-right: auto;
+}
+/*PAGINATION*/
+.pagination li {
+  background-color: #428bca;
+}
+/*END PAGINATION*/
+.loginLabel {
+  margin-right: 10px;
+}
+.loginPanel {
+  width: 800px;
+  margin-right: auto;
+  margin-left: auto;
+}
+.loginButton {
+  margin-left: 10px;
+}
+/*CREATE USER*/
+.createUserPanel {
+  width: 800px;
+  margin-right: auto;
+  margin-left: auto;
+}
+/*.createUserPanel input {
+  color: @inverse-font-color;
+}*/
+/*END CREATE USER*/
+.ui-widget * {
+  outline: none;
+}
+/*TABS*/
+.tab-container {
+  margin-top: 20px;
+  width: 90%;
+  /*margin-left: auto;*/
+  /*margin-right: auto;*/
+}
+.tab-container fieldset legend {
+  color: #2d6ca2;
+  border-bottom: 1px solid #2d6ca2;
+}
+.form-container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.filterDialog {
+  background-color: #ffffff;
+}
+.label-gray {
+  color: #aaa;
+}
+.tab-content {
+  border-left: 1px solid #ffffff;
+  border-right: 1px solid #ffffff;
+  border-bottom: 1px solid #ffffff;
+  padding: 10px;
+  background-color: #ffffff;
+  color: #2d6ca2;
+}
+ul.nav li a {
+  color: #2d6ca2;
+  background-color: #1D2326;
+}
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:focus,
+ul.nav li a:hover {
+  color: #ffffff;
+  background-color: #2d6ca2;
+  border: 1px solid #2d6ca2;
+}
+.nav-tabs {
+  font-family: "vincent";
+  margin-bottom: 0;
+  border-bottom: none;
+}
+/*END TABS*/
+/*GENRES*/
+.genres-container {
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  cursor: pointer;
+}
+.genre-listitem {
+  /*border-radius: 25px;*/
+  cursor: pointer;
+  padding-left: 10px;
+}
+.genres-header {
+  padding-left: 16px;
+}
+.well {
+  background-color: #ffffff;
+  background: #ffffff;
+  color: #2d6ca2;
+}
+/*END GENRES*/
+/*REVIEW STARS*/
+.animated {
+  -webkit-transition: height 0.2s;
+  -moz-transition: height 0.2s;
+  transition: height 0.2s;
+}
+.stars {
+  margin: 20px 0;
+  font-size: 24px;
+  color: #d17581;
+}
+.reading-date-plus {
+  cursor: pointer;
+}
+.reading-date-min {
+  cursor: pointer;
+}
+#reading-dates-table tbody tr {
+  margin: 10px;
+}
+/*NAVBAR*/
+.search-box-table {
+  margin-top: 7px;
+}
+.navbar-default {
+  background-color: #2d6ca2;
+  border-color: #2d6ca2;
+}
+.navbar-inner {
+  background-color: #2d6ca2;
+}
+.navbar-default .navbar-brand {
+  color: #ffffff;
+}
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+  color: #ffffff;
+}
+.navbar-default .navbar-text {
+  color: #ffffff;
+}
+.navbar-default .navbar-nav > li > a {
+  color: #ffffff;
+  background-color: #2d6ca2;
+}
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+  color: #2d6ca2;
+  background-color: #ffffff;
+}
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+  color: #ffffff;
+  background-color: #2d6ca2;
+}
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+  color: #ffffff;
+  background-color: #2d6ca2;
+}
+.navbar-default .navbar-toggle {
+  border-color: #2d6ca2;
+}
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+  background-color: #2d6ca2;
+}
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #2d6ca2;
+}
+.navbar-default .navbar-collapse,
+.navbar-default .navbar-form {
+  border-color: #2d6ca2;
+}
+.navbar-default .navbar-link {
+  color: #ffffff;
+}
+.navbar-default .navbar-link:hover {
+  color: #ffffff;
+}
+.navbar-default .navbar-nav .open .dropdown-menu > li > a {
+  color: #ffffff;
+  background-color: #2d6ca2;
+}
+.navbar-default .navbar-nav .open .dropdown-menu > li > a:hover {
+  background-color: #ffffff;
+  color: #2d6ca2;
+  background-image: none;
+}
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
+  background-color: #ffffff;
+  color: #2d6ca2;
+  background-image: none;
+}
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:focus,
+ul.nav li a:hover {
+  border: none;
+}
+.dropdown-menu {
+  background: #2d6ca2;
+}
+div.navbar-collapse {
+  background-color: #2d6ca2;
+}
+a.navbar-brand {
+  background-color: #2d6ca2;
+  font-family: "baron";
+}
+div.container-fluid {
+  background-color: #2d6ca2;
+}
+/*AUTOCOMPLETE*/
+.autocomplete-suggestions {
+  border: 1px solid #999;
+  background: #FFF;
+  overflow: auto;
+}
+.autocomplete-suggestion {
+  padding: 2px 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  color: #2d6ca2;
+}
+.autocomplete-selected {
+  background: #F0F0F0;
+}
+.autocomplete-suggestions strong {
+  font-weight: normal;
+  color: #3399FF;
+}
+.autocomplete-group {
+  padding: 2px 5px;
+}
+.autocomplete-group strong {
+  display: block;
+  border-bottom: 1px solid #000;
+}

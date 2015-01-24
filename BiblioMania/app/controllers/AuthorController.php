@@ -2,6 +2,8 @@
 
 class AuthorController extends BaseController {
 
+	private $authorFolder = "author/";
+
 	public function getAuthors()
 	{
 		return View::make('authors')->with(array(
@@ -9,8 +11,53 @@ class AuthorController extends BaseController {
         ));
 	}
 
+	public function getAuthorsList(){
+		$authors = Author::with('date_of_death', 'date_of_birth')->orderBy('name', 'asc')->paginate(120);
+		return View::make($this->authorFolder . 'authorsList')->with(array(
+			'title' => 'Editeer auteurs',
+			'authors' => $authors
+		));
+	}
+
+	public function editAuthor(){
+		$dateService = App::make('DateService');
+		$logger = new Katzgrau\KLogger\Logger(app_path() . '/storage/logs');
+
+		$id = Input::get('pk');
+		$name = Input::get('name');
+		$value = Input::get('value');
+		$logger->info('editing author with values: ' . $id . ' name: ' . $name . ' value: ' . $value);
+
+
+
+		$author = Author::with('date_of_death', 'date_of_birth')->find($id);
+		if($author != null){
+			if($name == 'name'){
+				$author->name = $value;
+			}
+			if($name == 'firstname'){
+				$author->firstname = $value;
+			}
+			if($name == 'infix'){
+				$author->infix = $value;
+			}
+			if($name == 'date_of_birth'){
+				App::make('AuthorService')->deleteDateOfBirth($author);
+				$author->date_of_birth_id = $dateService->createDateFromString($value)->id;
+			}
+			if($name == 'date_of_death'){
+				App::make('AuthorService')->deleteDateOfDeath($author);
+				$author->date_of_death_id = $dateService->createDateFromString($value)->id;
+			}
+			$author->save();
+		}
+	}
+
 	public function getNextAuthors(){
-		return Author::orderBy('name')->orderBy('firstname')->paginate(60)->toJson();
+		$name = Input::get('name');
+		$firstname = Input::get('firstname');
+		$orderBy = Input::get('orderBy');
+		return App::make('AuthorService')->getFilteredAuthors($name, $firstname, $orderBy);
 	}
 
 	public function getAuthor($author_id){

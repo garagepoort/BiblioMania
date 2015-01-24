@@ -28,18 +28,6 @@ class BookService
 
     public function getBooks()
     {
-        $with = array(
-            'authors' => function ($query) {
-                $query->orderBy('name', 'DESC');
-            },
-            'publisher',
-            'genre',
-            'personal_book_info',
-            'first_print_info',
-            'publication_date',
-            'country',
-            'publisher_serie',
-            'serie');
         return Book::where('user_id', '=', Auth::user()->id)->get();
     }
 
@@ -106,29 +94,4 @@ class BookService
         return $books->paginate(60);
     }
 
-    private function sortBooks($orderBy = 'author', $books)
-    {
-        switch ($orderBy) {
-            case 'author':
-                return $books->sortBy(function ($book) use ($orderBy) {
-                    return $book->authors[0]->name;
-                });
-                break;
-            case 'title':
-                return $books->sortBy(function ($book) use ($orderBy) {
-                    return $book->title;
-                });
-                break;
-            case 'subtitle':
-                return $books->sortBy(function ($book) use ($orderBy) {
-                    return $book->subtitle;
-                });
-                break;
-            case 'rating':
-                return $books->sortByDesc(function ($book) use ($orderBy) {
-                    return $book->personal_book_info->rating;
-                });
-                break;
-        }
-    }
 }

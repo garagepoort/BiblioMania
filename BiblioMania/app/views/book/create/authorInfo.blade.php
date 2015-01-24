@@ -3,20 +3,18 @@
 
     <legend>Auteur info</legend>
 
-
-        @if(Session::has('message'))
-        <div id="authorInfoMessage" class="alert-danger alert">
-            <strong>{{ Session::get('message') }}</strong>
-        </div>
-        @endif
+        {{ HTML::image($author_image, 'image') }}
 
         <!-- NAME -->
         <div class="form-group">
             {{ Form::label('authorNameLabel', 'Naam:', array('class' => 'col-md-3')); }}
-            <div class="col-md-4">
+            <div class="col-md-3">
                 {{ Form::text('author_name', $author_name, array('id'=>'author_name','class' => 'form-control', 'placeholder' => 'naam', 'required' => 'true')); }}
             </div>
-            <div class="col-md-4">
+            <div class="col-md-2">
+                {{ Form::text('author_infix', $author_infix, array('id'=>'author_infix','class' => 'form-control', 'placeholder' => '')); }}
+            </div>
+            <div class="col-md-3">
                 {{ Form::text('author_firstname', $author_firstname, array('id'=>'author_firstname','class' => 'form-control', 'placeholder' => 'voornaam', 'required' => 'true')); }}
             </div>
         </div>
@@ -50,7 +48,9 @@
         </div>
 
         <!-- IMAGE -->
-        <div class="form-group">
+        <span style="margin-right: 10px">Ik wil zelf een afbeelding uploaden:</span><input id="author-image-self-upload-checkbox" type="checkbox" name="authorImageSelfUpload"/>
+
+        <div id="author-image-self-upload-panel" class="form-group" hidden>
           {{ Form::label('imageAuthorLabel', 'Afbeelding:', array('class' => 'col-md-3')); }}
           <div class="col-md-3">
               <div class="fileinput fileinput-new" data-provides="fileinput">
@@ -61,6 +61,10 @@
                 </div>
               </div>
           </div>
+        </div>
+
+        <div id="author-image-google-search-panel">
+            @include('googleImageSearch', array('imageUrlInput' => 'authorImageUrl','contentDivId' => 'authorImageContent'))
         </div>
 
         <div id='author-oeuvre-panel'>

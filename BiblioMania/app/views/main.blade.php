@@ -33,6 +33,7 @@
 
         <!-- LESS SCRIPTS -->
         {{ HTML::style('assets/css/custom.css') }}
+        {{ HTML::script('assets/js/custom.js') }}
 
         <!-- STAR RATING -->
         {{ HTML::script('assets/bootstrap-star-rating/js/star-rating.min.js') }}
@@ -53,7 +54,9 @@
         {{ HTML::script('assets/waypoints/lib/jquery.waypoints.min.js') }}
         {{ HTML::script('assets/waypoints/lib/shortcuts/infinite.min.js') }}
 
-
+        {{--EDITABLE--}}
+        <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
 
     </head>
 
@@ -71,16 +74,23 @@
               <ul class="nav navbar-nav">
                 <li>{{ HTML::link('getBooks', 'Boeken', array('id'=>'booksNavigationLink', 'title' => 'Boeken')) }}</li>
                 <li>{{ HTML::link('getAuthors', 'Auteurs', array('id'=>'authorsNavigationLink', 'title' => 'Auteurs')) }}</li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Lijsten <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>{{ HTML::link('getAuthorsList', 'Auteurslijst', array('id'=>'authorsListNavigationLink', 'title' => 'Auteurslijst')) }}</li>
+                        <li>{{ HTML::link('getPublishersList', 'Uitgeverslijst', array('id'=>'publishersListNavigationLink', 'title' => 'Uitgeverslijst')) }}</li>
+                    </ul>
+                </li>
               </ul>
-              
+
               <ul class="nav navbar-nav navbar-right">
-                    <table>
+                    <table class="search-box-table">
                         <tr>
                             <td>
                                 <input id="searchBooksInput" type="text" class="form-control" placeholder="Search" name="criteria">
                             </td>
                             <td>
-                                <button id="searchBooksButton" class="btn btn-default">Zoeken</button>
+                                <button id="searchBooksButton" class="btn btn-primary">Zoeken</button>
                             </td>
                         </tr>
                     </table>
@@ -91,8 +101,13 @@
 
     @show
 
-    <div class="container contentContainer">
+    <div class="contentContainer">
+        <div class="title-panel">
+            @yield('title')
+        </div>
+        <div class="contentPanel">
             @yield('content')
+        </div>
     </div>
     <script type="text/javascript">
         $(function() {

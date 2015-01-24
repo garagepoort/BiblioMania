@@ -21,11 +21,19 @@ Route::group(array('before' => 'auth'), function() {
     Route::get('editBook/{id}', 'BookController@goToEditBook');
     Route::get('logOut', 'LoginController@login');
     Route::get('importBooks', 'BookImportController@importBooks');
+
     Route::get('getAuthor/{id}', 'AuthorController@getAuthor');
     Route::get('getAuthors', 'AuthorController@getAuthors');
+    Route::get('getAuthorsList', 'AuthorController@getAuthorsList');
     Route::get('getOeuvreForAuthor/{id}', 'AuthorController@getOeuvreForAuthor');
     Route::get('getNextAuthors', 'AuthorController@getNextAuthors');
     Route::get('getAuthorsWithOeuvreJson', 'AuthorController@getAuthorsWithOeuvreJson');
+    Route::post('editAuthor', 'AuthorController@editAuthor');
+
+    Route::get('getPublishersList', 'PublisherController@getPublishersList');
+    Route::post('editPublisher', 'PublisherController@editPublisher');
+    Route::post('deletePublisher', 'PublisherController@deletePublisher');
+
     Route::get('scaleImages', 'ImageController@scaleImages');
     Route::post('deleteBookFromAuthor', 'AuthorController@deleteBookFromAuthor');
     Route::post('editBookFromAuthor', 'AuthorController@editBookFromAuthor');

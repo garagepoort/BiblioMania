@@ -10,7 +10,7 @@
 
 @font-face {
   font-family: "parisish";
-  src: url("../fonts/Parisish.otf") format("opentype");
+  src: url("../fonts/Parisish.ttf") format("opentype");
 }
 
 @font-face {
@@ -30,7 +30,7 @@ img {
 }
 
 input {
-  color: @inverse-font-color;
+  color: @font-color;
 }
 
 .input-xs {
@@ -41,16 +41,26 @@ input {
   border-radius: 3px;
 }
 
-@font: "parisish";
-@background-color: #f99;
-@container-color: #611427;
-@font-color: #DDDCC5;
-@inverse-font-color: #611427;
-@main-color: #611427;
+@font: "";
+@background-color: #428bca;
+@container-color: #fff;
+@font-color: #2d6ca2;
+@inverse-font-color: #fff;
+@main-color: #fff;
+
+@navigation-font-color: #fff;
+@navigation-background-color: #2d6ca2;
+
 @font-size: 16px;
 @book-detail-background-color: #1D2326;
+@content-container-border: #2d6ca2;
 
-@tab-color: #611427;
+@tab-color: #fff;
+@tab-font-color: #2d6ca2;
+
+@title-panel-font-color: #fff;
+@title-panel-background-color: #2d6ca2;
+@title-panel-font: "vincent";
 
 body {
   font-family: @font;
@@ -97,9 +107,21 @@ a:hover {
   background-color: #def ;
 }
 
-
 .datepicker {
   color: @inverse-font-color;
+}
+
+.popover-title {
+  color: @inverse-font-color;
+}
+
+.title-panel {
+  width: 100%;
+  padding-left: 20px;
+  background-color: @title-panel-background-color;
+  color: @title-panel-font-color;
+  font-family: @title-panel-font;
+  font-size: 36px;
 }
 
 /*DATEPICKER*/
@@ -173,8 +195,14 @@ legend {
   margin-top: 50px;
   width: 88%;
   background-color: @container-color;
+  border: 5px solid @content-container-border;
   /*background-color: #AF885F;*/
   /*color: #8E2800;*/
+}
+
+.contentPanel {
+  padding-right: 15px;
+  padding-left: 15px;
 }
 
 /*BOOKS*/
@@ -262,6 +290,7 @@ legend.sub-border {
 
 .title-table{
   margin-bottom: 20px;
+  margin-top: 20px;
 }
 
 .table.books-table tbody tr td { 
@@ -298,7 +327,9 @@ div.books-container {
 }
 
 .book-detail-info-table{
-  width: 100%;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 table.book-detail-info-table > tbody > tr > td {
@@ -348,6 +379,12 @@ table.book-detail-info-table td{
   float: left;
   margin-top: 20px;
   text-align: justify;
+}
+
+.book-detail-summary p {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .book-detail-div {
@@ -411,6 +448,13 @@ table.book-detail-info-table td{
   margin-bottom: 20px;
 }
 /*END AUTHOR*/
+
+//PUBLISHER
+.list-container {
+  width: 88%;
+  margin-left: auto;
+  margin-right: auto;
+}
 /*PAGINATION*/
 .pagination li {
   background-color: @background-color;
@@ -456,8 +500,8 @@ table.book-detail-info-table td{
 }
 
 .tab-container fieldset legend {
-  color: @font-color;
-  border-bottom: 1px solid @font-color;
+  color: @tab-font-color;
+  border-bottom: 1px solid @tab-font-color;
 }
 
 .form-container {
@@ -481,6 +525,7 @@ table.book-detail-info-table td{
     border-bottom: 1px solid @tab-color;
     padding: 10px;
     background-color: @tab-color;
+    color: @tab-font-color;
 }
 
 ul.nav li a {
@@ -557,80 +602,96 @@ ul.nav li a:hover {
 }
 
 /*NAVBAR*/
+.search-box-table {
+  margin-top: 7px;
+}
 
 .navbar-default {
-  background-color: @inverse-font-color;
-  border-color: @inverse-font-color;
+  background-color: @navigation-background-color;
+  border-color: @navigation-background-color;
 }
 .navbar-inner {
-  background-color: @inverse-font-color;
+  background-color: @navigation-background-color;
 }
 .navbar-default .navbar-brand {
-  color: @font-color;
+  color: @navigation-font-color;
 }
 .navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
-  color: @font-color;
+  color: @navigation-font-color;
 }
 .navbar-default .navbar-text {
-  color: @font-color;
+  color: @navigation-font-color;
 }
 .navbar-default .navbar-nav > li > a {
-  color: @font-color;
-  background-color: @inverse-font-color;
+  color: @navigation-font-color;
+  background-color: @navigation-background-color;
 }
 .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
-  color: @inverse-font-color;
-  background-color: @font-color;
+  color: @navigation-background-color;
+  background-color: @navigation-font-color;
 }
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
-  color: @font-color;
-  background-color: @main-color;
+  color: @navigation-font-color;
+  background-color: @navigation-background-color;
 }
 .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
-  color: @font-color;
-  background-color: @main-color;
+  color: @navigation-font-color;
+  background-color: @navigation-background-color;
 }
 .navbar-default .navbar-toggle {
-  border-color: @main-color;
+  border-color: @navigation-background-color;
 }
 .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
-  background-color: @main-color;
+  background-color: @navigation-background-color;
 }
 .navbar-default .navbar-toggle .icon-bar {
-  background-color: @main-color;
+  background-color: @navigation-background-color;
 }
 .navbar-default .navbar-collapse,
 .navbar-default .navbar-form {
-  border-color: @main-color;
+  border-color: @navigation-background-color;
 }
 .navbar-default .navbar-link {
-  color: @font-color;
+  color: @navigation-font-color;
 }
 .navbar-default .navbar-link:hover {
-  color: @font-color;
+  color: @navigation-font-color;
 }
 .navbar-default .navbar-nav .open .dropdown-menu > li > a {
-  color: @font-color;
+  color: @navigation-font-color;
+  background-color: @navigation-background-color;
 }
-.navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
-  color: @font-color;
+
+.navbar-default .navbar-nav .open .dropdown-menu > li > a:hover {
+  background-color: @navigation-font-color;
+  color: @navigation-background-color;
+  background-image: none;
 }
-.navbar-default .navbar-nav .open .dropdown-menu > .active > a, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
-  color: @font-color;
-  background-color: @main-color;
+.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+  background-color: @navigation-font-color;
+  color: @navigation-background-color;
+  background-image: none;
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, ul.nav li a:hover {
+  border: none;
+}
+
+.dropdown-menu {
+  background: @navigation-background-color;
 }
 
 div.navbar-collapse {
-  background-color: @main-color;
+  background-color: @navigation-background-color;
 }
 
 a.navbar-brand {
-  background-color: @main-color;
+  background-color: @navigation-background-color;
   font-family: "baron";
 }
 
 div.container-fluid {
-  background-color: @main-color;
+  background-color: @navigation-background-color;
 }
 
 
@@ -638,7 +699,7 @@ div.container-fluid {
 /*AUTOCOMPLETE*/
 
 .autocomplete-suggestions { border: 1px solid #999; background: #FFF; overflow: auto; }
-.autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; color: @inverse-font-color}
+.autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; color: @font-color}
 .autocomplete-selected { background: #F0F0F0; }
 .autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }
 .autocomplete-group { padding: 2px 5px; }

@@ -1,29 +1,6 @@
 $(document).ready(function(){
-    authors_page = 1;
 
-    var waypoint = new Waypoint({
-        element: $('#authors-loading-waypoint'),
-        handler: function(direction) {
-            if(direction === 'down'){
-                $('#loader-icon').show();
-                $.get(baseUrl + "/getNextAuthors?page=" + authors_page,
-                            function(data,status){
-                                if(status === "success"){
-                                    fillInAuthorContainer(JSON.parse(data));
-                                    authors_page = authors_page + 1;
-                                }
-                                $('#loader-icon').hide();
-                            }
-                    ).fail(function(){
-                        $('#loader-icon').hide();
-                        BootstrapDialog.show({
-                            message: 'Er ging iets mis. Refresh de pagina even en probeer opnieuw!'
-                        });
-                    });
-            }
-        },
-        offset: 'bottom-in-view'
-    });
+    startLoadingPaged(baseUrl + "/getNextAuthors?orderBy=name", 1, fillInAuthorContainer);
 
     function fillInAuthorContainer(data){
         var authors = data.data;

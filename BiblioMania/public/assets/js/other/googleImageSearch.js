@@ -1,22 +1,26 @@
 google.load('search', '1');
+google.setOnLoadCallback(OnLoad);
 
 var imageSearch;
+var contentDivId;
+var googleImageSearchTable;
+var loader;
+var imageUrlInput;
 
 function searchComplete() {
 
     // Check that we got results
     if (imageSearch.results && imageSearch.results.length > 0) {
 
-        // Grab our content div, clear it.
-        var contentDiv = $('#google-image-search-table');
-        contentDiv.empty();
+
+        googleImageSearchTable.empty();
 
         var results = imageSearch.results;
 
 
         var tableBody = $('<tbody></tbody>');
         var tableRow = $('<tr></tr>');
-        contentDiv.append(tableBody);
+        googleImageSearchTable.append(tableBody);
         tableBody.append(tableRow);
         for (var i = 0; i < results.length; i++) {
             if(i==4){
@@ -28,21 +32,27 @@ function searchComplete() {
             var tableData = $("<td></td>");
 
             var newImg = $('<img width="150px">');
-            newImg.attr('src', result.url);
+            newImg.attr('src', result.tbUrl);
             newImg.attr('imageUrl', result.url);
+            if(result.url === $('#'+imageUrlInput).val()){
+                newImg.addClass("google-selected-image");
+                newImg.addClass(contentDivId);
+            }
 
             tableData.append(newImg);
 
             tableRow.append(tableData);
 
             newImg.on('click', function(){
-                $('.google-selected-image').removeClass("google-selected-image");
+                $('.' + contentDivId).removeClass("google-selected-image");
+                $('.' + contentDivId).removeClass(contentDivId);
                 $(this).addClass("google-selected-image");
-                $('#'+window.imageUrlInput).val($(this).attr('imageUrl'));
+                $(this).addClass(contentDivId);
+                $('#'+imageUrlInput).val($(this).attr('imageUrl'));
             });
         }
-        $('#loader-icon').hide();
-        $('#google-image-search-table').show();
+        loader.hide();
+        googleImageSearchTable.show();
     }
 }
 
@@ -59,10 +69,16 @@ function OnLoad() {
     // Include the required Google branding
     google.search.Search.getBranding('branding');
 }
-google.setOnLoadCallback(OnLoad);
 
-function executeGoogleSearch(searchString){
-    $('#google-image-search-table').hide();
-    $('#loader-icon').show();
+function executeGoogleSearch(searchString, contentDiv, imageUrl){
+    contentDivId = contentDiv;
+    imageUrlInput = imageUrl;
+
+    loader =  $('#'+ contentDivId + ' > :nth-child(1)');
+    googleImageSearchTable = $('#'+ contentDivId + ' > :nth-child(2)');
+
+    googleImageSearchTable.hide();
+    loader.show();
+
     imageSearch.execute(searchString);
 }

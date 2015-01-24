@@ -1,5 +1,8 @@
 @extends('main')
 
+@section('title')
+Auteurs
+@stop
 @section('content')
 <script type="text/javascript">
     var baseUrl = "{{ URL::to('/') }}";

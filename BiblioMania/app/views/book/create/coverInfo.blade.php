@@ -3,12 +3,13 @@
 
         <legend>Cover info</legend>
 
+        {{ HTML::image($book_cover_image, 'image') }}
 
         <div class="cover-info-top-panel">
             <!-- {{ Form::label('bookTypeOfCoverLabel', 'Cover type:', array('class' => 'col-md-2')); }} -->
             <!-- {{ $errors->first('book_typeOfCover') }} -->
             <div class="col-md-4">
-                {{ Form::select('book_type_of_cover', $covers, $book_type_of_cover, array('class' => 'input-sm')); }}
+                {{ Form::select('book_type_of_cover', $covers, $book_type_of_cover, array('class' => 'input-sm form-control')); }}
             </div>
             <div>
                 <span style="margin-right: 10px">Ik wil zelf een afbeelding uploaden:</span><input id="cover-info-self-upload-checkbox" type="checkbox" name="coverInfoSelfUpload"/>
@@ -64,7 +65,7 @@
                 </tbody>
             </table>
 
-            @include('googleImageSearch', array('imageUrlInput' => 'coverInfoUrl'))
+            @include('googleImageSearch', array('imageUrlInput' => 'coverInfoUrl','contentDivId' => 'coverInfoContent'))
         </div>
     </fieldset>
     {{ HTML::script('assets/js/createBook/coverInfo.js'); }}

@@ -139,10 +139,19 @@ class BookController extends BaseController
             $book_author_date_of_birth_id = $this->createDate(Input::get('author_date_of_birth_day'), Input::get('author_date_of_birth_month'), Input::get('author_date_of_birth_year'));
             $book_author_date_of_death_id = $this->createDate(Input::get('author_date_of_death_day'), Input::get('author_date_of_death_month'), Input::get('author_date_of_death_year'));
 
+            $authorImage = null;
+            if (Input::get('authorImageSelfUpload')) {
+                $authorImage = $this->checkCoverImage('author_image');
+            } else {
+                if(Input::get('authorImageUrl') != ''){
+                    $authorImage = App::make('ImageService')->getImageFromUrl(Input::get('authorImageUrl'), Input::get('author_name'));
+                }
+            }
             $book_author_model = App::make('AuthorService')->saveorUpdate(
-                Input::get('author_name'), '',
-                Input::get('author_firstname',
-                $this->checkCoverImage('author_image')),
+                Input::get('author_name'),
+                Input::get('author_infix'),
+                Input::get('author_firstname'),
+                $authorImage,
                 null,
                 $book_author_date_of_birth_id,
                 $book_author_date_of_death_id);
@@ -322,7 +331,9 @@ class BookController extends BaseController
         $result['book_number_of_pages'] = '';
         $result['book_print'] = '';
         $result['book_cover_image'] = '';
+        $result['author_name_book_info'] = '';
         $result['author_name'] = '';
+        $result['author_infix'] = '';
         $result['author_firstname'] = '';
         $result['author_image'] = '';
         $result['book_publisher'] = '';
@@ -418,8 +429,15 @@ class BookController extends BaseController
         }
 
         $result['author_name'] = $book->authors[0]->name;
+        $result['author_infix'] = $book->authors[0]->infix;
         $result['author_firstname'] = $book->authors[0]->firstname;
         $result['author_image'] = $book->authors[0]->image;
+
+        if(empty($book->authors[0]->infix)){
+            $result['author_name_book_info'] = $book->authors[0]->name . ', ' . $book->authors[0]->firstname;
+        }else{
+            $result['author_name_book_info'] = $book->authors[0]->name . ', ' . $book->authors[0]->infix . ', ' . $book->authors[0]->firstname;
+        }
 
         if ($book->publisher != null) {
             $result['book_publisher'] = $book->publisher->name;
