@@ -34,7 +34,7 @@ input {
   border-radius: 3px;
 }
 body {
-  font-family: "";
+  font-family: "helvetica";
   color: #2d6ca2;
   font-size: 16px;
   background-color: #428bca;
@@ -285,12 +285,11 @@ table.book-detail-info-table > tbody > tr > td {
   white-space: nowrap;
 }
 .book-detail-main-info-table {
-  width: 50%;
+  width: 70%;
   margin-left: 170px;
 }
 table.book-detail-main-info-table td {
   padding: 2px;
-  white-space: nowrap;
 }
 table.book-detail-info-table td {
   vertical-align: top;
@@ -312,11 +311,15 @@ table.book-detail-info-table td {
   position: fixed;
   opacity: 0.95;
   top: 0px;
-  background-color: #1d2326;
+  background-color: #ffffff;
+  border: 10px solid #2d6ca2;
   right: -700px;
   width: 700px;
   height: 100vh;
   /*border: solid 1px @background-color;*/
+}
+.book-detail-close {
+  position: fixed;
 }
 .book-detail-container {
   width: 90%;
@@ -364,6 +367,17 @@ table.book-detail-info-table td {
   width: 88%;
   margin-left: auto;
   margin-right: auto;
+}
+.publisher-list-merge-container {
+  margin-top: 20px;
+  background-color: #eb9316;
+  width: 100%;
+  border-radius: 5px !important;
+  color: #ffffff;
+  padding-bottom: 10px;
+}
+.selectMergePublisher {
+  width: 20%;
 }
 /*PAGINATION*/
 .pagination li {
@@ -603,4 +617,7 @@ div.container-fluid {
 .autocomplete-group strong {
   display: block;
   border-bottom: 1px solid #000;
+}
+.bootstrap-dialog-message {
+  color: #2d6ca2;
 }

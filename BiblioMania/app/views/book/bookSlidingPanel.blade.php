@@ -1,5 +1,5 @@
 <div id="slide" class="book-detail-div">
-		<div id="book-detail-close-div">
+		<div id="book-detail-close-div" class="book-detail-close">
 			<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
 			<span class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="margin-left: -7px"></span>
 		</div>

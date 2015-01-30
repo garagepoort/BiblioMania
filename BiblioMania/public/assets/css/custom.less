@@ -41,7 +41,7 @@ input {
   border-radius: 3px;
 }
 
-@font: "";
+@font: "helvetica";
 @background-color: #428bca;
 @container-color: #fff;
 @font-color: #2d6ca2;
@@ -52,7 +52,8 @@ input {
 @navigation-background-color: #2d6ca2;
 
 @font-size: 16px;
-@book-detail-background-color: #1D2326;
+@book-detail-background-color: #fff;
+@book-detail-border-color: #2d6ca2;
 @content-container-border: #2d6ca2;
 
 @tab-color: #fff;
@@ -362,13 +363,12 @@ table.book-detail-info-table > tbody > tr > td {
 
 
 .book-detail-main-info-table {
-    width: 50%;
+    width: 70%;
     margin-left: 170px;
 }
 
 table.book-detail-main-info-table td {
   padding: 2px;
-  white-space: nowrap;
 }
 
 table.book-detail-info-table td{
@@ -395,10 +395,16 @@ table.book-detail-info-table td{
   opacity: 0.95;
   top: 0px;
   background-color: @book-detail-background-color;
+  border: 10px solid @book-detail-border-color;
   right: -700px;
   width: 700px;
   height: 100vh;
+
   /*border: solid 1px @background-color;*/
+}
+
+.book-detail-close {
+  position: fixed;
 }
 
 .book-detail-container {
@@ -455,6 +461,20 @@ table.book-detail-info-table td{
   margin-left: auto;
   margin-right: auto;
 }
+
+.publisher-list-merge-container {
+  margin-top: 20px;
+  background-color: #eb9316;
+  width: 100%;
+  border-radius: 5px !important;
+  color: @inverse-font-color;
+  padding-bottom: 10px;
+}
+
+.selectMergePublisher {
+  width: 20%;
+}
+//END PUBLISHER
 /*PAGINATION*/
 .pagination li {
   background-color: @background-color;
@@ -704,3 +724,9 @@ div.container-fluid {
 .autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }
 .autocomplete-group { padding: 2px 5px; }
 .autocomplete-group strong { display: block; border-bottom: 1px solid #000; }
+
+
+//BOOTSTRAP DIALOG
+.bootstrap-dialog-message {
+  color: @font-color;
+}

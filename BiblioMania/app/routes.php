@@ -33,6 +33,7 @@ Route::group(array('before' => 'auth'), function() {
     Route::get('getPublishersList', 'PublisherController@getPublishersList');
     Route::post('editPublisher', 'PublisherController@editPublisher');
     Route::post('deletePublisher', 'PublisherController@deletePublisher');
+    Route::post('mergePublishers', 'PublisherController@mergePublishers');
 
     Route::get('scaleImages', 'ImageController@scaleImages');
     Route::post('deleteBookFromAuthor', 'AuthorController@deleteBookFromAuthor');

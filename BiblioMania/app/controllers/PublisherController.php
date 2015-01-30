@@ -46,4 +46,15 @@ class PublisherController extends BaseController{
             $publisher->save();
         }
     }
+
+    public function mergePublishers(){
+        $publisher1_id = Input::get('publisher1_id');
+        $publisher2_id = Input::get('publisher2_id');
+        $mergeToFirst = Input::get('mergeToFirst');
+        if($mergeToFirst != null && $mergeToFirst == false){
+            App::make('PublisherService')->mergePublishers($publisher2_id, $publisher1_id);
+        }else{
+            App::make('PublisherService')->mergePublishers($publisher1_id, $publisher2_id);
+        }
+    }
 }

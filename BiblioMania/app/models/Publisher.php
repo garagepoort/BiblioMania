@@ -13,7 +13,7 @@ class Publisher extends Eloquent {
 
 	public function books()
     {
-        return $this->hasMany('Book');
+        return $this->hasMany('Book', 'publisher_id');
     }
 
 	public function first_print_infos()
