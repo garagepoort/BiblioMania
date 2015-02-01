@@ -17,34 +17,35 @@
             </ul>
             <button id="mergePublishersButton" class="btn btn-primary">Samenvoegen</button>
         </div>
-        <table id="publisherEditList" class="table publisherEditListTable">
-            <thead>
-            <tr>
-                <th>Naam</th>
-                <th style="text-align: center">Aantal boeken</th>
-                <th style="text-align: center">Verwijderen</th>
-                <th style="text-align: center">Samenvoegen</th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach ($publishers as $publisher)
+        <div class="publisherEditListPanel">
+            <table id="publisherEditList" class="table publisherEditListTable">
+                <thead>
                 <tr>
-                    <td>
-                        <a class="namePublisher" data-name="name" href="#" data-type="text" data-pk={{ $publisher->id }} data-url={{ URL::to('editPublisher') }} data-title="Vul naam in">{{ $publisher->name }}</a>
-                    </td>
-                    <td style="text-align: center">
-                        {{ count($publisher->books) + count($publisher->first_print_infos) }}
-                    </td>
-                    <td style="text-align: center">
-                        <span aria-hidden="true" style="margin-left:10px" class="fa fa-times-circle publisherlist-cross" width="10px"/>
-                    </td>
-                    <td style="text-align: center">
-                        {{ Form::checkbox('merge-checkbox', false, false, array('class'=>'merge-publisher-checkbox', 'publisher-id'=>$publisher->id)); }}
-                    </td>
+                    <th>Naam</th>
+                    <th style="text-align: center">Aantal boeken</th>
+                    <th style="text-align: center">Verwijderen</th>
+                    <th style="text-align: center">Samenvoegen</th>
                 </tr>
-            @endforeach
-            {{ $publishers->links() }}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                @foreach ($publishers as $publisher)
+                    <tr>
+                        <td>
+                            <a class="namePublisher" data-name="name" href="#" data-type="text" data-pk={{ $publisher->id }} data-url={{ URL::to('editPublisher') }} data-title="Vul naam in">{{ $publisher->name }}</a>
+                        </td>
+                        <td style="text-align: center">
+                            {{ count($publisher->books) + count($publisher->first_print_infos) }}
+                        </td>
+                        <td style="text-align: center">
+                            <span aria-hidden="true" style="margin-left:10px" class="fa fa-times-circle publisherlist-cross" width="10px"/>
+                        </td>
+                        <td style="text-align: center">
+                            {{ Form::checkbox('merge-checkbox', false, false, array('class'=>'merge-publisher-checkbox', 'publisher-id'=>$publisher->id)); }}
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
 @stop

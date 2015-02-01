@@ -28,4 +28,22 @@ class BookFromAuthorService
         $bookFromAuthor->publication_year = $year;
         $bookFromAuthor->save();
     }
+
+    public function updateTitle($id, $title)
+    {
+        $bookFromAuthor = BookFromAuthor::find($id);
+        if ($bookFromAuthor != null) {
+            $bookFromAuthor->title = $title;
+            $bookFromAuthor->save();
+        }
+    }
+
+    public function updateYear($id, $year)
+    {
+        $bookFromAuthor = BookFromAuthor::find($id);
+        if ($bookFromAuthor != null) {
+            $bookFromAuthor->publication_year = $year;
+            $bookFromAuthor->save();
+        }
+    }
 }

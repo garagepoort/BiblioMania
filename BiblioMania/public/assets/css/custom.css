@@ -376,6 +376,9 @@ table.book-detail-info-table td {
   color: #ffffff;
   padding-bottom: 10px;
 }
+.publisherEditListPanel {
+  margin-top: 20px;
+}
 .selectMergePublisher {
   width: 20%;
 }
@@ -619,5 +622,8 @@ div.container-fluid {
   border-bottom: 1px solid #000;
 }
 .bootstrap-dialog-message {
+  color: #2d6ca2;
+}
+#publisherEditList_filter {
   color: #2d6ca2;
 }

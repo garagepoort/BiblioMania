@@ -87,6 +87,13 @@ class AuthorController extends BaseController {
 		return Response::json(Author::with('oeuvre')->find($author_id));
 	}
 
+	public function updateBookFromAuthorTitle(){
+		$id = Input::get('pk');
+		$value = Input::get('value');
+
+		App::make('BookFromAuthorService')->updateTitle($id, $value);
+	}
+
 	public function getAuthorsWithOeuvreJson(){
 		return Response::json(Author::with('oeuvre')->all());
 	}

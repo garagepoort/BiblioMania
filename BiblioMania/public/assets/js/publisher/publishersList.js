@@ -1,6 +1,10 @@
 $(document).ready(function() {
     $.fn.editable.defaults.mode = 'inline';
 
+    $('#publisherEditList').DataTable({
+        paging: false
+    });
+
     var publisher1_id = sessionStorage.getItem('publisher1_id');
     var publisher2_id = sessionStorage.getItem('publisher2_id');
 

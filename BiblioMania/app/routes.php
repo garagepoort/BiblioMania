@@ -38,6 +38,7 @@ Route::group(array('before' => 'auth'), function() {
     Route::get('scaleImages', 'ImageController@scaleImages');
     Route::post('deleteBookFromAuthor', 'AuthorController@deleteBookFromAuthor');
     Route::post('editBookFromAuthor', 'AuthorController@editBookFromAuthor');
+    Route::post('updateBookFromAuthorTitle', 'AuthorController@updateBookFromAuthorTitle');
 });
 
 

@@ -11,7 +11,7 @@ class PublisherController extends BaseController{
     private $publisherFolder = "publisher/";
 
     public function getPublishersList(){
-        $publishers = Publisher::with('first_print_infos')->orderBy('name', 'asc')->paginate(120);
+        $publishers = Publisher::with('first_print_infos')->orderBy('name', 'asc')->get();
         return View::make($this->publisherFolder . 'publishersList')->with(array(
             'title' => 'Editeer uitgevers',
             'publishers' => $publishers
