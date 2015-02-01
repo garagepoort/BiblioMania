@@ -4,14 +4,11 @@
 Auteurs
 @stop
 @section('content')
-<script type="text/javascript">
-    var baseUrl = "{{ URL::to('/') }}";
-</script>
 {{ HTML::script('assets/js/author/authors.js'); }}
 
 <div class="authors-container">
 	<table class="table authors-table" id="authors-container-table">
-	    <tbody class="infinite-container">
+	    <tbody>
 	    </tbody>
 	</table>
     <div id="authors-loading-waypoint" style="text-align:center;">

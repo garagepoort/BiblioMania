@@ -40,8 +40,8 @@ body {
   background-color: #428bca;
 }
 div.tableDiv {
-  margin-left: auto ;
-  margin-right: auto ;
+  margin-left: auto;
+  margin-right: auto;
   width: 500px;
 }
 small.help-block {
@@ -70,8 +70,8 @@ select {
   font-weight: bold;
 }
 a:hover {
-  color: black ;
-  background-color: #def ;
+  color: black;
+  background-color: #def;
 }
 .datepicker {
   color: #ffffff;
@@ -144,8 +144,8 @@ legend {
 }
 /*END PLACEHOLDERS*/
 .contentContainer {
-  margin-left: auto ;
-  margin-right: auto ;
+  margin-left: auto;
+  margin-right: auto;
   margin-top: 50px;
   width: 88%;
   background-color: #ffffff;
@@ -199,6 +199,7 @@ legend.sub-border {
   border: 8px solid deepskyblue;
 }
 .green-linked-div {
+  color: #ffffff;
   background-color: green;
   padding: 3px 10px;
   border-radius: 3px !important;
@@ -233,6 +234,9 @@ legend.sub-border {
 .table.books-table tbody tr td {
   border-top: none;
   text-align: center;
+}
+.table.authors-table {
+  table-layout: fixed;
 }
 .table.authors-table tbody tr td {
   border-top: none;
@@ -339,19 +343,24 @@ table.book-detail-info-table td {
 }
 .bookCoverLink {
   width: 142px;
-  height: 226px;
   cursor: pointer;
+}
+.imageLinkWrapper {
+  width: 142px;
+  height: 213px;
+  white-space: nowrap;
+  display: table-cell;
+  vertical-align: middle;
 }
 .authorCoverLink {
   width: 142px;
-  height: 226px;
   cursor: pointer;
 }
 /*END BOOKS*/
 /*AUTHOR*/
-.author-container {
+.info-container {
   color: #2d6ca2;
-  width: 800px;
+  width: 88%;
   margin-left: auto;
   margin-right: auto;
   margin-top: 50px;

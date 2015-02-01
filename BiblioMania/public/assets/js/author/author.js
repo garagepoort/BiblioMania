@@ -15,8 +15,8 @@ $(function () {
     });
 
     $(".oeuvre-author-cross").on("click", function () {
-        var tdElement = $(this).parent();
-        var oeuvreId = tdElement.attr('oeuvre-id');
+        var trElement = $(this).parent().parent();
+        var oeuvreId = $(this).parent().attr('oeuvre-id');
         var author_oeuvre = $.grep(author_json.oeuvre, function (e) {
             return e.id == oeuvreId;
         })[0];
@@ -36,7 +36,7 @@ $(function () {
                             function (data, status) {
                                 dialogItself.close();
                                 if (status === "success") {
-                                    tdElement.remove();
+                                    trElement.remove();
                                     BootstrapDialog.show({
                                         message: 'Succesvol verwijdert!'
                                     });

@@ -1,7 +1,7 @@
 @extends('main')
 
 @section('content')
-    <div class='author-container'>
+    <div class='info-container'>
         <div id="messageBox"></div>
         <fieldset>
             <legend>{{ $author->firstname . ' ' . $author->infix . ' ' . $author->name }}</legend>

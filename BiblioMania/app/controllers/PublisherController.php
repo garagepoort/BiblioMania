@@ -10,8 +10,16 @@ class PublisherController extends BaseController{
 
     private $publisherFolder = "publisher/";
 
+    public function getPublisher($id){
+        $publisher = Publisher::with(array('countries', 'books', 'first_print_infos'))->find($id);
+        return View::make($this->publisherFolder . 'publisher')->with(array(
+            'title' => 'Uitgever',
+            'publisher' => $publisher
+        ));
+    }
+
     public function getPublishersList(){
-        $publishers = Publisher::with('first_print_infos')->orderBy('name', 'asc')->get();
+        $publishers = Publisher::with('first_print_infos', 'books')->orderBy('name', 'asc')->get();
         return View::make($this->publisherFolder . 'publishersList')->with(array(
             'title' => 'Editeer uitgevers',
             'publishers' => $publishers
@@ -21,7 +29,7 @@ class PublisherController extends BaseController{
     public function deletePublisher(){
         $id = Input::get('publisherId');
 
-        $publisher = Publisher::find($id);
+        $publisher = Publisher::with('books', 'first_print_infos')->find($id);
         if($publisher != null && count($publisher->books) == 0 && count($publisher->first_print_infos) == 0){
             $publisher->delete();
         }else{

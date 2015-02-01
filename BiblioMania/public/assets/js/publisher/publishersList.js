@@ -29,9 +29,15 @@ $(document).ready(function() {
         showPublisherMergeDialog();
     });
 
+    $('.publisherlist-goto').on('click', function(){
+        var trElement = $(this).parent().parent();
+        var publisherId = trElement.attr('publisher-id');
+        window.location.href = baseUrl + "/publisher/" + publisherId;
+    });
+
     $('.publisherlist-cross').on('click', function(){
-        var tdElement = $(this).parent().parent();
-        var publisherId = $(this).attr('publisher-id');
+        var trElement = $(this).parent().parent();
+        var publisherId = trElement.attr('publisher-id');
         showConfirmDialog('Bent u zeker dat u de uitgever wilt verwijderen?', '', function(){
             $.post(baseUrl + "/deletePublisher",
                 {
@@ -39,7 +45,7 @@ $(document).ready(function() {
                 },
                 function(data, status){
                     if(status === "success"){
-                        tdElement.remove();
+                        trElement.remove();
                         BootstrapDialog.show({
                             message: 'Succesvol verwijdert!'
                         });

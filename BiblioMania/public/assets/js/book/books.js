@@ -1,13 +1,12 @@
 $(document).ready(function(){
     var lastClickedBookId = undefined;
     var bookDetailAnimationBusy = false;
-    var bookSearchRequest;
     nextBooksUrl = "/getNextBooks?";
 
     if(window.book_id != null){
-        bookSearchRequest = startLoadingPaged(window.baseUrl + nextBooksUrl + "book_id=" + window.book_id, 1, fillInBookContainer);
+        startLoadingPaged(window.baseUrl + nextBooksUrl + "book_id=" + window.book_id, 1, fillInBookContainer);
     }else{
-        bookSearchRequest = startLoadingPaged(window.baseUrl + nextBooksUrl, 1, fillInBookContainer);
+        startLoadingPaged(window.baseUrl + nextBooksUrl, 1, fillInBookContainer);
     }
 
     $('#orderby-select-box').change(function(){
@@ -69,7 +68,9 @@ $(document).ready(function(){
                 var book = books[(6*i)+j];
                 var imageString = baseUrl + "/" + book.coverImage;
                 trString = trString + '<td>';
+                trString = trString + "<div class='imageLinkWrapper'>";
                 trString = trString + "<img src=\"" + imageString + "\" bookid='" + book.id + "' class='bookCoverLink'>";
+                trString = trString + '</div>';
                 trString = trString + '</td>';
             }
             trString = trString + '</tr>';

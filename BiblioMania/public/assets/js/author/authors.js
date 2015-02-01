@@ -16,8 +16,10 @@ $(document).ready(function(){
             for (j = 0; j < columns; j++){
                 var author = authors[(6*i)+j];
                 var imageString = baseUrl + "/" + author.image;
-                trString = trString + '<td>';
+                trString = trString + "<td>";
+                trString = trString + "<div class='imageLinkWrapper'>";
                 trString = trString + "<a href='" + baseUrl + "/getAuthor/" + author.id +  "'><img src=\"" + imageString + "\" authorid='" + author.id + "' class='authorCoverLink'></a>";
+                trString = trString + '</div>';
                 trString = trString + "<p>" + author.firstname + " " + author.name +"</p>";
                 trString = trString + '</td>';
             }

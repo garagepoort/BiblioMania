@@ -21,8 +21,8 @@
 
 * {
   -webkit-border-radius: 0 !important;
-     -moz-border-radius: 0 !important;
-          border-radius: 0 !important;
+  -moz-border-radius: 0 !important;
+  border-radius: 0 !important;
 }
 
 img {
@@ -70,9 +70,9 @@ body {
   background-color: @background-color;
 }
 
-div.tableDiv{
-  margin-left: auto ;
-  margin-right: auto ;
+div.tableDiv {
+  margin-left: auto;
+  margin-right: auto;
   width: 500px;
 }
 
@@ -94,7 +94,7 @@ select {
   cursor: pointer;
 }
 
-.glyphicon:hover, .fa:hover, .clickable:hover{
+.glyphicon:hover, .fa:hover, .clickable:hover {
   color: black;
 }
 
@@ -104,8 +104,8 @@ select {
 }
 
 a:hover {
-  color: black ;
-  background-color: #def ;
+  color: black;
+  background-color: #def;
 }
 
 .datepicker {
@@ -142,11 +142,11 @@ div.datepicker-days table tbody tr td {
   color: @inverse-font-color;
 }
 
-div.datepicker-months table tbody tr td span{
+div.datepicker-months table tbody tr td span {
   color: @inverse-font-color;
 }
 
-div.datepicker-years table tbody tr td span{
+div.datepicker-years table tbody tr td span {
   color: @inverse-font-color;
 }
 
@@ -161,6 +161,7 @@ div.datepicker-months table tfoot tr th {
 div.datepicker-years table tfoot tr th {
   color: @inverse-font-color;
 }
+
 /*END DATEPICKER*/
 
 legend {
@@ -168,20 +169,27 @@ legend {
 }
 
 /*PLACEHOLDERS*/
-.form-control::-webkit-input-placeholder { /* WebKit browsers */
-    color: @inverse-font-color;
-   opacity:  1;
+.form-control::-webkit-input-placeholder {
+  /* WebKit browsers */
+  color: @inverse-font-color;
+  opacity: 1;
 }
-.form-control:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-   color:    @inverse-font-color;
-   opacity:  1;
+
+.form-control:-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  color: @inverse-font-color;
+  opacity: 1;
 }
-.form-control::-moz-placeholder { /* Mozilla Firefox 19+ */
-   color:    @inverse-font-color;
-   opacity:  1;
+
+.form-control::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  color: @inverse-font-color;
+  opacity: 1;
 }
-.form-control:-ms-input-placeholder { /* Internet Explorer 10+ */
-   color: @inverse-font-color;
+
+.form-control:-ms-input-placeholder {
+  /* Internet Explorer 10+ */
+  color: @inverse-font-color;
 }
 
 .genre-list {
@@ -191,8 +199,8 @@ legend {
 /*END PLACEHOLDERS*/
 
 .contentContainer {
-  margin-left: auto ;
-  margin-right: auto ;
+  margin-left: auto;
+  margin-right: auto;
   margin-top: 50px;
   width: 88%;
   background-color: @container-color;
@@ -213,9 +221,9 @@ legend {
 }
 
 legend.sub-border {
-    width:inherit; /* Or auto */
-    padding:0 10px; /* To give a bit of padding on the left and right */
-    border-bottom:none;
+  width: inherit; /* Or auto */
+  padding: 0 10px; /* To give a bit of padding on the left and right */
+  border-bottom: none;
 }
 
 .createBookDiv {
@@ -224,15 +232,15 @@ legend.sub-border {
   margin-left: auto;
 }
 
-.create-book-div{
+.create-book-div {
   width: 800px;
   margin-right: auto;
-  margin-left: auto; 
+  margin-left: auto;
   margin-top: 40px;
   margin-bottom: 40px;
 }
 
-.google-image-search-table tbody tr td{
+.google-image-search-table tbody tr td {
   padding: 10px;
 }
 
@@ -243,7 +251,7 @@ legend.sub-border {
   margin-top: 20px;
 }
 
-.cover-info-filter-table tbody tr td{
+.cover-info-filter-table tbody tr td {
   padding-left: 10px;
 }
 
@@ -251,11 +259,12 @@ legend.sub-border {
   margin-bottom: 20px;
 }
 
-.google-selected-image{
+.google-selected-image {
   border: 8px solid deepskyblue;
 }
 
 .green-linked-div {
+  color: #ffffff;
   background-color: green;
   padding: 3px 10px;
   border-radius: 3px !important;
@@ -280,7 +289,8 @@ legend.sub-border {
 #oeuvreButton {
   margin-top: 10px;
 }
-.buyOrGiftPanel{
+
+.buyOrGiftPanel {
   margin-bottom: 40px;
 }
 
@@ -289,20 +299,24 @@ legend.sub-border {
   cursor: pointer;
 }
 
-.title-table{
+.title-table {
   margin-bottom: 20px;
   margin-top: 20px;
 }
 
-.table.books-table tbody tr td { 
-     border-top: none; 
-     text-align: center;
- }
- 
- .table.authors-table tbody tr td { 
-     border-top: none; 
-     text-align: center;
- }
+.table.books-table tbody tr td {
+  border-top: none;
+  text-align: center;
+}
+
+.table.authors-table {
+  table-layout: fixed;
+}
+
+.table.authors-table tbody tr td {
+  border-top: none;
+  text-align: center;
+}
 
 .book-detail-main-info {
   margin-bottom: 20px;
@@ -322,12 +336,13 @@ div.books-container {
 .book-collection-info-panel {
   width: 500px;
 }
-.book-collection-filter-panel{
+
+.book-collection-filter-panel {
   width: 500px;
   margin-bottom: 40px;
 }
 
-.book-detail-info-table{
+.book-detail-info-table {
   width: 90%;
   margin-left: auto;
   margin-right: auto;
@@ -342,37 +357,36 @@ table.book-detail-info-table > tbody > tr > td {
   width: 90%;
 }
 
-.book-detail-small-info-panel > legend{
+.book-detail-small-info-panel > legend {
   border: none;
   margin-bottom: 10px;
 }
 
-.book-detail-small-info-panel > table{
+.book-detail-small-info-panel > table {
   width: 100%;
 }
 
-.book-detail-small-info-panel > table > tbody > tr > td:nth-child(2){
+.book-detail-small-info-panel > table > tbody > tr > td:nth-child(2) {
   width: 100%;
   text-align: left;
   padding-left: 10px;
 }
 
-.book-detail-small-info-panel > table > tbody > tr > td{
+.book-detail-small-info-panel > table > tbody > tr > td {
   white-space: nowrap;
 }
 
-
 .book-detail-main-info-table {
-    width: 70%;
-    margin-left: 170px;
+  width: 70%;
+  margin-left: 170px;
 }
 
 table.book-detail-main-info-table td {
   padding: 2px;
 }
 
-table.book-detail-info-table td{
-  vertical-align:top;
+table.book-detail-info-table td {
+  vertical-align: top;
 }
 
 .book-detail-summary {
@@ -413,11 +427,13 @@ table.book-detail-info-table td{
   margin-left: auto;
   margin-right: auto;
 }
+
 .pagination {
   padding-top: 40px;
   width: 100%;
 }
-#book-detail-coverimage{
+
+#book-detail-coverimage {
   float: left;
 }
 
@@ -427,21 +443,28 @@ table.book-detail-info-table td{
 
 .bookCoverLink {
   width: 142px;
-  height: 226px;
   cursor: pointer;
+}
+
+.imageLinkWrapper {
+  width: 142px;
+  height: 213px;
+  white-space: nowrap;
+  display: table-cell;
+  vertical-align: middle
 }
 
 .authorCoverLink {
   width: 142px;
-  height: 226px;
   cursor: pointer;
 }
+
 /*END BOOKS*/
 
 /*AUTHOR*/
-.author-container {
+.info-container {
   color: @font-color;
-  width: 800px;
+  width: 88%;
   margin-left: auto;
   margin-right: auto;
   margin-top: 50px;
@@ -453,6 +476,7 @@ table.book-detail-info-table td{
   float: left;
   margin-bottom: 20px;
 }
+
 /*END AUTHOR*/
 
 //PUBLISHER
@@ -478,21 +502,23 @@ table.book-detail-info-table td{
 .selectMergePublisher {
   width: 20%;
 }
+
 //END PUBLISHER
 /*PAGINATION*/
 .pagination li {
   background-color: @background-color;
 }
+
 /*END PAGINATION*/
 
 .loginLabel {
-	margin-right: 10px;
+  margin-right: 10px;
 }
 
 .loginPanel {
-    width: 800px;
-    margin-right: auto;
-    margin-left: auto;
+  width: 800px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .loginButton {
@@ -512,8 +538,9 @@ table.book-detail-info-table td{
 
 /*END CREATE USER*/
 
-.ui-widget * { outline: none; }
-
+.ui-widget * {
+  outline: none;
+}
 
 /*TABS*/
 .tab-container {
@@ -544,12 +571,12 @@ table.book-detail-info-table td{
 }
 
 .tab-content {
-    border-left: 1px solid @tab-color;
-    border-right: 1px solid @tab-color;
-    border-bottom: 1px solid @tab-color;
-    padding: 10px;
-    background-color: @tab-color;
-    color: @tab-font-color;
+  border-left: 1px solid @tab-color;
+  border-right: 1px solid @tab-color;
+  border-bottom: 1px solid @tab-color;
+  padding: 10px;
+  background-color: @tab-color;
+  color: @tab-font-color;
 }
 
 ul.nav li a {
@@ -567,8 +594,8 @@ ul.nav li a:hover {
 
 .nav-tabs {
   font-family: "vincent";
-    margin-bottom: 0;
-    border-bottom: none;
+  margin-bottom: 0;
+  border-bottom: none;
 }
 
 /*END TABS*/
@@ -583,7 +610,7 @@ ul.nav li a:hover {
   cursor: pointer;
 }
 
-.genre-listitem{
+.genre-listitem {
   /*border-radius: 25px;*/
   cursor: pointer;
   padding-left: 10px;
@@ -598,31 +625,32 @@ ul.nav li a:hover {
   background: @inverse-font-color;
   color: @font-color;
 }
+
 /*END GENRES*/
 
 /*REVIEW STARS*/
- .animated {
-    -webkit-transition: height 0.2s;
-    -moz-transition: height 0.2s;
-    transition: height 0.2s;
+.animated {
+  -webkit-transition: height 0.2s;
+  -moz-transition: height 0.2s;
+  transition: height 0.2s;
 }
 
-.stars
-{
-    margin: 20px 0;
-    font-size: 24px;
-    color: #d17581;
+.stars {
+  margin: 20px 0;
+  font-size: 24px;
+  color: #d17581;
 }
 
 .reading-date-plus {
   cursor: pointer;
 }
+
 .reading-date-min {
   cursor: pointer;
 }
 
 #reading-dates-table tbody tr {
-  margin: 10px; 
+  margin: 10px;
 }
 
 /*NAVBAR*/
@@ -634,53 +662,68 @@ ul.nav li a:hover {
   background-color: @navigation-background-color;
   border-color: @navigation-background-color;
 }
+
 .navbar-inner {
   background-color: @navigation-background-color;
 }
+
 .navbar-default .navbar-brand {
   color: @navigation-font-color;
 }
+
 .navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
   color: @navigation-font-color;
 }
+
 .navbar-default .navbar-text {
   color: @navigation-font-color;
 }
+
 .navbar-default .navbar-nav > li > a {
   color: @navigation-font-color;
   background-color: @navigation-background-color;
 }
+
 .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
   color: @navigation-background-color;
   background-color: @navigation-font-color;
 }
+
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
   color: @navigation-font-color;
   background-color: @navigation-background-color;
 }
+
 .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
   color: @navigation-font-color;
   background-color: @navigation-background-color;
 }
+
 .navbar-default .navbar-toggle {
   border-color: @navigation-background-color;
 }
+
 .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
   background-color: @navigation-background-color;
 }
+
 .navbar-default .navbar-toggle .icon-bar {
   background-color: @navigation-background-color;
 }
+
 .navbar-default .navbar-collapse,
 .navbar-default .navbar-form {
   border-color: @navigation-background-color;
 }
+
 .navbar-default .navbar-link {
   color: @navigation-font-color;
 }
+
 .navbar-default .navbar-link:hover {
   color: @navigation-font-color;
 }
+
 .navbar-default .navbar-nav .open .dropdown-menu > li > a {
   color: @navigation-font-color;
   background-color: @navigation-background-color;
@@ -691,6 +734,7 @@ ul.nav li a:hover {
   color: @navigation-background-color;
   background-image: none;
 }
+
 .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
   background-color: @navigation-font-color;
   color: @navigation-background-color;
@@ -718,17 +762,38 @@ div.container-fluid {
   background-color: @navigation-background-color;
 }
 
-
-
 /*AUTOCOMPLETE*/
 
-.autocomplete-suggestions { border: 1px solid #999; background: #FFF; overflow: auto; }
-.autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; color: @font-color}
-.autocomplete-selected { background: #F0F0F0; }
-.autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }
-.autocomplete-group { padding: 2px 5px; }
-.autocomplete-group strong { display: block; border-bottom: 1px solid #000; }
+.autocomplete-suggestions {
+  border: 1px solid #999;
+  background: #FFF;
+  overflow: auto;
+}
 
+.autocomplete-suggestion {
+  padding: 2px 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  color: @font-color
+}
+
+.autocomplete-selected {
+  background: #F0F0F0;
+}
+
+.autocomplete-suggestions strong {
+  font-weight: normal;
+  color: #3399FF;
+}
+
+.autocomplete-group {
+  padding: 2px 5px;
+}
+
+.autocomplete-group strong {
+  display: block;
+  border-bottom: 1px solid #000;
+}
 
 //BOOTSTRAP DIALOG
 .bootstrap-dialog-message {

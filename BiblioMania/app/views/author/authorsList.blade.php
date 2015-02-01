@@ -5,12 +5,9 @@
 @stop
 
 @section('content')
-    <script type="text/javascript">
-        var baseUrl = "{{ URL::to('/') }}";
-    </script>
     {{ HTML::script('assets/js/author/authorsList.js'); }}
 
-    <div class="authors-container">
+    <div class="list-container">
         <table id="authorEditList" class="table">
             <thead>
             <tr>

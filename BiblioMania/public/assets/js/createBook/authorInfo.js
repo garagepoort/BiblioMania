@@ -4,6 +4,7 @@ $(function() {
     var lastSetAuthorName;
     var lastSetAuthorFirstname;
     var lastSetAuthorInfix;
+    var lastLoadedOeuvre;
 
     $('#author-image-self-upload-checkbox').change(function() {
         if($(this).is(':checked')) {
@@ -87,7 +88,8 @@ $(function() {
                 if(status === "success"){
                     oeuvre = data;
                     lastKnownAuthor = author;
-                    createOeuvreList(oeuvre);
+                    lastLoadedOeuvre = oeuvre;
+                    createOeuvreList();
                 }
             }).fail(function(){
             });
@@ -99,12 +101,12 @@ $(function() {
         }
     }
 
-    function createOeuvreList(oeuvre){
+    function createOeuvreList(){
         var res = $('#oeuvre-textarea').val().split("\n");
         var list= ""
 
         if(lastKnownAuthor !== null){
-            $.each(oeuvre, function(index, obj){
+            $.each(lastLoadedOeuvre, function(index, obj){
                 list = list + "<li bookFromAuthorTitle='" + obj.title + "'>";
                 if(obj.books.length == 0){
                     list = list + obj.title;

@@ -4,9 +4,6 @@
     uitgevers
 @stop
 @section('content')
-    <script type="text/javascript">
-        var baseUrl = "{{ URL::to('/') }}";
-    </script>
     {{ HTML::script('assets/js/publisher/publishersList.js'); }}
 
     <div class="list-container">
@@ -22,25 +19,33 @@
                 <thead>
                 <tr>
                     <th>Naam</th>
-                    <th style="text-align: center">Aantal boeken</th>
-                    <th style="text-align: center">Verwijderen</th>
-                    <th style="text-align: center">Samenvoegen</th>
+                    <th>Boeken</th>
+                    <th>Eerste druks</th>
+                    <th>Samenvoegen</th>
+                    <th></th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach ($publishers as $publisher)
-                    <tr>
+                    <tr publisher-id="{{ $publisher->id }}">
                         <td>
                             <a class="namePublisher" data-name="name" href="#" data-type="text" data-pk={{ $publisher->id }} data-url={{ URL::to('editPublisher') }} data-title="Vul naam in">{{ $publisher->name }}</a>
                         </td>
                         <td style="text-align: center">
-                            {{ count($publisher->books) + count($publisher->first_print_infos) }}
+                            {{ count($publisher->books) }}
+                        </td>
+                        <td style="text-align: center">
+                            {{ count($publisher->first_print_infos) }}
+                        </td>
+                        <td style="text-align: center">
+                            {{ Form::checkbox('merge-checkbox', false, false, array('class'=>'merge-publisher-checkbox', 'publisher-id'=>$publisher->id)); }}
                         </td>
                         <td style="text-align: center">
                             <span aria-hidden="true" style="margin-left:10px" class="fa fa-times-circle publisherlist-cross" width="10px"/>
                         </td>
                         <td style="text-align: center">
-                            {{ Form::checkbox('merge-checkbox', false, false, array('class'=>'merge-publisher-checkbox', 'publisher-id'=>$publisher->id)); }}
+                            <span aria-hidden="true" style="margin-left:10px" class="fa fa-arrow-right publisherlist-goto" width="10px"/>
                         </td>
                     </tr>
                 @endforeach

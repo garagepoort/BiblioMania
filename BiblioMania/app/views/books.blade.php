@@ -7,7 +7,6 @@
 
 @section('content')
 <script type="text/javascript">
-    var baseUrl = "{{ URL::to('/') }}";
     var book_id = "{{ $book_id }}";
 </script>
 {{ HTML::script('assets/js/book/books.js'); }}
