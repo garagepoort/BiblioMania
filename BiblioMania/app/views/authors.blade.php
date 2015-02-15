@@ -13,6 +13,7 @@ Auteurs
 	</table>
     <div id="authors-loading-waypoint" style="text-align:center;">
         {{ HTML::image('images/ajax-loader.gif', 'loader', array('id'=>'loader-icon')) }}
+		<p id="no-results-message" hidden>No results found.</p>
     </div>
 </div>
 @stop

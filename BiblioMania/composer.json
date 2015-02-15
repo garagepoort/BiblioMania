@@ -17,6 +17,7 @@
 			"app/commands",
 			"app/controllers",
 			"app/models",
+			"app/repository",
 			"app/domain",
 			"app/service",
 			"app/database/migrations",

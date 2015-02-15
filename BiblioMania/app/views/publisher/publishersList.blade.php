@@ -7,15 +7,15 @@
     {{ HTML::script('assets/js/publisher/publishersList.js'); }}
 
     <div class="list-container">
-        <div id="publisher-list-merge-container" class="container publisher-list-merge-container" hidden>
+        <div id="publisher-list-merge-container" class="container list-merge-container" hidden>
             <h5>Uitgevers om samen te voegen:</h5>
             {{ Form::select('', array(), '', array('class' => 'input-sm form-control selectMergePublisher', 'id' => 'selectMergePublisher')); }}
             <ul id="publisher-merge-list">
             </ul>
             <button id="mergePublishersButton" class="btn btn-primary">Samenvoegen</button>
         </div>
-        <div class="publisherEditListPanel">
-            <table id="publisherEditList" class="table publisherEditListTable">
+        <div class="editListPanel">
+            <table id="publisherEditList" class="table">
                 <thead>
                 <tr>
                     <th>Naam</th>

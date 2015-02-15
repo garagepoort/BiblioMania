@@ -25,10 +25,6 @@ $(document).ready(function() {
         showPublisherMergeDialog();
     });
 
-    $('#cancelMergePublishersButton').on('click', function(){
-        showPublisherMergeDialog();
-    });
-
     $('.publisherlist-goto').on('click', function(){
         var trElement = $(this).parent().parent();
         var publisherId = trElement.attr('publisher-id');

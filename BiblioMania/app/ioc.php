@@ -7,7 +7,7 @@
 
 	App::singleton('CountryService', function()
 	{
-	    return new CountryService();
+	    return new CountryService(App::make('CountryRepository'));
 	});
 
 	App::singleton('ImageService', function()
@@ -94,6 +94,11 @@
 	App::singleton('UserRepository', function()
 	{
 	    return new UserRepository;
+	});
+
+	App::singleton('CountryRepository', function()
+	{
+		return new CountryRepository;
 	});
 
 	//logger

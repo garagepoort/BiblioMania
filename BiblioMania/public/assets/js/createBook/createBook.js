@@ -49,6 +49,9 @@ $(document).ready(function () {
                     regexp: {
                         regexp: '^[0-9]{13}$',
                         message: 'Exact 13 cijfers'
+                    },
+                    notEmpty: {
+                        message: 'Het ISBN moet ingevuld zijn.'
                     }
                 }
             },

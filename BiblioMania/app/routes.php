@@ -13,6 +13,8 @@
 
 //USER
 Route::group(array('before' => 'auth'), function() {
+
+//  BOOKS
     Route::get('getBooks', 'BookController@getBooks');
     Route::get('getNextBooks', 'BookController@getNextBooks');
     Route::get('getBooksFromSearch', 'BookController@getBooksFromSearch');
@@ -22,6 +24,7 @@ Route::group(array('before' => 'auth'), function() {
     Route::get('logOut', 'LoginController@login');
     Route::get('importBooks', 'BookImportController@importBooks');
 
+//  AUTHOR
     Route::get('getAuthor/{id}', 'AuthorController@getAuthor');
     Route::get('getAuthors', 'AuthorController@getAuthors');
     Route::get('getAuthorsList', 'AuthorController@getAuthorsList');
@@ -30,16 +33,25 @@ Route::group(array('before' => 'auth'), function() {
     Route::get('getAuthorsWithOeuvreJson', 'AuthorController@getAuthorsWithOeuvreJson');
     Route::post('editAuthor', 'AuthorController@editAuthor');
 
+//  PUBLISHER
     Route::get('publisher/{id}', 'PublisherController@getPublisher');
     Route::get('getPublishersList', 'PublisherController@getPublishersList');
     Route::post('editPublisher', 'PublisherController@editPublisher');
     Route::post('deletePublisher', 'PublisherController@deletePublisher');
     Route::post('mergePublishers', 'PublisherController@mergePublishers');
 
-    Route::get('scaleImages', 'ImageController@scaleImages');
+//  BOOK FROM AUTHOR
     Route::post('deleteBookFromAuthor', 'AuthorController@deleteBookFromAuthor');
     Route::post('editBookFromAuthor', 'AuthorController@editBookFromAuthor');
     Route::post('updateBookFromAuthorTitle', 'AuthorController@updateBookFromAuthorTitle');
+
+//    COUNTRY
+    Route::get('getCountryList', 'CountryController@getCountryList');
+    Route::post('editCountry', 'CountryController@editCountry');
+    Route::post('deleteCountry', 'CountryController@deleteCountry');
+    Route::post('mergeCountries', 'CountryController@mergeCountries');
+
+    Route::get('scaleImages', 'ImageController@scaleImages');
 });
 
 

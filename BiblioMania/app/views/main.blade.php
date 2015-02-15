@@ -82,6 +82,7 @@
                     <ul class="dropdown-menu" role="menu">
                         <li>{{ HTML::link('getAuthorsList', 'Auteurslijst', array('id'=>'authorsListNavigationLink', 'title' => 'Auteurslijst')) }}</li>
                         <li>{{ HTML::link('getPublishersList', 'Uitgeverslijst', array('id'=>'publishersListNavigationLink', 'title' => 'Uitgeverslijst')) }}</li>
+                        <li>{{ HTML::link('getCountryList', 'Landenlijst', array('id'=>'countryListNavigationLink', 'title' => 'Landenlijst')) }}</li>
                     </ul>
                 </li>
               </ul>

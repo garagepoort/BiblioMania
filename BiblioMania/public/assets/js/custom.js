@@ -27,14 +27,20 @@ function showConfirmDialog(title, message, action){
 
 function startLoadingPaged(url, page, action){
     $('#loader-icon').show();
+    $('#no-results-message').hide();
     request = $.get(url + "&page=" + page,
         function(data, status){
             if(status === "success"){
-                action(data);
-                if(data.current_page !== data.last_page){
-                    var nextPage = data.current_page + 1;
-                    startLoadingPaged(url, nextPage, action);
+                if(data.total !== 0) {
+                    action(data);
+                    if (data.current_page !== data.last_page) {
+                        var nextPage = data.current_page + 1;
+                        startLoadingPaged(url, nextPage, action);
+                    } else {
+                        $('#loader-icon').hide();
+                    }
                 }else{
+                    $('#no-results-message').show();
                     $('#loader-icon').hide();
                 }
             }

@@ -68,7 +68,7 @@ class BookController extends BaseController
 
     public function goToCreateBook()
     {
-        $covers = array("Hard cover", "Paperback", "Dwarsligger", "E-book", "Luisterboek");
+        $covers = array("Hard cover"=>"Hard cover", "Paperback"=>"Paperback", "Dwarsligger"=>"Dwarsligger", "E-book"=>"E-book", "Luisterboek"=>"Luisterboek");
         $genres = Genre::where('parent_id', '=', null)->get();
 
         $withArray = $this->createEmptyBookArray();
@@ -85,7 +85,7 @@ class BookController extends BaseController
 
     public function goToEditBook($id)
     {
-        $covers = array("Hard cover", "Paperback", "Dwarsligger", "E-book", "Luisterboek");
+        $covers = array("Hard cover"=>"Hard cover", "Paperback"=>"Paperback", "Dwarsligger"=>"Dwarsligger", "E-book"=>"E-book", "Luisterboek"=>"Luisterboek");
         $genres = Genre::where('parent_id', '=', null)->get();
 
         $withArray = $this->createEditBookArray($id);
