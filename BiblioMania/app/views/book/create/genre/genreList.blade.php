@@ -4,7 +4,7 @@
     	<li class="genre-listitem clickable" name="{{ $genre->name }}" genreId="{{ $genre->id }}">{{ $genre->name }} </li>
     @else
 	    <li class="collapsible genre-listitem clickable" name="{{ $genre->name }}" genreId="{{ $genre->id }}"> {{ $genre->name }}</li>
-    	@include('book/create/genreList', array('genres' => $genre->child_genres()->get()))
+    	@include('book.create.genre.genreList', array('genres' => $genre->child_genres()->get()))
     @endif
 @endforeach
 </ul>

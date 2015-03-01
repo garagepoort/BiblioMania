@@ -112,8 +112,6 @@ $(document).ready(function(){
                 }
             }
         });
-
-        Waypoint.refreshAll();
     }
 
     $('#book-detail-close-div').click(function(){
@@ -241,7 +239,7 @@ $(document).ready(function(){
                 score : book.personal_book_info.rating,
                 number: 10,
                 readOnly: true,
-                path: baseUrl + "/" + 'assets/raty-2.7.0/lib/images'
+                path: baseUrl + "/" + 'assets/lib/raty-2.7.0/lib/images'
             });
     }
 
