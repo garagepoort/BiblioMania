@@ -118,24 +118,7 @@ class BookController extends BaseController
 
     public function createOrEditBook()
     {
-
-        $rules = array(
-            'book_title' => 'required',
-            'book_author' => 'required',
-            'book_isbn' => 'required|numeric|digits:13',
-            'book_number_of_pages' => 'numeric',
-            'book_print' => 'numeric',
-            'book_publisher' => 'required',
-            'book_genre' => 'required',
-            'author_name' => 'required',
-            'author_firstname' => 'required',
-            'author_date_of_birth' => 'date_format:"d/m/Y"',
-            'author_date_of_death' => 'date_format:"d/m/Y"',
-
-            'first_print_isbn' => 'numeric|digits:13',
-            'first_print_publication_date' => 'date_format:"d/m/Y"'
-        );
-        $validator = Validator::make(Input::get(), $rules);
+        $validator = BookFormValidator::createValidatorForBookForm();
 
         if ($validator->fails()) {
             if (Input::get('book_id') != '') {
@@ -144,6 +127,7 @@ class BookController extends BaseController
             }
             return Redirect::to('/createBook')->withErrors($validator)->withInput();
         } else {
+
             $publisher_country = $this->countryService->findOrSave(Input::get('book_country'));
             $book_publisher = $this->publisherService->saveOrUpdate(Input::get('book_publisher'), $publisher_country);
 
