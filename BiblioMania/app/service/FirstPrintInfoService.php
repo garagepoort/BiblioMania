@@ -3,7 +3,7 @@
 class FirstPrintInfoService
 {
 
-    public function saveOrUpdate($title, $subtitle, $isbn, $publication_date, $publisherName, $countryId, $languageId)
+    public function saveOrUpdate($title, $subtitle, $isbn, Date $publication_date, $publisherName, $countryId, $languageId)
     {
         $publication_date_id = null;
         $firstPrintInfo = null;

@@ -3,7 +3,7 @@
 class BuyInfoService
 {
 
-    public function save($personal_book_info_id, $buy_date, $price_payed, $recommended_by, $shop, $cityName, $countryId)
+    public function save($personal_book_info_id, DateTime $buy_date, $price_payed, $recommended_by, $shop, $cityName, $countryId)
     {
         $buyInfo = BuyInfo::where('personal_book_info_id', '=', $personal_book_info_id)->first();
         if ($buyInfo == null) {

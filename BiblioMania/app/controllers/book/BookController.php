@@ -9,18 +9,24 @@ class BookController extends BaseController
     protected $giftInfoService;
     protected $countryService;
     protected $bookService;
+    protected $dateService;
+    protected $imageService;
 
     public function __construct(PublisherService $publisherService,
                                 BuyInfoService $buyInfoService,
                                 GiftInfoService $giftInfoService,
                                 CountryService $countryService,
-                                BookService $bookService)
+                                BookService $bookService,
+                                DateService $dateService,
+                                ImageService $imageService)
     {
         $this->publisherService = $publisherService;
         $this->buyInfoService = $buyInfoService;
         $this->giftInfoService = $giftInfoService;
         $this->countryService = $countryService;
         $this->bookService = $bookService;
+        $this->dateService = $dateService;
+        $this->imageService = $imageService;
     }
 
     public function getBooks()
@@ -76,7 +82,7 @@ class BookController extends BaseController
         $withArray['languages'] = App::make('LanguageService')->getLanguagesMap();
         $withArray['covers'] = $covers;
         $withArray['genres'] = $genres;
-        $withArray['countries_json'] = json_encode(App::make('CountryService')->getCountries());
+        $withArray['countries_json'] = json_encode($this->countryService->getCountries());
         $withArray['authors_json'] = json_encode(Author::all(['id', 'name', 'firstname', 'infix']));
         $withArray['publishers_json'] = json_encode(Publisher::all());
 
@@ -93,7 +99,7 @@ class BookController extends BaseController
         $withArray['languages'] = App::make('LanguageService')->getLanguagesMap();
         $withArray['covers'] = $covers;
         $withArray['genres'] = $genres;
-        $withArray['countries_json'] = json_encode(App::make('CountryService')->getCountries());
+        $withArray['countries_json'] = json_encode($this->countryService->getCountries());
         $withArray['authors_json'] = json_encode(Author::all(['id', 'name', 'firstname', 'infix']));
         $withArray['publishers_json'] = json_encode(Publisher::all());
 
@@ -123,7 +129,7 @@ class BookController extends BaseController
                 $authorImage = ImageUploader::uploadImage('author_image');
             } else {
                 if (Input::get('authorImageUrl') != '') {
-                    $authorImage = App::make('ImageService')->getImageFromUrl(Input::get('authorImageUrl'), Input::get('author_name'));
+                    $authorImage = $this->imageService->getImageFromUrl(Input::get('authorImageUrl'), Input::get('author_name'));
                 }
             }
             $book_author_model = App::make('AuthorService')->saveorUpdate(
@@ -165,7 +171,7 @@ class BookController extends BaseController
     private function createDate($author_date_day, $author_date_month, $author_date_year)
     {
         if (!empty($author_date_day) && !empty($author_date_month) && !empty($author_date_year)) {
-            return App::make('DateService')->createDate($author_date_day,
+            return $this->dateService->createDate($author_date_day,
                 $author_date_month,
                 $author_date_year)->id;
         }
@@ -191,11 +197,12 @@ class BookController extends BaseController
 
     private function createFirstPrintInfo()
     {
+        /** @var FirstPrintInfoService $firstPrintInfoService */
         $firstPrintInfoService = App::make('FirstPrintInfoService');
 
-        $country = App::make('CountryService')->findOrSave(Input::get('first_print_country'));
+        $country = $this->countryService->findOrSave(Input::get('first_print_country'));
 
-        $first_print_publication_date = App::make('DateService')->createDate(
+        $first_print_publication_date = $this->dateService->createDate(
             Input::get('first_print_publication_date_day'),
             Input::get('first_print_publication_date_month'),
             Input::get('first_print_publication_date_year'));
@@ -214,7 +221,9 @@ class BookController extends BaseController
 
     private function createBook($book_author_model, $book_publisher, $publisher_country, $book_from_author_id, $first_print_info)
     {
+        /** @var PublisherSerieService $publisherSerieService */
         $publisherSerieService = App::make('PublisherSerieService');
+        /** @var BookSerieService $bookSerieService */
         $bookSerieService = App::make('BookSerieService');
 
         $book = new Book();
@@ -232,7 +241,7 @@ class BookController extends BaseController
             $book->coverImage = ImageUploader::uploadImage('book_cover_image');
         } else {
             if (Input::get('coverInfoUrl') != '') {
-                $book->coverImage = App::make('ImageService')->getImageFromUrl(Input::get('coverInfoUrl'), Input::get('book_title'));
+                $book->coverImage = $this->imageService->getImageFromUrl(Input::get('coverInfoUrl'), Input::get('book_title'));
             }
         }
 
@@ -244,7 +253,7 @@ class BookController extends BaseController
         $book->print = Input::get("book_print");
         $book->genre_id = Input::get('book_genre');
         $book->type_of_cover = Input::get('book_type_of_cover');
-        $book->publication_date_id = App::make('DateService')->createDate(Input::get('book_publication_date_day'),
+        $book->publication_date_id = $this->dateService->createDate(Input::get('book_publication_date_day'),
             Input::get('book_publication_date_month'),
             Input::get('book_publication_date_year'))->id;
         $book->publisher_id = $book_publisher->id;
