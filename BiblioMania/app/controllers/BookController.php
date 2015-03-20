@@ -5,6 +5,22 @@ class BookController extends BaseController
 
     private $bookFolder = "book/";
 
+    protected $publisherService;
+    protected $buyInfoService;
+    protected $giftInfoService;
+    protected $countryService;
+
+    public function __construct(PublisherService $publisherService,
+                                BuyInfoService $buyInfoService,
+                                GiftInfoService $giftInfoService,
+                                CountryService $countryService)
+    {
+        $this->publisherService = $publisherService;
+        $this->buyInfoService = $buyInfoService;
+        $this->giftInfoService = $giftInfoService;
+        $this->countryService = $countryService;
+    }
+
     public function getBooks()
     {
         $bookId = Input::get('book_id');
@@ -128,13 +144,8 @@ class BookController extends BaseController
             }
             return Redirect::to('/createBook')->withErrors($validator)->withInput();
         } else {
-            $publisherService = App::make('PublisherService');
-            $buyInfoService = App::make('BuyInfoService');
-            $giftInfoService = App::make('GiftInfoService');
-            $countryService = App::make('CountryService');
-
-            $publisher_country = $countryService->findOrSave(Input::get('book_country'));
-            $book_publisher = $publisherService->saveOrUpdate(Input::get('book_publisher'), $publisher_country);
+            $publisher_country = $this->countryService->findOrSave(Input::get('book_country'));
+            $book_publisher = $this->publisherService->saveOrUpdate(Input::get('book_publisher'), $publisher_country);
 
             $book_author_date_of_birth_id = $this->createDate(Input::get('author_date_of_birth_day'), Input::get('author_date_of_birth_month'), Input::get('author_date_of_birth_year'));
             $book_author_date_of_death_id = $this->createDate(Input::get('author_date_of_death_day'), Input::get('author_date_of_death_month'), Input::get('author_date_of_death_year'));
@@ -164,16 +175,16 @@ class BookController extends BaseController
             $personal_book_info = $this->createPersonalBookInfo($book);
 
             if (Input::get('buyOrGift') == 'BUY') {
-                $giftInfoService->delete($personal_book_info->id);
-                $buyInfoService->save($personal_book_info->id,
+                $this->giftInfoService->delete($personal_book_info->id);
+                $this->buyInfoService->save($personal_book_info->id,
                     DateTime::createFromFormat('d/m/Y', Input::get('buy_info_buy_date')),
                     Input::get('buy_info_price_payed'),
                     Input::get('buy_info_recommended_by'),
                     Input::get('buy_info_shop'),
                     Input::get('buy_info_city'),
-                    $countryService->findOrSave(Input::get('buy_info_country'))->id);
+                    $this->countryService->findOrSave(Input::get('buy_info_country'))->id);
             } else {
-                $giftInfoService->save(
+                $this->giftInfoService->save(
                     $personal_book_info->id,
                     Input::get('gift_info_receipt_date'),
                     Input::get('gift_info_from'),

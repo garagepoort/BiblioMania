@@ -52,7 +52,7 @@ $(document).ready(function() {
             return $('#star-rating-input').val();
         },
         number: 10,
-        path: baseUrl + '/assets/raty-2.7.0/lib/images',
+        path: baseUrl + '/assets/lib/raty-2.7.0/lib/images',
         click: function(score, evt) {
             $('#star-rating-input').val(score);
         }
