@@ -94,4 +94,20 @@ class BookService
         return $books->paginate(60);
     }
 
+    public function searchBooks($criteria){
+        return Book::with(array(
+            'authors' => function ($query) {
+                $query->orderBy('name', 'DESC');
+            },
+            'publisher','genre','personal_book_info','first_print_info', 'publication_date', 'country', 'publisher_serie', 'serie'))
+
+            ->where('user_id', '=', Auth::user()->id)
+            ->where(function ($query) use ($criteria) {
+                $query->where('title', 'LIKE', '%' . $criteria . '%')
+                    ->orWhere('subtitle', 'LIKE', '%' . $criteria . '%');
+            })
+
+            ->orderBy('title')
+            ->paginate(60);
+    }
 }
