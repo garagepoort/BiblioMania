@@ -51,7 +51,7 @@
                 <div class="genres-container col-md-8">
                     <div class="collapsible genres-header" id="genres-header"><span id="genresGlyphicon" class="glyphicon glyphicon-chevron-right" aria-hidden="true">    Genres:</span></div>
                     <div>
-                        @include('book/create/genreList', array('genres' => $genres))
+                        @include('book/create/genre/genreList', array('genres' => $genres))
                     </div>
                 </div>
             </div>

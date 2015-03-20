@@ -3,6 +3,8 @@
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"> 
         <meta charset="UTF-8">
         <title> {{ $title }} </title>
+
+        {{--GOOGLE IMAGE SEARCH--}}
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 
         {{ HTML::script('assets/js/jquery.js'); }}
@@ -13,46 +15,42 @@
         {{ HTML::style('assets/css/bootstrap-theme.css') }}
 
         <!-- DATEPICKER -->
-        {{ HTML::script('assets/datepicker/js/bootstrap-datepicker.js') }}
-        {{ HTML::style('assets/datepicker/css/datepicker.css') }}
+        {{ HTML::script('assets/lib/datepicker/js/bootstrap-datepicker.js') }}
+        {{ HTML::style('assets/lib/datepicker/css/datepicker.css') }}
 
         <!-- JASNY -->
-        {{ HTML::script('assets/jasny-bootstrap/js/jasny-bootstrap.min.js') }}
-        {{ HTML::style('assets/jasny-bootstrap/css/jasny-bootstrap.min.css') }}
+        {{ HTML::script('assets/lib/jasny-bootstrap/js/jasny-bootstrap.min.js') }}
+        {{ HTML::style('assets/lib/jasny-bootstrap/css/jasny-bootstrap.min.css') }}
 
         <!-- AUTOCOMPLETE -->
-        {{ HTML::script('assets/js/jquery.autocomplete.min.js') }}
+        {{ HTML::script('assets/lib/jquery.autocomplete.min.js') }}
 
         <!-- BOOTSTRAP-VALIDATOR -->
-        {{ HTML::script('assets/bootstrapvalidator/dist/js/bootstrapValidator.min.js') }}
-        {{ HTML::script('assets/bootstrapvalidator/dist/js/language/be_NL.js') }}
-        {{ HTML::style('assets/bootstrapvalidator/dist/css/bootstrapValidator.min.css') }}
+        {{ HTML::script('assets/lib/bootstrapvalidator/dist/js/bootstrapValidator.min.js') }}
+        {{ HTML::script('assets/lib/bootstrapvalidator/dist/js/language/be_NL.js') }}
+        {{ HTML::style('assets/lib/bootstrapvalidator/dist/css/bootstrapValidator.min.css') }}
 
-        <!-- COLLAPSIBLE -->
-        {{ HTML::script('assets/js/jquery.collapsible.js') }}
+        <!-- COL    LAPSIBLE -->
+        {{ HTML::script('assets/lib/jquery.collapsible.js') }}
 
         <!-- LESS SCRIPTS -->
         {{ HTML::style('assets/css/custom.css') }}
         {{ HTML::script('assets/js/custom.js') }}
 
         <!-- STAR RATING -->
-        {{ HTML::script('assets/bootstrap-star-rating/js/star-rating.min.js') }}
-        {{ HTML::style('assets/bootstrap-star-rating/css/star-rating.min.css') }}
+        {{ HTML::script('assets/lib/bootstrap-star-rating/js/star-rating.min.js') }}
+        {{ HTML::style('assets/lib/bootstrap-star-rating/css/star-rating.min.css') }}
 
         <!-- RATY -->
-        {{ HTML::script('assets/raty-2.7.0/lib/jquery.raty.js') }}
-        {{ HTML::style('assets/raty-2.7.0/lib/jquery.raty.css') }}
+        {{ HTML::script('assets/lib/raty-2.7.0/lib/jquery.raty.js') }}
+        {{ HTML::style('assets/lib/raty-2.7.0/lib/jquery.raty.css') }}
 
         <!-- SHORTEN -->
-        {{ HTML::script('assets/js/jquery.shorten.js') }}
+        {{ HTML::script('assets/lib/jquery.shorten.js') }}
 
         <!-- DIALOG -->
-        {{ HTML::script('assets/bootstrap3-dialog-master/dist/js/bootstrap-dialog.js') }}
-        {{ HTML::style('assets/bootstrap3-dialog-master/dist/css/bootstrap-dialog.css') }}
-
-        <!-- AUTOSCROLL -->
-        {{ HTML::script('assets/waypoints/lib/jquery.waypoints.min.js') }}
-        {{ HTML::script('assets/waypoints/lib/shortcuts/infinite.min.js') }}
+        {{ HTML::script('assets/lib/bootstrap3-dialog-master/dist/js/bootstrap-dialog.js') }}
+        {{ HTML::style('assets/lib/bootstrap3-dialog-master/dist/css/bootstrap-dialog.css') }}
 
         {{--EDITABLE--}}
         <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
@@ -61,6 +59,7 @@
         <!-- DATATABLES -->
         <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.4/js/jquery.dataTables.js"></script>
         <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.4/css/jquery.dataTables.css">
+
     </head>
 
     <body>
