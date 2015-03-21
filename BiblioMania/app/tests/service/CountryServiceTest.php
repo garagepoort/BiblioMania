@@ -1,8 +1,9 @@
 <?php
 
 class CountryServiceTest extends TestCase {
-
+    /** @var CountryRepository $countryRepositoryMock */
     private $countryRepositoryMock;
+    /** @var CountryService $testedCountryService */
     private $testedCountryService;
 
     const NEW_NAME = "NEW_NAME";

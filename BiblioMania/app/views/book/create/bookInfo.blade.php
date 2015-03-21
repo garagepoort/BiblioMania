@@ -1,12 +1,12 @@
 <div class="tab-container ">
     <fieldset>
 
-    <legend>Boek info</legend>
+        <legend>Boek info</legend>
         @if ($errors->has())
-            @foreach ($errors->all() as $error)  
+            @foreach ($errors->all() as $error)
                 <div id="bookInfoMessage" class="alert-danger alert">
                     <strong>{{ $error }}</strong>
-                </div>       
+                </div>
             @endforeach
         @endif
 
@@ -27,29 +27,33 @@
                 </div>
             </div>
 
+            <!-- AUTHOR -->
             <div class="form-group">
-                <!-- AUTHOR -->
                 {{ Form::label('authorLabel', 'Auteur:', array('class' => 'col-md-2')); }}
                 <div class="col-md-5">
                     {{ Form::text('book_author', $author_name_book_info, array('id'=>'book_author_input','class' => 'form-control typeahead', 'placeholder' => 'auteur', 'required' => 'true', 'type' => 'text')); }}
                 </div>
             </div>
 
+            <!-- ISBN -->
             <div class="form-group">
-                <!-- ISBN -->
                 {{ Form::label('isbnLabel', 'ISBN:', array('class' => 'col-md-2', 'for' => 'book_isbn')); }}
                 <div class="col-md-5">
                     {{ Form::text('book_isbn', $book_isbn, array('id'=>'book_isbn_input', 'class' => 'form-control', 'placeholder' => 'isbn', 'required' => 'true', 'type' => 'number')); }}
                 </div>
             </div>
 
-           <!-- GENRE -->
-           <div class="form-group">
+            <!-- GENRE -->
+            <div class="form-group">
                 {{ Form::label('bookGenreLabel', 'Genre:', array('class' => 'col-md-2')); }}
-                <input id="book_genre_input" type="text" name="book_genre" hidden required value={{ $book_genre_input }}>
-                
+                <input id="book_genre_input" type="text" name="book_genre" hidden required
+                       value={{ $book_genre_input }}>
+
                 <div class="genres-container col-md-8">
-                    <div class="collapsible genres-header" id="genres-header"><span id="genresGlyphicon" class="glyphicon glyphicon-chevron-right" aria-hidden="true">    Genres:</span></div>
+                    <div class="collapsible genres-header" id="genres-header"><span id="genresGlyphicon"
+                                                                                    class="glyphicon glyphicon-chevron-right"
+                                                                                    aria-hidden="true">    Genres:</span>
+                    </div>
                     <div>
                         @include('book/create/genre/genreList', array('genres' => $genres))
                     </div>
@@ -59,7 +63,7 @@
 
             <legend>Uitgever</legend>
 
-                <div class="form-group">
+            <div class="form-group">
                 <!-- PUBLISHER -->
                 {{ Form::label('publisherLabel', 'Uitgever:', array('class' => 'col-md-2')); }}
                 <div class="col-md-5">
@@ -105,11 +109,11 @@
     var publishers_json = {{ $publishers_json }};
     var author_names = [];
     var publisher_names = [];
-    $.each(authors_json, function(index, obj){
+    $.each(authors_json, function (index, obj) {
         author_names[author_names.length] = obj.name + ', ' + obj.firstname;
     });
-    $.each(publishers_json, function(index, obj){
+    $.each(publishers_json, function (index, obj) {
         publisher_names[publisher_names.length] = obj.name;
     });
 </script>
- {{ HTML::script('assets/js/createBook/bookInfo.js'); }}
+{{ HTML::script('assets/js/createBook/bookInfo.js'); }}

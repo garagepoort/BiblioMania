@@ -245,7 +245,6 @@ class BookController extends BaseController
             }
         }
 
-
         $book->title = Input::get("book_title");
         $book->subtitle = Input::get("book_subtitle");
         $book->ISBN = Input::get("book_isbn");

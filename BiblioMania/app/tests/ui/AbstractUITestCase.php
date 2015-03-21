@@ -1,7 +1,8 @@
 <?php
 
 class AbstractUITestCase extends AbstractIntegrationTestCase
-{ 
+{
+    /** @var RemoteWebDriver $driver*/
     public $host;
     public $driver;
     public $userService;
@@ -27,8 +28,6 @@ class AbstractUITestCase extends AbstractIntegrationTestCase
         $emailInput->sendKeys($email);
         $passwordInput->sendKeys($password);
         $loginButton->click();
-
-        $this->assertAtPage('Boeken');
     }
 
     public function assertElementNotDisplayed($id){
