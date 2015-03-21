@@ -56,6 +56,11 @@ class AbstractUITestCase extends AbstractIntegrationTestCase
         return $this->driver->findElement(WebDriverBy::id($id));
     }
 
+    public function setValueOfInputField($id, $value){
+        $this->findElementById($id)->clear();
+        $this->findElementById($id)->sendKeys($value);
+    }
+
     public function assertAtPage($pageTitle){
         $this->driver->wait(10, 500)->until(
           WebDriverExpectedCondition::titleIs($pageTitle)

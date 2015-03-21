@@ -148,9 +148,15 @@ class BookFormFiller
         }
 
         if ($book->publication_date != null) {
-            $result['book_publication_date_day'] = $book->publication_date->day;
-            $result['book_publication_date_month'] = $book->publication_date->month;
-            $result['book_publication_date_year'] = $book->publication_date->year;
+            if ($book->publication_date->day != 0) {
+                $result['book_publication_date_day'] = $book->publication_date->day;
+            }
+            if ($book->publication_date->month != 0) {
+                $result['book_publication_date_month'] = $book->publication_date->month;
+            }
+            if ($book->publication_date->year != 0) {
+                $result['book_publication_date_year'] = $book->publication_date->year;
+            }
         }
 
         if ($author->date_of_birth != null) {

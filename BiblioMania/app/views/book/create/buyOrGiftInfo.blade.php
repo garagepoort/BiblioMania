@@ -9,18 +9,14 @@
         </div>
         @endif
         <div class="buyOrGiftPanel">
-            <table>
-                <tr>
-                    <td>
-                        Gekocht: {{ Form::radio('buyOrGift', 'BUY', $buyInfoSet, array('id'=>'buyRadioButton')) }}
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Gekregen: {{ Form::radio('buyOrGift', 'GIFT', $giftInfoSet, array('id'=>'giftRadioButton')) }}
-                    </td>
-                </tr>
-            </table>   
+            <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-default active">
+                    <input id="buyRadioButton" type="radio" name="buyOrGift" value="BUY" checked/> Gekocht
+                </label>
+                <label class="btn btn-default">
+                    <input id="giftRadioButton" type="radio" name="buyOrGift" value="GIFT"/> Gekregen
+                </label>
+            </div>
         </div>
         <div id="buyInfoPanel">
             @include('book/create/buyInfo')

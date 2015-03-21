@@ -199,7 +199,9 @@ class BookImportController extends BaseController {
 		$this->giftFrom = $values[33];
 		$this->price_payed = $values[16];
 		$this->shop = $values[65];
-		$this->buy_date = DateTime::createFromFormat('d-m-y', $values[15]);
+		if($values[15] !== ''){
+			$this->buy_date = DateTime::createFromFormat('d-m-y', $values[15]);
+		}
 	}
 
 	function startsWith($haystack, $needle)

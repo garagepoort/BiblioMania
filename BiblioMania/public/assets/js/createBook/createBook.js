@@ -21,6 +21,8 @@ $(document).ready(function () {
         message: 'This value is not valid',
         message: 'This value is not valid',
         ignore: '',
+        framework: 'bootstrap',
+        excluded: [':disabled'],
         feedbackIcons: {
             valid: 'glyphicon glyphicon-ok',
             invalid: 'glyphicon glyphicon-remove',

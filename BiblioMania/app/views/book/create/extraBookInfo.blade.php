@@ -14,14 +14,14 @@
 
             <div class="form-group">
                 <!-- PAGES -->
-                {{ Form::label('authorLabel', "Pagina's:", array('class' => 'col-md-3')); }}
+                {{ Form::label('authorLabel', "Pagina's:", array('class' => 'col-md-3 label-gray')); }}
                 <div class="col-md-3">
                     {{ Form::text('book_number_of_pages', $book_number_of_pages, array('id'=>'book_number_of_pages_input','class' => 'form-control input-sm', 'placeholder' => 'paginas', 'type' => 'number')); }}
                 </div>
             </div>
             <div class="form-group">
                 <!-- PRINT -->
-                {{ Form::label('printLabel', 'Print:', array('class' => 'col-md-3')); }}
+                {{ Form::label('printLabel', 'Print:', array('class' => 'col-md-3 label-gray')); }}
                 <div class="col-md-3">
                     {{ Form::text('book_print', $book_print, array('id'=>'book_print_input', 'class' => 'form-control input-sm', 'placeholder' => 'print', 'type' => 'number')); }}
                 </div>
@@ -31,7 +31,7 @@
         <legend>Serie</legend>
         <div class="form-group">
             <!-- Book serie -->
-            {{ Form::label('bookSerieLabel', "Boekenreeks:", array('class' => 'col-md-3')); }}
+            {{ Form::label('bookSerieLabel', "Boekenreeks:", array('class' => 'col-md-3 label-gray')); }}
             <div class="col-md-3">
                 {{ Form::text('book_serie', $book_serie, array('id'=>'book_serie_input','class' => 'form-control input-sm', 'placeholder' => '')); }}
             </div>
@@ -39,7 +39,7 @@
 
         <div class="form-group">
             <!-- PUBLISHER SERIE -->
-            {{ Form::label('publisherSerieLabel', 'Uitgeverreeks:', array('class' => 'col-md-3')); }}
+            {{ Form::label('publisherSerieLabel', 'Uitgeverreeks:', array('class' => 'col-md-3 label-gray')); }}
             <div class="col-md-3">
                 {{ Form::text('book_publisher_serie', '', array('id'=>'publisher_serie_input', 'class' => 'form-control input-sm', 'placeholder' => '')); }}
             </div>

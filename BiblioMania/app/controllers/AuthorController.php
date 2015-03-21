@@ -12,7 +12,7 @@ class AuthorController extends BaseController {
 	}
 
 	public function getAuthorsList(){
-		$authors = Author::with('date_of_death', 'date_of_birth')->orderBy('name', 'asc')->paginate(120);
+		$authors = Author::with('date_of_death', 'date_of_birth')->orderBy('name', 'asc')->get();
 		return View::make($this->authorFolder . 'authorsList')->with(array(
 			'title' => 'Editeer auteurs',
 			'authors' => $authors

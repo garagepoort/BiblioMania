@@ -150,8 +150,12 @@ class BookController extends BaseController
 
             if (Input::get('buyOrGift') == 'BUY') {
                 $this->giftInfoService->delete($personal_book_info->id);
+                $buy_date = DateTime::createFromFormat('d/m/Y', Input::get('buy_info_buy_date'));
+                if($buy_date == false){
+                    $buy_date = null;
+                }
                 $this->buyInfoService->save($personal_book_info->id,
-                    DateTime::createFromFormat('d/m/Y', Input::get('buy_info_buy_date')),
+                    $buy_date,
                     Input::get('buy_info_price_payed'),
                     Input::get('buy_info_recommended_by'),
                     Input::get('buy_info_shop'),

@@ -21,7 +21,7 @@
 
         <!-- BIRTH DATE -->
         <div class="form-group">
-            {{ Form::label('birthDateLabel', 'Geboorte datum:', array('class' => 'col-md-3')); }}
+            {{ Form::label('birthDateLabel', 'Geboorte datum:', array('class' => 'col-md-3 label-gray')); }}
             <div class="col-md-3">
                 @include('book/create/dateInputFragment', array('label' => 'Geboorte datum:',
                                        'dateDayName'=>'author_date_of_birth_day',
@@ -35,7 +35,7 @@
 
         <!-- DEATH DATE -->
         <div class="form-group">
-            {{ Form::label('deathDateLabel', 'Sterfte datum:', array('class' => 'col-md-3')); }}
+            {{ Form::label('deathDateLabel', 'Sterfte datum:', array('class' => 'col-md-3 label-gray')); }}
             <div class="col-md-3">
                 @include('book/create/dateInputFragment', array('label' => 'Sterfte datum:',
                                                     'dateDayName'=>'author_date_of_death_day',

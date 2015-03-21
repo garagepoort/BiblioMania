@@ -20,15 +20,16 @@
         </div>
         <div class="form-group" id="reason-not-owned-panel" hidden>
             {{ Form::label('personal_info_ownedLabel', 'Reden niet in collectie:', array('class' => 'col-md-3')); }}
-            <div class="col-md-2">
-                {{ Form::label('personal_info_reason_not_owned_borrowed', 'Geleend') }}
-                {{ Form::radio('personal_info_reason_not_owned', 'BORROWED', true, array('id'=>'personal_info_reason_not_owned_borrowed')) }}
-                
-                {{ Form::label('personal_info_reason_not_owned_sold', 'Verkocht') }}
-                {{ Form::radio('personal_info_reason_not_owned', 'SOLD', false, array('id'=>'personal_info_reason_not_owned_sold')) }}
-                
-                {{ Form::label('personal_info_reason_not_owned_lost', 'verloren') }}
-                {{ Form::radio('personal_info_reason_not_owned', 'LOST', false, array('id'=>'personal_info_reason_not_owned_lost')) }}
+            <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-default active">
+                    <input id="personal_info_reason_not_owned_borrowed" type="radio" name="personal_info_reason_not_owned" value="BORROWED" checked/> Geleend
+                </label>
+                <label class="btn btn-default">
+                    <input id="personal_info_reason_not_owned_sold" type="radio" name="personal_info_reason_not_owned" value="SOLD"/> Verkocht
+                </label>
+                <label class="btn btn-default">
+                    <input id="personal_info_reason_not_owned_lost" type="radio" name="personal_info_reason_not_owned" value="LOST"/> Verloren
+                </label>
             </div>
         </div>
         <!-- READING DATES -->

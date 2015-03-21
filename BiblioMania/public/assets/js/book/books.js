@@ -67,6 +67,9 @@ $(document).ready(function(){
             for (j = 0; j < columns; j++){
                 var book = books[(6*i)+j];
                 var imageString = baseUrl + "/" + book.coverImage;
+                if(book.coverImage === ''){
+                    imageString = baseUrl + "/images/questionCover.png";
+                }
                 trString = trString + '<td>';
                 trString = trString + "<div class='imageLinkWrapper'>";
                 trString = trString + "<img src=\"" + imageString + "\" bookid='" + book.id + "' class='bookCoverLink'>";
@@ -163,6 +166,9 @@ $(document).ready(function(){
             $('#book-detail-title').text(book.title);
             $('#book-detail-subtitle').text(book.subtitle);
             $('#book-detail-coverimage').attr('src', baseUrl + "/" + book.coverImage);
+            if(book.coverImage === ''){
+                $('#book-detail-coverimage').attr('src', baseUrl + "/images/questionCover.png");
+            }
             $('#book-detail-author').text(book.authors[0].firstname + " " + book.authors[0].infix + " " + book.authors[0].name);
             showOrHide($('#book-detail-isbn'), book.ISBN);
             showOrHide($('#book-detail-publisher'), book.publisher.name);
@@ -231,7 +237,9 @@ $(document).ready(function(){
                 showOrHide($('#book-detail-buy-info-date'), book.personal_book_info.buy_info.buy_date);
                 showOrHide($('#book-detail-buy-info-price-payed'), book.personal_book_info.buy_info.price_payed);
                 showOrHide($('#book-detail-buy-info-shop'), book.personal_book_info.buy_info.shop);
-                showOrHide($('#book-detail-buy-info-city'), book.personal_book_info.buy_info.city);
+                if(book.personal_book_info.buy_info.city != null){
+                    showOrHide($('#book-detail-buy-info-city'), book.personal_book_info.buy_info.city.name);
+                }
                 showOrHide($('#book-detail-buy-info-recommended-by'), book.personal_book_info.buy_info.recommended_by);
             }
 
@@ -255,13 +263,13 @@ $(document).ready(function(){
     function dateToString(date){
         if(date != null){
             result = "";
-            if(date.day != null){
+            if(date.day != "0"){
                 result = date.day + "-";
             }
-            if(date.month != null){
+            if(date.month != "0"){
                 result = result + date.month + "-";
             }
-            if(date.year != null){
+            if(date.year != "0"){
                 result = result + date.year;
             }
             return result

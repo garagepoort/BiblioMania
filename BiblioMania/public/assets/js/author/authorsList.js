@@ -1,6 +1,10 @@
 $(document).ready(function() {
     $.fn.editable.defaults.mode = 'inline';
 
+    $('#authorEditList').DataTable({
+        paging: false
+    });
+
     $("#name, #firstname, #infix").editable({
         validate: function(value) {
             if($.trim(value) == '') {

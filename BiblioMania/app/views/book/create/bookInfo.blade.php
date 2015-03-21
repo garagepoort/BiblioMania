@@ -73,7 +73,7 @@
 
             <div class="form-group">
                 <!-- PUBLICATION DATE -->
-                {{ Form::label('', 'Publicatie:', array('class' => 'col-md-2')); }}
+                {{ Form::label('', 'Publicatie:', array('class' => 'col-md-2 label-gray' )); }}
                 <div class="col-md-7">
                     @include('book/create/dateInputFragment', array('label' => 'Publicatie',
                                                 'dateDayName'=>'book_publication_date_day',
