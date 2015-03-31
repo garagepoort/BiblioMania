@@ -12,14 +12,9 @@ $(function() {
 
    $('.collapsible').collapsible();
 
-    var genreId = $("#book_genre_input").val();
-    if(genreId !== ''){
-        var selectedGenre = $(".genre-listitem[genreId=" + genreId + "]" );
-        if(selectedGenre != null){
-            selectedGenre.addClass("clickedGenre");
-            $("#genresGlyphicon").text('    Genre: ' + selectedGenre.attr("name"));
-        }
-    }
+    $('#book_author_input').focusout(function () {
+        fillInAuthorNamesFromBookInfo();
+    });
 
     $(".genre-listitem").click(function(){
         $(".clickedGenre").removeClass("clickedGenre");
@@ -45,4 +40,19 @@ $(function() {
     });
 
 });
+
+function initializeGenre() {
+    var genreId = $("#book_genre_input").val();
+    if (genreId !== '') {
+        var selectedGenre = $(".genre-listitem[genreId=" + genreId + "]");
+        if (selectedGenre != null) {
+            selectedGenre.addClass("clickedGenre");
+            $("#genresGlyphicon").text('    Genre: ' + selectedGenre.attr("name"));
+        }
+    }
+}
+
+function setAuthorNameOnBookInfo(author){
+    $('#book_author_input').val(author);
+}
 

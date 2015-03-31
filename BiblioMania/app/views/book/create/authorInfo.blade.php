@@ -2,9 +2,9 @@
     <fieldset>
 
     <legend>Auteur info</legend>
-
-        {{ HTML::image($author_image, 'image') }}
-
+        @if($author_image != '')
+            {{ HTML::image($author_image, 'image') }}
+        @endif
         <!-- NAME -->
         <div class="form-group">
             {{ Form::label('authorNameLabel', 'Naam:', array('class' => 'col-md-3')); }}

@@ -13,15 +13,19 @@ class CountryService
         return Country::all();
     }
 
-    public function findOrSave($name)
+    public function findOrCreate($name)
     {
         $country = Country::where('name', '=', $name)->first();
         if (is_null($country)) {
             $country = new Country(array('name' => $name));
-            $country->save();
         }
 
         return $country;
+    }
+
+    public function find($name)
+    {
+       return Country::where('name', '=', $name)->first();
     }
 
     public function editCountryName($id, $name) {

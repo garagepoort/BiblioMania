@@ -106,3 +106,8 @@
 	{
 	    return new Katzgrau\KLogger\Logger(app_path().'/storage/logs');
 	});
+
+	App::singleton('BookFormValidator', function()
+	{
+		return new BookFormValidator();
+	});

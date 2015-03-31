@@ -10,7 +10,9 @@ class BookController extends BaseController
     protected $countryService;
     protected $bookService;
     protected $dateService;
+    protected $authorService;
     protected $imageService;
+    protected $bookFormValidator;
 
     public function __construct(PublisherService $publisherService,
                                 BuyInfoService $buyInfoService,
@@ -18,7 +20,9 @@ class BookController extends BaseController
                                 CountryService $countryService,
                                 BookService $bookService,
                                 DateService $dateService,
-                                ImageService $imageService)
+                                ImageService $imageService,
+                                BookFormValidator $bookFormValidator,
+                                AuthorService $authorService)
     {
         $this->publisherService = $publisherService;
         $this->buyInfoService = $buyInfoService;
@@ -27,6 +31,8 @@ class BookController extends BaseController
         $this->bookService = $bookService;
         $this->dateService = $dateService;
         $this->imageService = $imageService;
+        $this->bookFormValidator = $bookFormValidator;
+        $this->authorService = $authorService;
     }
 
     public function getBooks()
@@ -108,7 +114,7 @@ class BookController extends BaseController
 
     public function createOrEditBook()
     {
-        $validator = BookFormValidator::createValidatorForBookForm();
+        $validator = $this->bookFormValidator->createValidator();
 
         if ($validator->fails()) {
             if (Input::get('book_id') != '') {
@@ -118,11 +124,13 @@ class BookController extends BaseController
             return Redirect::to('/createBook')->withErrors($validator)->withInput();
         } else {
 
-            $publisher_country = $this->countryService->findOrSave(Input::get('book_country'));
-            $book_publisher = $this->publisherService->saveOrUpdate(Input::get('book_publisher'), $publisher_country);
+            $publisher_country = $this->countryService->findOrCreate(Input::get('book_country'));
+            $book_publisher = $this->publisherService->findOrCreate(Input::get('book_publisher'));
+            $book_publisher->countries()->attach($publisher_country);
 
-            $book_author_date_of_birth_id = $this->createDate(Input::get('author_date_of_birth_day'), Input::get('author_date_of_birth_month'), Input::get('author_date_of_birth_year'));
-            $book_author_date_of_death_id = $this->createDate(Input::get('author_date_of_death_day'), Input::get('author_date_of_death_month'), Input::get('author_date_of_death_year'));
+
+            $book_author_date_of_birth = $this->createDate(Input::get('author_date_of_birth_day'), Input::get('author_date_of_birth_month'), Input::get('author_date_of_birth_year'));
+            $book_author_date_of_death = $this->createDate(Input::get('author_date_of_death_day'), Input::get('author_date_of_death_month'), Input::get('author_date_of_death_year'));
 
             $authorImage = null;
             if (Input::get('authorImageSelfUpload')) {
@@ -132,6 +140,8 @@ class BookController extends BaseController
                     $authorImage = $this->imageService->getImageFromUrl(Input::get('authorImageUrl'), Input::get('author_name'));
                 }
             }
+
+            $this->authorService->create()
             $book_author_model = App::make('AuthorService')->saveorUpdate(
                 Input::get('author_name'),
                 Input::get('author_infix'),
@@ -160,7 +170,7 @@ class BookController extends BaseController
                     Input::get('buy_info_recommended_by'),
                     Input::get('buy_info_shop'),
                     Input::get('buy_info_city'),
-                    $this->countryService->findOrSave(Input::get('buy_info_country'))->id);
+                    $this->countryService->findOrCreate(Input::get('buy_info_country'))->id);
             } else {
                 $this->giftInfoService->save(
                     $personal_book_info->id,
@@ -177,7 +187,7 @@ class BookController extends BaseController
         if (!empty($author_date_day) && !empty($author_date_month) && !empty($author_date_year)) {
             return $this->dateService->createDate($author_date_day,
                 $author_date_month,
-                $author_date_year)->id;
+                $author_date_year);
         }
 
         return null;
@@ -204,7 +214,7 @@ class BookController extends BaseController
         /** @var FirstPrintInfoService $firstPrintInfoService */
         $firstPrintInfoService = App::make('FirstPrintInfoService');
 
-        $country = $this->countryService->findOrSave(Input::get('first_print_country'));
+        $country = $this->countryService->findOrCreate(Input::get('first_print_country'));
 
         $first_print_publication_date = $this->dateService->createDate(
             Input::get('first_print_publication_date_day'),
@@ -282,8 +292,9 @@ class BookController extends BaseController
                 array_push($reading_dates, DateTime::createFromFormat('d/m/Y', $string_reading_date));
             }
         }
-
-        $personal_book_info = App::make('PersonalBookInfoService')->save($book->id,
+        /** @var PersonalBookInfoService $personalBookInfoService */
+        $personalBookInfoService = App::make('PersonalBookInfoService');
+        $personal_book_info = $personalBookInfoService->save($book->id,
             Input::get('personal_info_owned'),
             Input::get('personal_info_reason_not_owned'),
             Input::get('personal_info_review'),

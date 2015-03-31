@@ -67,7 +67,7 @@ $(document).ready(function(){
             for (j = 0; j < columns; j++){
                 var book = books[(6*i)+j];
                 var imageString = baseUrl + "/" + book.coverImage;
-                if(book.coverImage === ''){
+                if(book.coverImage == '' || book.coverImage == null){
                     imageString = baseUrl + "/images/questionCover.png";
                 }
                 trString = trString + '<td>';
@@ -263,13 +263,13 @@ $(document).ready(function(){
     function dateToString(date){
         if(date != null){
             result = "";
-            if(date.day != "0"){
+            if(date.day != "0" && date.day != null){
                 result = date.day + "-";
             }
-            if(date.month != "0"){
+            if(date.month != "0" && date.month != null){
                 result = result + date.month + "-";
             }
-            if(date.year != "0"){
+            if(date.year != "0" && date.year != null){
                 result = result + date.year;
             }
             return result

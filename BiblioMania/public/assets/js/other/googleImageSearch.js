@@ -17,7 +17,6 @@ function searchComplete() {
 
         var results = imageSearch.results;
 
-
         var tableBody = $('<tbody></tbody>');
         var tableRow = $('<tr></tr>');
         googleImageSearchTable.append(tableBody);

@@ -2,7 +2,7 @@
 
 class BookFormValidator {
 
-    public static function createValidatorForBookForm(){
+    public function createValidator(){
         $rules = array(
             'book_title' => 'required',
             'book_author' => 'required',

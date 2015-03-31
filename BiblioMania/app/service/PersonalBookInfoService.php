@@ -21,12 +21,15 @@ class PersonalBookInfoService
         }
         $personalInfoBook->save();
 
+        /** @var ReadingDateService $readingDateService */
         $readingDateService = App::make('ReadingDateService');
 
+        $reading_dates_ids = [];
         foreach ($reading_dates as $date) {
             $readingDate = $readingDateService->saveOrFind($date);
-            $personalInfoBook->reading_dates()->sync([$readingDate->id]);
+            array_push($reading_dates_ids, $readingDate->id);
         }
+        $personalInfoBook->reading_dates()->sync($reading_dates_ids);
         return $personalInfoBook;
     }
 }

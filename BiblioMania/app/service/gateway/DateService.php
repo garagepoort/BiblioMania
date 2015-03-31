@@ -12,7 +12,6 @@ class DateService
     public function createDate($day, $month, $year)
     {
         $date = new Date(array('day' => $day, 'month' => $month, 'year' => $year));
-        $date->save();
         return $date;
     }
 

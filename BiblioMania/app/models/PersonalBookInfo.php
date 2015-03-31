@@ -39,7 +39,7 @@ class PersonalBookInfo extends Eloquent {
         }else{
             return true;
         }
-    } 
+    }
     public function set_read($read){
         $this->attributes['read'] = $read?1:0;
     }

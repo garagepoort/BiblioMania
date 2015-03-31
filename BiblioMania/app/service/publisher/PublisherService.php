@@ -2,23 +2,31 @@
 
 class PublisherService
 {
+    /** @var CountryService */
+    private $countryService;
 
-    public function saveOrUpdate($name, $country)
+    function __construct(CountryService $countryService)
     {
-        $publisher = Publisher::where('name', '=', $name)
+        $this->countryService = $countryService;
+    }
+
+    public function findOrCreate($publisher_name){
+        $publisher = Publisher::where('name', '=', $publisher_name)
             ->where("user_id", "=", Auth::user()->id)
             ->first();
 
         if (is_null($publisher)) {
             $publisher = new Publisher(array(
-                'name' => $name,
+                'name' => $publisher_name,
             ));
             $publisher->user_id = Auth::user()->id;
-            $publisher->save();
         }
-        if ($country != null) {
-            $publisher->countries()->sync([$country->id], false);
-        }
+        return $publisher;
+    }
+
+    public function saveOrUpdate(Publisher $publisher)
+    {
+        $publisher->save();
         return $publisher;
     }
 
