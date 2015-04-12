@@ -2,23 +2,18 @@
 
 class BookControllerTest extends TestCase{
 
-    private $countryServiceMock;
     private $bookFormValidatorMock;
     private $validatorMock;
-    private $publisherServiceMock;
-    private $buyInfoService;
-    private $giftInfoService;
-    private $bookService;
-    private $dateService;
-    private $imageService;
 
     const NEW_NAME = "NEW_NAME";
 
+    /** @var  BookCreationService */
+    private $bookCreationService;
+
     public function setUp(){
         parent::setUp();
-        $this->countryServiceMock = $this->mock('CountryService');
+        $this->bookCreationService = $this->mock('BookCreationService');
         $this->bookFormValidatorMock = $this->mock('BookFormValidator');
-        $this->publisherServiceMock = $this->mock('PublisherService');
 
         $this->validatorMock = Mockery::mock('Illuminate\Validation\Factory');
         Validator::swap($this->validatorMock);
@@ -46,12 +41,10 @@ class BookControllerTest extends TestCase{
         $this->assertRedirectedTo('/editBook/123');
     }
 
-    public function testCreateOrEditBook_whenValidationSuccess_findOrCreateCountry(){
+    public function testCreateOrEditBook_whenValidationSuccess_callBookCreationService(){
         $this->validatorMock->shouldReceive('fails')->once()->andReturn(false);
-        $bookCountry = Mockery::mock('Eloquent', 'Country');
-        $bookPublisher = Mockery::mock('Eloquent', 'Publisher');
-        $this->countryServiceMock->shouldReceive('findOrCreate')->once()->with('someCountry')->andReturn($bookCountry);
-        $this->publisherServiceMock->shouldReceive('saveOrUpdate')->once()->with('somePublisher', $bookCountry)->andReturn($bookPublisher);
+
+        $this->bookCreationService->shouldReceive("createBook")->once();
 
         $parameters = array(
             'book_id'=>'123',

@@ -6,6 +6,10 @@ $(function() {
         lookup: window.author_names
     });
 
+    $('#book-info-tab-link').click(function(){
+        fillAuthorInput();
+    });
+
     $('#book_publisher_input').autocomplete({
         lookup: window.publisher_names
     });

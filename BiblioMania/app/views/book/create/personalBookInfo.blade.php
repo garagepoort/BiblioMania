@@ -42,8 +42,8 @@
             </div>
             <div class="col-md-2" style="padding-top: 4px">
 
-                <span class="reading-date-plus fa fa-plus fa-lg"></span>
-                <span class="reading-date-min fa fa-minus fa-lg" style="margin-left: 4px"></span>
+                <span id="reading-date-plus" class="reading-date-plus fa fa-plus fa-lg"></span>
+                <span id="reading-date-min" class="reading-date-min fa fa-minus fa-lg" style="margin-left: 4px"></span>
             </div>
         </div>
 

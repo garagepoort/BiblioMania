@@ -87,6 +87,11 @@ class BookImportController extends BaseController {
 
 	private function importAuthors($values){
 
+		$firstAuthorParameters = new AuthorInfoParameters($values[2], $values[0], $values[2], new Date(), new Date(), null, $values[18], $values[46]);
+		$secondAuthorParameters = new AuthorInfoParameters($values[5], $values[3], $values[4], new Date(), new Date(), null, null, null);
+		$thirdAuthorParameters = new AuthorInfoParameters($values[8], $values[6], $values[7], new Date(), new Date(), null, null, null);
+		$fourthAuthorParameters = new AuthorInfoParameters($values[2], $values[0], $values[2], new Date(), new Date(), null, null, null);
+
 		return AuthorImporter::importAuthors($values[2], $values[0], $values[1],
 										$values[5], $values[3], $values[4],
 										$values[8], $values[6], $values[7],

@@ -11,6 +11,10 @@ class CountryRepository implements iRepository{
         return Country::with('books', 'authors', 'publishers', 'first_print_infos')->find($id);
     }
 
+    public function getCountry($name){
+        return Country::where('name', '=', $name)->first();
+    }
+
     public function all()
     {
         return Country::all();
@@ -24,5 +28,10 @@ class CountryRepository implements iRepository{
     public function delete($entity)
     {
         $entity->delete();
+    }
+
+    public function deleteById($id)
+    {
+        return Country::find($id)->delete();
     }
 }

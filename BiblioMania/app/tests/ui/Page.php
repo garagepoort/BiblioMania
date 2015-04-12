@@ -18,4 +18,8 @@ class Page {
         return $this->driver->findElement(WebDriverBy::id($id));
     }
 
+    public function findSelectById($id){
+        return new WebDriverSelect($this->driver->findElement(WebDriverBy::id($id)));
+    }
+
 }

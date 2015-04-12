@@ -2,6 +2,41 @@
 
 class BuyInfoService
 {
+    /** @var  CityService */
+    private $cityService;
+    /** @var  CountryService */
+    private $countryService;
+
+    function __construct()
+    {
+        $this->cityService = App::make('CityService');
+        $this->countryService = App::make('CountryService');
+    }
+
+
+    public function findOrCreate(BuyInfoParameters $buyInfoParameters, PersonalBookInfo $personalBookInfo){
+        $country = $this->countryService->findOrCreate($buyInfoParameters->getCountry());
+
+        $buyInfo = BuyInfo::where('personal_book_info_id', '=', $personalBookInfo->id)->first();
+        if ($buyInfo == null) {
+            $buyInfo = new BuyInfo();
+        }
+
+        if (!is_null($buyInfoParameters->getCity())) {
+            $city = $this->cityService->save($buyInfoParameters->getCity(), $country->id);
+            $buyInfo->city_id = $city->id;
+        }
+
+        $buyInfo->buy_date = $buyInfoParameters->getDate();
+        $buyInfo->price_payed = $buyInfoParameters->getPricePayed();
+        $buyInfo->recommended_by = $buyInfoParameters->getRecommendedBy();
+        $buyInfo->shop = $buyInfoParameters->getShop();
+        $buyInfo->personal_book_info_id = $personalBookInfo->id;
+
+        $buyInfo->save();
+
+        return $buyInfo;
+    }
 
     public function save($personal_book_info_id, DateTime $buy_date = null, $price_payed, $recommended_by, $shop, $cityName, $countryId)
     {

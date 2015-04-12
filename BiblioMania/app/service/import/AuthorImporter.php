@@ -14,6 +14,7 @@ class AuthorImporter
                                          $authorImagePath, $oeuvre)
     {
         //first author
+        /** @var AuthorService $authorService */
         $authorService = App::make('AuthorService');
         $authors = [];
         $path = explode('\\', $authorImagePath);

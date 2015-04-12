@@ -10,4 +10,5 @@ class ReadingDate extends Eloquent {
     {
         return $this->belongsToMany('PersonalBookInfo', 'personal_book_info_reading_date');
     }
+
 }

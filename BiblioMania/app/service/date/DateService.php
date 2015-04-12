@@ -15,6 +15,12 @@ class DateService
         return $date;
     }
 
+    public function copyDateValues($date, $dateToCopy){
+        $date->day = $dateToCopy->day;
+        $date->month = $dateToCopy->month;
+        $date->year = $dateToCopy->year;
+    }
+
 //  dd-mm-yyyy format
     public function createDateFromString($dateString){
         $day = null;

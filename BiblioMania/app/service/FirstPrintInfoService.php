@@ -3,6 +3,45 @@
 class FirstPrintInfoService
 {
 
+    /** @var  PublisherService */
+    private $publisherService;
+    /** @var  CountryService */
+    private $countryService;
+
+    function __construct()
+    {
+        $this->publisherService = App::make('PublisherService');
+        $this->countryService = App::make('CountryService');
+    }
+
+
+    public function findOrCreate(FirstPrintInfoParameters $firstPrintInfoParameters){
+        $firstPrintInfo = null;
+
+        $country = $this->countryService->findOrCreate($firstPrintInfoParameters->getCountry());
+        $publisher = $this->publisherService->findOrCreate($firstPrintInfoParameters->getPublisher(), $country);
+
+        if (!is_null($firstPrintInfoParameters->getIsbn())) {
+            $firstPrintInfo = FirstPrintInfo::where('ISBN', '=', $firstPrintInfoParameters->getIsbn())->first();
+        }
+
+        if(is_null($firstPrintInfo)){
+            $firstPrintInfo = new FirstPrintInfo();
+        }
+        $firstPrintInfoParameters->getPublicationDate()->save();
+
+        $firstPrintInfo->title = $firstPrintInfoParameters->getTitle();
+        $firstPrintInfo->subtitle = $firstPrintInfoParameters->getSubtitle();
+        $firstPrintInfo->publication_date_id = $firstPrintInfoParameters->getPublicationDate()->id;
+        $firstPrintInfo->ISBN = $firstPrintInfoParameters->getIsbn();
+        $firstPrintInfo->language_id = $firstPrintInfoParameters->getLanguageId();
+        $firstPrintInfo->publisher_id = $publisher->id;
+        $firstPrintInfo->country_id = $country->id;
+        $firstPrintInfo->save();
+
+        return $firstPrintInfo;
+    }
+
     public function saveOrUpdate($title, $subtitle, $isbn, Date $publication_date = null, $publisherName, $countryId, $languageId)
     {
         $publication_date_id = null;

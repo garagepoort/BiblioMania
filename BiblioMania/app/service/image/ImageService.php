@@ -25,4 +25,28 @@ class ImageService
 
         return $filename;
     }
+
+    public function saveImage($image, $filename){
+        $filename = 'bookImages/' . Auth::user()->username . '/' . str_random(8) . '_' . $filename . '.jpg';
+        imagejpeg($image, $filename); //save image as jpg
+        imagedestroy($image);
+        return $filename;
+    }
+
+    public function getImage($url)
+    {
+        $img = file_get_contents($url);
+        $im = imagecreatefromstring($img);
+        $width = imagesx($im);
+        $height = imagesy($im);
+        $newwidth = '142';
+        $newheight = '226';
+
+        $thumb = imagecreatetruecolor($newwidth, $newheight);
+
+        imagecopyresized($thumb, $im, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
+
+        return $thumb;
+    }
+
 }

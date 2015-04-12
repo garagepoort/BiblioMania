@@ -25,6 +25,7 @@ $(document).ready(function() {
         var tableData = $('<td></td>');
         tableRow.append(tableData);
         tableData.append('<input style="margin-bottom: 10px;" ' +
+        'id="reading_date_input_' + $('#reading-dates-table tr').length + '"' +
         'name="reading_date_counter" ' +
         'placeholder="select date" ' +
         'class="input-sm datepicker reading-date" ' +

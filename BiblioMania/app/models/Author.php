@@ -5,6 +5,8 @@ class Author extends Eloquent {
 
     protected $fillable = array('name', 'firstname', 'image', 'date_of_death_id', 'date_of_birth_id', 'country_id', 'oeuvre', 'gender');
 
+    protected $with = array('date_of_birth', 'date_of_death');
+
     public function country(){
     	return $this->belongsTo('Country');
 	}

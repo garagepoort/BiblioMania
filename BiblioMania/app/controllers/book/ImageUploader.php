@@ -1,15 +1,9 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: david
- * Date: 20/03/15
- * Time: 23:12
- */
 class ImageUploader
 {
 
-    public static function uploadImage($image)
+    public function uploadImage($image)
     {
         $logger = new Katzgrau\KLogger\Logger(app_path() . '/storage/logs');
 

@@ -77,8 +77,8 @@ function fillInAuthorNamesFromBookInfo() {
     var result = trimmedValue.split(",", 3);
     if (result.length === 3) {
         setAuthorName(result[0].trim());
-        setAuthorFirstName(result[1].trim());
-        setAuthorInfix(result[2].trim());
+        setAuthorInfix(result[1].trim());
+        setAuthorFirstName(result[2].trim());
         reinitializeLastSetValues();
         fillInOeuvre();
     }
@@ -211,13 +211,13 @@ function setAuthorInfix(authorInfix){
 }
 
 function getAuthorName(){
-    $("#author_name").val();
+    return $("#author_name").val();
 }
 
 function getAuthorFirstName(){
-    $("#author_firstname").val();
+    return $("#author_firstname").val();
 }
 
 function getAuthorInfix(){
-    $("#author_infix").val();
+    return $("#author_infix").val();
 }

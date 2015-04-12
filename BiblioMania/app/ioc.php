@@ -1,5 +1,5 @@
 <?php
-	//user
+	//SERVICES
 	App::singleton('UserService', function()
 	{
 	    return new UserService;
@@ -60,7 +60,6 @@
 	    return new PublisherSerieService;
 	});
 
-
 	App::singleton('BookSerieService', function()
 	{
 	    return new BookSerieService;
@@ -83,7 +82,7 @@
 
 	App::singleton('PublisherService', function()
 	{
-	    return new PublisherService;
+	    return new PublisherService();
 	});
 
 	App::singleton('LanguageService', function()
@@ -91,15 +90,13 @@
 	    return new LanguageService;
 	});
 
-	App::singleton('UserRepository', function()
+
+	App::singleton('BookImportService', function()
 	{
-	    return new UserRepository;
+	    return new BookImportService();
 	});
 
-	App::singleton('CountryRepository', function()
-	{
-		return new CountryRepository;
-	});
+
 
 	//logger
 	App::singleton('Logger', function()
@@ -111,3 +108,73 @@
 	{
 		return new BookFormValidator();
 	});
+
+
+	App::singleton('AuthorInfoParameterMapper', function()
+	{
+		return new AuthorInfoParameterMapper();
+	});
+
+	App::singleton('ExtraBookInfoParameterMapper', function()
+	{
+		return new ExtraBookInfoParameterMapper();
+	});
+
+	App::singleton('ImageUploader', function()
+	{
+		return new ImageUploader();
+	});
+
+	App::singleton('BookCreationService', function()
+	{
+		return new BookCreationService();
+	});
+
+	App::singleton('OeuvreMapper', function()
+	{
+		return new OeuvreMapper();
+	});
+
+	App::singleton('FileToAuthorParametersMapper', function()
+	{
+		return new FileToAuthorParametersMapper();
+	});
+
+
+
+    //REPOSITORIES
+
+    App::singleton('BookRepository', function()
+    {
+        return new BookRepository();
+    });
+
+    App::singleton('PersonalBookInfoRepository', function()
+    {
+        return new PersonalBookInfoRepository();
+    });
+
+    App::singleton('UserRepository', function()
+    {
+        return new UserRepository();
+    });
+
+    App::singleton('CountryRepository', function()
+    {
+        return new CountryRepository();
+    });
+
+    App::singleton('AuthorRepository', function()
+    {
+        return new AuthorRepository();
+    });
+
+    App::singleton('BookFromAuthorRepository', function()
+    {
+        return new BookFromAuthorRepository();
+    });
+
+    App::singleton('PublisherRepository', function()
+    {
+        return new PublisherRepository();
+    });

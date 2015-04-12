@@ -12,11 +12,11 @@
             <table class="info-table">
                 <tr>
                     <td>Geboortedatum:</td>
-                    <td>{{ $author->date_of_birth }}</td>
+                    <td>{{ $author->date_of_birth->day . ' ' . $author->date_of_birth->month . ' ' . $author->date_of_birth->year }}</td>
                 </tr>
                 <tr>
                     <td>Stertedatum:</td>
-                    <td>{{ $author->date_of_death }}</td>
+                    <td>{{ $author->date_of_death->day . ' ' . $author->date_of_death->month . ' ' . $author->date_of_death->year }}</td>
                 </tr>
             </table>
 

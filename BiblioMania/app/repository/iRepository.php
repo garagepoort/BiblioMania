@@ -4,5 +4,6 @@ interface iRepository {
     public function find($id);
     public function all();
     public function save($entity);
-    public function delete($id);
+    public function delete($entity);
+    public function deleteById($id);
 }

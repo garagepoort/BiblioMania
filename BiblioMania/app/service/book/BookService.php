@@ -3,6 +3,14 @@
 class BookService
 {
 
+    /** @var  ImageService */
+    private $imageService;
+
+    function __construct()
+    {
+        $this->imageService = App::make('ImageService');
+    }
+
     public function getValueOfLibrary()
     {
         return DB::table('book')->where('user_id', '=', Auth::user()->id)->sum('retail_price');
@@ -94,20 +102,55 @@ class BookService
         return $books->paginate(60);
     }
 
-    public function searchBooks($criteria){
+    public function searchBooks($criteria)
+    {
         return Book::with(array(
             'authors' => function ($query) {
                 $query->orderBy('name', 'DESC');
             },
-            'publisher','genre','personal_book_info','first_print_info', 'publication_date', 'country', 'publisher_serie', 'serie'))
-
+            'publisher', 'genre', 'personal_book_info', 'first_print_info', 'publication_date', 'country', 'publisher_serie', 'serie'))
             ->where('user_id', '=', Auth::user()->id)
             ->where(function ($query) use ($criteria) {
                 $query->where('title', 'LIKE', '%' . $criteria . '%')
                     ->orWhere('subtitle', 'LIKE', '%' . $criteria . '%');
             })
-
             ->orderBy('title')
             ->paginate(60);
+    }
+
+    /**
+     * @param BookCreationParameters $bookCreationParameters
+     * @return Book
+     */
+    public function createBook(BookCreationParameters $bookCreationParameters, Publisher $publisher, Country $country, FirstPrintInfo $firstPrintInfo)
+    {
+        $bookCreationParameters->getBookInfoParameters()->getPublicationDate()->save();
+        $book = new Book();
+        if ($bookCreationParameters->getBookInfoParameters()->getBookId() != null && $bookCreationParameters->getBookInfoParameters()->getBookId() != '') {
+            $book = Book::find(Input::get('book_id'));
+        }
+        $book->title = $bookCreationParameters->getBookInfoParameters()->getTitle();
+        $book->subtitle = $bookCreationParameters->getBookInfoParameters()->getSubtitle();
+        $book->ISBN = $bookCreationParameters->getBookInfoParameters()->getIsbn();
+        $book->number_of_pages = $bookCreationParameters->getExtraBookInfoParameters()->getPages();
+        $book->print = $bookCreationParameters->getExtraBookInfoParameters()->getPrint();
+        $book->genre_id = $bookCreationParameters->getBookInfoParameters()->getGenre();
+        $book->type_of_cover = $bookCreationParameters->getCoverInfoParameters()->getCoverType();
+        $book->language_id = $bookCreationParameters->getBookInfoParameters()->getLanguageId();
+        $book->user_id = Auth::user()->id;
+        $book->retail_price = $bookCreationParameters->getBookInfoParameters()->getRetailPrice();
+        $book->publisher_id = $publisher->id;
+        $book->publisher_country_id = $country->id;
+        $book->publication_date_id = $bookCreationParameters->getBookInfoParameters()->getPublicationDate()->id;
+        $book->first_print_info_id = $firstPrintInfo->id;
+
+        $imagePath = 'images/questionCover.png';
+        if ($bookCreationParameters->getCoverInfoParameters()->getImage() != null) {
+            $imagePath = $this->imageService->saveImage($bookCreationParameters->getCoverInfoParameters()->getImage(), $bookCreationParameters->getBookInfoParameters()->getTitle());
+        }
+        $book->coverImage = $imagePath;
+
+        $book->save();
+        return $book;
     }
 }

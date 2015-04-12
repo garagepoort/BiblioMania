@@ -3,7 +3,7 @@
 class ReadingDateService
 {
 
-    public function saveOrFind($date)
+    public function saveOrFind(DateTime $date)
     {
         $readingDate = ReadingDate::where('date', '=', $date)
             ->first();
@@ -14,6 +14,10 @@ class ReadingDateService
             $readingDate->save();
         }
         return $readingDate;
+    }
+
+    public function save(ReadingDate $date){
+        $date->save();
     }
 
 }

@@ -10,22 +10,22 @@ class CountryService
 
     public function getCountries()
     {
-        return Country::all();
+        return $this->countryRepository->all();
     }
 
     public function findOrCreate($name)
     {
-        $country = Country::where('name', '=', $name)->first();
+        $country = $this->countryRepository->getCountry($name);
         if (is_null($country)) {
             $country = new Country(array('name' => $name));
         }
-
+        $this->countryRepository->save($country);
         return $country;
     }
 
     public function find($name)
     {
-       return Country::where('name', '=', $name)->first();
+       return $this->countryRepository->getCountry($name);
     }
 
     public function editCountryName($id, $name) {

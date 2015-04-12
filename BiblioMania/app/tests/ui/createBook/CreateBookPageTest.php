@@ -2,9 +2,19 @@
 
 class CreateBookPageTest extends AbstractUITestCase
 {
+
+    /** @var BookRepository */
+    protected $bookRepository;
     /** @var BookInfoTabPage $bookInfoTabPage */
     protected $bookInfoTabPage;
+    /** @var AuthorInfoTabPage */
     protected $authorInfoTabPage;
+    /** @var ExtraInfoTabPage */
+    protected $extraInfoTabPage;
+    /** @var FirstPrintInfoTabPage */
+    protected $firstPrintInfoTabPage;
+    /** @var PersonalBookInfoTabPage */
+    protected $personalBookInfoTabPage;
 
     public $title = 'testTitle';
     public $subtitle = 'testSubTitle';
@@ -44,73 +54,10 @@ class CreateBookPageTest extends AbstractUITestCase
         parent::setUp();
         $this->bookInfoTabPage = new BookInfoTabPage($this->driver);
         $this->authorInfoTabPage = new AuthorInfoTabPage($this->driver);
-    }
-
-
-    public function testFillInAuthorOnBookInfo_copiesValueToAuthor(){
-        $this->goToCreateBookPage();
-
-        //full name
-        $this->goToBookInfo();
-        $this->setValueOfInputField('book_author_input', 'author, mid, authorson');
-        $this->goToAuthorInfo();
-        $this->assertEquals($this->findElementById('author_name')->getAttribute('value'), 'author');
-        $this->assertEquals($this->findElementById('author_firstname')->getAttribute('value'), 'authorson');
-        $this->assertEquals($this->findElementById('author_infix')->getAttribute('value'), 'mid');
-
-        //name without infix
-        $this->goToBookInfo();
-        $this->setValueOfInputField('book_author_input', 'author, authorson');
-        $this->goToAuthorInfo();
-        $this->assertEquals($this->findElementById('author_name')->getAttribute('value'), 'author');
-        $this->assertEquals($this->findElementById('author_firstname')->getAttribute('value'), 'authorson');
-        $this->assertEquals($this->findElementById('author_infix')->getAttribute('value'), '');
-
-        //one name
-        $this->goToBookInfo();
-        $this->setValueOfInputField('book_author_input', 'author');
-        $this->goToAuthorInfo();
-        $this->assertEquals($this->findElementById('author_name')->getAttribute('value'), 'author');
-        $this->assertEquals($this->findElementById('author_firstname')->getAttribute('value'), '');
-        $this->assertEquals($this->findElementById('author_infix')->getAttribute('value'), '');
-
-        //name with spaces
-        $this->goToBookInfo();
-        $this->setValueOfInputField('book_author_input', 'author some, mid, authrosons 2nd');
-        $this->goToAuthorInfo();
-        $this->assertEquals($this->findElementById('author_name')->getAttribute('value'), 'author some');
-        $this->assertEquals($this->findElementById('author_firstname')->getAttribute('value'), 'authrosons 2nd');
-        $this->assertEquals($this->findElementById('author_infix')->getAttribute('value'), 'mid');
-    }
-
-    public function testFillInAuthorOnAuthorInfo_copiesValueToAuthorOnBookInfo(){
-        $this->goToCreateBookPage();
-
-        //full name
-        $this->goToAuthorInfo();
-        $this->findElementById('author_name')->clear();
-        $this->findElementById('author_firstname')->clear();
-        $this->findElementById('author_infix')->clear();
-
-        $this->findElementById('author_name')->sendKeys("someAuthorName");
-        $this->findElementById('author_firstname')->sendKeys("someAuthorFirstName");
-        $this->findElementById('author_infix')->sendKeys("mid");
-        $this->findElementById('book-info-tab-link')->click();
-        $this->driver->manage()->timeouts()->implicitlyWait(3000);
-        $this->assertEquals($this->findElementById('book_author_input')->getAttribute('value'), 'someAuthorName, mid, someAuthorFirstName');
-
-        //Partial name
-        $this->goToAuthorInfo();
-        $this->findElementById('author_name')->clear();
-        $this->findElementById('author_firstname')->clear();
-        $this->findElementById('author_infix')->clear();
-
-        $this->findElementById('author_name')->sendKeys("someAuthorName");
-        $this->findElementById('author_firstname')->sendKeys("");
-        $this->findElementById('author_infix')->sendKeys("");
-        $this->goToBookInfo();
-        $this->driver->manage()->timeouts()->implicitlyWait(3000);
-        $this->assertEquals($this->findElementById('book_author_input')->getAttribute('value'), 'someAuthorName, ');
+        $this->extraInfoTabPage = new ExtraInfoTabPage($this->driver);
+        $this->firstPrintInfoTabPage = new FirstPrintInfoTabPage($this->driver);
+        $this->personalBookInfoTabPage = new PersonalBookInfoTabPage($this->driver);
+        $this->bookRepository = App::make('BookRepository');
     }
 
 //    public function testCreateBook_createsBookCorrect_andRedirectsToBook(){
@@ -206,6 +153,11 @@ class CreateBookPageTest extends AbstractUITestCase
         $this->fillInBuyInfo();
     }
 
+    protected function setBookISBN($isbn){
+        $this->goToBookInfo();
+        $this->setValueOfElement($this->bookInfoTabPage->getBookISBNElement(), $isbn);
+    }
+
     private function fillInBookInfo(){
         $this->setValueOfInputField('book_title_input', $this->title);
         $this->setValueOfInputField('book_subtitle_input', $this->subtitle);
@@ -220,7 +172,7 @@ class CreateBookPageTest extends AbstractUITestCase
     }
 
     private function fillInExtraInfo(){
-        $this->bookInfoTabPage->goToExtraInfo();
+        $this->goToExtraInfo();
         $this->findElementById('book_number_of_pages_input')->sendKeys($this->number_of_pages);
         $this->findElementById('book_print_input')->sendKeys($this->print);
         $this->findElementById('book_serie_input')->sendKeys($this->bookSerieInput);
@@ -228,7 +180,7 @@ class CreateBookPageTest extends AbstractUITestCase
     }
 
     private function fillInAuthorInfo(){
-        $this->bookInfoTabPage->goToAuthorInfo();
+        $this->goToAuthorInfo();
         $this->findElementById('author_date_of_birth_day')->sendKeys("13");
         $this->findElementById('author_date_of_birth_month')->sendKeys("12");
         $this->findElementById('author_date_of_birth_year')->sendKeys("2013");
@@ -240,7 +192,7 @@ class CreateBookPageTest extends AbstractUITestCase
 
     protected function fillInFirstPrintInfo()
     {
-        $this->bookInfoTabPage->goToFirstPrintInfo();
+        $this->goToFirstPrintInfo();
         $this->setValueOfInputField('first_print_title', $this->first_print_title);
         $this->setValueOfInputField('first_print_subtitle', $this->first_print_subtitle);
         $this->setValueOfInputField('first_print_isbn', $this->first_print_isbn);
@@ -253,14 +205,14 @@ class CreateBookPageTest extends AbstractUITestCase
 
     protected function fillInPersonalInfo()
     {
-        $this->bookInfoTabPage->goToPersonalInfo();
+        $this->goToPersonalInfo();
         $this->findElementById('personal-info-owned-checkbox')->click();
         $this->driver->findElement(WebDriverBy::xpath("//div[@id='star']/img[5]"))->click();
     }
 
     protected function fillInBuyInfo()
     {
-        $this->bookInfoTabPage->goToBuyInfo();
+        $this->goToBuyInfo();
         $this->findElementById('buy_info_buy_date')->sendKeys($this->buy_info_buy_date);
         $this->findElementById('buy_book_info_retail_price')->sendKeys($this->book_info_retail_price);
         $this->findElementById('buy_info_price_payed')->sendKeys($this->buy_info_price_payed);
