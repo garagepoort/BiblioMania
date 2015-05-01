@@ -2,8 +2,16 @@
 
 class DateImporter
 {
+    /** @var DateService */
+    private $dateService;
 
-    public static function getPublicationDate($dateValues)
+    function __construct()
+    {
+        $this->dateService = App::make('DateService');
+    }
+
+
+    public function getPublicationDate($dateValues)
     {
         if (!empty($dateValues)) {
             $dateValues = explode("-", $dateValues);
@@ -20,7 +28,7 @@ class DateImporter
                 $month = DateImporter::getMonthFromDateValue($dateValues[1]);
                 $year = DateImporter::getYearFromDateValue($dateValues[2]);
             }
-            $date = App::make('DateService')->createDate($day, $month, $year);
+            $date = $this->dateService->createDate($day, $month, $year);
             return $date;
         }
         return null;

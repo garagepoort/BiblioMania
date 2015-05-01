@@ -28,6 +28,7 @@ class CoverInfoParameterMapperTest extends TestCase {
 
         $this->assertEquals(self::IMAGE, $coverInfoParameters->getImage());
         $this->assertEquals(self::COVER_TYPE, $coverInfoParameters->getCoverType());
+        $this->assertEquals(true, $coverInfoParameters->getShouldCreateImage());
     }
 
     public function testWhenSelfUpload_getsImageFromInput(){

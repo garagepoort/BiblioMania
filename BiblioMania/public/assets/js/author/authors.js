@@ -26,6 +26,5 @@ $(document).ready(function(){
             trString = trString + '</tr>';
             $('#authors-container-table > tbody:last').append(trString);
         }
-        Waypoint.refreshAll();
     }
 });

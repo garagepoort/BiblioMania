@@ -7,24 +7,27 @@ class FileToAuthorParametersMapperTest extends TestCase {
     public function setUp(){
         parent::setUp();
         $this->fileToAuthorParametersMapper = App::make('FileToAuthorParametersMapper');
+
+        $user = new User(['username' => 'John']);
+        $this->be($user);
     }
 
     public function test_map_mapsCorrect(){
         $line_values = [50];
-        $line_values[0] = "first_firstName";
-        $line_values[1] = "first_infix";
-        $line_values[2] = "first_name";
+        $line_values[LineMapping::FirstAuthorFirstName] = "first_firstName";
+        $line_values[LineMapping::FirstAuthorInfix] = "first_infix";
+        $line_values[LineMapping::FirstAuthorName] = "first_name";
 
-        $line_values[3] = "second_firstName";
-        $line_values[4] = "second_infix";
-        $line_values[5] = "second_name";
+        $line_values[LineMapping::SecondAuthorFirstName] = "second_firstName";
+        $line_values[LineMapping::SecondAuthorInfix] = "second_infix";
+        $line_values[LineMapping::SecondAuthorName] = "second_name";
 
-        $line_values[6] = "third_firstName";
-        $line_values[7] = "third_infix";
-        $line_values[8] = "third_name";
+        $line_values[LineMapping::ThirdAuthorFirstName] = "third_firstName";
+        $line_values[LineMapping::ThirdAuthorInfix] = "third_infix";
+        $line_values[LineMapping::ThirdAuthorName] = "third_name";
 
-        $line_values[18] = "image";
-        $line_values[46] = "oeuvre";
+        $line_values[LineMapping::AuthorImage] = "author\\some\\image";
+        $line_values[LineMapping::AuthorOeuvre] = "oeuvre";
 
         $parameters = $this->fileToAuthorParametersMapper->mapToParameters($line_values);
 
@@ -41,7 +44,7 @@ class FileToAuthorParametersMapperTest extends TestCase {
         $this->assertEquals($author1->getInfix(), "first_infix");
         $this->assertEquals($author1->getName(), "first_name");
         $this->assertEquals($author1->getOeuvre(), "oeuvre");
-        $this->assertEquals($author1->getImage(), "image");
+        $this->assertEquals($author1->getImage(), "bookImages/John/image");
 
         $this->assertEquals($author2->getFirstname(), "second_firstName");
         $this->assertEquals($author2->getInfix(), "second_infix");
@@ -54,18 +57,20 @@ class FileToAuthorParametersMapperTest extends TestCase {
 
     public function test_mapWhenNoSecondOrThirdAuthor_mapsCorrect(){
         $line_values = [50];
-        $line_values[0] = "first_firstName";
-        $line_values[1] = "first_infix";
-        $line_values[2] = "first_name";
-        $line_values[3] = "";
-        $line_values[4] = "";
-        $line_values[5] = "";
-        $line_values[6] = "";
-        $line_values[7] = "";
-        $line_values[8] = "";
+        $line_values[LineMapping::FirstAuthorFirstName] = "first_firstName";
+        $line_values[LineMapping::FirstAuthorInfix] = "first_infix";
+        $line_values[LineMapping::FirstAuthorName] = "first_name";
 
-        $line_values[18] = "image";
-        $line_values[46] = "oeuvre";
+        $line_values[LineMapping::SecondAuthorFirstName] = "";
+        $line_values[LineMapping::SecondAuthorInfix] = "";
+        $line_values[LineMapping::SecondAuthorName] = "";
+
+        $line_values[LineMapping::ThirdAuthorFirstName] = "";
+        $line_values[LineMapping::ThirdAuthorInfix] = "";
+        $line_values[LineMapping::ThirdAuthorName] = "";
+
+        $line_values[LineMapping::AuthorImage] = "author\\some\\image";
+        $line_values[LineMapping::AuthorOeuvre] = "oeuvre";
 
         $parameters = $this->fileToAuthorParametersMapper->mapToParameters($line_values);
 
@@ -74,11 +79,38 @@ class FileToAuthorParametersMapperTest extends TestCase {
         /** @var AuthorInfoParameters $author1 */
         $author1 = $parameters[0];
 
-        $this->assertEquals($author1->getFirstname(), "first_firstName");
-        $this->assertEquals($author1->getInfix(), "first_infix");
-        $this->assertEquals($author1->getName(), "first_name");
-        $this->assertEquals($author1->getOeuvre(), "oeuvre");
-        $this->assertEquals($author1->getImage(), "image");
+        $this->assertEquals("first_firstName", $author1->getFirstname());
+        $this->assertEquals("first_infix", $author1->getInfix());
+        $this->assertEquals("first_name", $author1->getName());
+        $this->assertEquals("oeuvre", $author1->getOeuvre());
+        $this->assertEquals("bookImages/John/image", $author1->getImage());
+    }
+
+    public function test_mapWhenNoImage_mapsCorrect(){
+        $line_values = [50];
+        $line_values[LineMapping::FirstAuthorFirstName] = "first_firstName";
+        $line_values[LineMapping::FirstAuthorInfix] = "first_infix";
+        $line_values[LineMapping::FirstAuthorName] = "first_name";
+
+        $line_values[LineMapping::SecondAuthorFirstName] = "";
+        $line_values[LineMapping::SecondAuthorInfix] = "";
+        $line_values[LineMapping::SecondAuthorName] = "";
+
+        $line_values[LineMapping::ThirdAuthorFirstName] = "";
+        $line_values[LineMapping::ThirdAuthorInfix] = "";
+        $line_values[LineMapping::ThirdAuthorName] = "";
+
+        $line_values[LineMapping::AuthorImage] = "";
+        $line_values[LineMapping::AuthorOeuvre] = "oeuvre";
+
+        $parameters = $this->fileToAuthorParametersMapper->mapToParameters($line_values);
+
+        $this->assertEquals(1, count($parameters));
+
+        /** @var AuthorInfoParameters $author1 */
+        $author1 = $parameters[0];
+
+        $this->assertEquals($author1->getImage(), null);
     }
 
 }

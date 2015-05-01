@@ -7,36 +7,39 @@ class FirstPrintInfoService
     private $publisherService;
     /** @var  CountryService */
     private $countryService;
+    /** @var  LanguageService */
+    private $languageService;
 
     function __construct()
     {
         $this->publisherService = App::make('PublisherService');
         $this->countryService = App::make('CountryService');
+        $this->languageService = App::make('LanguageService');
     }
 
 
     public function findOrCreate(FirstPrintInfoParameters $firstPrintInfoParameters){
-        $firstPrintInfo = null;
-
-        $country = $this->countryService->findOrCreate($firstPrintInfoParameters->getCountry());
-        $publisher = $this->publisherService->findOrCreate($firstPrintInfoParameters->getPublisher(), $country);
+        $firstPrintInfo = new FirstPrintInfo();
 
         if (!is_null($firstPrintInfoParameters->getIsbn())) {
             $firstPrintInfo = FirstPrintInfo::where('ISBN', '=', $firstPrintInfoParameters->getIsbn())->first();
         }
 
-        if(is_null($firstPrintInfo)){
-            $firstPrintInfo = new FirstPrintInfo();
-        }
-        $firstPrintInfoParameters->getPublicationDate()->save();
-
         $firstPrintInfo->title = $firstPrintInfoParameters->getTitle();
         $firstPrintInfo->subtitle = $firstPrintInfoParameters->getSubtitle();
-        $firstPrintInfo->publication_date_id = $firstPrintInfoParameters->getPublicationDate()->id;
         $firstPrintInfo->ISBN = $firstPrintInfoParameters->getIsbn();
-        $firstPrintInfo->language_id = $firstPrintInfoParameters->getLanguageId();
-        $firstPrintInfo->publisher_id = $publisher->id;
-        $firstPrintInfo->country_id = $country->id;
+        $firstPrintInfo->language()->associate($firstPrintInfoParameters->getLanguage());
+        if($firstPrintInfoParameters->getPublicationDate() != null){
+            $firstPrintInfo->publication_date()->associate($firstPrintInfoParameters->getPublicationDate());
+        }
+        if($firstPrintInfoParameters->getCountry() != null){
+            $country = $this->countryService->findOrCreate($firstPrintInfoParameters->getCountry());
+            $firstPrintInfo->country()->associate($country);
+        }
+        if($firstPrintInfoParameters->getPublisher() != null){
+            $publisher = $this->publisherService->findOrCreate($firstPrintInfoParameters->getPublisher(), $country);
+            $firstPrintInfo->publisher()->associate($publisher);
+        }
         $firstPrintInfo->save();
 
         return $firstPrintInfo;

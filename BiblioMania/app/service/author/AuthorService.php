@@ -26,7 +26,11 @@ class AuthorService
     {
         $imagePath = 'images/questionCover.png';
         if($authorInfoParameters->getImage() != null){
-            $imagePath = $this->imageService->saveImage($authorInfoParameters->getImage(), $authorInfoParameters->getName());
+            if($authorInfoParameters->getShouldCreateImage()){
+                $imagePath = $this->imageService->saveImage($authorInfoParameters->getImage(), $authorInfoParameters->getName());
+            }else{
+                $imagePath = $authorInfoParameters->getImage();
+            }
         }
 
         $author_model = $this->authorRepository->getAuthorByFullName($authorInfoParameters->getName(),

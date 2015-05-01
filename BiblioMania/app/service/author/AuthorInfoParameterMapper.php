@@ -26,7 +26,8 @@ class AuthorInfoParameterMapper {
             $author_date_of_death,
             Input::get('bookFromAuthorTitle'),
             $this->getAuthorImage(),
-            Input::get('oeuvre')
+            Input::get('oeuvre'),
+            true
         );
     }
 

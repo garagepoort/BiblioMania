@@ -2,6 +2,14 @@
 
 class LanguageService
 {
+    /** @var  LanguageRepository */
+    private $languageRepository;
+
+    function __construct()
+    {
+        $this->languageRepository = App::make('LanguageRepository');
+    }
+
 
     public function getLanguages()
     {
@@ -20,6 +28,10 @@ class LanguageService
             $language->save();
         }
         return $language;
+    }
+
+    public function find($id){
+        return $this->languageRepository->find($id);
     }
 
     public function getLanguagesMap()

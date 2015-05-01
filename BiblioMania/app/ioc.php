@@ -96,6 +96,16 @@
 	    return new BookImportService();
 	});
 
+	App::singleton('DateImporter', function()
+	{
+	    return new DateImporter();
+	});
+
+	App::singleton('ImportFileMapper', function()
+	{
+	    return new ImportFileMapper();
+	});
+
 
 
 	//logger
@@ -140,6 +150,41 @@
 		return new FileToAuthorParametersMapper();
 	});
 
+	App::singleton('FileToBookParametersMapper', function()
+	{
+		return new FileToBookParametersMapper();
+	});
+
+	App::singleton('FileToFirstPrintParametersMapper', function()
+	{
+		return new FileToFirstPrintParametersMapper();
+	});
+
+	App::singleton('FileToBuyInfoParametersMapper', function()
+	{
+		return new FileToBuyInfoParametersMapper();
+	});
+
+	App::singleton('FileToGiftInfoParametersMapper', function()
+	{
+		return new FileToGiftInfoParametersMapper();
+	});
+
+	App::singleton('FileToExtraBookInfoParametersMapper', function()
+	{
+		return new FileToExtraBookInfoParametersMapper();
+	});
+
+	App::singleton('FileToPersonalBookInfoParametersMapper', function()
+	{
+		return new FileToPersonalBookInfoParametersMapper();
+	});
+
+	App::singleton('FileToCoverInfoParametersMapper', function()
+	{
+		return new FileToCoverInfoParametersMapper();
+	});
+
 
 
     //REPOSITORIES
@@ -177,4 +222,9 @@
     App::singleton('PublisherRepository', function()
     {
         return new PublisherRepository();
+    });
+
+    App::singleton('LanguageRepository', function()
+    {
+        return new LanguageRepository();
     });

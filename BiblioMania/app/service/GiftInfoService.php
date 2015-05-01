@@ -8,8 +8,6 @@ class GiftInfoService
         if ($giftInfo == null) {
             $giftInfo = new GiftInfo();
         }
-        $giftInfoParameters->getDate()->save();
-
         $giftInfo->receipt_date = $giftInfoParameters->getDate();
         $giftInfo->occasion = $giftInfoParameters->getOccasion();
         $giftInfo->from = $giftInfoParameters->getFrom();

@@ -15,14 +15,20 @@ class FirstPrintInfoParameterMapperTest extends TestCase {
     private $firstPrintInfoParameterMapper;
     /** @var  DateService */
     private $dateServiceMock;
+    /** @var  LanguageService */
+    private $languageService;
+
     private $publicationDateMock;
+    private $languageMock;
 
     public function setUp(){
         parent::setUp();
         $this->dateServiceMock = $this->mock('DateService');
+        $this->languageService = $this->mock('LanguageService');
         $this->firstPrintInfoParameterMapper = App::make('FirstPrintInfoParameterMapper');
 
         $this->publicationDateMock = Mockery::mock('Eloquent', 'Date');
+        $this->languageMock = Mockery::mock('Eloquent', 'Language');
     }
 
     public function testCreate_mapsCorrect(){
@@ -40,15 +46,19 @@ class FirstPrintInfoParameterMapperTest extends TestCase {
         Input::swap($mockInput);
 
         $this->dateServiceMock->shouldReceive('createDate')->once()->with(self::DAY, self::MONTH, self::YEAR)->andReturn($this->publicationDateMock);
+        $this->languageService->shouldReceive('find')->once()->with(self::LANGUAGE_ID)->andReturn($this->languageMock);
 
         $firstPrintInfoParameters = $this->firstPrintInfoParameterMapper->create();
+
+        $expectedCountry = new Country();
+        $expectedCountry->name = self::COUNTRY;
 
         $this->assertEquals(self::TITLE, $firstPrintInfoParameters->getTitle());
         $this->assertEquals(self::SUBTITLE, $firstPrintInfoParameters->getSubtitle());
         $this->assertEquals(self::ISBN, $firstPrintInfoParameters->getIsbn());
         $this->assertEquals(self::PUBLISHER, $firstPrintInfoParameters->getPublisher());
-        $this->assertEquals(self::LANGUAGE_ID, $firstPrintInfoParameters->getLanguageId());
-        $this->assertEquals(self::COUNTRY, $firstPrintInfoParameters->getCountry());
+        $this->assertEquals($this->languageMock, $firstPrintInfoParameters->getLanguage());
+        $this->assertEquals($expectedCountry, $firstPrintInfoParameters->getCountry());
         $this->assertEquals($this->publicationDateMock, $firstPrintInfoParameters->getPublicationDate());
     }
 

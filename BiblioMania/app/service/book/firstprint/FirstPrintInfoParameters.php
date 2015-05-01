@@ -7,18 +7,18 @@ class FirstPrintInfoParameters {
     private $isbn;
     private $publication_date;
     private $publisher;
-    private $languageId;
+    private $language;
     private $country;
 
-    function __construct($title, $subtitle, $isbn, Date $publication_date = null, $publisher, $languageId, $country)
+    function __construct($title, $subtitle, $isbn, Date $publication_date = null, $publisher, Language $language, Country $country)
     {
-        $this->title = $title;
-        $this->subtitle = $subtitle;
-        $this->isbn = $isbn;
-        $this->publication_date = $publication_date;
-        $this->publisher = $publisher;
-        $this->languageId = $languageId;
-        $this->country = $country;
+        $this->title = StringUtils::emptyToNull($title);
+        $this->subtitle = StringUtils::emptyToNull($subtitle);
+        $this->isbn = StringUtils::emptyToNull($isbn);
+        $this->publication_date = StringUtils::emptyToNull($publication_date);
+        $this->publisher = StringUtils::emptyToNull($publisher);
+        $this->language = StringUtils::emptyToNull($language);
+        $this->country = StringUtils::emptyToNull($country);
     }
 
     public function getTitle()
@@ -46,15 +46,14 @@ class FirstPrintInfoParameters {
         return $this->publisher;
     }
 
-    public function getLanguageId()
+    public function getLanguage()
     {
-        return $this->languageId;
+        return $this->language;
     }
 
     public function getCountry()
     {
         return $this->country;
     }
-
 
 }

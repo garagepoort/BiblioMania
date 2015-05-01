@@ -12,7 +12,7 @@ class CoverInfoParameterMapper {
 
 
     public function create(){
-        return new CoverInfoParameters(Input::get('book_type_of_cover'), $this->getImage());
+        return new CoverInfoParameters(Input::get('book_type_of_cover'), $this->getImage(), true);
     }
 
     private function getImage(){

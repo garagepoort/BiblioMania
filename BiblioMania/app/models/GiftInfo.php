@@ -12,4 +12,8 @@ class GiftInfo extends Eloquent {
     	return $this->belongsTo('PersonalBookInfo');
     }
 
+	public function receipt_date(){
+		return $this->belongsTo('Date', 'receipt_date');
+	}
+
 }

@@ -5,10 +5,13 @@ class BookService
 
     /** @var  ImageService */
     private $imageService;
+    /** @var  BookRepository */
+    private $bookRepository;
 
     function __construct()
     {
         $this->imageService = App::make('ImageService');
+        $this->bookRepository = App::make('BookRepository');
     }
 
     public function getValueOfLibrary()
@@ -61,11 +64,11 @@ class BookService
 
         $books = Book::with($with)
             ->select(DB::raw('book.*'))
-            ->join('book_author', 'book_author.book_id', '=', 'book.id')
-            ->join('author', 'book_author.author_id', '=', 'author.id')
-            ->join('personal_book_info', 'personal_book_info.book_id', '=', 'book.id')
-            ->join('first_print_info', 'first_print_info.id', '=', 'book.first_print_info_id')
-            ->join('date', 'date.id', '=', 'book.publication_date_id')
+            ->leftJoin('book_author', 'book_author.book_id', '=', 'book.id')
+            ->leftJoin('author', 'book_author.author_id', '=', 'author.id')
+            ->leftJoin('personal_book_info', 'personal_book_info.book_id', '=', 'book.id')
+            ->leftJoin('first_print_info', 'first_print_info.id', '=', 'book.first_print_info_id')
+            ->leftJoin('date', 'date.id', '=', 'book.publication_date_id')
             ->where('book_author.preferred', '=', 1)
             ->where('user_id', '=', Auth::user()->id);
 
@@ -124,10 +127,9 @@ class BookService
      */
     public function createBook(BookCreationParameters $bookCreationParameters, Publisher $publisher, Country $country, FirstPrintInfo $firstPrintInfo)
     {
-        $bookCreationParameters->getBookInfoParameters()->getPublicationDate()->save();
         $book = new Book();
         if ($bookCreationParameters->getBookInfoParameters()->getBookId() != null && $bookCreationParameters->getBookInfoParameters()->getBookId() != '') {
-            $book = Book::find(Input::get('book_id'));
+            $book = Book::find($bookCreationParameters->getBookInfoParameters()->getBookId());
         }
         $book->title = $bookCreationParameters->getBookInfoParameters()->getTitle();
         $book->subtitle = $bookCreationParameters->getBookInfoParameters()->getSubtitle();
@@ -136,21 +138,29 @@ class BookService
         $book->print = $bookCreationParameters->getExtraBookInfoParameters()->getPrint();
         $book->genre_id = $bookCreationParameters->getBookInfoParameters()->getGenre();
         $book->type_of_cover = $bookCreationParameters->getCoverInfoParameters()->getCoverType();
-        $book->language_id = $bookCreationParameters->getBookInfoParameters()->getLanguageId();
         $book->user_id = Auth::user()->id;
         $book->retail_price = $bookCreationParameters->getBookInfoParameters()->getRetailPrice();
         $book->publisher_id = $publisher->id;
         $book->publisher_country_id = $country->id;
-        $book->publication_date_id = $bookCreationParameters->getBookInfoParameters()->getPublicationDate()->id;
         $book->first_print_info_id = $firstPrintInfo->id;
+        if ($bookCreationParameters->getBookInfoParameters()->getLanguage() != null) {
+            $book->language()->associate($bookCreationParameters->getBookInfoParameters()->getLanguage());
+        }
+        if ($bookCreationParameters->getBookInfoParameters()->getPublicationDate() != null) {
+            $book->publication_date()->associate($bookCreationParameters->getBookInfoParameters()->getPublicationDate());
+        }
 
         $imagePath = 'images/questionCover.png';
         if ($bookCreationParameters->getCoverInfoParameters()->getImage() != null) {
-            $imagePath = $this->imageService->saveImage($bookCreationParameters->getCoverInfoParameters()->getImage(), $bookCreationParameters->getBookInfoParameters()->getTitle());
+            if ($bookCreationParameters->getCoverInfoParameters()->getShouldCreateImage()) {
+                $imagePath = $this->imageService->saveImage($bookCreationParameters->getCoverInfoParameters()->getImage(), $bookCreationParameters->getBookInfoParameters()->getTitle());
+            } else {
+                $imagePath = $bookCreationParameters->getCoverInfoParameters()->getImage();
+            }
         }
         $book->coverImage = $imagePath;
 
-        $book->save();
+        $this->bookRepository->save($book);
         return $book;
     }
 }

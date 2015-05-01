@@ -9,8 +9,9 @@ class AuthorInfoParameters {
     private $linked_book;
     private $oeuvre;
     private $image;
+    private $shouldCreateImage;
 
-    function __construct($name, $firstname, $infix, Date $date_of_birth = null, Date $date_of_death = null, $linked_book, $image, $oeuvre)
+    function __construct($name, $firstname, $infix, Date $date_of_birth = null, Date $date_of_death = null, $linked_book, $image, $oeuvre, $shouldCreateImage)
     {
         $this->name = $name;
         $this->firstname = $firstname;
@@ -20,6 +21,7 @@ class AuthorInfoParameters {
         $this->linked_book = $linked_book;
         $this->image = $image;
         $this->oeuvre = $oeuvre;
+        $this->shouldCreateImage = $shouldCreateImage;
     }
 
     public function getName()
@@ -60,6 +62,11 @@ class AuthorInfoParameters {
     public function getOeuvre()
     {
         return $this->oeuvre;
+    }
+
+    public function getShouldCreateImage()
+    {
+        return $this->shouldCreateImage;
     }
 
 }

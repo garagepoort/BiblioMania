@@ -20,15 +20,21 @@ class BookInfoParameterMapperTest extends TestCase {
     private $bookInfoParameterMapper;
     /** @var  DateService */
     private $dateServiceMock;
+    /** @var  LanguageService */
+    private $languageService;
     /** @var  Date */
     private $publicationDateMock;
+    /** @var  Language */
+    private $languageMock;
 
     public function setUp(){
         parent::setUp();
         $this->dateServiceMock = $this->mock('DateService');
+        $this->languageService = $this->mock('LanguageService');
         $this->bookInfoParameterMapper = App::make('BookInfoParameterMapper');
 
         $this->publicationDateMock = Mockery::mock('Eloquent', 'Date');
+        $this->languageMock = Mockery::mock('Eloquent', 'Language');
     }
 
     public function testCreate_mapsCorrect(){
@@ -39,6 +45,7 @@ class BookInfoParameterMapperTest extends TestCase {
         $mockInput->shouldReceive('input')->with('book_publication_date_month', null)->andReturn(self::PUBLICATION_MONTH);
         $mockInput->shouldReceive('input')->with('book_publication_date_year', null)->andReturn(self::PUBLICATION_YEAR);
         $this->dateServiceMock->shouldReceive('createDate')->once()->with(self::PUBLICATION_DAY, self::PUBLICATION_MONTH, self::PUBLICATION_YEAR)->andReturn($this->publicationDateMock);
+        $this->languageService->shouldReceive('find')->once()->with(self::LANGUAGE_ID)->andReturn($this->languageMock);
 
         $mockInput->shouldReceive('input')->with('buyOrGift', null)->andReturn(self::BUY);
         $mockInput->shouldReceive('input')->with('buy_book_info_retail_price', null)->andReturn(self::RETAIL_PRICE);
@@ -60,7 +67,7 @@ class BookInfoParameterMapperTest extends TestCase {
         $this->assertEquals(self::GENRE, $bookInfoParameters->getGenre());
         $this->assertEquals(self::PUBLISHER, $bookInfoParameters->getPublisherName());
         $this->assertEquals(self::COUNTRY, $bookInfoParameters->getCountryName());
-        $this->assertEquals(self::LANGUAGE_ID, $bookInfoParameters->getLanguageId());
+        $this->assertEquals($this->languageMock, $bookInfoParameters->getLanguage());
         $this->assertEquals(self::RETAIL_PRICE, $bookInfoParameters->getRetailPrice());
         $this->assertEquals($this->publicationDateMock, $bookInfoParameters->getPublicationDate());
     }
@@ -73,6 +80,7 @@ class BookInfoParameterMapperTest extends TestCase {
         $mockInput->shouldReceive('input')->with('book_publication_date_month', null)->andReturn(self::PUBLICATION_MONTH);
         $mockInput->shouldReceive('input')->with('book_publication_date_year', null)->andReturn(self::PUBLICATION_YEAR);
         $this->dateServiceMock->shouldReceive('createDate')->once()->with(self::PUBLICATION_DAY, self::PUBLICATION_MONTH, self::PUBLICATION_YEAR)->andReturn($this->publicationDateMock);
+        $this->languageService->shouldReceive('find')->once()->with(self::LANGUAGE_ID)->andReturn($this->languageMock);
         $mockInput->shouldReceive('input')->with('buyOrGift', null)->andReturn(self::GIFT);
         $mockInput->shouldReceive('input')->with('book_title', null)->andReturn(self::TITLE);
         $mockInput->shouldReceive('input')->with('book_subtitle', null)->andReturn(self::SUBTITLE);

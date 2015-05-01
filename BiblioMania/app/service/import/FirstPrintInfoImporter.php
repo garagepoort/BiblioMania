@@ -1,11 +1,5 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: david
- * Date: 10/01/15
- * Time: 18:24
- */
 class FirstPrintInfoImporter
 {
 

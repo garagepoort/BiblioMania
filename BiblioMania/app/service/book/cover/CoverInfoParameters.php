@@ -4,11 +4,13 @@ class CoverInfoParameters {
 
     private $coverType;
     private $image;
+    private $shouldCreateImage;
 
-    function __construct($coverType, $image)
+    function __construct($coverType, $image, $shouldCreateImage)
     {
         $this->coverType = $coverType;
         $this->image = $image;
+        $this->shouldCreateImage = $shouldCreateImage;
     }
 
 
@@ -23,4 +25,11 @@ class CoverInfoParameters {
     {
         return $this->coverType;
     }
+
+    public function getShouldCreateImage()
+    {
+        return $this->shouldCreateImage;
+    }
+
+
 }
