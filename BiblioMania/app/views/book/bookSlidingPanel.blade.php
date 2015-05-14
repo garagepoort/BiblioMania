@@ -109,6 +109,10 @@
 									<td><label>Aanbevolen door:</label></td>
 									<td><label id='book-detail-buy-info-recommended-by'></label></td>
 								</tr>
+								<tr class="buy-info-tr">
+									<td><label>Land gekocht:</label></td>
+									<td><label id='book-detail-buy-info-country'></label></td>
+								</tr>
 								<tr class="gift-info-tr">
 									<td><label>Ontvangstdatum:</label></td>
 									<td><label id='book-detail-gift-info-date'></label></td>

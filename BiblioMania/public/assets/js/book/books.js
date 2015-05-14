@@ -241,6 +241,7 @@ $(document).ready(function(){
                     showOrHide($('#book-detail-buy-info-city'), book.personal_book_info.buy_info.city.name);
                 }
                 showOrHide($('#book-detail-buy-info-recommended-by'), book.personal_book_info.buy_info.recommended_by);
+                showOrHide($('#book-detail-buy-info-country'), book.personal_book_info.buy_info.city.country.name);
             }
 
             $('#star-detail').raty({
