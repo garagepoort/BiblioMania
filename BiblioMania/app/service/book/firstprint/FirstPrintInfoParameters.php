@@ -10,7 +10,7 @@ class FirstPrintInfoParameters {
     private $language;
     private $country;
 
-    function __construct($title, $subtitle, $isbn, Date $publication_date = null, $publisher, Language $language = null, Country $country)
+    function __construct($title, $subtitle, $isbn, Date $publication_date = null, $publisher, Language $language = null, $country)
     {
         $this->title = StringUtils::emptyToNull($title);
         $this->subtitle = StringUtils::emptyToNull($subtitle);

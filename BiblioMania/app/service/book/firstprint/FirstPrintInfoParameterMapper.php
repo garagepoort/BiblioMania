@@ -22,8 +22,6 @@ class FirstPrintInfoParameterMapper {
             Input::get('first_print_publication_date_year'));
 
         $language = $this->languageService->find(Input::get('first_print_languageId'));
-        $country = new Country();
-        $country->name = Input::get('first_print_country');
 
         return new FirstPrintInfoParameters(
             Input::get("first_print_title"),
@@ -32,7 +30,7 @@ class FirstPrintInfoParameterMapper {
             $first_print_publication_date,
             Input::get('first_print_publisher'),
             $language,
-            $country
+            Input::get('first_print_country')
         );
     }
 }

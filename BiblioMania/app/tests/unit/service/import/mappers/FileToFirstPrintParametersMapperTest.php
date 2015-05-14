@@ -33,13 +33,11 @@ class FileToFirstPrintParametersMapperTest extends TestCase {
 
         $expectedLanguage = new Language();
         $expectedLanguage->name = "lang";
-        $expectedCountry = new Country();
-        $expectedCountry->name = "someCountry";
 
         $this->assertEquals($parameters->getTitle(), "title");
         $this->assertEquals($parameters->getSubtitle(), "");
         $this->assertEquals($parameters->getIsbn(), "");
-        $this->assertEquals($parameters->getCountry(), $expectedCountry);
+        $this->assertEquals($parameters->getCountry(), "someCountry");
         $this->assertEquals($parameters->getPublisher(), "publisher");
         $this->assertEquals($parameters->getLanguage(), $expectedLanguage);
         $this->assertEquals($parameters->getPublicationDate(), $this->dateMock);
@@ -62,13 +60,11 @@ class FileToFirstPrintParametersMapperTest extends TestCase {
 
         $expectedLanguage = new Language();
         $expectedLanguage->name = "lang";
-        $expectedCountry = new Country();
-        $expectedCountry->name = "someCountry";
 
         $this->assertEquals($parameters->getTitle(), "orginalBook");
         $this->assertEquals($parameters->getSubtitle(), "");
         $this->assertEquals($parameters->getIsbn(), "");
-        $this->assertEquals($parameters->getCountry(), $expectedCountry);
+        $this->assertEquals($parameters->getCountry(), "someCountry");
         $this->assertEquals($parameters->getPublisher(), "publisher");
         $this->assertEquals($parameters->getLanguage(), $expectedLanguage);
         $this->assertEquals($parameters->getPublicationDate(), $this->dateMock);

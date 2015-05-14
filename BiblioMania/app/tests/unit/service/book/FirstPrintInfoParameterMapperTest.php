@@ -50,15 +50,12 @@ class FirstPrintInfoParameterMapperTest extends TestCase {
 
         $firstPrintInfoParameters = $this->firstPrintInfoParameterMapper->create();
 
-        $expectedCountry = new Country();
-        $expectedCountry->name = self::COUNTRY;
-
         $this->assertEquals(self::TITLE, $firstPrintInfoParameters->getTitle());
         $this->assertEquals(self::SUBTITLE, $firstPrintInfoParameters->getSubtitle());
         $this->assertEquals(self::ISBN, $firstPrintInfoParameters->getIsbn());
         $this->assertEquals(self::PUBLISHER, $firstPrintInfoParameters->getPublisher());
         $this->assertEquals($this->languageMock, $firstPrintInfoParameters->getLanguage());
-        $this->assertEquals($expectedCountry, $firstPrintInfoParameters->getCountry());
+        $this->assertEquals(self::COUNTRY, $firstPrintInfoParameters->getCountry());
         $this->assertEquals($this->publicationDateMock, $firstPrintInfoParameters->getPublicationDate());
     }
 

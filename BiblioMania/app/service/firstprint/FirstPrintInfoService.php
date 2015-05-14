@@ -35,7 +35,9 @@ class FirstPrintInfoService
         if ($firstPrintInfoParameters->getPublicationDate() != null) {
             $firstPrintInfo->publication_date()->associate($firstPrintInfoParameters->getPublicationDate());
         }
-        if ($firstPrintInfoParameters->getCountry() != null) {
+        $country = null;
+
+        if ($firstPrintInfoParameters->getCountry() != null && $firstPrintInfoParameters->getCountry() !== '') {
             $country = $this->countryService->findOrCreate($firstPrintInfoParameters->getCountry());
             $firstPrintInfo->country()->associate($country);
         }

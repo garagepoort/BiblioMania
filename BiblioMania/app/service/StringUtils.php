@@ -15,4 +15,8 @@ class StringUtils {
 
         return $string;
     }
+
+    public static function isEmpty($string){
+        return !isset($string) || trim($string) === '';
+    }
 }

@@ -13,23 +13,6 @@ class PublisherService
         $this->publisherRepository = App::make('PublisherRepository');
     }
 
-
-
-//    public function findOrCreate($publisher_name){
-//
-//        $publisher = Publisher::where('name', '=', $publisher_name)
-//            ->where("user_id", "=", Auth::user()->id)
-//            ->first();
-//
-//        if (is_null($publisher)) {
-//            $publisher = new Publisher(array(
-//                'name' => $publisher_name
-//            ));
-//            $publisher->user_id = Auth::user()->id;
-//        }
-//        return $publisher;
-//    }
-
     public function findOrCreate($name, $country){
         $publisher = Publisher::where('name', '=', $name)
             ->where("user_id", "=", Auth::user()->id)
@@ -43,11 +26,13 @@ class PublisherService
         }
         $publisher->save();
 
-        $publisher_country = $this->countryService->findOrCreate($country);
-
-        if(!$publisher->countries->contains($publisher_country->id)){
-            $publisher->countries()->attach($publisher_country);
+        if(!StringUtils::isEmpty($country)){
+            $publisher_country = $this->countryService->findOrCreate($country);
+            if(!$publisher->countries->contains($publisher_country->id)){
+                $publisher->countries()->attach($publisher_country);
+            }
         }
+
 
         return $publisher;
 
