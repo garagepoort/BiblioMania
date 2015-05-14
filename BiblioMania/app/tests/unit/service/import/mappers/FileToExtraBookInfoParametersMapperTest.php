@@ -16,7 +16,7 @@ class FileToExtraBookInfoParametersMapperTest extends TestCase {
         $line_values[LineMapping::ExtraBookInfoPages] = "1032";
 
         /** @var ExtraBookInfoParameters $parameters */
-        $parameters = $this->fileToBuyInfoParametersMapperTest->map($line_values);
+        $parameters = $this->fileToExtraBookInfoParametersMapper->map($line_values);
 
         $this->assertEquals("12", $parameters->getPrint());
         $this->assertEquals("1032", $parameters->getPages());

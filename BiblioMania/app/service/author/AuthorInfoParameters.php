@@ -1,17 +1,24 @@
 <?php
 
 class AuthorInfoParameters {
+    /** @var  String */
     private $name;
+    /** @var  String */
     private $firstname;
+    /** @var  String */
     private $infix;
+    /** @var  Date */
     private $date_of_birth;
+    /** @var  Date */
     private $date_of_death;
+    /** @var  String */
     private $linked_book;
+    /** @var  BookFromAuthorParameters[] */
     private $oeuvre;
     private $image;
     private $shouldCreateImage;
 
-    function __construct($name, $firstname, $infix, Date $date_of_birth = null, Date $date_of_death = null, $linked_book, $image, $oeuvre, $shouldCreateImage)
+    function __construct($name, $firstname, $infix, Date $date_of_birth = null, Date $date_of_death = null, $linked_book, $image, array $oeuvre = array(), $shouldCreateImage)
     {
         $this->name = $name;
         $this->firstname = $firstname;

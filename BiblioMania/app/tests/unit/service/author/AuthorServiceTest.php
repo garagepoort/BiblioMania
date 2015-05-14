@@ -6,17 +6,12 @@ class AuthorServiceTest extends TestCase {
     const INFIX = "infix";
     const LINKED_BOOK = "linked_book";
     const IMAGE = "image";
-    const OEUVRE = "oeuvre";
     const IMAGE_PATH = "imagePath";
 
     /** @var  AuthorService */
     private $authorService;
     /** @var  ImageService */
     private $imageService;
-    /** @var OeuvreMapper */
-    private $oeuvreMapper;
-    /** @var OeuvreService */
-    private $oeuvreService;
     /** @var AuthorRepository */
     private $authorRepository;
     /** @var DateService */
@@ -28,8 +23,6 @@ class AuthorServiceTest extends TestCase {
     public function setUp(){
         parent::setUp();
         $this->imageService = $this->mock("ImageService");
-        $this->oeuvreMapper = $this->mock("OeuvreMapper");
-        $this->oeuvreService = $this->mock("OeuvreService");
         $this->dateService = $this->mock("DateService");
         $this->authorRepository = $this->mock("AuthorRepository");
 
@@ -50,7 +43,8 @@ class AuthorServiceTest extends TestCase {
             $this->dateOfDeathMock,
             self::LINKED_BOOK,
             self::IMAGE,
-            self::OEUVRE);
+            array(),
+            true);
 
         $this->dateOfBirthMock->shouldReceive('save')->once();
         $this->dateOfDeathMock->shouldReceive('save')->once();
@@ -78,7 +72,8 @@ class AuthorServiceTest extends TestCase {
             $this->dateOfDeathMock,
             self::LINKED_BOOK,
             self::IMAGE,
-            self::OEUVRE);
+            array(),
+            true);
 
         $originalDateOfBirth = Mockery::mock('Eloquent', 'Date');
         $originalDateOfDeath = Mockery::mock('Eloquent', 'Date');

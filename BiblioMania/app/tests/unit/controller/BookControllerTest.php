@@ -9,10 +9,13 @@ class BookControllerTest extends TestCase{
 
     /** @var  BookCreationService */
     private $bookCreationService;
+    /** @var  LanguageService */
+    private $languageService;
 
     public function setUp(){
         parent::setUp();
         $this->bookCreationService = $this->mock('BookCreationService');
+        $this->languageService = $this->mock('LanguageService');
         $this->bookFormValidatorMock = $this->mock('BookFormValidator');
 
         $this->validatorMock = Mockery::mock('Illuminate\Validation\Factory');
@@ -49,8 +52,16 @@ class BookControllerTest extends TestCase{
         $parameters = array(
             'book_id'=>'123',
             'book_country'=>'someCountry',
-            'book_publisher'=>'somePublisher'
+            'book_publisher'=>'somePublisher',
+            'book_languageId'=>'12',
+            'first_print_languageId'=>'122'
         );
+
+        $langBook = $this->mockEloquent('Language');
+        $langFirstPrint = $this->mockEloquent('Language');
+        $this->languageService->shouldReceive('find')->once()->with('12')->andReturn($langBook);
+        $this->languageService->shouldReceive('find')->once()->with('122')->andReturn($langFirstPrint);
+
         $response = $this->action('POST', 'BookController@createOrEditBook', null, $parameters);
 
         $this->assertRedirectedTo('/getBooks');

@@ -4,10 +4,6 @@ class AuthorService
 {
     /** @var  ImageService */
     private $imageService;
-    /** @var  OeuvreService */
-    private $oeuvreService;
-    /** @var  OeuvreMapper */
-    private $oeuvreMapper;
     /** @var  AuthorRepository */
     private $authorRepository;
     /** @var  DateService */
@@ -16,12 +12,14 @@ class AuthorService
     function __construct()
     {
         $this->imageService = App::make('ImageService');
-        $this->oeuvreService = App::make('OeuvreService');
-        $this->oeuvreMapper = App::make('OeuvreMapper');
         $this->dateService = App::make('DateService');
         $this->authorRepository = App::make('AuthorRepository');
     }
 
+    /**
+     * @param AuthorInfoParameters $authorInfoParameters
+     * @return Author
+     */
     public function createOrUpdate(AuthorInfoParameters $authorInfoParameters)
     {
         $imagePath = 'images/questionCover.png';

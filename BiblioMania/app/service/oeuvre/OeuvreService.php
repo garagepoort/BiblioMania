@@ -25,9 +25,16 @@ class OeuvreService
     }
 
     public function saveBookFromAuthors($oeuvreList, $authorId){
-        foreach($oeuvreList as $oeuvre){
-            $oeuvre->author_id = $authorId;
-            $this->bookFromAuthorRepository->save($oeuvre);
+        /** @var BookFromAuthorParameters $bookFromAuthorParameters */
+        foreach($oeuvreList as $bookFromAuthorParameters){
+            $foundBookFromAuthor = BookFromAuthor::where('title', '=', $bookFromAuthorParameters->getTitle())->where('author_id', '=', $authorId)->first();
+            if (is_null($foundBookFromAuthor)) {
+                $bookFromAuthor = new BookFromAuthor();
+                $bookFromAuthor->author_id = $authorId;
+                $bookFromAuthor->title = $bookFromAuthorParameters->getTitle();
+                $bookFromAuthor->publication_year = $bookFromAuthorParameters->getYear();
+                $this->bookFromAuthorRepository->save($bookFromAuthor);
+            }
         }
     }
 }

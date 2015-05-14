@@ -18,7 +18,8 @@ class FirstPrintInfoService
     }
 
 
-    public function findOrCreate(FirstPrintInfoParameters $firstPrintInfoParameters){
+    public function findOrCreate(FirstPrintInfoParameters $firstPrintInfoParameters)
+    {
         $firstPrintInfo = new FirstPrintInfo();
 
         if (!is_null($firstPrintInfoParameters->getIsbn())) {
@@ -28,15 +29,17 @@ class FirstPrintInfoService
         $firstPrintInfo->title = $firstPrintInfoParameters->getTitle();
         $firstPrintInfo->subtitle = $firstPrintInfoParameters->getSubtitle();
         $firstPrintInfo->ISBN = $firstPrintInfoParameters->getIsbn();
-        $firstPrintInfo->language()->associate($firstPrintInfoParameters->getLanguage());
-        if($firstPrintInfoParameters->getPublicationDate() != null){
+        if ($firstPrintInfoParameters->getLanguage() != null) {
+            $firstPrintInfo->language()->associate($firstPrintInfoParameters->getLanguage());
+        }
+        if ($firstPrintInfoParameters->getPublicationDate() != null) {
             $firstPrintInfo->publication_date()->associate($firstPrintInfoParameters->getPublicationDate());
         }
-        if($firstPrintInfoParameters->getCountry() != null){
+        if ($firstPrintInfoParameters->getCountry() != null) {
             $country = $this->countryService->findOrCreate($firstPrintInfoParameters->getCountry());
             $firstPrintInfo->country()->associate($country);
         }
-        if($firstPrintInfoParameters->getPublisher() != null){
+        if ($firstPrintInfoParameters->getPublisher() != null) {
             $publisher = $this->publisherService->findOrCreate($firstPrintInfoParameters->getPublisher(), $country);
             $firstPrintInfo->publisher()->associate($publisher);
         }

@@ -6,11 +6,14 @@ class AuthorInfoParameterMapper {
     private $dateService;
     /** @var ImageService */
     private $imageService;
+    /** @var  OeuvreToParameterMapper */
+    private $oeuvreToParameterMapper;
 
     function __construct()
     {
         $this->dateService = App::make('DateService');
         $this->imageService = App::make('ImageService');
+        $this->oeuvreToParameterMapper = App::make('OeuvreToParameterMapper');
     }
 
 
@@ -26,7 +29,7 @@ class AuthorInfoParameterMapper {
             $author_date_of_death,
             Input::get('bookFromAuthorTitle'),
             $this->getAuthorImage(),
-            Input::get('oeuvre'),
+            $this->oeuvreToParameterMapper->mapToOeuvreList(Input::get('oeuvre')),
             true
         );
     }

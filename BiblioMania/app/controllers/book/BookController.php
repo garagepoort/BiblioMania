@@ -10,13 +10,21 @@ class BookController extends BaseController
     private $bookFormValidator;
     /** @var  BookCreationService */
     private $bookCreationService;
+    /** @var  AuthorInfoParameterMapper */
     private $authorInfoParameterMapper;
+    /** @var  ExtraBookInfoParameterMapper */
     private $extraBookInfoParameterMapper;
+    /** @var  BookInfoParameterMapper */
     private $bookInfoParameterMapper;
+    /** @var  BuyInfoParameterMapper */
     private $buyInfoParameterMapper;
+    /** @var  GiftInfoParameterMapper */
     private $giftInfoParameterMapper;
+    /** @var  CoverInfoParameterMapper */
     private $coverInfoParameterMapper;
+    /** @var  FirstPrintInfoParameterMapper */
     private $firstPrintInfoParameterMapper;
+    /** @var  PersonalBookInfoParameterMapper */
     private $personalBookInfoParameterMapper;
     /** @var  CountryService */
     private $countryService;

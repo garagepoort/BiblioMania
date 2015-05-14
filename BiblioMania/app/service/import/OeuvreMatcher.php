@@ -37,7 +37,7 @@ class OeuvreMatcher
             } else if (count($foundBooksFromAuthor) > 1) {
                 foreach ($foundBooksFromAuthor as $foundBookFromAuthor) {
                     $year = $foundBookFromAuthor->publication_year;
-                    if ($book->first_print_info->publication_date->year == $year) {
+                    if (!is_null($book->first_print_info->publication_date) && $book->first_print_info->publication_date->year == $year) {
                         $book->book_from_author_id = $foundBookFromAuthor->id;
                         $book->save();
                     }

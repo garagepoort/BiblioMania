@@ -19,8 +19,6 @@ class BookCreationService {
     private $giftInfoService;
     /** @var  OeuvreService */
     private $oeuvreService;
-    /** @var  OeuvreMapper */
-    private $oeuvreMapper;
 
     function __construct()
     {
@@ -33,7 +31,6 @@ class BookCreationService {
         $this->buyInfoService = App::make('BuyInfoService');
         $this->giftInfoService = App::make('GiftInfoService');
         $this->oeuvreService = App::make('OeuvreService');
-        $this->oeuvreMapper = App::make('OeuvreMapper');
     }
 
 
@@ -41,8 +38,7 @@ class BookCreationService {
         DB::transaction(function() use ($bookCreationParameters)
         {
             $author = $this->authorService->createOrUpdate($bookCreationParameters->getAuthorInfoParameters());
-            $bookFromAuthorList = $this->oeuvreMapper->mapToOeuvreList($bookCreationParameters->getAuthorInfoParameters()->getOeuvre(), $author->id);
-            $this->oeuvreService->saveBookFromAuthors($bookFromAuthorList, $author->id);
+            $this->oeuvreService->saveBookFromAuthors($bookCreationParameters->getAuthorInfoParameters()->getOeuvre(), $author->id);
 
             $book_publisher = $this->publisherService->findOrCreate(
                 $bookCreationParameters->getBookInfoParameters()->getPublisherName(),

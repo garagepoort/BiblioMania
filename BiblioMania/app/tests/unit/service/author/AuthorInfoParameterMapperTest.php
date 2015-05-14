@@ -15,12 +15,16 @@ class AuthorInfoParameterMapperTest extends TestCase {
     const IMAGE = 'image';
     const OEUVRE = 'SOME OEUVRE';
 
+    private $bookFromAuthorParameters;
+
     /** @var  AuthorInfoParameterMapper */
     private $authorInfoParameterMapper;
     /** @var  DateService */
     private $dateServiceMock;
     /** @var  ImageService */
     private $imageServiceMock;
+    /** @var  OeuvreToParameterMapper */
+    private $oeuvreToParameterMapper;
 
     private $birthDateMock;
     private $deathDateMock;
@@ -30,6 +34,7 @@ class AuthorInfoParameterMapperTest extends TestCase {
         parent::setUp();
         $this->dateServiceMock = $this->mock('DateService');
         $this->imageServiceMock = $this->mock('ImageService');
+        $this->oeuvreToParameterMapper = $this->mock('OeuvreToParameterMapper');
         $this->authorInfoParameterMapper = App::make('AuthorInfoParameterMapper');
 
         $this->mockInput = Mockery::mock('\Illuminate\Http\Request');
@@ -37,7 +42,6 @@ class AuthorInfoParameterMapperTest extends TestCase {
         $this->birthDateMock = Mockery::mock('Eloquent', 'Date');
         $this->deathDateMock = Mockery::mock('Eloquent', 'Date');
     }
-
 
     public function testCreate_mapsCorrect(){
         $this->mockDates($this->mockInput);
@@ -57,7 +61,7 @@ class AuthorInfoParameterMapperTest extends TestCase {
         $this->assertEquals($this->deathDateMock, $authorInfoParameters->getDateOfDeath());
         $this->assertEquals(self::IMAGE, $authorInfoParameters->getImage());
         $this->assertEquals(self::BOOK_FROM_AUTHOR, $authorInfoParameters->getLinkedBook());
-        $this->assertEquals(self::OEUVRE, $authorInfoParameters->getOeuvre());
+        $this->assertEquals($this->bookFromAuthorParameters, $authorInfoParameters->getOeuvre());
     }
 
     public function testWhenSelfUpload_getsImageFromInput(){
@@ -126,5 +130,8 @@ class AuthorInfoParameterMapperTest extends TestCase {
         $mockInput->shouldReceive('input')->with('author_firstname', null)->andReturn(self::FIRSTNAME);
         $mockInput->shouldReceive('input')->with('author_infix', null)->andReturn(self::INFIX);
         $mockInput->shouldReceive('input')->with('oeuvre', null)->andReturn(self::OEUVRE);
+
+        $this->bookFromAuthorParameters = array(new BookFromAuthorParameters('some Title', 1234));
+        $this->oeuvreToParameterMapper->shouldReceive('mapToOeuvreList')->with(self::OEUVRE)->andReturn($this->bookFromAuthorParameters);
     }
 }

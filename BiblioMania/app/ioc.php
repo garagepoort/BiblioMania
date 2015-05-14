@@ -140,9 +140,9 @@
 		return new BookCreationService();
 	});
 
-	App::singleton('OeuvreMapper', function()
+	App::singleton('OeuvreToParameterMapper', function()
 	{
-		return new OeuvreMapper();
+		return new OeuvreToParameterMapper();
 	});
 
 	App::singleton('FileToAuthorParametersMapper', function()
@@ -183,6 +183,11 @@
 	App::singleton('FileToCoverInfoParametersMapper', function()
 	{
 		return new FileToCoverInfoParametersMapper();
+	});
+
+	App::singleton('FileToOeuvreParametersMapper', function()
+	{
+		return new FileToOeuvreParametersMapper();
 	});
 
 
