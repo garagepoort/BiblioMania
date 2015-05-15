@@ -61,6 +61,13 @@ class BookController extends BaseController
         ));
     }
 
+    public function getFullBook()
+    {
+        $book_id = Input::get('book_id');
+
+        return $this->bookService->getFullBook($book_id);
+    }
+
     public function getNextBooks()
     {
         $book_title = Input::get('bookTitle');

@@ -42,8 +42,7 @@ class BookService
         return Book::where('user_id', '=', Auth::user()->id)->get();
     }
 
-    public function getFilteredBooks($book_id, $book_title, $book_subtitle, $book_author_name, $book_author_firstname, $orderBy)
-    {
+    public function getFullBook($book_id){
         $with = array(
             'authors',
             'publisher',
@@ -55,15 +54,20 @@ class BookService
             'publisher_serie',
             'serie');
 
+        return Book::with($with)->where('user_id', '=', Auth::user()->id)
+            ->where('id', '=', $book_id)
+            ->get();
+    }
 
+    public function getFilteredBooks($book_id, $book_title, $book_subtitle, $book_author_name, $book_author_firstname, $orderBy)
+    {
         if ($book_id != null) {
-            return Book::with($with)->where('user_id', '=', Auth::user()->id)
+            return Book::where('user_id', '=', Auth::user()->id)
                 ->where('id', '=', $book_id)
                 ->paginate(60);
         }
 
-        $books = Book::with($with)
-            ->select(DB::raw('book.*'))
+        $books = Book::select(DB::raw('book.*'))
             ->leftJoin('book_author', 'book_author.book_id', '=', 'book.id')
             ->leftJoin('author', 'book_author.author_id', '=', 'author.id')
             ->leftJoin('personal_book_info', 'personal_book_info.book_id', '=', 'book.id')

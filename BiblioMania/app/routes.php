@@ -16,6 +16,7 @@ Route::group(array('before' => 'auth'), function() {
 
 //  BOOKS
     Route::get('getBooks', 'BookController@getBooks');
+    Route::get('getFullBook', 'BookController@getFullBook');
     Route::get('getNextBooks', 'BookController@getNextBooks');
     Route::get('getBooksFromSearch', 'BookController@getBooksFromSearch');
     Route::get('createBook', 'BookController@goToCreateBook');

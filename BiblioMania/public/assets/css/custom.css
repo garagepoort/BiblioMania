@@ -73,7 +73,9 @@ a:hover {
   color: black;
   background-color: #def;
 }
-
+.datepicker {
+  color: #ffffff;
+}
 .popover-title {
   color: #ffffff;
 }
@@ -86,33 +88,33 @@ a:hover {
   font-size: 36px;
 }
 /*DATEPICKER*/
-/*div.datepicker-days table thead tr th {*/
-  /*color: #ffffff;*/
-/*}*/
-/*div.datepicker-years table thead tr th {*/
-  /*color: #ffffff;*/
-/*}*/
-/*div.datepicker-months table thead tr th {*/
-  /*color: #ffffff;*/
-/*}*/
-/*div.datepicker-days table tbody tr td {*/
-  /*color: #ffffff;*/
-/*}*/
-/*div.datepicker-months table tbody tr td span {*/
-  /*color: #ffffff;*/
-/*}*/
-/*div.datepicker-years table tbody tr td span {*/
-  /*color: #ffffff;*/
-/*}*/
-/*div.datepicker-days table tfoot tr th {*/
-  /*color: #ffffff;*/
-/*}*/
-/*div.datepicker-months table tfoot tr th {*/
-  /*color: #ffffff;*/
-/*}*/
-/*div.datepicker-years table tfoot tr th {*/
-  /*color: #ffffff;*/
-/*}*/
+div.datepicker-days table thead tr th {
+  color: #ffffff;
+}
+div.datepicker-years table thead tr th {
+  color: #ffffff;
+}
+div.datepicker-months table thead tr th {
+  color: #ffffff;
+}
+div.datepicker-days table tbody tr td {
+  color: #ffffff;
+}
+div.datepicker-months table tbody tr td span {
+  color: #ffffff;
+}
+div.datepicker-years table tbody tr td span {
+  color: #ffffff;
+}
+div.datepicker-days table tfoot tr th {
+  color: #ffffff;
+}
+div.datepicker-months table tfoot tr th {
+  color: #ffffff;
+}
+div.datepicker-years table tfoot tr th {
+  color: #ffffff;
+}
 /*END DATEPICKER*/
 legend {
   color: #2d6ca2;
@@ -633,4 +635,23 @@ div.container-fluid {
 }
 #publisherEditList_filter {
   color: #2d6ca2;
+}
+.isloading-wrapper.isloading-right {
+  margin-left: 10px;
+}
+.isloading-overlay {
+  text-align: center;
+}
+.isloading-overlay .isloading-wrapper {
+  background: #FFFFFF;
+  -webkit-border-radius: 7px !important;
+  -webkit-background-clip: padding-box !important;
+  -moz-border-radius: 7px !important;
+  -moz-background-clip: padding;
+  border-radius: 7px !important;
+  background-clip: padding-box;
+  display: inline-block;
+  padding: 10px 20px;
+  margin-top: 300px;
+  color: black;
 }

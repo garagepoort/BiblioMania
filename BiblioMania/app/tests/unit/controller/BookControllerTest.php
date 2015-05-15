@@ -11,19 +11,22 @@ class BookControllerTest extends TestCase{
     private $bookCreationService;
     /** @var  LanguageService */
     private $languageService;
+    /** @var  BookService */
+    private $bookService;
 
     public function setUp(){
         parent::setUp();
         $this->bookCreationService = $this->mock('BookCreationService');
         $this->languageService = $this->mock('LanguageService');
         $this->bookFormValidatorMock = $this->mock('BookFormValidator');
+        $this->bookService = $this->mock('BookService');
 
         $this->validatorMock = Mockery::mock('Illuminate\Validation\Factory');
         Validator::swap($this->validatorMock);
-        $this->bookFormValidatorMock->shouldReceive('createValidator')->once()->andReturn($this->validatorMock);
     }
 
     public function testCreateOrEditBook_whenValidationFailsAndBookIdEmpty_returnToCreateBookPageWithErrors(){
+        $this->bookFormValidatorMock->shouldReceive('createValidator')->once()->andReturn($this->validatorMock);
         $this->validatorMock->shouldReceive('fails')->once()->andReturn(true);
 
         $parameters = array(
@@ -35,6 +38,7 @@ class BookControllerTest extends TestCase{
     }
 
     public function testCreateOrEditBook_whenValidationFailsAndBookIdNotEmpty_returnToEditBookPageWithErrors(){
+        $this->bookFormValidatorMock->shouldReceive('createValidator')->once()->andReturn($this->validatorMock);
         $this->validatorMock->shouldReceive('fails')->once()->andReturn(true);
 
         $parameters = array(
@@ -44,7 +48,19 @@ class BookControllerTest extends TestCase{
         $this->assertRedirectedTo('/editBook/123');
     }
 
+    public function testGetFullBook_callsService(){
+        $book_id =123;
+        $book = new Book();
+        $this->bookService->shouldReceive('getFullBook')->once()->with($book_id)->andReturn($book);
+
+        $parameters = array(
+            'book_id'=>$book_id
+        );
+        $response = $this->action('GET', 'BookController@getFullBook', null, $parameters);
+    }
+
     public function testCreateOrEditBook_whenValidationSuccess_callBookCreationService(){
+        $this->bookFormValidatorMock->shouldReceive('createValidator')->once()->andReturn($this->validatorMock);
         $this->validatorMock->shouldReceive('fails')->once()->andReturn(false);
 
         $this->bookCreationService->shouldReceive("createBook")->once();

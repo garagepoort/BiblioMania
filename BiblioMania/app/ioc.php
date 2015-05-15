@@ -90,7 +90,6 @@
 	    return new LanguageService;
 	});
 
-
 	App::singleton('BookImportService', function()
 	{
 	    return new BookImportService();
@@ -118,6 +117,12 @@
 	{
 		return new BookFormValidator();
 	});
+
+	App::singleton('BookDTOMapper', function()
+	{
+		return new BookDTOMapper();
+	});
+
 
 
 	App::singleton('AuthorInfoParameterMapper', function()

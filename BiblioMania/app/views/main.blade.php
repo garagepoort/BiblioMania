@@ -47,6 +47,8 @@
 
         <!-- SHORTEN -->
         {{ HTML::script('assets/lib/jquery.shorten.js') }}
+        <!-- isLoading -->
+        {{ HTML::script('assets/lib/isLoading/jquery.isloading.min.js') }}
 
         <!-- DIALOG -->
         {{ HTML::script('assets/lib/bootstrap3-dialog-master/dist/js/bootstrap-dialog.js') }}
