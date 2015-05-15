@@ -251,9 +251,11 @@ $(document).ready(function () {
             showOrHide($('#book-detail-buy-info-shop'), book.personal_book_info.buy_info.shop);
             if (book.personal_book_info.buy_info.city != null) {
                 showOrHide($('#book-detail-buy-info-city'), book.personal_book_info.buy_info.city.name);
+                if(book.personal_book_info.buy_info.city.country != null){
+                    showOrHide($('#book-detail-buy-info-country'), book.personal_book_info.buy_info.city.country.name);
+                }
             }
             showOrHide($('#book-detail-buy-info-recommended-by'), book.personal_book_info.buy_info.recommended_by);
-            showOrHide($('#book-detail-buy-info-country'), book.personal_book_info.buy_info.city.country.name);
         }
 
         $('#star-detail').raty({
