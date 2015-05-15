@@ -39,7 +39,7 @@ namespace :deploy do
   desc 'update composer'
   task :restart do
     on roles(:app) do
-      execute "cd ~/myApps/BiblioMania/current/BiblioMania && php composer.phar update && cd public && rm bookImages && ln -s /home/garagepoort/myApps/BiblioMania/bookImages"
+      execute "cd ~/myApps/BiblioMania/current/BiblioMania && php composer.phar update && cd public && ln -s /home/garagepoort/myApps/BiblioMania/bookImages"
     end
       # Your restart mechanism here, for example:
       # execute :touch, release_path.join('tmp/restart.txt')
