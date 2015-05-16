@@ -47,8 +47,11 @@
 
         <!-- SHORTEN -->
         {{ HTML::script('assets/lib/jquery.shorten.js') }}
-        <!-- isLoading -->
+        <!-- ISLOADING -->
         {{ HTML::script('assets/lib/isLoading/jquery.isloading.min.js') }}
+        <!-- JCAPSLIDE -->
+        {{ HTML::script('assets/lib/jCapSlide/jquery.capSlide.js') }}
+        {{ HTML::style('assets/lib/jCapSlide/css/style.css') }}
 
         <!-- DIALOG -->
         {{ HTML::script('assets/lib/bootstrap3-dialog-master/dist/js/bootstrap-dialog.js') }}

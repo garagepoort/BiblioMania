@@ -52,6 +52,13 @@ $(document).ready(function () {
         doFilterBooks();
     });
 
+    function addCapSlideToElement(element) {
+        element.capslide({
+            showcaption: false,
+            overlay_bgcolor: ""
+        });
+    }
+
     function fillInBookContainer(data) {
         var books = data.data;
         var amountBooks = Object.keys(books).length;
@@ -62,37 +69,61 @@ $(document).ready(function () {
                 columns = amountBooks % 6;
             }
 
-            var trString = "<tr>";
-
+            var trElement = $("<tr></tr>");
             for (j = 0; j < columns; j++) {
                 var book = books[(6 * i) + j];
                 var imageString = baseUrl + "/" + book.coverImage;
                 if (book.coverImage == '' || book.coverImage == null) {
                     imageString = baseUrl + "/images/questionCover.png";
                 }
-                trString = trString + '<td>';
-                trString = trString + "<div class='imageLinkWrapper'>";
-                trString = trString + "<img src=\"" + imageString + "\" bookid='" + book.id + "' class='bookCoverLink'>";
-                trString = trString + '</div>';
-                trString = trString + '</td>';
+                var tdElement = $("<td></td>");
+
+                var imageLinkWrapper = $("<div></div>");
+                imageLinkWrapper.attr("class", "imageLinkWrapper ic_container");
+                imageLinkWrapper.attr("bookid", book.id);
+
+                var imageElement = $("<img/>");
+                imageElement.attr("class","bookCoverLink");
+                imageElement.attr("style","width: 142px;");
+                imageElement.attr("src", imageString);
+
+                var overlayElement = $("<div></div>");
+                overlayElement.attr("class","overlay");
+                overlayElement.attr("style", "display:none;");
+
+                var icCaptionElement = $("<div class=\"ic_caption\"><p class=\"ic_category\">Edit<i class=\"fa fa-pencil editImagePencilIcon\"></i></p></div>");
+
+
+                imageLinkWrapper.append(imageElement);
+                imageLinkWrapper.append(overlayElement);
+                imageLinkWrapper.append(icCaptionElement);
+                tdElement.append(imageLinkWrapper);
+                trElement.append(tdElement);
+
+                addCapSlideToElement(imageLinkWrapper);
+                addClickToBookImage(imageLinkWrapper);
+                addClickToEditElement(icCaptionElement, book.id);
             }
-            trString = trString + '</tr>';
-            $('#books-container-table > tbody:last').append(trString);
+            $('#books-container-table > tbody:last').append(trElement);
         }
+    }
 
-        $('.bookCoverLink').unbind().dblclick(function () {
-            var bookId = $(this).attr('bookId');
+
+    function addClickToEditElement(element, bookId) {
+        element.click(function  (event) {
             window.location = baseUrl + "/editBook/" + bookId;
+            event.stopPropagation();
         });
+    }
 
-        $('.bookCoverLink').unbind().click(function () {
+    function addClickToBookImage(element) {
+        element.click(function () {
             if (bookDetailAnimationBusy === false) {
                 $.isLoading({
                     text: "Loading",
                     'class': "icon-refresh",
                     'tpl': '<span class="isloading-wrapper %wrapper%">%text%<i class="%class% fa fa-refresh fa-spin"></i></span>'
                 });
-
                 var div = $('.book-detail-div');
                 var bookId = $(this).attr('bookId');
                 $.get(window.baseUrl + "/getFullBook?" + "book_id=" + bookId,
@@ -100,21 +131,16 @@ $(document).ready(function () {
                         if (status === "success") {
                             var book = data[0];
                             if (div.hasClass('visible') && lastClickedBookId !== bookId) {
-
                                 closeBookDetail();
-
                                 div.promise().done(function () {
                                     fillInBookInfo(book);
                                     openBookDetail(bookId);
                                 });
-
                                 lastClickedBookId = bookId;
-
                             } else if (div.hasClass('visible') === false) {
                                 fillInBookInfo(book);
                                 openBookDetail(bookId);
                                 lastClickedBookId = bookId;
-
                                 div.promise().done(function () {
                                     bookDetailAnimationBusy = false;
                                 });
@@ -251,7 +277,7 @@ $(document).ready(function () {
             showOrHide($('#book-detail-buy-info-shop'), book.personal_book_info.buy_info.shop);
             if (book.personal_book_info.buy_info.city != null) {
                 showOrHide($('#book-detail-buy-info-city'), book.personal_book_info.buy_info.city.name);
-                if(book.personal_book_info.buy_info.city.country != null){
+                if (book.personal_book_info.buy_info.city.country != null) {
                     showOrHide($('#book-detail-buy-info-country'), book.personal_book_info.buy_info.city.country.name);
                 }
             }

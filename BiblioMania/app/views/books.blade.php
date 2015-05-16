@@ -44,6 +44,7 @@
                 {{ Form::label('value', $total_value_library  . ' euro', array('class' => 'control-label col-md-3')); }}
             </div>
         </div>
+
         <table class="table books-table" id="books-container-table">
             <tbody class="infinite-container">
             </tbody>
