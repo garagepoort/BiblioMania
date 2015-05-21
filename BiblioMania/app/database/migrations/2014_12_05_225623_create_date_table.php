@@ -12,7 +12,7 @@ class CreateDateTable extends Migration {
 			$table->increments('id');
 	        $table->tinyInteger('day')->nullable();
 	        $table->tinyInteger('month')->nullable();
-	        $table->integer('year');
+	        $table->integer('year')->nullable();
 		});
 	}
 

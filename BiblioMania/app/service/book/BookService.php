@@ -42,6 +42,10 @@ class BookService
         return Book::where('user_id', '=', Auth::user()->id)->get();
     }
 
+    public function getBooksWithPersonalBookInfo(){
+        return Book::with("personal_book_info")->where('user_id', '=', Auth::user()->id)->get();
+    }
+
     public function getFullBook($book_id){
         $with = array(
             'authors',

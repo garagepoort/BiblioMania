@@ -25,6 +25,12 @@ Route::group(array('before' => 'auth'), function() {
     Route::get('logOut', 'LoginController@login');
     Route::get('importBooks', 'BookImportController@importBooks');
 
+//STATISTICS
+    Route::get('goToStatistics', 'StatisticsController@goToStatistics');
+    Route::get('getBooksReadPerMonth/{year}', 'StatisticsController@getBooksReadPerMonth');
+    Route::get('getBooksRetrievedPerMonth/{year}', 'StatisticsController@getBooksRetrievedPerMonth');
+    Route::get('getBooksAndPublicationDate', 'StatisticsController@getBooksAndPublicationDate');
+
 //  AUTHOR
     Route::get('getAuthor/{id}', 'AuthorController@getAuthor');
     Route::get('getAuthors', 'AuthorController@getAuthors');

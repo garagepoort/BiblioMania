@@ -89,6 +89,7 @@
                         <li>{{ HTML::link('getCountryList', 'Landenlijst', array('id'=>'countryListNavigationLink', 'title' => 'Landenlijst')) }}</li>
                     </ul>
                 </li>
+                <li>{{ HTML::link('goToStatistics', 'Statistieken', array('id'=>'goToStatisticsNavigationLink', 'title' => 'Statistieken')) }}</li>
               </ul>
 
               <ul class="nav navbar-nav navbar-right">

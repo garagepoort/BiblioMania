@@ -95,6 +95,11 @@
 	    return new BookImportService();
 	});
 
+	App::singleton('StatisticsService', function()
+	{
+	    return new StatisticsService();
+	});
+
 	App::singleton('DateImporter', function()
 	{
 	    return new DateImporter();
@@ -237,4 +242,9 @@
     App::singleton('LanguageRepository', function()
     {
         return new LanguageRepository();
+    });
+
+    App::singleton('StatisticsRepository', function()
+    {
+        return new StatisticsRepository();
     });
