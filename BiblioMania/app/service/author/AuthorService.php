@@ -22,15 +22,6 @@ class AuthorService
      */
     public function createOrUpdate(AuthorInfoParameters $authorInfoParameters)
     {
-        $imagePath = 'images/questionCover.png';
-        if($authorInfoParameters->getImage() != null){
-            if($authorInfoParameters->getShouldCreateImage()){
-                $imagePath = $this->imageService->saveImage($authorInfoParameters->getImage(), $authorInfoParameters->getName());
-            }else{
-                $imagePath = $authorInfoParameters->getImage();
-            }
-        }
-
         $author_model = $this->authorRepository->getAuthorByFullName($authorInfoParameters->getName(),
             $authorInfoParameters->getFirstname(),
             $authorInfoParameters->getInfix());
@@ -49,7 +40,7 @@ class AuthorService
             $this->dateService->copyDateValues($author_model->date_of_death, $authorInfoParameters->getDateOfDeath());
         }
 
-        $author_model->image = $imagePath;
+        $this->saveImage($authorInfoParameters, $author_model);
 
         $this->authorRepository->save($author_model);
         return $author_model;
@@ -114,5 +105,22 @@ class AuthorService
         }
 
         return $authors->paginate(60);
+    }
+
+    /**
+     * @param AuthorInfoParameters $authorInfoParameters
+     * @param $author_model
+     */
+    public function saveImage(AuthorInfoParameters $authorInfoParameters, $author_model)
+    {
+        if ($authorInfoParameters->getImage() != null) {
+            if ($authorInfoParameters->getShouldCreateImage()) {
+                $author_model->image = $this->imageService->saveImage($authorInfoParameters->getImage(), $authorInfoParameters->getName());
+            } else {
+                $author_model->image = $authorInfoParameters->getImage();
+            }
+        } else if (StringUtils::isEmpty($author_model->image)) {
+            $author_model->image = 'images/questionCover.png';
+        }
     }
 }

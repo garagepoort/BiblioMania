@@ -163,8 +163,8 @@ class BookService
     public function createBook(BookCreationParameters $bookCreationParameters, Publisher $publisher, Country $country, FirstPrintInfo $firstPrintInfo)
     {
         $book = new Book();
-        if ($bookCreationParameters->getBookInfoParameters()->getBookId() != null && $bookCreationParameters->getBookInfoParameters()->getBookId() != '') {
-            $book = Book::find($bookCreationParameters->getBookInfoParameters()->getBookId());
+        if (!StringUtils::isEmpty($bookCreationParameters->getBookInfoParameters()->getBookId())) {
+            $book = $this->bookRepository->find($bookCreationParameters->getBookInfoParameters()->getBookId());
         }
         $book->title = $bookCreationParameters->getBookInfoParameters()->getTitle();
         $book->subtitle = $bookCreationParameters->getBookInfoParameters()->getSubtitle();
@@ -185,16 +185,15 @@ class BookService
             $book->publication_date()->associate($bookCreationParameters->getBookInfoParameters()->getPublicationDate());
         }
 
-        $imagePath = 'images/questionCover.png';
         if ($bookCreationParameters->getCoverInfoParameters()->getImage() != null) {
             if ($bookCreationParameters->getCoverInfoParameters()->getShouldCreateImage()) {
-                $imagePath = $this->imageService->saveImage($bookCreationParameters->getCoverInfoParameters()->getImage(), $bookCreationParameters->getBookInfoParameters()->getTitle());
+                $book->coverImage = $this->imageService->saveImage($bookCreationParameters->getCoverInfoParameters()->getImage(), $bookCreationParameters->getBookInfoParameters()->getTitle());
             } else {
-                $imagePath = $bookCreationParameters->getCoverInfoParameters()->getImage();
+                $book->coverImage = $bookCreationParameters->getCoverInfoParameters()->getImage();
             }
+        }else if(StringUtils::isEmpty($book->coverImage)){
+            $book->coverImage = 'images/questionCover.png';
         }
-        $book->coverImage = $imagePath;
-
         $this->bookRepository->save($book);
         return $book;
     }

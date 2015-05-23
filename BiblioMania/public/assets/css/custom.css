@@ -81,7 +81,7 @@ a:hover {
   color: black;
   background-color: #def;
 }
-.datepicker {
+.datepicker .multidatepicker {
   color: #ffffff;
 }
 .popover-title {
@@ -102,35 +102,6 @@ div.chartDiv {
   width: 600px;
   float: left;
 }
-/*DATEPICKER*/
-div.datepicker-days table thead tr th {
-  color: #ffffff;
-}
-div.datepicker-years table thead tr th {
-  color: #ffffff;
-}
-div.datepicker-months table thead tr th {
-  color: #ffffff;
-}
-div.datepicker-days table tbody tr td {
-  color: #ffffff;
-}
-div.datepicker-months table tbody tr td span {
-  color: #ffffff;
-}
-div.datepicker-years table tbody tr td span {
-  color: #ffffff;
-}
-div.datepicker-days table tfoot tr th {
-  color: #ffffff;
-}
-div.datepicker-months table tfoot tr th {
-  color: #ffffff;
-}
-div.datepicker-years table tfoot tr th {
-  color: #ffffff;
-}
-/*END DATEPICKER*/
 legend {
   color: #2d6ca2;
 }

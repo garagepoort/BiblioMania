@@ -89,4 +89,39 @@ class BookServiceTest extends TestCase {
 
         $this->assertEquals('images/questionCover.png', $createdBook->coverImage);
     }
+
+    public function test_createBookWhenImageNull_andPreviousImageFilled_keepsPreviousImage(){
+        $previousImage = "some/previous/image.png";
+        $previousBook = new Book();
+        $previousBook->coverImage = $previousImage;
+
+        $firstPrintInfoParameters = $this->mock("FirstPrintInfoParameters");
+        $firstPrintInfo = $this->mock("FirstPrintInfo");
+        $buyInfo = $this->mock("BuyInfoParameters");
+        $authorInfo = $this->mock("AuthorInfoParameters");
+        $extra = $this->mock("ExtraBookInfoParameters");
+        $bookInfoParameters = $this->mock("BookInfoParameters");
+        $personalBookinfo = $this->mock("PersonalBookInfoParameters");
+        $publisher = $this->mockEloquent('Publisher');
+        $country = $this->mockEloquent('Country');
+
+        $bookInfoParameters
+            ->shouldReceive('getBookId')
+            ->andReturn(1);
+
+        $this->bookRepository
+            ->shouldReceive('find')
+            ->andReturn($previousBook);
+
+        $coverInfo = new CoverInfoParameters('HARDCOVER', null, true);
+        $bookCreationParameters = new BookCreationParameters($bookInfoParameters, $extra, $authorInfo, $buyInfo, null, $coverInfo, $firstPrintInfoParameters, $personalBookinfo);
+
+        $createdBook = $this->bookService->createBook($bookCreationParameters, $publisher, $country, $firstPrintInfo);
+
+        $this->imageService
+            ->shouldReceive('saveImage')
+            ->never();
+
+        $this->assertEquals($previousImage, $createdBook->coverImage);
+    }
 }

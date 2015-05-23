@@ -36,14 +36,7 @@
         <div class="form-group">
             {{ Form::label('personal_info_reading_dates_label', 'Lees datum / data:', array('class' => 'col-md-3')); }}
             <div class="col-md-3">
-                <input id="personal_info_reading_date_input" name="personal_info_reading_dates" hidden value={{ $personal_info_reading_date_input }}>
-                <table id="reading-dates-table">
-                </table>
-            </div>
-            <div class="col-md-2" style="padding-top: 4px">
-
-                <span id="reading-date-plus" class="reading-date-plus fa fa-plus fa-lg"></span>
-                <span id="reading-date-min" class="reading-date-min fa fa-minus fa-lg" style="margin-left: 4px"></span>
+                {{ Form::text('personal_info_reading_dates', $personal_info_reading_date_input, array('id'=>'personal_info_reading_date_input', 'class' => 'input-sm multidatepicker', 'placeholder' => 'ontvangstdatum')); }}
             </div>
         </div>
 

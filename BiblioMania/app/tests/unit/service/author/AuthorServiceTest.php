@@ -102,4 +102,16 @@ class AuthorServiceTest extends TestCase {
         $this->assertEquals($originalDateOfDeath, $author->date_of_death);
         $this->assertEquals($originalAuthor->image, $author->image);
     }
+
+    public function testSaveImage_whenImageGivenNull_andPreviousImageFilled_keepsPreviousImage(){
+        $author = new Author();
+        $previousImage = "pervieofeiowh";
+        $author->image = $previousImage;
+
+        $authorInfoParameters = new AuthorInfoParameters('name', 'firstname', 'infix', null, null, null, null, array(), false);
+
+        $this->authorService->saveImage($authorInfoParameters, $author);
+
+        $this->assertEquals($previousImage, $author->image);
+    }
 }

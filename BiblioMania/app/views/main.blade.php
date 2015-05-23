@@ -160,6 +160,14 @@
             todayHighlight: true,
             todayBtn: "linked"
         });
+
+        $(".multidatepicker").datepicker({
+            format: "dd/mm/yyyy",
+            multidate: true,
+            autoclose: true,
+            todayHighlight: true,
+            todayBtn: "linked"
+        });
     });
 </script>
 <script type="text/javascript">
