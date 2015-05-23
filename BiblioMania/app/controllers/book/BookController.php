@@ -70,14 +70,17 @@ class BookController extends BaseController
 
     public function getNextBooks()
     {
-        $book_title = Input::get('bookTitle');
-        $book_subtitle = Input::get('book_subtitle');
+        $query = Input::get('query');
+        $operator = Input::get('operator');
+        $type = Input::get('type');
+        $read = Input::get('read');
+        $owned = Input::get('owned');
+
         $book_id = Input::get('book_id');
-        $book_author_name = Input::get('book_author_name');
-        $book_author_firstname = Input::get('book_author_firstname');
         $orderBy = Input::get('order_by');
 
-        return $this->bookService->getFilteredBooks($book_id, $book_title, $book_subtitle, $book_author_name, $book_author_firstname, $orderBy);
+        $filterValues = new BookFilterValues($query, $operator, $type, $read, $owned);
+        return $this->bookService->getFilteredBooks($book_id, $filterValues ,$orderBy);
     }
 
     public function getBooksFromSearch()

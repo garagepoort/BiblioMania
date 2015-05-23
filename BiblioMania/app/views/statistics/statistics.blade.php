@@ -7,24 +7,20 @@
     {{ HTML::script('assets/js/statistics/statistics.js'); }}
     <!-- Chart Type -->
     <div class="statistics-container">
-        <div id="bookReadPerMonthContainer">
-            <h3>Boeken gelezen per maand</h3>
-            <div class="form-container">
-                @include('statistics.graphTypeSelect', array('selectId' => 'chartTypeBooksReadPerMonth'))
-                @include('statistics.yearsSelect', array('selectId' => 'yearsBooksReadPerMonth', 'years' => $years))
-            </div>
-            <p>deodk</p>
-            <div id="chart_div_books_read_per_month"></div>
-        </div>
-
-        <div id="bookRetrievedPerMonthContainer">
-            <div class="form-container">
-                <h3>Boeken verkregen per maand</h3>
-                @include('statistics.graphTypeSelect', array('selectId' => 'chartTypeBooksRetrievedPerMonth'))
-                @include('statistics.yearsSelect', array('selectId' => 'yearsBooksRetrievedPerMonth', 'years' => $years))
-            </div>
-            <p>deodk</p>
-            <div id="chart_div_books_retrieved_per_month"></div>
+        <div id="bookReadPerMonthContainer" class="chartContainer">
+            <table>
+                <tr>
+                    <td>
+                        <div id="chart_div_books_read_per_month" class="chartDiv"></div>
+                    </td>
+                    <td>
+                        <div class="charChoice">
+                            @include('statistics.graphTypeSelect', array('selectId' => 'chartTypeBooksReadPerMonth'))
+                            @include('statistics.yearsSelect', array('selectId' => 'yearsBooksReadPerMonth', 'years' => $years))
+                        </div>
+                    </td>
+                </tr>
+            </table>
         </div>
 
         <div id="chart_div"></div>
@@ -34,8 +30,7 @@
             google.load('visualization', '1.0', {'packages':['corechart']});
             google.setOnLoadCallback(drawChart);
             function drawChart() {
-                drawChartWrapper('chart_div_books_read_per_month', baseUrl + "/getBooksReadPerMonth/2014", '', $('#chartTypeBooksReadPerMonth'));
-                drawChartWrapper('chart_div_books_retrieved_per_month', baseUrl + "/getBooksRetrievedPerMonth/2014", '', $('#chartTypeBooksRetrievedPerMonth'));
+                drawChartWrapper('chart_div_books_read_per_month', baseUrl + "/getBooksPerMonth/2014", 'Boeken per maand', $('#chartTypeBooksReadPerMonth'));
                 drawScatterChart(baseUrl + "/getBooksAndPublicationDate");
             }
         </script>

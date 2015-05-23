@@ -95,6 +95,13 @@ a:hover {
   font-family: "vincent";
   font-size: 36px;
 }
+div.chartContainer {
+  width: 800px;
+}
+div.chartDiv {
+  width: 600px;
+  float: left;
+}
 /*DATEPICKER*/
 div.datepicker-days table thead tr th {
   color: #ffffff;
@@ -216,6 +223,10 @@ legend.sub-border {
 }
 .author-oeuvre-linked-book-title {
   color: #428bca;
+}
+#searchBooksButton {
+  height: 36px;
+  width: 50px;
 }
 #oeuvre-textarea-panel {
   color: black;

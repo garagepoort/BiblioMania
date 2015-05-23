@@ -20,6 +20,7 @@ class PersonalBookInfoService
         $personalBookInfo->set_owned($personalBookInfoParameters->getOwned());
         $personalBookInfo->review = $personalBookInfoParameters->getReview();
         $personalBookInfo->rating = $personalBookInfoParameters->getRating();
+        $personalBookInfo->read = count($personalBookInfoParameters->getReadingDates()) > 0;
         if(!$personalBookInfoParameters->getOwned()){
             $personalBookInfo->reason_not_owned = $personalBookInfoParameters->getReasonNotOwned();
         }

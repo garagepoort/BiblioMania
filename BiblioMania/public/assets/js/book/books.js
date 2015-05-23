@@ -17,7 +17,16 @@ $(document).ready(function () {
 
     function doSearchBooks() {
         window.book_id = null;
-        var url = window.baseUrl + "/getNextBooks?bookTitle=" + $('#searchBooksInput').val();
+        var query = $('#searchBooksInput').val();
+        var operator = $('#search_param_operator').val();
+        var type = $('#search_param_type').val();
+        var ownedVal = $(".ownedFilterRadioButton input.selected").val();
+        var readVal = $(".readFilterRadioButton input.selected").val();
+        var url = window.baseUrl + "/getNextBooks?query=" + query
+            + "&operator=" + operator
+            + "&type=" + type
+            + "&read=" + readVal
+            + "&owned=" + ownedVal;
         $('#books-container-table > tbody').empty();
         abortLoadingPaged();
         startLoadingPaged(url, 1, fillInBookContainer);
@@ -326,4 +335,24 @@ $(document).ready(function () {
         }
     });
 
+    $(function(){
+        $("#deselect").on("click",function(event){
+            $(".ownedFilterRadioButton").children('input.selected').removeClass('selected');
+            $(".readFilterRadioButton").children('input.selected').removeClass('selected');
+            $('.filterRadioButton').removeClass("active");
+            doSearchBooks();
+        });
+
+        $(".ownedFilterRadioButton").on("click",function(event){
+            $(".ownedFilterRadioButton").children('input.selected').removeClass('selected');
+            $(this).children('input').addClass('selected');
+            doSearchBooks();
+        });
+
+        $(".readFilterRadioButton").on("click",function(event){
+            $(".readFilterRadioButton").children('input.selected').removeClass('selected');
+            $(this).children('input').addClass('selected');
+            doSearchBooks();
+        });
+    });
 });

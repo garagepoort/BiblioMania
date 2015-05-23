@@ -1,24 +1,34 @@
 <legend>Filter</legend>
 <table id="book-filters-table" class="book-filters-table">
     <tr>
-        <td>Titel:</td>
-        <td><input id="title-filter-input" type="text"></td>
-    </tr>
-    </tr>
-        <td>Ondertitel:</td>
-        <td><input id="subtitle-filter-input" type="text"></td>
-    </tr>
-    </tr>
-        <td>Auteur naam:</td>
-        <td><input id="author-name-filter-input" type="text"></td>
-    </tr>
-    </tr>
-        <td>Auteur voornaam:</td>
-        <td><input id="author-firstname-filter-input" type="text"></td>
+        <td>Gelezen:</td>
+        <td>
+            <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-primary filterRadioButton readFilterRadioButton">
+                        <input type="radio" name="readFilter" value="YES"/> Ja
+                </label>
+                <label class="btn btn-primary filterRadioButton readFilterRadioButton">
+                    <input type="radio" name="readFilter" value="NO"/> Nee
+                </label>
+            </div>
+        </td>
     </tr>
     <tr>
-        <td style="padding-top:20px;">
-            <button id="book-filters-button" class="btn btn-primary">Filter</button>
+        <td>In collectie</td>
+        <td>
+            <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-primary filterRadioButton ownedFilterRadioButton">
+                    <input type="radio" name="ownedFilter" value="YES"/> Ja
+                </label>
+                <label class="btn btn-primary filterRadioButton ownedFilterRadioButton">
+                    <input type="radio" name="ownedFilter" value="NO"/> Nee
+                </label>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <button class="btn btn-success" id="deselect">Reset</button>
         </td>
     </tr>
 </table>

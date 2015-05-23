@@ -27,8 +27,7 @@ Route::group(array('before' => 'auth'), function() {
 
 //STATISTICS
     Route::get('goToStatistics', 'StatisticsController@goToStatistics');
-    Route::get('getBooksReadPerMonth/{year}', 'StatisticsController@getBooksReadPerMonth');
-    Route::get('getBooksRetrievedPerMonth/{year}', 'StatisticsController@getBooksRetrievedPerMonth');
+    Route::get('getBooksPerMonth/{year}', 'StatisticsController@getBooksPerMonth');
     Route::get('getBooksAndPublicationDate', 'StatisticsController@getBooksAndPublicationDate');
 
 //  AUTHOR

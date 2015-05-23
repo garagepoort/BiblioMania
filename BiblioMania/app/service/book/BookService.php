@@ -63,7 +63,7 @@ class BookService
             ->get();
     }
 
-    public function getFilteredBooks($book_id, $book_title, $book_subtitle, $book_author_name, $book_author_firstname, $orderBy)
+    public function getFilteredBooks($book_id, BookFilterValues $bookFilterValues, $orderBy)
     {
         if ($book_id != null) {
             return Book::where('user_id', '=', Auth::user()->id)
@@ -80,19 +80,48 @@ class BookService
             ->where('book_author.preferred', '=', 1)
             ->where('user_id', '=', Auth::user()->id);
 
-        if ($book_title != null) {
-            $books = $books->where('book.title', 'LIKE', '%' . $book_title . '%');
-        }
-        if ($book_subtitle != null) {
-            $books = $books->where('book.subtitle', 'LIKE', '%' . $book_subtitle . '%');
-        }
-        if ($book_author_name != null) {
-            $books = $books->where('author.name', 'LIKE', '%' . $book_author_name . '%');
-        }
-        if ($book_author_firstname != null) {
-            $books = $books->where('author.firstname', 'LIKE', '%' . $book_author_firstname . '%');
+        $operatorString = "=";
+        $queryString = $bookFilterValues->getQuery();
+        if($bookFilterValues->getOperator() == BookFilterOperator::BEGINS_WITH || $bookFilterValues->getOperator() == BookFilterOperator::CONTAINS || $bookFilterValues->getOperator() == BookFilterOperator::ENDS_WITH){
+            $operatorString = "LIKE";
+            if($bookFilterValues->getOperator() == BookFilterOperator::BEGINS_WITH){
+                $queryString = $queryString . '%';
+            }
+            if($bookFilterValues->getOperator() == BookFilterOperator::ENDS_WITH){
+                $queryString = '%' . $queryString;
+            }
+            if($bookFilterValues->getOperator() == BookFilterOperator::CONTAINS){
+                $queryString = '%' . $queryString . '%';
+            }
         }
 
+        //FILTERS
+        if($bookFilterValues->getRead() == BookFilterValues::YES){
+            $books = $books->where("personal_book_info.read", '=', true);
+        }else if($bookFilterValues->getRead() == BookFilterValues::NO){
+            $books = $books->where("personal_book_info.read", '=', false);
+        }
+
+        if($bookFilterValues->getOwns() == BookFilterValues::YES){
+            $books = $books->where("personal_book_info.owned", '=', true);
+        }else if($bookFilterValues->getOwns() == BookFilterValues::NO){
+            $books = $books->where("personal_book_info.owned", '=', false);
+        }
+
+        //SEARCH
+        if(!StringUtils::isEmpty($queryString)){
+            if($bookFilterValues->getType() != BookFilterType::ALL){
+                $books = $books->where($bookFilterValues->getType(), $operatorString, $queryString);
+            }else{
+                $books = $books->where(function($query) use ($operatorString, $queryString){
+                            $query->Where(BookFilterType::AUTHOR_NAME, $operatorString, $queryString)
+                                ->orWhere(BookFilterType::AUTHOR_FIRSTNAME, $operatorString, $queryString)
+                                ->orWhere(BookFilterType::BOOK_TITLE, $operatorString, $queryString);
+                         });
+            }
+        }
+
+        //ORDER BY
         if ($orderBy == 'title') {
             $books = $books->orderBy('title');
         }
@@ -102,14 +131,12 @@ class BookService
         if ($orderBy == 'rating') {
             $books = $books->orderBy('personal_book_info.rating', 'DESC');
         }
-        if ($orderBy == 'author') {
-            $books = $books->orderBy('author.name');
-        }
 
         $books = $books->orderBy('author.name');
         $books = $books->orderBy('date.year', 'ASC');
         $books = $books->orderBy('date.month', 'ASC');
         $books = $books->orderBy('date.day', 'ASC');
+
         return $books->paginate(60);
     }
 
