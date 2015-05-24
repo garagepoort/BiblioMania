@@ -12,7 +12,7 @@ class FirstPrintInfoImporter
         } else {
             $country_id = null;
         }
-        $date = DateImporter::getPublicationDate($publication_date);
+        $date = DateImporter::importDate($publication_date);
         $language = App::make('LanguageService')->findOrSave($language);
 
         return App::make('FirstPrintInfoService')->saveOrUpdate(

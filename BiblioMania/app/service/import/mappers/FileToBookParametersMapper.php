@@ -11,7 +11,7 @@ class FileToBookParametersMapper {
 
 
     public function map($line_values){
-        $publicationDate = $this->dateImporter->getPublicationDate($line_values[LineMapping::BookPublicationDate]);
+        $publicationDate = $this->dateImporter->importDate($line_values[LineMapping::BookPublicationDate]);
         $genreId = 1;
 
         $language = new Language();

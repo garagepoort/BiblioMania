@@ -19,4 +19,8 @@ class StringUtils {
     public static function isEmpty($string){
         return !isset($string) || trim($string) === '';
     }
+
+    public static function contains($stringToContain, $chars){
+        return stripos($stringToContain,$chars) !== false;
+    }
 }

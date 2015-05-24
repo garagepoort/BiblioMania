@@ -11,7 +11,7 @@ class DateImporter
     }
 
 
-    public function getPublicationDate($dateValues)
+    public function importDate($dateValues)
     {
         if (!empty($dateValues)) {
             $dateValues = explode("-", $dateValues);
@@ -34,6 +34,36 @@ class DateImporter
         return null;
     }
 
+    public function importDateToDateTime($dateValues)
+    {
+        if (!empty($dateValues)) {
+            $dateArray = explode("-", $dateValues);;
+            if(StringUtils::contains($dateValues, '-')){
+                $dateArray = explode("-", $dateValues);
+            }
+            else if(StringUtils::contains($dateValues, ' ')){
+                $dateArray = explode(' ', $dateValues);
+            }
+
+            $day = 1;
+            $month = 1;
+            $year = null;
+            if (count($dateArray) == 1) {
+                $year = DateImporter::getYearFromDateValue($dateArray[0]);
+            } else if (count($dateArray) == 2) {
+                $month = DateImporter::getMonthFromDateValue($dateArray[0]);
+                $year = DateImporter::getYearFromDateValue($dateArray[1]);
+            } else {
+                $day = $dateArray[0];
+                $month = DateImporter::getMonthFromDateValue($dateArray[1]);
+                $year = DateImporter::getYearFromDateValue($dateArray[2]);
+            }
+            $dateString = $day . '-' . $month . '-' . $year;
+            return DateTime::createFromFormat("d-m-Y", $dateString);
+        }
+        return null;
+    }
+
 
     private static function getYearFromDateValue($value)
     {
@@ -48,11 +78,41 @@ class DateImporter
 
     private static function getMonthFromDateValue($value)
     {
-        if (strcasecmp($value, "Sep")) {
+        if (StringUtils::contains($value, "Jan")) {
+            return "1";
+        }
+        if (StringUtils::contains($value, "Feb")) {
+            return "2";
+        }
+        if (StringUtils::contains($value, "Mar")) {
+            return "3";
+        }
+        if (StringUtils::contains($value, "Apr")) {
+            return "4";
+        }
+        if (StringUtils::contains($value, "Mai")) {
+            return "5";
+        }
+        if (StringUtils::contains($value, "Jun")) {
+            return "6";
+        }
+        if (StringUtils::contains($value, "Jul") ) {
+            return "7";
+        }
+        if (StringUtils::contains($value, "Aug")) {
+            return "8";
+        }
+        if (StringUtils::contains($value, "Sep")) {
             return "9";
         }
-        if (strcasecmp($value, "Apr")) {
-            return "4";
+        if (StringUtils::contains($value, "Oct")) {
+            return "10";
+        }
+        if (StringUtils::contains($value, "Nov")) {
+            return "11";
+        }
+        if (StringUtils::contains($value, "Dec")) {
+            return "12";
         }
         return $value;
     }

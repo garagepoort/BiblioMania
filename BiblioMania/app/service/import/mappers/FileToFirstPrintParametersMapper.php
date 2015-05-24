@@ -21,7 +21,7 @@ class FileToFirstPrintParametersMapper {
         $language = new Language();
         $language->name = $line_values[LineMapping::FirstPrintLanguage];
 
-        $firstPrintPublicationDate = $this->dateImporter->getPublicationDate($line_values[LineMapping::FirstPrintPublicationDate]);
+        $firstPrintPublicationDate = $this->dateImporter->importDate($line_values[LineMapping::FirstPrintPublicationDate]);
         $firstPrintPublisherName = $line_values[LineMapping::FirstPrintPublisherName];
         $firstPrintTitle = $line_values[LineMapping::FirstPrintTitle];
 
