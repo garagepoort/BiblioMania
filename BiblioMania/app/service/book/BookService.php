@@ -42,11 +42,13 @@ class BookService
         return Book::where('user_id', '=', Auth::user()->id)->get();
     }
 
-    public function getBooksWithPersonalBookInfo(){
+    public function getBooksWithPersonalBookInfo()
+    {
         return Book::with("personal_book_info")->where('user_id', '=', Auth::user()->id)->get();
     }
 
-    public function getFullBook($book_id){
+    public function getFullBook($book_id)
+    {
         $with = array(
             'authors',
             'publisher',
@@ -80,44 +82,45 @@ class BookService
             ->where('book_author.preferred', '=', 1)
             ->where('user_id', '=', Auth::user()->id);
 
-        $operatorString = "=";
-        $queryString = $bookFilterValues->getQuery();
-        if($bookFilterValues->getOperator() == BookFilterOperator::BEGINS_WITH || $bookFilterValues->getOperator() == BookFilterOperator::CONTAINS || $bookFilterValues->getOperator() == BookFilterOperator::ENDS_WITH){
-            $operatorString = "LIKE";
-            if($bookFilterValues->getOperator() == BookFilterOperator::BEGINS_WITH){
-                $queryString = $queryString . '%';
-            }
-            if($bookFilterValues->getOperator() == BookFilterOperator::ENDS_WITH){
-                $queryString = '%' . $queryString;
-            }
-            if($bookFilterValues->getOperator() == BookFilterOperator::CONTAINS){
-                $queryString = '%' . $queryString . '%';
-            }
-        }
-
         //FILTERS
-        if($bookFilterValues->getRead() == BookFilterValues::YES){
+        if ($bookFilterValues->getRead() == BookFilterValues::YES) {
             $books = $books->where("personal_book_info.read", '=', true);
-        }else if($bookFilterValues->getRead() == BookFilterValues::NO){
+        } else if ($bookFilterValues->getRead() == BookFilterValues::NO) {
             $books = $books->where("personal_book_info.read", '=', false);
         }
 
-        if($bookFilterValues->getOwns() == BookFilterValues::YES){
+        if ($bookFilterValues->getOwns() == BookFilterValues::YES) {
             $books = $books->where("personal_book_info.owned", '=', true);
-        }else if($bookFilterValues->getOwns() == BookFilterValues::NO){
+        } else if ($bookFilterValues->getOwns() == BookFilterValues::NO) {
             $books = $books->where("personal_book_info.owned", '=', false);
         }
 
-        //SEARCH
-        if(!StringUtils::isEmpty($queryString)){
-            if($bookFilterValues->getType() != BookFilterType::ALL){
+
+        $operatorString = "=";
+        $queryString = $bookFilterValues->getQuery();
+        if (!StringUtils::isEmpty($queryString)) {
+            if ($bookFilterValues->getOperator() == FilterOperator::BEGINS_WITH || $bookFilterValues->getOperator() == FilterOperator::CONTAINS || $bookFilterValues->getOperator() == FilterOperator::ENDS_WITH) {
+                $operatorString = "LIKE";
+                if ($bookFilterValues->getOperator() == FilterOperator::BEGINS_WITH) {
+                    $queryString = $queryString . '%';
+                }
+                if ($bookFilterValues->getOperator() == FilterOperator::ENDS_WITH) {
+                    $queryString = '%' . $queryString;
+                }
+                if ($bookFilterValues->getOperator() == FilterOperator::CONTAINS) {
+                    $queryString = '%' . $queryString . '%';
+                }
+            }
+
+            //SEARCH
+            if ($bookFilterValues->getType() != BookFilterType::ALL) {
                 $books = $books->where($bookFilterValues->getType(), $operatorString, $queryString);
-            }else{
-                $books = $books->where(function($query) use ($operatorString, $queryString){
-                            $query->Where(BookFilterType::AUTHOR_NAME, $operatorString, $queryString)
-                                ->orWhere(BookFilterType::AUTHOR_FIRSTNAME, $operatorString, $queryString)
-                                ->orWhere(BookFilterType::BOOK_TITLE, $operatorString, $queryString);
-                         });
+            } else {
+                $books = $books->where(function ($query) use ($operatorString, $queryString) {
+                    $query->Where(BookFilterType::AUTHOR_NAME, $operatorString, $queryString)
+                        ->orWhere(BookFilterType::AUTHOR_FIRSTNAME, $operatorString, $queryString)
+                        ->orWhere(BookFilterType::BOOK_TITLE, $operatorString, $queryString);
+                });
             }
         }
 
@@ -191,7 +194,7 @@ class BookService
             } else {
                 $book->coverImage = $bookCreationParameters->getCoverInfoParameters()->getImage();
             }
-        }else if(StringUtils::isEmpty($book->coverImage)){
+        } else if (StringUtils::isEmpty($book->coverImage)) {
             $book->coverImage = 'images/questionCover.png';
         }
         $this->bookRepository->save($book);

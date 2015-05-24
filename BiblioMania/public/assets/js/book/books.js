@@ -10,9 +10,7 @@ $(document).ready(function () {
     }
 
     $('#orderby-select-box').change(function () {
-        $('#books-container-table > tbody').empty();
-        abortLoadingPaged();
-        startLoadingPaged(window.baseUrl + "/getNextBooks?" + 'order_by=' + $('#orderby-select-box').val(), 1, fillInBookContainer);
+        doSearchBooks();
     });
 
     function doSearchBooks() {
@@ -23,6 +21,7 @@ $(document).ready(function () {
         var ownedVal = $(".ownedFilterRadioButton input.selected").val();
         var readVal = $(".readFilterRadioButton input.selected").val();
         var url = window.baseUrl + "/getNextBooks?query=" + query
+            + "&order_by=" + $('#orderby-select-box').val()
             + "&operator=" + operator
             + "&type=" + type
             + "&read=" + readVal

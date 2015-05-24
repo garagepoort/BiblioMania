@@ -3,6 +3,14 @@
 class AuthorController extends BaseController {
 
 	private $authorFolder = "author/";
+	/** @var  AuthorService */
+	private $authorService;
+
+	function __construct()
+	{
+		$this->authorService = App::make('AuthorService');
+	}
+
 
 	public function getAuthors()
 	{
@@ -54,10 +62,11 @@ class AuthorController extends BaseController {
 	}
 
 	public function getNextAuthors(){
-		$name = Input::get('name');
-		$firstname = Input::get('firstname');
+		$query = Input::get('query');
+		$operator = Input::get('operator');
+		$type = Input::get('type');
 		$orderBy = Input::get('orderBy');
-		return App::make('AuthorService')->getFilteredAuthors($name, $firstname, $orderBy);
+		return $this->authorService->getFilteredAuthors($query, $operator, $type, $orderBy);
 	}
 
 	public function getAuthor($author_id){

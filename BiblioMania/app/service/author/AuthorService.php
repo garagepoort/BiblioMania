@@ -85,18 +85,38 @@ class AuthorService
         }
     }
 
-    public function getFilteredAuthors($name, $firstname, $orderBy)
+    public function getFilteredAuthors($query, $operator, $type, $orderBy)
     {
         $with = array('date_of_birth', 'date_of_death');
 
         $authors = Author::with($with);
 
-        if ($name != null) {
-            $authors = $authors->where('name', 'LIKE', '%' . $name . '%');
+        $operatorString = "=";
+        $queryString = $query;
+        if (!StringUtils::isEmpty($queryString)) {
+            if ($operator == FilterOperator::BEGINS_WITH || $operator == FilterOperator::CONTAINS || $operator == FilterOperator::ENDS_WITH) {
+                $operatorString = "LIKE";
+                if ($operator == FilterOperator::BEGINS_WITH) {
+                    $queryString = $queryString . '%';
+                }
+                if ($operator == FilterOperator::ENDS_WITH) {
+                    $queryString = '%' . $queryString;
+                }
+                if ($operator == FilterOperator::CONTAINS) {
+                    $queryString = '%' . $queryString . '%';
+                }
+            }
+
+            if ($type != AuthorFilterType::ALL) {
+                $authors = $authors->where($type, $operatorString, $queryString);
+            } else {
+                $authors = $authors->where(function ($query) use ($operatorString, $queryString) {
+                    $query->where(AuthorFilterType::AUTHOR_NAME, $operatorString, $queryString)
+                        ->orWhere(AuthorFilterType::AUTHOR_FIRSTNAME, $operatorString, $queryString);
+                });
+            }
         }
-        if ($firstname != null) {
-            $authors = $authors->where('firstname', 'LIKE', '%' . $firstname . '%');
-        }
+
         if ($orderBy == 'name') {
             $authors = $authors->orderBy('name');
         }

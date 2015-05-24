@@ -1,4 +1,13 @@
 $(document).ready(function(){
+    $("#searchAuthorsInput").keyup(function (e) {
+        if (e.keyCode == 13) {
+            searchAuthors();
+        }
+    });
+
+    $('#searchAuthorsButton').on('click', function () {
+        searchAuthors();
+    });
 
     startLoadingPaged(baseUrl + "/getNextAuthors?orderBy=name", 1, fillInAuthorContainer);
 
@@ -26,5 +35,19 @@ $(document).ready(function(){
             trString = trString + '</tr>';
             $('#authors-container-table > tbody:last').append(trString);
         }
+    }
+
+    function searchAuthors(){
+        window.book_id = null;
+        var query = $('#searchAuthorsInput').val();
+        var operator = $('#search_param_operator').val();
+        var type = $('#search_param_type').val();
+        var url = window.baseUrl + "/getNextAuthors?query=" + query
+            + "&operator=" + operator
+            + "&type=" + type
+            + "&orderBy=name";
+        $('#authors-container-table > tbody').empty();
+        abortLoadingPaged();
+        startLoadingPaged(url, 1, fillInAuthorContainer);
     }
 });

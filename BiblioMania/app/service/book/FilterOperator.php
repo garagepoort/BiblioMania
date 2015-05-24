@@ -1,6 +1,6 @@
 <?php
 
-class BookFilterOperator extends BasicEnum{
+class FilterOperator extends BasicEnum{
     const EQUALS = "equals";
     const CONTAINS = "contains";
     const ENDS_WITH = "ends_with";
