@@ -20,9 +20,9 @@ class AuthorInfoParameters {
 
     function __construct($name, $firstname, $infix, Date $date_of_birth = null, Date $date_of_death = null, $linked_book, $image, array $oeuvre = array(), $shouldCreateImage)
     {
-        $this->name = $name;
-        $this->firstname = $firstname;
-        $this->infix = $infix;
+        $this->name = trim($name);
+        $this->firstname = trim($firstname);
+        $this->infix = trim($infix);
         $this->date_of_birth = $date_of_birth;
         $this->date_of_death = $date_of_death;
         $this->linked_book = $linked_book;

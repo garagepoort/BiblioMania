@@ -340,8 +340,8 @@ table.book-detail-info-table td {
 .imageLinkWrapper {
   cursor: pointer;
   width: 142px;
-  height: 213px;
-  white-space: nowrap;
+  max-height: 245px;
+  height: 245px;
   display: table-cell;
   vertical-align: middle;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
@@ -364,6 +364,9 @@ table.book-detail-info-table td {
   margin-right: 15px;
   float: left;
   margin-bottom: 20px;
+}
+.author-oeuvre-linked {
+  color: red;
 }
 /*END AUTHOR*/
 .list-container {

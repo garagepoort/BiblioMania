@@ -33,7 +33,12 @@
                     @foreach($author->oeuvre as $bookFromAuthor)
                         <tr>
                             <td>
-                                <a class="author-oeuvre-title"
+                                <a
+                                    @if(count($bookFromAuthor->books)>0)
+                                        class="author-oeuvre-linked author-oeuvre-title"
+                                    @else
+                                        class="author-oeuvre-title"
+                                    @endif
                                    data-name="name" href="#"
                                    data-type="text"
                                    data-pk="{{ $bookFromAuthor->id }}"

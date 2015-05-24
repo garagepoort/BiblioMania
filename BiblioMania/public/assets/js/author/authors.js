@@ -28,8 +28,8 @@ $(document).ready(function(){
                 trString = trString + "<td>";
                 trString = trString + "<div class='imageLinkWrapper'>";
                 trString = trString + "<a href='" + baseUrl + "/getAuthor/" + author.id +  "'><img src=\"" + imageString + "\" authorid='" + author.id + "' class='authorCoverLink'></a>";
-                trString = trString + '</div>';
                 trString = trString + "<p>" + author.firstname + " " + author.name +"</p>";
+                trString = trString + '</div>';
                 trString = trString + '</td>';
             }
             trString = trString + '</tr>';
