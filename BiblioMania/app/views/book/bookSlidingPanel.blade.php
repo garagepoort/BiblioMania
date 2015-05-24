@@ -75,6 +75,10 @@
 									<td><label>Druk:</label></td>
 									<td><label id='book-detail-print'></label></td>
 								</tr>
+								<tr>
+									<td><label>Vertaler:</label></td>
+									<td><label id='book-translator'></label></td>
+								</tr>
 							</table>
 						</div>
 					</td>

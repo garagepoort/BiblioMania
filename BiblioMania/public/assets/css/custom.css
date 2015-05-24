@@ -263,22 +263,16 @@ table.book-detail-info-table > tbody > tr > td {
   padding-top: 30px;
   width: 50%;
 }
-.book-detail-small-info-panel {
-  width: 90%;
-}
 .book-detail-small-info-panel > legend {
   border: none;
   margin-bottom: 10px;
-}
-.book-detail-small-info-panel > table {
-  width: 100%;
 }
 .book-detail-small-info-panel > table > tbody > tr > td:nth-child(2) {
   width: 100%;
   text-align: left;
   padding-left: 10px;
 }
-.book-detail-small-info-panel > table > tbody > tr > td {
+.book-detail-small-info-panel > table > tbody > tr > td:nth-child(1) {
   white-space: nowrap;
 }
 .book-detail-main-info-table {

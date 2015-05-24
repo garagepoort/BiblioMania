@@ -11,8 +11,10 @@ class BookFormFiller
         $result['book_subtitle'] = '';
         $result['book_isbn'] = '';
         $result['book_number_of_pages'] = '';
-        $result['book_print'] = '';
         $result['book_cover_image'] = '';
+        $result['book_print'] = '';
+        $result['book_print'] = '';
+        $result['translator'] = '';
         $result['author_name_book_info'] = '';
         $result['author_name'] = '';
         $result['author_infix'] = '';
@@ -76,6 +78,7 @@ class BookFormFiller
         $result['book_print'] = $book->print;
         $result['book_cover_image'] = $book->coverImage;
         $result['book_type_of_cover'] = $book->type_of_cover;
+        $result['translator'] = $book->translator;
 
         $result['first_print_title'] = $book->first_print_info->title;
         $result['first_print_subtitle'] = $book->first_print_info->subtitle;

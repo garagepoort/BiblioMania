@@ -6,46 +6,39 @@ class ExtraBookInfoParameters {
     private $print;
     private $book_serie;
     private $publisher_serie;
+    private $translator;
 
-    function __construct($pages, $print, $book_serie, $publisher_serie)
+    function __construct($pages, $print, $book_serie, $publisher_serie, $translator)
     {
         $this->pages = $pages;
         $this->print = $print;
         $this->book_serie = $book_serie;
         $this->publisher_serie = $publisher_serie;
+        $this->translator = $translator;
     }
 
-    /**
-     * @return mixed
-     */
     public function getPages()
     {
         return $this->pages;
     }
 
-    /**
-     * @return mixed
-     */
     public function getPrint()
     {
         return $this->print;
     }
 
-    /**
-     * @return mixed
-     */
     public function getBookSerie()
     {
         return $this->book_serie;
     }
 
-    /**
-     * @return mixed
-     */
     public function getPublisherSerie()
     {
         return $this->publisher_serie;
     }
 
-
+    public function getTranslator()
+    {
+        return $this->translator;
+    }
 }

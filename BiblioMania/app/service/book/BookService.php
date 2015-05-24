@@ -175,6 +175,7 @@ class BookService
         $book->number_of_pages = $bookCreationParameters->getExtraBookInfoParameters()->getPages();
         $book->print = $bookCreationParameters->getExtraBookInfoParameters()->getPrint();
         $book->genre_id = $bookCreationParameters->getBookInfoParameters()->getGenre();
+        $book->translator = $bookCreationParameters->getExtraBookInfoParameters()->getTranslator();
         $book->type_of_cover = $bookCreationParameters->getCoverInfoParameters()->getCoverType();
         $book->user_id = Auth::user()->id;
         $book->retail_price = $bookCreationParameters->getBookInfoParameters()->getRetailPrice();

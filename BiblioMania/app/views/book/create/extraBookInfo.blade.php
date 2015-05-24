@@ -26,6 +26,13 @@
                     {{ Form::text('book_print', $book_print, array('id'=>'book_print_input', 'class' => 'form-control input-sm', 'placeholder' => 'print', 'type' => 'number')); }}
                 </div>
             </div>
+            <div class="form-group">
+                <!-- TRANSLATOR -->
+                {{ Form::label('translatorLabel', 'Vertaler:', array('class' => 'col-md-3 label-gray')); }}
+                <div class="col-md-3">
+                    {{ Form::text('translator', $translator, array('id'=>'translator_input', 'class' => 'form-control input-sm', 'placeholder' => 'vertaler')); }}
+                </div>
+            </div>
         </div>
 
         <legend>Serie</legend>

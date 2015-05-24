@@ -264,6 +264,7 @@ $(document).ready(function () {
         showOrHide($('#book-detail-retail-price'), "€ " + book.retail_price);
         showOrHide($('#book-detail-number-of-pages'), book.number_of_pages);
         showOrHide($('#book-detail-print'), book.print);
+        showOrHide($('#book-translator'), book.translator);
 
         //BUY OR GIFT
         if (book.personal_book_info.buy_info == null) {

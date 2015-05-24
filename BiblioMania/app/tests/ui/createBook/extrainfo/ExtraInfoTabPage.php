@@ -15,6 +15,10 @@ class ExtraInfoTabPage extends Page{
         return $this->findElementById('book_print_input');
     }
 
+    public function getTranslatorElement(){
+        return $this->findElementById('translator_input');
+    }
+
     public function getBookSerieElement(){
         return $this->findElementById('book_serie_input');
     }

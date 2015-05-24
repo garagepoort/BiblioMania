@@ -14,6 +14,7 @@ abstract class LineMapping
 
     const ExtraBookInfoPages = 57;
     const ExtraBookInfoPrint = 27;
+    const ExtraBookInfoTranslator = 63;
 
     const PersonalBookInfoInCollection = 64;
     const PersonalBookInfoRead = 66;
