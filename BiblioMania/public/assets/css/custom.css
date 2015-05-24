@@ -102,6 +102,9 @@ div.chartDiv {
   width: 600px;
   float: left;
 }
+div.editBookPanel {
+  cursor: pointer;
+}
 legend {
   color: #2d6ca2;
 }

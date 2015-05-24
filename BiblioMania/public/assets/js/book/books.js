@@ -96,15 +96,10 @@ $(document).ready(function () {
                 imageElement.attr("style","width: 142px;");
                 imageElement.attr("src", imageString);
 
-                var overlayElement = $("<div></div>");
-                overlayElement.attr("class","overlay");
-                overlayElement.attr("style", "display:none;");
-
-                var icCaptionElement = $("<div class=\"ic_caption\"><p class=\"ic_category\">Edit<i class=\"fa fa-pencil editImagePencilIcon\"></i></p></div>");
+                var icCaptionElement = $("<div class=\"ic_caption editBookPanel\"><p class=\"ic_category\">Edit<i class=\"fa fa-pencil editImagePencilIcon\"></i></p></div>");
 
 
                 imageLinkWrapper.append(imageElement);
-                imageLinkWrapper.append(overlayElement);
                 imageLinkWrapper.append(icCaptionElement);
                 tdElement.append(imageLinkWrapper);
                 trElement.append(tdElement);
