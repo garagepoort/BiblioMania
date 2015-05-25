@@ -12,7 +12,7 @@ class CreateBuyInfoTable extends Migration {
 			$table->increments('id');
 			$table->date('buy_date')->nullable();
 			$table->double('price_payed')->nullable();
-			$table->string('recommended_by')->nullable();
+			$table->string('reason')->nullable();
 			$table->string('shop')->nullable();
 			$table->unsignedInteger('city_id')->nullable();
 			$table->unsignedInteger('personal_book_info_id')->unique();

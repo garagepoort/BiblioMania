@@ -55,8 +55,10 @@ class BookCreationService {
 
             if($bookCreationParameters->isBuyInfo()){
                 $this->buyInfoService->findOrCreate($bookCreationParameters->getBuyInfoParameters(), $personalBookInfo);
+                $this->giftInfoService->delete($personalBookInfo->id);
             }else{
                 $this->giftInfoService->findOrCreate($bookCreationParameters->getGiftInfoParameters(), $personalBookInfo);
+                $this->buyInfoService->delete($personalBookInfo->id);
             }
         });
     }

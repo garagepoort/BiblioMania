@@ -8,6 +8,6 @@ class FileToGiftInfoParametersMapper {
             $date = null;
         }
 
-        return new GiftInfoParameters($date, $line_values[LineMapping::GiftInfoFrom], "");
+        return new GiftInfoParameters($date, $line_values[LineMapping::GiftInfoFrom], "", "");
     }
 }

@@ -4,12 +4,14 @@ class GiftInfoParameters {
     private $date;
     private $from;
     private $occasion;
+    private $reason;
 
-    function __construct(DateTime $date = null, $from, $occasion)
+    function __construct(DateTime $date = null, $from, $occasion, $reason)
     {
         $this->date = $date;
         $this->from = $from;
         $this->occasion = $occasion;
+        $this->reason = $reason;
     }
 
     public function getDate()
@@ -27,5 +29,8 @@ class GiftInfoParameters {
         return $this->occasion;
     }
 
-
+    public function getReason()
+    {
+        return $this->reason;
+    }
 }

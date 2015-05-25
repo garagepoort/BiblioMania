@@ -11,7 +11,7 @@ class BuyInfoParameterMapper {
         return new BuyInfoParameters($buy_date,
             Input::get('buy_info_shop'),
             Input::get('buy_info_city'),
-            Input::get('buy_info_recommended_by'),
+            Input::get('buy_info_reason'),
             Input::get('buy_info_country'),
             Input::get('buy_info_price_payed')
         );

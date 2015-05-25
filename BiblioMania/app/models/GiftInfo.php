@@ -5,7 +5,8 @@ class GiftInfo extends Eloquent {
 
     protected $fillable = array('receipt_date', 
     	'from', 
-    	'occasion'
+    	'occasion',
+    	'reason'
 	);
 
 	public function personal_book_info(){

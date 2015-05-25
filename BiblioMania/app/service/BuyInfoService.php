@@ -29,7 +29,7 @@ class BuyInfoService
 
         $buyInfo->buy_date = $buyInfoParameters->getDate();
         $buyInfo->price_payed = $buyInfoParameters->getPricePayed();
-        $buyInfo->recommended_by = $buyInfoParameters->getRecommendedBy();
+        $buyInfo->reason = $buyInfoParameters->getReason();
         $buyInfo->shop = $buyInfoParameters->getShop();
         $buyInfo->personal_book_info_id = $personalBookInfo->id;
 
@@ -38,7 +38,7 @@ class BuyInfoService
         return $buyInfo;
     }
 
-    public function save($personal_book_info_id, DateTime $buy_date = null, $price_payed, $recommended_by, $shop, $cityName, $countryId)
+    public function save($personal_book_info_id, DateTime $buy_date = null, $price_payed, $reason, $shop, $cityName, $countryId)
     {
         $buyInfo = BuyInfo::where('personal_book_info_id', '=', $personal_book_info_id)->first();
         if ($buyInfo == null) {
@@ -52,7 +52,7 @@ class BuyInfoService
 
         $buyInfo->buy_date = $buy_date;
         $buyInfo->price_payed = $price_payed;
-        $buyInfo->recommended_by = $recommended_by;
+        $buyInfo->reason = $reason;
         $buyInfo->shop = $shop;
         $buyInfo->personal_book_info_id = $personal_book_info_id;
 

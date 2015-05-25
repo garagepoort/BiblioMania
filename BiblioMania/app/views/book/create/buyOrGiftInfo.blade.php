@@ -10,18 +10,18 @@
         @endif
         <div class="buyOrGiftPanel">
             <div class="btn-group" data-toggle="buttons">
-                <label class="btn btn-default active">
-                    <input id="buyRadioButton" type="radio" name="buyOrGift" value="BUY" checked/> Gekocht
+                <label class="btn btn-default @if($buyOrGift == 'BUY') active @endif">
+                    <input id="buyRadioButton" type="radio" name="buyOrGift" value="BUY" @if($buyOrGift == 'BUY') checked @endif/> Gekocht
                 </label>
-                <label class="btn btn-default">
-                    <input id="giftRadioButton" type="radio" name="buyOrGift" value="GIFT"/> Gekregen
+                <label class="btn btn-default @if($buyOrGift == 'GIFT') active @endif">
+                    <input id="giftRadioButton" type="radio" name="buyOrGift" value="GIFT" @if($buyOrGift == 'GIFT') checked @endif/> Gekregen
                 </label>
             </div>
         </div>
-        <div id="buyInfoPanel">
+        <div id="buyInfoPanel" @if($buyOrGift == 'GIFT') hidden @endif>
             @include('book/create/buyInfo')
         </div>
-        <div id="giftInfoPanel" hidden>
+        <div id="giftInfoPanel" @if($buyOrGift == 'BUY') hidden @endif>
             @include('book/create/giftInfo')
         </div>
     </fieldset>

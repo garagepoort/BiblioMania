@@ -45,7 +45,7 @@ class CreateBookPageTest extends AbstractUITestCase
     public $buy_info_buy_date = "15/12/2004";
     public $book_info_retail_price = 500;
     public $buy_info_price_payed = 200;
-    public $buy_info_recommended_by = 'gerry';
+    public $buy_info_reason = 'gerry';
     public $buy_info_shop = 'shop';
     public $buy_info_city = 'city';
     public $buy_info_country = 'country';
@@ -216,7 +216,7 @@ class CreateBookPageTest extends AbstractUITestCase
         $this->findElementById('buy_info_buy_date')->sendKeys($this->buy_info_buy_date);
         $this->findElementById('buy_book_info_retail_price')->sendKeys($this->book_info_retail_price);
         $this->findElementById('buy_info_price_payed')->sendKeys($this->buy_info_price_payed);
-        $this->findElementById('buy_info_recommended_by')->sendKeys($this->buy_info_recommended_by);
+        $this->findElementById('buy_info_reason')->sendKeys($this->buy_info_reason);
         $this->findElementById('buy_info_shop')->sendKeys($this->buy_info_shop);
         $this->findElementById('buy_info_city')->sendKeys($this->buy_info_city);
         $this->findElementById('buy_info_country')->sendKeys($this->buy_info_country);

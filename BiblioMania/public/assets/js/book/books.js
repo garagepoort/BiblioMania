@@ -273,6 +273,7 @@ $(document).ready(function () {
             showOrHide($('#book-detail-gift-info-from'), book.personal_book_info.gift_info.from);
             showOrHide($('#book-detail-gift-info-occasion'), book.personal_book_info.gift_info.occasion);
             showOrHide($('#book-detail-gift-info-date'), book.personal_book_info.gift_info.receipt_date);
+            showOrHide($('#book-detail-gift-info-reason'), book.personal_book_info.gift_info.reason);
         } else {
             $('.buy-info-tr').show();
             $('.gift-info-tr').hide();
@@ -285,7 +286,7 @@ $(document).ready(function () {
                     showOrHide($('#book-detail-buy-info-country'), book.personal_book_info.buy_info.city.country.name);
                 }
             }
-            showOrHide($('#book-detail-buy-info-recommended-by'), book.personal_book_info.buy_info.recommended_by);
+            showOrHide($('#book-detail-buy-info-reason'), book.personal_book_info.buy_info.reason);
         }
 
         $('#star-detail').raty({

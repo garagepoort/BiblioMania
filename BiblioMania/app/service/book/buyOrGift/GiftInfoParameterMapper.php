@@ -10,6 +10,7 @@ class GiftInfoParameterMapper {
         return new GiftInfoParameters(
             $receipt_date,
             Input::get('gift_info_from'),
-            Input::get('gift_info_occasion'));
+            Input::get('gift_info_occasion'),
+            Input::get('gift_info_reason'));
     }
 }

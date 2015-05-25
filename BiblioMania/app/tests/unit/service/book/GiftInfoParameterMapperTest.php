@@ -3,6 +3,7 @@
 class GiftInfoParameterMapperTest extends TestCase {
     const FROM = 'from';
     const OCCASION = 'occasion';
+    const REASON = 'reason';
     const DATE = '01/12/1991';
 
     /** @var  GiftInfoParameterMapper */
@@ -18,12 +19,14 @@ class GiftInfoParameterMapperTest extends TestCase {
         $mockInput->shouldReceive('input')->with('gift_info_receipt_date', null)->andReturn(self::DATE);
         $mockInput->shouldReceive('input')->with('gift_info_from', null)->andReturn(self::FROM);
         $mockInput->shouldReceive('input')->with('gift_info_occasion', null)->andReturn(self::OCCASION);
+        $mockInput->shouldReceive('input')->with('gift_info_reason', null)->andReturn(self::REASON);
         Input::swap($mockInput);
 
         $giftInfoParameters = $this->giftInfoParameterMapper->create();
 
         $this->assertEquals(self::FROM, $giftInfoParameters->getFrom());
         $this->assertEquals(self::OCCASION, $giftInfoParameters->getOccasion());
+        $this->assertEquals(self::REASON, $giftInfoParameters->getReason());
         $this->assertEquals("1", $giftInfoParameters->getDate()->format('d'));
         $this->assertEquals("12", $giftInfoParameters->getDate()->format('m'));
         $this->assertEquals("1991", $giftInfoParameters->getDate()->format('Y'));
@@ -34,6 +37,7 @@ class GiftInfoParameterMapperTest extends TestCase {
         $mockInput->shouldReceive('input')->with('gift_info_receipt_date', null)->andReturn("");
         $mockInput->shouldReceive('input')->with('gift_info_from', null)->andReturn(self::FROM);
         $mockInput->shouldReceive('input')->with('gift_info_occasion', null)->andReturn(self::OCCASION);
+        $mockInput->shouldReceive('input')->with('gift_info_reason', null)->andReturn(self::REASON);
         Input::swap($mockInput);
 
         $giftInfoParameters = $this->giftInfoParameterMapper->create();

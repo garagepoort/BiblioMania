@@ -28,11 +28,11 @@
                 </div>
             </div>
 
-            <!-- RECOMMENDED BY -->
+            <!-- REASON -->
             <div class="form-group">
-                {{ Form::label('buy_info_recommended_by_label', 'Aanbevolen door:', array('class' => 'col-md-3')); }}
+                {{ Form::label('buy_info_reason_label', 'Reden:', array('class' => 'col-md-3')); }}
                 <div class="col-md-5">
-                    {{ Form::text('buy_info_recommended_by', $buy_info_recommended_by, array('id'=>'buy_info_recommended_by','class' => 'form-control input-sm', 'placeholder' => 'aanbevolen door')); }}
+                    {{ Form::text('buy_info_reason', $buy_info_reason, array('id'=>'buy_info_reason','class' => 'form-control input-sm', 'placeholder' => 'Reden')); }}
                 </div>
             </div>
 

@@ -5,16 +5,16 @@ class BuyInfoParameters {
     private $date;
     private $shop;
     private $city;
-    private $recommended_by;
+    private $reason;
     private $country;
     private $pricePayed;
 
-    function __construct(DateTime $date = null, $shop, $city, $recommended_by, $country, $pricePayed)
+    function __construct(DateTime $date = null, $shop, $city, $reason, $country, $pricePayed)
     {
         $this->date = $date;
         $this->shop = $shop;
         $this->city = $city;
-        $this->recommended_by = $recommended_by;
+        $this->reason = $reason;
         $this->country = $country;
         $this->pricePayed = $pricePayed;
     }
@@ -46,9 +46,9 @@ class BuyInfoParameters {
     /**
      * @return mixed
      */
-    public function getRecommendedBy()
+    public function getReason()
     {
-        return $this->recommended_by;
+        return $this->reason;
     }
 
     /**

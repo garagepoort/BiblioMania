@@ -3,7 +3,7 @@
 class BuyInfoParameterMapperTest extends TestCase {
     const SHOP = 'shop';
     const CITY = 'city';
-    const RECOMMENDED_BY = 'recommended';
+    const REASON = 'recommended';
     const COUNTRY = 'country';
     const DATE = '01/12/1991';
     const PRICE_PAYED = 1234;
@@ -21,7 +21,7 @@ class BuyInfoParameterMapperTest extends TestCase {
         $mockInput->shouldReceive('input')->with('buy_info_buy_date', null)->andReturn(self::DATE);
         $mockInput->shouldReceive('input')->with('buy_info_shop', null)->andReturn(self::SHOP);
         $mockInput->shouldReceive('input')->with('buy_info_city', null)->andReturn(self::CITY);
-        $mockInput->shouldReceive('input')->with('buy_info_recommended_by', null)->andReturn(self::RECOMMENDED_BY);
+        $mockInput->shouldReceive('input')->with('buy_info_reason', null)->andReturn(self::REASON);
         $mockInput->shouldReceive('input')->with('buy_info_country', null)->andReturn(self::COUNTRY);
         $mockInput->shouldReceive('input')->with('buy_info_price_payed', null)->andReturn(self::PRICE_PAYED);
         Input::swap($mockInput);
@@ -30,7 +30,7 @@ class BuyInfoParameterMapperTest extends TestCase {
 
         $this->assertEquals(self::SHOP, $buyInfoParameters->getShop());
         $this->assertEquals(self::CITY, $buyInfoParameters->getCity());
-        $this->assertEquals(self::RECOMMENDED_BY, $buyInfoParameters->getRecommendedBy());
+        $this->assertEquals(self::REASON, $buyInfoParameters->getReason());
         $this->assertEquals(self::COUNTRY, $buyInfoParameters->getCountry());
         $this->assertEquals(self::PRICE_PAYED, $buyInfoParameters->getPricePayed());
         $this->assertEquals("1", $buyInfoParameters->getDate()->format('d'));
@@ -43,7 +43,7 @@ class BuyInfoParameterMapperTest extends TestCase {
         $mockInput->shouldReceive('input')->with('buy_info_buy_date', null)->andReturn("");
         $mockInput->shouldReceive('input')->with('buy_info_shop', null)->andReturn(self::SHOP);
         $mockInput->shouldReceive('input')->with('buy_info_city', null)->andReturn(self::CITY);
-        $mockInput->shouldReceive('input')->with('buy_info_recommended_by', null)->andReturn(self::RECOMMENDED_BY);
+        $mockInput->shouldReceive('input')->with('buy_info_reason', null)->andReturn(self::REASON);
         $mockInput->shouldReceive('input')->with('buy_info_country', null)->andReturn(self::COUNTRY);
         $mockInput->shouldReceive('input')->with('buy_info_price_payed', null)->andReturn(self::PRICE_PAYED);
         Input::swap($mockInput);

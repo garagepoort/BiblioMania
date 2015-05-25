@@ -110,8 +110,8 @@
 									<td><label id='book-detail-buy-info-city'></label></td>
 								</tr>
 								<tr class="buy-info-tr">
-									<td><label>Aanbevolen door:</label></td>
-									<td><label id='book-detail-buy-info-recommended-by'></label></td>
+									<td><label>Reden:</label></td>
+									<td><label id='book-detail-buy-info-reason'></label></td>
 								</tr>
 								<tr class="buy-info-tr">
 									<td><label>Land gekocht:</label></td>
@@ -128,6 +128,10 @@
 								<tr class="gift-info-tr">
 									<td><label>Gelegenheid:</label></td>
 									<td><label id='book-detail-gift-info-occasion'></label></td>
+								</tr>
+								<tr class="gift-info-tr">
+									<td><label>Reden:</label></td>
+									<td><label id='book-detail-gift-info-reason'></label></td>
 								</tr>
 							</table>
 						</div>
