@@ -26,7 +26,7 @@ class Book extends Eloquent {
 		'language_id'
     	);
     
-    protected $with = array('publication_date', 'first_print_info', 'publisher_serie');
+    protected $with = array('publication_date', 'first_print_info');
 
 	public function preferredAuthor(){
 		if(!$this->authors->isEmpty()){

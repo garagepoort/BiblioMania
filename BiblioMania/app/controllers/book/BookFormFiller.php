@@ -66,7 +66,7 @@ class BookFormFiller
 
     public static function createEditBookArray($bookId)
     {
-        $book = Book::with(array('personal_book_info', 'book_from_author'))->find($bookId);
+        $book = Book::with(array('personal_book_info', 'book_from_author', 'publisher_serie'))->find($bookId);
         $author = Author::with(array('date_of_birth', 'date_of_death'))->find($book->authors->first()->id);
 
         $result = BookFormFiller::createArrayForCreate();
