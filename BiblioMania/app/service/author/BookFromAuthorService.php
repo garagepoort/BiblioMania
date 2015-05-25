@@ -16,8 +16,13 @@ class BookFromAuthorService
 
     public function delete($id)
     {
-        Book::where('book_from_author_id', '=', $id)->update(array('book_from_author_id' => null));
         $bookFromAuthor = BookFromAuthor::find($id);
+        if(is_null($bookFromAuthor)){
+            throw new ServiceException("Book from author not found");
+        }
+        if(count($bookFromAuthor->books)>0){
+            throw new ServiceException("Not allowed to delete book from author. Still has books linked to it.");
+        }
         $bookFromAuthor->delete();
     }
 

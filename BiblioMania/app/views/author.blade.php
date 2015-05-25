@@ -53,9 +53,12 @@
                                    data-url="{{ URL::to('updateBookFromAuthorPublicationYear') }}"
                                    data-title="Vul jaar in">{{ $bookFromAuthor->publication_year }}</a>
                             </td>
-                            <td oeuvre-id={{ $bookFromAuthor->id }} style="text-align: center
-                            "><span aria-hidden="true" style="margin-left:10px"
-                                    class="fa fa-times-circle oeuvre-author-cross" width="10px"/></td>
+                                <td oeuvre-id={{ $bookFromAuthor->id }} style="text-align: center">
+                                @if(count($bookFromAuthor->books)==0)
+                                        <span aria-hidden="true" style="margin-left:10px" class="fa fa-times-circle oeuvre-author-cross" width="10px"/>
+                                @endif
+                                </td>
+
                         </tr>
                     @endforeach
                 </tbody>

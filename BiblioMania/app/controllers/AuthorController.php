@@ -5,10 +5,13 @@ class AuthorController extends BaseController {
 	private $authorFolder = "author/";
 	/** @var  AuthorService */
 	private $authorService;
+	/** @var BookFromAuthorService */
+	private $bookFromAuthorService;
 
 	function __construct()
 	{
 		$this->authorService = App::make('AuthorService');
+		$this->bookFromAuthorService = App::make('BookFromAuthorService');
 	}
 
 
@@ -84,7 +87,7 @@ class AuthorController extends BaseController {
 
 	public function deleteBookFromAuthor(){
 		$id = Input::get('bookFromAuthorId');
-		App::make('BookFromAuthorService')->delete($id);
+		$this->bookFromAuthorService->delete($id);
 	}
 
 	public function editBookFromAuthor(){
@@ -92,7 +95,7 @@ class AuthorController extends BaseController {
 		$id = Input::get('bookFromAuthorId');
 		$title = Input::get('title');
 		$year = Input::get('publication_year');
-		App::make('BookFromAuthorService')->edit($id, $title, $year);
+		$this->bookFromAuthorService->edit($id, $title, $year);
 		return Response::json(Author::with('oeuvre')->find($author_id));
 	}
 
