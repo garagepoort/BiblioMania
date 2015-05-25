@@ -48,7 +48,7 @@
             <!-- PUBLISHER SERIE -->
             {{ Form::label('publisherSerieLabel', 'Uitgeverreeks:', array('class' => 'col-md-3 label-gray')); }}
             <div class="col-md-3">
-                {{ Form::text('book_publisher_serie', '', array('id'=>'publisher_serie_input', 'class' => 'form-control input-sm', 'placeholder' => '')); }}
+                {{ Form::text('book_publisher_serie', $book_publisher_serie, array('id'=>'publisher_serie_input', 'class' => 'form-control input-sm', 'placeholder' => '')); }}
             </div>
         </div>
 

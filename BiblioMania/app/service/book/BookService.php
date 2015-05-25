@@ -7,11 +7,17 @@ class BookService
     private $imageService;
     /** @var  BookRepository */
     private $bookRepository;
+    /** @var  PublisherSerieService */
+    private $publisherSerieService;
+    /** @var  BookSerieService */
+    private $bookSerieService;
 
     function __construct()
     {
         $this->imageService = App::make('ImageService');
         $this->bookRepository = App::make('BookRepository');
+        $this->publisherSerieService = App::make('PublisherSerieService');
+        $this->bookSerieService = App::make('BookSerieService');
     }
 
     public function getValueOfLibrary()
@@ -165,6 +171,9 @@ class BookService
      */
     public function createBook(BookCreationParameters $bookCreationParameters, Publisher $publisher, Country $country, FirstPrintInfo $firstPrintInfo)
     {
+        $publisherSerie = $this->publisherSerieService->findOrSave($bookCreationParameters->getExtraBookInfoParameters()->getPublisherSerie(), $publisher->id);
+        $bookSerie = $this->bookSerieService->findOrSave($bookCreationParameters->getExtraBookInfoParameters()->getBookSerie());
+
         $book = new Book();
         if (!StringUtils::isEmpty($bookCreationParameters->getBookInfoParameters()->getBookId())) {
             $book = $this->bookRepository->find($bookCreationParameters->getBookInfoParameters()->getBookId());
@@ -182,6 +191,8 @@ class BookService
         $book->publisher_id = $publisher->id;
         $book->publisher_country_id = $country->id;
         $book->first_print_info_id = $firstPrintInfo->id;
+        $book->publisher_serie()->associate($publisherSerie);
+        $book->serie()->associate($bookSerie);
         if ($bookCreationParameters->getBookInfoParameters()->getLanguage() != null) {
             $book->language()->associate($bookCreationParameters->getBookInfoParameters()->getLanguage());
         }
