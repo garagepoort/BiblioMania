@@ -61,3 +61,17 @@
 
     </fieldset>
 </div>
+
+<script type="text/javascript">
+    var series_json = {{ $series_json }};
+    var publisher_series_json = {{ $publisher_series_json }};
+    var serie_titles = [];
+    var publisher_serie_titles = [];
+    $.each(series_json, function (index, obj) {
+        serie_titles[serie_titles.length] = obj.name;
+    });
+    $.each(publisher_series_json, function (index, obj) {
+        publisher_serie_titles[publisher_serie_titles.length] = obj.name;
+    });
+</script>
+{{ HTML::script('assets/js/createBook/extraBookInfo.js'); }}

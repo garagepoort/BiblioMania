@@ -12,6 +12,8 @@
                         <li><a href="#book.title">Titel</a></li>
                         <li><a href="#author.name">Auteur naam</a></li>
                         <li><a href="#author.firstname">Auteur voornaam</a></li>
+                        <li><a href="#serie.name">Boek serie</a></li>
+                        <li><a href="#publisher_serie.name">Uitgever serie</a></li>
                         <li class="divider"></li>
                         <li><a href="#all">Alles</a></li>
                     </ul>

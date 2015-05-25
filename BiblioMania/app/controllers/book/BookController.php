@@ -101,27 +101,22 @@ class BookController extends BaseController
 
     public function goToCreateBook()
     {
-        $covers = array("Hard cover" => "Hard cover", "Paperback" => "Paperback", "Dwarsligger" => "Dwarsligger", "E-book" => "E-book", "Luisterboek" => "Luisterboek");
-        $genres = Genre::where('parent_id', '=', null)->get();
-
-        $withArray = BookFormFiller::createArrayForCreate();
-        $withArray['title'] = 'Boek toevoegen';
-        $withArray['languages'] = App::make('LanguageService')->getLanguagesMap();
-        $withArray['covers'] = $covers;
-        $withArray['genres'] = $genres;
-        $withArray['countries_json'] = json_encode($this->countryService->getCountries());
-        $withArray['authors_json'] = json_encode(Author::all(['id', 'name', 'firstname', 'infix']));
-        $withArray['publishers_json'] = json_encode(Publisher::all());
-
-        return View::make($this->bookFolder . 'createBook')->with($withArray);
+        return $this->goToEditOrCreate(true, null);
     }
 
     public function goToEditBook($id)
     {
+        return $this->goToEditOrCreate(false, $id);
+    }
+
+    private function goToEditOrCreate($creating, $id){
         $covers = array("Hard cover" => "Hard cover", "Paperback" => "Paperback", "Dwarsligger" => "Dwarsligger", "E-book" => "E-book", "Luisterboek" => "Luisterboek");
         $genres = Genre::where('parent_id', '=', null)->get();
-
-        $withArray = BookFormFiller::createEditBookArray($id);
+        if($creating){
+            $withArray = BookFormFiller::createArrayForCreate();
+        }else{
+            $withArray = BookFormFiller::createEditBookArray($id);
+        }
         $withArray['title'] = 'Boek toevoegen';
         $withArray['languages'] = App::make('LanguageService')->getLanguagesMap();
         $withArray['covers'] = $covers;
@@ -129,7 +124,8 @@ class BookController extends BaseController
         $withArray['countries_json'] = json_encode($this->countryService->getCountries());
         $withArray['authors_json'] = json_encode(Author::all(['id', 'name', 'firstname', 'infix']));
         $withArray['publishers_json'] = json_encode(Publisher::all());
-
+        $withArray['series_json'] = json_encode(Serie::all());
+        $withArray['publisher_series_json'] = json_encode(PublisherSerie::all());
         return View::make($this->bookFolder . 'createBook')->with($withArray);
     }
 

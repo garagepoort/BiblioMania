@@ -83,6 +83,8 @@ class BookService
         }
 
         $books = Book::select(DB::raw('book.*'))
+            ->leftJoin('serie', 'book.serie_id', '=', 'serie.id')
+            ->leftJoin('publisher_serie', 'book.publisher_serie_id', '=', 'publisher_serie.id')
             ->leftJoin('book_author', 'book_author.book_id', '=', 'book.id')
             ->leftJoin('author', 'book_author.author_id', '=', 'author.id')
             ->leftJoin('personal_book_info', 'personal_book_info.book_id', '=', 'book.id')
@@ -128,6 +130,8 @@ class BookService
                 $books = $books->where(function ($query) use ($operatorString, $queryString) {
                     $query->Where(BookFilterType::AUTHOR_NAME, $operatorString, $queryString)
                         ->orWhere(BookFilterType::AUTHOR_FIRSTNAME, $operatorString, $queryString)
+                        ->orWhere(BookFilterType::PUBLISHER_SERIE, $operatorString, $queryString)
+                        ->orWhere(BookFilterType::BOOK_SERIE, $operatorString, $queryString)
                         ->orWhere(BookFilterType::BOOK_TITLE, $operatorString, $queryString);
                 });
             }
@@ -174,8 +178,6 @@ class BookService
      */
     public function createBook(BookCreationParameters $bookCreationParameters, Publisher $publisher, Country $country, FirstPrintInfo $firstPrintInfo, Author $author)
     {
-        $publisherSerie = $this->publisherSerieService->findOrSave($bookCreationParameters->getExtraBookInfoParameters()->getPublisherSerie(), $publisher->id);
-        $bookSerie = $this->bookSerieService->findOrSave($bookCreationParameters->getExtraBookInfoParameters()->getBookSerie());
 
         $book = new Book();
         if (!StringUtils::isEmpty($bookCreationParameters->getBookInfoParameters()->getBookId())) {
@@ -195,13 +197,19 @@ class BookService
         $book->publisher_id = $publisher->id;
         $book->publisher_country_id = $country->id;
         $book->first_print_info_id = $firstPrintInfo->id;
-        $book->publisher_serie()->associate($publisherSerie);
-        $book->serie()->associate($bookSerie);
         if ($bookCreationParameters->getBookInfoParameters()->getLanguage() != null) {
             $book->language()->associate($bookCreationParameters->getBookInfoParameters()->getLanguage());
         }
         if ($bookCreationParameters->getBookInfoParameters()->getPublicationDate() != null) {
             $book->publication_date()->associate($bookCreationParameters->getBookInfoParameters()->getPublicationDate());
+        }
+        if(!StringUtils::isEmpty($bookCreationParameters->getExtraBookInfoParameters()->getPublisherSerie())){
+            $publisherSerie = $this->publisherSerieService->findOrSave($bookCreationParameters->getExtraBookInfoParameters()->getPublisherSerie(), $publisher->id);
+            $book->publisher_serie()->associate($publisherSerie);
+        }
+        if(!StringUtils::isEmpty($bookCreationParameters->getExtraBookInfoParameters()->getBookSerie())){
+            $bookSerie = $this->bookSerieService->findOrSave($bookCreationParameters->getExtraBookInfoParameters()->getBookSerie());
+            $book->serie()->associate($bookSerie);
         }
         if(!StringUtils::isEmpty($bookCreationParameters->getAuthorInfoParameters()->getLinkedBook())){
             $bookFromAuthor = $this->bookFromAuthorService->find($bookCreationParameters->getAuthorInfoParameters()->getLinkedBook(), $author->id);
