@@ -28,7 +28,6 @@ class FileToBookParametersMapperTest extends TestCase {
         $line_values[LineMapping::BookPublisherCountry] = "publisherCountry";
         $line_values[LineMapping::BookPublisher] = "publisher";
         $line_values[LineMapping::BookLanguage] = "bookLanguage";
-        $line_values[LineMapping::BookSummary] = "someSummary";
         $line_values[LineMapping::BookPublicationDate] = "some_date";
 
         $parameters = $this->fileToBookParametersMapper->map($line_values);

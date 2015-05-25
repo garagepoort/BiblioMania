@@ -48,7 +48,7 @@ class BookCreationService {
             $first_print_info = $this->firstPrintInfoService->findOrCreate($bookCreationParameters->getFirstPrintInfoParameters());
             $country = $this->countryService->findOrCreate($bookCreationParameters->getBookInfoParameters()->getCountryName());
 
-            $book = $this->bookService->createBook($bookCreationParameters, $book_publisher, $country, $first_print_info);
+            $book = $this->bookService->createBook($bookCreationParameters, $book_publisher, $country, $first_print_info, $author);
             $book->authors()->sync(array($author->id => array('preferred' => true)));
 
             $personalBookInfo = $this->personalBookInfoService->findOrCreate($bookCreationParameters->getPersonalBookInfoParameters(), $book);

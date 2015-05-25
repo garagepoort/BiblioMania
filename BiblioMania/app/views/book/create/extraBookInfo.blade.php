@@ -33,6 +33,13 @@
                     {{ Form::text('translator', $translator, array('id'=>'translator_input', 'class' => 'form-control input-sm', 'placeholder' => 'vertaler')); }}
                 </div>
             </div>
+
+            <div class="form-group">
+                {{ Form::label('summary_label', 'Samenvatting:', array('class' => 'col-md-3')); }}
+                <div class="col-md-3">
+                    {{ Form::textarea('book_summary', $book_summary) }}
+                </div>
+            </div>
         </div>
 
         <legend>Serie</legend>

@@ -15,6 +15,7 @@ class BookFormFiller
         $result['book_print'] = '';
         $result['book_print'] = '';
         $result['translator'] = '';
+        $result['book_summary'] = '';
         $result['author_name_book_info'] = '';
         $result['author_name'] = '';
         $result['author_infix'] = '';
@@ -46,6 +47,7 @@ class BookFormFiller
         $result['personal_info_owned'] = 'true';
         $result['personal_info_reading_date_input'] = '';
         $result['personal_info_rating'] = '';
+        $result['personal_info_review'] = '';
         $result['gift_info_receipt_date'] = '';
         $result['gift_book_info_retail_price'] = '';
         $result['gift_info_from'] = '';
@@ -79,6 +81,7 @@ class BookFormFiller
         $result['book_cover_image'] = $book->coverImage;
         $result['book_type_of_cover'] = $book->type_of_cover;
         $result['translator'] = $book->translator;
+        $result['book_summary'] = $book->summary;
 
         $result['first_print_title'] = $book->first_print_info->title;
         $result['first_print_subtitle'] = $book->first_print_info->subtitle;
@@ -111,6 +114,7 @@ class BookFormFiller
             $resultDates = rtrim($resultDates, ",");
             $result['personal_info_reading_date_input'] = $resultDates;
             $result['personal_info_rating'] = $book->personal_book_info->rating;
+            $result['personal_info_review'] = $book->personal_book_info->review;
         }
 
         $result['author_name'] = $book->authors[0]->name;

@@ -46,4 +46,17 @@ class BookFromAuthorService
             $bookFromAuthor->save();
         }
     }
+
+    public function find($title, $author_id)
+    {
+        $bookFromAuthor = BookFromAuthor::where("title", "=", $title)
+            ->where("author_id", "=", $author_id)
+            ->first();
+
+        if(is_null($bookFromAuthor)){
+            throw new ServiceException("BookFromAuthor not found");
+        }
+
+        return $bookFromAuthor;
+    }
 }

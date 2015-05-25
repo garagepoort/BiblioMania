@@ -11,6 +11,8 @@ class BookService
     private $publisherSerieService;
     /** @var  BookSerieService */
     private $bookSerieService;
+    /** @var  BookFromAuthorService */
+    private $bookFromAuthorService;
 
     function __construct()
     {
@@ -18,6 +20,7 @@ class BookService
         $this->bookRepository = App::make('BookRepository');
         $this->publisherSerieService = App::make('PublisherSerieService');
         $this->bookSerieService = App::make('BookSerieService');
+        $this->bookFromAuthorService = App::make('BookFromAuthorService');
     }
 
     public function getValueOfLibrary()
@@ -169,8 +172,9 @@ class BookService
      * @param BookCreationParameters $bookCreationParameters
      * @return Book
      */
-    public function createBook(BookCreationParameters $bookCreationParameters, Publisher $publisher, Country $country, FirstPrintInfo $firstPrintInfo)
+    public function createBook(BookCreationParameters $bookCreationParameters, Publisher $publisher, Country $country, FirstPrintInfo $firstPrintInfo, Author $author)
     {
+        $bookFromAuthor = $this->bookFromAuthorService->find($bookCreationParameters->getAuthorInfoParameters()->getLinkedBook(), $author->id);
         $publisherSerie = $this->publisherSerieService->findOrSave($bookCreationParameters->getExtraBookInfoParameters()->getPublisherSerie(), $publisher->id);
         $bookSerie = $this->bookSerieService->findOrSave($bookCreationParameters->getExtraBookInfoParameters()->getBookSerie());
 
@@ -185,12 +189,14 @@ class BookService
         $book->print = $bookCreationParameters->getExtraBookInfoParameters()->getPrint();
         $book->genre_id = $bookCreationParameters->getBookInfoParameters()->getGenre();
         $book->translator = $bookCreationParameters->getExtraBookInfoParameters()->getTranslator();
+        $book->summary = $bookCreationParameters->getExtraBookInfoParameters()->getSummary();
         $book->type_of_cover = $bookCreationParameters->getCoverInfoParameters()->getCoverType();
         $book->user_id = Auth::user()->id;
         $book->retail_price = $bookCreationParameters->getBookInfoParameters()->getRetailPrice();
         $book->publisher_id = $publisher->id;
         $book->publisher_country_id = $country->id;
         $book->first_print_info_id = $firstPrintInfo->id;
+        $book->book_from_author()->associate($bookFromAuthor);
         $book->publisher_serie()->associate($publisherSerie);
         $book->serie()->associate($bookSerie);
         if ($bookCreationParameters->getBookInfoParameters()->getLanguage() != null) {

@@ -7,6 +7,7 @@ class FileToExtraBookInfoParametersMapper {
             $line_values[LineMapping::ExtraBookInfoPrint],
             "",
             "",
-            $line_values[LineMapping::ExtraBookInfoTranslator]);
+            $line_values[LineMapping::ExtraBookInfoTranslator],
+            $line_values[LineMapping::BookSummary]);
     }
 }
