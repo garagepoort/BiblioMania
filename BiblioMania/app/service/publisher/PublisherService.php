@@ -44,6 +44,37 @@ class PublisherService
         return $publisher;
     }
 
+    public function updatePublisher($publisherId, $name){
+        $publisher = Publisher::where('user_id' , '=', Auth::user()->id)
+            ->where('id', '=', $publisherId)
+            ->first();
+
+        if($publisher != null){
+            $publisher->name = $name;
+            $publisher->save();
+        }else{
+            throw new ServiceException('Publisher to update not found');
+        }
+    }
+
+    public function deletePublisher($publisherId){
+        $publisher = Publisher::with('books', 'first_print_infos')
+            ->where('user_id' , '=', Auth::user()->id)
+            ->where('id', '=', $publisherId)
+            ->first();
+        if($publisher != null && count($publisher->books) == 0 && count($publisher->first_print_infos) == 0){
+            $publisher->delete();
+        }else{
+            throw new ServiceException('Een uitgever met boeken mag niet verwijdert worden.');
+        }
+    }
+
+    public function getPublishers(){
+        return Publisher::with('first_print_infos', 'books')
+            ->where('user_id', '=', Auth::user()->id)
+            ->orderBy('name', 'asc')->get();
+    }
+
     public function mergePublishers($publisher_id1, $publisher_id2){
         $publisher1 = Publisher::with('countries', 'first_print_infos', 'books')->find($publisher_id1);
         $publisher2 = Publisher::with('countries', 'first_print_infos', 'books')->find($publisher_id2);

@@ -10,6 +10,15 @@ class PublisherController extends BaseController{
 
     private $publisherFolder = "publisher/";
 
+    /** @var  PublisherService */
+    private $publisherService;
+
+    function __construct()
+    {
+        $this->publisherService = App::make('PublisherService');
+    }
+
+
     public function getPublisher($id){
         $publisher = Publisher::with(array('countries', 'books', 'first_print_infos'))->find($id);
         return View::make($this->publisherFolder . 'publisher')->with(array(
@@ -19,7 +28,7 @@ class PublisherController extends BaseController{
     }
 
     public function getPublishersList(){
-        $publishers = Publisher::with('first_print_infos', 'books')->orderBy('name', 'asc')->get();
+        $publishers = $this->publisherService->getPublishers();
         return View::make($this->publisherFolder . 'publishersList')->with(array(
             'title' => 'Editeer uitgevers',
             'publishers' => $publishers
@@ -28,30 +37,27 @@ class PublisherController extends BaseController{
 
     public function deletePublisher(){
         $id = Input::get('publisherId');
-
-        $publisher = Publisher::with('books', 'first_print_infos')->find($id);
-        if($publisher != null && count($publisher->books) == 0 && count($publisher->first_print_infos) == 0){
-            $publisher->delete();
-        }else{
+        try {
+            $this->publisherService->deletePublisher($id);
+        }catch (ServiceException $e){
             return Response::json(array(
                 'code'      =>  412,
-                'message'   =>  'Een uitgever met boeken mag niet verwijdert worden.'
+                'message'   =>  $e->getMessage()
             ), 412);
         }
     }
 
     public function editPublisher(){
         $id = Input::get('pk');
-        $name = Input::get('name');
         $value = Input::get('value');
 
-        $publisher = Publisher::find($id);
-        if($publisher != null){
-            if($name == 'name'){
-                $publisher->name = $value;
-            }
-
-            $publisher->save();
+        try {
+            $this->publisherService->updatePublisher($id, $value);
+        }catch (ServiceException $e){
+            return Response::json(array(
+                'code'      =>  412,
+                'message'   =>  $e->getMessage()
+            ), 412);
         }
     }
 
@@ -60,9 +66,9 @@ class PublisherController extends BaseController{
         $publisher2_id = Input::get('publisher2_id');
         $mergeToFirst = Input::get('mergeToFirst');
         if($mergeToFirst != null && $mergeToFirst == false){
-            App::make('PublisherService')->mergePublishers($publisher2_id, $publisher1_id);
+            $this->publisherService->mergePublishers($publisher2_id, $publisher1_id);
         }else{
-            App::make('PublisherService')->mergePublishers($publisher1_id, $publisher2_id);
+            $this->publisherService->mergePublishers($publisher1_id, $publisher2_id);
         }
     }
 }

@@ -3,7 +3,7 @@
 class Publisher extends Eloquent {
     protected $table = 'publisher';
 
-    protected $fillable = array('name');
+    protected $fillable = array('name', 'user_id');
 
     protected $with = array('countries');
 
