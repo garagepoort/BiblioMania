@@ -174,7 +174,6 @@ class BookService
      */
     public function createBook(BookCreationParameters $bookCreationParameters, Publisher $publisher, Country $country, FirstPrintInfo $firstPrintInfo, Author $author)
     {
-        $bookFromAuthor = $this->bookFromAuthorService->find($bookCreationParameters->getAuthorInfoParameters()->getLinkedBook(), $author->id);
         $publisherSerie = $this->publisherSerieService->findOrSave($bookCreationParameters->getExtraBookInfoParameters()->getPublisherSerie(), $publisher->id);
         $bookSerie = $this->bookSerieService->findOrSave($bookCreationParameters->getExtraBookInfoParameters()->getBookSerie());
 
@@ -196,7 +195,6 @@ class BookService
         $book->publisher_id = $publisher->id;
         $book->publisher_country_id = $country->id;
         $book->first_print_info_id = $firstPrintInfo->id;
-        $book->book_from_author()->associate($bookFromAuthor);
         $book->publisher_serie()->associate($publisherSerie);
         $book->serie()->associate($bookSerie);
         if ($bookCreationParameters->getBookInfoParameters()->getLanguage() != null) {
@@ -204,6 +202,10 @@ class BookService
         }
         if ($bookCreationParameters->getBookInfoParameters()->getPublicationDate() != null) {
             $book->publication_date()->associate($bookCreationParameters->getBookInfoParameters()->getPublicationDate());
+        }
+        if(!StringUtils::isEmpty($bookCreationParameters->getAuthorInfoParameters()->getLinkedBook())){
+            $bookFromAuthor = $this->bookFromAuthorService->find($bookCreationParameters->getAuthorInfoParameters()->getLinkedBook(), $author->id);
+            $book->book_from_author()->associate($bookFromAuthor);
         }
 
         if ($bookCreationParameters->getCoverInfoParameters()->getImage() != null) {
