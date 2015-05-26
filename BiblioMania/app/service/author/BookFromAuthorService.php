@@ -2,21 +2,43 @@
 
 class BookFromAuthorService
 {
+    /** @var  BookFromAuthorRepository */
+    private $bookFromAuthorRepository;
+    /** @var  AuthorRepository */
+    private $authorRepository;
+
+    function __construct()
+    {
+        $this->bookFromAuthorRepository = App::make('BookFromAuthorRepository');
+        $this->authorRepository = App::make('AuthorRepository');
+    }
+
 
     public function save($author_id, $title, $year)
     {
+        $bookFromAuthor = $this->bookFromAuthorRepository->findByTitle($author_id, $title);
+        $author = $this->authorRepository->find($author_id);
+
+        if($bookFromAuthor != null){
+            throw new ServiceException("Oeuvre item met deze titel bestaat al.");
+        }
+        if($author == null){
+            throw new ServiceException("Auteur bestaat niet.");
+        }
+
         $bookFromAuthor = new BookFromAuthor(array(
             'title' => $title,
             'publication_year' => $year,
             'author_id' => $author_id
         ));
-        $bookFromAuthor->save();
+
+        $this->bookFromAuthorRepository->save($bookFromAuthor);
         return $bookFromAuthor;
     }
 
     public function delete($id)
     {
-        $bookFromAuthor = BookFromAuthor::find($id);
+        $bookFromAuthor = $this->bookFromAuthorRepository->find($id);
         if(is_null($bookFromAuthor)){
             throw new ServiceException("Book from author not found");
         }
@@ -28,7 +50,10 @@ class BookFromAuthorService
 
     public function edit($id, $title, $year)
     {
-        $bookFromAuthor = BookFromAuthor::find($id);
+        $bookFromAuthor = $this->bookFromAuthorRepository->find($id);
+        if($bookFromAuthor == null){
+            throw new ServiceException("Oeuvre item bestaat niet");
+        }
         $bookFromAuthor->title = $title;
         $bookFromAuthor->publication_year = $year;
         $bookFromAuthor->save();
@@ -36,7 +61,10 @@ class BookFromAuthorService
 
     public function updateTitle($id, $title)
     {
-        $bookFromAuthor = BookFromAuthor::find($id);
+        $bookFromAuthor = $this->bookFromAuthorRepository->find($id);
+        if($bookFromAuthor == null){
+            throw new ServiceException("Oeuvre item bestaat niet");
+        }
         if ($bookFromAuthor != null) {
             $bookFromAuthor->title = $title;
             $bookFromAuthor->save();
@@ -45,7 +73,10 @@ class BookFromAuthorService
 
     public function updateYear($id, $year)
     {
-        $bookFromAuthor = BookFromAuthor::find($id);
+        $bookFromAuthor = $this->bookFromAuthorRepository->find($id);
+        if($bookFromAuthor == null){
+            throw new ServiceException("Oeuvre item bestaat niet");
+        }
         if ($bookFromAuthor != null) {
             $bookFromAuthor->publication_year = $year;
             $bookFromAuthor->save();
@@ -54,9 +85,7 @@ class BookFromAuthorService
 
     public function find($title, $author_id)
     {
-        $bookFromAuthor = BookFromAuthor::where("title", "=", $title)
-            ->where("author_id", "=", $author_id)
-            ->first();
+        $bookFromAuthor = $this->bookFromAuthorRepository->findByTitle($author_id, $title);
 
         if(is_null($bookFromAuthor)){
             throw new ServiceException("BookFromAuthor not found");

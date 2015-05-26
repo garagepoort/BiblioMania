@@ -40,10 +40,7 @@ class PublisherController extends BaseController{
         try {
             $this->publisherService->deletePublisher($id);
         }catch (ServiceException $e){
-            return Response::json(array(
-                'code'      =>  412,
-                'message'   =>  $e->getMessage()
-            ), 412);
+            return ResponseCreator::createExceptionResponse($e);
         }
     }
 
@@ -54,10 +51,7 @@ class PublisherController extends BaseController{
         try {
             $this->publisherService->updatePublisher($id, $value);
         }catch (ServiceException $e){
-            return Response::json(array(
-                'code'      =>  412,
-                'message'   =>  $e->getMessage()
-            ), 412);
+            return ResponseCreator::createExceptionResponse($e);
         }
     }
 

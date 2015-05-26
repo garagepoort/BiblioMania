@@ -95,15 +95,34 @@ class AuthorController extends BaseController {
 		$id = Input::get('bookFromAuthorId');
 		$title = Input::get('title');
 		$year = Input::get('publication_year');
-		$this->bookFromAuthorService->edit($id, $title, $year);
-		return Response::json(Author::with('oeuvre')->find($author_id));
+		try {
+			$this->bookFromAuthorService->edit($id, $title, $year);
+			return Response::json(Author::with('oeuvre')->find($author_id));
+		}catch (ServiceException $e){
+			return ResponseCreator::createExceptionResponse($e);
+		}
+	}
+
+	public function addBookFromAuthor(){
+		$title = Input::get('title');
+		$year = Input::get('publication_year');
+		$author_id = Input::get('authorId');
+		try {
+			$this->bookFromAuthorService->save($author_id, $title, $year);
+		}catch (ServiceException $e){
+			return ResponseCreator::createExceptionResponse($e);
+		}
+
 	}
 
 	public function updateBookFromAuthorTitle(){
 		$id = Input::get('pk');
 		$value = Input::get('value');
-
-		App::make('BookFromAuthorService')->updateTitle($id, $value);
+		try {
+			$this->bookFromAuthorService->updateTitle($id, $value);
+		}catch (ServiceException $e){
+			return ResponseCreator::createExceptionResponse($e);
+		}
 	}
 
 	public function getAuthorsWithOeuvreJson(){

@@ -62,6 +62,7 @@ class PublisherService
             ->where('user_id' , '=', Auth::user()->id)
             ->where('id', '=', $publisherId)
             ->first();
+
         if($publisher != null && count($publisher->books) == 0 && count($publisher->first_print_infos) == 0){
             $publisher->delete();
         }else{

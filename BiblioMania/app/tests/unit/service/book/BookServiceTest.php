@@ -28,11 +28,12 @@ class BookServiceTest extends TestCase {
         $personalBookinfo = $this->mock("PersonalBookInfoParameters");
         $publisher = $this->mockEloquent('Publisher');
         $country = $this->mockEloquent('Country');
+        $author = $this->mockEloquent('Author');
 
         $coverInfo = new CoverInfoParameters('HARDCOVER', 'someImage', false);
         $bookCreationParameters = new BookCreationParameters($bookInfoParameters, $extra, $authorInfo, $buyInfo, null, $coverInfo, $firstPrintInfoParameters, $personalBookinfo);
 
-        $createdBook = $this->bookService->createBook($bookCreationParameters, $publisher, $country, $firstPrintInfo);
+        $createdBook = $this->bookService->createBook($bookCreationParameters, $publisher, $country, $firstPrintInfo, $author);
 
 
         $this->imageService
@@ -52,6 +53,7 @@ class BookServiceTest extends TestCase {
         $personalBookinfo = $this->mock("PersonalBookInfoParameters");
         $publisher = $this->mockEloquent('Publisher');
         $country = $this->mockEloquent('Country');
+        $author = $this->mockEloquent('Author');
 
         $coverInfo = new CoverInfoParameters('HARDCOVER', 'someImage', true);
         $bookCreationParameters = new BookCreationParameters($bookInfoParameters, $extra, $authorInfo, $buyInfo, null, $coverInfo, $firstPrintInfoParameters, $personalBookinfo);
@@ -62,7 +64,7 @@ class BookServiceTest extends TestCase {
             ->with('someImage', null)
             ->andReturn('imagePath');
 
-        $createdBook = $this->bookService->createBook($bookCreationParameters, $publisher, $country, $firstPrintInfo);
+        $createdBook = $this->bookService->createBook($bookCreationParameters, $publisher, $country, $firstPrintInfo, $author);
 
         $this->assertEquals('imagePath', $createdBook->coverImage);
     }
@@ -77,11 +79,12 @@ class BookServiceTest extends TestCase {
         $personalBookinfo = $this->mock("PersonalBookInfoParameters");
         $publisher = $this->mockEloquent('Publisher');
         $country = $this->mockEloquent('Country');
+        $author = $this->mockEloquent('Author');
 
         $coverInfo = new CoverInfoParameters('HARDCOVER', null, true);
         $bookCreationParameters = new BookCreationParameters($bookInfoParameters, $extra, $authorInfo, $buyInfo, null, $coverInfo, $firstPrintInfoParameters, $personalBookinfo);
 
-        $createdBook = $this->bookService->createBook($bookCreationParameters, $publisher, $country, $firstPrintInfo);
+        $createdBook = $this->bookService->createBook($bookCreationParameters, $publisher, $country, $firstPrintInfo, $author);
 
         $this->imageService
             ->shouldReceive('saveImage')
@@ -104,6 +107,7 @@ class BookServiceTest extends TestCase {
         $personalBookinfo = $this->mock("PersonalBookInfoParameters");
         $publisher = $this->mockEloquent('Publisher');
         $country = $this->mockEloquent('Country');
+        $author = $this->mockEloquent('Author');
 
         $bookInfoParameters
             ->shouldReceive('getBookId')
@@ -116,7 +120,7 @@ class BookServiceTest extends TestCase {
         $coverInfo = new CoverInfoParameters('HARDCOVER', null, true);
         $bookCreationParameters = new BookCreationParameters($bookInfoParameters, $extra, $authorInfo, $buyInfo, null, $coverInfo, $firstPrintInfoParameters, $personalBookinfo);
 
-        $createdBook = $this->bookService->createBook($bookCreationParameters, $publisher, $country, $firstPrintInfo);
+        $createdBook = $this->bookService->createBook($bookCreationParameters, $publisher, $country, $firstPrintInfo, $author);
 
         $this->imageService
             ->shouldReceive('saveImage')
