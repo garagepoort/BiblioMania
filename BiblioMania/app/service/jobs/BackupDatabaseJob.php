@@ -12,8 +12,8 @@
 
 		$commandToExecute = $mySqlLocation . 
 								"mysqldump -u$databaseUser -p$databasePassword $databaseName > $backUpScriptLocation"
-								."backup_huur-$(date '+%Y-%m-%d').sql;"."echo $backUpScriptLocation"
-								."backup_huur-$(date '+%Y-%m-%d').sql";
+								."backup_bibliomania-$(date '+%Y-%m-%d').sql;"."echo $backUpScriptLocation"
+								."backup_bibliomania-$(date '+%Y-%m-%d').sql";
 
 		$logger->info("executing command: " . $commandToExecute);
 		$returnFromCommand = shell_exec($commandToExecute);
@@ -36,7 +36,7 @@
         	$file->setMimeType('text/plain');
 
         	$parent = new Google_Service_Drive_ParentReference();
-			$parent->setId("0B8y8VzpL9OuNcUNwQzB6NHJLaWs");
+			$parent->setId("0B8y8VzpL9OuNfmRDeWFKU043ZTRSSjlzLWp2T0VjU20za0dkU0lOYkttakIwTk1nZmRvdEU");
 			$file->setParents(array($parent));
 
         	$data = file_get_contents(trim($returnFromCommand));
