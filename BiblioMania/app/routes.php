@@ -67,6 +67,7 @@ Route::group(array('before' => 'admin'), function() {
     Route::get('googleAuthentication', 'Oauth2_Controller@doGoogleAuthentication');
     Route::get('askForGoogleAuthentication', 'Oauth2_Controller@askForGoogleAuthentication');
     Route::get('uploadFile', 'Oauth2_Controller@uploadFile');
+    Route::get('backupDatabase/{username?}/{password?}', 'AdminController@backupDatabase');
 });
 
 
