@@ -48,6 +48,18 @@ Route::filter('auth', function()
 	}
 });
 
+Route::filter('admin', function()
+{
+	if (Auth::guest())
+	{
+		return Redirect::guest('login');
+	}
+
+	if(Auth::user()->admin == false){
+		return Redirect::to('getBooks');
+	}
+});
+
 
 Route::filter('auth.basic', function()
 {

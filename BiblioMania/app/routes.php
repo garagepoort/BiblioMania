@@ -61,6 +61,15 @@ Route::group(array('before' => 'auth'), function() {
 });
 
 
+//ADMIN
+Route::group(array('before' => 'admin'), function() {
+    //google API
+    Route::get('googleAuthentication', 'Oauth2_Controller@doGoogleAuthentication');
+    Route::get('askForGoogleAuthentication', 'Oauth2_Controller@askForGoogleAuthentication');
+    Route::get('uploadFile', 'Oauth2_Controller@uploadFile');
+});
+
+
 //ALL
 Route::get('login', 'LoginController@goToLogin');
 Route::post('login', 'LoginController@login');

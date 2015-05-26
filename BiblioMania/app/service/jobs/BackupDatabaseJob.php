@@ -31,8 +31,8 @@
         if ($client->getAccessToken()) {
         	$service = new Google_Service_Drive($client);
         	$file = new Google_Service_Drive_DriveFile();
-        	$file->setTitle('backup_huur-'. date('Y-m-d').'.sql');
-        	$file->setDescription('Backup bendani');
+        	$file->setTitle('backup_bibliomania-'. date('Y-m-d').'.sql');
+        	$file->setDescription('Backup bibliomania');
         	$file->setMimeType('text/plain');
 
         	$parent = new Google_Service_Drive_ParentReference();

@@ -100,6 +100,11 @@
 	    return new StatisticsService();
 	});
 
+	App::singleton('AdminService', function()
+	{
+	    return new AdminService();
+	});
+
 	App::singleton('DateImporter', function()
 	{
 	    return new DateImporter();

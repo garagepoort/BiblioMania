@@ -30,10 +30,6 @@ class Oauth2_Controller extends BaseController{
      }
 
      public function askForGoogleAuthentication(){
-        $client_id = "1276984280-h0073puaeu1hsessboidrqmcsul6md0u.apps.googleusercontent.com";
-        $client_secret = "LbrkX3ZnbgkiVbJXZMU2Hr_l";
-        $redirect_uri = "http://localhost:8888/huurApp/googleAuthentication";
-
         $client = new Google_Client();
         $client->setClientId(Config::get('googleAPI.client_id'));
         $client->setClientSecret(Config::get('googleAPI.client_secret'));

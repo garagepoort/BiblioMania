@@ -10,7 +10,8 @@
 		"phpunit/phpunit": "4.0.*",
 		"mockery/mockery": "0.9.*",
 		"phpunit/phpunit-selenium": ">=1.2",
-		"facebook/webdriver": "dev-master"
+		"facebook/webdriver": "dev-master",
+	  	"google/apiclient": "1.0.*@beta"
 	},
 	"autoload": {
 		"classmap": [

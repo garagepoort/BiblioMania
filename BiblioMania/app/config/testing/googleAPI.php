@@ -1,7 +1,7 @@
 <?php
 
 return array(
-	'client_id' => '1276984280-0n4bqa4569daufcbo423r2khmck9l6h8.apps.googleusercontent.com',
-	'client_secret' => 'pekA6pxsryj-l76bdxocitgR',
-	'redirect_uri' => 'http://www.bendani-cooperation.com/huurApp/googleAuthentication',
+	'client_id' => '61777699766-bcvsasp62krl4rnb5tv40c8t25etkmja.apps.googleusercontent.com',
+	'client_secret' => 'B06d-Ftuaq6u_eY7FR8X_jbo',
+	'redirect_uri' => 'http://www.bendani-cooperation.com/Bibliomania/googleAuthentication',
 );

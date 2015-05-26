@@ -1,6 +1,6 @@
 <?php
 
 return array(
-	'backupScriptLocation' => '~/backups/database/huur/',
+	'backupScriptLocation' => '~/backups/database/Bibliomania/',
 	'mysqlLocation' => '',
 );
