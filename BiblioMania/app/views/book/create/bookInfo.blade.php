@@ -41,6 +41,9 @@
                 <div class="col-md-5">
                     {{ Form::text('book_isbn', $book_isbn, array('id'=>'book_isbn_input', 'class' => 'form-control', 'placeholder' => 'isbn', 'required' => 'true', 'type' => 'number')); }}
                 </div>
+                <div class="col-md-5">
+                    <button id="searchGoogleInformationButton" class="btn btn-primary" onclick="return false;">Zoek boek informatie</button>
+                </div>
             </div>
 
             <!-- GENRE -->
@@ -116,4 +119,5 @@
         publisher_names[publisher_names.length] = obj.name;
     });
 </script>
+{{ HTML::script('assets/js/book/GoogleBookSearch.js'); }}
 {{ HTML::script('assets/js/createBook/bookInfo.js'); }}

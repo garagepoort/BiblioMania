@@ -9,6 +9,9 @@ $(function() {
     $('#book-info-tab-link').click(function(){
         fillAuthorInput();
     });
+    $('#searchGoogleInformationButton').click(function(){
+        searchBook($('#book_isbn_input').val());
+    });
 
     $('#book_publisher_input').autocomplete({
         lookup: window.publisher_names

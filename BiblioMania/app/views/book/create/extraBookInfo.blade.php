@@ -37,7 +37,7 @@
             <div class="form-group">
                 {{ Form::label('summary_label', 'Samenvatting:', array('class' => 'col-md-3')); }}
                 <div class="col-md-3">
-                    {{ Form::textarea('book_summary', $book_summary) }}
+                    {{ Form::textarea('book_summary', $book_summary, array('id' => 'book_summary_input')) }}
                 </div>
             </div>
         </div>
