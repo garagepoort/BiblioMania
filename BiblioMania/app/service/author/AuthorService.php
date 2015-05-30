@@ -65,6 +65,16 @@ class AuthorService
         return $author_model;
     }
 
+    public function updateAuthor($author_id, $name, $infix, $firstName, $authorImage, $date_of_birth_id, $date_of_death_id){
+        $author = $this->authorRepository->find($author_id);
+        $author->name = $name;
+        $author->infix = $infix;
+        $author->firstname = $firstName;
+        $author->date_of_birth_id = $date_of_birth_id;
+        $author->date_of_death_id = $date_of_death_id;
+        $this->authorRepository->save($author);
+    }
+
     public function deleteDateOfBirth($author)
     {
         if ($author->date_of_birth != null) {

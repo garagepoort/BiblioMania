@@ -5,21 +5,35 @@ class AuthorController extends BaseController {
 	private $authorFolder = "author/";
 	/** @var  AuthorService */
 	private $authorService;
+	/** @var  AuthorFormValidator */
+	private $authorFormValidator;
 	/** @var BookFromAuthorService */
 	private $bookFromAuthorService;
+	/** @var DateService */
+	private $dateService;
 
 	function __construct()
 	{
 		$this->authorService = App::make('AuthorService');
 		$this->bookFromAuthorService = App::make('BookFromAuthorService');
+		$this->authorFormValidator = App::make('AuthorFormValidator');
+		$this->dateService = App::make('DateService');
 	}
 
 
 	public function getAuthors()
 	{
-		return View::make('authors')->with(array(
+		return View::make($this->authorFolder . 'authors')->with(array(
             'title' => 'Auteurs'
         ));
+	}
+
+	public function goToEditAuthor($id)
+	{
+		$author = Author::where('id', '=', $id)->with('date_of_birth', 'date_of_death')->first();
+		$withArray = AuthorFormFiller::createEditAuthorArray($author);
+		$withArray['title'] = 'Wijzig auteur';
+		return View::make($this->authorFolder . 'editAuthor')->with($withArray);
 	}
 
 	public function getAuthorsList(){
@@ -31,6 +45,27 @@ class AuthorController extends BaseController {
 	}
 
 	public function editAuthor(){
+		$validator = $this->authorFormValidator->createValidator();
+
+		$author_id = Input::get('author_id');
+
+		if ($validator->fails()) {
+			if ($author_id) {
+				return Redirect::to('/editAuthor/' . $author_id)->withErrors($validator)->withInput();
+			}
+		} else {
+			$name = Input::get('name');
+			$infix = Input::get('infix');
+			$firstname = Input::get('firstname');
+			$date_of_birth = $this->dateService->createDate(Input::get('date_of_birth_day'), Input::get('date_of_birth_month'), Input::get('date_of_birth_year'));
+			$date_of_death = $this->dateService->createDate(Input::get('date_of_death_day'), Input::get('date_of_death_month'), Input::get('date_of_death_year'));
+
+			$this->authorService->updateAuthor($author_id, $name, $infix, $firstname, null, $date_of_birth->id, $date_of_death->id);
+			return Redirect::to('/getAuthor/' .$author_id);
+		}
+	}
+
+	public function editAuthorInList(){
 		$dateService = App::make('DateService');
 		$logger = new Katzgrau\KLogger\Logger(app_path() . '/storage/logs');
 
@@ -74,7 +109,7 @@ class AuthorController extends BaseController {
 
 	public function getAuthor($author_id){
 		$author = Author::with('oeuvre')->find($author_id);
-		return View::make('author')->with(array(
+		return View::make($this->authorFolder . 'author')->with(array(
 			'title' => 'Auteur',
 			'author' => $author,
             'author_json' => json_encode($author)

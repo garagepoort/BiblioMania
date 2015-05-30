@@ -33,10 +33,12 @@ Route::group(array('before' => 'auth'), function() {
 //  AUTHOR
     Route::get('getAuthor/{id}', 'AuthorController@getAuthor');
     Route::get('getAuthors', 'AuthorController@getAuthors');
+    Route::get('editAuthor/{id}', 'AuthorController@goToEditAuthor');
     Route::get('getAuthorsList', 'AuthorController@getAuthorsList');
     Route::get('getOeuvreForAuthor/{id}', 'AuthorController@getOeuvreForAuthor');
     Route::get('getNextAuthors', 'AuthorController@getNextAuthors');
     Route::get('getAuthorsWithOeuvreJson', 'AuthorController@getAuthorsWithOeuvreJson');
+    Route::post('editAuthorInList', 'AuthorController@editAuthorInList');
     Route::post('editAuthor', 'AuthorController@editAuthor');
 
 //  PUBLISHER

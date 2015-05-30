@@ -24,9 +24,9 @@ $(document).ready(function () {
         framework: 'bootstrap',
         excluded: [':disabled'],
         feedbackIcons: {
-            valid: 'glyphicon glyphicon-ok',
-            invalid: 'glyphicon glyphicon-remove',
-            validating: 'glyphicon glyphicon-refresh'
+            valid: '',
+            invalid: '',
+            validating: ''
         },
         fields: {
             //BOOK

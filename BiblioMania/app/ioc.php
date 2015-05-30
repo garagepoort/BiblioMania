@@ -128,6 +128,11 @@
 		return new BookFormValidator();
 	});
 
+	App::singleton('AuthorFormValidator', function()
+	{
+		return new AuthorFormValidator();
+	});
+
 	App::singleton('BookDTOMapper', function()
 	{
 		return new BookDTOMapper();
