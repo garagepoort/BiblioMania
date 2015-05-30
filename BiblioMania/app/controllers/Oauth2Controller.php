@@ -24,8 +24,7 @@ class Oauth2_Controller extends BaseController{
               Session::put('access_token', $client->getAccessToken());
               Session::put('refresh_token', $client->getRefreshToken());
               GoogleApiRepository::createOrUpdateApiTokenForUser(Auth::user()->username, $client->getAccessToken(), $client->getRefreshToken());
-              $redirect = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
-              header('Location: ' . filter_var($redirect, FILTER_SANITIZE_URL));
+              return Redirect::to('books/getBooks');
         }
      }
 

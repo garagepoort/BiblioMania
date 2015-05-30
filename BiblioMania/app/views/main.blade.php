@@ -30,7 +30,7 @@
     {{ HTML::script('assets/lib/bootstrapvalidator/dist/js/language/be_NL.js') }}
     {{ HTML::style('assets/lib/bootstrapvalidator/dist/css/bootstrapValidator.min.css') }}
 
-    <!-- COL    LAPSIBLE -->
+    <!-- COLLAPSIBLE -->
     {{ HTML::script('assets/lib/jquery.collapsible.js') }}
 
     <!-- LESS SCRIPTS -->

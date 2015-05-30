@@ -21,9 +21,9 @@
 					else
 					$('.overlay',$(this)).fadeIn();
 					if(!o.showcaption)
-						$(this).find('.ic_caption').slideDown(500);
+						$(this).find('.ic_caption').slideDown(200);
 					else
-						$('.ic_text',$(this)).slideDown(500);	
+						$('.ic_text',$(this)).slideDown(200);
 				},
 				function () {
 					if((navigator.appVersion).indexOf('MSIE 7.0') > 0)

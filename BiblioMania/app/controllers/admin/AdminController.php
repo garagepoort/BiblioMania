@@ -12,7 +12,7 @@ class AdminController extends BaseController{
 
 
     public function goToAdminPagina(){
-        return View::make('admin/adminPagina')->with(array('title'=>'Admin'));
+        return View::make('admin/admin')->with(array('title'=>'Admin'));
      }
 
      public function backupDatabase($username = null, $password = null){
