@@ -1,8 +1,9 @@
-bookimages
-books-231214.tar.gz
-scaledImages
-statistieken.rtf
-unscaledImages
-CONTRIBUTING.md
-.DS_STORE
-/tools
+/bootstrap/compiled.php
+/vendor
+/app/tests/ui/screenshots
+composer.lock
+.env.*.php
+.env.php
+.DS_Store
+Thumbs.db
+.idea
