@@ -1,9 +1,0 @@
-/bootstrap/compiled.php
-/vendor
-/app/tests/ui/screenshots
-composer.lock
-.env.*.php
-.env.php
-.DS_Store
-Thumbs.db
-.idea
