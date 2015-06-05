@@ -11,6 +11,8 @@ class AuthorController extends BaseController {
 	private $bookFromAuthorService;
 	/** @var DateService */
 	private $dateService;
+	/** @var ImageService */
+	private $imageService;
 
 	function __construct()
 	{
@@ -18,6 +20,7 @@ class AuthorController extends BaseController {
 		$this->bookFromAuthorService = App::make('BookFromAuthorService');
 		$this->authorFormValidator = App::make('AuthorFormValidator');
 		$this->dateService = App::make('DateService');
+		$this->imageService = App::make('ImageService');
 	}
 
 
@@ -60,7 +63,7 @@ class AuthorController extends BaseController {
 			$date_of_birth = $this->dateService->createDate(Input::get('date_of_birth_day'), Input::get('date_of_birth_month'), Input::get('date_of_birth_year'));
 			$date_of_death = $this->dateService->createDate(Input::get('date_of_death_day'), Input::get('date_of_death_month'), Input::get('date_of_death_year'));
 
-			$this->authorService->updateAuthor($author_id, $name, $infix, $firstname, null, $date_of_birth->id, $date_of_death->id);
+			$this->authorService->updateAuthor($author_id, $name, $infix, $firstname, $this->getAuthorImage(), $date_of_birth->id, $date_of_death->id);
 			return Redirect::to('/getAuthor/' .$author_id);
 		}
 	}
@@ -162,5 +165,18 @@ class AuthorController extends BaseController {
 
 	public function getAuthorsWithOeuvreJson(){
 		return Response::json(Author::with('oeuvre')->all());
+	}
+
+	private  function getAuthorImage()
+	{
+		$authorImage = null;
+		if (Input::get('imageSelfUpload')) {
+			$authorImage = Input::file('image');
+		} else {
+			if (Input::get('imageUrl') != '') {
+				$authorImage = $this->imageService->saveImageFromUrl(Input::get('imageUrl'));
+			}
+		}
+		return $authorImage;
 	}
 }

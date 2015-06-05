@@ -3,7 +3,13 @@
 class ImageService
 {
 
-    public function getImageFromUrl($url, $filename)
+    public function saveUploadImage($image, $filename){
+        $filename = 'bookImages/'. Auth::user()->username . '/' . str_random(8) . '_' . $filename . '.jpg';
+        $image->move('bookImages/'. Auth::user()->username, $filename);
+        return $filename;
+    }
+
+    public function saveImageFromUrl($url, $filename)
     {
         $img = file_get_contents($url);
         $im = imagecreatefromstring($img);
@@ -16,7 +22,7 @@ class ImageService
 
         imagecopyresized($thumb, $im, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
 
-        $filename = 'bookImages/' . Auth::user()->username . '/' . str_random(8) . '_' . $filename . '.jpg';
+        $filename = 'bookImages/' . Auth::user()->username . '/' . str_random(8). '_' .$filename.'.jpg';
         imagejpeg($thumb, $filename); //save image as jpg
 
         imagedestroy($thumb);
@@ -24,29 +30,6 @@ class ImageService
         imagedestroy($im);
 
         return $filename;
-    }
-
-    public function saveImage($image, $filename){
-        $filename = 'bookImages/' . Auth::user()->username . '/' . str_random(8) . '_' . $filename . '.jpg';
-        imagejpeg($image, $filename); //save image as jpg
-        imagedestroy($image);
-        return $filename;
-    }
-
-    public function getImage($url)
-    {
-        $img = file_get_contents($url);
-        $im = imagecreatefromstring($img);
-        $width = imagesx($im);
-        $height = imagesy($im);
-        $newwidth = '142';
-        $newheight = '226';
-
-        $thumb = imagecreatetruecolor($newwidth, $newheight);
-
-        imagecopyresized($thumb, $im, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
-
-        return $thumb;
     }
 
 }

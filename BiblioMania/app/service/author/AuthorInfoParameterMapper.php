@@ -28,23 +28,25 @@ class AuthorInfoParameterMapper {
             $author_date_of_birth,
             $author_date_of_death,
             Input::get('bookFromAuthorTitle'),
-            $this->getAuthorImage(),
+            $this->getImage(),
             $this->oeuvreToParameterMapper->mapToOeuvreList(Input::get('oeuvre')),
-            true
+            Input::get('authorImageSelfUpload')
         );
     }
 
-
-    protected function getAuthorImage()
+    public function getImage()
     {
-        $authorImage = null;
-        if (Input::get('authorImageSelfUpload')) {
-            $authorImage = Input::file('author_image');
-        } else {
+        $image = null;
+        $imageSelfUpload = Input::get('authorImageSelfUpload');
+        if($imageSelfUpload){
+            if(Input::hasFile('author_image')){
+                $image = Input::file('author_image');
+            }
+        }else{
             if (Input::get('authorImageUrl') != '') {
-                $authorImage = $this->imageService->getImage(Input::get('authorImageUrl'));
+                $image = Input::get('authorImageUrl');
             }
         }
-        return $authorImage;
+        return $image;
     }
 }

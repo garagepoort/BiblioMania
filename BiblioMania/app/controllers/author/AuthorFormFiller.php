@@ -10,6 +10,7 @@ class AuthorFormFiller
         $result['name'] = '';
         $result['infix'] = '';
         $result['firstname'] = '';
+        $result['image'] = '';
         $result['date_of_birth_day'] = '';
         $result['date_of_birth_month'] = '';
         $result['date_of_birth_year'] = '';
@@ -26,6 +27,7 @@ class AuthorFormFiller
         $result['name'] = $author->name;
         $result['infix'] = $author->infix;
         $result['firstname'] = $author->firstname;
+        $result['image'] = $author->image;
 
         if(!is_null($author->date_of_birth)){
             $result['date_of_birth_day'] = $author->date_of_birth->day;

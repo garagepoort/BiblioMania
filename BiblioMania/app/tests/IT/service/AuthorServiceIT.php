@@ -14,7 +14,7 @@ class AuthorServiceIT extends AbstractIntegrationTestCase{
     }
 
     public function test_createOrUpdate_createsAuthorCorrect(){
-        $authorInfoParameters = new AuthorInfoParameters("name", "firstname", "infix", null, null, "linked_book", null, "oeuvre");
+        $authorInfoParameters = new AuthorInfoParameters("name", "firstname", "infix", null, null, "linked_book", null, "oeuvre", true);
 
         $author = $this->authorService->createOrUpdate($authorInfoParameters);
 

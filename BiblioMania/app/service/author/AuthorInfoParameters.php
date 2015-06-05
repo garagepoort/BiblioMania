@@ -1,6 +1,9 @@
 <?php
 
 class AuthorInfoParameters {
+    public static $TYPE_IMAGE_UPLOAD = "IMAGE_UPLOAD";
+    public static $TYPE__IMAGE_URL = "IMAGE_URL";
+
     /** @var  String */
     private $name;
     /** @var  String */
@@ -16,9 +19,9 @@ class AuthorInfoParameters {
     /** @var  BookFromAuthorParameters[] */
     private $oeuvre;
     private $image;
-    private $shouldCreateImage;
+    private $selfUpload;
 
-    function __construct($name, $firstname, $infix, Date $date_of_birth = null, Date $date_of_death = null, $linked_book, $image, array $oeuvre = array(), $shouldCreateImage)
+    function __construct($name, $firstname, $infix, Date $date_of_birth = null, Date $date_of_death = null, $linked_book, $image, array $oeuvre = array(), $selfUpload)
     {
         $this->name = trim($name);
         $this->firstname = trim($firstname);
@@ -28,7 +31,7 @@ class AuthorInfoParameters {
         $this->linked_book = $linked_book;
         $this->image = $image;
         $this->oeuvre = $oeuvre;
-        $this->shouldCreateImage = $shouldCreateImage;
+        $this->selfUpload = $selfUpload;
     }
 
     public function getName()
@@ -71,9 +74,10 @@ class AuthorInfoParameters {
         return $this->oeuvre;
     }
 
-    public function getShouldCreateImage()
+    public function isSelfUpload()
     {
-        return $this->shouldCreateImage;
+        return $this->selfUpload;
     }
+
 
 }

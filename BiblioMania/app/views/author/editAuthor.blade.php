@@ -13,6 +13,35 @@
         {{ Form::open(array('url' => 'editAuthor', 'class' => 'form-horizontal')) }}
         <input id="author-id-input" name="author_id" hidden value={{ $author_id }}>
         <fieldset>
+            <div class="form-group">
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-3">
+                    @if($image != '')
+                        {{ HTML::image($image, 'image') }}
+                    @endif
+                </div>
+            </div>
+
+            <!-- IMAGE -->
+            <span style="margin-right: 10px">Ik wil zelf een afbeelding uploaden:</span><input id="author-image-self-upload-checkbox" type="checkbox" name="imageSelfUpload"/>
+
+            <div id="author-image-self-upload-panel" class="form-group" hidden>
+                {{ Form::label('imageAuthorLabel', 'Afbeelding:', array('class' => 'col-md-3')); }}
+                <div class="col-md-3">
+                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                        <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
+                        <div>
+                            <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span>{{ Form::file('image') }}</span>
+                            <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="author-image-google-search-panel">
+                @include('googleImageSearch', array('imageUrlInput' => 'imageUrl','contentDivId' => 'authorImageContent'))
+            </div>
 
             <!-- Name input-->
             <div class="form-group">
@@ -26,7 +55,7 @@
             <div class="form-group">
                 {{ Form::label('infixLabel', 'Tussenvoegsel:', array('class' => 'infixLabel col-md-3')); }}
                 <div class="col-md-3">
-                    {{ Form::text('infix', $infix,array('id' => 'infixInputLogin','class' => 'form-control input-sm', 'placeholder' => 'tussenvoegsel', 'required' => 'false')); }}
+                    {{ Form::text('infix', $infix,array('id' => 'infixInput','class' => 'form-control input-sm', 'placeholder' => 'tussenvoegsel', 'required' => 'false')); }}
                 </div>
             </div>
 
@@ -34,7 +63,7 @@
             <div class="form-group">
                 {{ Form::label('firstnameLabel', 'Voornaam:', array('class' => 'firstnameLabel col-md-3')); }}
                 <div class="col-md-3">
-                    {{ Form::text('firstname', $firstname, array('id' => 'firstnameInputLogin','class' => 'form-control input-sm', 'placeholder' => 'password', 'required' => 'true')); }}
+                    {{ Form::text('firstname', $firstname, array('id' => 'firstnameInput','class' => 'form-control input-sm', 'placeholder' => 'password', 'required' => 'true')); }}
                 </div>
             </div>
 
@@ -75,4 +104,5 @@
         </fieldset>
         {{ Form::close() }}
     </div>
+    {{ HTML::script('assets/js/author/editAuthor.js'); }}
 @stop
