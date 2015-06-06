@@ -32,4 +32,11 @@ class ImageService
         return $filename;
     }
 
+    public function removeImage($image)
+    {
+        if (file_exists($image)) {
+            unlink($image);
+        }
+    }
+
 }
