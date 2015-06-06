@@ -4,13 +4,13 @@ class CoverInfoParameters {
 
     private $coverType;
     private $image;
-    private $shouldCreateImage;
+    private $selfUpload;
 
-    function __construct($coverType, $image, $shouldCreateImage)
+    function __construct($coverType, $image, $selfUpload)
     {
         $this->coverType = $coverType;
         $this->image = $image;
-        $this->shouldCreateImage = $shouldCreateImage;
+        $this->selfUpload = $selfUpload;
     }
 
 
@@ -26,9 +26,9 @@ class CoverInfoParameters {
         return $this->coverType;
     }
 
-    public function getShouldCreateImage()
+    public function isSelfUpload()
     {
-        return $this->shouldCreateImage;
+        return $this->selfUpload;
     }
 
 

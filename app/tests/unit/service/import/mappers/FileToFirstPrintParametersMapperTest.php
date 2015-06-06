@@ -17,7 +17,7 @@ class FileToFirstPrintParametersMapperTest extends TestCase {
     }
 
     public function test_map_mapsCorrect(){
-        $this->dateImporter->shouldReceive('getPublicationDate')->once()->with("publicationDate")->andReturn($this->dateMock);
+        $this->dateImporter->shouldReceive('importDate')->once()->with("publicationDate")->andReturn($this->dateMock);
 
         $line_values = [50];
         $line_values[LineMapping::FirstPrintTitle] = "title";
@@ -44,7 +44,7 @@ class FileToFirstPrintParametersMapperTest extends TestCase {
     }
 
     public function test_map_whenTitleNotFilledIn_orginalBookTitleIsUsed(){
-        $this->dateImporter->shouldReceive('getPublicationDate')->once()->with("publicationDate")->andReturn($this->dateMock);
+        $this->dateImporter->shouldReceive('importDate')->once()->with("publicationDate")->andReturn($this->dateMock);
 
         $line_values = [50];
         $line_values[LineMapping::FirstPrintTitle] = "";
