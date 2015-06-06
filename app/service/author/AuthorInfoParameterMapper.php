@@ -30,8 +30,16 @@ class AuthorInfoParameterMapper {
             Input::get('bookFromAuthorTitle'),
             $this->getImage(),
             $this->oeuvreToParameterMapper->mapToOeuvreList(Input::get('oeuvre')),
-            Input::get('authorImageSelfUpload')
+            $this->getImageSaveType()
         );
+    }
+
+    public function getImageSaveType(){
+        if(Input::get('authorImageSelfUpload')){
+            return ImageSaveType::UPLOAD;
+        }else{
+            return ImageSaveType::URL;
+        }
     }
 
     public function getImage()

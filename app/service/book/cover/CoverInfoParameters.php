@@ -4,13 +4,13 @@ class CoverInfoParameters {
 
     private $coverType;
     private $image;
-    private $selfUpload;
+    private $imageSaveType;
 
-    function __construct($coverType, $image, $selfUpload)
+    function __construct($coverType, $image, $imageSaveType)
     {
         $this->coverType = $coverType;
         $this->image = $image;
-        $this->selfUpload = $selfUpload;
+        $this->imageSaveType = $imageSaveType;
     }
 
 
@@ -26,9 +26,9 @@ class CoverInfoParameters {
         return $this->coverType;
     }
 
-    public function isSelfUpload()
+    public function getImageSaveType()
     {
-        return $this->selfUpload;
+        return $this->imageSaveType;
     }
 
 
