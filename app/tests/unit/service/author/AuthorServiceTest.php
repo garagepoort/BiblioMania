@@ -73,7 +73,7 @@ class AuthorServiceTest extends TestCase {
             self::LINKED_BOOK,
             self::IMAGE,
             array(),
-            false);
+            ImageSaveType::URL);
 
         $this->dateOfBirthMock->shouldReceive('save')->once();
         $this->dateOfDeathMock->shouldReceive('save')->once();
@@ -102,7 +102,7 @@ class AuthorServiceTest extends TestCase {
             self::LINKED_BOOK,
             self::IMAGE,
             array(),
-            true);
+            ImageSaveType::UPLOAD);
 
         $originalDateOfBirth = Mockery::mock('Eloquent', 'Date');
         $originalDateOfDeath = Mockery::mock('Eloquent', 'Date');

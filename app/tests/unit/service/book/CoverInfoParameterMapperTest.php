@@ -27,7 +27,7 @@ class CoverInfoParameterMapperTest extends TestCase {
 
         $this->assertEquals(self::IMAGE, $coverInfoParameters->getImage());
         $this->assertEquals(self::COVER_TYPE, $coverInfoParameters->getCoverType());
-        $this->assertEquals(true, $coverInfoParameters->isSelfUpload());
+        $this->assertEquals(ImageSaveType::UPLOAD, $coverInfoParameters->getImageSaveType());
     }
 
     public function testWhenSelfUpload_getsImageFromInput(){
@@ -42,7 +42,7 @@ class CoverInfoParameterMapperTest extends TestCase {
         $coverInfoParameters = $this->coverInfoParameterMapper->create();
 
         $this->assertEquals(self::IMAGE, $coverInfoParameters->getImage());
-        $this->assertEquals(true, $coverInfoParameters->isSelfUpload());
+        $this->assertEquals(ImageSaveType::UPLOAD, $coverInfoParameters->getImageSaveType());
     }
 
     public function testWhenNotSelfUpload_getsImageFromUrlIfUrlFilledIn(){
@@ -56,6 +56,6 @@ class CoverInfoParameterMapperTest extends TestCase {
         $coverInfoParameters = $this->coverInfoParameterMapper->create();
 
         $this->assertEquals('someURL', $coverInfoParameters->getImage());
-        $this->assertEquals(false, $coverInfoParameters->isSelfUpload());
+        $this->assertEquals(ImageSaveType::URL, $coverInfoParameters->getImageSaveType());
     }
 }
