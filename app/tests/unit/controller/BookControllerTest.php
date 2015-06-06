@@ -59,6 +59,9 @@ class BookControllerTest extends TestCase{
         $response = $this->action('GET', 'BookController@getFullBook', null, $parameters);
     }
 
+    /**
+     * @group ignore
+     */
     public function testCreateOrEditBook_whenValidationSuccess_callBookCreationService(){
         $this->bookFormValidatorMock->shouldReceive('createValidator')->once()->andReturn($this->validatorMock);
         $this->validatorMock->shouldReceive('fails')->once()->andReturn(false);
