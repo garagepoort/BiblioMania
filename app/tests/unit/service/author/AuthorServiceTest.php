@@ -81,6 +81,7 @@ class AuthorServiceTest extends TestCase {
         $this->imageService->shouldReceive("saveImageFromUrl")->once()->with(self::IMAGE, self::NAME)->andReturn(self::IMAGE_PATH);
         $this->authorRepository->shouldReceive("getAuthorByFullName")->once()->with(self::NAME, self::FIRSTNAME, self::INFIX)->andReturn(null);
         $this->authorRepository->shouldReceive("save")->once();
+        $this->imageService->shouldReceive("removeImage")->once();
 
         $author = $this->authorService->createOrUpdate($authorInfoParameters);
 
@@ -120,6 +121,7 @@ class AuthorServiceTest extends TestCase {
         $this->imageService->shouldReceive("saveUploadImage")->once()->with(self::IMAGE, self::NAME)->andReturn(self::IMAGE_PATH);
         $this->authorRepository->shouldReceive("getAuthorByFullName")->once()->with(self::NAME, self::FIRSTNAME, self::INFIX)->andReturn($originalAuthor);
         $this->authorRepository->shouldReceive("save")->once();
+        $this->imageService->shouldReceive("removeImage")->once();
 
         $author = $this->authorService->createOrUpdate($authorInfoParameters);
 
