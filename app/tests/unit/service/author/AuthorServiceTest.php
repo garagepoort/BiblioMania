@@ -49,7 +49,36 @@ class AuthorServiceTest extends TestCase {
         $this->dateOfBirthMock->shouldReceive('save')->once();
         $this->dateOfDeathMock->shouldReceive('save')->once();
 
-        $this->imageService->shouldReceive("saveImage")->once()->with(self::IMAGE, self::NAME)->andReturn(self::IMAGE_PATH);
+        $this->imageService->shouldReceive("saveUploadImage")->once()->with(self::IMAGE, self::NAME)->andReturn(self::IMAGE_PATH);
+        $this->authorRepository->shouldReceive("getAuthorByFullName")->once()->with(self::NAME, self::FIRSTNAME, self::INFIX)->andReturn(null);
+        $this->authorRepository->shouldReceive("save")->once();
+
+        $author = $this->authorService->createOrUpdate($authorInfoParameters);
+
+        $this->assertEquals($author->name, self::NAME);
+        $this->assertEquals($author->firstname, self::FIRSTNAME);
+        $this->assertEquals($author->infix, self::INFIX);
+        $this->assertEquals($author->date_of_birth_id, 12);
+        $this->assertEquals($author->date_of_death_id, 13);
+        $this->assertEquals($author->image, self::IMAGE_PATH);
+    }
+
+    public function test_saveOrUpdate_whenImageFromUrl_savesImageFromUrl(){
+        $authorInfoParameters = new AuthorInfoParameters(
+            self::NAME,
+            self::FIRSTNAME,
+            self::INFIX,
+            $this->dateOfBirthMock,
+            $this->dateOfDeathMock,
+            self::LINKED_BOOK,
+            self::IMAGE,
+            array(),
+            false);
+
+        $this->dateOfBirthMock->shouldReceive('save')->once();
+        $this->dateOfDeathMock->shouldReceive('save')->once();
+
+        $this->imageService->shouldReceive("saveImageFromUrl")->once()->with(self::IMAGE, self::NAME)->andReturn(self::IMAGE_PATH);
         $this->authorRepository->shouldReceive("getAuthorByFullName")->once()->with(self::NAME, self::FIRSTNAME, self::INFIX)->andReturn(null);
         $this->authorRepository->shouldReceive("save")->once();
 
@@ -78,17 +107,17 @@ class AuthorServiceTest extends TestCase {
         $originalDateOfBirth = Mockery::mock('Eloquent', 'Date');
         $originalDateOfDeath = Mockery::mock('Eloquent', 'Date');
         $originalAuthor = new Author();
-        $originalAuthor->name = "somename";
-        $originalAuthor->firstname = "somefirstname";
-        $originalAuthor->infix = "someinfix";
-        $originalAuthor->image = "smimfe";
+        $originalAuthor->name = self::NAME;
+        $originalAuthor->firstname = self::FIRSTNAME;
+        $originalAuthor->infix = self::INFIX;
+        $originalAuthor->image = self::IMAGE;
         $originalAuthor->date_of_birth = $originalDateOfBirth;
         $originalAuthor->date_of_death = $originalDateOfDeath;
 
         $this->dateService->shouldReceive("copyDateValues")->once()->with($originalDateOfBirth, $this->dateOfBirthMock);
         $this->dateService->shouldReceive("copyDateValues")->once()->with($originalDateOfDeath, $this->dateOfDeathMock);
 
-        $this->imageService->shouldReceive("saveImage")->once()->with(self::IMAGE, self::NAME)->andReturn(self::IMAGE_PATH);
+        $this->imageService->shouldReceive("saveUploadImage")->once()->with(self::IMAGE, self::NAME)->andReturn(self::IMAGE_PATH);
         $this->authorRepository->shouldReceive("getAuthorByFullName")->once()->with(self::NAME, self::FIRSTNAME, self::INFIX)->andReturn($originalAuthor);
         $this->authorRepository->shouldReceive("save")->once();
 

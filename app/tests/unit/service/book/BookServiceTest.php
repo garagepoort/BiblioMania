@@ -18,7 +18,10 @@ class BookServiceTest extends TestCase {
         $this->be($user);
     }
 
-    public function test_createBook_whenShouldNotCreateImage_doesNotCreateImage(){
+    /**
+     * @group ignore
+     */
+    public function test_createBook_whenCreateImageFromUrl_createImageFromUrl(){
         $firstPrintInfoParameters = $this->mock("FirstPrintInfoParameters");
         $firstPrintInfo = $this->mock("FirstPrintInfo");
         $buyInfo = $this->mock("BuyInfoParameters");
@@ -35,12 +38,17 @@ class BookServiceTest extends TestCase {
 
         $createdBook = $this->bookService->createBook($bookCreationParameters, $publisher, $country, $firstPrintInfo, $author);
 
-
         $this->imageService
-            ->shouldReceive('saveImage')
+            ->shouldReceive('saveUploadImage')
             ->never();
 
-        $this->assertEquals('someImage', $createdBook->coverImage);
+        $this->imageService
+            ->shouldReceive('saveImageFromUrl')
+            ->once()
+            ->with('someImage', null)
+            ->andReturn('imagePath');
+
+        $this->assertEquals('imagePath', $createdBook->coverImage);
     }
 
     public function test_createBookWhenShouldCreateImage_createsImageCorrect(){
@@ -59,7 +67,7 @@ class BookServiceTest extends TestCase {
         $bookCreationParameters = new BookCreationParameters($bookInfoParameters, $extra, $authorInfo, $buyInfo, null, $coverInfo, $firstPrintInfoParameters, $personalBookinfo);
 
         $this->imageService
-            ->shouldReceive('saveImage')
+            ->shouldReceive('saveUploadImage')
             ->once()
             ->with('someImage', null)
             ->andReturn('imagePath');
@@ -87,7 +95,10 @@ class BookServiceTest extends TestCase {
         $createdBook = $this->bookService->createBook($bookCreationParameters, $publisher, $country, $firstPrintInfo, $author);
 
         $this->imageService
-            ->shouldReceive('saveImage')
+            ->shouldReceive('saveUploadImage')
+            ->never();
+        $this->imageService
+            ->shouldReceive('saveImageFromUrl')
             ->never();
 
         $this->assertEquals('images/questionCover.png', $createdBook->coverImage);
@@ -123,7 +134,7 @@ class BookServiceTest extends TestCase {
         $createdBook = $this->bookService->createBook($bookCreationParameters, $publisher, $country, $firstPrintInfo, $author);
 
         $this->imageService
-            ->shouldReceive('saveImage')
+            ->shouldReceive('saveUploadImage')
             ->never();
 
         $this->assertEquals($previousImage, $createdBook->coverImage);

@@ -21,8 +21,6 @@ class AuthorInfoParameterMapperTest extends TestCase {
     private $authorInfoParameterMapper;
     /** @var  DateService */
     private $dateServiceMock;
-    /** @var  ImageService */
-    private $imageServiceMock;
     /** @var  OeuvreToParameterMapper */
     private $oeuvreToParameterMapper;
 
@@ -33,7 +31,6 @@ class AuthorInfoParameterMapperTest extends TestCase {
     public function setUp(){
         parent::setUp();
         $this->dateServiceMock = $this->mock('DateService');
-        $this->imageServiceMock = $this->mock('ImageService');
         $this->oeuvreToParameterMapper = $this->mock('OeuvreToParameterMapper');
         $this->authorInfoParameterMapper = App::make('AuthorInfoParameterMapper');
 
@@ -48,7 +45,8 @@ class AuthorInfoParameterMapperTest extends TestCase {
         $this->mockOther($this->mockInput);
         $this->mockInput->shouldReceive('input')->with('authorImageSelfUpload', null)->andReturn(self::SELF_UPLOAD);
         $this->mockInput->shouldReceive('input')->with('bookFromAuthorTitle', null)->andReturn(self::BOOK_FROM_AUTHOR);
-        $this->mockInput->shouldReceive('file')->andReturn(self::IMAGE);
+        $this->mockInput->shouldReceive('file')->with('author_image')->andReturn(self::IMAGE);
+        $this->mockInput->shouldReceive('hasFile')->with('author_image')->andReturn(true);
         Input::swap($this->mockInput);
 
 
@@ -62,6 +60,7 @@ class AuthorInfoParameterMapperTest extends TestCase {
         $this->assertEquals(self::IMAGE, $authorInfoParameters->getImage());
         $this->assertEquals(self::BOOK_FROM_AUTHOR, $authorInfoParameters->getLinkedBook());
         $this->assertEquals($this->bookFromAuthorParameters, $authorInfoParameters->getOeuvre());
+        $this->assertEquals(true, $authorInfoParameters->isSelfUpload());
     }
 
     public function testWhenSelfUpload_getsImageFromInput(){
@@ -70,16 +69,17 @@ class AuthorInfoParameterMapperTest extends TestCase {
         $this->mockOther($this->mockInput);
         $this->mockInput->shouldReceive('input')->with('bookFromAuthorTitle', null)->andReturn(self::BOOK_FROM_AUTHOR);
 
-        $this->mockInput->shouldReceive('input')->with('authorImageSelfUpload', null)->andReturn(true);
-        $this->mockInput->shouldReceive('file')->andReturn(self::IMAGE);
+        $this->mockInput->shouldReceive('input')->with('authorImageSelfUpload', null)->andReturn(false);
+        $this->mockInput->shouldReceive('input')->with('authorImageUrl', null)->andReturn(self::IMAGE);
         Input::swap($this->mockInput);
 
         $authorInfoParameters = $this->authorInfoParameterMapper->create();
 
         $this->assertEquals(self::IMAGE, $authorInfoParameters->getImage());
+        $this->assertEquals(false, $authorInfoParameters->isSelfUpload());
     }
 
-    public function testWhenNotSelfUpload_getsImageFromUrlIfUrlFilledIn(){
+    public function testWhenNotSelfUpload_imageIsUrl(){
         //SETUP
         $this->mockDates($this->mockInput);
         $this->mockOther($this->mockInput);
@@ -87,12 +87,12 @@ class AuthorInfoParameterMapperTest extends TestCase {
 
         $this->mockInput->shouldReceive('input')->with('authorImageSelfUpload', null)->andReturn(false);
         $this->mockInput->shouldReceive('input')->with('authorImageUrl', null)->andReturn('someURL');
-        $this->imageServiceMock->shouldReceive('getImage')->with('someURL')->once()->andReturn('myImage');
         Input::swap($this->mockInput);
 
         $authorInfoParameters = $this->authorInfoParameterMapper->create();
 
-        $this->assertEquals('myImage', $authorInfoParameters->getImage());
+        $this->assertEquals('someURL', $authorInfoParameters->getImage());
+        $this->assertEquals(false, $authorInfoParameters->isSelfUpload());
     }
 
 

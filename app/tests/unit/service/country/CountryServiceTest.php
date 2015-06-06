@@ -74,13 +74,15 @@ class CountryServiceTest extends TestCase {
         $this->testedCountryService->deleteCountry();
     }
 
-    /**
-     * @group ignore
-     */
     public function testDeleteCountry_deletesCountry()
     {
 
         $country = new Country();
+        $country->books = array();
+        $country->authors = array();
+        $country->cities = array();
+        $country->publishers = array();
+        $country->first_print_infos = array();
 
         $this->countryRepositoryMock
             ->shouldReceive('findFull')

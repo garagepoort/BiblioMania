@@ -24,7 +24,7 @@ class FileToCoverInfoParametersMapperTest extends TestCase {
 
         $this->assertEquals("bookImages/John/image", $parameters->getImage());
         $this->assertEquals("someType", $parameters->getCoverType());
-        $this->assertEquals(false, $parameters->getShouldCreateImage());
+        $this->assertEquals(true, $parameters->isSelfUpload());
     }
 
     public function test_mapWithImageEmpty_worksCorrect(){
@@ -38,6 +38,6 @@ class FileToCoverInfoParametersMapperTest extends TestCase {
 
         $this->assertEquals(null, $parameters->getImage());
         $this->assertEquals("someType", $parameters->getCoverType());
-        $this->assertEquals(false, $parameters->getShouldCreateImage());
+        $this->assertEquals(true, $parameters->isSelfUpload());
     }
 }
