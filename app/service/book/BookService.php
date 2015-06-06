@@ -11,6 +11,9 @@ class BookService
     private $bookSerieService;
     /** @var  BookFromAuthorService */
     private $bookFromAuthorService;
+    /** @var  ImageService */
+    private $imageService;
+
 
     function __construct()
     {
@@ -18,6 +21,7 @@ class BookService
         $this->publisherSerieService = App::make('PublisherSerieService');
         $this->bookSerieService = App::make('BookSerieService');
         $this->bookFromAuthorService = App::make('BookFromAuthorService');
+        $this->imageService = App::make('ImageService');
     }
 
     public function getValueOfLibrary()
@@ -213,16 +217,22 @@ class BookService
             $book->book_from_author()->associate($bookFromAuthor);
         }
 
-        $this->saveImage($bookCreationParameters->getCoverInfoParameters()->getImage(), $book);
+        $this->saveImage($bookCreationParameters->getCoverInfoParameters(), $book);
         $this->bookRepository->save($book);
         return $book;
     }
 
-    public function saveImage($image, $book)
+
+    public function saveImage(CoverInfoParameters $coverInfoParameters, $book)
     {
-        if (!StringUtils::isEmpty($image)) {
-            $book->coverImage = $image;
-        } else if(StringUtils::isEmpty($book->coverImage)){
+        if($coverInfoParameters->getImage() != null){
+            if($coverInfoParameters->isSelfUpload()){
+                $book->coverImage = $this->imageService->saveUploadImage($coverInfoParameters->getImage(),
+                    $book->title);
+            }else{
+                $book->coverImage = $this->imageService->saveImageFromUrl($coverInfoParameters->getImage(), $book->title);
+            }
+        }else if(StringUtils::isEmpty($book->coverImage)){
             $book->coverImage = 'images/questionCover.png';
         }
     }

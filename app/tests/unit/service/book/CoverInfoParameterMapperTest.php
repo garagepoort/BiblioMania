@@ -7,8 +7,6 @@ class CoverInfoParameterMapperTest extends TestCase {
 
     /** @var  CoverInfoParameterMapper */
     private $coverInfoParameterMapper;
-    /** @var  ImageService */
-    private $imageServiceMock;
 
     public function setUp(){
         parent::setUp();
@@ -21,14 +19,15 @@ class CoverInfoParameterMapperTest extends TestCase {
         $mockInput->shouldReceive('input')->with('book_type_of_cover', null)->andReturn(self::COVER_TYPE);
 
         $mockInput->shouldReceive('input')->with('coverInfoSelfUpload', null)->andReturn(true);
-        $mockInput->shouldReceive('file')->andReturn(self::IMAGE);
+        $mockInput->shouldReceive('hasFile')->with('book_cover_image')->andReturn(true);
+        $mockInput->shouldReceive('file')->with('book_cover_image')->andReturn(self::IMAGE);
         Input::swap($mockInput);
 
         $coverInfoParameters = $this->coverInfoParameterMapper->create();
 
         $this->assertEquals(self::IMAGE, $coverInfoParameters->getImage());
         $this->assertEquals(self::COVER_TYPE, $coverInfoParameters->getCoverType());
-        $this->assertEquals(true, $coverInfoParameters->getShouldCreateImage());
+        $this->assertEquals(true, $coverInfoParameters->isSelfUpload());
     }
 
     public function testWhenSelfUpload_getsImageFromInput(){
@@ -36,12 +35,14 @@ class CoverInfoParameterMapperTest extends TestCase {
         $mockInput->shouldReceive('input')->with('book_type_of_cover', null)->andReturn(self::COVER_TYPE);
 
         $mockInput->shouldReceive('input')->with('coverInfoSelfUpload', null)->andReturn(true);
-        $mockInput->shouldReceive('file')->andReturn(self::IMAGE);
+        $mockInput->shouldReceive('hasFile')->with('book_cover_image')->andReturn(true);
+        $mockInput->shouldReceive('file')->with('book_cover_image')->andReturn(self::IMAGE);
         Input::swap($mockInput);
 
         $coverInfoParameters = $this->coverInfoParameterMapper->create();
 
         $this->assertEquals(self::IMAGE, $coverInfoParameters->getImage());
+        $this->assertEquals(true, $coverInfoParameters->isSelfUpload());
     }
 
     public function testWhenNotSelfUpload_getsImageFromUrlIfUrlFilledIn(){
@@ -50,11 +51,11 @@ class CoverInfoParameterMapperTest extends TestCase {
 
         $mockInput->shouldReceive('input')->with('coverInfoSelfUpload', null)->andReturn(false);
         $mockInput->shouldReceive('input')->with('coverInfoUrl', null)->andReturn('someURL');
-        $this->imageServiceMock->shouldReceive('getImage')->with('someURL')->once()->andReturn('myImage');
         Input::swap($mockInput);
 
         $coverInfoParameters = $this->coverInfoParameterMapper->create();
 
-        $this->assertEquals('myImage', $coverInfoParameters->getImage());
+        $this->assertEquals('someURL', $coverInfoParameters->getImage());
+        $this->assertEquals(false, $coverInfoParameters->isSelfUpload());
     }
 }

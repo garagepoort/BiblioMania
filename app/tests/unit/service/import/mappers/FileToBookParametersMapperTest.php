@@ -18,7 +18,7 @@ class FileToBookParametersMapperTest extends TestCase {
     }
 
     public function test_map_mapsCorrect(){
-        $this->dateImporter->shouldReceive('getPublicationDate')->once()->with("some_date")->andReturn($this->dateMock);
+        $this->dateImporter->shouldReceive('importDate')->once()->with("some_date")->andReturn($this->dateMock);
 
         $line_values = [50];
         $line_values[LineMapping::BookTitle] = "title";

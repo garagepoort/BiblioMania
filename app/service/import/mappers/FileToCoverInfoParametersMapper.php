@@ -9,6 +9,6 @@ class FileToCoverInfoParametersMapper {
             $coverImage = 'bookImages/' . Auth::user()->username . '/' . end($path);
         }
 
-        return new CoverInfoParameters($line_values[LineMapping::CoverInfoType], $coverImage, false);
+        return new CoverInfoParameters($line_values[LineMapping::CoverInfoType], $coverImage, true);
     }
 }
