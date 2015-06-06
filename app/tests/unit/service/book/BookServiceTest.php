@@ -33,7 +33,7 @@ class BookServiceTest extends TestCase {
         $country = $this->mockEloquent('Country');
         $author = $this->mockEloquent('Author');
 
-        $coverInfo = new CoverInfoParameters('HARDCOVER', 'someImage', false);
+        $coverInfo = new CoverInfoParameters('HARDCOVER', 'someImage', ImageSaveType::URL);
         $bookCreationParameters = new BookCreationParameters($bookInfoParameters, $extra, $authorInfo, $buyInfo, null, $coverInfo, $firstPrintInfoParameters, $personalBookinfo);
 
         $createdBook = $this->bookService->createBook($bookCreationParameters, $publisher, $country, $firstPrintInfo, $author);
@@ -63,7 +63,7 @@ class BookServiceTest extends TestCase {
         $country = $this->mockEloquent('Country');
         $author = $this->mockEloquent('Author');
 
-        $coverInfo = new CoverInfoParameters('HARDCOVER', 'someImage', true);
+        $coverInfo = new CoverInfoParameters('HARDCOVER', 'someImage', ImageSaveType::UPLOAD);
         $bookCreationParameters = new BookCreationParameters($bookInfoParameters, $extra, $authorInfo, $buyInfo, null, $coverInfo, $firstPrintInfoParameters, $personalBookinfo);
 
         $this->imageService
@@ -89,7 +89,7 @@ class BookServiceTest extends TestCase {
         $country = $this->mockEloquent('Country');
         $author = $this->mockEloquent('Author');
 
-        $coverInfo = new CoverInfoParameters('HARDCOVER', null, true);
+        $coverInfo = new CoverInfoParameters('HARDCOVER', null, ImageSaveType::UPLOAD);
         $bookCreationParameters = new BookCreationParameters($bookInfoParameters, $extra, $authorInfo, $buyInfo, null, $coverInfo, $firstPrintInfoParameters, $personalBookinfo);
 
         $createdBook = $this->bookService->createBook($bookCreationParameters, $publisher, $country, $firstPrintInfo, $author);
@@ -128,7 +128,7 @@ class BookServiceTest extends TestCase {
             ->shouldReceive('find')
             ->andReturn($previousBook);
 
-        $coverInfo = new CoverInfoParameters('HARDCOVER', null, true);
+        $coverInfo = new CoverInfoParameters('HARDCOVER', null, ImageSaveType::UPLOAD);
         $bookCreationParameters = new BookCreationParameters($bookInfoParameters, $extra, $authorInfo, $buyInfo, null, $coverInfo, $firstPrintInfoParameters, $personalBookinfo);
 
         $createdBook = $this->bookService->createBook($bookCreationParameters, $publisher, $country, $firstPrintInfo, $author);

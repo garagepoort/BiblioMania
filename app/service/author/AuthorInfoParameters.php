@@ -19,9 +19,9 @@ class AuthorInfoParameters {
     /** @var  BookFromAuthorParameters[] */
     private $oeuvre;
     private $image;
-    private $selfUpload;
+    private $imageSaveType;
 
-    function __construct($name, $firstname, $infix, Date $date_of_birth = null, Date $date_of_death = null, $linked_book, $image, array $oeuvre = array(), $selfUpload)
+    function __construct($name, $firstname, $infix, Date $date_of_birth = null, Date $date_of_death = null, $linked_book, $image, array $oeuvre = array(), $imageSaveType)
     {
         $this->name = trim($name);
         $this->firstname = trim($firstname);
@@ -31,7 +31,7 @@ class AuthorInfoParameters {
         $this->linked_book = $linked_book;
         $this->image = $image;
         $this->oeuvre = $oeuvre;
-        $this->selfUpload = $selfUpload;
+        $this->imageSaveType = $imageSaveType;
     }
 
     public function getName()
@@ -74,9 +74,9 @@ class AuthorInfoParameters {
         return $this->oeuvre;
     }
 
-    public function isSelfUpload()
+    public function getImageSaveType()
     {
-        return $this->selfUpload;
+        return $this->imageSaveType;
     }
 
 

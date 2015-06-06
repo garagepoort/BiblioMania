@@ -60,7 +60,7 @@ class AuthorInfoParameterMapperTest extends TestCase {
         $this->assertEquals(self::IMAGE, $authorInfoParameters->getImage());
         $this->assertEquals(self::BOOK_FROM_AUTHOR, $authorInfoParameters->getLinkedBook());
         $this->assertEquals($this->bookFromAuthorParameters, $authorInfoParameters->getOeuvre());
-        $this->assertEquals(true, $authorInfoParameters->isSelfUpload());
+        $this->assertEquals(ImageSaveType::UPLOAD, $authorInfoParameters->getImageSaveType());
     }
 
     public function testWhenSelfUpload_getsImageFromInput(){
@@ -76,7 +76,7 @@ class AuthorInfoParameterMapperTest extends TestCase {
         $authorInfoParameters = $this->authorInfoParameterMapper->create();
 
         $this->assertEquals(self::IMAGE, $authorInfoParameters->getImage());
-        $this->assertEquals(false, $authorInfoParameters->isSelfUpload());
+        $this->assertEquals(ImageSaveType::URL, $authorInfoParameters->getImageSaveType());
     }
 
     public function testWhenNotSelfUpload_imageIsUrl(){
@@ -92,7 +92,7 @@ class AuthorInfoParameterMapperTest extends TestCase {
         $authorInfoParameters = $this->authorInfoParameterMapper->create();
 
         $this->assertEquals('someURL', $authorInfoParameters->getImage());
-        $this->assertEquals(false, $authorInfoParameters->isSelfUpload());
+        $this->assertEquals(ImageSaveType::URL, $authorInfoParameters->getImageSaveType());
     }
 
 

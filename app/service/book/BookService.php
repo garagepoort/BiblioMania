@@ -226,11 +226,15 @@ class BookService
     public function saveImage(CoverInfoParameters $coverInfoParameters, $book)
     {
         if($coverInfoParameters->getImage() != null){
-            if($coverInfoParameters->isSelfUpload()){
+            if($coverInfoParameters->getImageSaveType() == ImageSaveType::UPLOAD){
                 $book->coverImage = $this->imageService->saveUploadImage($coverInfoParameters->getImage(),
                     $book->title);
-            }else{
+            }
+            else if($coverInfoParameters->getImageSaveType() == ImageSaveType::URL){
                 $book->coverImage = $this->imageService->saveImageFromUrl($coverInfoParameters->getImage(), $book->title);
+            }
+            else if($coverInfoParameters->getImageSaveType() == ImageSaveType::PATH){
+                $book->coverImage = $coverInfoParameters->getImage();
             }
         }else if(StringUtils::isEmpty($book->coverImage)){
             $book->coverImage = 'images/questionCover.png';
