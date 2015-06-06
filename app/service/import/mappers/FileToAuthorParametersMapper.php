@@ -26,7 +26,7 @@ class FileToAuthorParametersMapper {
             new Date(),new Date(),null,
             $coverImage,
             $this->fileToOeuvreParametersMapper->map($line_values[LineMapping::AuthorOeuvre]),
-            false);
+            ImageSaveType::PATH);
         array_push($authorParameters, $firstAuthorParameters);
 
         $secondAuthorParameters = $this->createEmptyAuthor($line_values[LineMapping::SecondAuthorName], $line_values[LineMapping::SecondAuthorFirstName], $line_values[LineMapping::SecondAuthorInfix]);
