@@ -7,3 +7,5 @@ php:
 before_script:
   - composer self-update
   - composer install --prefer-source --no-interaction --dev
+
+script: php -d display_errors=On vendor/bin/phpunit --configuration phpunit.xml --testsuite unit --exclude-group ignore
