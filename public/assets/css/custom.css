@@ -139,6 +139,7 @@ legend {
   width: 88%;
   background-color: #ffffff;
   border: 5px solid #2d6ca2;
+  box-shadow: 0 25px 50px 0 rgba(0, 0, 0, 0.26);
   /*background-color: #AF885F;*/
   /*color: #8E2800;*/
 }
