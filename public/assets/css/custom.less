@@ -1,3 +1,5 @@
+@import "mixins.less";
+
 @font-face {
   font-family: "vincent";
   src: url("../fonts/Vincent-Regular.otf") format("opentype");
@@ -192,6 +194,7 @@ legend {
   width: 88%;
   background-color: @container-color;
   border: 5px solid @content-container-border;
+  box-shadow: 0 25px 50px 0 rgba(0, 0, 0, 0.26);
   /*background-color: #AF885F;*/
   /*color: #8E2800;*/
 }
@@ -199,7 +202,6 @@ legend {
 .contentPanel {
   padding-right: 15px;
   padding-left: 15px;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
 }
 
 /*BOOKS*/
@@ -444,6 +446,12 @@ table.book-detail-info-table td {
   display: table-cell;
   vertical-align: middle;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+//  transform:scale(1.1,1.1) translate3d(0,0,0);
+}
+
+.imageLinkWrapper:hover {
+  box-shadow: 0 25px 50px 0 rgba(0, 0, 0, 0.26);
+  transform:scale(1.05,1.05) translate3d(0,0,0);
 }
 
 .authorCoverLink {
