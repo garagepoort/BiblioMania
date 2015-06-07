@@ -341,6 +341,10 @@ table.book-detail-info-table td {
   vertical-align: middle;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
 }
+.imageLinkWrapper:hover {
+  box-shadow: 0 25px 50px 0 rgba(0, 0, 0, 0.26);
+  transform: scale(1.05, 1.05) translate3d(0, 0, 0);
+}
 .authorCoverLink {
   width: 142px;
   cursor: pointer;
