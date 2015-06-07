@@ -32,7 +32,7 @@ img {
 }
 
 input {
-  color: @font-color;
+  color: @primary-color;
 }
 
 .input-xs {
@@ -44,32 +44,27 @@ input {
 }
 
 @font: "helvetica";
-@background-color: #428bca;
+@primary-color: #2d6ca2;
+@secondary-color: #428bca;
+
 @container-color: #fff;
-@font-color: #2d6ca2;
 @inverse-font-color: #fff;
 @main-color: #fff;
-
 @navigation-font-color: #fff;
-@navigation-background-color: #2d6ca2;
 
 @font-size: 16px;
 @book-detail-background-color: #fff;
-@book-detail-border-color: #2d6ca2;
-@content-container-border: #2d6ca2;
 
 @tab-color: #fff;
-@tab-font-color: #2d6ca2;
 
 @title-panel-font-color: #fff;
-@title-panel-background-color: #2d6ca2;
 @title-panel-font: "vincent";
 
 body {
   font-family: @font;
-  color: @font-color;
+  color: @primary-color;
   font-size: @font-size;
-  background-color: @background-color;
+  background-color: @secondary-color;
 }
 
 div.tableDiv {
@@ -79,7 +74,7 @@ div.tableDiv {
 }
 
 small.help-block {
-  color: @font-color;
+  color: @primary-color;
 }
 
 select {
@@ -131,7 +126,7 @@ a:hover {
 .title-panel {
   width: 100%;
   padding-left: 20px;
-  background-color: @title-panel-background-color;
+  background-color: @primary-color;
   color: @title-panel-font-color;
   font-family: @title-panel-font;
   font-size: 36px;
@@ -154,7 +149,7 @@ div.editBookPanel {
 }
 
 legend {
-  color: @font-color;
+  color: @primary-color;
 }
 
 /*PLACEHOLDERS*/
@@ -193,7 +188,7 @@ legend {
   margin-top: 50px;
   width: 88%;
   background-color: @container-color;
-  border: 5px solid @content-container-border;
+  border: 5px solid @primary-color;
   box-shadow: 0 25px 50px 0 rgba(0, 0, 0, 0.26);
   /*background-color: #AF885F;*/
   /*color: #8E2800;*/
@@ -349,6 +344,8 @@ table.book-detail-info-table > tbody > tr > td {
 }
 
 .book-detail-small-info-panel {
+  width: 298px;
+  background-color: #ffffff;
 }
 
 .book-detail-small-info-panel > legend {
@@ -383,9 +380,9 @@ table.book-detail-info-table td {
 }
 
 .book-detail-summary {
-  float: left;
   margin-top: 20px;
   text-align: justify;
+  width: 96%;
 }
 
 .book-detail-summary p {
@@ -397,17 +394,16 @@ table.book-detail-info-table td {
 .book-detail-div {
   /*left: 0;*/
   overflow: scroll;
-  float: right;
   position: fixed;
-  opacity: 0.95;
+  opacity: 1;
   top: 0px;
   background-color: @book-detail-background-color;
-  border: 10px solid @book-detail-border-color;
+  border: 10px solid @primary-color;
   right: -700px;
   width: 700px;
   height: 100vh;
 
-  /*border: solid 1px @background-color;*/
+  /*border: solid 1px @secondary-color;*/
 }
 
 .book-detail-close {
@@ -419,6 +415,7 @@ table.book-detail-info-table td {
   margin-top: 20px;
   margin-left: auto;
   margin-right: auto;
+  height: 300px;
 }
 
 .pagination {
@@ -463,7 +460,7 @@ table.book-detail-info-table td {
 
 /*AUTHOR*/
 .info-container {
-  color: @font-color;
+  color: @primary-color;
   width: 88%;
   margin-left: auto;
   margin-right: auto;
@@ -510,7 +507,7 @@ table.book-detail-info-table td {
 //END PUBLISHER
 /*PAGINATION*/
 .pagination li {
-  background-color: @background-color;
+  background-color: @secondary-color;
 }
 
 /*END PAGINATION*/
@@ -555,8 +552,8 @@ table.book-detail-info-table td {
 }
 
 .tab-container fieldset legend {
-  color: @tab-font-color;
-  border-bottom: 1px solid @tab-font-color;
+  color: @primary-color;
+  border-bottom: 1px solid @primary-color;
 }
 
 .form-container {
@@ -580,11 +577,11 @@ table.book-detail-info-table td {
   border-bottom: 1px solid @tab-color;
   padding: 10px;
   background-color: @tab-color;
-  color: @tab-font-color;
+  color: @primary-color;
 }
 
 ul.nav li a {
-  color: @font-color;
+  color: @primary-color;
   background-color: #1D2326;
 }
 
@@ -592,8 +589,8 @@ ul.nav li a {
 .nav-tabs > li.active > a:focus,
 ul.nav li a:hover {
   color: @inverse-font-color;
-  background-color: @font-color;
-  border: 1px solid @font-color;
+  background-color: @primary-color;
+  border: 1px solid @primary-color;
 }
 
 .nav-tabs {
@@ -627,7 +624,7 @@ ul.nav li a:hover {
 .well {
   background-color: @inverse-font-color;
   background: @inverse-font-color;
-  color: @font-color;
+  color: @primary-color;
 }
 
 /*END GENRES*/
@@ -663,12 +660,12 @@ ul.nav li a:hover {
 }
 
 .navbar-default {
-  background-color: @navigation-background-color;
-  border-color: @navigation-background-color;
+  background-color: @primary-color;
+  border-color: @primary-color;
 }
 
 .navbar-inner {
-  background-color: @navigation-background-color;
+  background-color: @primary-color;
 }
 
 .navbar-default .navbar-brand {
@@ -685,39 +682,39 @@ ul.nav li a:hover {
 
 .navbar-default .navbar-nav > li > a {
   color: @navigation-font-color;
-  background-color: @navigation-background-color;
+  background-color: @primary-color;
 }
 
 .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
-  color: @navigation-background-color;
+  color: @primary-color;
   background-color: @navigation-font-color;
 }
 
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
   color: @navigation-font-color;
-  background-color: @navigation-background-color;
+  background-color: @primary-color;
 }
 
 .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
   color: @navigation-font-color;
-  background-color: @navigation-background-color;
+  background-color: @primary-color;
 }
 
 .navbar-default .navbar-toggle {
-  border-color: @navigation-background-color;
+  border-color: @primary-color;
 }
 
 .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
-  background-color: @navigation-background-color;
+  background-color: @primary-color;
 }
 
 .navbar-default .navbar-toggle .icon-bar {
-  background-color: @navigation-background-color;
+  background-color: @primary-color;
 }
 
 .navbar-default .navbar-collapse,
 .navbar-default .navbar-form {
-  border-color: @navigation-background-color;
+  border-color: @primary-color;
 }
 
 .navbar-default .navbar-link {
@@ -730,18 +727,18 @@ ul.nav li a:hover {
 
 .navbar-default .navbar-nav .open .dropdown-menu > li > a {
   color: @navigation-font-color;
-  background-color: @navigation-background-color;
+  background-color: @primary-color;
 }
 
 .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover {
   background-color: @navigation-font-color;
-  color: @navigation-background-color;
+  color: @primary-color;
   background-image: none;
 }
 
 .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
   background-color: @navigation-font-color;
-  color: @navigation-background-color;
+  color: @primary-color;
   background-image: none;
 }
 
@@ -750,20 +747,20 @@ ul.nav li a:hover {
 }
 
 .dropdown-menu {
-  background: @navigation-background-color;
+  background: @primary-color;
 }
 
 div.navbar-collapse {
-  background-color: @navigation-background-color;
+  background-color: @primary-color;
 }
 
 a.navbar-brand {
-  background-color: @navigation-background-color;
+  background-color: @primary-color;
   font-family: "baron";
 }
 
 div.container-fluid {
-  background-color: @navigation-background-color;
+  background-color: @primary-color;
 }
 
 /*AUTOCOMPLETE*/
@@ -778,7 +775,7 @@ div.container-fluid {
   padding: 2px 5px;
   white-space: nowrap;
   overflow: hidden;
-  color: @font-color
+  color: @primary-color
 }
 
 .autocomplete-selected {
@@ -801,12 +798,12 @@ div.container-fluid {
 
 //BOOTSTRAP DIALOG
 .bootstrap-dialog-message {
-  color: @font-color;
+  color: @primary-color;
 }
 
 //DATATABLES
 #publisherEditList_filter {
-  color: @font-color;
+  color: @primary-color;
 }
 
 //isLoading
@@ -828,4 +825,41 @@ div.container-fluid {
   padding: 10px 20px;
   margin-top: 300px;
   color: black;
+}
+
+
+//MATERIAL DESIGN
+.material-card {
+  box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.26);
+  margin: 10px;
+}
+
+.material-card-title {
+  font-family: @title-panel-font;
+  width: 100%;
+  padding-left: 10px;
+  color: #ffffff;
+  background-color: @primary-color;
+}
+
+.material-card-content {
+  padding: 10px;
+  background-color: #ffffff;
+  width: 100%;
+}
+
+.card-row {
+  width: 93%;
+  padding-bottom: 10px;
+  overflow: hidden;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.card-column-left {
+  float:left;
+}
+
+.card-column-right {
+  overflow: hidden;
 }
