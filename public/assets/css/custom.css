@@ -325,11 +325,13 @@ table.book-detail-info-table td {
 }
 #book-detail-coverimage {
   float: left;
+  margin-left: 10px;
 }
 .book-details-info-container.material-card {
-  width: 435px;
+  width: 420px;
   float: right;
   margin-top: 0;
+  margin-right: 15px;
 }
 .bookCoverLink {
   width: 142px;
