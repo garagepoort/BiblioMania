@@ -9,7 +9,7 @@
         <h4 id="book-detail-subtitle">subtitle</h4>
 
         <div class="book-detail-main-info">
-            <img id="book-detail-coverimage" src="" width="142px" height="226px"/>
+            <img id="book-detail-coverimage" src="" width="142px" />
 
             <div class="material-card book-details-info-container">
                 <div class="material-card-title">Info boek</div>
