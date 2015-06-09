@@ -1,12 +1,11 @@
-<div id="slide" class="book-detail-div">
+<div id="slide" class="book-detail-div" >
     <div id="book-detail-close-div" class="book-detail-close">
-        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="margin-left: -7px"></span>
+        <span class="glyphicon glyphicon-arrow-right" aria-hidden="true" style="float: left;"></span>
+        <h1 class="book-sliding-panel-title" id="book-detail-title">title</h1>
+        <h4 class="book-sliding-panel-title" id="book-detail-subtitle">subtitle</h4>
     </div>
 
-    <div class="book-detail-container">
-        <h1 id="book-detail-title">title</h1>
-        <h4 id="book-detail-subtitle">subtitle</h4>
+    <div class="book-detail-container" id="book-detail-container">
 
         <div class="book-detail-main-info">
             <img id="book-detail-coverimage" src="" width="142px" />
