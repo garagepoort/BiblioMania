@@ -311,10 +311,17 @@ table.book-detail-info-table td {
 }
 .book-detail-close {
   position: fixed;
+  width: 700px;
+  color: #ffffff;
+  font-family: "vincent";
+  background-color: #2d6ca2;
+}
+.book-sliding-panel-title {
+  margin-top: 0px;
+  margin-left: 40px;
 }
 .book-detail-container {
   width: 90%;
-  margin-top: 20px;
   margin-left: auto;
   margin-right: auto;
   height: 300px;
@@ -414,7 +421,7 @@ table.book-detail-info-table td {
   margin-left: auto;
 }
 /*.createUserPanel input {
-  color: @inverse-font-color;
+  color: @accent-color;
 }*/
 /*END CREATE USER*/
 .ui-widget * {
@@ -607,7 +614,7 @@ div.container-fluid {
 /*AUTOCOMPLETE*/
 .autocomplete-suggestions {
   border: 1px solid #999;
-  background: #FFF;
+  background: #ffffff;
   overflow: auto;
 }
 .autocomplete-suggestion {
@@ -643,7 +650,7 @@ div.container-fluid {
   text-align: center;
 }
 .isloading-overlay .isloading-wrapper {
-  background: #FFFFFF;
+  background: #ffffff;
   -webkit-border-radius: 7px !important;
   -webkit-background-clip: padding-box !important;
   -moz-border-radius: 7px !important;
