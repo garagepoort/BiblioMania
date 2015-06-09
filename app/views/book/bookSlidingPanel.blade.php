@@ -1,6 +1,7 @@
-<div id="slide" class="book-detail-div" >
+<div id="slide" class="book-detail-div">
     <div id="book-detail-close-div" class="book-detail-close">
         <span class="glyphicon glyphicon-arrow-right" aria-hidden="true" style="float: left;"></span>
+
         <h1 class="book-sliding-panel-title" id="book-detail-title">title</h1>
         <h4 class="book-sliding-panel-title" id="book-detail-subtitle">subtitle</h4>
     </div>
@@ -8,7 +9,7 @@
     <div class="book-detail-container" id="book-detail-container">
 
         <div class="book-detail-main-info">
-            <img id="book-detail-coverimage" src="" width="142px" />
+            <img id="book-detail-coverimage" src="" width="142px"/>
 
             <div class="material-card book-details-info-container">
                 <div class="material-card-title">Info boek</div>
@@ -154,44 +155,45 @@
                 </div>
             </div>
 
-            <div class="card-row">
+        </div>
 
-                <div class="book-detail-small-info-panel material-card">
-                    <div class="material-card-title">Eerste druk</div>
-                    <div class="material-card-content">
-                        <table width="100%">
-                            <tr>
-                                <td><label>Titel:</label></td>
-                                <td><label id='book-detail-first-print-title'></label></td>
-                            </tr>
-                            <tr>
-                                <td><label>Ondertitel:</label></td>
-                                <td><label id='book-detail-first-print-subtitle'></label></td>
-                            </tr>
-                            <tr>
-                                <td><label>ISBN:</label></td>
-                                <td><label id='book-detail-first-print-isbn'></label></td>
-                            </tr>
-                            <tr>
-                                <td><label>Land:</label></td>
-                                <td><label id='book-detail-first-print-country'></label></td>
-                            </tr>
-                            <tr>
-                                <td><label>Taal:</label></td>
-                                <td><label id='book-detail-first-print-language'></label></td>
-                            </tr>
-                            <tr>
-                                <td><label>Uitgever:</label></td>
-                                <td><label id='book-detail-first-print-publisher'></label></td>
-                            </tr>
-                            <tr>
-                                <td><label>Publicatie datum:</label></td>
-                                <td><label id='book-detail-first-print-publication-date'></label></td>
-                            </tr>
-                        </table>
-                    </div>
+        <div class="card-row">
+
+            <div class="book-detail-small-info-panel material-card">
+                <div class="material-card-title">Eerste druk</div>
+                <div class="material-card-content">
+                    <table width="100%">
+                        <tr>
+                            <td><label>Titel:</label></td>
+                            <td><label id='book-detail-first-print-title'></label></td>
+                        </tr>
+                        <tr>
+                            <td><label>Ondertitel:</label></td>
+                            <td><label id='book-detail-first-print-subtitle'></label></td>
+                        </tr>
+                        <tr>
+                            <td><label>ISBN:</label></td>
+                            <td><label id='book-detail-first-print-isbn'></label></td>
+                        </tr>
+                        <tr>
+                            <td><label>Land:</label></td>
+                            <td><label id='book-detail-first-print-country'></label></td>
+                        </tr>
+                        <tr>
+                            <td><label>Taal:</label></td>
+                            <td><label id='book-detail-first-print-language'></label></td>
+                        </tr>
+                        <tr>
+                            <td><label>Uitgever:</label></td>
+                            <td><label id='book-detail-first-print-publisher'></label></td>
+                        </tr>
+                        <tr>
+                            <td><label>Publicatie datum:</label></td>
+                            <td><label id='book-detail-first-print-publication-date'></label></td>
+                        </tr>
+                    </table>
                 </div>
             </div>
-        </div>
     </div>
+</div>
 </div>
