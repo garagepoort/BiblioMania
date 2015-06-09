@@ -295,6 +295,9 @@ $(document).ready(function () {
             readOnly: true,
             path: baseUrl + "/" + 'assets/lib/raty-2.7.0/lib/images'
         });
+
+        //fix fixed div position
+        $('#book-detail-container').css('margin-top', $('#book-detail-close-div').outerHeight() + 10);
     }
 
     function showOrHide(element, value) {

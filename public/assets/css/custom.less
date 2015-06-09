@@ -46,18 +46,11 @@ input {
 @font: "helvetica";
 @primary-color: #2d6ca2;
 @secondary-color: #428bca;
+@accent-color: #FFFFFF;
 
 @container-color: #fff;
-@inverse-font-color: #fff;
-@main-color: #fff;
-@navigation-font-color: #fff;
 
 @font-size: 16px;
-@book-detail-background-color: #fff;
-
-@tab-color: #fff;
-
-@title-panel-font-color: #fff;
 @title-panel-font: "vincent";
 
 body {
@@ -78,11 +71,11 @@ small.help-block {
 }
 
 select {
-  color: @inverse-font-color;
+  color: @accent-color;
 }
 
 .modal-body {
-  color: @inverse-font-color;
+  color: @accent-color;
 }
 
 .glyphicon, .fa, .clickable {
@@ -116,18 +109,18 @@ a:hover {
 }
 
 .datepicker .multidatepicker {
-  color: @inverse-font-color;
+  color: @accent-color;
 }
 
 .popover-title {
-  color: @inverse-font-color;
+  color: @accent-color;
 }
 
 .title-panel {
   width: 100%;
   padding-left: 20px;
   background-color: @primary-color;
-  color: @title-panel-font-color;
+  color: @accent-color;
   font-family: @title-panel-font;
   font-size: 36px;
 }
@@ -155,25 +148,25 @@ legend {
 /*PLACEHOLDERS*/
 .form-control::-webkit-input-placeholder {
   /* WebKit browsers */
-  color: @inverse-font-color;
+  color: @accent-color;
   opacity: 1;
 }
 
 .form-control:-moz-placeholder {
   /* Mozilla Firefox 4 to 18 */
-  color: @inverse-font-color;
+  color: @accent-color;
   opacity: 1;
 }
 
 .form-control::-moz-placeholder {
   /* Mozilla Firefox 19+ */
-  color: @inverse-font-color;
+  color: @accent-color;
   opacity: 1;
 }
 
 .form-control:-ms-input-placeholder {
   /* Internet Explorer 10+ */
-  color: @inverse-font-color;
+  color: @accent-color;
 }
 
 .genre-list {
@@ -249,7 +242,7 @@ legend.sub-border {
 }
 
 .green-linked-div {
-  color: #ffffff;
+  color: @accent-color;
   background-color: green;
   padding: 3px 10px;
   border-radius: 3px !important;
@@ -345,7 +338,7 @@ table.book-detail-info-table > tbody > tr > td {
 
 .book-detail-small-info-panel {
   width: 290px;
-  background-color: #ffffff;
+  background-color: @accent-color;
 }
 
 .book-detail-small-info-panel > legend {
@@ -392,7 +385,7 @@ table.book-detail-info-table td {
   position: fixed;
   opacity: 1;
   top: 0px;
-  background-color: @book-detail-background-color;
+  background-color: @accent-color;
   border: 10px solid @primary-color;
   right: -700px;
   width: 700px;
@@ -403,11 +396,19 @@ table.book-detail-info-table td {
 
 .book-detail-close {
   position: fixed;
+  width: 700px;
+  color: @accent-color;
+  font-family: @title-panel-font;
+  background-color: @primary-color;
+}
+
+.book-sliding-panel-title {
+  margin-top: 0px;
+  margin-left: 40px;
 }
 
 .book-detail-container {
   width: 90%;
-  margin-top: 20px;
   margin-left: auto;
   margin-right: auto;
   height: 300px;
@@ -491,7 +492,7 @@ table.book-detail-info-table td {
   background-color: #eb9316;
   width: 100%;
   border-radius: 5px !important;
-  color: @inverse-font-color;
+  color: @accent-color;
   padding-bottom: 10px;
 }
 
@@ -533,7 +534,7 @@ table.book-detail-info-table td {
 }
 
 /*.createUserPanel input {
-  color: @inverse-font-color;
+  color: @accent-color;
 }*/
 
 /*END CREATE USER*/
@@ -562,7 +563,7 @@ table.book-detail-info-table td {
 }
 
 .filterDialog {
-  background-color: @inverse-font-color;
+  background-color: @accent-color;
 
 }
 
@@ -571,11 +572,11 @@ table.book-detail-info-table td {
 }
 
 .tab-content {
-  border-left: 1px solid @tab-color;
-  border-right: 1px solid @tab-color;
-  border-bottom: 1px solid @tab-color;
+  border-left: 1px solid @accent-color;
+  border-right: 1px solid @accent-color;
+  border-bottom: 1px solid @accent-color;
   padding: 10px;
-  background-color: @tab-color;
+  background-color: @accent-color;
   color: @primary-color;
 }
 
@@ -587,7 +588,7 @@ ul.nav li a {
 .nav-tabs > li.active > a,
 .nav-tabs > li.active > a:focus,
 ul.nav li a:hover {
-  color: @inverse-font-color;
+  color: @accent-color;
   background-color: @primary-color;
   border: 1px solid @primary-color;
 }
@@ -621,8 +622,8 @@ ul.nav li a:hover {
 }
 
 .well {
-  background-color: @inverse-font-color;
-  background: @inverse-font-color;
+  background-color: @accent-color;
+  background: @accent-color;
   color: @primary-color;
 }
 
@@ -668,34 +669,34 @@ ul.nav li a:hover {
 }
 
 .navbar-default .navbar-brand {
-  color: @navigation-font-color;
+  color: @accent-color;
 }
 
 .navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
-  color: @navigation-font-color;
+  color: @accent-color;
 }
 
 .navbar-default .navbar-text {
-  color: @navigation-font-color;
+  color: @accent-color;
 }
 
 .navbar-default .navbar-nav > li > a {
-  color: @navigation-font-color;
+  color: @accent-color;
   background-color: @primary-color;
 }
 
 .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
   color: @primary-color;
-  background-color: @navigation-font-color;
+  background-color: @accent-color;
 }
 
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
-  color: @navigation-font-color;
+  color: @accent-color;
   background-color: @primary-color;
 }
 
 .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
-  color: @navigation-font-color;
+  color: @accent-color;
   background-color: @primary-color;
 }
 
@@ -717,26 +718,26 @@ ul.nav li a:hover {
 }
 
 .navbar-default .navbar-link {
-  color: @navigation-font-color;
+  color: @accent-color;
 }
 
 .navbar-default .navbar-link:hover {
-  color: @navigation-font-color;
+  color: @accent-color;
 }
 
 .navbar-default .navbar-nav .open .dropdown-menu > li > a {
-  color: @navigation-font-color;
+  color: @accent-color;
   background-color: @primary-color;
 }
 
 .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover {
-  background-color: @navigation-font-color;
+  background-color: @accent-color;
   color: @primary-color;
   background-image: none;
 }
 
 .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
-  background-color: @navigation-font-color;
+  background-color: @accent-color;
   color: @primary-color;
   background-image: none;
 }
@@ -766,7 +767,7 @@ div.container-fluid {
 
 .autocomplete-suggestions {
   border: 1px solid #999;
-  background: #FFF;
+  background: @accent-color;
   overflow: auto;
 }
 
@@ -813,7 +814,7 @@ div.container-fluid {
   text-align: center;
 }
 .isloading-overlay .isloading-wrapper {
-  background: #FFFFFF;
+  background: @accent-color;
   -webkit-border-radius: 7px !important;
   -webkit-background-clip: padding-box !important;
   -moz-border-radius: 7px !important;
@@ -837,13 +838,13 @@ div.container-fluid {
   font-family: @title-panel-font;
   width: 100%;
   padding-left: 10px;
-  color: #ffffff;
+  color: @accent-color;
   background-color: @primary-color;
 }
 
 .material-card-content {
   padding: 10px;
-  background-color: #ffffff;
+  background-color: @accent-color;
   width: 100%;
 }
 
