@@ -1,6 +1,6 @@
 <div id="slide" class="book-detail-div">
     <div id="book-detail-close-div" class="book-detail-close">
-        <span class="glyphicon glyphicon-arrow-right" aria-hidden="true" style="float: left;"></span>
+        <span id="close-book-detail-icon" class="glyphicon glyphicon-arrow-right" aria-hidden="true" style="float: left;"></span>
 
         <h1 class="book-sliding-panel-title" id="book-detail-title">title</h1>
         <h4 class="book-sliding-panel-title" id="book-detail-subtitle">subtitle</h4>
