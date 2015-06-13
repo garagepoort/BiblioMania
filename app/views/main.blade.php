@@ -64,8 +64,13 @@
 
     <!-- DATATABLES -->
     <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.4/js/jquery.dataTables.js"></script>
-    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js"></script>
-    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css">
+    <script type="text/javascript" charset="utf8"
+            src="//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+    <link rel="stylesheet" type="text/css"
+          href="//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css">
+
+    {{--Tweenlite--}}
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.17.0/TweenMax.min.js"></script>
 </head>
 
 <body>
@@ -75,6 +80,7 @@
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
+                <img src="images/icon-navicon.png" class="drawer-icon"/>
                 <a class="navbar-brand" href="#">Bibliomania</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -83,7 +89,8 @@
                     <li>{{ HTML::link('getBooks', 'Boeken', array('id'=>'booksNavigationLink', 'title' => 'Boeken')) }}</li>
                     <li>{{ HTML::link('getAuthors', 'Auteurs', array('id'=>'authorsNavigationLink', 'title' => 'Auteurs')) }}</li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Lijsten
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                           aria-expanded="false">Lijsten
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <li>{{ HTML::link('getAuthorsList', 'Auteurslijst', array('id'=>'authorsListNavigationLink', 'title' => 'Auteurslijst')) }}</li>
@@ -112,6 +119,7 @@
         @yield('content')
     </div>
 </div>
+
 <script type="text/javascript">
     $(function () {
         $(".datepicker").datepicker({
