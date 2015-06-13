@@ -92,7 +92,6 @@ $(document).ready(function () {
 
                 var imageElement = $("<img/>");
                 imageElement.attr("class","bookCoverLink");
-                imageElement.attr("style","width: 142px;");
                 imageElement.attr("src", imageString);
 
                 var icCaptionElement = $("<div class=\"ic_caption editBookPanel\"><p class=\"ic_category\">Edit<i class=\"fa fa-pencil editImagePencilIcon\"></i></p></div>");
@@ -122,11 +121,7 @@ $(document).ready(function () {
     function addClickToBookImage(element) {
         element.click(function () {
             if (bookDetailAnimationBusy === false) {
-                $.isLoading({
-                    text: "Loading",
-                    'class': "icon-refresh",
-                    'tpl': '<span class="isloading-wrapper %wrapper%">%text%<i class="%class% fa fa-refresh fa-spin"></i></span>'
-                });
+                showLoadingDialog();
                 var div = $('.book-detail-div');
                 var bookId = $(this).attr('bookId');
                 $.get(window.baseUrl + "/getFullBook?" + "book_id=" + bookId,
@@ -151,7 +146,7 @@ $(document).ready(function () {
                                 closeBookDetail();
                             }
                         }
-                        $.isLoading("hide");
+                        hideLoadingDialog();
                     }
                 );
             }
