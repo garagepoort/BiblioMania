@@ -1,8 +1,13 @@
 $(document).ready(function() {
+    showLoadingDialog();
+
     $.fn.editable.defaults.mode = 'inline';
 
     $('#authorEditList').DataTable({
-        paging: false
+        paging: false,
+        initComplete: function(settings, json) {
+            hideLoadingDialog();
+        }
     });
 
     $("#name, #firstname, #infix").editable({
@@ -21,4 +26,11 @@ $(document).ready(function() {
         }
 
     });
+
+    $('.authorlist-goto').on('click', function(){
+        var trElement = $(this).parent().parent();
+        var authorId = trElement.attr('author-id');
+        window.location.href = baseUrl + "/getAuthor/" + authorId;
+    });
+
 });

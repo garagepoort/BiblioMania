@@ -228,6 +228,8 @@ button.searchButton {
 .table.books-table tbody tr td {
   border-top: none;
   text-align: center;
+  vertical-align: bottom;
+  padding-bottom: 50px;
 }
 .table.authors-table {
   table-layout: fixed;
@@ -235,6 +237,8 @@ button.searchButton {
 .table.authors-table tbody tr td {
   border-top: none;
   text-align: center;
+  vertical-align: bottom;
+  padding-bottom: 50px;
 }
 .book-detail-main-info {
   margin-bottom: 20px;
@@ -344,12 +348,12 @@ table.book-detail-info-table td {
 }
 .bookCoverLink {
   width: 142px;
+  max-height: 210px;
 }
 .imageLinkWrapper {
   cursor: pointer;
   width: 142px;
   max-height: 245px;
-  height: 245px;
   display: table-cell;
   vertical-align: middle;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
@@ -361,6 +365,7 @@ table.book-detail-info-table td {
 .authorCoverLink {
   width: 142px;
   cursor: pointer;
+  max-height: 210px;
 }
 /*END BOOKS*/
 /*AUTHOR*/
@@ -373,6 +378,7 @@ table.book-detail-info-table td {
   margin-bottom: 50px;
 }
 .author-image-div {
+  margin-left: 10px;
   margin-right: 15px;
   float: left;
   margin-bottom: 20px;
@@ -385,6 +391,7 @@ table.book-detail-info-table td {
   width: 88%;
   margin-left: auto;
   margin-right: auto;
+  margin-top: 20px;
 }
 .list-merge-container {
   margin-top: 20px;
@@ -393,6 +400,7 @@ table.book-detail-info-table td {
   border-radius: 5px !important;
   color: #ffffff;
   padding-bottom: 10px;
+  box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.26);
 }
 .editListPanel {
   margin-top: 20px;
@@ -525,6 +533,7 @@ ul.nav li a:hover {
 .navbar-default {
   background-color: #2d6ca2;
   border-color: #2d6ca2;
+  box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.26);
 }
 .navbar-inner {
   background-color: #2d6ca2;
