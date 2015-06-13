@@ -122,8 +122,11 @@ class AuthorService
 
     public function saveImage(AuthorInfoParameters $authorInfoParameters, $author_model)
     {
-        $this->imageService->removeImage($author_model->image);
         if($authorInfoParameters->getImage() != null){
+            if($author_model->image != 'images/questionCover.png'){
+                $this->imageService->removeImage($author_model->image);
+            }
+
             if($authorInfoParameters->getImageSaveType() == ImageSaveType::UPLOAD){
                 $author_model->image = $this->imageService->saveUploadImage($authorInfoParameters->getImage(),
                     $author_model->name);
