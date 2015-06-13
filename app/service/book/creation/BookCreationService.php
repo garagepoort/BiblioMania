@@ -41,8 +41,7 @@ class BookCreationService {
             $this->oeuvreService->saveBookFromAuthors($bookCreationParameters->getAuthorInfoParameters()->getOeuvre(), $author->id);
 
             $book_publisher = $this->publisherService->findOrCreate(
-                $bookCreationParameters->getBookInfoParameters()->getPublisherName(),
-                $bookCreationParameters->getBookInfoParameters()->getCountryName()
+                $bookCreationParameters->getBookInfoParameters()->getPublisherName()
             );
 
             $first_print_info = $this->firstPrintInfoService->findOrCreate($bookCreationParameters->getFirstPrintInfoParameters());

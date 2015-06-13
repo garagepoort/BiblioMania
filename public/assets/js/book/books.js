@@ -91,6 +91,7 @@ $(document).ready(function () {
                 imageLinkWrapper.attr("bookid", book.id);
 
                 var imageElement = $("<img/>");
+                imageElement.attr("style","width: 142px;");
                 imageElement.attr("class","bookCoverLink");
                 imageElement.attr("src", imageString);
 

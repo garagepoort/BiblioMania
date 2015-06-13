@@ -42,7 +42,7 @@ class FirstPrintInfoService
             $firstPrintInfo->country()->associate($country);
         }
         if ($firstPrintInfoParameters->getPublisher() != null) {
-            $publisher = $this->publisherService->findOrCreate($firstPrintInfoParameters->getPublisher(), $country);
+            $publisher = $this->publisherService->findOrCreate($firstPrintInfoParameters->getPublisher());
             $firstPrintInfo->publisher()->associate($publisher);
         }
         $firstPrintInfo->save();
