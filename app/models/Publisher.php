@@ -5,12 +5,6 @@ class Publisher extends Eloquent {
 
     protected $fillable = array('name', 'user_id');
 
-    protected $with = array('countries');
-
-	public function countries(){
-    	return $this->belongsToMany('Country', 'publisher_country');
-	}
-
 	public function books()
     {
         return $this->hasMany('Book', 'publisher_id');

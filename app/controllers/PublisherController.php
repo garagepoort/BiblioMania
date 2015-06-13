@@ -20,9 +20,10 @@ class PublisherController extends BaseController{
 
 
     public function getPublisher($id){
-        $publisher = Publisher::with(array('countries', 'books', 'first_print_infos'))->find($id);
+        $publisher = Publisher::with(array('books', 'first_print_infos'))->find($id);
         return View::make($this->publisherFolder . 'publisher')->with(array(
             'title' => 'Uitgever',
+            'countries' => $this->publisherService->getCountriesFromPublisher($id),
             'publisher' => $publisher
         ));
     }

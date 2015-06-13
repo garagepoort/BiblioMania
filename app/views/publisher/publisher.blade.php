@@ -66,7 +66,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($publisher->countries as $country)
+                    @foreach($countries as $country)
                         <tr>
                             <td>
                                 {{ $country->name }}
