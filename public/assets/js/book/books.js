@@ -13,6 +13,15 @@ $(document).ready(function () {
         doSearchBooks();
     });
 
+    $('body').on('click', function () {
+        closeBookDetail();
+    });
+
+    $('.book-detail-div').on('click', function(event){
+        event.stopPropagation();
+    });
+
+
     function doSearchBooks() {
         window.book_id = null;
         var query = $('#searchBooksInput').val();
@@ -92,8 +101,8 @@ $(document).ready(function () {
 
                 var imageElement = $("<img/>");
                 imageElement.attr("style", "width: 142px;");
-                imageElement.attr("class", "bookCoverLink");
-                imageElement.attr("src", imageString);
+                imageElement.attr("class", "bookCoverLink lazy");
+                imageElement.attr("data-src", imageString);
 
                 var icCaptionElement = $("<div class=\"ic_caption editBookPanel\"><p class=\"ic_category\">Edit<i class=\"fa fa-pencil editImagePencilIcon\"></i></p></div>");
 
@@ -106,11 +115,15 @@ $(document).ready(function () {
                 addCapSlideToElement(imageLinkWrapper);
                 addClickToBookImage(imageLinkWrapper);
                 addClickToEditElement(icCaptionElement, book.id);
+                addLazyLoading(imageElement);
             }
             $('#books-container-table > tbody:last').append(trElement);
         }
     }
 
+    function addLazyLoading(imageElement){
+        $(imageElement).lazyLoadXT();
+    }
 
     function addClickToEditElement(element, bookId) {
         element.click(function (event) {
@@ -150,7 +163,7 @@ $(document).ready(function () {
         });
     }
 
-    $('#book-detail-close-div').click(function () {
+    $('#close-book-detail-icon').click(function () {
         closeBookDetail();
     });
 
