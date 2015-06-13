@@ -65,7 +65,7 @@
 
         </div>
 
-        <div class="card-row" style="margin-top: 250px">
+        <div class="card-row" style="margin-top: 250px; clear: both">
             <div class="book-detail-summary material-card">
                 <div class="material-card-title">Samenvatting</div>
                 <div class="material-card-content">

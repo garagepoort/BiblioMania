@@ -91,8 +91,8 @@ $(document).ready(function () {
                 imageLinkWrapper.attr("bookid", book.id);
 
                 var imageElement = $("<img/>");
-                imageElement.attr("style","width: 142px;");
-                imageElement.attr("class","bookCoverLink");
+                imageElement.attr("style", "width: 142px;");
+                imageElement.attr("class", "bookCoverLink");
                 imageElement.attr("src", imageString);
 
                 var icCaptionElement = $("<div class=\"ic_caption editBookPanel\"><p class=\"ic_category\">Edit<i class=\"fa fa-pencil editImagePencilIcon\"></i></p></div>");
@@ -113,7 +113,7 @@ $(document).ready(function () {
 
 
     function addClickToEditElement(element, bookId) {
-        element.click(function  (event) {
+        element.click(function (event) {
             window.location = baseUrl + "/editBook/" + bookId;
             event.stopPropagation();
         });
@@ -130,11 +130,7 @@ $(document).ready(function () {
                         if (status === "success") {
                             var book = data[0];
                             if (div.hasClass('visible') && lastClickedBookId !== bookId) {
-                                closeBookDetail();
-                                div.promise().done(function () {
-                                    fillInBookInfo(book);
-                                    openBookDetail(bookId);
-                                });
+                                closeAndOpenBookDetail(book, bookId);
                                 lastClickedBookId = bookId;
                             } else if (div.hasClass('visible') === false) {
                                 fillInBookInfo(book);
@@ -158,32 +154,41 @@ $(document).ready(function () {
         closeBookDetail();
     });
 
+    function closeAndOpenBookDetail(book, bookId) {
+        bookDetailAnimationBusy = true;
+        var detail = $('.book-detail-div');
+        TweenLite.to(detail, 1, {
+            right: "-700px",
+            onComplete: function () {
+                bookDetailAnimationBusy = false;
+                detail.removeClass('visible');
+                fillInBookInfo(book);
+                openBookDetail(bookId);
+            }
+        });
+    }
+
     function closeBookDetail() {
         bookDetailAnimationBusy = true;
         var detail = $('.book-detail-div');
-        detail.animate({
-            right: "-=700"
-        });
-
-        detail.promise().done(function () {
-            bookDetailAnimationBusy = false;
-            detail.removeClass('visible');
+        TweenLite.to(detail, 1, {
+            right: "-700px",
+            onComplete: function () {
+                bookDetailAnimationBusy = false;
+                detail.removeClass('visible');
+            }
         });
     }
 
     function openBookDetail(bookId) {
         bookDetailAnimationBusy = true;
         var detail = $('.book-detail-div');
-        $.get("ajax/test.html", function (data) {
-            $(".result").html(data);
-        });
-
-        detail.animate({
-            right: "+=700"
-        });
-        detail.promise().done(function () {
-            bookDetailAnimationBusy = false;
-            detail.addClass('visible');
+        TweenLite.to(detail, 1, {
+            right: "0px",
+            onComplete: function () {
+                bookDetailAnimationBusy = false;
+                detail.addClass('visible');
+            }
         });
 
     }
@@ -323,9 +328,9 @@ $(document).ready(function () {
     }
 
     function stringToFormattedDate(dateString) {
-        if(dateString != ""){
-            var parts =dateString.split('-');
-            return parts[2] + "-" + parts[1] + "-" +parts[0];
+        if (dateString != "") {
+            var parts = dateString.split('-');
+            return parts[2] + "-" + parts[1] + "-" + parts[0];
         }
         return "";
     }
@@ -338,21 +343,21 @@ $(document).ready(function () {
         }
     });
 
-    $(function(){
-        $("#deselect").on("click",function(event){
+    $(function () {
+        $("#deselect").on("click", function (event) {
             $(".ownedFilterRadioButton").children('input.selected').removeClass('selected');
             $(".readFilterRadioButton").children('input.selected').removeClass('selected');
             $('.filterRadioButton').removeClass("active");
             doSearchBooks();
         });
 
-        $(".ownedFilterRadioButton").on("click",function(event){
+        $(".ownedFilterRadioButton").on("click", function (event) {
             $(".ownedFilterRadioButton").children('input.selected').removeClass('selected');
             $(this).children('input').addClass('selected');
             doSearchBooks();
         });
 
-        $(".readFilterRadioButton").on("click",function(event){
+        $(".readFilterRadioButton").on("click", function (event) {
             $(".readFilterRadioButton").children('input.selected').removeClass('selected');
             $(this).children('input').addClass('selected');
             doSearchBooks();
