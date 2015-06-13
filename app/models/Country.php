@@ -6,10 +6,6 @@ class Country extends Eloquent {
     protected $fillable = array('name', 'code');
     public $timestamps = false;
 
-	public function publishers(){
-    	return $this->belongsToMany('Publisher', 'publisher_country');
-	}
-
     public function books(){
         return $this->hasMany('Book', 'publisher_country_id');
     }
