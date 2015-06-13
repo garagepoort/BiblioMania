@@ -51,3 +51,15 @@ function startLoadingPaged(url, page, action){
 function abortLoadingPaged(){
     request.abort();
 }
+
+function showLoadingDialog(){
+    $.isLoading({
+        text: "Loading",
+        'class': "icon-refresh",
+        'tpl': '<span class="isloading-wrapper %wrapper%">%text%<i class="%class% fa fa-refresh fa-spin"></i></span>'
+    });
+}
+
+function hideLoadingDialog(){
+    $.isLoading("hide");
+}

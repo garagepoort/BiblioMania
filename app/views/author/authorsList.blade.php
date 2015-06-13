@@ -16,11 +16,12 @@
                 <th>tussenvoegsel</th>
                 <th>Geboortedatum</th>
                 <th>SterfteDatum</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
             @foreach ($authors as $author)
-                <tr>
+                <tr author-id="{{ $author->id }}">
                     <td>
                         <a id="name" data-name="name" href="#" data-type="text" data-pk={{ $author->id }} data-url={{ URL::to('editAuthorInList') }} data-title="Vul naam in">{{ $author->name }}</a>
                     </td>
@@ -35,6 +36,9 @@
                     </td>
                     <td>
                         <a id="date_of_death" data-name="date_of_death" href="#" data-type="text" data-pk={{ $author->id }} data-url={{ URL::to('editAuthorInList') }} data-title="Vul sterfte in (dd-mm-yyyy)">{{ App::make('DateService')->createStringFromDate($author->date_of_death) }}</a>
+                    </td>
+                    <td style="text-align: center">
+                        <span aria-hidden="true" style="margin-left:10px" class="fa fa-arrow-right authorlist-goto" width="10px"/>
                     </td>
                 </tr>
             @endforeach

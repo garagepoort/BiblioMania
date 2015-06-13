@@ -38,7 +38,8 @@
                 <input id="searchBooksInput" type="text" class="form-control" placeholder="Search" name="criteria">
             </td>
             <td>
-                <button id="searchBooksButton" class="btn btn-primary searchButton"><span class="glyphicon glyphicon-search"></span></button>
+                <button id="searchBooksButton" class="btn btn-primary searchButton"><span
+                            class="glyphicon glyphicon-search"></span></button>
             </td>
         </tr>
     </table>
@@ -49,57 +50,63 @@
 @stop
 
 @section('content')
-<script type="text/javascript">
-    var book_id = "{{ $book_id }}";
-</script>
-{{ HTML::script('assets/js/book/books.js'); }}
-{{ HTML::script('assets/js/filter_dropdown.js') }}
-{{ HTML::script('assets/js/books/search_books.js') }}
+    <script type="text/javascript">
+        var book_id = "{{ $book_id }}";
+    </script>
+    {{ HTML::script('assets/js/book/books.js'); }}
+    {{ HTML::script('assets/js/filter_dropdown.js') }}
+    {{ HTML::script('assets/js/books/search_books.js') }}
 
-<div class="books-container">
-    <div class="contentPanel">
+    <div class="books-container">
+        <div class="contentPanel">
 
-        <table width='100%' class='title-table'>
-            <tr>
-                <td>Sorteer op: {{ Form::select('order', $order_by_options, null, array('id' => 'orderby-select-box', 'class'=> 'form-control')); }}</td>
-                <td style="text-align:right;">
-                    <button class='btn btn-primary' id='filterButton'>Filter</button>
-                    <button href="createBook" class='clickableRow btn btn-primary'>Nieuw boek</button>
-                </td>
-            </tr>
-        </table>
+            <table width='100%' class='title-table'>
+                <tr>
+                    <td>Sorteer
+                        op: {{ Form::select('order', $order_by_options, null, array('id' => 'orderby-select-box', 'class'=> 'form-control')); }}</td>
+                    <td style="text-align:right;">
+                        <button class='btn btn-primary' id='filterButton'>Filter</button>
+                        <button href="createBook" class='clickableRow btn btn-primary'>Nieuw boek</button>
+                    </td>
+                </tr>
+            </table>
 
+            <div class="card-row">
 
-        <div id="book-collection-filter-panel" class="book-collection-filter-panel" hidden>
-            @include('book/bookFilters')
+                <div class="book-collection-info-panel material-card card-column-left">
+                    <div class="material-card-title">Informatie collectie</div>
+                    <div class="material-card-content">
+                        <div class="row">
+                            {{ Form::label('amountOfBooksLabel', 'Aantal boeken:' , array('class' => 'control-label col-md-6')); }}
+                            {{ Form::label('amountOfBooks', $total_amount_of_books , array('class' => 'control-label col-md-3')); }}
+                        </div>
+                        <div class="row">
+                            {{ Form::label('valueLabel', 'Aantal boeken in bezit:' , array('class' => 'control-label col-md-6')); }}
+                            {{ Form::label('value', $total_amount_of_books_owned, array('class' => 'control-label col-md-3')); }}
+                        </div>
+                        <div class="row">
+                            {{ Form::label('valueLabel', 'Waarde bibliotheek:' , array('class' => 'control-label col-md-6')); }}
+                            {{ Form::label('value', $total_value_library  . ' euro', array('class' => 'control-label col-md-3')); }}
+                        </div>
+                    </div>
+                </div>
+
+                <div id="book-collection-filter-panel" class="book-collection-filter-panel card-column-right" hidden>
+                    @include('book/bookFilters')
+                </div>
+
+            </div>
+
+            <table class="table books-table" id="books-container-table">
+                <tbody class="infinite-container">
+                </tbody>
+            </table>
+            <div id="books-loading-waypoint" style="text-align:center;">
+                {{ HTML::image('images/ajax-loader.gif', 'loader', array('id'=>'loader-icon')) }}
+                <p id="no-results-message" hidden>No results found.</p>
+            </div>
         </div>
 
-        <div class="book-collection-info-panel">
-            <legend>Informatie collectie</legend>
-            <div class="control-group">
-                {{ Form::label('amountOfBooksLabel', 'Aantal boeken:' , array('class' => 'control-label col-md-5')); }}
-                {{ Form::label('amountOfBooks', $total_amount_of_books , array('class' => 'control-label col-md-3')); }}
-            </div>
-            <div class="control-group">
-                {{ Form::label('valueLabel', 'Aantal boeken in bezit:' , array('class' => 'control-label col-md-5')); }}
-                {{ Form::label('value', $total_amount_of_books_owned, array('class' => 'control-label col-md-3')); }}
-            </div>
-            <div class="control-group">
-                {{ Form::label('valueLabel', 'Waarde bibliotheek:' , array('class' => 'control-label col-md-5')); }}
-                {{ Form::label('value', $total_value_library  . ' euro', array('class' => 'control-label col-md-3')); }}
-            </div>
-        </div>
-
-        <table class="table books-table" id="books-container-table">
-            <tbody class="infinite-container">
-            </tbody>
-        </table>
-        <div id="books-loading-waypoint" style="text-align:center;">
-            {{ HTML::image('images/ajax-loader.gif', 'loader', array('id'=>'loader-icon')) }}
-            <p id="no-results-message" hidden>No results found.</p>
-        </div>
+        @include('book/bookSlidingPanel')
     </div>
-
-	@include('book/bookSlidingPanel')
-</div>
 @stop
