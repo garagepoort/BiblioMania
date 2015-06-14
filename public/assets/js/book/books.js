@@ -100,7 +100,7 @@ $(document).ready(function () {
 
                 var imageElement = $("<img/>");
                 imageElement.attr("style", "width: 142px;");
-                imageElement.attr("class", "bookCoverLink");
+                imageElement.attr("class", "bookCoverLink lazy lazy-hidden");
                 imageElement.attr("data-src", imageString);
 
                 var icCaptionElement = $("<div class=\"ic_caption editBookPanel\"><p class=\"ic_category\">Edit<i class=\"fa fa-pencil editImagePencilIcon\"></i></p></div>");
@@ -114,9 +114,14 @@ $(document).ready(function () {
                 addCapSlideToElement(imageLinkWrapper);
                 addClickToBookImage(imageLinkWrapper);
                 addClickToEditElement(icCaptionElement, book.id);
+                addLazyLoading(imageElement);
             }
             $('#books-container-table > tbody:last').append(trElement);
         }
+    }
+
+    function addLazyLoading(imageElement){
+        $(imageElement).lazyLoadXT();
     }
 
     function addClickToEditElement(element, bookId) {
