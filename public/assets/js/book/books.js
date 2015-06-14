@@ -21,7 +21,6 @@ $(document).ready(function () {
         event.stopPropagation();
     });
 
-
     function doSearchBooks() {
         window.book_id = null;
         var query = $('#searchBooksInput').val();
@@ -101,7 +100,7 @@ $(document).ready(function () {
 
                 var imageElement = $("<img/>");
                 imageElement.attr("style", "width: 142px;");
-                imageElement.attr("class", "bookCoverLink lazy");
+                imageElement.attr("class", "bookCoverLink lazy lazy-hidden");
                 imageElement.attr("data-src", imageString);
 
                 var icCaptionElement = $("<div class=\"ic_caption editBookPanel\"><p class=\"ic_category\">Edit<i class=\"fa fa-pencil editImagePencilIcon\"></i></p></div>");
@@ -134,31 +133,33 @@ $(document).ready(function () {
 
     function addClickToBookImage(element) {
         element.click(function () {
+            event.stopPropagation();
             if (bookDetailAnimationBusy === false) {
-                showLoadingDialog();
                 var div = $('.book-detail-div');
                 var bookId = $(this).attr('bookId');
-                $.get(window.baseUrl + "/getFullBook?" + "book_id=" + bookId,
-                    function (data, status) {
-                        if (status === "success") {
-                            var book = data[0];
-                            if (div.hasClass('visible') && lastClickedBookId !== bookId) {
-                                closeAndOpenBookDetail(book, bookId);
-                                lastClickedBookId = bookId;
-                            } else if (div.hasClass('visible') === false) {
-                                fillInBookInfo(book);
-                                openBookDetail(bookId);
-                                lastClickedBookId = bookId;
-                                div.promise().done(function () {
-                                    bookDetailAnimationBusy = false;
-                                });
-                            } else {
-                                closeBookDetail();
+
+                if(div.hasClass('visible') && lastClickedBookId == bookId){
+                    closeBookDetail();
+                }else{
+                    showLoadingDialog();
+                    $.get(window.baseUrl + "/getFullBook?" + "book_id=" + bookId,
+                        function (data, status) {
+                            hideLoadingDialog();
+                            if (status === "success") {
+                                var book = data[0];
+                                if (div.hasClass('visible') && lastClickedBookId !== bookId) {
+                                    closeAndOpenBookDetail(book, bookId);
+                                    lastClickedBookId = bookId;
+                                } else if (div.hasClass('visible') === false) {
+                                    fillInBookInfo(book);
+                                    openBookDetail(bookId);
+                                    lastClickedBookId = bookId;
+                                }
                             }
                         }
-                        hideLoadingDialog();
-                    }
-                );
+                    );
+                }
+
             }
         });
     }
@@ -172,6 +173,7 @@ $(document).ready(function () {
         var detail = $('.book-detail-div');
         TweenLite.to(detail, 1, {
             right: "-700px",
+            ease:Power1.easeOut,
             onComplete: function () {
                 bookDetailAnimationBusy = false;
                 detail.removeClass('visible');
@@ -186,6 +188,7 @@ $(document).ready(function () {
         var detail = $('.book-detail-div');
         TweenLite.to(detail, 1, {
             right: "-700px",
+            ease:Power1.easeOut,
             onComplete: function () {
                 bookDetailAnimationBusy = false;
                 detail.removeClass('visible');
@@ -198,6 +201,7 @@ $(document).ready(function () {
         var detail = $('.book-detail-div');
         TweenLite.to(detail, 1, {
             right: "0px",
+            ease:Power1.easeOut,
             onComplete: function () {
                 bookDetailAnimationBusy = false;
                 detail.addClass('visible');
@@ -341,7 +345,7 @@ $(document).ready(function () {
     }
 
     function stringToFormattedDate(dateString) {
-        if (dateString != "") {
+        if (dateString != "" && dateString != null) {
             var parts = dateString.split('-');
             return parts[2] + "-" + parts[1] + "-" + parts[0];
         }

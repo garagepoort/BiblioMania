@@ -309,7 +309,6 @@ table.book-detail-info-table td {
   right: -700px;
   width: 700px;
   height: 100vh;
-  -webkit-transform: translateZ(0);
   box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.26);
   /*border: solid 1px @secondary-color;*/
 }
