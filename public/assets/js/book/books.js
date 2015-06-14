@@ -132,7 +132,7 @@ $(document).ready(function () {
     }
 
     function addClickToBookImage(element) {
-        element.click(function () {
+        element.click(function (event) {
             event.stopPropagation();
             if (bookDetailAnimationBusy === false) {
                 var div = $('.book-detail-div');
