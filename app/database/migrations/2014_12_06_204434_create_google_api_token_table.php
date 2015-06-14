@@ -31,7 +31,7 @@ class CreateGoogleApiTokenTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('Google_API_Tokens');
+		Schema::drop('google_api_tokens');
 	}
 
 }
