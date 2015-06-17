@@ -2,6 +2,8 @@ var genresOpen =false;
 
 $(function() {
 
+    initializeGenre();
+
     $('#book_author_input').autocomplete({
         lookup: window.author_names
     });

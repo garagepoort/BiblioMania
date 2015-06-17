@@ -3,11 +3,11 @@
 class FileToGiftInfoParametersMapper {
 
     public function map($line_values){
-        $date = DateTime::createFromFormat('d-m-y', $line_values[LineMapping::GiftInfoDate]);
+        $date = DateTime::createFromFormat('d-m-y', $line_values[LineMapping::$GiftInfoDate]);
         if ($date == false) {
             $date = null;
         }
 
-        return new GiftInfoParameters($date, $line_values[LineMapping::GiftInfoFrom], "", "");
+        return new GiftInfoParameters($date, $line_values[LineMapping::$GiftInfoFrom], "", "");
     }
 }

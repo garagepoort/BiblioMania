@@ -2,52 +2,165 @@
 
 abstract class LineMapping
 {
-    const BookTitle = 9;
-    const BookSubtitle = 48;
-    const BookISBN = 10;
-    const BookSummary = 62;
-    const BookPublicationDate = 59;
-    const BookPublisher = 12;
-    const BookPublisherCountry = 41;
-    const BookLanguage= 61;
-    const BookRetailPrice= 47;
+    public static $BookTitle = "INVALID";
+    public static $BookSubtitle = "INVALID";
+    public static $BookISBN = "INVALID";
+    public static $BookSummary = "INVALID";
+    public static $BookPublicationDate = "INVALID";
+    public static $BookPublisher = "INVALID";
+    public static $BookPublisherCountry = "INVALID";
+    public static $BookLanguage = "INVALID";
+    public static $BookGenre = "INVALID";
+    public static $BookRetailPrice = "INVALID";
 
-    const ExtraBookInfoPages = 57;
-    const ExtraBookInfoPrint = 27;
-    const ExtraBookInfoTranslator = 63;
+    public static $ExtraBookInfoPages = "INVALID";
+    public static $ExtraBookInfoPrint = "INVALID";
+    public static $ExtraBookInfoTranslator = "INVALID";
+    public static $ExtraBookInfoCondition = "INVALID";
 
-    const PersonalBookInfoInCollection = 64;
-    const PersonalBookInfoRead = 66;
-    const PersonalBookInfoReadingDate = 42;
-    const PersonalBookInfoRating = 44;
+    public static $PersonalBookInfoInCollection = "INVALID";
+    public static $PersonalBookInfoRead = "INVALID";
+    public static $PersonalBookInfoReadingDate = "INVALID";
+    public static $PersonalBookInfoRating = "INVALID";
 
-    const FirstAuthorName = 2;
-    const FirstAuthorFirstName = 0;
-    const FirstAuthorInfix = 1;
-    const AuthorImage = 18;
-    const AuthorOeuvre = 46;
+    public static $FirstAuthor = "INVALID";
+    public static $SecondAuthor = "INVALID";
+//    public static FirstAuthorName = 2;
+//    public static FirstAuthorFirstName = 0;
+//    public static FirstAuthorInfix = 1;
+    public static $AuthorImage = "INVALID";
+    public static $AuthorOeuvre = "INVALID";
 
-    const SecondAuthorName = 5;
-    const SecondAuthorFirstName = 3;
-    const SecondAuthorInfix = 4;
+    public static $FirstPrintTitle = "INVALID";
+    public static $FirstPrintLanguage = "INVALID";
+    public static $FirstPrintCountry = "INVALID";
+    public static $FirstPrintPublicationDate = "INVALID";
+    public static $FirstPrintPublisherName = "INVALID";
+    public static $FirstPrintSubTitle = "INVALID";
 
-    const ThirdAuthorName = 8;
-    const ThirdAuthorFirstName = 6;
-    const ThirdAuthorInfix = 7;
+    public static $BuyInfoBuyDate = "INVALID";
+    public static $BuyInfoPricePayed = "INVALID";
+    public static $BuyInfoShop = "INVALID";
 
-    const FirstPrintTitle = 55;
-    const FirstPrintLanguage = 54;
-    const FirstPrintCountry = 50;
-    const FirstPrintPublicationDate = 53;
-    const FirstPrintPublisherName = 56;
+    public static $GiftInfoDate = "INVALID";
+    public static $GiftInfoFrom = "INVALID";
 
-    const BuyInfoBuyDate = 15;
-    const BuyInfoPricePayed = 16;
-    const BuyInfoShop = 65;
+    public static $CoverInfoImagePath = "INVALID";
+    public static $CoverInfoType = "INVALID";
 
-    const GiftInfoDate = 15;
-    const GiftInfoFrom = 33;
+    public static function initializeMapping($values)
+    {
+        $counter = 0;
+        foreach($values as $value){
 
-    const CoverInfoImagePath = 19;
-    const CoverInfoType = 13;
+            $value = trim($value,'"');
+
+            if($value == "Auteur"){
+                LineMapping::$FirstAuthor = $counter;
+            }
+            if($value == "Titel"){
+                LineMapping::$BookTitle = $counter;
+            }
+            if($value == "ISBN"){
+                LineMapping::$BookISBN = $counter;
+            }
+            if($value == "Uitgever"){
+                LineMapping::$BookPublisher = $counter;
+            }
+            if($value == "Medium"){
+                LineMapping::$CoverInfoType = $counter;
+            }
+            if($value == "Aanschafdatum"){
+                LineMapping::$BuyInfoBuyDate = $counter;
+                LineMapping::$GiftInfoDate = $counter;
+            }
+            if($value == "Aanschafprijs"){
+                LineMapping::$BuyInfoPricePayed = $counter;
+            }
+            if($value == "Afbeelding Voorkant"){
+                LineMapping::$CoverInfoImagePath = $counter;
+            }
+            if($value == "Conditie"){
+                LineMapping::$ExtraBookInfoCondition = $counter;
+            }
+            if($value == "Druk"){
+                LineMapping::$ExtraBookInfoPrint = $counter;
+            }
+            if($value == "Gekregen van:"){
+                LineMapping::$GiftInfoFrom = $counter;
+            }
+            if($value == "Gelezen?"){
+                LineMapping::$PersonalBookInfoRead = $counter;
+            }
+            if($value == "Genre"){
+                LineMapping::$BookGenre = $counter;
+            }
+            if($value == "Land"){
+                LineMapping::$BookPublisherCountry = $counter;
+            }
+            if($value == "Lees Datum"){
+                LineMapping::$PersonalBookInfoReadingDate = $counter;
+            }
+            if($value == "Locatie"){
+                LineMapping::$PersonalBookInfoInCollection = $counter;
+            }
+            if($value == "Mijn Waardering"){
+                LineMapping::$PersonalBookInfoRating = $counter;
+            }
+            if($value == "Oeuvre"){
+                LineMapping::$AuthorOeuvre = $counter;
+            }
+            if($value == "Omslag Prijs"){
+                LineMapping::$BookRetailPrice = $counter;
+            }
+            if($value == "Ondertitel"){
+                LineMapping::$BookSubtitle = $counter;
+            }
+            if($value == "Origineel Land"){
+                LineMapping::$FirstPrintCountry = $counter;
+            }
+            if($value == "Originele Publicatiedatum"){
+                LineMapping::$FirstPrintPublicationDate = $counter;
+            }
+            if($value == "Originele Taal"){
+                LineMapping::$FirstPrintLanguage = $counter;
+            }
+            if($value == "Originele Titel"){
+                LineMapping::$FirstPrintTitle = $counter;
+            }
+            if($value == "Originele Ondertitel"){
+                LineMapping::$FirstPrintSubTitle = $counter;
+            }
+            if($value == "Originele Uitgever"){
+                LineMapping::$FirstPrintPublisherName = $counter;
+            }
+            if($value == "pagina's"){
+                LineMapping::$ExtraBookInfoPages = $counter;
+            }
+            if($value == "Publicatie Datum"){
+                LineMapping::$BookPublicationDate = $counter;
+            }
+            if($value == "Taal"){
+                LineMapping::$BookLanguage = $counter;
+            }
+            if($value == "Vertaler"){
+                LineMapping::$ExtraBookInfoTranslator = $counter;
+            }
+            if($value == "Winkel"){
+                LineMapping::$BuyInfoShop = $counter;
+            }
+            if($value == "Verhaal"){
+                LineMapping::$BookSummary = $counter;
+            }
+            if($value == "Afbeelding Achterkant"){
+                LineMapping::$AuthorImage = $counter;
+            }
+            if($value == "Hulpauteur"){
+                LineMapping::$SecondAuthor = $counter;
+            }
+            $counter++;
+        }
+    }
+
+
 }

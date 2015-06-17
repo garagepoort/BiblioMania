@@ -192,5 +192,13 @@ $(document).ready(function () {
                 }
             }
         }
+    }).on('err.field.bv', function (e, data) {
+        if (data.bv.getSubmitButton()) {
+            data.bv.disableSubmitButtons(false);
+        }
+    }).on('success.field.bv', function (e, data) {
+        if (data.bv.getSubmitButton()) {
+            data.bv.disableSubmitButtons(false);
+        }
     });
 });
