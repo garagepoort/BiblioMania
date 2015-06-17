@@ -705,3 +705,7 @@ div.container-fluid {
 .card-column-right {
   overflow: hidden;
 }
+.error-message {
+  background-color: #D75141;
+  color: #ffffff;
+}

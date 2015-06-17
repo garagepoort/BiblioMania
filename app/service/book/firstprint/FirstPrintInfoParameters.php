@@ -15,9 +15,9 @@ class FirstPrintInfoParameters {
         $this->title = StringUtils::emptyToNull($title);
         $this->subtitle = StringUtils::emptyToNull($subtitle);
         $this->isbn = StringUtils::emptyToNull($isbn);
-        $this->publication_date = StringUtils::emptyToNull($publication_date);
+        $this->publication_date = $publication_date;
         $this->publisher = StringUtils::emptyToNull($publisher);
-        $this->language = StringUtils::emptyToNull($language);
+        $this->language = $language;
         $this->country = StringUtils::emptyToNull($country);
     }
 

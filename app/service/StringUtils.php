@@ -23,4 +23,8 @@ class StringUtils {
     public static function contains($stringToContain, $chars){
         return stripos($stringToContain,$chars) !== false;
     }
+
+    public static function split($stringToSplit, $delimiter){
+        return explode($delimiter, $stringToSplit);
+    }
 }

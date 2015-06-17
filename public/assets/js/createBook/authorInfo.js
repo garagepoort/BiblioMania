@@ -1,4 +1,3 @@
-
 var lastKnownAuthor;
 var lastSetAuthorName;
 var lastSetAuthorFirstname;
@@ -53,7 +52,6 @@ $(function () {
     $('.oeuvre-edit-icon').on('click', function () {
         if ($('#oeuvre-textarea-panel').is(":visible")) {
             createOeuvreList();
-            $('#oeuvre-textarea-panel').hide();
         } else {
             $('#oeuvre-textarea-panel').show();
         }
@@ -62,7 +60,6 @@ $(function () {
     $('#oeuvreButton').on('click', function () {
         if ($('#oeuvre-textarea-panel').is(":visible")) {
             createOeuvreList();
-            $('#oeuvre-textarea-panel').hide();
         }
     });
 });
@@ -98,7 +95,7 @@ function fillInAuthorNamesFromBookInfo() {
     }
 }
 
-function reinitializeLastSetValues(){
+function reinitializeLastSetValues() {
     lastSetAuthorFirstname = getAuthorFirstName();
     lastSetAuthorName = getAuthorName();
     lastSetAuthorInfix = getAuthorInfix();
@@ -138,47 +135,72 @@ function fillInOeuvre() {
 
 function createOeuvreList() {
     var res = $('#oeuvre-textarea').val().split("\n");
-    var list = ""
-
-    if (lastKnownAuthor !== null) {
-        $.each(lastLoadedOeuvre, function (index, obj) {
-            list = list + "<li bookFromAuthorTitle='" + obj.title + "'>";
-            if (obj.books.length == 0) {
-                list = list + obj.title;
+    var errorMessage = null;
+    if (res != null && res != "") {
+        $.each(res, function (index, obj) {
+            var splitString = obj.split(" - ");
+            if (splitString.length < 2) {
+                errorMessage = "Formaat is \<jaar\> - titel";
             } else {
-                list = list + "<span class='author-oeuvre-linked-book-title'>" + obj.title + "</span>";
+                var year = splitString[0];
+                var title = splitString[1];
+                if (!title) {
+                    errorMessage = "Titel moet ingevuld zijn";
+                }
             }
-            if ($('#book-from-author-id-input').val() && obj.title === $('#book-from-author-id-input').val()) {
-                list = list + "<span class='author-oeuvre-link-icon fa fa-chain linked'></span><span id='active-linked' class='green-linked-div'>linked</b></span>";
-            } else {
-                list = list + "<span class='author-oeuvre-link-icon fa fa-chain-broken'></span>";
-            }
-            list = list + '</li>'
         });
     }
 
-    $.each(res, function (index, obj) {
-        var splitString = obj.split(" - ");
-        var year = splitString[0];
-        var title = splitString[1];
-        if (title) {
-            list = list + "<li bookFromAuthorTitle='" + title + "'>";
-            list = list + title;
-            list = list + "<span class='author-oeuvre-link-icon fa fa-chain-broken'></span>";
-            list = list + '</li>'
-        }
-    });
+    if (errorMessage) {
+        $('#error-message').html(errorMessage);
+        $('#error-div').show();
+    } else {
+        $('#error-div').hide();
+        var list = "";
 
-    $('#author-oeuvre-list').html(list);
-
-    $('.author-oeuvre-link-icon').on('click', function (event) {
-        if (!$(this).hasClass('linked')) {
-            unlink();
-            link($(this));
-        } else {
-            unlink();
+        if (lastKnownAuthor !== null) {
+            $.each(lastLoadedOeuvre, function (index, obj) {
+                list = list + "<li bookFromAuthorTitle='" + obj.title + "'>";
+                if (obj.books.length == 0) {
+                    list = list + obj.title;
+                } else {
+                    list = list + "<span class='author-oeuvre-linked-book-title'>" + obj.title + "</span>";
+                }
+                if ($('#book-from-author-id-input').val() && obj.title === $('#book-from-author-id-input').val()) {
+                    list = list + "<span class='author-oeuvre-link-icon fa fa-chain linked'></span><span id='active-linked' class='green-linked-div'>linked</b></span>";
+                } else {
+                    list = list + "<span class='author-oeuvre-link-icon fa fa-chain-broken'></span>";
+                }
+                list = list + '</li>'
+            });
         }
-    });
+
+        $.each(res, function (index, obj) {
+            var splitString = obj.split(" - ");
+            var year = splitString[0];
+            var title = splitString[1];
+            if (title) {
+                list = list + "<li bookFromAuthorTitle='" + title + "'>";
+                list = list + title;
+                list = list + "<span class='author-oeuvre-link-icon fa fa-chain-broken'></span>";
+                list = list + '</li>'
+            }
+        });
+
+        $('#author-oeuvre-list').html(list);
+
+        $('.author-oeuvre-link-icon').on('click', function (event) {
+            if (!$(this).hasClass('linked')) {
+                unlink();
+                link($(this));
+            } else {
+                unlink();
+            }
+        });
+
+        $('#oeuvre-textarea-panel').hide();
+    }
+
 }
 
 function unlink() {
@@ -198,26 +220,26 @@ function link(linkedIcon) {
     $('#book-from-author-id-input').val(linkedIcon.parent().attr('bookFromAuthorTitle'));
 }
 
-function setAuthorName(authorName){
+function setAuthorName(authorName) {
     $("#author_name").val(authorName);
 }
 
-function setAuthorFirstName(authorFirstName){
+function setAuthorFirstName(authorFirstName) {
     $("#author_firstname").val(authorFirstName);
 }
 
-function setAuthorInfix(authorInfix){
+function setAuthorInfix(authorInfix) {
     $("#author_infix").val(authorInfix);
 }
 
-function getAuthorName(){
+function getAuthorName() {
     return $("#author_name").val();
 }
 
-function getAuthorFirstName(){
+function getAuthorFirstName() {
     return $("#author_firstname").val();
 }
 
-function getAuthorInfix(){
+function getAuthorInfix() {
     return $("#author_infix").val();
 }

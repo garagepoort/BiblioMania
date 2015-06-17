@@ -1,4 +1,5 @@
 <div class="tab-container ">
+
     <fieldset>
 
     <legend>Auteur info</legend>
@@ -67,9 +68,13 @@
             @include('googleImageSearch', array('imageUrlInput' => 'authorImageUrl','contentDivId' => 'authorImageContent'))
         </div>
 
+
         <div id='author-oeuvre-panel'>
             <input id="book-from-author-id-input" hidden name="bookFromAuthorTitle" value="{{ $book_from_author_title }}"/>
             <legend>Oeuvre<span style="margin-left:10px" class="oeuvre-edit-icon fa fa-pencil-square-o"></span></legend>
+            <div id="error-div" class="material-card error-message" hidden>
+                <div id="error-message" class="material-card-content error-message"></div>
+            </div>
             <ul id='author-oeuvre-list'>
             </ul>
             <div id='oeuvre-textarea-panel' style="display:none;">
