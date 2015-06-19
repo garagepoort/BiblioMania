@@ -28,7 +28,9 @@ $(document).ready(function(){
                 trString = trString + "<td>";
                 trString = trString + "<div class='imageLinkWrapper material-card'>";
                     trString = trString + "<div class='material-card-content'>";
-                    trString = trString + "<a href='" + baseUrl + "/getAuthor/" + author.id +  "'><img src=\"" + imageString + "\" authorid='" + author.id + "' class='authorCoverLink'></a>";
+                    trString = trString + "<a href='" + baseUrl + "/getAuthor/" + author.id +  "'>";
+                    trString = trString + "<img src=\"" + imageString + "\" authorid='" + author.id + "' class='authorCoverLink' onError='this.onerror=null;this.src=\"" + baseUrl+ "/images/questionCover.png\"' >";
+                    trString = trString + "</a>";
                     trString = trString + "</div>";
                     trString = trString + "<div class='material-card-title'>" + author.firstname + " " + author.name +"</div>";
                 trString = trString + '</div>';
