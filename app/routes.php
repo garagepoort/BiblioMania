@@ -60,6 +60,7 @@ Route::group(array('before' => 'auth'), function() {
     Route::post('mergeCountries', 'CountryController@mergeCountries');
 
     Route::get('scaleImages', 'ImageController@scaleImages');
+    Route::get('createSprite', 'ImageController@createSprite');
 });
 
 

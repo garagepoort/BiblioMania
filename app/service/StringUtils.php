@@ -27,4 +27,8 @@ class StringUtils {
     public static function split($stringToSplit, $delimiter){
         return explode($delimiter, $stringToSplit);
     }
+
+    public static function clean($string) {
+        return preg_replace('/[^A-Za-z0-9.]/', '', $string); // Removes special chars.
+    }
 }
