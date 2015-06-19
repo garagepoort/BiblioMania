@@ -102,6 +102,7 @@ $(document).ready(function () {
                 imageElement.attr("style", "width: 142px;");
                 imageElement.attr("class", "bookCoverLink");
                 imageElement.attr("src", imageString);
+                imageElement.attr("onError", "this.onerror=null;this.src='" + baseUrl + "/images/questionCover.png';");
 
                 var icCaptionElement = $("<div class=\"ic_caption editBookPanel\"><p class=\"ic_category\">Edit<i class=\"fa fa-pencil editImagePencilIcon\"></i></p></div>");
 
