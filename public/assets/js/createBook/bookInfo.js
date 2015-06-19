@@ -1,5 +1,13 @@
 var genresOpen =false;
 
+function validateGenre(){
+    var errorMessage = null;
+    if($('#book_genre_input').val() == ""){
+        errorMessage = "Genre moet ingevuld zijn";
+    }
+    return errorMessage;
+}
+
 $(function() {
 
     initializeGenre();

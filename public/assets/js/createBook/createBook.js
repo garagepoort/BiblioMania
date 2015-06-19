@@ -1,5 +1,43 @@
-$(document).ready(function () {
+var formSubmitting = false;
 
+function showError(errorMessage){
+    $('#error-message').html(errorMessage);
+    $('#error-div').show();
+    window.scrollTo(0, 0);
+}
+
+function hideError(){
+    $('#error-div').hide();
+}
+
+function validateForm(){
+    formSubmitting = true;
+    var errorMessage = validateOeuvreList();
+    if(errorMessage){
+        showError(errorMessage);
+        return false;
+    }
+    errorMessage = validateGenre();
+    if(errorMessage){
+        showError(errorMessage);
+        return false;
+    }
+    hideError();
+    return true;
+}
+
+$(document).ready(function () {
+    window.addEventListener("beforeunload", function (e) {
+        var confirmationMessage = 'It looks like you have been editing something. ';
+        confirmationMessage += 'If you leave before saving, your changes will be lost.';
+
+        if (formSubmitting) {
+            return undefined;
+        }
+
+        (e || window.event).returnValue = confirmationMessage; //Gecko + IE
+        return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
+    });
 
     $('#book_country').autocomplete({
         lookup: window.country_names

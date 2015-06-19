@@ -133,14 +133,14 @@ function fillInOeuvre() {
     }
 }
 
-function createOeuvreList() {
+function validateOeuvreList(){
     var res = $('#oeuvre-textarea').val().split("\n");
     var errorMessage = null;
     if (res != null && res != "") {
         $.each(res, function (index, obj) {
             var splitString = obj.split(" - ");
             if (splitString.length < 2) {
-                errorMessage = "Formaat is \<jaar\> - titel";
+                errorMessage = "Formaat is jaar - titel";
             } else {
                 var year = splitString[0];
                 var title = splitString[1];
@@ -151,11 +151,16 @@ function createOeuvreList() {
         });
     }
 
+    return errorMessage;
+}
+
+function createOeuvreList() {
+    var res = $('#oeuvre-textarea').val().split("\n");
+    var errorMessage = validateOeuvreList();
     if (errorMessage) {
-        $('#error-message').html(errorMessage);
-        $('#error-div').show();
+        showError(errorMessage);
     } else {
-        $('#error-div').hide();
+        hideError();
         var list = "";
 
         if (lastKnownAuthor !== null) {
