@@ -12,10 +12,18 @@ class FileToAuthorParametersMapper {
 
     public function mapToParameters($line_values){
         $authorParameters = array();
-        $coverImage = null;
+        $coverImage = "";
         if($line_values[LineMapping::$AuthorImage] != ""){
             $path = explode('\\', $line_values[LineMapping::$AuthorImage]);
-            $coverImage = 'bookImages/' . Auth::user()->username . '/' . end($path);
+            $path = StringUtils::clean(end($path));
+            $path = pathinfo($path);
+            $path = $path['filename'] . ".jpg";
+
+
+            if(file_exists('importImages/' . $path)){
+                $coverImage = 'authorImages/' . $path;
+                copy('importImages/' . $path, $coverImage);
+            }
         }
 
         /** @var AuthorInfoParameters $firstAuthorParameters */

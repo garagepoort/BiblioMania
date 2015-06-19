@@ -154,7 +154,7 @@ class BookService
         $books = $books->orderBy('date.month', 'ASC');
         $books = $books->orderBy('date.day', 'ASC');
 
-        return $books->paginate(60);
+        return $books->paginate(1000);
     }
 
     public function searchBooks($criteria)

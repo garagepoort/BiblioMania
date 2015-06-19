@@ -29,6 +29,8 @@ class ImageService
 
         imagedestroy($im);
 
+        images_to_sprite::addToSprite('bookImages/'.Auth::user()->username . '/sprite.png', $filename);
+
         return $filename;
     }
 
