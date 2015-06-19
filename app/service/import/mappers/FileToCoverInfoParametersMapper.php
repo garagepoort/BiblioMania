@@ -3,10 +3,18 @@
 class FileToCoverInfoParametersMapper {
 
     public function map($line_values){
-        $coverImage = null;
+        $coverImage = "";
         if($line_values[LineMapping::$CoverInfoImagePath] != ""){
             $path = explode('\\', $line_values[LineMapping::$CoverInfoImagePath]);
-            $coverImage = 'bookImages/' . Auth::user()->username . '/' . end($path);
+            $path =StringUtils::clean(end($path));
+            $path = pathinfo($path);
+            $path = $path['filename'] . ".jpg";
+
+
+            if(file_exists('importImages/' . $path)){
+                $coverImage = 'bookImages/' . Auth::user()->username . '/' . $path;
+                copy('importImages/' . $path, $coverImage);
+            }
         }
 
         return new CoverInfoParameters($line_values[LineMapping::$CoverInfoType], $coverImage, ImageSaveType::PATH);

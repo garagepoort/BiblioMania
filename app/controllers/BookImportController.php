@@ -30,7 +30,7 @@ class BookImportController extends BaseController {
 		}
 		OeuvreMatcher::matchOeuvres();
 		ini_set('max_execution_time', 30);
-		ini_set('memory_limit', '16M');
+		ini_set('memory_limit', '128M');
 	}
 
 }
