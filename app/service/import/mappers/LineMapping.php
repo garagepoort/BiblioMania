@@ -152,7 +152,7 @@ abstract class LineMapping
             if($value == "Verhaal"){
                 LineMapping::$BookSummary = $counter;
             }
-            if($value == "Afbeelding Achterkant"){
+            if($value == "Koppelingen"){
                 LineMapping::$AuthorImage = $counter;
             }
             if($value == "Hulpauteur"){
