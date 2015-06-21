@@ -31,4 +31,8 @@ class StringUtils {
     public static function clean($string) {
         return preg_replace('/[^A-Za-z0-9.]/', '', $string); // Removes special chars.
     }
+
+    public static function replace($string, $charToReplace, $replaceChar) {
+        return str_replace($charToReplace, $replaceChar, $string);
+    }
 }

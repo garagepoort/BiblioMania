@@ -3,7 +3,7 @@
 class FileToBuyInfoParametersMapper {
 
     public function map($line_values){
-        $buy_date = DateTime::createFromFormat('d-m-y', $line_values[LineMapping::$BuyInfoBuyDate]);
+        $buy_date = DateTime::createFromFormat('d/m/Y', $line_values[LineMapping::$BuyInfoBuyDate]);
         if($buy_date == false){
             $buy_date = null;
         }

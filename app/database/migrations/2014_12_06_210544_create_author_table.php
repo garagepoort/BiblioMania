@@ -15,6 +15,9 @@ class CreateAuthorTable extends Migration {
 			$table->string('gender');
 			$table->string('infix')->nullable();
 			$table->string('image')->nullable();
+			$table->unsignedInteger('imageHeight');
+			$table->unsignedInteger('spritePointer');
+			$table->boolean('useSpriteImage');
 			$table->unsignedInteger('date_of_death_id')->nullable();
 			$table->unsignedInteger('date_of_birth_id')->nullable();
 	        $table->unsignedInteger('country_id')->nullable();

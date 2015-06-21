@@ -8,8 +8,9 @@
     <div class='info-container'>
         <div id="messageBox"></div>
         <fieldset>
-            <div class="author-image-div">
-                {{ HTML::image($author->image, 'afbeelding niet gevonden',array('width'=>150)) }}
+            <div class="material-card imageLinkWrapper" style="float: left;">
+                <div class="material-card-content" id="author-image-div">
+                </div>
             </div>
 
             <div class="material-card" style="float: left;">

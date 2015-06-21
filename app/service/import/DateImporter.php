@@ -13,7 +13,9 @@ class DateImporter
 
     public function importDate($dateValues)
     {
-        if (!empty($dateValues)) {
+        if (!empty($dateValues) && $dateValues != "3000") {
+            $dateValues = trim($dateValues);
+            $dateValues = StringUtils::replace($dateValues, "/", "-");
             $dateValues = explode("-", $dateValues);
             $day = null;
             $month = null;
@@ -36,7 +38,9 @@ class DateImporter
 
     public function importDateToDateTime($dateValues)
     {
-        if (!empty($dateValues)) {
+        if (!empty($dateValues) && $dateValues != "3000") {
+            $dateValues = trim($dateValues);
+            $dateValues = StringUtils::replace($dateValues, "/", "-");
             $dateArray = explode("-", $dateValues);;
             if(StringUtils::contains($dateValues, '-')){
                 $dateArray = explode("-", $dateValues);

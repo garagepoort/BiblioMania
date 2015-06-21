@@ -17,6 +17,9 @@ class CreateBookTable extends Migration {
 			$table->string('type_of_cover');
 			$table->string('translator');
 			$table->string('coverImage');
+			$table->unsignedInteger('imageHeight');
+			$table->unsignedInteger('spritePointer');
+			$table->boolean('useSpriteImage');
 			$table->unsignedInteger('genre_id');
 			$table->unsignedInteger('publisher_id');
 			$table->unsignedInteger('publisher_country_id');

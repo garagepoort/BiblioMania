@@ -21,8 +21,9 @@ class FileToAuthorParametersMapper {
 
 
             if(file_exists('importImages/' . $path)){
-                $coverImage = 'authorImages/' . $path;
-                copy('importImages/' . $path, $coverImage);
+                $coverImagePath = Config::get("properties.authorImagesLocation"). "/" . $path;
+                $coverImage = $path;
+                copy('importImages/' . $path, $coverImagePath);
             }
         }
 

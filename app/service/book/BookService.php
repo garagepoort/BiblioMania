@@ -2,6 +2,7 @@
 
 class BookService
 {
+    const PAGES = 120;
 
     /** @var  BookRepository */
     private $bookRepository;
@@ -80,7 +81,7 @@ class BookService
         if ($book_id != null) {
             return Book::where('user_id', '=', Auth::user()->id)
                 ->where('id', '=', $book_id)
-                ->paginate(60);
+                ->paginate(self::PAGES);
         }
 
         $books = Book::select(DB::raw('book.*'))
@@ -142,6 +143,9 @@ class BookService
         if ($orderBy == 'title') {
             $books = $books->orderBy('title');
         }
+        if ($orderBy == 'author') {
+            $books = $books->orderBy('author.name');
+        }
         if ($orderBy == 'subtitle') {
             $books = $books->orderBy('subtitle');
         }
@@ -149,12 +153,12 @@ class BookService
             $books = $books->orderBy('personal_book_info.rating', 'DESC');
         }
 
-        $books = $books->orderBy('author.name');
+        $books = $books->orderBy('title');
         $books = $books->orderBy('date.year', 'ASC');
         $books = $books->orderBy('date.month', 'ASC');
         $books = $books->orderBy('date.day', 'ASC');
 
-        return $books->paginate(1000);
+        return $books->paginate(self::PAGES);
     }
 
     public function searchBooks($criteria)
@@ -170,7 +174,7 @@ class BookService
                     ->orWhere('subtitle', 'LIKE', '%' . $criteria . '%');
             })
             ->orderBy('title')
-            ->paginate(60);
+            ->paginate(self::PAGES);
     }
 
     /**
@@ -230,7 +234,7 @@ class BookService
                 $this->imageService->removeImage($book->coverImage);
             }
             if($coverInfoParameters->getImageSaveType() == ImageSaveType::UPLOAD){
-                $book->coverImage = $this->imageService->saveUploadImage($coverInfoParameters->getImage(),
+                $book->coverImage = $this->imageService->saveUploadImageForBook($coverInfoParameters->getImage(),
                     $book->title);
             }
             else if($coverInfoParameters->getImageSaveType() == ImageSaveType::URL){
@@ -239,8 +243,7 @@ class BookService
             else if($coverInfoParameters->getImageSaveType() == ImageSaveType::PATH){
                 $book->coverImage = $coverInfoParameters->getImage();
             }
-        }else if(StringUtils::isEmpty($book->coverImage)){
-            $book->coverImage = 'images/questionCover.png';
+            $book->useSpriteImage = false;
         }
     }
 }

@@ -60,6 +60,14 @@ Route::filter('admin', function()
 	}
 });
 
+Route::filter('localCallOnly', function()
+{
+	if (Request::server('SERVER_ADDR') != Request::server('REMOTE_ADDR'))
+	{
+		return App::abort(404);
+	}
+});
+
 
 Route::filter('auth.basic', function()
 {

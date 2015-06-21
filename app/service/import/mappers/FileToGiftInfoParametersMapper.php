@@ -3,7 +3,7 @@
 class FileToGiftInfoParametersMapper {
 
     public function map($line_values){
-        $date = DateTime::createFromFormat('d-m-y', $line_values[LineMapping::$GiftInfoDate]);
+        $date = DateTime::createFromFormat('d/m/Y', $line_values[LineMapping::$GiftInfoDate]);
         if ($date == false) {
             $date = null;
         }
