@@ -47,27 +47,6 @@ class AuthorController extends BaseController {
 		));
 	}
 
-	public function editAuthor(){
-		$validator = $this->authorFormValidator->createValidator();
-
-		$author_id = Input::get('author_id');
-
-		if ($validator->fails()) {
-			if ($author_id) {
-				return Redirect::to('/editAuthor/' . $author_id)->withErrors($validator)->withInput();
-			}
-		} else {
-			$name = Input::get('name');
-			$infix = Input::get('infix');
-			$firstname = Input::get('firstname');
-			$date_of_birth = $this->dateService->createDate(Input::get('date_of_birth_day'), Input::get('date_of_birth_month'), Input::get('date_of_birth_year'));
-			$date_of_death = $this->dateService->createDate(Input::get('date_of_death_day'), Input::get('date_of_death_month'), Input::get('date_of_death_year'));
-
-			$this->authorService->updateAuthor($author_id, $name, $infix, $firstname, $this->getAuthorImage(), $date_of_birth->id, $date_of_death->id);
-			return Redirect::to('/getAuthor/' .$author_id);
-		}
-	}
-
 	public function editAuthorInList(){
 		$dateService = App::make('DateService');
 		$logger = new Katzgrau\KLogger\Logger(app_path() . '/storage/logs');
@@ -165,18 +144,5 @@ class AuthorController extends BaseController {
 
 	public function getAuthorsWithOeuvreJson(){
 		return Response::json(Author::with('oeuvre')->all());
-	}
-
-	private  function getAuthorImage()
-	{
-		$authorImage = null;
-		if (Input::get('imageSelfUpload')) {
-			$authorImage = Input::file('image');
-		} else {
-			if (Input::get('imageUrl') != '') {
-				$authorImage = $this->imageService->saveImageFromUrl(Input::get('imageUrl'));
-			}
-		}
-		return $authorImage;
 	}
 }

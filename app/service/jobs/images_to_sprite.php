@@ -1,39 +1,90 @@
 <?php
 class images_to_sprite {
+    const SPRITE = "sprite";
+    const WIDTH = "142";
 
-    private $heightSprite;
+    public static function create_sprite_for_book_images($folder, $user) {
+        $heightSprite = 0;
+        $images = array();
+        $filetypes = array('jpg'=>true);
 
-    function images_to_sprite($folder,$output,$x) {
-        $this->folder = ($folder ? $folder : 'myfolder'); // Folder name to get images from, i.e. C:\\myfolder or /home/user/Desktop/folder
-        $this->filetypes = array('jpg'=>true,'png'=>false,'jpeg'=>false,'gif'=>false); // Acceptable file extensions to consider
-        $this->output = ($output ? $output : 'mysprite'); // Output filenames, mysprite.png and mysprite.css
-        $this->x = $x; // Width of images to consider
-        $this->images = array();
-    }
-
-    function create_sprite() {
         $logger = new Katzgrau\KLogger\Logger(app_path() . '/storage/logs');
         // Read through the directory for suitable images
-        if($handle = opendir($this->folder)) {
+        if($handle = opendir($folder)) {
             while (false !== ($file = readdir($handle))) {
                 $split = explode('.',$file);
                 // Ignore non-matching file extensions
-                if($file[0] == '.' || !isset($this->filetypes[$split[count($split)-1]]))
+                if($file[0] == '.' || !isset($filetypes[$split[count($split)-1]]))
                     continue;
                 // Get image size and ensure it has the correct dimensions
-                $output = getimagesize($this->folder.'/'.$file);
-                if($output[0] != $this->x)
+                $output = getimagesize($folder.'/'.$file);
+                if($output[0] != self::WIDTH)
                     continue;
+
                 // Image will be added to sprite, add to array
                 $logger->info("FILE TYPE: " . $output["mime"]);
-                $this->y = $output[1];
-                array_push($this->images, new Image($this->x, $this->y, $file));
-                $this->heightSprite = $this->heightSprite + $this->y;
+                $height = $output[1];
+                array_push($images, new Image(self::WIDTH, $height, $file));
+                $heightSprite = $heightSprite + $height;
             }
             closedir($handle);
         }
 
-        $im = imagecreatetruecolor($this->x,$this->heightSprite);
+        $im = imagecreatetruecolor(self::WIDTH, $heightSprite);
+
+        imagesavealpha($im, true);
+        $alpha = imagecolorallocatealpha($im, 0, 0, 0, 127);
+        imagefill($im,0,0,$alpha);
+
+        $imageYPointer = 0;
+        /** @var Image $image */
+        foreach($images as $image) {
+            $book = Book::where('coverImage', '=', $image->getFile())
+                ->where('user_id', "=", $user->id)
+                ->first();
+            if($book != null){
+                $book->spritePointer = $imageYPointer;
+                $book->imageHeight = $image->getHeight();
+                $book->useSpriteImage = true;
+                $book->save();
+            }
+
+            $im2 = imagecreatefromjpeg($folder.'/'.$image->getFile());
+            imagecopy($im, $im2, 0, $imageYPointer, 0, 0, $image->getWidth(), $image->getHeight());
+            $imageYPointer = $imageYPointer + $image->getHeight();
+        }
+        imagepng($im, $folder . '/' .self::SPRITE.'.png', 9, PNG_ALL_FILTERS); // Save image to file
+        imagedestroy($im);
+    }
+
+    public static function create_sprite_for_author_images($folder) {
+        $heightSprite = 0;
+        $images = array();
+        $filetypes = array('jpg'=>true);
+
+        $logger = new Katzgrau\KLogger\Logger(app_path() . '/storage/logs');
+        // Read through the directory for suitable images
+        if($handle = opendir($folder)) {
+            while (false !== ($file = readdir($handle))) {
+                $split = explode('.',$file);
+                // Ignore non-matching file extensions
+                if($file[0] == '.' || !isset($filetypes[$split[count($split)-1]]))
+                    continue;
+                // Get image size and ensure it has the correct dimensions
+                $output = getimagesize($folder.'/'.$file);
+                if($output[0] != self::WIDTH)
+                    continue;
+
+                // Image will be added to sprite, add to array
+                $logger->info("FILE TYPE: " . $output["mime"]);
+                $height = $output[1];
+                array_push($images, new Image(self::WIDTH, $height, $file));
+                $heightSprite = $heightSprite + $height;
+            }
+            closedir($handle);
+        }
+
+        $im = imagecreatetruecolor(self::WIDTH, $heightSprite);
 
         // Add alpha channel to image (transparency)
         imagesavealpha($im, true);
@@ -42,19 +93,27 @@ class images_to_sprite {
 
         // Append images to sprite and generate CSS lines
 
-        $fp = fopen($this->output.'.css','w');
+        $fp = fopen($folder . '/' .self::SPRITE .'.css','w');
         $imageYPointer = 0;
-        fwrite($fp,'.'.$this->output.' { width: '.$this->x.'px; height: '.$this->y.'px; background-image: url('.$this->output.'.png); text-align:center; }'."\n");
         /** @var Image $image */
         $counter = 0;
-        foreach($this->images as $image) {
-            fwrite($fp,'.'.$this->output.$imageYPointer.' { background-position: -0px -'.$imageYPointer.'px; }'."\n");
-            $im2 = imagecreatefromjpeg($this->folder.'/'.$image->getFile());
+        foreach($images as $image) {
+            $author = Author::where('image', '=', $image->getFile())
+                ->first();
+            if($author != null){
+                $author->spritePointer = $imageYPointer;
+                $author->imageHeight = $image->getHeight();
+                $author->useSpriteImage = true;
+                $author->save();
+            }
+
+            fwrite($fp,'.'.self::SPRITE.$imageYPointer.' { background-position: -0px -'.$imageYPointer.'px; }'."\n");
+            $im2 = imagecreatefromjpeg($folder.'/'.$image->getFile());
             imagecopy($im, $im2, 0, $imageYPointer, 0, 0, $image->getWidth(), $image->getHeight());
             $imageYPointer = $imageYPointer + $image->getHeight();
         }
         fclose($fp);
-        imagepng($im,$this->output.'.png'); // Save image to file
+        imagepng($im, $folder . '/' .self::SPRITE.'.png', 9, PNG_ALL_FILTERS); // Save image to file
         imagedestroy($im);
     }
 

@@ -88,32 +88,21 @@ $(document).ready(function () {
             var trElement = $("<tr></tr>");
             for (j = 0; j < columns; j++) {
                 var book = books[(6 * i) + j];
-                var imageString = baseUrl + "/" + book.coverImage;
-                if (book.coverImage == '' || book.coverImage == null) {
-                    imageString = baseUrl + "/images/questionCover.png";
-                }
+
                 var tdElement = $("<td></td>");
 
-                var imageLinkWrapper = $("<div></div>");
-                imageLinkWrapper.attr("class", "imageLinkWrapper ic_container");
-                imageLinkWrapper.attr("bookid", book.id);
-
-                var imageElement = $("<img/>");
-                imageElement.attr("style", "width: 142px;");
-                imageElement.attr("class", "bookCoverLink");
-                imageElement.attr("src", imageString);
-                imageElement.attr("onError", "this.onerror=null;this.src='" + baseUrl + "/images/questionCover.png';");
+                var bookImageObject = getBookImageObject(book);
+                var materialCard = createMaterialCardImage(bookImageObject.imageString, bookImageObject.height, bookImageObject.spritePointer);
+                materialCard.attr("bookid", book.id);
 
                 var icCaptionElement = $("<div class=\"ic_caption editBookPanel\"><p class=\"ic_category\">Edit<i class=\"fa fa-pencil editImagePencilIcon\"></i></p></div>");
 
-
-                imageLinkWrapper.append(imageElement);
-                imageLinkWrapper.append(icCaptionElement);
-                tdElement.append(imageLinkWrapper);
+                materialCard.append(icCaptionElement);
+                tdElement.append(materialCard);
                 trElement.append(tdElement);
 
-                addCapSlideToElement(imageLinkWrapper);
-                addClickToBookImage(imageLinkWrapper);
+                addCapSlideToElement(materialCard);
+                addClickToBookImage(materialCard);
                 addClickToEditElement(icCaptionElement, book.id);
             }
             $('#books-container-table > tbody:last').append(trElement);
@@ -224,10 +213,9 @@ $(document).ready(function () {
 
         $('#book-detail-title').text(book.title);
         $('#book-detail-subtitle').text(book.subtitle);
-        $('#book-detail-coverimage').attr('src', baseUrl + "/" + book.coverImage);
-        if (book.coverImage === '') {
-            $('#book-detail-coverimage').attr('src', baseUrl + "/images/questionCover.png");
-        }
+        var bookImageObject = getBookImageObject(book);
+        $('#book-detail-coverimage').attr('style', getImageStyle(bookImageObject.height, bookImageObject.imageString, bookImageObject.spritePointer) + "margin: 0px;");
+
         $('#book-detail-author').text(book.authors[0].firstname + " " + book.authors[0].infix + " " + book.authors[0].name);
         showOrHide($('#book-detail-isbn'), book.ISBN);
         showOrHide($('#book-detail-publisher'), book.publisher.name);

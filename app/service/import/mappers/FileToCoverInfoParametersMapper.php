@@ -12,8 +12,9 @@ class FileToCoverInfoParametersMapper {
 
 
             if(file_exists('importImages/' . $path)){
-                $coverImage = 'bookImages/' . Auth::user()->username . '/' . $path;
-                copy('importImages/' . $path, $coverImage);
+                $coverImagePath = Config::get("properties.bookImagesLocation"). "/" . Auth::user()->username . '/' . $path;
+                $coverImage = $path;
+                copy('importImages/' . $path, $coverImagePath);
             }
         }
 

@@ -4,7 +4,8 @@ class BookRepository implements iRepository{
 
     public function find($id)
     {
-        return Book::find($id);
+        return Book::where('id', '=', $id)
+            ->where('user_id', '=', Auth::user()->id)->first();
     }
 
     public function all()
