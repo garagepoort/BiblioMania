@@ -2,6 +2,10 @@ $(function () {
 
     $.fn.editable.defaults.mode = 'inline';
 
+    var authorImageObject = getAuthorImageObject(author_json);
+    $('#author-image-div').attr('style',
+        getImageStyle(authorImageObject.height, authorImageObject.imageString, authorImageObject.spritePointer));
+
     $(".author-oeuvre-title").editable({
         validate: function (value) {
             if ($.trim(value) == '') {

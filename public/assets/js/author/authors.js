@@ -20,24 +20,41 @@ $(document).ready(function(){
                 columns =  authors.length % 6;
             }
 
-            var trString = "<tr>";
-
+            var trElement = $("<tr></tr>");
             for (j = 0; j < columns; j++){
                 var author = authors[(6*i)+j];
-                var imageString = baseUrl + "/" + author.image;
-                trString = trString + "<td>";
-                trString = trString + "<div class='imageLinkWrapper material-card'>";
-                    trString = trString + "<div class='material-card-content'>";
-                    trString = trString + "<a href='" + baseUrl + "/getAuthor/" + author.id +  "'>";
-                    trString = trString + "<img src=\"" + imageString + "\" authorid='" + author.id + "' class='authorCoverLink' onError='this.onerror=null;this.src=\"" + baseUrl+ "/images/questionCover.png\"' >";
-                    trString = trString + "</a>";
-                    trString = trString + "</div>";
-                    trString = trString + "<div class='material-card-title'>" + author.firstname + " " + author.name +"</div>";
-                trString = trString + '</div>';
-                trString = trString + '</td>';
+                var imageString = baseUrl + "/authorImages/sprite.png";
+                var height = author.imageHeight;
+
+                var styleString =  "width: 142px;height:" + author.imageHeight +"px; background: url(" + imageString+");";
+                styleString =  styleString + "background-position:  0px -"+ author.spritePointer +"px; display: block;";
+                if (author.image == '' || author.image == null) {
+                    imageString = baseUrl + "/images/questionCover.png";
+                    styleString = "width: 142px; height: 210px; display: block; background: url(" + imageString + ");";
+                    var height = 210;
+                }
+                var tdElement = $("<td></td>");
+
+                var materialCard = $("<div></div>");
+                materialCard.attr("class", "imageLinkWrapper material-card");
+
+                var materialContent = $("<div></div>");
+                materialContent.attr("class", "material-card-content");
+
+                var materialTitle = $("<div>" + author.firstname + " " + author.name+ "</div>");
+                materialTitle.attr("class", "material-card-title");
+
+                var linkElement = $("<a></a>");
+                linkElement.attr("href", baseUrl + "/getAuthor/" + author.id);
+                linkElement.attr("style", styleString);
+
+                materialContent.append(linkElement);
+                materialCard.append(materialContent);
+                materialCard.append(materialTitle);
+                tdElement.append(materialCard);
+                trElement.append(tdElement);
             }
-            trString = trString + '</tr>';
-            $('#authors-container-table > tbody:last').append(trString);
+            $('#authors-container-table > tbody:last').append(trElement);
         }
     }
 

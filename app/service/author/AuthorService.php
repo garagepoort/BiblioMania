@@ -128,8 +128,7 @@ class AuthorService
             }
 
             if($authorInfoParameters->getImageSaveType() == ImageSaveType::UPLOAD){
-                $author_model->image = $this->imageService->saveUploadImage($authorInfoParameters->getImage(),
-                    $author_model->name);
+                $author_model->image = $this->imageService->saveUploadImageForAuthor($authorInfoParameters->getImage(),$author_model->name);
             }
             else if($authorInfoParameters->getImageSaveType() == ImageSaveType::URL)
             {
@@ -139,8 +138,7 @@ class AuthorService
             {
                 $author_model->image = $authorInfoParameters->getImage();
             }
-        }else if(StringUtils::isEmpty($author_model->image)){
-            $author_model->image = 'images/questionCover.png';
+            $author_model->useSpriteImage = false;
         }
     }
 }
