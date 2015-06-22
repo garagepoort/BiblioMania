@@ -6,6 +6,7 @@ abstract class LineMapping
     public static $BookSubtitle = "INVALID";
     public static $BookISBN = "INVALID";
     public static $BookSummary = "INVALID";
+    public static $BookState = "INVALID";
     public static $BookPublicationDate = "INVALID";
     public static $BookPublisher = "INVALID";
     public static $BookPublisherCountry = "INVALID";
@@ -17,6 +18,7 @@ abstract class LineMapping
     public static $ExtraBookInfoPrint = "INVALID";
     public static $ExtraBookInfoTranslator = "INVALID";
     public static $ExtraBookInfoCondition = "INVALID";
+    public static $ExtraBookInfoTags = "INVALID";
 
     public static $PersonalBookInfoInCollection = "INVALID";
     public static $PersonalBookInfoRead = "INVALID";
@@ -52,7 +54,7 @@ abstract class LineMapping
     {
         $counter = 0;
         foreach($values as $value){
-
+            $value = StringUtils::replace($value, "\r\n", "");
             $value = trim($value,'"');
 
             if($value == "Auteur"){
@@ -66,6 +68,12 @@ abstract class LineMapping
             }
             if($value == "Uitgever"){
                 LineMapping::$BookPublisher = $counter;
+            }
+            if($value == "Tags"){
+                LineMapping::$ExtraBookInfoTags = $counter;
+            }
+            if($value == "Conditie"){
+                LineMapping::$BookState = $counter;
             }
             if($value == "Medium"){
                 LineMapping::$CoverInfoType = $counter;

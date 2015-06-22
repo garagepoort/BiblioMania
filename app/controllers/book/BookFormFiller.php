@@ -26,6 +26,7 @@ class BookFormFiller
         $result['book_serie'] = '';
         $result['book_publisher_serie'] = '';
         $result['book_languageId'] = '';
+        $result['book_old_tags'] = '';
         $result['book_genre_input'] = '';
         $result['book_publication_date_day'] = '';
         $result['book_publication_date_month'] = '';
@@ -61,6 +62,7 @@ class BookFormFiller
         $result['buy_info_city'] = '';
         $result['buy_info_country'] = '';
         $result['book_type_of_cover'] = '';
+        $result['book_state'] = '';
         $result['giftInfoSet'] = false;
         $result['buyInfoSet'] = true;
         $result['book_from_author_title'] = '';
@@ -82,6 +84,8 @@ class BookFormFiller
         $result['book_print'] = $book->print;
         $result['book_cover_image'] = $book->coverImage;
         $result['book_type_of_cover'] = $book->type_of_cover;
+        $result['book_state'] = $book->state;
+        $result['book_old_tags'] = $book->old_tags;
         $result['translator'] = $book->translator;
         $result['book_summary'] = $book->summary;
 

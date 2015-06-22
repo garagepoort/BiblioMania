@@ -8,11 +8,15 @@ class FileToBuyInfoParametersMapper {
             $buy_date = null;
         }
 
+        $pricePayed = $line_values[LineMapping::$BuyInfoPricePayed];
+        $pricePayed = StringUtils::replace($pricePayed, "€", "");
+        $pricePayed = StringUtils::replace($pricePayed, " ", "");
+
         return new BuyInfoParameters($buy_date,
             $line_values[LineMapping::$BuyInfoShop],
             "",
             "",
             "",
-            $line_values[LineMapping::$BuyInfoPricePayed]);
+            $pricePayed);
     }
 }

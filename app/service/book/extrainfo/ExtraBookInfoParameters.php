@@ -8,8 +8,10 @@ class ExtraBookInfoParameters {
     private $publisher_serie;
     private $translator;
     private $summary;
+    private $state;
+    private $oldTags;
 
-    function __construct($pages, $print, $book_serie, $publisher_serie, $translator, $summary)
+    function __construct($pages, $print, $book_serie, $publisher_serie, $translator, $summary, $state, $tags)
     {
         $this->pages = $pages;
         $this->print = $print;
@@ -17,6 +19,8 @@ class ExtraBookInfoParameters {
         $this->publisher_serie = $publisher_serie;
         $this->translator = $translator;
         $this->summary = $summary;
+        $this->state = $state;
+        $this->oldTags = $tags;
     }
 
     public function getPages()
@@ -48,4 +52,16 @@ class ExtraBookInfoParameters {
     {
         return $this->summary;
     }
+
+    public function getState()
+    {
+        return $this->state;
+    }
+
+    public function getOldTags()
+    {
+        return $this->oldTags;
+    }
+
+
 }

@@ -1,14 +1,14 @@
-var genresOpen =false;
+var genresOpen = false;
 
-function validateGenre(){
+function validateGenre() {
     var errorMessage = null;
-    if($('#book_genre_input').val() == ""){
+    if ($('#book_genre_input').val() == "") {
         errorMessage = "Genre moet ingevuld zijn";
     }
     return errorMessage;
 }
 
-$(function() {
+$(function () {
 
     initializeGenre();
 
@@ -16,10 +16,10 @@ $(function() {
         lookup: window.author_names
     });
 
-    $('#book-info-tab-link').click(function(){
+    $('#book-info-tab-link').click(function () {
         fillAuthorInput();
     });
-    $('#searchGoogleInformationButton').click(function(){
+    $('#searchGoogleInformationButton').click(function () {
         searchBook($('#book_isbn_input').val());
     });
 
@@ -27,31 +27,43 @@ $(function() {
         lookup: window.publisher_names
     });
 
-   $('.collapsible').collapsible();
+    $('.collapsible').collapsible();
 
     $('#book_author_input').focusout(function () {
-        fillInAuthorNamesFromBookInfo();
+        var oldAuthor = getAuthorFullString();
+        if ($('#book_author_input').val() != oldAuthor) {
+            if (isBookLinked()) {
+                showConfirmDialog('Bent u zeker?', oeuvreMessage, function () {
+                    unlink();
+                    fillInAuthorNamesFromBookInfo();
+                }, function () {
+                    $('#book_author_input').val(oldAuthor);
+                });
+            } else {
+                fillInAuthorNamesFromBookInfo();
+            }
+        }
     });
 
-    $(".genre-listitem").click(function(){
+    $(".genre-listitem").click(function () {
         $(".clickedGenre").removeClass("clickedGenre");
         $(this).addClass("clickedGenre");
         $("#genresGlyphicon").text('    Genre: ' + $(this).attr("name"));
         $("#book_genre_input").val($(this).attr("genreId"));
     });
 
-    $(".genres-header").click(function(){
-        if(genresOpen){
+    $(".genres-header").click(function () {
+        if (genresOpen) {
             $("#genresGlyphicon").removeClass('glyphicon-chevron-down');
             $("#genresGlyphicon").addClass('glyphicon-chevron-right');
-        }else{
+        } else {
             $("#genresGlyphicon").removeClass('glyphicon-chevron-right');
             $("#genresGlyphicon").addClass('glyphicon-chevron-down');
         }
         genresOpen = !genresOpen;
     });
 
-    $("#book_title_input").on("keyup paste", function() {
+    $("#book_title_input").on("keyup paste", function () {
         var result = $(this).val();
         $("#book-info-title").text(result);
     });
@@ -69,7 +81,7 @@ function initializeGenre() {
     }
 }
 
-function setAuthorNameOnBookInfo(author){
+function setAuthorNameOnBookInfo(author) {
     $('#book_author_input').val(author);
 }
 

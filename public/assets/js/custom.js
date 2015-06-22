@@ -41,7 +41,7 @@ function getBookImageObject(book) {
 
 function getAuthorImageObject(author) {
     var height = author.imageHeight;
-    var imageString = baseUrl + "/bookImages/" + username + "/sprite.png";
+    var imageString = baseUrl + "/authorImages/" + "sprite.png";
     var spritePointer = author.spritePointer;
 
     if(author.useSpriteImage == false){
@@ -57,9 +57,10 @@ function getAuthorImageObject(author) {
     return {imageString: imageString, spritePointer: spritePointer, height: height};
 }
 
-function showConfirmDialog(title, message, action){
+function showConfirmDialog(title, message, action, noButtonAction){
     BootstrapDialog.show({
         title: title,
+        closable: false,
         message: message,
         buttons: [
             {
@@ -76,6 +77,7 @@ function showConfirmDialog(title, message, action){
                 label: 'Annuleer',
                 cssClass: 'btn-warning',
                 action: function(dialogItself){
+                    noButtonAction();
                     dialogItself.close();
                 }
             }]

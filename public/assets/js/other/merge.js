@@ -1,116 +1,100 @@
-function MergePanel (panelId, mergeAction, cancelAction) {
+function MergePanel(panelId, mergeAction, cancelAction) {
     this.panelId = panelId;
     this.firstItem = null;
     this.secondItem = null;
     this.mergeAction = mergeAction;
     this.cancelAction = cancelAction;
-    this.mergeButton = $('#'+this.panelId + ' .mergeButton');
-    this.mergeSelect = $('#'+this.panelId + ' .selectMerge');
-    this.mergeList = $('#'+this.panelId + ' .merge-list');
-    this.mergeContainer = $('#'+this.panelId + '.list-merge-container');
+    this.mergeButton = $('#' + this.panelId + ' .mergeButton');
+    this.mergeSelect = $('#' + this.panelId + ' .selectMerge');
+    this.mergeList = $('#' + this.panelId + ' .merge-list');
+    this.mergeContainer = $('#' + this.panelId + '.list-merge-container');
 }
 
-MergePanel.prototype.showMergeDialog = function(){
+MergePanel.prototype.showMergeDialog = function () {
     var that = this;
-    var message = '1: ' + this.firstItem.name +'\n';
+    var message = '1: ' + this.firstItem.name + '\n';
     message = message + '2: ' + this.secondItem.name;
 
-    BootstrapDialog.show({
-        title: 'Ben je zeker dat je dit wilt samenvoegen?',
-        message: message,
-        buttons: [
-            {
-                icon: "fa fa-check-circle",
-                label: 'Ja',
-                cssClass: 'btn-primary',
-                action: function(dialogItself){
-                    that.mergeAction();
-                    dialogItself.close();
-                }
-            },
-            {
-                icon: "fa fa-times-circle",
-                label: 'Annuleer',
-                cssClass: 'btn-warning',
-                action: function(dialogItself){
-                    that.emptyItems();
-                    dialogItself.close();
-                    that.cancelAction();
-                    that.refreshMergePanel();
-                }
-            }]
-    });
+    showConfirmDialog('Ben je zeker dat je dit wilt samenvoegen?', message,
+        function () {
+            that.mergeAction();
+        },
+        function () {
+            that.emptyItems();
+            that.cancelAction();
+            that.refreshMergePanel();
+        });
 }
 
-MergePanel.prototype.checkMergeItem = function(itemId, itemName){
-    if(this.firstItem == null){
-        this.firstItem = {name:itemName, id:itemId};
-    }else{
-        this.secondItem = {name:itemName, id:itemId};
+MergePanel.prototype.checkMergeItem = function (itemId, itemName) {
+    if (this.firstItem == null) {
+        this.firstItem = {name: itemName, id: itemId};
+    } else {
+        this.secondItem = {name: itemName, id: itemId};
     }
     this.refreshMergePanel();
 }
 
-MergePanel.prototype.uncheckItem = function(id){
-    if(this.firstItem != null && this.firstItem.id === id){
-        this.firstItem =  null;
+MergePanel.prototype.uncheckItem = function (id) {
+    if (this.firstItem != null && this.firstItem.id === id) {
+        this.firstItem = null;
     }
-    if(this.secondItem != null && this.secondItem.id === id){
+    if (this.secondItem != null && this.secondItem.id === id) {
         this.secondItem = null;
     }
     this.refreshMergePanel();
 }
 
-MergePanel.prototype.refreshMergePanel = function(){
-    if(this.firstItem != null || this.secondItem != null){
+MergePanel.prototype.refreshMergePanel = function () {
+    if (this.firstItem != null || this.secondItem != null) {
 
         this.mergeList.empty();
         this.mergeSelect.empty();
 
-        if(this.firstItem != null){
-            this.mergeList.append('<li>'+ this.firstItem.name +'</li>');
+        if (this.firstItem != null) {
+            this.mergeList.append('<li>' + this.firstItem.name + '</li>');
         }
 
-        if(this.secondItem != null){
-            this.mergeList.append('<li>'+ this.secondItem.name +'</li>');
+        if (this.secondItem != null) {
+            this.mergeList.append('<li>' + this.secondItem.name + '</li>');
         }
 
-        if(this.firstItem != null && this.secondItem != null){
-            this.mergeSelect.append( $("<option>")
+        if (this.firstItem != null && this.secondItem != null) {
+            this.mergeSelect.append($("<option>")
                     .val(this.secondItem.id)
                     .html(this.secondItem.name)
             );
-            this.mergeSelect.append( $("<option>")
+            this.mergeSelect.append($("<option>")
                     .val(this.firstItem.id)
                     .html(this.firstItem.name)
             );
             var that = this;
-            this.mergeButton.unbind().on('click', function(){
+            this.mergeButton.unbind().on('click', function () {
                 that.showMergeDialog();
             });
 
-            this.mergeButton.prop( "disabled", false);
+            this.mergeButton.prop("disabled", false);
             this.mergeSelect.show();
-        }else{
-            this.mergeButton.prop( "disabled", true);
+        } else {
+            this.mergeButton.prop("disabled", true);
             this.mergeSelect.hide();
         }
 
         this.mergeContainer.show();
-    }else{
+    } else {
         this.mergeContainer.hide();
     }
 }
 
-MergePanel.prototype.getSelectedMergeId = function() {
+MergePanel.prototype.getSelectedMergeId = function () {
     return this.mergeSelect.val();
 }
 
-MergePanel.prototype.getSecondMergeId = function() {
+MergePanel.prototype.getSecondMergeId = function () {
     return this.mergeSelect.val() === this.firstItem.id ? this.secondItem.id : this.firstItem.id;
 }
 
-MergePanel.prototype.emptyItems = function(){
+MergePanel.prototype.emptyItems = function () {
     this.firstItem = null;
     this.secondItem = null;
 }
