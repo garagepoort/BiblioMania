@@ -48,6 +48,14 @@ class BookService
         return array('title' => 'Titel', 'subtitle' => 'Ondertitel', 'author' => 'Auteur', 'rating' => 'Waardering');
     }
 
+    public function getBookCoverTypes(){
+        return array("Hard cover" => "Hard cover", "Paperback" => "Paperback", "Dwarsligger" => "Dwarsligger", "E-book" => "E-book", "Luisterboek" => "Luisterboek");
+    }
+
+    public function getBookStates(){
+        return array("Perfect" => "Perfect", "Bijna Perfect" => "Bijna Perfect", "Prima" => "Prima", "Redelijk" => "Redelijk", "Slecht" => "Slecht");
+    }
+
     public function getBooks()
     {
         return Book::where('user_id', '=', Auth::user()->id)->get();
@@ -196,6 +204,8 @@ class BookService
         $book->genre_id = $bookCreationParameters->getBookInfoParameters()->getGenre();
         $book->translator = $bookCreationParameters->getExtraBookInfoParameters()->getTranslator();
         $book->summary = $bookCreationParameters->getExtraBookInfoParameters()->getSummary();
+        $book->state = $bookCreationParameters->getExtraBookInfoParameters()->getState();
+        $book->old_tags = $bookCreationParameters->getExtraBookInfoParameters()->getOldTags();
         $book->type_of_cover = $bookCreationParameters->getCoverInfoParameters()->getCoverType();
         $book->user_id = Auth::user()->id;
         $book->retail_price = $bookCreationParameters->getBookInfoParameters()->getRetailPrice();
@@ -204,21 +214,31 @@ class BookService
         $book->first_print_info_id = $firstPrintInfo->id;
         if ($bookCreationParameters->getBookInfoParameters()->getLanguage() != null) {
             $book->language()->associate($bookCreationParameters->getBookInfoParameters()->getLanguage());
+        }else{
+            $book->language()->dissociate();
         }
         if ($bookCreationParameters->getBookInfoParameters()->getPublicationDate() != null) {
             $book->publication_date()->associate($bookCreationParameters->getBookInfoParameters()->getPublicationDate());
+        }else{
+            $book->publication_date()->dissociate();
         }
         if(!StringUtils::isEmpty($bookCreationParameters->getExtraBookInfoParameters()->getPublisherSerie())){
             $publisherSerie = $this->publisherSerieService->findOrSave($bookCreationParameters->getExtraBookInfoParameters()->getPublisherSerie(), $publisher->id);
             $book->publisher_serie()->associate($publisherSerie);
+        }else{
+            $book->publisher_serie()->dissociate();
         }
         if(!StringUtils::isEmpty($bookCreationParameters->getExtraBookInfoParameters()->getBookSerie())){
             $bookSerie = $this->bookSerieService->findOrSave($bookCreationParameters->getExtraBookInfoParameters()->getBookSerie());
             $book->serie()->associate($bookSerie);
+        }else{
+            $book->serie()->dissociate();
         }
         if(!StringUtils::isEmpty($bookCreationParameters->getAuthorInfoParameters()->getLinkedBook())){
             $bookFromAuthor = $this->bookFromAuthorService->find($bookCreationParameters->getAuthorInfoParameters()->getLinkedBook(), $author->id);
             $book->book_from_author()->associate($bookFromAuthor);
+        }else{
+            $book->book_from_author()->dissociate();
         }
 
         $this->saveImage($bookCreationParameters->getCoverInfoParameters(), $book);
