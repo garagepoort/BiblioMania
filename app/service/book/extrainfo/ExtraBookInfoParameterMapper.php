@@ -9,7 +9,9 @@ class ExtraBookInfoParameterMapper {
             Input::get('book_serie'),
             Input::get('book_publisher_serie'),
             Input::get('translator'),
-            Input::get('book_summary')
+            Input::get('book_summary'),
+            Input::get('book_state'),
+            Input::get('book_old_tags')
         );
     }
 }

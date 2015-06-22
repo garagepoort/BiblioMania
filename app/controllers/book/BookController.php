@@ -110,7 +110,8 @@ class BookController extends BaseController
     }
 
     private function goToEditOrCreate($creating, $id){
-        $covers = array("Hard cover" => "Hard cover", "Paperback" => "Paperback", "Dwarsligger" => "Dwarsligger", "E-book" => "E-book", "Luisterboek" => "Luisterboek");
+        $covers = $this->bookService->getBookCoverTypes();
+        $states = $this->bookService->getBookStates();
         $genres = Genre::where('parent_id', '=', null)->get();
         if($creating){
             $withArray = BookFormFiller::createArrayForCreate();
@@ -120,6 +121,7 @@ class BookController extends BaseController
         $withArray['title'] = 'Boek toevoegen';
         $withArray['languages'] = App::make('LanguageService')->getLanguagesMap();
         $withArray['covers'] = $covers;
+        $withArray['states'] = $states;
         $withArray['genres'] = $genres;
         $withArray['countries_json'] = json_encode($this->countryService->getCountries());
         $withArray['authors_json'] = json_encode(Author::all(['id', 'name', 'firstname', 'infix']));

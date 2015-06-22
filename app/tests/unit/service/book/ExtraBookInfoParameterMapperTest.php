@@ -8,6 +8,7 @@ class ExtraBookInfoParameterMapperTest extends TestCase {
     const PUBLISHER_SERIE = 'publisher serie';
     const TRANSLATOR = 'translator';
     const SUMMARY = 'summary';
+    const STATE = 'state';
 
     /** @var  ExtraBookInfoParameterMapper */
     private $extraBookInfoParameterMapper;
@@ -26,6 +27,7 @@ class ExtraBookInfoParameterMapperTest extends TestCase {
         $mockInput->shouldReceive('input')->with('book_summary', null)->andReturn(self::SUMMARY);
         $mockInput->shouldReceive('input')->with('book_serie', null)->andReturn(self::BOOK_SERIE);
         $mockInput->shouldReceive('input')->with('book_publisher_serie', null)->andReturn(self::PUBLISHER_SERIE);
+        $mockInput->shouldReceive('input')->with('book_state', null)->andReturn(self::STATE);
         Input::swap($mockInput);
 
         $extraBookInfoParameters = $this->extraBookInfoParameterMapper->create();
@@ -36,5 +38,6 @@ class ExtraBookInfoParameterMapperTest extends TestCase {
         $this->assertEquals(self::PUBLISHER_SERIE, $extraBookInfoParameters->getPublisherSerie());
         $this->assertEquals(self::TRANSLATOR, $extraBookInfoParameters->getTranslator());
         $this->assertEquals(self::SUMMARY, $extraBookInfoParameters->getSummary());
+        $this->assertEquals(self::STATE, $extraBookInfoParameters->getState());
     }
 }

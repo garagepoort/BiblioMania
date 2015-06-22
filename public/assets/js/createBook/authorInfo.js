@@ -3,6 +3,7 @@ var lastSetAuthorName;
 var lastSetAuthorFirstname;
 var lastSetAuthorInfix;
 var lastLoadedOeuvre;
+var oeuvreMessage = 'Dit boek is gelinked aan het oeuvre van deze auteur. Als je deze auteur verandert gaat deze link verloren ben je zeker dat je dit wilt doen?';
 
 $(function () {
 
@@ -23,31 +24,63 @@ $(function () {
 
     $('#author_name').focusout(function () {
         fillAuthorInput();
-        if (lastSetAuthorName !== getAuthorName) {
-            lastSetAuthorName = getAuthorName();
-            doAuthorGoogleImageSearch();
-            fillInOeuvre();
+        if (lastSetAuthorName !== getAuthorName()) {
+            if (isBookLinked()) {
+                showConfirmDialog('Bent u zeker?', oeuvreMessage, function () {
+                    lastSetAuthorName = getAuthorName();
+                    doAuthorGoogleImageSearch();
+                    unlink();
+                    fillInOeuvre();
+                }, function () {
+                    setAuthorName(lastSetAuthorName);
+                });
+            } else {
+                lastSetAuthorName = getAuthorName();
+                doAuthorGoogleImageSearch();
+                fillInOeuvre();
+            }
         }
     });
 
     $('#author_firstname').focusout(function () {
         fillAuthorInput();
-        if (lastSetAuthorFirstname !== getAuthorFirstName) {
-            lastSetAuthorFirstname = getAuthorFirstName();
-            doAuthorGoogleImageSearch();
-            fillInOeuvre();
+        if (lastSetAuthorFirstname !== getAuthorFirstName()) {
+            if (isBookLinked()) {
+                showConfirmDialog('Bent u zeker?', oeuvreMessage, function () {
+                    lastSetAuthorFirstname = getAuthorFirstName();
+                    doAuthorGoogleImageSearch();
+                    unlink();
+                    fillInOeuvre();
+                }, function () {
+                    setAuthorFirstName(lastSetAuthorFirstname);
+                });
+            } else {
+                lastSetAuthorFirstname = getAuthorFirstName();
+                doAuthorGoogleImageSearch();
+                fillInOeuvre();
+            }
         }
     });
 
     $('#author_infix').focusout(function () {
         fillAuthorInput();
-        if (lastSetAuthorInfix !== getAuthorInfix) {
-            lastSetAuthorInfix = getAuthorInfix();
-            doAuthorGoogleImageSearch();
-            fillInOeuvre();
+        if (lastSetAuthorInfix !== getAuthorInfix()) {
+            if (isBookLinked()) {
+                showConfirmDialog('Bent u zeker?', oeuvreMessage, function () {
+                    lastSetAuthorInfix = getAuthorInfix();
+                    doAuthorGoogleImageSearch();
+                    unlink();
+                    fillInOeuvre();
+                }, function () {
+                    setAuthorInfix(lastSetAuthorInfix);
+                });
+            } else {
+                lastSetAuthorInfix = getAuthorInfix();
+                doAuthorGoogleImageSearch();
+                fillInOeuvre();
+            }
         }
     });
-
 
     $('.oeuvre-edit-icon').on('click', function () {
         if ($('#oeuvre-textarea-panel').is(":visible")) {
@@ -102,11 +135,19 @@ function reinitializeLastSetValues() {
 }
 
 function fillAuthorInput() {
+    setAuthorNameOnBookInfo(getAuthorFullString());
+}
+
+function getAuthorFullString() {
     if (getAuthorInfix()) {
-        setAuthorNameOnBookInfo(getAuthorName() + ", " + getAuthorInfix() + ", " + getAuthorFirstName());
+        return getAuthorName() + ", " + getAuthorInfix() + ", " + getAuthorFirstName();
     } else {
-        setAuthorNameOnBookInfo(getAuthorName() + ", " + getAuthorFirstName());
+        return getAuthorName() + ", " + getAuthorFirstName();
     }
+}
+
+function isBookLinked() {
+    return $('#book-from-author-id-input').val() != '';
 }
 
 function fillInOeuvre() {
@@ -133,7 +174,7 @@ function fillInOeuvre() {
     }
 }
 
-function validateOeuvreList(){
+function validateOeuvreList() {
     var res = $('#oeuvre-textarea').val().split("\n");
     var errorMessage = null;
     if (res != null && res != "") {

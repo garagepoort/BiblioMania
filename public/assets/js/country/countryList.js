@@ -89,6 +89,6 @@ $(document).ready(function() {
                         message: data.responseJSON.message
                     });
                 });
-        });
+        }, function(){});
     });
 });

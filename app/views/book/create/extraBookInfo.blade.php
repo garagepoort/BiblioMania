@@ -33,11 +33,24 @@
                     {{ Form::text('translator', $translator, array('id'=>'translator_input', 'class' => 'form-control input-sm', 'placeholder' => 'vertaler')); }}
                 </div>
             </div>
+            <div class="form-group">
+                {{ Form::label('bookStateLabel', 'Conditie:', array('class' => 'col-md-3')); }}
+                <div class="col-md-4">
+                    {{ Form::select('book_state', $states, $book_state, array('class' => 'input-sm form-control')); }}
+                </div>
+            </div>
 
             <div class="form-group">
                 {{ Form::label('summary_label', 'Samenvatting:', array('class' => 'col-md-3')); }}
                 <div class="col-md-3">
                     {{ Form::textarea('book_summary', $book_summary, array('id' => 'book_summary_input')) }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                {{ Form::label('old_tags_label', 'Tags:', array('class' => 'col-md-3')); }}
+                <div class="col-md-3">
+                    {{ Form::textarea('book_old_tags', $book_old_tags, array('id' => 'book_old_tags')) }}
                 </div>
             </div>
         </div>

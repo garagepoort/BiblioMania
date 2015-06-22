@@ -19,9 +19,8 @@ class FileToBookParametersMapper {
 
 
         $bookRetailPrice = $line_values[LineMapping::$BookRetailPrice];
-        if(count(explode(" ", $line_values[LineMapping::$BookRetailPrice])) > 1){
-            $bookRetailPrice = explode(" ", $line_values[LineMapping::$BookRetailPrice])[1];
-        }
+        $bookRetailPrice = StringUtils::replace($bookRetailPrice, "€", "");
+        $bookRetailPrice = StringUtils::replace($bookRetailPrice, " ", "");
 
         return new BookInfoParameters(
             null,
