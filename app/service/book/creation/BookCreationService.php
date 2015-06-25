@@ -19,6 +19,8 @@ class BookCreationService {
     private $giftInfoService;
     /** @var  OeuvreService */
     private $oeuvreService;
+    /** @var  TagService */
+    private $tagService;
 
     function __construct()
     {
@@ -31,12 +33,15 @@ class BookCreationService {
         $this->buyInfoService = App::make('BuyInfoService');
         $this->giftInfoService = App::make('GiftInfoService');
         $this->oeuvreService = App::make('OeuvreService');
+        $this->tagService = App::make('TagService');
     }
 
 
     public function createBook(BookCreationParameters $bookCreationParameters){
         DB::transaction(function() use ($bookCreationParameters)
         {
+            $tags = $this->tagService->createTags($bookCreationParameters->getBookInfoParameters()->getTags());
+
             $author = $this->authorService->createOrUpdate($bookCreationParameters->getAuthorInfoParameters());
             $this->oeuvreService->saveBookFromAuthors($bookCreationParameters->getAuthorInfoParameters()->getOeuvre(), $author->id);
 
@@ -49,6 +54,7 @@ class BookCreationService {
 
             $book = $this->bookService->createBook($bookCreationParameters, $book_publisher, $country, $first_print_info, $author);
             $book->authors()->sync(array($author->id => array('preferred' => true)));
+            $book->tags()->sync($tags);
 
             $personalBookInfo = $this->personalBookInfoService->findOrCreate($bookCreationParameters->getPersonalBookInfoParameters(), $book);
 

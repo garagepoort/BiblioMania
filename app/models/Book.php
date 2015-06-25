@@ -39,6 +39,10 @@ class Book extends Eloquent {
     	return $this->belongsToMany('Author', 'book_author')->withPivot('preferred');
 	}
 
+    public function tags(){
+    	return $this->belongsToMany('Tag', 'book_tag');
+	}
+
 	public function genre(){
     	return $this->belongsTo('Genre');
 	}

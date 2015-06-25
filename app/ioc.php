@@ -1,260 +1,215 @@
 <?php
-	//SERVICES
-	App::singleton('UserService', function()
-	{
-	    return new UserService;
-	});
+//SERVICES
+App::singleton('UserService', function () {
+    return new UserService;
+});
 
-	App::singleton('CountryService', function()
-	{
-	    return new CountryService(App::make('CountryRepository'));
-	});
+App::singleton('CountryService', function () {
+    return new CountryService(App::make('CountryRepository'));
+});
 
-	App::singleton('ImageService', function()
-	{
-	    return new ImageService;
-	});
+App::singleton('ImageService', function () {
+    return new ImageService;
+});
 
-	App::singleton('OeuvreService', function()
-	{
-	    return new OeuvreService;
-	});
+App::singleton('GenreService', function () {
+    return new GenreService();
+});
 
-	App::singleton('DateService', function()
-	{
-	    return new DateService();
-	});
+App::singleton('TagService', function () {
+    return new TagService();
+});
 
-	App::singleton('BookFromAuthorService', function()
-	{
-	    return new BookFromAuthorService();
-	});
+App::singleton('OeuvreService', function () {
+    return new OeuvreService;
+});
 
-	App::singleton('AuthorService', function()
-	{
-	    return new AuthorService();
-	});
+App::singleton('DateService', function () {
+    return new DateService();
+});
 
-	App::singleton('BookService', function()
-	{
-	    return new BookService;
-	});
+App::singleton('BookFromAuthorService', function () {
+    return new BookFromAuthorService();
+});
 
-	App::singleton('BuyInfoService', function()
-	{
-	    return new BuyInfoService;
-	});
+App::singleton('AuthorService', function () {
+    return new AuthorService();
+});
 
-	App::singleton('GiftInfoService', function()
-	{
-	    return new GiftInfoService;
-	});
+App::singleton('BookService', function () {
+    return new BookService;
+});
 
-	App::singleton('CityService', function()
-	{
-	    return new CityService;
-	});
+App::singleton('BuyInfoService', function () {
+    return new BuyInfoService;
+});
 
-	App::singleton('PublisherSerieService', function()
-	{
-	    return new PublisherSerieService;
-	});
+App::singleton('GiftInfoService', function () {
+    return new GiftInfoService;
+});
 
-	App::singleton('BookSerieService', function()
-	{
-	    return new BookSerieService;
-	});
+App::singleton('CityService', function () {
+    return new CityService;
+});
 
-	App::singleton('ReadingDateService', function()
-	{
-	    return new ReadingDateService;
-	});
+App::singleton('PublisherSerieService', function () {
+    return new PublisherSerieService;
+});
 
-	App::singleton('FirstPrintInfoService', function()
-	{
-	    return new FirstPrintInfoService;
-	});
+App::singleton('BookSerieService', function () {
+    return new BookSerieService;
+});
 
-	App::singleton('PersonalBookInfoService', function()
-	{
-	    return new PersonalBookInfoService;
-	});
+App::singleton('ReadingDateService', function () {
+    return new ReadingDateService;
+});
 
-	App::singleton('PublisherService', function()
-	{
-	    return new PublisherService();
-	});
+App::singleton('FirstPrintInfoService', function () {
+    return new FirstPrintInfoService;
+});
 
-	App::singleton('LanguageService', function()
-	{
-	    return new LanguageService;
-	});
+App::singleton('PersonalBookInfoService', function () {
+    return new PersonalBookInfoService;
+});
 
-	App::singleton('BookImportService', function()
-	{
-	    return new BookImportService();
-	});
+App::singleton('PublisherService', function () {
+    return new PublisherService();
+});
 
-	App::singleton('StatisticsService', function()
-	{
-	    return new StatisticsService();
-	});
+App::singleton('LanguageService', function () {
+    return new LanguageService;
+});
 
-	App::singleton('AdminService', function()
-	{
-	    return new AdminService();
-	});
+App::singleton('BookImportService', function () {
+    return new BookImportService();
+});
 
-	App::singleton('DateImporter', function()
-	{
-	    return new DateImporter();
-	});
+App::singleton('StatisticsService', function () {
+    return new StatisticsService();
+});
 
-	App::singleton('ImportFileMapper', function()
-	{
-	    return new ImportFileMapper();
-	});
+App::singleton('AdminService', function () {
+    return new AdminService();
+});
+
+App::singleton('DateImporter', function () {
+    return new DateImporter();
+});
+
+App::singleton('ImportFileMapper', function () {
+    return new ImportFileMapper();
+});
 
 
+//logger
+App::singleton('Logger', function () {
+    return new Katzgrau\KLogger\Logger(app_path() . '/storage/logs');
+});
 
-	//logger
-	App::singleton('Logger', function()
-	{
-	    return new Katzgrau\KLogger\Logger(app_path().'/storage/logs');
-	});
+App::singleton('BookFormValidator', function () {
+    return new BookFormValidator();
+});
 
-	App::singleton('BookFormValidator', function()
-	{
-		return new BookFormValidator();
-	});
+App::singleton('AuthorFormValidator', function () {
+    return new AuthorFormValidator();
+});
 
-	App::singleton('AuthorFormValidator', function()
-	{
-		return new AuthorFormValidator();
-	});
-
-	App::singleton('BookDTOMapper', function()
-	{
-		return new BookDTOMapper();
-	});
+App::singleton('BookDTOMapper', function () {
+    return new BookDTOMapper();
+});
 
 
+App::singleton('AuthorInfoParameterMapper', function () {
+    return new AuthorInfoParameterMapper();
+});
 
-	App::singleton('AuthorInfoParameterMapper', function()
-	{
-		return new AuthorInfoParameterMapper();
-	});
+App::singleton('ExtraBookInfoParameterMapper', function () {
+    return new ExtraBookInfoParameterMapper();
+});
 
-	App::singleton('ExtraBookInfoParameterMapper', function()
-	{
-		return new ExtraBookInfoParameterMapper();
-	});
+App::singleton('ImageUploader', function () {
+    return new ImageUploader();
+});
 
-	App::singleton('ImageUploader', function()
-	{
-		return new ImageUploader();
-	});
+App::singleton('BookCreationService', function () {
+    return new BookCreationService();
+});
 
-	App::singleton('BookCreationService', function()
-	{
-		return new BookCreationService();
-	});
+App::singleton('OeuvreToParameterMapper', function () {
+    return new OeuvreToParameterMapper();
+});
 
-	App::singleton('OeuvreToParameterMapper', function()
-	{
-		return new OeuvreToParameterMapper();
-	});
+App::singleton('FileToAuthorParametersMapper', function () {
+    return new FileToAuthorParametersMapper();
+});
 
-	App::singleton('FileToAuthorParametersMapper', function()
-	{
-		return new FileToAuthorParametersMapper();
-	});
+App::singleton('FileToBookParametersMapper', function () {
+    return new FileToBookParametersMapper();
+});
 
-	App::singleton('FileToBookParametersMapper', function()
-	{
-		return new FileToBookParametersMapper();
-	});
+App::singleton('FileToFirstPrintParametersMapper', function () {
+    return new FileToFirstPrintParametersMapper();
+});
 
-	App::singleton('FileToFirstPrintParametersMapper', function()
-	{
-		return new FileToFirstPrintParametersMapper();
-	});
+App::singleton('FileToBuyInfoParametersMapper', function () {
+    return new FileToBuyInfoParametersMapper();
+});
 
-	App::singleton('FileToBuyInfoParametersMapper', function()
-	{
-		return new FileToBuyInfoParametersMapper();
-	});
+App::singleton('FileToGiftInfoParametersMapper', function () {
+    return new FileToGiftInfoParametersMapper();
+});
 
-	App::singleton('FileToGiftInfoParametersMapper', function()
-	{
-		return new FileToGiftInfoParametersMapper();
-	});
+App::singleton('FileToExtraBookInfoParametersMapper', function () {
+    return new FileToExtraBookInfoParametersMapper();
+});
 
-	App::singleton('FileToExtraBookInfoParametersMapper', function()
-	{
-		return new FileToExtraBookInfoParametersMapper();
-	});
+App::singleton('FileToPersonalBookInfoParametersMapper', function () {
+    return new FileToPersonalBookInfoParametersMapper();
+});
 
-	App::singleton('FileToPersonalBookInfoParametersMapper', function()
-	{
-		return new FileToPersonalBookInfoParametersMapper();
-	});
+App::singleton('FileToCoverInfoParametersMapper', function () {
+    return new FileToCoverInfoParametersMapper();
+});
 
-	App::singleton('FileToCoverInfoParametersMapper', function()
-	{
-		return new FileToCoverInfoParametersMapper();
-	});
-
-	App::singleton('FileToOeuvreParametersMapper', function()
-	{
-		return new FileToOeuvreParametersMapper();
-	});
+App::singleton('FileToOeuvreParametersMapper', function () {
+    return new FileToOeuvreParametersMapper();
+});
 
 
+//REPOSITORIES
 
-    //REPOSITORIES
+App::singleton('BookRepository', function () {
+    return new BookRepository();
+});
 
-    App::singleton('BookRepository', function()
-    {
-        return new BookRepository();
-    });
+App::singleton('PersonalBookInfoRepository', function () {
+    return new PersonalBookInfoRepository();
+});
 
-    App::singleton('PersonalBookInfoRepository', function()
-    {
-        return new PersonalBookInfoRepository();
-    });
+App::singleton('UserRepository', function () {
+    return new UserRepository();
+});
 
-    App::singleton('UserRepository', function()
-    {
-        return new UserRepository();
-    });
+App::singleton('CountryRepository', function () {
+    return new CountryRepository();
+});
 
-    App::singleton('CountryRepository', function()
-    {
-        return new CountryRepository();
-    });
+App::singleton('AuthorRepository', function () {
+    return new AuthorRepository();
+});
 
-    App::singleton('AuthorRepository', function()
-    {
-        return new AuthorRepository();
-    });
+App::singleton('BookFromAuthorRepository', function () {
+    return new BookFromAuthorRepository();
+});
 
-    App::singleton('BookFromAuthorRepository', function()
-    {
-        return new BookFromAuthorRepository();
-    });
+App::singleton('PublisherRepository', function () {
+    return new PublisherRepository();
+});
 
-    App::singleton('PublisherRepository', function()
-    {
-        return new PublisherRepository();
-    });
+App::singleton('LanguageRepository', function () {
+    return new LanguageRepository();
+});
 
-    App::singleton('LanguageRepository', function()
-    {
-        return new LanguageRepository();
-    });
-
-    App::singleton('StatisticsRepository', function()
-    {
-        return new StatisticsRepository();
-    });
+App::singleton('StatisticsRepository', function () {
+    return new StatisticsRepository();
+});
