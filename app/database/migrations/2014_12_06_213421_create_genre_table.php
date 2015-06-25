@@ -12,7 +12,6 @@ class CreateGenreTable extends Migration {
 			$table->increments('id');
 			$table->string('name');
 			$table->unsignedInteger('parent_id')->nullable();
-			$table->unsignedInteger('user_id');
 	        $table->nullableTimestamps();
 		    $table->foreign('parent_id')->references('id')->on('genre');
 		});

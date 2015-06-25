@@ -60,7 +60,6 @@ Route::group(array('before' => 'auth'), function() {
     Route::post('mergeCountries', 'CountryController@mergeCountries');
 
     Route::get('scaleImages', 'ImageController@scaleImages');
-    Route::get('createSprite', 'ImageController@createSprite');
 });
 
 
@@ -77,6 +76,7 @@ Route::group(array('before' => 'admin'), function() {
 Route::group(array('before' => 'localCallOnly'), function() {
     //google API
     Route::get('backupDatabase/{username?}/{password?}', 'AdminController@backupDatabase');
+    Route::get('createSprite', 'ImageController@createSprite');
 });
 
 
