@@ -100,7 +100,7 @@ abstract class LineMapping
             if($value == "Gelezen?"){
                 LineMapping::$PersonalBookInfoRead = $counter;
             }
-            if($value == "Genre"){
+            if($value == "Onderwerp"){
                 LineMapping::$BookGenre = $counter;
             }
             if($value == "Land"){

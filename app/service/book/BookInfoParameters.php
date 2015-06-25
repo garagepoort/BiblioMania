@@ -12,8 +12,9 @@ class BookInfoParameters
     private $countryName;
     private $language;
     private $retail_price;
+    private $tags;
 
-    function __construct($book_id, $title, $subtitle, $isbn, $genre, Date $publication_date = null, $publisherName, $countryName, Language $language, $retail_price)
+    function __construct($book_id, $title, $subtitle, $isbn, $genre, Date $publication_date = null, $publisherName, $countryName, Language $language, $retail_price, $tags)
     {
         $this->book_id = $book_id;
         $this->title = $title;
@@ -25,6 +26,7 @@ class BookInfoParameters
         $this->countryName = $countryName;
         $this->language = $language;
         $this->retail_price = $retail_price;
+        $this->tags = $tags;
     }
 
     /**
@@ -91,4 +93,10 @@ class BookInfoParameters
     {
         return $this->book_id;
     }
+
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
 }

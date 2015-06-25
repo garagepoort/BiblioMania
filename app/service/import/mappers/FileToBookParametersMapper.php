@@ -3,20 +3,29 @@
 class FileToBookParametersMapper {
     /** @var  DateImporter */
     private $dateImporter;
-
+    /** @var  FileToGenreMapper */
+    private $fileToGenreMapper;
+    /** @var  FileToTagMapper */
+    private $fileToTagMapper;
     function __construct()
     {
         $this->dateImporter = App::make('DateImporter');
+        $this->fileToGenreMapper = App::make('FileToGenreMapper');
+        $this->fileToTagMapper = App::make('FileToTagMapper');
     }
 
 
     public function map($line_values){
         $publicationDate = $this->dateImporter->importDate($line_values[LineMapping::$BookPublicationDate]);
-        $genreId = 1;
+        $genreId = $this->fileToGenreMapper->mapToGenre($line_values);
+        $tagName = $this->fileToTagMapper->mapToTag($line_values);
+        $tags = array();
+        if(!StringUtils::isEmpty($tagName)){
+            array_push($tags, $tagName);
+        }
 
         $language = new Language();
         $language->name = $line_values[LineMapping::$BookLanguage];
-
 
         $bookRetailPrice = $line_values[LineMapping::$BookRetailPrice];
         $bookRetailPrice = StringUtils::replace($bookRetailPrice, "€", "");
@@ -32,7 +41,8 @@ class FileToBookParametersMapper {
             $line_values[LineMapping::$BookPublisher],
             $line_values[LineMapping::$BookPublisherCountry],
             $language,
-            $bookRetailPrice);
+            $bookRetailPrice,
+            $tags);
     }
 
 }

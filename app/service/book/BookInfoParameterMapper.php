@@ -37,7 +37,8 @@ class BookInfoParameterMapper {
             Input::get('book_publisher'),
             Input::get('book_country'),
             $language,
-            $book_info_retail_price
+            $book_info_retail_price,
+            array()
         );
     }
 }

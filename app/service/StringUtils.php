@@ -35,4 +35,9 @@ class StringUtils {
     public static function replace($string, $charToReplace, $replaceChar) {
         return str_replace($charToReplace, $replaceChar, $string);
     }
+
+    public static function toLowerCase($value)
+    {
+        return strtolower($value);
+    }
 }
