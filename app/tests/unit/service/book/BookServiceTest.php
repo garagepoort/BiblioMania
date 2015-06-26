@@ -31,7 +31,7 @@ class BookServiceTest extends TestCase {
         $author = $this->mockEloquent('Author');
 
         $coverInfo = new CoverInfoParameters('HARDCOVER', 'someImage', ImageSaveType::URL);
-        $bookCreationParameters = new BookCreationParameters($bookInfoParameters, $extra, $authorInfo, $buyInfo, null, $coverInfo, $firstPrintInfoParameters, $personalBookinfo);
+        $bookCreationParameters = new BookCreationParameters($bookInfoParameters, $extra, array($authorInfo), $buyInfo, null, $coverInfo, $firstPrintInfoParameters, $personalBookinfo);
         $this->imageService
             ->shouldReceive('saveUploadImage')
             ->never();
@@ -63,7 +63,7 @@ class BookServiceTest extends TestCase {
         $author = $this->mockEloquent('Author');
 
         $coverInfo = new CoverInfoParameters('HARDCOVER', 'someImage', ImageSaveType::UPLOAD);
-        $bookCreationParameters = new BookCreationParameters($bookInfoParameters, $extra, $authorInfo, $buyInfo, null, $coverInfo, $firstPrintInfoParameters, $personalBookinfo);
+        $bookCreationParameters = new BookCreationParameters($bookInfoParameters, $extra, array($authorInfo), $buyInfo, null, $coverInfo, $firstPrintInfoParameters, $personalBookinfo);
 
         $this->imageService
             ->shouldReceive('saveUploadImage')
@@ -90,7 +90,7 @@ class BookServiceTest extends TestCase {
         $author = $this->mockEloquent('Author');
 
         $coverInfo = new CoverInfoParameters('HARDCOVER', null, ImageSaveType::UPLOAD);
-        $bookCreationParameters = new BookCreationParameters($bookInfoParameters, $extra, $authorInfo, $buyInfo, null, $coverInfo, $firstPrintInfoParameters, $personalBookinfo);
+        $bookCreationParameters = new BookCreationParameters($bookInfoParameters, $extra, array($authorInfo), $buyInfo, null, $coverInfo, $firstPrintInfoParameters, $personalBookinfo);
         $this->imageService->shouldReceive("removeImage")->once();
         $this->imageService
             ->shouldReceive('saveUploadImage')
@@ -135,7 +135,7 @@ class BookServiceTest extends TestCase {
         $this->imageService->shouldReceive("removeImage")->once();
 
         $coverInfo = new CoverInfoParameters('HARDCOVER', null, ImageSaveType::UPLOAD);
-        $bookCreationParameters = new BookCreationParameters($bookInfoParameters, $extra, $authorInfo, $buyInfo, null, $coverInfo, $firstPrintInfoParameters, $personalBookinfo);
+        $bookCreationParameters = new BookCreationParameters($bookInfoParameters, $extra, array($authorInfo), $buyInfo, null, $coverInfo, $firstPrintInfoParameters, $personalBookinfo);
 
         $createdBook = $this->bookService->createBook($bookCreationParameters, $publisher, $country, $firstPrintInfo, $author);
 

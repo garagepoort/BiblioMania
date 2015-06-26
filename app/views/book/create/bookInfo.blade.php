@@ -124,7 +124,11 @@
     var publisher_names = [];
     var tags = [];
     $.each(authors_json, function (index, obj) {
-        author_names[author_names.length] = obj.name + ', ' + obj.firstname;
+        if(obj.infix != ''){
+            author_names[author_names.length] = obj.name + ', ' + obj.infix + ', ' + obj.firstname;
+        }else{
+            author_names[author_names.length] = obj.name + ', ' + obj.firstname;
+        }
     });
     $.each(publishers_json, function (index, obj) {
         publisher_names[publisher_names.length] = obj.name;

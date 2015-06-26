@@ -16,6 +16,19 @@ class AuthorService
         $this->imageService = App::make('ImageService');
     }
 
+    public function saveOrGetSecondaryAuthor(AuthorInfoParameters $authorInfoParameters){
+        $author_model = $this->authorRepository->getAuthorByFullName($authorInfoParameters->getName(),
+            $authorInfoParameters->getFirstname(),
+            $authorInfoParameters->getInfix());
+        if (is_null($author_model)) {
+            $author_model = new Author();
+            $author_model->name = $authorInfoParameters->getName();
+            $author_model->firstname = $authorInfoParameters->getFirstname();
+        }
+        $this->authorRepository->save($author_model);
+        return $author_model;
+    }
+
     /**
      * @param AuthorInfoParameters $authorInfoParameters
      * @return Author
@@ -140,5 +153,17 @@ class AuthorService
             }
             $author_model->useSpriteImage = false;
         }
+    }
+
+    public function authorToString(Author $author){
+        $firstname = $author->firstname;
+        $infix = $author->infix;
+        $name = $author->name;
+        if(!StringUtils::isEmpty($name) && !StringUtils::isEmpty($infix) && !StringUtils::isEmpty($firstname)){
+            return $name . ", " . $infix . ", " . $firstname;
+        }else if (!StringUtils::isEmpty($name) && !StringUtils::isEmpty($firstname)){
+            return $name . ", " . $firstname;
+        }
+        return $name;
     }
 }

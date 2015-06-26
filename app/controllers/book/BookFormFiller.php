@@ -19,7 +19,7 @@ class BookFormFiller
         $result['book_type_of_cover'] = $book->type_of_cover;
         $result['book_state'] = $book->state;
         $output = array_map(function ($object) {return $object['name'];}, $book->tags->toArray());
-        $result['book_tags'] = implode(",", $output);
+        $result['book_tags'] = implode(BookInfoParameterMapper::TAG_DELIMITER, $output);
         $result['book_old_tags'] = $book->old_tags;
         $result['translator'] = $book->translator;
         $result['book_summary'] = $book->summary;
@@ -68,6 +68,15 @@ class BookFormFiller
         } else {
             $result['author_name_book_info'] = $book->authors[0]->name . ', ' . $book->authors[0]->infix . ', ' . $book->authors[0]->firstname;
         }
+
+        /** @var AuthorService $authorService */
+        $authorService = App::make('AuthorService');
+        $output = array();
+        foreach($book->authors as $author){
+            array_push($output, $authorService->authorToString($author));
+        }
+        $output = array_slice($output, 1);
+        $result['secondary_authors'] = implode(BookInfoParameterMapper::TAG_DELIMITER, $output);
 
         if ($book->publisher != null) {
             $result['book_publisher'] = $book->publisher->name;
@@ -189,6 +198,7 @@ class BookFormFiller
         $result['book_publication_date_day'] = '';
         $result['book_publication_date_month'] = '';
         $result['book_publication_date_year'] = '';
+        $result['secondary_authors'] = '';
         $result['author_date_of_birth_day'] = '';
         $result['author_date_of_birth_month'] = '';
         $result['author_date_of_birth_year'] = '';

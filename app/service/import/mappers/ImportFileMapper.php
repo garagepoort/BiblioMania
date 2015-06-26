@@ -68,7 +68,7 @@ class ImportFileMapper
 
                     $bookCreationParameter = new BookCreationParameters($bookParameters,
                         $extraInfoParameters,
-                        $authorParameters[0],
+                        $authorParameters,
                         $buyInfoParameters,
                         $giftInfoParameters,
                         $coverInfoParameters,

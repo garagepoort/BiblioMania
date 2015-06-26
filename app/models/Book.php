@@ -29,10 +29,10 @@ class Book extends Eloquent {
     protected $with = array('publication_date', 'first_print_info');
 
 	public function preferredAuthor(){
-		if(!$this->authors->isEmpty()){
-			return $this->authors->first();
-		}
-		return new Author;
+		$this->belongsToMany('Author', 'book_author')->withPivot('preferred')->where('preferred', '=', true);
+	}
+	public function secondaryAuthors(){
+		$this->belongsToMany('Author', 'book_author')->withPivot('preferred')->where('preferred', '=', false);
 	}
 
     public function authors(){
