@@ -3,76 +3,9 @@
 class BookFormFiller
 {
 
-    public static function createArrayForCreate()
-    {
-        $result = array();
-        $result['book_id'] = '';
-        $result['book_title'] = 'Nieuw boek';
-        $result['book_subtitle'] = '';
-        $result['book_isbn'] = '';
-        $result['book_number_of_pages'] = '';
-        $result['book_cover_image'] = '';
-        $result['book_print'] = '';
-        $result['book_print'] = '';
-        $result['translator'] = '';
-        $result['book_summary'] = '';
-        $result['author_name_book_info'] = '';
-        $result['author_name'] = '';
-        $result['author_infix'] = '';
-        $result['author_firstname'] = '';
-        $result['author_image'] = '';
-        $result['book_publisher'] = '';
-        $result['book_country'] = '';
-        $result['book_serie'] = '';
-        $result['book_publisher_serie'] = '';
-        $result['book_languageId'] = '';
-        $result['book_old_tags'] = '';
-        $result['book_genre_input'] = '';
-        $result['book_publication_date_day'] = '';
-        $result['book_publication_date_month'] = '';
-        $result['book_publication_date_year'] = '';
-        $result['author_date_of_birth_day'] = '';
-        $result['author_date_of_birth_month'] = '';
-        $result['author_date_of_birth_year'] = '';
-        $result['author_date_of_death_day'] = '';
-        $result['author_date_of_death_month'] = '';
-        $result['author_date_of_death_year'] = '';
-        $result['first_print_title'] = '';
-        $result['first_print_subtitle'] = '';
-        $result['first_print_isbn'] = '';
-        $result['first_print_country'] = '';
-        $result['first_print_publisher'] = '';
-        $result['first_print_publication_date_day'] = '';
-        $result['first_print_publication_date_month'] = '';
-        $result['first_print_publication_date_year'] = '';
-        $result['personal_info_owned'] = 'true';
-        $result['personal_info_reading_date_input'] = '';
-        $result['personal_info_rating'] = '';
-        $result['personal_info_review'] = '';
-        $result['gift_info_receipt_date'] = '';
-        $result['gift_book_info_retail_price'] = '';
-        $result['gift_info_from'] = '';
-        $result['gift_info_occasion'] = '';
-        $result['gift_info_reason'] = '';
-        $result['buy_info_buy_date'] = '';
-        $result['buy_info_price_payed'] = '';
-        $result['buy_book_info_retail_price'] = '';
-        $result['buy_info_reason'] = '';
-        $result['buy_info_shop'] = '';
-        $result['buy_info_city'] = '';
-        $result['buy_info_country'] = '';
-        $result['book_type_of_cover'] = '';
-        $result['book_state'] = '';
-        $result['giftInfoSet'] = false;
-        $result['buyInfoSet'] = true;
-        $result['book_from_author_title'] = '';
-        $result['buyOrGift'] = 'BUY';
-        return $result;
-    }
-
     public static function createEditBookArray($bookId)
     {
-        $book = Book::with(array('personal_book_info', 'book_from_author', 'publisher_serie'))->find($bookId);
+        $book = Book::with(array('personal_book_info', 'book_from_author', 'publisher_serie', 'tags'))->find($bookId);
         $author = Author::with(array('date_of_birth', 'date_of_death'))->find($book->authors->first()->id);
 
         $result = BookFormFiller::createArrayForCreate();
@@ -85,6 +18,8 @@ class BookFormFiller
         $result['book_cover_image'] = $book->coverImage;
         $result['book_type_of_cover'] = $book->type_of_cover;
         $result['book_state'] = $book->state;
+        $output = array_map(function ($object) {return $object['name'];}, $book->tags->toArray());
+        $result['book_tags'] = implode(",", $output);
         $result['book_old_tags'] = $book->old_tags;
         $result['translator'] = $book->translator;
         $result['book_summary'] = $book->summary;
@@ -222,6 +157,74 @@ class BookFormFiller
             $result['book_from_author_title'] = $book->book_from_author->title;
         }
 
+        return $result;
+    }
+
+    public static function createArrayForCreate()
+    {
+        $result = array();
+        $result['book_id'] = '';
+        $result['book_title'] = 'Nieuw boek';
+        $result['book_subtitle'] = '';
+        $result['book_isbn'] = '';
+        $result['book_number_of_pages'] = '';
+        $result['book_cover_image'] = '';
+        $result['book_print'] = '';
+        $result['book_print'] = '';
+        $result['book_tags'] = '';
+        $result['translator'] = '';
+        $result['book_summary'] = '';
+        $result['author_name_book_info'] = '';
+        $result['author_name'] = '';
+        $result['author_infix'] = '';
+        $result['author_firstname'] = '';
+        $result['author_image'] = '';
+        $result['book_publisher'] = '';
+        $result['book_country'] = '';
+        $result['book_serie'] = '';
+        $result['book_publisher_serie'] = '';
+        $result['book_languageId'] = '';
+        $result['book_old_tags'] = '';
+        $result['book_genre_input'] = '';
+        $result['book_publication_date_day'] = '';
+        $result['book_publication_date_month'] = '';
+        $result['book_publication_date_year'] = '';
+        $result['author_date_of_birth_day'] = '';
+        $result['author_date_of_birth_month'] = '';
+        $result['author_date_of_birth_year'] = '';
+        $result['author_date_of_death_day'] = '';
+        $result['author_date_of_death_month'] = '';
+        $result['author_date_of_death_year'] = '';
+        $result['first_print_title'] = '';
+        $result['first_print_subtitle'] = '';
+        $result['first_print_isbn'] = '';
+        $result['first_print_country'] = '';
+        $result['first_print_publisher'] = '';
+        $result['first_print_publication_date_day'] = '';
+        $result['first_print_publication_date_month'] = '';
+        $result['first_print_publication_date_year'] = '';
+        $result['personal_info_owned'] = 'true';
+        $result['personal_info_reading_date_input'] = '';
+        $result['personal_info_rating'] = '';
+        $result['personal_info_review'] = '';
+        $result['gift_info_receipt_date'] = '';
+        $result['gift_book_info_retail_price'] = '';
+        $result['gift_info_from'] = '';
+        $result['gift_info_occasion'] = '';
+        $result['gift_info_reason'] = '';
+        $result['buy_info_buy_date'] = '';
+        $result['buy_info_price_payed'] = '';
+        $result['buy_book_info_retail_price'] = '';
+        $result['buy_info_reason'] = '';
+        $result['buy_info_shop'] = '';
+        $result['buy_info_city'] = '';
+        $result['buy_info_country'] = '';
+        $result['book_type_of_cover'] = '';
+        $result['book_state'] = '';
+        $result['giftInfoSet'] = false;
+        $result['buyInfoSet'] = true;
+        $result['book_from_author_title'] = '';
+        $result['buyOrGift'] = 'BUY';
         return $result;
     }
 }

@@ -27,6 +27,8 @@ class BookInfoParameterMapper {
 
         $language = $this->languageService->find(Input::get('book_languageId'));
 
+        $tags = StringUtils::split(Input::get('book_tags'), ",");
+
         return new BookInfoParameters(
             Input::get("book_id"),
             Input::get("book_title"),
@@ -38,7 +40,7 @@ class BookInfoParameterMapper {
             Input::get('book_country'),
             $language,
             $book_info_retail_price,
-            array()
+            $tags
         );
     }
 }
