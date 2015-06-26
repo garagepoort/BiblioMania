@@ -54,6 +54,10 @@
     {{ HTML::script('assets/lib/bootstrap3-dialog-master/dist/js/bootstrap-dialog.js') }}
     {{ HTML::style('assets/lib/bootstrap3-dialog-master/dist/css/bootstrap-dialog.css') }}
 
+    <!-- TAGS -->
+    {{ HTML::script('assets/lib/bootstrap-tagsinput/bootstrap-tagsinput.js') }}
+    {{ HTML::style('assets/lib/bootstrap-tagsinput/bootstrap-tagsinput.css') }}
+
     {{--EDITABLE--}}
     <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css"
           rel="stylesheet"/>
