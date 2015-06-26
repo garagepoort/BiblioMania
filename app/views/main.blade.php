@@ -55,8 +55,8 @@
     {{ HTML::style('assets/lib/bootstrap3-dialog-master/dist/css/bootstrap-dialog.css') }}
 
     <!-- TAGS -->
-    {{ HTML::script('assets/lib/bootstrap-tagsinput/bootstrap-tagsinput.js') }}
-    {{ HTML::style('assets/lib/bootstrap-tagsinput/bootstrap-tagsinput.css') }}
+    {{ HTML::script('assets/lib/sliptree-bootstrap-tokenfield/bootstrap-tokenfield.js') }}
+    {{ HTML::style('assets/lib/sliptree-bootstrap-tokenfield/css/bootstrap-tokenfield.min.css') }}
 
     {{--EDITABLE--}}
     <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css"

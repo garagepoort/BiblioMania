@@ -25,11 +25,7 @@ abstract class LineMapping
     public static $PersonalBookInfoReadingDate = "INVALID";
     public static $PersonalBookInfoRating = "INVALID";
 
-    public static $FirstAuthor = "INVALID";
-    public static $SecondAuthor = "INVALID";
-//    public static FirstAuthorName = 2;
-//    public static FirstAuthorFirstName = 0;
-//    public static FirstAuthorInfix = 1;
+    public static $Authors = "INVALID";
     public static $AuthorImage = "INVALID";
     public static $AuthorOeuvre = "INVALID";
 
@@ -58,7 +54,7 @@ abstract class LineMapping
             $value = trim($value,'"');
 
             if($value == "Auteur"){
-                LineMapping::$FirstAuthor = $counter;
+                LineMapping::$Authors = $counter;
             }
             if($value == "Titel"){
                 LineMapping::$BookTitle = $counter;
@@ -109,7 +105,7 @@ abstract class LineMapping
             if($value == "Lees Datum"){
                 LineMapping::$PersonalBookInfoReadingDate = $counter;
             }
-            if($value == "Locatie"){
+            if($value == "Verzamel Status"){
                 LineMapping::$PersonalBookInfoInCollection = $counter;
             }
             if($value == "Mijn Waardering"){
@@ -162,9 +158,6 @@ abstract class LineMapping
             }
             if($value == "Koppelingen"){
                 LineMapping::$AuthorImage = $counter;
-            }
-            if($value == "Hulpauteur"){
-                LineMapping::$SecondAuthor = $counter;
             }
             $counter++;
         }

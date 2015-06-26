@@ -237,8 +237,8 @@ class BookService
         }else{
             $book->serie()->dissociate();
         }
-        if(!StringUtils::isEmpty($bookCreationParameters->getAuthorInfoParameters()->getLinkedBook())){
-            $bookFromAuthor = $this->bookFromAuthorService->find($bookCreationParameters->getAuthorInfoParameters()->getLinkedBook(), $author->id);
+        if(!StringUtils::isEmpty($bookCreationParameters->getFirstAuthorInfoParameters()->getLinkedBook())){
+            $bookFromAuthor = $this->bookFromAuthorService->find($bookCreationParameters->getFirstAuthorInfoParameters()->getLinkedBook(), $author->id);
             $book->book_from_author()->associate($bookFromAuthor);
         }else{
             $book->book_from_author()->dissociate();

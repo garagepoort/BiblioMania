@@ -1,6 +1,7 @@
 <?php
 
 class BookInfoParameterMapper {
+    const TAG_DELIMITER = ";";
 
     /** @var DateService */
     private $dateService;
@@ -27,7 +28,7 @@ class BookInfoParameterMapper {
 
         $language = $this->languageService->find(Input::get('book_languageId'));
 
-        $tags = StringUtils::split(Input::get('book_tags'), ",");
+        $tags = StringUtils::split(Input::get('book_tags'), self::TAG_DELIMITER);
 
         return new BookInfoParameters(
             Input::get("book_id"),

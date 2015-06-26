@@ -146,6 +146,9 @@ legend {
   padding-left: 15px;
 }
 /*BOOKS*/
+.book-filters-table {
+  width: 100%;
+}
 .book-filters-table tbody tr td {
   padding: 5px;
 }

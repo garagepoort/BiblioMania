@@ -13,7 +13,7 @@ class BookCreationParameters {
 
     function __construct(BookInfoParameters $bookInfoParameters,
                          ExtraBookInfoParameters $extraBookInfoParameters,
-                         AuthorInfoParameters $authorInfoParameters,
+                         array $authorInfoParameters,
                          BuyInfoParameters $buyInfoParameters = null,
                          GiftInfoParameters $giftInfoParameters = null,
                         CoverInfoParameters $coverInfoParameters,
@@ -46,9 +46,19 @@ class BookCreationParameters {
         return $this->extraBookInfoParameters;
     }
 
-    /**
-     * @return AuthorInfoParameters
-     */
+    public function getFirstAuthorInfoParameters()
+    {
+        return $this->authorInfoParameters[0];
+    }
+
+    public function getSecondaryAuthorsInfoParameters()
+    {
+        if(count($this->authorInfoParameters) == 1){
+            return array();
+        }
+        return array_slice($this->authorInfoParameters, 1);
+    }
+
     public function getAuthorInfoParameters()
     {
         return $this->authorInfoParameters;
@@ -63,33 +73,21 @@ class BookCreationParameters {
         return $this->giftInfoParameters != null;
     }
 
-    /**
-     * @return BuyInfoParameters
-     */
     public function getBuyInfoParameters()
     {
         return $this->buyInfoParameters;
     }
 
-    /**
-     * @return GiftInfoParameters
-     */
     public function getGiftInfoParameters()
     {
         return $this->giftInfoParameters;
     }
 
-    /**
-     * @return CoverInfoParameters
-     */
     public function getCoverInfoParameters()
     {
         return $this->coverInfoParameters;
     }
 
-    /**
-     * @return FirstPrintInfoParameters
-     */
     public function getFirstPrintInfoParameters()
     {
         return $this->firstPrintInfoParameters;

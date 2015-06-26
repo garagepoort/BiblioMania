@@ -155,10 +155,13 @@ class BookController extends BaseController
                 $giftInfoParameters = $this->giftInfoParameterMapper->create();
             }
 
+            $authorParameters = array($this->authorInfoParameterMapper->create());
+            $authorParameters = array_merge($authorParameters, $this->authorInfoParameterMapper->createSecondaryAuthors());
+
             $bookCreationParameters = new BookCreationParameters(
                 $this->bookInfoParameterMapper->create(),
                 $this->extraBookInfoParameterMapper->create(),
-                $this->authorInfoParameterMapper->create(),
+                $authorParameters,
                 $buyInfoParameters,
                 $giftInfoParameters,
                 $this->coverInfoParameterMapper->create(),
