@@ -27,9 +27,11 @@ $(function () {
         lookup: window.publisher_names
     });
 
-    $('#tag_input').tagsinput({
-        autocomplete: window.tags
-    });
+    $('#tag_input').tokenfield({
+        autocomplete: window.tags,
+        delimiter: ';',
+        createTokensOnBlur: true
+    })
 
     $('.collapsible').collapsible();
 

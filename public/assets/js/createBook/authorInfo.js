@@ -7,6 +7,13 @@ var oeuvreMessage = 'Dit boek is gelinked aan het oeuvre van deze auteur. Als je
 
 $(function () {
 
+    $('#secondary_authors_input').tokenfield({
+        autocomplete: window.author_names,
+        delimiter: ';',
+        createTokensOnBlur: true
+    });
+    //$('#secondary_authors_input').tokenfield('disable');
+
     $('#author-image-self-upload-checkbox').change(function () {
         if ($(this).is(':checked')) {
             $('#author-image-self-upload-panel').show(250);

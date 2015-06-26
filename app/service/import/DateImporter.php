@@ -16,6 +16,7 @@ class DateImporter
         if (!empty($dateValues) && $dateValues != "3000") {
             $dateValues = trim($dateValues);
             $dateValues = StringUtils::replace($dateValues, "/", "-");
+            $dateValues = StringUtils::replace($dateValues, " ", "-");
             $dateValues = explode("-", $dateValues);
             $day = null;
             $month = null;
@@ -41,6 +42,7 @@ class DateImporter
         if (!empty($dateValues) && $dateValues != "3000") {
             $dateValues = trim($dateValues);
             $dateValues = StringUtils::replace($dateValues, "/", "-");
+            $dateValues = StringUtils::replace($dateValues, " ", "-");
             $dateArray = explode("-", $dateValues);;
             if(StringUtils::contains($dateValues, '-')){
                 $dateArray = explode("-", $dateValues);
@@ -109,7 +111,7 @@ class DateImporter
         if (StringUtils::contains($value, "Sep")) {
             return "9";
         }
-        if (StringUtils::contains($value, "Oct")) {
+        if (StringUtils::contains($value, "Oct") || StringUtils::contains($value, "okt")) {
             return "10";
         }
         if (StringUtils::contains($value, "Nov")) {

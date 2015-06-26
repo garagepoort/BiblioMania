@@ -42,8 +42,13 @@ class BookCreationService {
         {
             $tags = $this->tagService->createTags($bookCreationParameters->getBookInfoParameters()->getTags());
 
-            $author = $this->authorService->createOrUpdate($bookCreationParameters->getAuthorInfoParameters());
-            $this->oeuvreService->saveBookFromAuthors($bookCreationParameters->getAuthorInfoParameters()->getOeuvre(), $author->id);
+            $preferredAuthor = $this->authorService->createOrUpdate($bookCreationParameters->getFirstAuthorInfoParameters());
+            $this->oeuvreService->saveBookFromAuthors($bookCreationParameters->getFirstAuthorInfoParameters()->getOeuvre(), $preferredAuthor->id);
+
+            $secondaryAuthors = array();
+            foreach($bookCreationParameters->getSecondaryAuthorsInfoParameters() as $secondaryParam){
+                array_push($secondaryAuthors, $this->authorService->saveOrGetSecondaryAuthor($secondaryParam));
+            }
 
             $book_publisher = $this->publisherService->findOrCreate(
                 $bookCreationParameters->getBookInfoParameters()->getPublisherName()
@@ -52,8 +57,9 @@ class BookCreationService {
             $first_print_info = $this->firstPrintInfoService->findOrCreate($bookCreationParameters->getFirstPrintInfoParameters());
             $country = $this->countryService->findOrCreate($bookCreationParameters->getBookInfoParameters()->getCountryName());
 
-            $book = $this->bookService->createBook($bookCreationParameters, $book_publisher, $country, $first_print_info, $author);
-            $book->authors()->sync(array($author->id => array('preferred' => true)));
+            $book = $this->bookService->createBook($bookCreationParameters, $book_publisher, $country, $first_print_info, $preferredAuthor);
+
+            $this->syncAuthors($preferredAuthor, $secondaryAuthors, $book);
             $book->tags()->sync($tags);
 
             $personalBookInfo = $this->personalBookInfoService->findOrCreate($bookCreationParameters->getPersonalBookInfoParameters(), $book);
@@ -66,5 +72,14 @@ class BookCreationService {
                 $this->buyInfoService->delete($personalBookInfo->id);
             }
         });
+    }
+
+    private function syncAuthors($preferredAuthor, $secondaryAuthors, $book)
+    {
+        $authors = array($preferredAuthor->id => array('preferred' => true));
+        foreach ($secondaryAuthors as $secAuthor) {
+            $authors[$secAuthor->id] = array('preferred' => false);
+        }
+        $book->authors()->sync($authors);
     }
 }

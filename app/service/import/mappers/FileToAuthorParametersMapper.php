@@ -27,32 +27,40 @@ class FileToAuthorParametersMapper {
             }
         }
 
-        /** @var AuthorInfoParameters $firstAuthorParameters */
-        $firstAuthorParameters = $this->addAuthor($line_values[LineMapping::$FirstAuthor]);
-        if ($firstAuthorParameters) {
-            $firstAuthorParameters = new AuthorInfoParameters(
-                $firstAuthorParameters->getName(),
-                $firstAuthorParameters->getFirstname(),
-                $firstAuthorParameters->getInfix(),
-                new Date(), new Date(), null,
-                $coverImage,
-                $this->fileToOeuvreParametersMapper->map($line_values[LineMapping::$AuthorOeuvre]),
-                ImageSaveType::PATH);
+        /** @var AuthorInfoParameters $foundAuthorParameters */
+        $authors = $line_values[LineMapping::$Authors];
+        $authors = StringUtils::split($authors, ";");
+        $counter = 0;
+        foreach($authors as $author){
+            $author = trim($author);
+            $foundAuthorParameters = $this->addAuthor($author);
+            if($counter == 0){
+                if ($foundAuthorParameters) {
+                    $foundAuthorParameters = new AuthorInfoParameters(
+                        $foundAuthorParameters->getName(),
+                        $foundAuthorParameters->getFirstname(),
+                        $foundAuthorParameters->getInfix(),
+                        new Date(), new Date(), null,
+                        $coverImage,
+                        $this->fileToOeuvreParametersMapper->map($line_values[LineMapping::$AuthorOeuvre]),
+                        ImageSaveType::PATH);
 
-            array_push($authorParameters, $firstAuthorParameters);
-        }
-
-        $secondAuthorParameters = $this->addAuthor($line_values[LineMapping::$SecondAuthor]);
-        if ($secondAuthorParameters) {
-            array_push($authorParameters, $secondAuthorParameters);
+                    array_push($authorParameters, $foundAuthorParameters);
+                    $counter++;
+                }
+            }else{
+                if ($foundAuthorParameters) {
+                    array_push($authorParameters, $foundAuthorParameters);
+                }
+            }
         }
 
         return $authorParameters;
     }
 
     private function addAuthor($author){
+        $authorFirstName = "";
         $authorInfix = "";
-        $authorName = "";
         if(!StringUtils::isEmpty($author)){
             if (StringUtils::contains($author, ',')) {
                 $temp = StringUtils::split($author, ',');
@@ -64,9 +72,15 @@ class FileToAuthorParametersMapper {
                 }
             }else{
                 $temp = StringUtils::split($author, ' ');
-                $authorFirstName = $temp[0];
-                if(count($temp) > 1){
+                if(count($temp) == 3){
+                    $authorFirstName = $temp[0];
+                    $authorInfix = $temp[1];
+                    $authorName = $temp[2];
+                }else if(count($temp) == 2){
+                    $authorFirstName = $temp[0];
                     $authorName = $temp[1];
+                }else{
+                    $authorName = $temp[0];
                 }
             }
             return $this->createEmptyAuthor($authorName, $authorFirstName, $authorInfix);

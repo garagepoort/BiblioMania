@@ -34,6 +34,44 @@ class AuthorInfoParameterMapper {
         );
     }
 
+    public function createSecondaryAuthors(){
+        $result = array();
+        $authors = StringUtils::split(Input::get('secondary_authors'), ';');
+        foreach($authors as $author){
+            array_push($result, $this->createFromString($author));
+        }
+        return $result;
+    }
+
+    public function createFromString($authorString){
+        $firstname = "";
+        $infix = "";
+        if(StringUtils::contains($authorString, ",")){
+            $split = StringUtils::split($authorString, ',');
+            if(count($split) == 3){
+                $name = $split[0];
+                $infix = $split[1];
+                $firstname = $split[2];
+            }else{
+                $name = $split[0];
+                $firstname = $split[1];
+            }
+        }else{
+            $name = $authorString;
+        }
+        return new AuthorInfoParameters(
+            $name,
+            $firstname,
+            $infix,
+            null,
+            null,
+            null,
+            null,
+            array(),
+            false
+        );
+    }
+
     public function getImageSaveType(){
         if(Input::get('authorImageSelfUpload')){
             return ImageSaveType::UPLOAD;
