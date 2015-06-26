@@ -11,6 +11,15 @@
         @endif
 
         <div class="form-container">
+
+            <!-- Tags -->
+            <div class="form-group">
+                {{ Form::label('tagLabel', 'Tags:', array('class' => 'col-md-2')); }}
+                <div class="col-md-9">
+                    {{ Form::text('book_tags', $book_tags, array('id'=>'tag_input', 'class' => 'form-control', 'type' => 'text')); }}
+                </div>
+            </div>
+
             <!-- TITLE -->
             <div class="form-group">
                 {{ Form::label('titleLabel', 'Titel:', array('class' => 'col-md-2')); }}
@@ -110,13 +119,18 @@
 <script type="text/javascript">
     var authors_json = {{ $authors_json }};
     var publishers_json = {{ $publishers_json }};
+    var tags_json = {{ $tags_json }};
     var author_names = [];
     var publisher_names = [];
+    var tags = [];
     $.each(authors_json, function (index, obj) {
         author_names[author_names.length] = obj.name + ', ' + obj.firstname;
     });
     $.each(publishers_json, function (index, obj) {
         publisher_names[publisher_names.length] = obj.name;
+    });
+    $.each(tags_json, function (index, obj) {
+        tags[tags.length] = obj.name;
     });
 </script>
 {{ HTML::script('assets/js/book/GoogleBookSearch.js'); }}

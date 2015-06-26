@@ -126,6 +126,7 @@ class BookController extends BaseController
         $withArray['countries_json'] = json_encode($this->countryService->getCountries());
         $withArray['authors_json'] = json_encode(Author::all(['id', 'name', 'firstname', 'infix']));
         $withArray['publishers_json'] = json_encode(Publisher::all());
+        $withArray['tags_json'] = json_encode(Tag::all());
         $withArray['series_json'] = json_encode(Serie::all());
         $withArray['publisher_series_json'] = json_encode(PublisherSerie::all());
         return View::make($this->bookFolder . 'createBook')->with($withArray);

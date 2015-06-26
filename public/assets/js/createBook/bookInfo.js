@@ -27,6 +27,10 @@ $(function () {
         lookup: window.publisher_names
     });
 
+    $('#tag_input').tagsinput({
+        autocomplete: window.tags
+    });
+
     $('.collapsible').collapsible();
 
     $('#book_author_input').focusout(function () {
