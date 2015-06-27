@@ -81,7 +81,6 @@
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <img src="images/icon-navicon.png" class="drawer-icon"/>
                 <a class="navbar-brand" href="#">Bibliomania</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->

@@ -70,7 +70,7 @@
             <label class="control-label" for="saveBetalingbutton"></label>
 
             <div class="controls">
-                {{ Form::submit('Boek opslaan', array('id'=>'bookSubmitButton', 'class'=> 'btn btn-primary', 'onclick' => 'return validateForm();')); }}
+                {{ Form::submit('Boek opslaan', array('id'=>'bookSubmitButton', 'class'=> 'btn btn-success', 'onclick' => 'return validateForm();')); }}
             </div>
         </div>
         {{ Form::close(); }}

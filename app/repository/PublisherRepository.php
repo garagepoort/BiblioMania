@@ -33,7 +33,8 @@ class PublisherRepository implements iRepository{
         return Publisher::find($id)->delete();
     }
 
-    public function getCountriesFromPublisher($publisher_id){
+    public function getCountriesFromPublisher($publisher_id)
+    {
         return DB::select("SELECT distinct country.name from country
                             where country.id in
                             (select first_print_info.country_id from first_print_info where first_print_info.publisher_id = $publisher_id

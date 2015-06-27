@@ -19,11 +19,19 @@
                     <table class="info-table">
                         <tr>
                             <td>Geboortedatum:</td>
-                            <td>{{ $author->date_of_birth->day . ' ' . $author->date_of_birth->month . ' ' . $author->date_of_birth->year }}</td>
+                            <td>
+                                @if($author->date_of_birth != null)
+                                    {{ $author->date_of_birth->day . ' ' . $author->date_of_birth->month . ' ' . $author->date_of_birth->year }}
+                                @endif
+                            </td>
                         </tr>
                         <tr>
                             <td>Stertedatum:</td>
-                            <td>{{ $author->date_of_death->day . ' ' . $author->date_of_death->month . ' ' . $author->date_of_death->year }}</td>
+                            <td>
+                                @if($author->date_of_death != null)
+                                    {{ $author->date_of_death->day . ' ' . $author->date_of_death->month . ' ' . $author->date_of_death->year }}
+                                @endif
+                            </td>
                         </tr>
                     </table>
                 </div>
