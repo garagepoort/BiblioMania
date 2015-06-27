@@ -8,7 +8,7 @@ class CountryRepository implements iRepository{
     }
 
     public function findFull($id){
-        return Country::with('books', 'authors', 'publishers', 'first_print_infos')->find($id);
+        return Country::with('books', 'authors', 'first_print_infos')->find($id);
     }
 
     public function getCountry($name){

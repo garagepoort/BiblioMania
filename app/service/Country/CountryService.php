@@ -2,10 +2,14 @@
 
 class CountryService
 {
+    /** @var  PublisherRepository */
+    private $publisherRepository;
+
 
     function __construct(CountryRepository $countryRepository)
     {
         $this->countryRepository = $countryRepository;
+        $this->publisherRepository = App::make('PublisherRepository');
     }
 
     public function getCountries()
@@ -54,7 +58,6 @@ class CountryService
         if(count($country->books) == 0
             && count($country->authors) == 0
             && count($country->cities) == 0
-            && count($country->publishers) == 0
             && count($country->first_print_infos) == 0){
 
             $this->countryRepository->delete($country);
@@ -87,13 +90,6 @@ class CountryService
             $author->save();
         }
 
-        foreach($country2->publishers as $publisher){
-            $country1->publishers()->sync([$publisher->id], false);
-            $country1->save();
-        }
-
-        $country2->publishers()->sync([]);
-        $country2->save();
         $country2->delete();
     }
 

@@ -12,7 +12,6 @@
                 <tr>
                     <th>Land</th>
                     <th>Boeken</th>
-                    <th>Uitgevers</th>
                     <th>Auteurs</th>
                     <th>Samenvoegen</th>
                     <th></th>
@@ -26,9 +25,6 @@
                         </td>
                         <td style="text-align: center">
                             {{ count($country->books) }}
-                        </td>
-                        <td style="text-align: center">
-                            {{ count($country->publishers) }}
                         </td>
                         <td style="text-align: center">
                             {{ count($country->authors) }}

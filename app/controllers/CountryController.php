@@ -18,7 +18,7 @@ class CountryController extends BaseController{
 
 
     public function getCountryList(){
-        $countries = Country::with('books', 'authors', 'publishers')->orderBy('name', 'asc')->get();
+        $countries = Country::with('books', 'authors')->orderBy('name', 'asc')->get();
         return View::make($this->countryFolder . 'countryList')->with(array(
             'title' => 'Editeer landen',
             'countries' => $countries
