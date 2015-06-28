@@ -10,13 +10,13 @@
             <div class="form-group">
                 {{ Form::label('authorNameLabel', 'Naam:', array('class' => 'col-md-3')); }}
                 <div class="col-md-3">
-                    {{ Form::text('author_name', $author_name, array('id'=>'author_name','class' => 'form-control', 'placeholder' => 'naam', 'required' => 'true')); }}
+                    {{ Form::text('author_firstname', $author_firstname, array('id'=>'author_firstname','class' => 'form-control', 'placeholder' => 'voornaam', 'required' => 'true')); }}
                 </div>
                 <div class="col-md-2">
                     {{ Form::text('author_infix', $author_infix, array('id'=>'author_infix','class' => 'form-control', 'placeholder' => '')); }}
                 </div>
                 <div class="col-md-3">
-                    {{ Form::text('author_firstname', $author_firstname, array('id'=>'author_firstname','class' => 'form-control', 'placeholder' => 'voornaam', 'required' => 'true')); }}
+                    {{ Form::text('author_name', $author_name, array('id'=>'author_name','class' => 'form-control', 'placeholder' => 'naam', 'required' => 'true')); }}
                 </div>
             </div>
 
