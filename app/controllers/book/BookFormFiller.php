@@ -6,7 +6,10 @@ class BookFormFiller
     public static function createEditBookArray($bookId)
     {
         $book = Book::with(array('personal_book_info', 'book_from_author', 'publisher_serie', 'tags'))->find($bookId);
-        $author = Author::with(array('date_of_birth', 'date_of_death'))->find($book->authors->first()->id);
+        $author = Author::with(array('date_of_birth', 'date_of_death', 'books' => function($query) use($book)
+        {
+            $query->where('preferred', true)->where('book_id', '=', $book->id);
+        }))->first();
 
         $result = BookFormFiller::createArrayForCreate();
         $result['book_id'] = $bookId;
@@ -72,8 +75,8 @@ class BookFormFiller
         /** @var AuthorService $authorService */
         $authorService = App::make('AuthorService');
         $output = array();
-        foreach($book->authors as $author){
-            array_push($output, $authorService->authorToString($author));
+        foreach($book->authors as $secAuthor){
+            array_push($output, $authorService->authorToString($secAuthor));
         }
         $output = array_slice($output, 1);
         $result['secondary_authors'] = implode(BookInfoParameterMapper::TAG_DELIMITER, $output);
@@ -117,15 +120,15 @@ class BookFormFiller
         }
 
         if ($author->date_of_birth != null) {
-            $result['author_date_of_birth_day'] = $author->date_of_birth->day;
-            $result['author_date_of_birth_month'] = $author->date_of_birth->month;
-            $result['author_date_of_birth_year'] = $author->date_of_birth->year;
+            $result['author_date_of_birth_day'] = $author->date_of_birth->day == 0 ? "" : $author->date_of_birth->day;
+            $result['author_date_of_birth_month'] = $author->date_of_birth->month == 0 ? "" : $author->date_of_birth->month;
+            $result['author_date_of_birth_year'] = $author->date_of_birth->year == 0 ? "" : $author->date_of_birth->year;;
         }
 
         if ($author->date_of_death != null) {
-            $result['author_date_of_death_day'] = $author->date_of_death->day;
-            $result['author_date_of_death_month'] = $author->date_of_death->month;
-            $result['author_date_of_death_year'] = $author->date_of_death->year;
+            $result['author_date_of_death_day'] = $author->date_of_death->day == 0 ? "" : $author->date_of_death->day;
+            $result['author_date_of_death_month'] = $author->date_of_death->month == 0 ? "" : $author->date_of_death->month;
+            $result['author_date_of_death_year'] = $author->date_of_death->year == 0 ? "" : $author->date_of_death->year;
         }
 
         if ($book->personal_book_info->buy_info != null) {
