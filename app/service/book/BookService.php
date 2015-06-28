@@ -48,7 +48,7 @@ class BookService
 
     public function getOrderByValues()
     {
-        return array('title' => 'Titel', 'subtitle' => 'Ondertitel', 'author' => 'Auteur', 'rating' => 'Waardering');
+        return array('author' => 'Auteur', 'title' => 'Titel', 'subtitle' => 'Ondertitel', 'rating' => 'Waardering');
     }
 
     public function getBookCoverTypes(){
@@ -164,7 +164,7 @@ class BookService
             $books = $books->orderBy('personal_book_info.rating', 'DESC');
         }
 
-        $books = $books->orderBy('title');
+        $books = $books->orderBy('author.name');
         $books = $books->orderBy('date.year', 'ASC');
         $books = $books->orderBy('date.month', 'ASC');
         $books = $books->orderBy('date.day', 'ASC');
