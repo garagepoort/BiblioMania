@@ -58,6 +58,7 @@ body {
   color: @primary-color;
   font-size: @font-size;
   background-color: @secondary-color;
+  text-align: center;
 }
 
 div.tableDiv {
@@ -176,18 +177,17 @@ legend {
 /*END PLACEHOLDERS*/
 
 .contentContainer {
-  margin-left: auto;
-  margin-right: auto;
+  text-align: left;
+  display: inline-block;
   margin-top: 100px;
-  width: 88%;
   background-color: @container-color;
   border: 5px solid @primary-color;
   box-shadow: 0 25px 50px 0 rgba(0, 0, 0, 0.26);
 }
 
 .contentPanel {
-  padding-right: 15px;
-  padding-left: 15px;
+  padding-right: 50px;
+  padding-left: 50px;
 }
 
 /*BOOKS*/
@@ -292,10 +292,6 @@ button.searchButton {
   text-align: center;
   vertical-align: bottom;
   padding-bottom: 50px;
-}
-
-.table.authors-table {
-  table-layout: fixed;
 }
 
 .table.authors-table tbody tr td {
@@ -491,7 +487,6 @@ table.book-detail-info-table td {
 
 //PUBLISHER
 .list-container {
-  width: 88%;
   margin-left: auto;
   margin-right: auto;
   margin-top: 20px;
