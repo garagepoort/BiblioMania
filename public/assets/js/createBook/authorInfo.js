@@ -30,7 +30,6 @@ $(function () {
     });
 
     $('#author_name').focusout(function () {
-        fillAuthorInput();
         if (lastSetAuthorName !== getAuthorName()) {
             if (isBookLinked()) {
                 showConfirmDialog('Bent u zeker?', oeuvreMessage, function () {
@@ -43,6 +42,7 @@ $(function () {
                 });
             } else {
                 lastSetAuthorName = getAuthorName();
+                fillAuthorInput();
                 doAuthorGoogleImageSearch();
                 fillInOeuvre();
             }
@@ -50,7 +50,6 @@ $(function () {
     });
 
     $('#author_firstname').focusout(function () {
-        fillAuthorInput();
         if (lastSetAuthorFirstname !== getAuthorFirstName()) {
             if (isBookLinked()) {
                 showConfirmDialog('Bent u zeker?', oeuvreMessage, function () {
@@ -63,6 +62,7 @@ $(function () {
                 });
             } else {
                 lastSetAuthorFirstname = getAuthorFirstName();
+                fillAuthorInput();
                 doAuthorGoogleImageSearch();
                 fillInOeuvre();
             }
@@ -70,7 +70,6 @@ $(function () {
     });
 
     $('#author_infix').focusout(function () {
-        fillAuthorInput();
         if (lastSetAuthorInfix !== getAuthorInfix()) {
             if (isBookLinked()) {
                 showConfirmDialog('Bent u zeker?', oeuvreMessage, function () {
@@ -83,6 +82,7 @@ $(function () {
                 });
             } else {
                 lastSetAuthorInfix = getAuthorInfix();
+                fillAuthorInput();
                 doAuthorGoogleImageSearch();
                 fillInOeuvre();
             }
