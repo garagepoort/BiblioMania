@@ -70,12 +70,12 @@ Route::group(array('before' => 'admin'), function() {
     Route::get('askForGoogleAuthentication', 'Oauth2_Controller@askForGoogleAuthentication');
     Route::get('uploadFile', 'Oauth2_Controller@uploadFile');
     Route::get('admin', 'AdminController@goToAdminPagina');
+    Route::get('backupDatabase/{username?}/{password?}', 'AdminController@backupDatabase');
 });
 
 //LOCAL
 Route::group(array('before' => 'localCallOnly'), function() {
     //google API
-    Route::get('backupDatabase/{username?}/{password?}', 'AdminController@backupDatabase');
     Route::get('createSprite', 'ImageController@createSprite');
 });
 
