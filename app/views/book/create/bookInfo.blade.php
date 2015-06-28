@@ -12,14 +12,6 @@
 
         <div class="form-container">
 
-            <!-- Tags -->
-            <div class="form-group">
-                {{ Form::label('tagLabel', 'Tags:', array('class' => 'col-md-2')); }}
-                <div class="col-md-9">
-                    {{ Form::text('book_tags', $book_tags, array('id'=>'tag_input', 'class' => 'form-control', 'type' => 'text')); }}
-                </div>
-            </div>
-
             <!-- TITLE -->
             <div class="form-group">
                 {{ Form::label('titleLabel', 'Titel:', array('class' => 'col-md-2')); }}
@@ -69,6 +61,14 @@
                     <div>
                         @include('book/create/genre/genreList', array('genres' => $genres))
                     </div>
+                </div>
+            </div>
+
+            <!-- Tags -->
+            <div class="form-group">
+                {{ Form::label('tagLabel', 'Tags:', array('class' => 'col-md-2')); }}
+                <div class="col-md-9">
+                    {{ Form::text('book_tags', $book_tags, array('id'=>'tag_input', 'class' => 'form-control', 'type' => 'text')); }}
                 </div>
             </div>
 
