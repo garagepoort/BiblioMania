@@ -20,6 +20,7 @@ class DateService
         $date->day = $dateToCopy->day;
         $date->month = $dateToCopy->month;
         $date->year = $dateToCopy->year;
+        $date->save();
     }
 
 //  dd-mm-yyyy format
