@@ -70,7 +70,6 @@ Route::group(array('before' => 'admin'), function() {
     Route::get('askForGoogleAuthentication', 'Oauth2_Controller@askForGoogleAuthentication');
     Route::get('uploadFile', 'Oauth2_Controller@uploadFile');
     Route::get('admin', 'AdminController@goToAdminPagina');
-    Route::get('backupDatabase/{username?}/{password?}', 'AdminController@backupDatabase');
 });
 
 //LOCAL
@@ -81,6 +80,7 @@ Route::group(array('before' => 'localCallOnly'), function() {
 
 
 //ALL
+Route::get('backupDatabase/{username?}/{password?}', 'AdminController@backupDatabase');
 Route::get('login', 'LoginController@goToLogin');
 Route::post('login', 'LoginController@login');
 Route::get('changeLanguage/{lang}', 'LanguageController@changeLanguage');
