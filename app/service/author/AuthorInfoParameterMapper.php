@@ -1,6 +1,7 @@
 <?php
 
-class AuthorInfoParameterMapper {
+class AuthorInfoParameterMapper
+{
 
     /** @var  DateService */
     private $dateService;
@@ -17,7 +18,8 @@ class AuthorInfoParameterMapper {
     }
 
 
-    public function create(){
+    public function create()
+    {
         $author_date_of_birth = $this->dateService->createDate(Input::get('author_date_of_birth_day'), Input::get('author_date_of_birth_month'), Input::get('author_date_of_birth_year'));
         $author_date_of_death = $this->dateService->createDate(Input::get('author_date_of_death_day'), Input::get('author_date_of_death_month'), Input::get('author_date_of_death_year'));
 
@@ -34,29 +36,34 @@ class AuthorInfoParameterMapper {
         );
     }
 
-    public function createSecondaryAuthors(){
+    public function createSecondaryAuthors()
+    {
         $result = array();
-        $authors = StringUtils::split(Input::get('secondary_authors'), ';');
-        foreach($authors as $author){
-            array_push($result, $this->createFromString($author));
+        $stringToSplit = Input::get('secondary_authors');
+        if (!StringUtils::isEmpty($stringToSplit)) {
+            $authors = StringUtils::split($stringToSplit, ';');
+            foreach ($authors as $author) {
+                array_push($result, $this->createFromString($author));
+            }
         }
         return $result;
     }
 
-    public function createFromString($authorString){
+    public function createFromString($authorString)
+    {
         $firstname = "";
         $infix = "";
-        if(StringUtils::contains($authorString, ",")){
+        if (StringUtils::contains($authorString, ",")) {
             $split = StringUtils::split($authorString, ',');
-            if(count($split) == 3){
+            if (count($split) == 3) {
                 $name = $split[0];
                 $infix = $split[1];
                 $firstname = $split[2];
-            }else{
+            } else {
                 $name = $split[0];
                 $firstname = $split[1];
             }
-        }else{
+        } else {
             $name = $authorString;
         }
         return new AuthorInfoParameters(
@@ -72,10 +79,11 @@ class AuthorInfoParameterMapper {
         );
     }
 
-    public function getImageSaveType(){
-        if(Input::get('authorImageSelfUpload')){
+    public function getImageSaveType()
+    {
+        if (Input::get('authorImageSelfUpload')) {
             return ImageSaveType::UPLOAD;
-        }else{
+        } else {
             return ImageSaveType::URL;
         }
     }
@@ -84,11 +92,11 @@ class AuthorInfoParameterMapper {
     {
         $image = null;
         $imageSelfUpload = Input::get('authorImageSelfUpload');
-        if($imageSelfUpload){
-            if(Input::hasFile('author_image')){
+        if ($imageSelfUpload) {
+            if (Input::hasFile('author_image')) {
                 $image = Input::file('author_image');
             }
-        }else{
+        } else {
             if (Input::get('authorImageUrl') != '') {
                 $image = Input::get('authorImageUrl');
             }
