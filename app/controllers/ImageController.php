@@ -5,7 +5,7 @@ class ImageController extends BaseController {
 	private $logger;
 
 	public function createSprite(){
-		ini_set('max_execution_time', 300);
+		ini_set('max_execution_time', 1000);
 		ini_set('memory_limit', '-1');
 		$users = User::all();
 		$logger = new Katzgrau\KLogger\Logger(app_path() . '/storage/logs');
