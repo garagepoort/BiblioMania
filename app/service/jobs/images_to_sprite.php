@@ -51,6 +51,7 @@ class images_to_sprite {
 
             $im2 = imagecreatefromjpeg($folder.'/'.$image->getFile());
             imagecopy($im, $im2, 0, $imageYPointer, 0, 0, $image->getWidth(), $image->getHeight());
+            imagedestroy($im2);
             $imageYPointer = $imageYPointer + $image->getHeight();
         }
         imagepng($im, $folder . '/' .self::SPRITE.'.png', 9, PNG_ALL_FILTERS); // Save image to file
@@ -110,6 +111,7 @@ class images_to_sprite {
             fwrite($fp,'.'.self::SPRITE.$imageYPointer.' { background-position: -0px -'.$imageYPointer.'px; }'."\n");
             $im2 = imagecreatefromjpeg($folder.'/'.$image->getFile());
             imagecopy($im, $im2, 0, $imageYPointer, 0, 0, $image->getWidth(), $image->getHeight());
+            imagedestroy($im2);
             $imageYPointer = $imageYPointer + $image->getHeight();
         }
         fclose($fp);
