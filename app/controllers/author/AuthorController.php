@@ -48,15 +48,12 @@ class AuthorController extends BaseController {
 	}
 
 	public function editAuthorInList(){
-		$dateService = App::make('DateService');
 		$logger = new Katzgrau\KLogger\Logger(app_path() . '/storage/logs');
 
 		$id = Input::get('pk');
 		$name = Input::get('name');
 		$value = Input::get('value');
 		$logger->info('editing author with values: ' . $id . ' name: ' . $name . ' value: ' . $value);
-
-
 
 		$author = Author::with('date_of_death', 'date_of_birth')->find($id);
 		if($author != null){
@@ -71,11 +68,11 @@ class AuthorController extends BaseController {
 			}
 			if($name == 'date_of_birth'){
 				App::make('AuthorService')->deleteDateOfBirth($author);
-				$author->date_of_birth_id = $dateService->createDateFromString($value)->id;
+				$author->date_of_birth_id = $this->dateService->createDateFromString($value)->id;
 			}
 			if($name == 'date_of_death'){
 				App::make('AuthorService')->deleteDateOfDeath($author);
-				$author->date_of_death_id = $dateService->createDateFromString($value)->id;
+				$author->date_of_death_id = $this->dateService->createDateFromString($value)->id;
 			}
 			$author->save();
 		}
