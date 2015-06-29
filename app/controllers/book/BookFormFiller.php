@@ -6,10 +6,13 @@ class BookFormFiller
     public static function createEditBookArray($bookId)
     {
         $book = Book::with(array('personal_book_info', 'book_from_author', 'publisher_serie', 'tags'))->find($bookId);
-        $author = Author::with(array('date_of_birth', 'date_of_death', 'books' => function($query) use($book)
-        {
-            $query->where('preferred', true)->where('book_id', '=', $book->id);
-        }))->first();
+
+        $preferredAuthor = $book->authors[0];
+        foreach($book->authors as $author){
+            if($author->pivot->preferred == true){
+                $preferredAuthor = $author;
+            }
+        }
 
         $result = BookFormFiller::createArrayForCreate();
         $result['book_id'] = $bookId;
@@ -61,15 +64,15 @@ class BookFormFiller
             $result['personal_info_review'] = $book->personal_book_info->review;
         }
 
-        $result['author_name'] = $book->authors[0]->name;
-        $result['author_infix'] = $book->authors[0]->infix;
-        $result['author_firstname'] = $book->authors[0]->firstname;
-        $result['author_image'] = $book->authors[0]->image;
+        $result['author_name'] = $preferredAuthor->name;
+        $result['author_infix'] = $preferredAuthor->infix;
+        $result['author_firstname'] = $preferredAuthor->firstname;
+        $result['author_image'] = $preferredAuthor->image;
 
-        if (empty($book->authors[0]->infix)) {
-            $result['author_name_book_info'] = $book->authors[0]->name . ', ' . $book->authors[0]->firstname;
+        if (empty($preferredAuthor->infix)) {
+            $result['author_name_book_info'] = $preferredAuthor->name . ', ' . $preferredAuthor->firstname;
         } else {
-            $result['author_name_book_info'] = $book->authors[0]->name . ', ' . $book->authors[0]->infix . ', ' . $book->authors[0]->firstname;
+            $result['author_name_book_info'] = $preferredAuthor->name . ', ' . $preferredAuthor->infix . ', ' . $preferredAuthor->firstname;
         }
 
         /** @var AuthorService $authorService */
@@ -119,16 +122,16 @@ class BookFormFiller
             }
         }
 
-        if ($author->date_of_birth != null) {
-            $result['author_date_of_birth_day'] = $author->date_of_birth->day == 0 ? "" : $author->date_of_birth->day;
-            $result['author_date_of_birth_month'] = $author->date_of_birth->month == 0 ? "" : $author->date_of_birth->month;
-            $result['author_date_of_birth_year'] = $author->date_of_birth->year == 0 ? "" : $author->date_of_birth->year;;
+        if ($preferredAuthor->date_of_birth != null) {
+            $result['author_date_of_birth_day'] = $preferredAuthor->date_of_birth->day == 0 ? "" : $preferredAuthor->date_of_birth->day;
+            $result['author_date_of_birth_month'] = $preferredAuthor->date_of_birth->month == 0 ? "" : $preferredAuthor->date_of_birth->month;
+            $result['author_date_of_birth_year'] = $preferredAuthor->date_of_birth->year == 0 ? "" : $preferredAuthor->date_of_birth->year;;
         }
 
-        if ($author->date_of_death != null) {
-            $result['author_date_of_death_day'] = $author->date_of_death->day == 0 ? "" : $author->date_of_death->day;
-            $result['author_date_of_death_month'] = $author->date_of_death->month == 0 ? "" : $author->date_of_death->month;
-            $result['author_date_of_death_year'] = $author->date_of_death->year == 0 ? "" : $author->date_of_death->year;
+        if ($preferredAuthor->date_of_death != null) {
+            $result['author_date_of_death_day'] = $preferredAuthor->date_of_death->day == 0 ? "" : $preferredAuthor->date_of_death->day;
+            $result['author_date_of_death_month'] = $preferredAuthor->date_of_death->month == 0 ? "" : $preferredAuthor->date_of_death->month;
+            $result['author_date_of_death_year'] = $preferredAuthor->date_of_death->year == 0 ? "" : $preferredAuthor->date_of_death->year;
         }
 
         if ($book->personal_book_info->buy_info != null) {
