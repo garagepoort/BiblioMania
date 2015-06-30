@@ -261,7 +261,7 @@ class BookService
                     $book->title);
             }
             else if($coverInfoParameters->getImageSaveType() == ImageSaveType::URL){
-                $book->coverImage = $this->imageService->saveImageFromUrl($coverInfoParameters->getImage(), $book->title);
+                $book->coverImage = $this->imageService->saveBookImageFromUrl($coverInfoParameters->getImage(), $book->title);
             }
             else if($coverInfoParameters->getImageSaveType() == ImageSaveType::PATH){
                 $book->coverImage = $coverInfoParameters->getImage();
