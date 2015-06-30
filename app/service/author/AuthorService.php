@@ -137,7 +137,7 @@ class AuthorService
     {
         if($authorInfoParameters->getImage() != null){
             if($author_model->image != 'images/questionCover.png'){
-                $this->imageService->removeImage($author_model->image);
+                $this->imageService->removeAuthorImage($author_model->image);
             }
 
             if($authorInfoParameters->getImageSaveType() == ImageSaveType::UPLOAD){
