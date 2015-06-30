@@ -4,7 +4,7 @@ class ImageController extends BaseController {
 
 	private $logger;
 
-	public function createSprite(){
+	public function createSpriteForBooks(){
 		ini_set('max_execution_time', 1000);
 		ini_set('memory_limit', '-1');
 		$users = User::all();
@@ -22,11 +22,6 @@ class ImageController extends BaseController {
 	//		$folder = public_path() . "/bookImages/test";
 		}
 		$logger->info("END CREATE SPRITE FOR USERS");
-		$folder = public_path() . "/". Config::get("properties.authorImagesLocation");
-		$logger->info("STARTING CREATE SPRITE FOR AUTHOR IMAGES");
-		images_to_sprite::create_sprite_for_author_images($folder);
-		$logger->info("END CREATE SPRITE FOR AUTHOR IMAGES");
-
 		ini_set('max_execution_time', 30);
 		ini_set('memory_limit', '128M');
 	}
