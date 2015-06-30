@@ -30,4 +30,17 @@ class ImageController extends BaseController {
 		ini_set('max_execution_time', 30);
 		ini_set('memory_limit', '128M');
 	}
+
+	public function createSpriteForAuthors(){
+		ini_set('max_execution_time', 1000);
+		ini_set('memory_limit', '-1');
+		$logger = new Katzgrau\KLogger\Logger(app_path() . '/storage/logs');
+		$folder = public_path() . "/". Config::get("properties.authorImagesLocation");
+		$logger->info("STARTING CREATE SPRITE FOR AUTHOR IMAGES");
+		images_to_sprite::create_sprite_for_author_images($folder);
+		$logger->info("END CREATE SPRITE FOR AUTHOR IMAGES");
+
+		ini_set('max_execution_time', 30);
+		ini_set('memory_limit', '128M');
+	}
 }
