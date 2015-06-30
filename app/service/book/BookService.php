@@ -254,7 +254,7 @@ class BookService
     {
         if($coverInfoParameters->getImage() != null){
             if($book->image != 'images/questionCover.png'){
-                $this->imageService->removeImage($book->coverImage);
+                $this->imageService->removeBookImage($book->coverImage);
             }
             if($coverInfoParameters->getImageSaveType() == ImageSaveType::UPLOAD){
                 $book->coverImage = $this->imageService->saveUploadImageForBook($coverInfoParameters->getImage(),
