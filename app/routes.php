@@ -76,6 +76,7 @@ Route::group(array('before' => 'admin'), function() {
 Route::group(array('before' => 'localCallOnly'), function() {
     //google API
     Route::get('createSprite', 'ImageController@createSprite');
+    Route::get('createSpriteForAuthors', 'ImageController@createSpriteForAuthors');
 });
 
 

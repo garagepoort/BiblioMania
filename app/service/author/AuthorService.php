@@ -145,7 +145,7 @@ class AuthorService
             }
             else if($authorInfoParameters->getImageSaveType() == ImageSaveType::URL)
             {
-                $author_model->image = $this->imageService->saveImageFromUrl($authorInfoParameters->getImage(), $author_model->name);
+                $author_model->image = $this->imageService->saveAuthorImageFromUrl($authorInfoParameters->getImage(), $author_model->name);
             }
             else if($authorInfoParameters->getImageSaveType() == ImageSaveType::PATH)
             {

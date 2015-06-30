@@ -17,7 +17,17 @@ class ImageService
         return $filename;
     }
 
-    public function saveImageFromUrl($url, $imageLocation)
+    public function saveAuthorImageFromUrl($url, $imageLocation)
+    {
+       return $this->saveImageFromUrl($url, $imageLocation, Config::get("properties.authorImagesLocation"));
+    }
+
+    public function saveBookImageFromUrl($url, $imageLocation)
+    {
+        return $this->saveImageFromUrl($url, $imageLocation, Config::get("properties.bookImagesLocation"));
+    }
+
+    public function saveImageFromUrl($url, $imageLocation, $folder)
     {
         $img = file_get_contents($url);
         $im = imagecreatefromstring($img);
@@ -32,7 +42,7 @@ class ImageService
 
         $imageFilename = str_random(8) . '_' . $imageLocation . '.jpg';
         $imageFilename = StringUtils::clean($imageFilename);
-        $imageLocation = Config::get("properties.bookImagesLocation") . "/" . Auth::user()->username . '/' . $imageFilename;
+        $imageLocation = $folder . "/" . Auth::user()->username . '/' . $imageFilename;
         imagejpeg($thumb, $imageLocation); //save image as jpg
 
         imagedestroy($thumb);
