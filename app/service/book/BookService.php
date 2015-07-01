@@ -102,7 +102,7 @@ class BookService
             ->leftJoin('author', 'book_author.author_id', '=', 'author.id')
             ->leftJoin('personal_book_info', 'personal_book_info.book_id', '=', 'book.id')
             ->leftJoin('first_print_info', 'first_print_info.id', '=', 'book.first_print_info_id')
-            ->leftJoin('date', 'date.id', '=', 'book.publication_date_id')
+            ->leftJoin('date', 'date.id', '=', 'first_print_info.publication_date_id')
             ->where('book_author.preferred', '=', 1)
             ->where('user_id', '=', Auth::user()->id);
 
@@ -165,6 +165,7 @@ class BookService
         }
 
         $books = $books->orderBy('author.name');
+        $books = $books->orderBy('author.firstname');
         $books = $books->orderBy('date.year', 'ASC');
         $books = $books->orderBy('date.month', 'ASC');
         $books = $books->orderBy('date.day', 'ASC');
