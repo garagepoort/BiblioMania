@@ -53,7 +53,7 @@ class ImageService
 
     public function removeAuthorImage($image)
     {
-        $fullImagePath = Config::get("properties.bookImagesLocation") . "/" . $image;
+        $fullImagePath = Config::get("properties.authorImagesLocation") . "/" . $image;
         if (file_exists($fullImagePath)) {
             unlink($fullImagePath);
         }

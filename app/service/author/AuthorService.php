@@ -136,7 +136,7 @@ class AuthorService
     public function saveImage(AuthorInfoParameters $authorInfoParameters, $author_model)
     {
         if($authorInfoParameters->getImage() != null){
-            if($author_model->image != 'images/questionCover.png'){
+            if($author_model->image != 'images/questionCover.png' && !StringUtils::isEmpty($author_model->image)){
                 $this->imageService->removeAuthorImage($author_model->image);
             }
 
