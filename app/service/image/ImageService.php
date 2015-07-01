@@ -54,16 +54,20 @@ class ImageService
     public function removeAuthorImage($image)
     {
         $fullImagePath = Config::get("properties.authorImagesLocation") . "/" . $image;
-        if (file_exists($fullImagePath)) {
-            unlink($fullImagePath);
+        if(!StringUtils::isEmpty($image)){
+            if (file_exists($fullImagePath)) {
+                unlink($fullImagePath);
+            }
         }
     }
 
     public function removeBookImage($image)
     {
         $fullImagePath = Config::get("properties.bookImagesLocation") . "/" . $image;
-        if (file_exists($fullImagePath)) {
-            unlink($fullImagePath);
+        if(!StringUtils::isEmpty($image)) {
+            if (file_exists($fullImagePath)) {
+                unlink($fullImagePath);
+            }
         }
     }
 
