@@ -5,4 +5,5 @@ return array(
 	'mysqlLocation' => '/Applications/MAMP/Library/bin/',
 	'bookImagesLocation' => 'bookImages',
 	'authorImagesLocation' => 'authorImages',
+	'questionImage' => 'questionCover.png',
 );

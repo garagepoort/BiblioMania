@@ -5,4 +5,5 @@ return array(
 	'mysqlLocation' => '',
 	'bookImagesLocation' => 'bookImages',
 	'authorImagesLocation' => 'authorImages',
+	'questionImage' => 'questionCover.png',
 );
