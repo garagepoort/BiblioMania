@@ -4,8 +4,8 @@
 
         <legend>Auteur info</legend>
         @if($author_image != '')
-            {{ HTML::image($author_image, 'image') }}
-            @endif
+            {{ HTML::image($author_image, 'image', array('style' => 'margin-bottom: 10px;')) }}
+        @endif
                     <!-- NAME -->
             <div class="form-group">
                 {{ Form::label('authorNameLabel', 'Naam:', array('class' => 'col-md-3')); }}

@@ -22,6 +22,13 @@ class BookFormFiller
         $result['book_number_of_pages'] = $book->number_of_pages;
         $result['book_print'] = $book->print;
         $result['book_cover_image'] = $book->coverImage;
+
+        if(StringUtils::isEmpty($book->coverImage)){
+            $result['book_cover_image'] = Config::get("properties.questionImage");
+        }else{
+            $result['book_cover_image'] = Config::get("properties.bookImagesLocation") . "/" . Auth::user()->username ."/" . $book->coverImage;
+        }
+
         $result['book_type_of_cover'] = $book->type_of_cover;
         $result['book_state'] = $book->state;
         $output = array_map(function ($object) {return $object['name'];}, $book->tags->toArray());
@@ -67,7 +74,12 @@ class BookFormFiller
         $result['author_name'] = $preferredAuthor->name;
         $result['author_infix'] = $preferredAuthor->infix;
         $result['author_firstname'] = $preferredAuthor->firstname;
-        $result['author_image'] = $preferredAuthor->image;
+
+        if(StringUtils::isEmpty($preferredAuthor->image)){
+            $result['author_image'] = Config::get("properties.questionImage");
+        }else{
+            $result['author_image'] = Config::get("properties.authorImagesLocation") . "/" . $preferredAuthor->image;
+        }
 
         if (empty($preferredAuthor->infix)) {
             $result['author_name_book_info'] = $preferredAuthor->name . ', ' . $preferredAuthor->firstname;

@@ -2,9 +2,9 @@
     <fieldset>
 
         <legend>Cover info</legend>
-
-        {{ HTML::image($book_cover_image, 'image') }}
-
+        @if($book_cover_image != '')
+        {{ HTML::image($book_cover_image, 'image', array('style' => 'margin-bottom: 10px;')) }}
+        @endif
         <div class="cover-info-top-panel">
             <!-- {{ Form::label('bookTypeOfCoverLabel', 'Cover type:', array('class' => 'col-md-2')); }} -->
             <!-- {{ $errors->first('book_typeOfCover') }} -->

@@ -22,8 +22,11 @@ class FirstPrintInfoService
     {
         $firstPrintInfo = new FirstPrintInfo();
 
-        if (!is_null($firstPrintInfoParameters->getIsbn())) {
-            $firstPrintInfo = FirstPrintInfo::where('ISBN', '=', $firstPrintInfoParameters->getIsbn())->first();
+        if (!StringUtils::isEmpty($firstPrintInfoParameters->getIsbn())) {
+            $first = FirstPrintInfo::where('ISBN', '=', $firstPrintInfoParameters->getIsbn())->first();
+            if($first != null){
+                $firstPrintInfo = $first;
+            }
         }
 
         $firstPrintInfo->title = $firstPrintInfoParameters->getTitle();
