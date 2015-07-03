@@ -4,7 +4,7 @@ $(function () {
 
     var authorImageObject = getAuthorImageObject(author_json);
     $('#author-image-div').attr('style',
-        getImageStyle(authorImageObject.height, authorImageObject.imageString, authorImageObject.spritePointer));
+        getImageStyle(authorImageObject.height, authorImageObject.width, authorImageObject.imageString, authorImageObject.spritePointer));
 
     $(".author-oeuvre-title").editable({
         validate: function (value) {

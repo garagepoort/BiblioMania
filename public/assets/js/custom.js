@@ -1,16 +1,16 @@
 var request;
 
-function getImageStyle(height, image, spritePointer) {
-    var styleString = "width: 142px;height:" + height + "px; background: url(" + image + ");";
+function getImageStyle(height, width, image, spritePointer) {
+    var styleString = "width: " + width+ "px;height:" + height + "px; background: url(" + image + ");";
 
     styleString = styleString + "background-position:  0px -" + spritePointer + "px;margin-bottom: 0px;";
     return styleString;
 }
-function createMaterialCardImage(image, height, spritePointer){
-    var styleString = getImageStyle(height, image, spritePointer);
+function createMaterialCardImage(image, height, width, spritePointer){
+    var styleString = getImageStyle(height, width, image, spritePointer);
     var materialCard = $("<div></div>");
     materialCard.attr("class", "material-card imageLinkWrapper ic_container");
-    materialCard.attr("style", "width: 142px;");
+    materialCard.attr("style", "width: " + width+ "px;");
 
     var materialContent = $("<div></div>");
     materialContent.attr("class", "material-card-content");
@@ -22,6 +22,7 @@ function createMaterialCardImage(image, height, spritePointer){
 
 function getBookImageObject(book) {
     var height = book.imageHeight;
+    var width = book.imageWidth;
     var imageString = baseUrl + "/bookImages/" + username + "/sprite.png";
     var spritePointer = book.spritePointer;
 
@@ -33,14 +34,16 @@ function getBookImageObject(book) {
     if (book.coverImage == '' || book.coverImage == null) {
         imageString = baseUrl + "/images/questionCover.png";
         height = 214;
+        width= 142;
         spritePointer = 0;
     }
 
-    return {imageString: imageString, spritePointer: spritePointer, height: height};
+    return {imageString: imageString, spritePointer: spritePointer, height: height, width: width};
 }
 
 function getAuthorImageObject(author) {
     var height = author.imageHeight;
+    var width = author.imageWidth;
     var imageString = baseUrl + "/authorImages/" + "sprite.png";
     var spritePointer = author.spritePointer;
 
@@ -52,9 +55,10 @@ function getAuthorImageObject(author) {
     if (author.image == '' || author.image == null) {
         imageString = baseUrl + "/images/questionCover.png";
         height = 214;
+        width = 142;
         spritePointer = 0;
     }
-    return {imageString: imageString, spritePointer: spritePointer, height: height};
+    return {imageString: imageString, spritePointer: spritePointer, height: height, width: width};
 }
 
 function showConfirmDialog(title, message, action, noButtonAction){

@@ -23,6 +23,7 @@ class images_to_sprite {
             if($book != null){
                 $book->spritePointer = $imageYPointer;
                 $book->imageHeight = $image->getHeight();
+                $book->imageWidth = $image->getWidth();
                 $book->useSpriteImage = true;
                 $book->save();
             }
@@ -55,6 +56,7 @@ class images_to_sprite {
             if($author != null){
                 $author->spritePointer = $imageYPointer;
                 $author->imageHeight = $image->getHeight();
+                $author->imageWidth = $image->getWidth();
                 $author->useSpriteImage = true;
                 $author->save();
             }
