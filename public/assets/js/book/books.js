@@ -92,7 +92,7 @@ $(document).ready(function () {
                 var tdElement = $("<td></td>");
 
                 var bookImageObject = getBookImageObject(book);
-                var materialCard = createMaterialCardImage(bookImageObject.imageString, bookImageObject.height, bookImageObject.spritePointer);
+                var materialCard = createMaterialCardImage(bookImageObject.imageString, bookImageObject.height, bookImageObject.width, bookImageObject.spritePointer);
                 materialCard.attr("bookid", book.id);
 
                 var icCaptionElement = $("<div class=\"ic_caption editBookPanel\"><p class=\"ic_category\">Edit<i class=\"fa fa-pencil editImagePencilIcon\"></i></p></div>");
@@ -214,7 +214,7 @@ $(document).ready(function () {
         $('#book-detail-title').text(book.title);
         $('#book-detail-subtitle').text(book.subtitle);
         var bookImageObject = getBookImageObject(book);
-        $('#book-detail-coverimage').attr('style', getImageStyle(bookImageObject.height, bookImageObject.imageString, bookImageObject.spritePointer) + "margin: 0px;");
+        $('#book-detail-coverimage').attr('style', getImageStyle(bookImageObject.height, bookImageObject.width, bookImageObject.imageString, bookImageObject.spritePointer) + "margin: 0px;");
 
         $('#book-detail-author').text(book.authors[0].firstname + " " + book.authors[0].infix + " " + book.authors[0].name);
         showOrHide($('#book-detail-isbn'), book.ISBN);
