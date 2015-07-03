@@ -85,16 +85,16 @@ class ImageService
 
         if (($w <= $max_width) && ($h <= $max_height)) { return $image; } //no resizing needed
 
-        //try max width first...
-        $ratio = $max_width / $w;
-        $new_w = $max_width;
-        $new_h = $h * $ratio;
+        //try max height first...
+        $ratio = $max_height / $h;
+        $new_h = $max_height;
+        $new_w = $w * $ratio;
 
         //if that didn't work
-        if ($new_h > $max_height) {
-            $ratio = $max_height / $h;
-            $new_h = $max_height;
-            $new_w = $w * $ratio;
+        if ($new_w > $max_width) {
+            $ratio = $max_width / $w;
+            $new_w = $max_width;
+            $new_h = $h * $ratio;
         }
 
         $new_image = imagecreatetruecolor ($new_w, $new_h);
