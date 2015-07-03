@@ -112,8 +112,9 @@ class images_to_sprite {
 
                 // Image will be added to sprite, add to array
                 $logger->info("FILE TYPE: " . $output["mime"]);
+                $width = $output[0];
                 $height = $output[1];
-                array_push($images, new Image(self::WIDTH, $height, $file));
+                array_push($images, new Image($width, $height, $file));
                 $heightSprite = $heightSprite + $height;
             }
             closedir($handle);
