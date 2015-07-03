@@ -107,8 +107,6 @@ class images_to_sprite {
                     continue;
                 // Get image size and ensure it has the correct dimensions
                 $output = getimagesize($folder . '/' . $file);
-                if ($output[0] != self::WIDTH)
-                    continue;
 
                 // Image will be added to sprite, add to array
                 $logger->info("FILE TYPE: " . $output["mime"]);
