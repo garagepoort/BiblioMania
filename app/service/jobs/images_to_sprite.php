@@ -16,6 +16,7 @@ class images_to_sprite {
         $imageYPointer = 0;
         /** @var Image $image */
         foreach($images as $image) {
+            $logger->info("Found file: " . $image->getFile());
             $book = Book::where('coverImage', '=', $image->getFile())
                 ->where('user_id', "=", $user->id)
                 ->first();
