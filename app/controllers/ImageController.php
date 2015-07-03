@@ -19,7 +19,6 @@ class ImageController extends BaseController {
 			}else{
 				$logger->info("No image folder for user: $user->username");
 			}
-	//		$folder = public_path() . "/bookImages/test";
 		}
 		$logger->info("END CREATE SPRITE FOR USERS");
 		ini_set('max_execution_time', 30);
