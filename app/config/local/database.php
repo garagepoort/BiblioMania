@@ -19,6 +19,7 @@ return array(
 			'password'  => 'root',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
+			'unix_socket'   => '/Applications/MAMP/tmp/mysql/mysql.sock',
 			'prefix'    => '',
 			'port'    => '8889',
 		),
