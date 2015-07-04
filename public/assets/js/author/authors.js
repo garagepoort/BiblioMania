@@ -24,9 +24,12 @@ $(document).ready(function(){
             for (j = 0; j < columns; j++){
                 var author = authors[(6*i)+j];
                 var imageString = baseUrl + "/authorImages/sprite.png";
+                if(author.useSpriteImage == false){
+                    imageString = baseUrl + "/authorImages/" + author.image;
+                }
                 var height = author.imageHeight;
 
-                var styleString =  "width: 142px;height:" + author.imageHeight +"px; background: url(" + imageString+");";
+                var styleString =  "width: " +author.imageWidth+ "px;height:" + author.imageHeight +"px; background: url(" + imageString+");";
                 styleString =  styleString + "background-position:  0px -"+ author.spritePointer +"px; display: block;";
                 if (author.image == '' || author.image == null) {
                     imageString = baseUrl + "/images/questionCover.png";
