@@ -258,11 +258,10 @@ class BookService
                 $this->imageService->removeBookImage($book->coverImage);
             }
             if($coverInfoParameters->getImageSaveType() == ImageSaveType::UPLOAD){
-                $book->coverImage = $this->imageService->saveUploadImageForBook($coverInfoParameters->getImage(),
-                    $book->title);
+                $book->coverImage = $this->imageService->saveUploadImageForBook($coverInfoParameters->getImage(), $book);
             }
             else if($coverInfoParameters->getImageSaveType() == ImageSaveType::URL){
-                $book->coverImage = $this->imageService->saveBookImageFromUrl($coverInfoParameters->getImage(), $book->title);
+                $book->coverImage = $this->imageService->saveBookImageFromUrl($coverInfoParameters->getImage(), $book);
             }
             else if($coverInfoParameters->getImageSaveType() == ImageSaveType::PATH){
                 $book->coverImage = $coverInfoParameters->getImage();

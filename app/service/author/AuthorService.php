@@ -141,11 +141,11 @@ class AuthorService
             }
 
             if($authorInfoParameters->getImageSaveType() == ImageSaveType::UPLOAD){
-                $author_model->image = $this->imageService->saveUploadImageForAuthor($authorInfoParameters->getImage(),$author_model->name);
+                $author_model->image = $this->imageService->saveUploadImageForAuthor($authorInfoParameters->getImage(),$author_model);
             }
             else if($authorInfoParameters->getImageSaveType() == ImageSaveType::URL)
             {
-                $author_model->image = $this->imageService->saveAuthorImageFromUrl($authorInfoParameters->getImage(), $author_model->name);
+                $author_model->image = $this->imageService->saveAuthorImageFromUrl($authorInfoParameters->getImage(), $author_model);
             }
             else if($authorInfoParameters->getImageSaveType() == ImageSaveType::PATH)
             {
