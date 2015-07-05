@@ -377,6 +377,9 @@ table.book-detail-info-table td {
   margin-top: 50px;
   margin-bottom: 50px;
 }
+.author-image-div div.material-card-content {
+  padding: 0px;
+}
 .author-image-div {
   margin-left: 10px;
   margin-right: 15px;
@@ -385,6 +388,35 @@ table.book-detail-info-table td {
 }
 .author-oeuvre-linked {
   color: red;
+}
+.author-image-upload-div {
+  clear: both;
+  margin-left: 20px;
+  margin-top: 20px;
+}
+.helper {
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+.author-image-div div.author-image-edit-wrapper {
+  visibility: hidden;
+}
+.author-image-div:hover div.author-image-edit-wrapper {
+  cursor: pointer;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  visibility: visible;
+  -webkit-opacity: 0.4;
+  -moz-opacity: 0.4;
+  opacity: 0.4;
+  background-color: #000000;
+}
+.author-image-edit-icon {
+  width: 40px;
+  height: 40px;
+  vertical-align: middle;
 }
 /*END AUTHOR*/
 .list-container {

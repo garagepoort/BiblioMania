@@ -14,6 +14,11 @@ $(function () {
         }
     });
 
+    $('#author-image-edit-wrapper').on("click", function(){
+        $('#author-image-upload-div').toggle();
+    });
+
+
     $('#author-oeuvre-table').DataTable({
        paging: false
     });
@@ -47,5 +52,10 @@ $(function () {
         );
     });
 
-
+    doAuthorGoogleImageSearch();
 });
+
+function doAuthorGoogleImageSearch() {
+    var searchString = author_json.name + ' ' + author_json.infix + ' ' + author_json.firstname;
+    executeGoogleSearch(searchString, 'authorImageContent', 'authorImageUrl');
+}

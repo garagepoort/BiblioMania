@@ -29,6 +29,15 @@ class AuthorService
         return $author_model;
     }
 
+    public function updateAuthorImage($authorId, $image, $imageSaveType){
+        $author = $this->authorRepository->find($authorId);
+        if($author == null){
+            throw new ServiceException("Author with id: $authorId not found");
+        }
+        $this->saveImage($image, $imageSaveType, $author);
+        $this->authorRepository->save($author);
+    }
+
     /**
      * @param AuthorInfoParameters $authorInfoParameters
      * @return Author
@@ -53,21 +62,10 @@ class AuthorService
             $this->dateService->copyDateValues($author_model->date_of_death, $authorInfoParameters->getDateOfDeath());
         }
 
-        $this->saveImage($authorInfoParameters, $author_model);
+        $this->saveImage($authorInfoParameters->getImage(), $authorInfoParameters->getImageSaveType(), $author_model);
 
         $this->authorRepository->save($author_model);
         return $author_model;
-    }
-
-    public function updateAuthor($author_id, $name, $infix, $firstName, $authorImage, $date_of_birth_id, $date_of_death_id){
-        $author = $this->authorRepository->find($author_id);
-        $author->name = $name;
-        $author->infix = $infix;
-        $author->firstname = $firstName;
-        $author->date_of_birth_id = $date_of_birth_id;
-        $author->date_of_death_id = $date_of_death_id;
-        $this->saveImage($authorImage, $author);
-        $this->authorRepository->save($author);
     }
 
     public function deleteDateOfBirth($author)
@@ -133,23 +131,23 @@ class AuthorService
     }
 
 
-    public function saveImage(AuthorInfoParameters $authorInfoParameters, $author_model)
+    public function saveImage($image, $imageSaveType, $author_model)
     {
-        if($authorInfoParameters->getImage() != null){
+        if($image != null){
             if($author_model->image != 'images/questionCover.png' && !StringUtils::isEmpty($author_model->image)){
                 $this->imageService->removeAuthorImage($author_model->image);
             }
 
-            if($authorInfoParameters->getImageSaveType() == ImageSaveType::UPLOAD){
-                $author_model->image = $this->imageService->saveUploadImageForAuthor($authorInfoParameters->getImage(),$author_model);
+            if($imageSaveType == ImageSaveType::UPLOAD){
+                $author_model->image = $this->imageService->saveUploadImageForAuthor($image,$author_model);
             }
-            else if($authorInfoParameters->getImageSaveType() == ImageSaveType::URL)
+            else if($imageSaveType == ImageSaveType::URL)
             {
-                $author_model->image = $this->imageService->saveAuthorImageFromUrl($authorInfoParameters->getImage(), $author_model);
+                $author_model->image = $this->imageService->saveAuthorImageFromUrl($image, $author_model);
             }
-            else if($authorInfoParameters->getImageSaveType() == ImageSaveType::PATH)
+            else if($imageSaveType == ImageSaveType::PATH)
             {
-                $author_model->image = $authorInfoParameters->getImage();
+                $author_model->image = $image;
             }
             $author_model->useSpriteImage = false;
         }

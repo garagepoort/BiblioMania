@@ -141,7 +141,7 @@ class AuthorServiceTest extends TestCase {
 
         $authorInfoParameters = new AuthorInfoParameters('name', 'firstname', 'infix', null, null, null, null, array(), false);
 
-        $this->authorService->saveImage($authorInfoParameters, $author);
+        $this->authorService->saveImage($authorInfoParameters->getImage(), $authorInfoParameters->getImageSaveType(), $author);
 
         $this->assertEquals($previousImage, $author->image);
     }

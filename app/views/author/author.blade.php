@@ -8,8 +8,12 @@
     <div class='info-container'>
         <div id="messageBox"></div>
         <fieldset>
-            <div class="material-card imageLinkWrapper" style="float: left;">
+            <div class="material-card author-image-div" style="float: left;">
                 <div class="material-card-content" id="author-image-div">
+                    <div class="author-image-edit-wrapper" id="author-image-edit-wrapper">
+                        <span class="helper"></span>
+                        {{ HTML::image('images/edit_icon.png', 'edit icon',array('class'=>'author-image-edit-icon')) }}
+                    </div>
                 </div>
             </div>
 
@@ -34,6 +38,22 @@
                             </td>
                         </tr>
                     </table>
+                </div>
+            </div>
+            <div class="author-image-upload-div material-card" id="author-image-upload-div" hidden="hidden">
+                <div class="material-card-title">Afbeelding uploaden</div>
+                <div class="material-card-content">
+                    {{ Form::open(array('id'=>'changeAuthorImageForm', 'url' => 'changeAuthorImage', 'class' => 'form-horizontal createBookForm', 'autocomplete' => 'off', 'files' => 'true')); }}
+                    <input id="author-id-input" name="author_id" hidden value={{ $author->id }}>
+                    @include('image/uploadImage', array(
+                    'checkbox' => 'authorImageSelfUpload',
+                    'imageUrlInput' => 'authorImageUrl',
+                    'contentDivId' => 'authorImageContent',
+                    'file' =>'author_image'))
+                    <div class="controls">
+                        {{ Form::submit('Afbeelding opslaan', array('id'=>'authorSubmitButton', 'class'=> 'btn btn-success')); }}
+                    </div>
+                    {{ Form::close(); }}
                 </div>
             </div>
 

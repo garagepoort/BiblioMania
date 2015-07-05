@@ -14,7 +14,7 @@ $(function () {
     });
     //$('#secondary_authors_input').tokenfield('disable');
 
-    $('#author-image-self-upload-checkbox').change(function () {
+    $('#authorImageContent').change(function () {
         if ($(this).is(':checked')) {
             $('#author-image-self-upload-panel').show(250);
             $('#author-image-google-search-panel').hide(250);

@@ -40,6 +40,7 @@ Route::group(array('before' => 'auth'), function() {
     Route::get('getAuthorsWithOeuvreJson', 'AuthorController@getAuthorsWithOeuvreJson');
     Route::post('editAuthorInList', 'AuthorController@editAuthorInList');
     Route::post('editAuthor', 'AuthorController@editAuthor');
+    Route::post('changeAuthorImage', 'AuthorController@changeAuthorImage');
 
 //  PUBLISHER
     Route::get('publisher/{id}', 'PublisherController@getPublisher');

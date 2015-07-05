@@ -5,7 +5,7 @@
         <legend>Auteur info</legend>
         @if($author_image != '')
             {{ HTML::image($author_image, 'image', array('style' => 'margin-bottom: 10px;')) }}
-        @endif
+            @endif
                     <!-- NAME -->
             <div class="form-group">
                 {{ Form::label('authorNameLabel', 'Naam:', array('class' => 'col-md-3')); }}
@@ -56,28 +56,12 @@
                 </div>
             </div>
 
-            <!-- IMAGE -->
-            <span style="margin-right: 10px">Ik wil zelf een afbeelding uploaden:</span><input
-                    id="author-image-self-upload-checkbox" type="checkbox" name="authorImageSelfUpload"/>
 
-            <div id="author-image-self-upload-panel" class="form-group" hidden>
-                {{ Form::label('imageAuthorLabel', 'Afbeelding:', array('class' => 'col-md-3')); }}
-                <div class="col-md-3">
-                    <div class="fileinput fileinput-new" data-provides="fileinput">
-                        <div class="fileinput-preview thumbnail" data-trigger="fileinput"
-                             style="width: 200px; height: 150px;"></div>
-                        <div>
-                            <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span
-                                        class="fileinput-exists">Change</span>{{ Form::file('author_image') }}</span>
-                            <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="author-image-google-search-panel">
-                @include('googleImageSearch', array('imageUrlInput' => 'authorImageUrl','contentDivId' => 'authorImageContent'))
-            </div>
+            @include('image/uploadImage', array(
+            'checkbox' => 'authorImageSelfUpload',
+            'imageUrlInput' => 'authorImageUrl',
+            'contentDivId' => 'authorImageContent',
+            'file' =>'author_image'))
 
 
             <div id='author-oeuvre-panel'>
