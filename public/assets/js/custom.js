@@ -49,7 +49,7 @@ function getAuthorImageObject(author) {
 
     if(author.useSpriteImage == false){
         height = author.imageHeight;
-        imageString = baseUrl + "/bookImages/" + username + "/" + author.image;
+        imageString = baseUrl + "/authorImages/" + author.image;
         spritePointer = 0;
     }
     if (author.image == '' || author.image == null) {

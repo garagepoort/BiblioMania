@@ -36,6 +36,31 @@ class AuthorInfoParameterMapper
         );
     }
 
+    public function getImage()
+    {
+        $image = null;
+        $imageSelfUpload = Input::get('authorImageSelfUpload');
+        if ($imageSelfUpload) {
+            if (Input::hasFile('author_image')) {
+                $image = Input::file('author_image');
+            }
+        } else {
+            if (Input::get('authorImageUrl') != '') {
+                $image = Input::get('authorImageUrl');
+            }
+        }
+        return $image;
+    }
+
+    public function getImageSaveType()
+    {
+        if (Input::get('authorImageSelfUpload')) {
+            return ImageSaveType::UPLOAD;
+        } else {
+            return ImageSaveType::URL;
+        }
+    }
+
     public function createSecondaryAuthors()
     {
         $result = array();
@@ -77,30 +102,5 @@ class AuthorInfoParameterMapper
             array(),
             false
         );
-    }
-
-    public function getImageSaveType()
-    {
-        if (Input::get('authorImageSelfUpload')) {
-            return ImageSaveType::UPLOAD;
-        } else {
-            return ImageSaveType::URL;
-        }
-    }
-
-    public function getImage()
-    {
-        $image = null;
-        $imageSelfUpload = Input::get('authorImageSelfUpload');
-        if ($imageSelfUpload) {
-            if (Input::hasFile('author_image')) {
-                $image = Input::file('author_image');
-            }
-        } else {
-            if (Input::get('authorImageUrl') != '') {
-                $image = Input::get('authorImageUrl');
-            }
-        }
-        return $image;
     }
 }
