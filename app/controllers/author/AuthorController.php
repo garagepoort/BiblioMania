@@ -5,6 +5,8 @@ class AuthorController extends BaseController {
 	private $authorFolder = "author/";
 	/** @var  AuthorService */
 	private $authorService;
+	/** @var  AuthorInfoParameterMapper */
+	private $authorInfoParameterMapper;
 	/** @var  AuthorFormValidator */
 	private $authorFormValidator;
 	/** @var BookFromAuthorService */
@@ -21,6 +23,7 @@ class AuthorController extends BaseController {
 		$this->authorFormValidator = App::make('AuthorFormValidator');
 		$this->dateService = App::make('DateService');
 		$this->imageService = App::make('ImageService');
+		$this->authorInfoParameterMapper = App::make('AuthorInfoParameterMapper');
 	}
 
 
@@ -76,6 +79,15 @@ class AuthorController extends BaseController {
 			}
 			$author->save();
 		}
+	}
+
+	public function changeAuthorImage(){
+		$authorId = Input::get('author_id');
+		$image = $this->authorInfoParameterMapper->getImage();
+		$imageSaveType = $this->authorInfoParameterMapper->getImageSaveType();
+
+		$this->authorService->updateAuthorImage($authorId, $image, $imageSaveType);
+		return Redirect::to("/getAuthor/$authorId");
 	}
 
 	public function getNextAuthors(){
