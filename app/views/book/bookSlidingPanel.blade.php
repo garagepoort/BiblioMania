@@ -163,7 +163,7 @@
 
         <div class="card-row">
 
-            <div class="book-detail-small-info-panel material-card">
+            <div class="book-detail-small-info-panel material-card card-column-left">
                 <div class="material-card-title">Eerste druk</div>
                 <div class="material-card-content">
                     <table width="100%">
