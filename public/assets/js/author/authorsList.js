@@ -17,11 +17,14 @@ $(document).ready(function() {
             }
         }
     });
+
     $('#date_of_birth, #date_of_death').editable({
         validate: function(value) {
             // regular expression to match required date format
-            var re = /^\d{1,2}\-\d{1,2}\-\d{4}$/;
-            if(value != '' && !value.match(re)) {
+            var re1 = /^\d{4}$/;
+            var re2 = /^\d{1,2}\-\d{4}$/;
+            var re3 = /^\d{1,2}\-\d{1,2}\-\d{4}$/;
+            if(value != '' && !value.match(re1) && !value.match(re2) && !value.match(re3)) {
                 return 'Formaat dd-mm-yyyy';
             }
         }
