@@ -240,6 +240,7 @@ button.searchButton {
   padding-bottom: 50px;
 }
 .book-detail-main-info {
+  height: 15px;
   margin-bottom: 20px;
 }
 .book-detail-other-info {
@@ -271,6 +272,16 @@ table.book-detail-info-table > tbody > tr > td {
   width: 290px;
   background-color: #ffffff;
 }
+.book-detail-small-info-panel.card-column-left {
+  float: left;
+  margin: 0px;
+  margin-right: 24px;
+  width: 48%;
+}
+.book-detail-small-info-panel.card-column-right {
+  overflow: hidden;
+  width: 48%;
+}
 .book-detail-small-info-panel > legend {
   border: none;
   margin-bottom: 10px;
@@ -289,10 +300,12 @@ table.book-detail-main-info-table td {
 table.book-detail-info-table td {
   vertical-align: top;
 }
-.book-detail-summary {
+.book-detail-summary.material-card {
   margin-top: 20px;
   text-align: justify;
-  width: 96%;
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
 }
 .book-detail-summary p {
   width: 90%;
@@ -341,10 +354,11 @@ table.book-detail-info-table td {
   box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.26);
 }
 .book-details-info-container.material-card {
-  width: 420px;
+  width: 70%;
   float: right;
   margin-top: 0;
-  margin-right: 15px;
+  margin-right: 0px;
+  margin-left: 0px;
 }
 .bookCoverLink {
   width: 142px;
@@ -728,7 +742,6 @@ div.container-fluid {
   padding-bottom: 10px;
   margin-left: auto;
   margin-right: auto;
-  overflow: hidden;
 }
 .card-column-left {
   float: left;
