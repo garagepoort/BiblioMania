@@ -9,7 +9,7 @@
     <div class="book-detail-container" id="book-detail-container">
 
         <div class="book-detail-main-info">
-            <div class="material-card imageLinkWrapper" style="float: left; margin:0px;">
+            <div class="material-card" style="float: left; margin:0px;">
                 <div class="material-card-content" id="book-detail-coverimage">
                 </div>
             </div>
