@@ -28,6 +28,8 @@ class BookController extends BaseController
     private $personalBookInfoParameterMapper;
     /** @var  CountryService */
     private $countryService;
+    /** @var  LanguageService */
+    private $languageService;
 
 
     public function __construct()
@@ -44,6 +46,7 @@ class BookController extends BaseController
         $this->firstPrintInfoParameterMapper = App::make('FirstPrintInfoParameterMapper');
         $this->personalBookInfoParameterMapper = App::make('PersonalBookInfoParameterMapper');
         $this->countryService = App::make('CountryService');
+        $this->languageService = App::make('LanguageService');
     }
 
     public function getBooks()
@@ -119,7 +122,7 @@ class BookController extends BaseController
             $withArray = BookFormFiller::createEditBookArray($id);
         }
         $withArray['title'] = 'Boek toevoegen';
-        $withArray['languages'] = App::make('LanguageService')->getLanguagesMap();
+        $withArray['languages'] = $this->languageService->getLanguagesMap();
         $withArray['covers'] = $covers;
         $withArray['states'] = $states;
         $withArray['genres'] = $genres;
