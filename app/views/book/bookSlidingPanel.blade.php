@@ -202,6 +202,13 @@
                     </table>
                 </div>
             </div>
+
+            <div class="book-detail-small-info-panel material-card card-column-right">
+                <div class="material-card-title">Review</div>
+                <div class="material-card-content">
+                    <p id="book-detail-review"></p>
+                </div>
+            </div>
     </div>
 </div>
 </div>
