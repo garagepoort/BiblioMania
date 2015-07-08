@@ -16,7 +16,7 @@ class BuyInfoParameters {
         $this->city = $city;
         $this->reason = $reason;
         $this->country = $country;
-        $this->pricePayed = $pricePayed;
+        $this->pricePayed = StringUtils::replace($pricePayed, ",", ".");
     }
 
     /**

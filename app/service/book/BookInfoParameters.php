@@ -25,7 +25,7 @@ class BookInfoParameters
         $this->publisherName = $publisherName;
         $this->countryName = $countryName;
         $this->language = $language;
-        $this->retail_price = $retail_price;
+        $this->retail_price = StringUtils::replace($retail_price, ",", ".");
         $this->tags = $tags;
     }
 
