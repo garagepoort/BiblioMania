@@ -152,9 +152,10 @@ class BookFormFiller
         if ($book->personal_book_info->buy_info != null) {
             $result['buyOrGift'] = 'BUY';
 
-            $time = strtotime($book->personal_book_info->buy_info->buy_date);
-            $myFormatForView = date("d/m/Y", $time);
-            $result['buy_info_buy_date'] = $myFormatForView;
+            $buy_date = strtotime($book->personal_book_info->buy_info->buy_date);
+            if(!StringUtils::isEmpty($buy_date)){
+                $result['buy_info_buy_date'] = DateFormatter::toDateWithSlashes($buy_date);
+            }
             $result['buy_info_price_payed'] = $book->personal_book_info->buy_info->price_payed;
             $result['buy_book_info_retail_price'] = $book->retail_price;
             $result['buy_info_reason'] = $book->personal_book_info->buy_info->reason;
@@ -172,9 +173,10 @@ class BookFormFiller
         if ($book->personal_book_info->gift_info != null) {
             $result['buyOrGift'] = 'GIFT';
 
-            $time = strtotime($book->personal_book_info->gift_info->receipt_date);
-            $myFormatForView = date("d/m/Y", $time);
-            $result['gift_info_receipt_date'] = $myFormatForView;
+            $receipt_date = strtotime($book->personal_book_info->gift_info->receipt_date);
+            if(!StringUtils::isEmpty($receipt_date)){
+                $result['gift_info_receipt_date'] = DateFormatter::toDateWithSlashes($receipt_date);
+            }
             $result['gift_book_info_retail_price'] = $book->retail_price;
             $result['gift_info_from'] = $book->personal_book_info->gift_info->from;
             $result['gift_info_occasion'] = $book->personal_book_info->gift_info->occasion;
