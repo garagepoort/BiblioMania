@@ -220,7 +220,9 @@ $(document).ready(function () {
         showOrHide($('#book-detail-isbn'), book.ISBN);
         showOrHide($('#book-detail-publisher'), book.publisher.name);
         showOrHide($('#book-detail-country'), book.country.name);
-        showOrHide($('#book-detail-language'), book.language.language);
+        if(book.language !=null){
+            showOrHide($('#book-detail-language'), book.language.language);
+        }
         showOrHide($('#book-detail-genre'), book.genre.name);
         showOrHide($('#book-detail-publication-date'), dateToString(book.publication_date));
         $('#book-detail-summary').text(book.summary);
@@ -273,6 +275,8 @@ $(document).ready(function () {
         showOrHide($('#book-detail-print'), book.print);
         showOrHide($('#book-translator'), book.translator);
 
+        //REVIEW
+        showOrHide($('#book-detail-review'), book.personal_book_info.review);
         //BUY OR GIFT
         if (book.personal_book_info.buy_info == null) {
             $('.buy-info-tr').hide();
