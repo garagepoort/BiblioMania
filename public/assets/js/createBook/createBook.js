@@ -228,6 +228,28 @@ $(document).ready(function () {
                         message: 'Exact 13 cijfers'
                     }
                 }
+            },
+            //BUY PRINT
+            buy_info_price_payed: {
+                validators: {
+                    numeric: {
+                        separator: ','
+                    }
+                }
+            },
+            buy_book_info_retail_price: {
+                validators: {
+                    numeric: {
+                        separator: ','
+                    }
+                }
+            },
+            gift_book_info_retail_price: {
+                validators: {
+                    numeric: {
+                        separator: ','
+                    }
+                }
             }
         }
     }).on('err.field.bv', function (e, data) {
