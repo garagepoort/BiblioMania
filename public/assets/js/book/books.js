@@ -220,6 +220,7 @@ $(document).ready(function () {
         showOrHide($('#book-detail-isbn'), book.ISBN);
         showOrHide($('#book-detail-publisher'), book.publisher.name);
         showOrHide($('#book-detail-country'), book.country.name);
+        showOrHide($('#book-detail-language'), book.language.language);
         showOrHide($('#book-detail-genre'), book.genre.name);
         showOrHide($('#book-detail-publication-date'), dateToString(book.publication_date));
         $('#book-detail-summary').text(book.summary);

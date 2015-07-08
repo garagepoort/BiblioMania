@@ -45,6 +45,10 @@
                                         <td><label id='book-detail-country'></label></td>
                                     </tr>
                                     <tr>
+                                        <td><label>Taal</label></td>
+                                        <td><label id='book-detail-language'></label></td>
+                                    </tr>
+                                    <tr>
                                         <td><label>Publicatiedatum:</label></td>
                                         <td><label id='book-detail-publication-date'></label></td>
                                     </tr>
