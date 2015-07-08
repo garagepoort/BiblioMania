@@ -40,6 +40,9 @@ class BookFormFiller
         $result['first_print_title'] = $book->first_print_info->title;
         $result['first_print_subtitle'] = $book->first_print_info->subtitle;
         $result['first_print_isbn'] = $book->first_print_info->ISBN;
+        if($book->first_print_info->language != null){
+            $result['first_print_languageId'] = $book->first_print_info->language->id;
+        }
 
         if ($book->first_print_info->country != null) {
             $result['first_print_country'] = $book->first_print_info->country->name;
@@ -231,6 +234,7 @@ class BookFormFiller
         $result['first_print_publication_date_day'] = '';
         $result['first_print_publication_date_month'] = '';
         $result['first_print_publication_date_year'] = '';
+        $result['first_print_languageId'] = '';
         $result['personal_info_owned'] = 'true';
         $result['personal_info_reading_date_input'] = '';
         $result['personal_info_rating'] = '';
