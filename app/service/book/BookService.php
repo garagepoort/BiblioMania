@@ -64,6 +64,11 @@ class BookService
         return Book::where('user_id', '=', Auth::user()->id)->get();
     }
 
+    public function getBooksForList()
+    {
+        return Book::with('publisher', 'authors')->where('user_id', '=', Auth::user()->id)->get();
+    }
+
     public function getBooksWithPersonalBookInfo()
     {
         return Book::with("personal_book_info")->where('user_id', '=', Auth::user()->id)->get();
@@ -268,5 +273,14 @@ class BookService
             }
             $book->useSpriteImage = false;
         }
+    }
+
+    public function getPreferredAuthor(Book $book){
+        foreach($book->authors as $author){
+            if($author->pivot->preferred == true){
+                return $author;
+            }
+        }
+        return null;
     }
 }

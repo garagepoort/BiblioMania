@@ -86,6 +86,14 @@ class BookController extends BaseController
         return $this->bookService->getFilteredBooks($book_id, $filterValues ,$orderBy);
     }
 
+    public function getBooksList(){
+        $books = $this->bookService->getBooksForList();
+        return View::make($this->bookFolder . 'booksList')->with(array(
+            'title' => 'Boeken',
+            'books' => $books
+        ));
+    }
+
     public function getBooksFromSearch()
     {
         $criteria = Input::get('criteria');

@@ -29,8 +29,14 @@ class Book extends Eloquent {
     protected $with = array('publication_date', 'first_print_info', 'language');
 
 	public function preferredAuthor(){
-		$this->belongsToMany('Author', 'book_author')->wherePivot('preferred', '=', true);
+		foreach($this->authors as $author){
+			if($author->pivot->preferred == true){
+				return $author;
+			}
+		}
+		return null;
 	}
+
 	public function secondaryAuthors(){
 		$this->belongsToMany('Author', 'book_author')->withPivot('preferred')->where('preferred', '=', false);
 	}
