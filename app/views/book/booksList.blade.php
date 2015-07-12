@@ -15,6 +15,7 @@
                 <th>Titel</th>
                 <th>Auteur</th>
                 <th>Uitgever</th>
+                <th>Edit</th>
             </tr>
             </thead>
             <tbody>
@@ -28,6 +29,9 @@
                     </td>
                     <td>
                         {{ $book->publisher->name }}
+                    </td>
+                    <td style="text-align: center">
+                            <span bookId="{{ $book->id }}" aria-hidden="true" style="margin-left:10px" class="fa fa-pencil editbook-goto" width="10px"/>
                     </td>
                 </tr>
             @endforeach

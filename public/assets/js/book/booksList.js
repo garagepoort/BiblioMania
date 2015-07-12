@@ -12,4 +12,9 @@ $(document).ready(function() {
     $('.detailPanelTrigger').each(function(){
         addSlidingPanelClickToElement($(this));
     });
+
+    $('.editbook-goto').on('click', function(){
+        var bookId = $(this).attr('bookId');
+        window.location.href = baseUrl + "/editBook/" + bookId;
+    });
 });
