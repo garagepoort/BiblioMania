@@ -283,4 +283,36 @@ class BookService
         }
         return null;
     }
+
+    public function getTotalAmountOfBooksRead()
+    {
+        return Book::join('personal_book_info', 'book_id', '=', 'book.id')
+            ->where('user_id', '=', Auth::user()->id)
+            ->where('personal_book_info.read', '=', 1)
+            ->count();
+    }
+
+    public function getTotalAmountOfBooksUnRead()
+    {
+        return Book::join('personal_book_info', 'book_id', '=', 'book.id')
+            ->where('user_id', '=', Auth::user()->id)
+            ->where('personal_book_info.read', '=', 0)
+            ->count();
+    }
+
+    public function getTotalAmountOfBooksBought()
+    {
+        return Book::join('personal_book_info', 'book_id', '=', 'book.id')
+            ->join('buy_info', 'personal_book_info.id', '=', 'buy_info.personal_book_info_id')
+            ->where('user_id', '=', Auth::user()->id)
+            ->count();
+    }
+
+    public function getTotalAmountOfBooksGotten()
+    {
+        return Book::join('personal_book_info', 'book_id', '=', 'book.id')
+            ->join('gift_info', 'personal_book_info.id', '=', 'gift_info.personal_book_info_id')
+            ->where('user_id', '=', Auth::user()->id)
+            ->count();
+    }
 }

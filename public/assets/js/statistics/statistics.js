@@ -6,11 +6,47 @@ $(function () {
     });
 });
 
-function drawColumnChartFromUrl(div, url, title) {
+function drawDonutChartFromUrl(div, url, width, height) {
     var options = {
-        title: title,
-        width: 400,
-        height: 300,
+        title: '',
+        width: width,
+        height: height,
+        legend: {position: 'none'},
+        pieHole: 0.4,
+        animation: {
+            duration: 1500,
+            startup: true
+        }
+    };
+    var columnChart = new google.visualization.PieChart(document.getElementById(div));
+    var jsonData = getJsonData(url);
+    data = new google.visualization.DataTable(jsonData);
+    columnChart.draw(data, options);
+}
+
+function drawBarChartFromUrl(div, url, width, height) {
+    var options = {
+        title: '',
+        width: width,
+        height: height,
+        bars: 'horizontal',
+        legend: {position: 'none'},
+        animation: {
+            duration: 1500,
+            startup: true
+        }
+    };
+    var columnChart = new google.charts.Bar(document.getElementById(div));
+    var jsonData = getJsonData(url);
+    data = new google.visualization.DataTable(jsonData);
+    columnChart.draw(data, options);
+}
+
+function drawColumnChartFromUrl(div, url, width, height) {
+    var options = {
+        title: '',
+        width: width,
+        height: height,
         animation: {
             duration: 1500,
             startup: true
@@ -30,10 +66,10 @@ function getJsonData(url) {
     }).responseText;
 }
 
-function drawScatterChart(url) {
+function drawScatterChart(url, width, height) {
     var options = {
-        width: 800,
-        height: 600,
+        width: width,
+        height: height,
         chartArea: {
             left: 60,
             top: 10,
