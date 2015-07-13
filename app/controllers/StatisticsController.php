@@ -43,29 +43,122 @@ class StatisticsController extends BaseController
                 array("id" => "", "label" => "Boeken gekregen", "pattern" => "", "type" => "number")
             ),
             "rows" => array(
-                $this->createRowValue("januari", $this->statisticsService->getAmountBooksReadInMonth(1, $year), $this->statisticsService->getAmountBooksRetrievedInMonth(1, $year)),
-                $this->createRowValue("februari", $this->statisticsService->getAmountBooksReadInMonth(2, $year), $this->statisticsService->getAmountBooksRetrievedInMonth(2, $year)),
-                $this->createRowValue("maart", $this->statisticsService->getAmountBooksReadInMonth(3, $year), $this->statisticsService->getAmountBooksRetrievedInMonth(3, $year)),
-                $this->createRowValue("april", $this->statisticsService->getAmountBooksReadInMonth(4, $year), $this->statisticsService->getAmountBooksRetrievedInMonth(4, $year)),
-                $this->createRowValue("mei", $this->statisticsService->getAmountBooksReadInMonth(5, $year), $this->statisticsService->getAmountBooksRetrievedInMonth(5, $year)),
-                $this->createRowValue("juni", $this->statisticsService->getAmountBooksReadInMonth(6, $year), $this->statisticsService->getAmountBooksRetrievedInMonth(6, $year)),
-                $this->createRowValue("juli", $this->statisticsService->getAmountBooksReadInMonth(7, $year), $this->statisticsService->getAmountBooksRetrievedInMonth(7, $year)),
-                $this->createRowValue("augustus", $this->statisticsService->getAmountBooksReadInMonth(8, $year), $this->statisticsService->getAmountBooksRetrievedInMonth(8, $year)),
-                $this->createRowValue("september", $this->statisticsService->getAmountBooksReadInMonth(9, $year), $this->statisticsService->getAmountBooksRetrievedInMonth(9, $year)),
-                $this->createRowValue("oktober", $this->statisticsService->getAmountBooksReadInMonth(10, $year), $this->statisticsService->getAmountBooksRetrievedInMonth(10, $year)),
-                $this->createRowValue("november", $this->statisticsService->getAmountBooksReadInMonth(11, $year), $this->statisticsService->getAmountBooksRetrievedInMonth(11, $year)),
-                $this->createRowValue("december", $this->statisticsService->getAmountBooksReadInMonth(12, $year), $this->statisticsService->getAmountBooksRetrievedInMonth(12, $year))
+                $this->createRowValueForBooksReadPerMonth("januari", $this->statisticsService->getAmountBooksReadInMonth(1, $year), $this->statisticsService->getAmountBooksRetrievedInMonth(1, $year)),
+                $this->createRowValueForBooksReadPerMonth("februari", $this->statisticsService->getAmountBooksReadInMonth(2, $year), $this->statisticsService->getAmountBooksRetrievedInMonth(2, $year)),
+                $this->createRowValueForBooksReadPerMonth("maart", $this->statisticsService->getAmountBooksReadInMonth(3, $year), $this->statisticsService->getAmountBooksRetrievedInMonth(3, $year)),
+                $this->createRowValueForBooksReadPerMonth("april", $this->statisticsService->getAmountBooksReadInMonth(4, $year), $this->statisticsService->getAmountBooksRetrievedInMonth(4, $year)),
+                $this->createRowValueForBooksReadPerMonth("mei", $this->statisticsService->getAmountBooksReadInMonth(5, $year), $this->statisticsService->getAmountBooksRetrievedInMonth(5, $year)),
+                $this->createRowValueForBooksReadPerMonth("juni", $this->statisticsService->getAmountBooksReadInMonth(6, $year), $this->statisticsService->getAmountBooksRetrievedInMonth(6, $year)),
+                $this->createRowValueForBooksReadPerMonth("juli", $this->statisticsService->getAmountBooksReadInMonth(7, $year), $this->statisticsService->getAmountBooksRetrievedInMonth(7, $year)),
+                $this->createRowValueForBooksReadPerMonth("augustus", $this->statisticsService->getAmountBooksReadInMonth(8, $year), $this->statisticsService->getAmountBooksRetrievedInMonth(8, $year)),
+                $this->createRowValueForBooksReadPerMonth("september", $this->statisticsService->getAmountBooksReadInMonth(9, $year), $this->statisticsService->getAmountBooksRetrievedInMonth(9, $year)),
+                $this->createRowValueForBooksReadPerMonth("oktober", $this->statisticsService->getAmountBooksReadInMonth(10, $year), $this->statisticsService->getAmountBooksRetrievedInMonth(10, $year)),
+                $this->createRowValueForBooksReadPerMonth("november", $this->statisticsService->getAmountBooksReadInMonth(11, $year), $this->statisticsService->getAmountBooksRetrievedInMonth(11, $year)),
+                $this->createRowValueForBooksReadPerMonth("december", $this->statisticsService->getAmountBooksReadInMonth(12, $year), $this->statisticsService->getAmountBooksRetrievedInMonth(12, $year))
             )
         );
         return json_encode($data);
     }
 
-    private function createRowValue($title, $valueRead, $valueRetrieved)
+    public function getOverviewChart()
+    {
+        $totalBooks = $this->bookService->getTotalAmountOfBooksInLibrary();
+        $totalOwned = $this->bookService->getTotalAmountOfBooksOwned();
+
+        $totalRead = $this->bookService->getTotalAmountOfBooksRead();
+        $totalUnread = $totalBooks - $totalRead;
+
+        $totalBought = $this->bookService->getTotalAmountOfBooksBought();
+        $totalGift = $totalBooks-$totalBought;
+
+        $data = array(
+            "cols" => array(
+                array("id" => "", "label" => "Boeken", "pattern" => "", "type" => "string"),
+                array("id" => "", "label" => "Aantal boeken", "pattern" => "", "type" => "number")
+            ),
+            "rows" => array(
+                $this->createRowValueForPieChart("Totaal", $totalBooks),
+                $this->createRowValueForPieChart("In collectie", $totalOwned),
+                $this->createRowValueForPieChart("Gelezen", $totalRead),
+                $this->createRowValueForPieChart("Ongelezen", $totalUnread),
+                $this->createRowValueForPieChart("Gekocht", $totalBought),
+                $this->createRowValueForPieChart("Gekregen", $totalGift),
+            )
+        );
+        return json_encode($data);
+    }
+
+    public function getBooksPerGenreChart()
+    {
+        $rows = array();
+        $genres = $this->statisticsService->getBooksPerGenre();
+        foreach (array_keys($genres) as $genreName) {
+            array_push($rows, $this->createRowValueForPieChart($genreName, $genres[$genreName]));
+        }
+
+
+        $data = array(
+            "cols" => array(
+                array("id" => "", "label" => "Genre", "pattern" => "", "type" => "string"),
+                array("id" => "", "label" => "Aantal boeken", "pattern" => "", "type" => "number")
+            ),
+            "rows" => $rows
+        );
+        return json_encode($data);
+    }
+
+    public function getBooksAddedPerYearChart()
+    {
+        $rows = array();
+        $years = $this->statisticsService->getBooksAddedPerYear();
+        foreach (array_keys($years) as $year) {
+            array_push($rows, $this->createRowValueForPieChart($year, $years[$year]));
+        }
+
+
+        $data = array(
+            "cols" => array(
+                array("id" => "", "label" => "Genre", "pattern" => "", "type" => "string"),
+                array("id" => "", "label" => "Aantal boeken", "pattern" => "", "type" => "number")
+            ),
+            "rows" => $rows
+        );
+        return json_encode($data);
+    }
+    public function getBooksReadPerYearChart()
+    {
+        $rows = array();
+        $years = $this->statisticsService->getBooksAddedPerYear();
+        foreach (array_keys($years) as $year) {
+            array_push($rows, $this->createRowValueForPieChart($year, $years[$year]));
+        }
+
+
+        $data = array(
+            "cols" => array(
+                array("id" => "", "label" => "Genre", "pattern" => "", "type" => "string"),
+                array("id" => "", "label" => "Aantal boeken", "pattern" => "", "type" => "number")
+            ),
+            "rows" => $rows
+        );
+        return json_encode($data);
+    }
+
+    private function createRowValueForBooksReadPerMonth($title, $valueRead, $valueRetrieved)
     {
         return array("c" => array(
             array("v" => $title),
             array("v" => $valueRead),
             array("v" => $valueRetrieved)
+        )
+        );
+    }
+
+    private function createRowValueForPieChart($title, $value)
+    {
+        return array("c" => array(
+            array("v" => $title),
+            array("v" => $value)
         )
         );
     }

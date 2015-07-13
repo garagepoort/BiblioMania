@@ -8,7 +8,7 @@
     {{ HTML::script('assets/js/book/bookSlidingPanel.js'); }}
     {{ HTML::script('assets/js/book/booksList.js'); }}
 
-    <div class="list-container">
+    <div class="list-container table-responsive">
         <table id="bookEditList" class="table">
             <thead>
             <tr>
