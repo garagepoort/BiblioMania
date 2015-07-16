@@ -498,9 +498,6 @@ table.book-detail-info-table td {
   color: #aaa;
 }
 .tab-content {
-  border-left: 1px solid #ffffff;
-  border-right: 1px solid #ffffff;
-  border-bottom: 1px solid #ffffff;
   padding: 10px;
   background-color: #ffffff;
   color: #2d6ca2;
