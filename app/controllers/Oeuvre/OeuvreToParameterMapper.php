@@ -8,7 +8,7 @@ class OeuvreToParameterMapper {
             $titles = explode("\n", $oeuvreText);
             foreach ($titles as $title) {
                 $res = explode(" - ", $title);
-                $bookFromAuthorParameters = new BookFromAuthorParameters($res[1], $res[0]);
+                $bookFromAuthorParameters = new BookFromAuthorParameters(trim($res[1]), trim($res[0]));
 
                 array_push($oeuvreList, $bookFromAuthorParameters);
             }

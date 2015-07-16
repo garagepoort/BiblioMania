@@ -46,6 +46,9 @@ class BookCreationParameters {
         return $this->extraBookInfoParameters;
     }
 
+    /**
+     * @return AuthorInfoParameters
+     */
     public function getFirstAuthorInfoParameters()
     {
         return $this->authorInfoParameters[0];
