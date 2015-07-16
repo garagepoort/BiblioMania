@@ -19,9 +19,10 @@ function drawDonutChartFromUrl(div, url, width, height) {
         }
     };
     var columnChart = new google.visualization.PieChart(document.getElementById(div));
-    var jsonData = getJsonData(url);
-    data = new google.visualization.DataTable(jsonData);
-    columnChart.draw(data, options);
+    getJsonData(url, function (jsonData) {
+        var data = new google.visualization.DataTable(jsonData);
+        columnChart.draw(data, options);
+    });
 }
 
 function drawBarChartFromUrl(div, url, width, height) {
@@ -37,9 +38,10 @@ function drawBarChartFromUrl(div, url, width, height) {
         }
     };
     var columnChart = new google.charts.Bar(document.getElementById(div));
-    var jsonData = getJsonData(url);
-    data = new google.visualization.DataTable(jsonData);
-    columnChart.draw(data, options);
+    getJsonData(url, function (jsonData) {
+        var data = new google.visualization.DataTable(jsonData);
+        columnChart.draw(data, options);
+    });
 }
 
 function drawColumnChartFromUrl(div, url, width, height) {
@@ -53,17 +55,14 @@ function drawColumnChartFromUrl(div, url, width, height) {
         }
     };
     var columnChart = new google.visualization.ColumnChart(document.getElementById(div));
-    var jsonData = getJsonData(url);
-    data = new google.visualization.DataTable(jsonData);
-    columnChart.draw(data, options);
+    getJsonData(url, function (jsonData) {
+        var data = new google.visualization.DataTable(jsonData);
+        columnChart.draw(data, options);
+    });
 }
 
-function getJsonData(url) {
-    return $.ajax({
-        url: url,
-        dataType: "json",
-        async: false
-    }).responseText;
+function getJsonData(url, onSuccess) {
+    return $.getJSON(url, onSuccess);
 }
 
 function drawScatterChart(url, width, height) {
@@ -86,11 +85,10 @@ function drawScatterChart(url, width, height) {
         tooltip: {isHtml: true}
     }
 
-    data = getJsonData(url)
-
-    var pubYearTable = new google.visualization.DataTable(data);
-
-    var chart = new google.visualization.ScatterChart(document.getElementById("chart_div"));
-    chart.draw(pubYearTable, options);
+    getJsonData(url, function (jsonData) {
+        var data = new google.visualization.DataTable(jsonData);
+        var chart = new google.visualization.ScatterChart(document.getElementById("chart_div"));
+        chart.draw(data, options);
+    });
 
 }
