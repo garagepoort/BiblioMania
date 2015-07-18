@@ -25,6 +25,7 @@ Route::group(array('before' => 'auth'), function() {
     Route::get('editBook/{id}', 'BookController@goToEditBook');
     Route::get('logOut', 'LoginController@logOut');
     Route::get('importBooks', 'BookImportController@importBooks');
+    Route::get('importLanguageFirstPrintInfo', 'BookImportController@importLanguageFirstPrintInfo');
 
 //STATISTICS
     Route::get('goToStatistics', 'StatisticsController@goToStatistics');

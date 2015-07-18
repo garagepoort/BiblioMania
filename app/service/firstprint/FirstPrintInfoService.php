@@ -32,10 +32,12 @@ class FirstPrintInfoService
         $firstPrintInfo->title = $firstPrintInfoParameters->getTitle();
         $firstPrintInfo->subtitle = $firstPrintInfoParameters->getSubtitle();
         $firstPrintInfo->ISBN = $firstPrintInfoParameters->getIsbn();
-        if ($firstPrintInfoParameters->getLanguage() != null) {
-            $firstPrintInfo->language()->associate($firstPrintInfoParameters->getLanguage());
+        if (!StringUtils::isEmpty($firstPrintInfoParameters->getLanguage())) {
+            $language = $this->languageService->findOrSave($firstPrintInfoParameters->getLanguage());
+            $firstPrintInfo->language()->associate($language);
         }
         if ($firstPrintInfoParameters->getPublicationDate() != null) {
+            $firstPrintInfoParameters->getPublicationDate()->save();
             $firstPrintInfo->publication_date()->associate($firstPrintInfoParameters->getPublicationDate());
         }
         $country = null;

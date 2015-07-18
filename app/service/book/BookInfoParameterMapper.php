@@ -26,8 +26,6 @@ class BookInfoParameterMapper {
             Input::get('book_publication_date_month'),
             Input::get('book_publication_date_year'));
 
-        $language = $this->languageService->find(Input::get('book_languageId'));
-
         $tags = StringUtils::split(Input::get('book_tags'), self::TAG_DELIMITER);
 
         return new BookInfoParameters(
@@ -39,7 +37,7 @@ class BookInfoParameterMapper {
             $publicationDate,
             Input::get('book_publisher'),
             Input::get('book_country'),
-            $language,
+            Input::get('book_language'),
             $book_info_retail_price,
             $tags
         );

@@ -41,7 +41,7 @@ class BookFormFiller
         $result['first_print_subtitle'] = $book->first_print_info->subtitle;
         $result['first_print_isbn'] = $book->first_print_info->ISBN;
         if($book->first_print_info->language != null){
-            $result['first_print_languageId'] = $book->first_print_info->language->id;
+            $result['first_print_language'] = $book->first_print_info->language;
         }
 
         if ($book->first_print_info->country != null) {
@@ -116,9 +116,9 @@ class BookFormFiller
         }
 
         if ($book->language != null) {
-            $result['book_languageId'] = $book->language->id;
+            $result['book_language'] = $book->language->language;
         } else {
-            $result['book_languageId'] = '';
+            $result['book_language'] = '';
         }
 
         if ($book->genre != null) {
@@ -215,7 +215,7 @@ class BookFormFiller
         $result['book_country'] = '';
         $result['book_serie'] = '';
         $result['book_publisher_serie'] = '';
-        $result['book_languageId'] = '';
+        $result['book_language'] = '';
         $result['book_old_tags'] = '';
         $result['book_genre_input'] = '';
         $result['book_publication_date_day'] = '';
@@ -236,7 +236,7 @@ class BookFormFiller
         $result['first_print_publication_date_day'] = '';
         $result['first_print_publication_date_month'] = '';
         $result['first_print_publication_date_year'] = '';
-        $result['first_print_languageId'] = '';
+        $result['first_print_language'] = '';
         $result['personal_info_owned'] = 'true';
         $result['personal_info_reading_date_input'] = '';
         $result['personal_info_rating'] = '';
