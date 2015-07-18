@@ -38,7 +38,7 @@ class LanguageService
     {
         $result = array();
         foreach (Language::all() as $language) {
-            $result[$language->id] = $language->language;
+            $result[$language->language] = $language->language;
         }
         return $result;
     }

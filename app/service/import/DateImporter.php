@@ -31,7 +31,7 @@ class DateImporter
                 $month = DateImporter::getMonthFromDateValue($dateValues[1]);
                 $year = DateImporter::getYearFromDateValue($dateValues[2]);
             }
-            $date = $this->dateService->createDate($day, $month, $year);
+            $date = new Date(array('day' => $day, 'month' => $month, 'year' => $year));
             return $date;
         }
         return null;

@@ -8,24 +8,21 @@ class BookInfoParameterMapperTest extends TestCase {
     const GENRE = 'genre';
     const PUBLISHER = 'publisher';
     const COUNTRY = 'country';
-    const LANGUAGE_ID = 2;
+    const LANGUAGE = "LANGUAGE";
     const PUBLICATION_DAY = 21;
     const PUBLICATION_MONTH = 12;
     const PUBLICATION_YEAR = 1991;
     const BUY = 'BUY';
     const RETAIL_PRICE = 123;
     const GIFT = 'GIFT';
+    const TAGS = 'TAGS;TAGS2';
 
     /** @var  BookInfoParameterMapper */
     private $bookInfoParameterMapper;
     /** @var  DateService */
     private $dateServiceMock;
-    /** @var  LanguageService */
-    private $languageService;
     /** @var  Date */
     private $publicationDateMock;
-    /** @var  Language */
-    private $languageMock;
 
     public function setUp(){
         parent::setUp();
@@ -45,7 +42,6 @@ class BookInfoParameterMapperTest extends TestCase {
         $mockInput->shouldReceive('input')->with('book_publication_date_month', null)->andReturn(self::PUBLICATION_MONTH);
         $mockInput->shouldReceive('input')->with('book_publication_date_year', null)->andReturn(self::PUBLICATION_YEAR);
         $this->dateServiceMock->shouldReceive('createDate')->once()->with(self::PUBLICATION_DAY, self::PUBLICATION_MONTH, self::PUBLICATION_YEAR)->andReturn($this->publicationDateMock);
-        $this->languageService->shouldReceive('find')->once()->with(self::LANGUAGE_ID)->andReturn($this->languageMock);
 
         $mockInput->shouldReceive('input')->with('buyOrGift', null)->andReturn(self::BUY);
         $mockInput->shouldReceive('input')->with('buy_book_info_retail_price', null)->andReturn(self::RETAIL_PRICE);
@@ -55,7 +51,8 @@ class BookInfoParameterMapperTest extends TestCase {
         $mockInput->shouldReceive('input')->with('book_genre', null)->andReturn(self::GENRE);
         $mockInput->shouldReceive('input')->with('book_publisher', null)->andReturn(self::PUBLISHER);
         $mockInput->shouldReceive('input')->with('book_country', null)->andReturn(self::COUNTRY);
-        $mockInput->shouldReceive('input')->with('book_languageId', null)->andReturn(self::LANGUAGE_ID);
+        $mockInput->shouldReceive('input')->with('book_language', null)->andReturn(self::LANGUAGE);
+        $mockInput->shouldReceive('input')->with('book_tags', null)->andReturn(self::TAGS);
         Input::swap($mockInput);
 
         $bookInfoParameters = $this->bookInfoParameterMapper->create();
@@ -67,8 +64,9 @@ class BookInfoParameterMapperTest extends TestCase {
         $this->assertEquals(self::GENRE, $bookInfoParameters->getGenre());
         $this->assertEquals(self::PUBLISHER, $bookInfoParameters->getPublisherName());
         $this->assertEquals(self::COUNTRY, $bookInfoParameters->getCountryName());
-        $this->assertEquals($this->languageMock, $bookInfoParameters->getLanguage());
+        $this->assertEquals(self::LANGUAGE, $bookInfoParameters->getLanguage());
         $this->assertEquals(self::RETAIL_PRICE, $bookInfoParameters->getRetailPrice());
+        $this->assertEquals(array("TAGS", "TAGS2"), $bookInfoParameters->getTags());
         $this->assertEquals($this->publicationDateMock, $bookInfoParameters->getPublicationDate());
     }
 
@@ -80,7 +78,6 @@ class BookInfoParameterMapperTest extends TestCase {
         $mockInput->shouldReceive('input')->with('book_publication_date_month', null)->andReturn(self::PUBLICATION_MONTH);
         $mockInput->shouldReceive('input')->with('book_publication_date_year', null)->andReturn(self::PUBLICATION_YEAR);
         $this->dateServiceMock->shouldReceive('createDate')->once()->with(self::PUBLICATION_DAY, self::PUBLICATION_MONTH, self::PUBLICATION_YEAR)->andReturn($this->publicationDateMock);
-        $this->languageService->shouldReceive('find')->once()->with(self::LANGUAGE_ID)->andReturn($this->languageMock);
         $mockInput->shouldReceive('input')->with('buyOrGift', null)->andReturn(self::GIFT);
         $mockInput->shouldReceive('input')->with('book_title', null)->andReturn(self::TITLE);
         $mockInput->shouldReceive('input')->with('book_subtitle', null)->andReturn(self::SUBTITLE);
@@ -88,7 +85,8 @@ class BookInfoParameterMapperTest extends TestCase {
         $mockInput->shouldReceive('input')->with('book_genre', null)->andReturn(self::GENRE);
         $mockInput->shouldReceive('input')->with('book_publisher', null)->andReturn(self::PUBLISHER);
         $mockInput->shouldReceive('input')->with('book_country', null)->andReturn(self::COUNTRY);
-        $mockInput->shouldReceive('input')->with('book_languageId', null)->andReturn(self::LANGUAGE_ID);
+        $mockInput->shouldReceive('input')->with('book_language', null)->andReturn(self::LANGUAGE);
+        $mockInput->shouldReceive('input')->with('book_tags', null)->andReturn(self::TAGS);
 
         $mockInput->shouldReceive('input')->with('gift_book_info_retail_price', null)->andReturn(765);
         Input::swap($mockInput);

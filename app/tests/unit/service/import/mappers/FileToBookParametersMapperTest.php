@@ -21,19 +21,16 @@ class FileToBookParametersMapperTest extends TestCase {
         $this->dateImporter->shouldReceive('importDate')->once()->with("some_date")->andReturn($this->dateMock);
 
         $line_values = [50];
-        $line_values[LineMapping::BookTitle] = "title";
-        $line_values[LineMapping::BookSubtitle] = "subtitle";
-        $line_values[LineMapping::BookISBN] = "1234567890123";
-        $line_values[LineMapping::BookRetailPrice] = "euro 20";
-        $line_values[LineMapping::BookPublisherCountry] = "publisherCountry";
-        $line_values[LineMapping::BookPublisher] = "publisher";
-        $line_values[LineMapping::BookLanguage] = "bookLanguage";
-        $line_values[LineMapping::BookPublicationDate] = "some_date";
+        $line_values[LineMapping::$BookTitle] = "title";
+        $line_values[LineMapping::$BookSubtitle] = "subtitle";
+        $line_values[LineMapping::$BookISBN] = "1234567890123";
+        $line_values[LineMapping::$BookRetailPrice] = "euro 20";
+        $line_values[LineMapping::$BookPublisherCountry] = "publisherCountry";
+        $line_values[LineMapping::$BookPublisher] = "publisher";
+        $line_values[LineMapping::$BookLanguage] = "bookLanguage";
+        $line_values[LineMapping::$BookPublicationDate] = "some_date";
 
         $parameters = $this->fileToBookParametersMapper->map($line_values);
-
-        $expectedLanguage = new Language();
-        $expectedLanguage->name = "bookLanguage";
 
         $this->assertEquals($parameters->getTitle(), "title");
         $this->assertEquals($parameters->getSubtitle(), "subtitle");
@@ -41,7 +38,7 @@ class FileToBookParametersMapperTest extends TestCase {
         $this->assertEquals($parameters->getRetailPrice(), "20");
         $this->assertEquals($parameters->getCountryName(), "publisherCountry");
         $this->assertEquals($parameters->getPublisherName(), "publisher");
-        $this->assertEquals($parameters->getLanguage(), $expectedLanguage);
+        $this->assertEquals($parameters->getLanguage(), "bookLanguage");
         $this->assertEquals($parameters->getPublicationDate(), $this->dateMock);
     }
 }

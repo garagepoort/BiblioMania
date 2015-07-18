@@ -84,5 +84,4 @@ class ImportFileMapper
         fclose($handle);
         return $bookCreationParameters;
     }
-
 }
