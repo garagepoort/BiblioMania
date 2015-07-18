@@ -14,7 +14,7 @@ class BookInfoParameters
     private $retail_price;
     private $tags;
 
-    function __construct($book_id, $title, $subtitle, $isbn, $genre, Date $publication_date = null, $publisherName, $countryName, Language $language, $retail_price, $tags)
+    function __construct($book_id, $title, $subtitle, $isbn, $genre, Date $publication_date = null, $publisherName, $countryName, $language, $retail_price, $tags)
     {
         $this->book_id = $book_id;
         $this->title = $title;

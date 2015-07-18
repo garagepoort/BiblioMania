@@ -24,12 +24,10 @@ class FileToBookParametersMapper {
             array_push($tags, $tagName);
         }
 
-        $language = new Language();
-        $language->name = $line_values[LineMapping::$BookLanguage];
-
         $bookRetailPrice = $line_values[LineMapping::$BookRetailPrice];
         $bookRetailPrice = StringUtils::replace($bookRetailPrice, "€", "");
         $bookRetailPrice = StringUtils::replace($bookRetailPrice, " ", "");
+        $bookRetailPrice = StringUtils::replace($bookRetailPrice, ",", ".");
 
         return new BookInfoParameters(
             null,
@@ -40,7 +38,7 @@ class FileToBookParametersMapper {
             $publicationDate,
             $line_values[LineMapping::$BookPublisher],
             $line_values[LineMapping::$BookPublisherCountry],
-            $language,
+            $line_values[LineMapping::$BookLanguage],
             $bookRetailPrice,
             $tags);
     }
