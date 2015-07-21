@@ -39,7 +39,7 @@
             <div class="form-group">
                 {{ Form::label('personal_info_reading_dates_label', 'Lees datum / data:', array('class' => 'col-md-3')); }}
                 <div class="col-md-3">
-                    {{ Form::text('personal_info_reading_dates', $personal_info_reading_date_input, array('id'=>'personal_info_reading_date_input', 'class' => 'input-sm multidatepicker', 'placeholder' => 'ontvangstdatum')); }}
+                    {{ Form::text('personal_info_reading_dates', $personal_info_reading_date_input, array('id'=>'personal_info_reading_date_input', 'class' => 'input-sm multidatepicker', 'placeholder' => 'leesdatum')); }}
                 </div>
             </div>
 
