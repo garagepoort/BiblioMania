@@ -156,8 +156,8 @@ class BookFormFiller
             if(!StringUtils::isEmpty($buy_date)){
                 $result['buy_info_buy_date'] = DateFormatter::toDateWithSlashes($buy_date);
             }
-            $result['buy_info_price_payed'] = $book->personal_book_info->buy_info->price_payed;
-            $result['buy_book_info_retail_price'] = $book->retail_price;
+            $result['buy_info_price_payed'] = StringUtils::replace($book->personal_book_info->buy_info->price_payed, ".", ",");
+            $result['buy_book_info_retail_price'] = StringUtils::replace($book->retail_price, ".", ",");
             $result['buy_info_reason'] = $book->personal_book_info->buy_info->reason;
             $result['buy_info_shop'] = $book->personal_book_info->buy_info->shop;
             if ($book->personal_book_info->buy_info->city != null) {
@@ -177,7 +177,7 @@ class BookFormFiller
             if(!StringUtils::isEmpty($receipt_date)){
                 $result['gift_info_receipt_date'] = DateFormatter::toDateWithSlashes($receipt_date);
             }
-            $result['gift_book_info_retail_price'] = $book->retail_price;
+            $result['gift_book_info_retail_price'] = StringUtils::replace($book->retail_price, ".", ",");
             $result['gift_info_from'] = $book->personal_book_info->gift_info->from;
             $result['gift_info_occasion'] = $book->personal_book_info->gift_info->occasion;
             $result['gift_info_reason'] = $book->personal_book_info->gift_info->reason;
