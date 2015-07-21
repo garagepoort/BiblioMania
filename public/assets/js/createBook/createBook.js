@@ -22,6 +22,11 @@ function validateForm(){
         showError(errorMessage);
         return false;
     }
+    errorMessage = validateBuyInfo();
+    if(errorMessage){
+        showError(errorMessage);
+        return false;
+    }
     hideError();
     return true;
 }

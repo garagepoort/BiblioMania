@@ -15,14 +15,18 @@ class BuyInfoService
 
 
     public function findOrCreate(BuyInfoParameters $buyInfoParameters, PersonalBookInfo $personalBookInfo){
-        $country = $this->countryService->findOrCreate($buyInfoParameters->getCountry());
-
         $buyInfo = BuyInfo::where('personal_book_info_id', '=', $personalBookInfo->id)->first();
         if ($buyInfo == null) {
             $buyInfo = new BuyInfo();
         }
 
-        if (!is_null($buyInfoParameters->getCity())) {
+        $country = null;
+        if(!StringUtils::isEmpty($buyInfoParameters->getCountry())){
+            $country = $this->countryService->findOrCreate($buyInfoParameters->getCountry());
+            $buyInfo->country_id = $country->id;
+        }
+
+        if (!is_null($buyInfoParameters->getCity()) && !is_null($country)) {
             $city = $this->cityService->save($buyInfoParameters->getCity(), $country->id);
             $buyInfo->city_id = $city->id;
         }
