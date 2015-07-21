@@ -58,7 +58,7 @@
             </div>
 
             <div class="material-card" style="clear: both;">
-                <div class="material-card-title">Boeken in bezit</div>
+                <div class="material-card-title">Boeken in collectie</div>
                 <div class="material-card-content">
                     <table id="author-books-table" class="table">
                         <thead>
