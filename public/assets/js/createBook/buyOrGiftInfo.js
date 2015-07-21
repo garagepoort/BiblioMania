@@ -1,3 +1,11 @@
+function validateBuyInfo() {
+    var errorMessage = null;
+    if($('#buy_info_city').val() != '' && $('#buy_info_country').val() == ''){
+        errorMessage = "Land mag niet leeg zijn als stad winkel is ingevuld";
+    }
+    return errorMessage;
+}
+
 $(function() {
     togglePanels();
 
