@@ -23,7 +23,7 @@ class Author extends Eloquent {
 
     public function oeuvre()
     {
-        return $this->hasMany('BookFromAuthor');
+        return $this->hasMany('BookFromAuthor')->orderBy('publication_year');
     }
 
     public function date_of_birth(){

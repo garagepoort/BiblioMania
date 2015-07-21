@@ -20,7 +20,8 @@ $(function () {
 
 
     $('#author-oeuvre-table').DataTable({
-       paging: false
+       paging: false,
+        order: [[ 1, "asc" ]]
     });
 
     $(".oeuvre-author-cross").on("click", function () {
