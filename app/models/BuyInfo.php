@@ -5,11 +5,16 @@ class BuyInfo extends Eloquent {
 
     protected $fillable = array('buy_date', 'price_payed', 'reason', 'shop', 'city_id');
 
-    protected $with = array('city');
+    protected $with = array('city', 'country');
 
 	public function city()
     {
         return $this->belongsTo('City');
+    }
+
+    public function country()
+    {
+        return $this->belongsTo('Country');
     }
 
     public function personal_book_info(){
