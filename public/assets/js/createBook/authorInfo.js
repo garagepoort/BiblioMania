@@ -213,7 +213,7 @@ function createOeuvreList() {
 
         if (lastKnownAuthor !== null) {
             $.each(lastLoadedOeuvre, function (index, obj) {
-                list = list + "<li bookFromAuthorTitle='" + obj.title + "'>";
+                list = list + "<li bookfromauthortitle='" + obj.title + "'>";
                 if (obj.books.length == 0) {
                     list = list + obj.title;
                 } else {
@@ -233,7 +233,7 @@ function createOeuvreList() {
             var year = splitString[0];
             var title = splitString[1];
             if (title) {
-                list = list + "<li bookFromAuthorTitle='" + title + "'>";
+                list = list + "<li bookfromauthortitle='" + title + "'>";
                 list = list + title;
                 list = list + "<span class='author-oeuvre-link-icon fa fa-chain-broken'></span>";
                 list = list + '</li>'
@@ -270,7 +270,7 @@ function link(linkedIcon) {
     linkedIcon.removeClass('fa-chain-broken');
     linkedIcon.addClass('fa-chain');
     linkedIcon.addClass('linked');
-    $('#book-from-author-id-input').val(linkedIcon.parent().attr('bookFromAuthorTitle'));
+    $('#book-from-author-id-input').attr('value', linkedIcon.parent().attr('bookfromauthortitle'));
 }
 
 function setAuthorName(authorName) {
