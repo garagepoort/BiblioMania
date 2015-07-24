@@ -107,6 +107,8 @@ class BookService
             ->leftJoin('serie', 'book.serie_id', '=', 'serie.id')
             ->leftJoin('publisher_serie', 'book.publisher_serie_id', '=', 'publisher_serie.id')
             ->leftJoin('book_author', 'book_author.book_id', '=', 'book.id')
+            ->leftJoin('genre', 'genre.id', '=', 'book.genre_id')
+            ->leftJoin('genre as genre_parent', 'genre.parent_id', '=', 'genre_parent.id')
             ->leftJoin('author', 'book_author.author_id', '=', 'author.id')
             ->leftJoin('personal_book_info', 'personal_book_info.book_id', '=', 'book.id')
             ->leftJoin('first_print_info', 'first_print_info.id', '=', 'book.first_print_info_id')
@@ -153,6 +155,7 @@ class BookService
                         ->orWhere(BookFilterType::AUTHOR_FIRSTNAME, $operatorString, $queryString)
                         ->orWhere(BookFilterType::PUBLISHER_SERIE, $operatorString, $queryString)
                         ->orWhere(BookFilterType::BOOK_SERIE, $operatorString, $queryString)
+                        ->orWhere(BookFilterType::BOOK_GENRE, $operatorString, $queryString)
                         ->orWhere(BookFilterType::BOOK_TITLE, $operatorString, $queryString);
                 });
             }
