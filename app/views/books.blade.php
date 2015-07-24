@@ -11,6 +11,7 @@
                     </button>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="#book.title">Titel</a></li>
+                        <li><a href="#genre.name">Genre</a></li>
                         <li><a href="#author.name">Auteur naam</a></li>
                         <li><a href="#author.firstname">Auteur voornaam</a></li>
                         <li><a href="#serie.name">Boek serie</a></li>
