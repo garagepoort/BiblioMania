@@ -158,8 +158,11 @@ class BookFormFiller
             }
             $result['buy_info_price_payed'] = StringUtils::replace($book->personal_book_info->buy_info->price_payed, ".", ",");
             $result['buy_book_info_retail_price'] = StringUtils::replace($book->retail_price, ".", ",");
+            $result['buy_book_info_retail_price_currency'] = $book->currency;
             $result['buy_info_reason'] = $book->personal_book_info->buy_info->reason;
             $result['buy_info_shop'] = $book->personal_book_info->buy_info->shop;
+
+            $result['buy_info_price_payed_currency'] = $book->personal_book_info->buy_info->currency;
             if ($book->personal_book_info->buy_info->city != null) {
                 $result['buy_info_city'] = $book->personal_book_info->buy_info->city->name;
             }
@@ -249,6 +252,8 @@ class BookFormFiller
         $result['buy_info_buy_date'] = '';
         $result['buy_info_price_payed'] = '';
         $result['buy_book_info_retail_price'] = '';
+        $result['buy_book_info_retail_price_currency'] = '';
+        $result['buy_info_price_payed_currency'] = '';
         $result['buy_info_reason'] = '';
         $result['buy_info_shop'] = '';
         $result['buy_info_city'] = '';

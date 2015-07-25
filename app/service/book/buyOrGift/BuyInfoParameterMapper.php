@@ -13,7 +13,8 @@ class BuyInfoParameterMapper {
             Input::get('buy_info_city'),
             Input::get('buy_info_reason'),
             Input::get('buy_info_country'),
-            Input::get('buy_info_price_payed')
+            Input::get('buy_info_price_payed'),
+            Input::get('buy_info_price_payed_currency')
         );
     }
 }

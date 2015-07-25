@@ -30,11 +30,14 @@ class BookController extends BaseController
     private $countryService;
     /** @var  LanguageService */
     private $languageService;
+    /** @var  CurrencyService */
+    private $currencyService;
 
 
     public function __construct()
     {
         $this->bookService = App::make('BookService');
+        $this->currencyService = App::make('CurrencyService');
         $this->bookFormValidator = App::make('BookFormValidator');
         $this->bookCreationService = App::make('BookCreationService');
         $this->authorInfoParameterMapper = App::make('AuthorInfoParameterMapper');
@@ -131,6 +134,7 @@ class BookController extends BaseController
         }
         $withArray['title'] = 'Boek toevoegen';
         $withArray['languages'] = $this->languageService->getLanguagesMap();
+        $withArray['currencies'] = $this->currencyService->getCurrencies();
         $withArray['covers'] = $covers;
         $withArray['states'] = $states;
         $withArray['genres'] = $genres;
