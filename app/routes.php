@@ -69,6 +69,13 @@ Route::group(array('before' => 'auth'), function() {
     Route::get('scaleImages', 'ImageController@scaleImages');
 });
 
+Route::group(['prefix' => 'api'], function()
+{
+    Route::resource('authenticate', 'AuthenticateController', ['only' => ['index']]);
+    Route::post('authenticate', 'AuthenticateController@authenticate');
+    Route::get('users', 'AuthenticateController@users');
+});
+
 
 //ADMIN
 Route::group(array('before' => 'admin'), function() {
