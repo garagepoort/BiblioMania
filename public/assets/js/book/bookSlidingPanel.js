@@ -128,7 +128,7 @@ function fillInBookInfo(book) {
         $('book-detail-small-info-panel').hide();
     }
     // EXTRA INFO
-    showOrHide($('#book-detail-retail-price'), "€ " + book.retail_price);
+    showOrHide($('#book-detail-retail-price'), book.retail_price + " " + book.currency);
     showOrHide($('#book-detail-number-of-pages'), book.number_of_pages);
     showOrHide($('#book-detail-print'), book.print);
     showOrHide($('#book-translator'), book.translator);
@@ -147,7 +147,7 @@ function fillInBookInfo(book) {
         $('.buy-info-tr').show();
         $('.gift-info-tr').hide();
         showOrHide($('#book-detail-buy-info-date'), stringToFormattedDate(book.personal_book_info.buy_info.buy_date));
-        showOrHide($('#book-detail-buy-info-price-payed'), book.personal_book_info.buy_info.price_payed);
+        showOrHide($('#book-detail-buy-info-price-payed'), book.personal_book_info.buy_info.price_payed + " " + book.personal_book_info.buy_info.currency);
         showOrHide($('#book-detail-buy-info-shop'), book.personal_book_info.buy_info.shop);
         if (book.personal_book_info.buy_info.city != null) {
             showOrHide($('#book-detail-buy-info-city'), book.personal_book_info.buy_info.city.name);
