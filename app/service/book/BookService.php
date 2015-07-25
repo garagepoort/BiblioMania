@@ -223,6 +223,7 @@ class BookService
         $book->type_of_cover = $bookCreationParameters->getCoverInfoParameters()->getCoverType();
         $book->user_id = Auth::user()->id;
         $book->retail_price = $bookCreationParameters->getBookInfoParameters()->getRetailPrice();
+        $book->currency = $bookCreationParameters->getBookInfoParameters()->getCurrency();
         $book->publisher_id = $publisher->id;
         $book->publisher_country_id = $country->id;
         $book->first_print_info_id = $firstPrintInfo->id;

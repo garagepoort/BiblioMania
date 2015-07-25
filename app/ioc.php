@@ -16,6 +16,10 @@ App::singleton('GenreService', function () {
     return new GenreService();
 });
 
+App::singleton('CurrencyService', function () {
+    return new CurrencyService();
+});
+
 App::singleton('TagService', function () {
     return new TagService();
 });

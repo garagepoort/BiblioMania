@@ -13,8 +13,9 @@ class BookInfoParameters
     private $language;
     private $retail_price;
     private $tags;
+    private $currency;
 
-    function __construct($book_id, $title, $subtitle, $isbn, $genre, Date $publication_date = null, $publisherName, $countryName, $language, $retail_price, $tags)
+    function __construct($book_id, $title, $subtitle, $isbn, $genre, Date $publication_date = null, $publisherName, $countryName, $language, $retail_price, $currency, $tags)
     {
         $this->book_id = $book_id;
         $this->title = $title;
@@ -27,6 +28,7 @@ class BookInfoParameters
         $this->language = $language;
         $this->retail_price = StringUtils::replace($retail_price, ",", ".");
         $this->tags = $tags;
+        $this->currency = $currency;
     }
 
     /**
@@ -97,6 +99,11 @@ class BookInfoParameters
     public function getTags()
     {
         return $this->tags;
+    }
+
+    public function getCurrency()
+    {
+        return $this->currency;
     }
 
 }
