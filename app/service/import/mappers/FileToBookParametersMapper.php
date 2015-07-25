@@ -40,6 +40,7 @@ class FileToBookParametersMapper {
             $line_values[LineMapping::$BookPublisherCountry],
             $line_values[LineMapping::$BookLanguage],
             $bookRetailPrice,
+            "EUR",
             $tags);
     }
 

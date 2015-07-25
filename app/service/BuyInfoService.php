@@ -35,6 +35,7 @@ class BuyInfoService
         $buyInfo->price_payed = $buyInfoParameters->getPricePayed();
         $buyInfo->reason = $buyInfoParameters->getReason();
         $buyInfo->shop = $buyInfoParameters->getShop();
+        $buyInfo->currency = $buyInfoParameters->getCurrency();
         $buyInfo->personal_book_info_id = $personalBookInfo->id;
 
         $buyInfo->save();

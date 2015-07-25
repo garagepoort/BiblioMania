@@ -8,8 +8,9 @@ class BuyInfoParameters {
     private $reason;
     private $country;
     private $pricePayed;
+    private $currency;
 
-    function __construct(DateTime $date = null, $shop, $city, $reason, $country, $pricePayed)
+    function __construct(DateTime $date = null, $shop, $city, $reason, $country, $pricePayed, $currency)
     {
         $this->date = $date;
         $this->shop = $shop;
@@ -17,43 +18,29 @@ class BuyInfoParameters {
         $this->reason = $reason;
         $this->country = $country;
         $this->pricePayed = StringUtils::replace($pricePayed, ",", ".");
+        $this->currency = $currency;
     }
 
-    /**
-     * @return mixed
-     */
     public function getDate()
     {
         return $this->date;
     }
 
-    /**
-     * @return mixed
-     */
     public function getShop()
     {
         return $this->shop;
     }
 
-    /**
-     * @return mixed
-     */
     public function getCity()
     {
         return $this->city;
     }
 
-    /**
-     * @return mixed
-     */
     public function getReason()
     {
         return $this->reason;
     }
 
-    /**
-     * @return mixed
-     */
     public function getCountry()
     {
         return $this->country;
@@ -62,6 +49,10 @@ class BuyInfoParameters {
     public function getPricePayed()
     {
         return $this->pricePayed;
+    }
+
+    public function getCurrency(){
+        return $this->currency;
     }
 
 

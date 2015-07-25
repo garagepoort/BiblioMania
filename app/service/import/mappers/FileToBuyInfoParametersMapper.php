@@ -17,6 +17,7 @@ class FileToBuyInfoParametersMapper {
             "",
             "",
             "",
-            $pricePayed);
+            $pricePayed,
+            'EUR');
     }
 }
