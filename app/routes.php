@@ -12,7 +12,7 @@
 */
 
 //USER
-Route::group(array('before' => 'auth'), function() {
+Route::group(array('before' => 'auth'), function () {
 
 //  BOOKS
     Route::get('getBooks', 'BookController@getBooks');
@@ -69,8 +69,8 @@ Route::group(array('before' => 'auth'), function() {
     Route::get('scaleImages', 'ImageController@scaleImages');
 });
 
-Route::group(['prefix' => 'api'], function()
-{
+Route::group(['prefix' => 'api'], function () {
+    Route::resource('books', 'BookApiController', ['only' => ['index']]);
     Route::resource('authenticate', 'AuthenticateController', ['only' => ['index']]);
     Route::post('authenticate', 'AuthenticateController@authenticate');
     Route::get('users', 'AuthenticateController@users');
@@ -78,7 +78,7 @@ Route::group(['prefix' => 'api'], function()
 
 
 //ADMIN
-Route::group(array('before' => 'admin'), function() {
+Route::group(array('before' => 'admin'), function () {
     //google API
     Route::get('googleAuthentication', 'Oauth2_Controller@doGoogleAuthentication');
     Route::get('askForGoogleAuthentication', 'Oauth2_Controller@askForGoogleAuthentication');
@@ -87,7 +87,7 @@ Route::group(array('before' => 'admin'), function() {
 });
 
 //LOCAL
-Route::group(array('before' => 'localCallOnly'), function() {
+Route::group(array('before' => 'localCallOnly'), function () {
     //google API
     Route::get('createSpriteForBooks', 'ImageController@createSpriteForBooks');
     Route::get('createSpriteForAuthors', 'ImageController@createSpriteForAuthors');
@@ -103,17 +103,23 @@ Route::get('changeLanguage/{lang}', 'LanguageController@changeLanguage');
 Route::post('createUser', 'UserController@createUser');
 Route::get('createUser', 'UserController@goToCreateUser');
 
-Route::get('/', function()
-{
-    if(Auth::check()){
-        return Redirect::to('getBooks');
-    }else{
+Route::get('/', function () {
+    if (Auth::check()) {
+        if(Agent::isMobile() || Agent::isTablet()){
+            return Redirect::to('getBooksList');
+        }else{
+            return Redirect::to('getBooks');
+        }
+    } else {
         return Redirect::to('login')
             ->with('login_errors', true);
     }
 });
 
-App::missing(function($exception)
-{
-    return Redirect::to('getBooks');
+App::missing(function ($exception) {
+    if(Agent::isMobile() || Agent::isTablet()){
+        return Redirect::to('getBooksList');
+    }else{
+        return Redirect::to('getBooks');
+    }
 });

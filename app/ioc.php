@@ -20,6 +20,10 @@ App::singleton('CurrencyService', function () {
     return new CurrencyService();
 });
 
+App::singleton('ApiAuthenticationService', function () {
+    return new ApiAuthenticationService();
+});
+
 App::singleton('TagService', function () {
     return new TagService();
 });

@@ -15,7 +15,8 @@
     "phpunit/phpunit-selenium": ">=1.2",
     "facebook/webdriver": "dev-master",
     "google/apiclient": "1.0.*@beta",
-    "tymon/jwt-auth": "0.4.*"
+    "tymon/jwt-auth": "0.4.*",
+    "jenssegers/agent": "^2.1"
   },
   "autoload": {
     "classmap": [

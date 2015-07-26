@@ -3,11 +3,23 @@
 class AuthenticateController extends Controller
 {
 
+    /** ApiAuthenticationService */
+    private $apiAuthenticationService;
+
+    function __construct()
+    {
+        $this->apiAuthenticationService = App::make('ApiAuthenticationService');
+    }
+
     public function index()
     {
-        JWTAuth::parseToken()->authenticate();
-        $users = User::all();
-        return $users;
+        $response  = $this->apiAuthenticationService->checkUserAuthenticated();
+        if(!$response){
+            return $response;
+        }else{
+            $users = User::all();
+            return $users;
+        }
     }
     public function users()
     {
