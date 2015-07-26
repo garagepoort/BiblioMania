@@ -95,6 +95,21 @@ class BookService
             ->get();
     }
 
+    public function getAllFullBooks(){
+        $with = array(
+            'authors',
+            'publisher',
+            'genre',
+            'personal_book_info',
+            'first_print_info',
+            'publication_date',
+            'country',
+            'publisher_serie',
+            'serie');
+
+        return Book::with($with)->where('user_id', '=', Auth::user()->id)->get();
+    }
+
     public function getFilteredBooks($book_id, BookFilterValues $bookFilterValues, $orderBy)
     {
         if ($book_id != null) {
