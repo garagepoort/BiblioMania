@@ -13,7 +13,11 @@ class LoginController extends BaseController {
              'password' => Input::get('password')
          );
          if(Auth::attempt($userdata)){
-             return Redirect::to('getBooks');
+             if(Agent::isMobile() || Agent::isTablet()){
+                return Redirect::to('getBooksList');
+             }else{
+                return Redirect::to('getBooks');
+             }
          }else{
              return Redirect::to('login')
                  ->with('message', 'Login failed: username password combination incorrect.');

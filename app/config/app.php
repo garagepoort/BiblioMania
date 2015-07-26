@@ -122,6 +122,7 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'Tymon\JWTAuth\Providers\JWTAuthServiceProvider',
+		'Jenssegers\Agent\AgentServiceProvider',
 
 	),
 
@@ -191,6 +192,7 @@ return array(
 		'View'              => 'Illuminate\Support\Facades\View',
 		'JWTAuth'   => 'Tymon\JWTAuth\Facades\JWTAuth',
 		'JWTFactory' => 'Tymon\JWTAuth\Facades\JWTFactory',
+		'Agent' => 'Jenssegers\Agent\Facades\Agent',
 	),
 
 );
