@@ -27,6 +27,7 @@ $app = new Illuminate\Foundation\Application;
 $env = $app->detectEnvironment(array(
 
 	'local' => array('hi09416.cegekanv.corp.local'),
+	'local_linux_mint' => array('david-desktop'),
 	'production' => array('p3plcpnl0208.prod.phx3.secureserver.net'),
 
 ));
