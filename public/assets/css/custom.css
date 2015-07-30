@@ -105,21 +105,25 @@ legend {
 /*PLACEHOLDERS*/
 .form-control::-webkit-input-placeholder {
   /* WebKit browsers */
+
   color: #ffffff;
   opacity: 1;
 }
 .form-control:-moz-placeholder {
   /* Mozilla Firefox 4 to 18 */
+
   color: #ffffff;
   opacity: 1;
 }
 .form-control::-moz-placeholder {
   /* Mozilla Firefox 19+ */
+
   color: #ffffff;
   opacity: 1;
 }
 .form-control:-ms-input-placeholder {
   /* Internet Explorer 10+ */
+
   color: #ffffff;
 }
 .genre-list {
@@ -149,8 +153,10 @@ legend {
 legend.sub-border {
   width: inherit;
   /* Or auto */
+
   padding: 0 10px;
   /* To give a bit of padding on the left and right */
+
   border-bottom: none;
 }
 .createBookDiv {
@@ -246,10 +252,11 @@ div.books-container {
   margin-bottom: 50px;
 }
 .book-collection-info-panel {
-  width: 500px;
+  width: 50%;
 }
 .book-collection-filter-panel {
   margin-bottom: 40px;
+  width: 46%;
 }
 .book-detail-info-table {
   width: 90%;
@@ -310,6 +317,7 @@ table.book-detail-info-table td {
 }
 .book-detail-div {
   /*left: 0;*/
+
   overflow: scroll;
   position: fixed;
   z-index: 999;
@@ -322,6 +330,7 @@ table.book-detail-info-table td {
   margin-top: 50px;
   box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.26);
   /*border: solid 1px @secondary-color;*/
+
 }
 .book-detail-close {
   position: fixed;
@@ -480,7 +489,9 @@ table.book-detail-info-table td {
   margin-top: 20px;
   width: 90%;
   /*margin-left: auto;*/
+
   /*margin-right: auto;*/
+
 }
 .tab-container fieldset legend {
   color: #2d6ca2;
@@ -534,6 +545,7 @@ ul.nav li a:hover {
 }
 .genre-listitem {
   /*border-radius: 25px;*/
+
   cursor: pointer;
   padding-left: 10px;
 }
