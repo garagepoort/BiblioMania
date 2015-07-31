@@ -31,6 +31,10 @@ class BookService
         $this->languageService = App::make('LanguageService');
     }
 
+    public function find($id){
+        return $this->bookRepository->find($id);
+    }
+
     public function getValueOfLibrary()
     {
         return DB::table('book')->where('user_id', '=', Auth::user()->id)->sum('retail_price');
