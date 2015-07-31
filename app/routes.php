@@ -69,8 +69,10 @@ Route::group(array('before' => 'auth'), function () {
     Route::get('scaleImages', 'ImageController@scaleImages');
 });
 
+//  API
 Route::group(['prefix' => 'api'], function () {
     Route::resource('books', 'BookApiController', ['only' => ['index']]);
+    Route::get('image/book/{id}', 'ImageController@getBookImage');
     Route::resource('authenticate', 'AuthenticateController', ['only' => ['index']]);
     Route::post('authenticate', 'AuthenticateController@authenticate');
     Route::get('users', 'AuthenticateController@users');
@@ -105,9 +107,9 @@ Route::get('createUser', 'UserController@goToCreateUser');
 
 Route::get('/', function () {
     if (Auth::check()) {
-        if(Agent::isMobile() || Agent::isTablet()){
+        if (Agent::isMobile() || Agent::isTablet()) {
             return Redirect::to('getBooksList');
-        }else{
+        } else {
             return Redirect::to('getBooks');
         }
     } else {
@@ -117,9 +119,9 @@ Route::get('/', function () {
 });
 
 App::missing(function ($exception) {
-    if(Agent::isMobile() || Agent::isTablet()){
+    if (Agent::isMobile() || Agent::isTablet()) {
         return Redirect::to('getBooksList');
-    }else{
+    } else {
         return Redirect::to('getBooks');
     }
 });
