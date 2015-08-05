@@ -1,7 +1,11 @@
 var lastClickedBookId = undefined;
 var bookDetailAnimationBusy = false;
+var currencies = new Object();
 
 $(document).ready(function () {
+    currencies['EUR'] = '€'
+    currencies['USD'] = '$'
+    currencies['PND'] = '£'
     $('.book-detail-div').on('click', function(event){
         event.stopPropagation();
     });
@@ -128,7 +132,7 @@ function fillInBookInfo(book) {
         $('book-detail-small-info-panel').hide();
     }
     // EXTRA INFO
-    showOrHide($('#book-detail-retail-price'), book.retail_price + " " + book.currency);
+    showOrHide($('#book-detail-retail-price'), currencies[book.currency] + " " + book.retail_price);
     showOrHide($('#book-detail-number-of-pages'), book.number_of_pages);
     showOrHide($('#book-detail-print'), book.print);
     showOrHide($('#book-translator'), book.translator);
