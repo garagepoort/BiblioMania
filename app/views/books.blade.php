@@ -61,6 +61,7 @@
 
     <script type="text/javascript">
         var book_id = "{{ $book_id }}";
+        var scroll_id = "{{ $scroll_id }}";
     </script>
     {{ HTML::script('assets/js/book/bookSlidingPanel.js'); }}
     {{ HTML::script('assets/js/book/books.js'); }}

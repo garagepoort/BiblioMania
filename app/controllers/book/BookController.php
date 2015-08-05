@@ -55,11 +55,13 @@ class BookController extends BaseController
     public function getBooks()
     {
         $bookId = Input::get('book_id');
+        $scrollId = Input::get('scroll_id');
 
         return View::make('books')->with(array(
             'title' => 'Boeken',
             'order_by_options' => $this->bookService->getOrderByValues(),
             'book_id' => $bookId,
+            'scroll_id' => $scrollId,
             'total_value_library' => $this->bookService->getValueOfLibrary(),
             'total_amount_of_books' => $this->bookService->getTotalAmountOfBooksInLibrary(),
             'total_amount_of_books_owned' => $this->bookService->getTotalAmountOfBooksOwned(),
@@ -184,8 +186,8 @@ class BookController extends BaseController
                 $this->personalBookInfoParameterMapper->create()
                 );
 
-            $this->bookCreationService->createBook($bookCreationParameters);
-            return Redirect::to('/getBooks');
+            $book = $this->bookCreationService->createBook($bookCreationParameters);
+            return Redirect::to('/getBooks?scroll_id=' . $book->id);
         }
     }
 

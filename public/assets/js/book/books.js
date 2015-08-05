@@ -78,6 +78,7 @@ $(document).ready(function () {
     }
 
     function fillInBookContainer(data) {
+        var scrollElement = null;
         var books = data.data;
         var amountBooks = Object.keys(books).length;
 
@@ -106,8 +107,14 @@ $(document).ready(function () {
                 addCapSlideToElement(materialCard);
                 addClickToBookImage(materialCard);
                 addClickToEditElement(icCaptionElement, book.id);
+                if (window.scroll_id != null && window.scroll_id == book.id) {
+                    scrollElement = materialCard[0];
+                }
             }
             $('#books-container-table > tbody:last').append(trElement);
+            if(scrollElement != null){
+                scrollToElement(scrollElement);
+            }
         }
     }
 

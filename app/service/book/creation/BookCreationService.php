@@ -1,6 +1,7 @@
 <?php
 
-class BookCreationService {
+class BookCreationService
+{
     /** @var  AuthorService */
     private $authorService;
     /** @var  PublisherService */
@@ -37,16 +38,17 @@ class BookCreationService {
     }
 
 
-    public function createBook(BookCreationParameters $bookCreationParameters){
-        DB::transaction(function() use ($bookCreationParameters)
-        {
+    public function createBook(BookCreationParameters $bookCreationParameters)
+    {
+
+        $book = DB::transaction(function () use ($bookCreationParameters) {
             $tags = $this->tagService->createTags($bookCreationParameters->getBookInfoParameters()->getTags());
 
             $preferredAuthor = $this->authorService->createOrUpdate($bookCreationParameters->getFirstAuthorInfoParameters());
             $this->oeuvreService->saveBookFromAuthors($bookCreationParameters->getFirstAuthorInfoParameters()->getOeuvre(), $preferredAuthor->id);
 
             $secondaryAuthors = array();
-            foreach($bookCreationParameters->getSecondaryAuthorsInfoParameters() as $secondaryParam){
+            foreach ($bookCreationParameters->getSecondaryAuthorsInfoParameters() as $secondaryParam) {
                 array_push($secondaryAuthors, $this->authorService->saveOrGetSecondaryAuthor($secondaryParam));
             }
 
@@ -64,14 +66,17 @@ class BookCreationService {
 
             $personalBookInfo = $this->personalBookInfoService->findOrCreate($bookCreationParameters->getPersonalBookInfoParameters(), $book);
 
-            if($bookCreationParameters->isBuyInfo()){
+            if ($bookCreationParameters->isBuyInfo()) {
                 $this->buyInfoService->findOrCreate($bookCreationParameters->getBuyInfoParameters(), $personalBookInfo);
                 $this->giftInfoService->delete($personalBookInfo->id);
-            }else{
+            } else {
                 $this->giftInfoService->findOrCreate($bookCreationParameters->getGiftInfoParameters(), $personalBookInfo);
                 $this->buyInfoService->delete($personalBookInfo->id);
             }
+            return $book;
         });
+
+        return $book;
     }
 
     private function syncAuthors($preferredAuthor, $secondaryAuthors, $book)
