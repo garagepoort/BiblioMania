@@ -24,7 +24,6 @@ Route::group(array('before' => 'auth'), function () {
     Route::post('createOrEditBook', 'BookController@createOrEditBook');
     Route::get('editBook/{id}', 'BookController@goToEditBook');
     Route::get('logOut', 'LoginController@logOut');
-//    Route::get('importBooks', 'BookImportController@importBooks');
     Route::get('importLanguageFirstPrintInfo', 'BookImportController@importLanguageFirstPrintInfo');
 
 //STATISTICS
@@ -93,6 +92,7 @@ Route::group(array('before' => 'localCallOnly'), function () {
     //google API
     Route::get('createSpriteForBooks', 'ImageController@createSpriteForBooks');
     Route::get('createSpriteForAuthors', 'ImageController@createSpriteForAuthors');
+    Route::get('importBooks', 'BookImportController@importBooks');
 });
 
 
