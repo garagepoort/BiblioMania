@@ -111,6 +111,10 @@ function startLoadingPaged(url, page, action){
     );
 }
 
+function scrollToElement(element) {
+    $('html,body').animate({ scrollTop: $(element).offset().top -200}, 200);
+}
+
 function abortLoadingPaged(){
     request.abort();
 }
