@@ -18,8 +18,10 @@ class BookInfoParameterMapper {
     public function create(){
         if (Input::get('buyOrGift') == 'BUY') {
             $book_info_retail_price = Input::get('buy_book_info_retail_price');
+            $book_info_retail_price_currency = Input::get('buy_book_info_retail_price_currency');
         } else {
             $book_info_retail_price = Input::get('gift_book_info_retail_price');
+            $book_info_retail_price_currency = Input::get('gift_book_info_retail_price_currency');
         }
 
         $publicationDate = $this->dateService->createDate(Input::get('book_publication_date_day'),
@@ -39,7 +41,7 @@ class BookInfoParameterMapper {
             Input::get('book_country'),
             Input::get('book_language'),
             $book_info_retail_price,
-            Input::get('buy_book_info_retail_price_currency'),
+            $book_info_retail_price_currency,
             $tags
         );
     }

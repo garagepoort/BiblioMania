@@ -181,6 +181,7 @@ class BookFormFiller
                 $result['gift_info_receipt_date'] = DateFormatter::toDateWithSlashes($receipt_date);
             }
             $result['gift_book_info_retail_price'] = StringUtils::replace($book->retail_price, ".", ",");
+            $result['gift_book_info_retail_price_currency'] = $book->currency;
             $result['gift_info_from'] = $book->personal_book_info->gift_info->from;
             $result['gift_info_occasion'] = $book->personal_book_info->gift_info->occasion;
             $result['gift_info_reason'] = $book->personal_book_info->gift_info->reason;
@@ -246,6 +247,7 @@ class BookFormFiller
         $result['personal_info_review'] = '';
         $result['gift_info_receipt_date'] = '';
         $result['gift_book_info_retail_price'] = '';
+        $result['gift_book_info_retail_price_currency'] = '';
         $result['gift_info_from'] = '';
         $result['gift_info_occasion'] = '';
         $result['gift_info_reason'] = '';

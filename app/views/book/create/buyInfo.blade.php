@@ -14,28 +14,26 @@
 
             <!-- BUY PRICE -->
             <div class="form-group">
-                {{ Form::label('buy_info_price_payed_label', 'Aankoop prijs:', array('class' => 'col-md-3')); }}
-                <div class="col-md-3">
-                    {{ Form::text('buy_info_price_payed', $buy_info_price_payed, array('id'=>'buy_info_price_payed','class' => 'form-control input-sm', 'placeholder' => 'prijs', 'type' => 'number')); }}
-                </div>
                 <!-- CURRENCY -->
-                {{ Form::label('buyINfoPricePayedCurrencyLabel', 'Munt:', array('class' => 'col-md-1', 'style' => 'text-align: right')); }}
+                {{ Form::label('buy_info_price_payed_label', 'Aankoop prijs:', array('class' => 'col-md-3')); }}
                 <div class="col-md-2">
                     {{ Form::select('buy_info_price_payed_currency', $currencies, $buy_info_price_payed_currency, array('class' => 'input-sm form-control')); }}
+                </div>
+                <div class="col-md-3">
+                    {{ Form::text('buy_info_price_payed', $buy_info_price_payed, array('id'=>'buy_info_price_payed','class' => 'form-control input-sm', 'placeholder' => 'prijs', 'type' => 'number')); }}
                 </div>
             </div>
 
             <!-- COVER PRICE -->
             <div class="form-group">
                 {{ Form::label('book_info_retail_price_label', 'Cover prijs:', array('class' => 'col-md-3')); }}
-                <div class="col-md-3">
-                    {{ Form::text('buy_book_info_retail_price', $buy_book_info_retail_price, array('id'=>'buy_book_info_retail_price','class' => 'form-control input-sm', 'placeholder' => 'prijs', 'type' => 'number')); }}
-                </div>
-                <!-- CURRENCY -->
-                {{ Form::label('bookBuyInfoCurrencyLabel', 'Munt:', array('class' => 'col-md-1', 'style' => 'text-align: right')); }}
                 <div class="col-md-2">
                     {{ Form::select('buy_book_info_retail_price_currency', $currencies, $buy_book_info_retail_price_currency, array('class' => 'input-sm form-control')); }}
                 </div>
+                <div class="col-md-3">
+                    {{ Form::text('buy_book_info_retail_price', $buy_book_info_retail_price, array('id'=>'buy_book_info_retail_price','class' => 'form-control input-sm', 'placeholder' => 'prijs', 'type' => 'number')); }}
+                </div>
+
 
             </div>
 
