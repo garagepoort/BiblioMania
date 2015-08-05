@@ -6,6 +6,9 @@
         <!-- COVER PRICE -->
         <div class="form-group">
             {{ Form::label('book_info_retail_price_label', 'Cover prijs:', array('class' => 'col-md-3')); }}
+            <div class="col-md-2">
+                {{ Form::select('gift_book_info_retail_price_currency', $currencies, $gift_book_info_retail_price_currency, array('class' => 'input-sm form-control')); }}
+            </div>
             <div class="col-md-3">
                 {{ Form::text('gift_book_info_retail_price', $gift_book_info_retail_price, array('id'=>'gift_book_info_retail_price','class' => 'form-control input-sm', 'placeholder' => 'prijs', 'type' => 'number')); }}
             </div>
