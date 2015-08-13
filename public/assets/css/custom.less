@@ -48,6 +48,7 @@ input {
 @secondary-color: #428bca;
 @accent-color: #FFFFFF;
 
+@success-color: #5cb85c;
 @container-color: #fff;
 
 @font-size: 16px;
@@ -669,6 +670,17 @@ ul.nav li a:hover {
 
 .genres-header {
   padding-left: 16px;
+  border: none;
+  //z-index: 2;
+  //color: #fff;
+  //background-color: #449d44;
+  //border-color: #398439;
+  //font-size: 14px;
+  //font: inherit;
+  //font-weight: bold;
+  //line-height: 1.42857143;
+  //white-space: nowrap;
+  //vertical-align: middle;
 }
 
 .well {
@@ -936,4 +948,75 @@ div.container-fluid {
 .detailPanelTrigger:hover {
   cursor: pointer;
   color: #ff0000;
+}
+
+// BUTTONS
+.btn-primary {
+  background-color: #428bca;
+}
+.btn-primary:hover {
+  background-color: #3276b1;
+}
+
+.btn-default-no-hover:active:hover,
+.btn-default-no-hover:active,
+.btn-default-no-hover:active:focus,
+.btn-default-no-hover:target {
+  cursor:default !important;
+  background-color: #FFFFFF;
+  color: #333333 !important;
+  text-decoration: none !important;
+  background-position: 0 !important;
+  transition: none !important;
+  background-image: none !important;
+  border: 1px solid #ccc !important;
+}
+
+.wizard-step-content {
+  position: relative;
+  display: block;
+  padding: 10px 15px;
+  background-color: #eee;
+}
+
+.wizard-step-current {
+  color: #fff;
+  background-color: @primary-color;
+  //border-color: #204d74;
+}
+
+.wizard-step-before {
+  color: #fff;
+  background-color: @success-color;
+  //border-color: #204d74;
+}
+
+.nav-pills.nav-wizard > li .nav-arrow.nav-arrow-current {
+  border-color: transparent transparent transparent @primary-color;
+}
+
+.nav-pills.nav-wizard > li .nav-wedge.nav-wedge-current {
+  border-color: @primary-color @primary-color @primary-color transparent;
+}
+
+.nav-pills.nav-wizard > li .nav-arrow.nav-arrow-before {
+  border-color: transparent transparent transparent @success-color;
+}
+
+.nav-pills.nav-wizard > li .nav-wedge.nav-wedge-before {
+  border-color: @success-color @success-color @success-color transparent;
+}
+
+.nav-wizard {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.wizard-steps {
+  text-align: center;
+  margin-top: 30px;
+  width: 800px;
+  margin-left: auto;
+  margin-right: auto;
 }

@@ -222,7 +222,7 @@ function addSlidingPanelClickToElement(element){
                     function (data, status) {
                         hideLoadingDialog();
                         if (status === "success") {
-                            var book = data[0];
+                            var book = data;
                             if (div.hasClass('visible') && lastClickedBookId !== bookId) {
                                 closeAndOpenBookDetail(book, bookId);
                                 lastClickedBookId = bookId;

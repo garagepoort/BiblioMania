@@ -22,6 +22,8 @@ class BookCreationService
     private $oeuvreService;
     /** @var  TagService */
     private $tagService;
+    /** @var  BookFromAuthorService */
+    private $bookFromAuthorService;
 
     function __construct()
     {
@@ -35,8 +37,91 @@ class BookCreationService
         $this->giftInfoService = App::make('GiftInfoService');
         $this->oeuvreService = App::make('OeuvreService');
         $this->tagService = App::make('TagService');
+        $this->bookFromAuthorService = App::make('BookFromAuthorService');
     }
 
+    public function saveAuthorsToBook($book_id, AuthorInfoParameters $preferredAuthorParams, $secondaryAuthorParameters){
+        $book = $this->bookService->getFullBook($book_id);
+        if($book == null){
+            throw new ServiceException("Book given does not exist");
+        }
+
+        $preferredAuthor = $this->authorService->createOrUpdate($preferredAuthorParams);
+
+        $this->oeuvreService->saveBookFromAuthors($preferredAuthorParams->getOeuvre(), $preferredAuthor->id);
+
+        $secondaryAuthors = array();
+        foreach ($secondaryAuthorParameters as $secondaryParam) {
+            array_push($secondaryAuthors, $this->authorService->saveOrGetSecondaryAuthor($secondaryParam));
+        }
+
+        $this->syncAuthors($preferredAuthor, $secondaryAuthors, $book);
+
+        if(!StringUtils::isEmpty($preferredAuthorParams->getLinkedBook())){
+            $bookFromAuthor = $this->bookFromAuthorService->find($preferredAuthorParams->getLinkedBook(), $preferredAuthor->id);
+            $book->book_from_author()->associate($bookFromAuthor);
+        }else{
+            $book->book_from_author()->dissociate();
+        }
+        $book->save();
+        return $book;
+    }
+
+    public function savePersonalInformationForBook($book_id, PersonalBookInfoParameters $personalBookInfoParameters)
+    {
+        $book = $this->bookService->getFullBook($book_id);
+        if($book == null){
+            throw new ServiceException("Book given does not exist");
+        }
+        $this->personalBookInfoService->findOrCreate($personalBookInfoParameters, $book);
+        return $book;
+    }
+
+    public function saveBuyInfoForBook($book_id, BuyInfoParameters $buyInfoParameters)
+    {
+        $book = $this->bookService->getFullBook($book_id);
+        if($book == null){
+            throw new ServiceException("Book given does not exist");
+        }
+        $this->buyInfoService->findOrCreate($buyInfoParameters, $book->personal_book_info);
+        $this->giftInfoService->delete($book->personal_book_info->id);
+        return $book;
+    }
+
+    public function saveGiftInfoForBook($book_id, GiftInfoParameters $giftInfoParameters)
+    {
+        $book = $this->bookService->getFullBook($book_id);
+        if($book == null){
+            throw new ServiceException("Book given does not exist");
+        }
+        $this->giftInfoService->findOrCreate($giftInfoParameters, $book->personal_book_info);
+        $this->buyInfoService->delete($book->personal_book_info->id);
+        return $book;
+    }
+
+    public function saveFirstPrintForBook($book_id, FirstPrintInfoParameters $firstPrintInfoParameters){
+        $book = $this->bookService->getFullBook($book_id);
+        if($book == null){
+            throw new ServiceException("Book given does not exist");
+        }
+        $firstPrintInfo = $this->firstPrintInfoService->findOrCreate($firstPrintInfoParameters);
+
+        $book->first_print_info_id = $firstPrintInfo->id;
+        $book->save();
+        return $book;
+    }
+
+    public function saveCoverInfoToBook($book_id, $coverInfoParameters)
+    {
+        $book = $this->bookService->getFullBook($book_id);
+        if($book == null){
+            throw new ServiceException("Book given does not exist");
+        }
+        $book->type_of_cover = $coverInfoParameters->getCoverType();
+        $this->bookService->saveImage($coverInfoParameters, $book);
+        $book->save();
+        return $book;
+    }
 
     public function createBook(BookCreationParameters $bookCreationParameters)
     {

@@ -1,6 +1,7 @@
 <?php
 
-class BookInfoParameterMapper {
+class BookInfoParameterMapper
+{
     const TAG_DELIMITER = ";";
 
     /** @var DateService */
@@ -14,8 +15,31 @@ class BookInfoParameterMapper {
         $this->languageService = App::make('LanguageService');
     }
 
+    public function createForBasics()
+    {
+        $publicationDate = $this->dateService->createDate(Input::get('book_publication_date_day'),
+            Input::get('book_publication_date_month'),
+            Input::get('book_publication_date_year'));
 
-    public function create(){
+        $tags = StringUtils::split(Input::get('book_tags'), self::TAG_DELIMITER);
+
+        return BookInfoParameters::fillInBasics(
+            Input::get("book_id"),
+            Input::get("book_title"),
+            Input::get("book_subtitle"),
+            Input::get("book_author"),
+            Input::get("book_isbn"),
+            Input::get("book_genre"),
+            $publicationDate,
+            Input::get('book_publisher'),
+            Input::get('book_country'),
+            Input::get('book_language'),
+            $tags
+        );
+    }
+
+    public function create()
+    {
         if (Input::get('buyOrGift') == 'BUY') {
             $book_info_retail_price = Input::get('buy_book_info_retail_price');
             $book_info_retail_price_currency = Input::get('buy_book_info_retail_price_currency');
