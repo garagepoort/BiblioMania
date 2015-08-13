@@ -23,7 +23,8 @@ class Book extends Eloquent {
         'retail_price',
         'summary',
         'book_from_author_id',
-		'language_id'
+		'language_id',
+		'wizard_step'
     	);
     
     protected $with = array('publication_date', 'first_print_info', 'language');

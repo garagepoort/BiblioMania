@@ -10,27 +10,6 @@ function hideError(){
     $('#error-div').hide();
 }
 
-function validateForm(){
-    formSubmitting = true;
-    var errorMessage = validateOeuvreList();
-    if(errorMessage){
-        showError(errorMessage);
-        return false;
-    }
-    errorMessage = validateGenre();
-    if(errorMessage){
-        showError(errorMessage);
-        return false;
-    }
-    errorMessage = validateBuyInfo();
-    if(errorMessage){
-        showError(errorMessage);
-        return false;
-    }
-    hideError();
-    return true;
-}
-
 $(document).ready(function () {
     window.addEventListener("beforeunload", function (e) {
         var confirmationMessage = 'It looks like you have been editing something. ';
@@ -257,7 +236,7 @@ $(document).ready(function () {
                 }
             }
         }
-    }).on('err.field.bv', function (e, data) {
+    }).on('error.field.bv', function (e, data) {
         if (data.bv.getSubmitButton()) {
             data.bv.disableSubmitButtons(false);
         }

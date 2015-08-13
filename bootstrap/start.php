@@ -28,7 +28,7 @@ $env = $app->detectEnvironment(array(
 
 	'local' => array('hi09416.cegekanv.corp.local'),
 	'local_linux_mint' => array('david-desktop'),
-	'local_mac' => array('ACAs-MacBook-Pro-2.local'),
+	'local_mac' => array('davidm_macbook_pro'),
 	'production' => array('p3plcpnl0208.prod.phx3.secureserver.net'),
 
 ));

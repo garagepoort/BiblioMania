@@ -14,6 +14,7 @@ class BookInfoParameters
     private $retail_price;
     private $tags;
     private $currency;
+    private $fullAuthorName;
 
     function __construct($book_id, $title, $subtitle, $isbn, $genre, Date $publication_date = null, $publisherName, $countryName, $language, $retail_price, $currency, $tags)
     {
@@ -31,12 +32,26 @@ class BookInfoParameters
         $this->currency = $currency;
     }
 
+    public static function fillInBasics($book_id, $title, $subtitle, $fullAuthorName, $isbn, $genre, Date $publication_date = null, $publisherName, $countryName, $language, $tags){
+        $params = new BookInfoParameters($book_id, $title, $subtitle, $isbn, $genre, $publication_date, $publisherName, $countryName, $language, 0, 'EUR', $tags);
+        $params->fullAuthorName = $fullAuthorName;
+        return $params;
+    }
+
     /**
      * @return mixed
      */
     public function getTitle()
     {
         return $this->title;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFullAuthorName()
+    {
+        return $this->fullAuthorName;
     }
 
     /**
