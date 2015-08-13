@@ -12,52 +12,64 @@
 
     {{ HTML::script('assets/js/jquery.js'); }}
 
-    <!-- BOOTSTRAP -->
-    {{ HTML::script('assets/js/bootstrap.js'); }}
-    {{ HTML::style('/assets/css/bootstrap.css') }}
-    {{ HTML::style('assets/css/bootstrap-theme.css') }}
+    {{--<!-- BOOTSTRAP -->--}}
+    {{--{{ HTML::script('assets/js/bootstrap.js'); }}--}}
+    {{--{{ HTML::style('/assets/css/bootstrap.css') }}--}}
+    {{--{{ HTML::style('assets/css/bootstrap-theme.css') }}--}}
+
+            <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    {{--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">--}}
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
     <!-- DATEPICKER -->
     {{ HTML::script('assets/lib/datepicker/js/bootstrap-datepicker.js') }}
     {{ HTML::style('assets/lib/datepicker/css/datepicker.css') }}
 
-    <!-- JASNY -->
+            <!-- JASNY -->
     {{ HTML::script('assets/lib/jasny-bootstrap/js/jasny-bootstrap.min.js') }}
     {{ HTML::style('assets/lib/jasny-bootstrap/css/jasny-bootstrap.min.css') }}
 
-    <!-- AUTOCOMPLETE -->
+            <!-- AUTOCOMPLETE -->
     {{ HTML::script('assets/lib/jquery.autocomplete.min.js') }}
 
-    <!-- BOOTSTRAP-VALIDATOR -->
+            <!-- BOOTSTRAP-VALIDATOR -->
     {{ HTML::script('assets/lib/bootstrapvalidator/dist/js/bootstrapValidator.min.js') }}
     {{ HTML::script('assets/lib/bootstrapvalidator/dist/js/language/be_NL.js') }}
     {{ HTML::style('assets/lib/bootstrapvalidator/dist/css/bootstrapValidator.min.css') }}
 
-    <!-- COLLAPSIBLE -->
+            <!-- COLLAPSIBLE -->
     {{ HTML::script('assets/lib/jquery.collapsible.js') }}
 
-    <!-- LESS SCRIPTS -->
+            <!-- LESS SCRIPTS -->
+    {{ HTML::style('assets/css/bootstrap-arrow-buttons.css') }}
+    {{ HTML::style('assets/css/bootstrap-breadcrumbs.css') }}
+    {{ HTML::style('assets/css/nav-wizard-bootstrap.css') }}
     {{ HTML::style('assets/css/custom.css') }}
     {{ HTML::script('assets/js/custom.js') }}
 
-    <!-- STAR RATING -->
+            <!-- STAR RATING -->
     {{ HTML::script('assets/lib/bootstrap-star-rating/js/star-rating.min.js') }}
     {{ HTML::style('assets/lib/bootstrap-star-rating/css/star-rating.min.css') }}
 
-    <!-- RATY -->
+            <!-- RATY -->
     {{ HTML::script('assets/lib/raty-2.7.0/lib/jquery.raty.js') }}
     {{ HTML::style('assets/lib/raty-2.7.0/lib/jquery.raty.css') }}
 
-    <!-- SHORTEN -->
+            <!-- SHORTEN -->
     {{ HTML::script('assets/lib/jquery.shorten.js') }}
-    <!-- ISLOADING -->
+            <!-- ISLOADING -->
     {{ HTML::script('assets/lib/isLoading/jquery.isloading.min.js') }}
 
-    <!-- DIALOG -->
+            <!-- DIALOG -->
     {{ HTML::script('assets/lib/bootstrap3-dialog-master/dist/js/bootstrap-dialog.js') }}
     {{ HTML::style('assets/lib/bootstrap3-dialog-master/dist/css/bootstrap-dialog.css') }}
 
-    <!-- TAGS -->
+            <!-- TAGS -->
     {{ HTML::script('assets/lib/sliptree-bootstrap-tokenfield/bootstrap-tokenfield.js') }}
     {{ HTML::style('assets/lib/sliptree-bootstrap-tokenfield/css/bootstrap-tokenfield.min.css') }}
 
@@ -157,8 +169,8 @@
         window.document.location = $("option:selected", sel).attr("href");
     }
     var baseUrl = "{{ URL::to('/') }}";
-    @if(Auth::check())
-        var username = "{{ Auth::user()->username }}";
+            @if(Auth::check())
+                var username = "{{ Auth::user()->username }}";
     @endif
 </script>
 </body>

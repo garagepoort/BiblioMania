@@ -18,6 +18,12 @@ class BookService
     private $tagService;
     /** @var  LanguageService */
     private $languageService;
+    /** @var  AuthorService */
+    private $authorService;
+    /** @var  PublisherService */
+    private $publisherService;
+    /** @var  CountryService */
+    private $countryService;
 
 
     function __construct()
@@ -29,6 +35,9 @@ class BookService
         $this->imageService = App::make('ImageService');
         $this->tagService = App::make('TagService');
         $this->languageService = App::make('LanguageService');
+        $this->authorService = App::make('AuthorService');
+        $this->publisherService = App::make('PublisherService');
+        $this->countryService = App::make('CountryService');
     }
 
     public function find($id){
@@ -96,7 +105,7 @@ class BookService
 
         return Book::with($with)->where('user_id', '=', Auth::user()->id)
             ->where('id', '=', $book_id)
-            ->get();
+            ->first();
     }
 
     public function getAllFullBooks(){
@@ -112,6 +121,77 @@ class BookService
             'serie');
 
         return Book::with($with)->where('user_id', '=', Auth::user()->id)->get();
+    }
+
+    public function saveBasics(BookInfoParameters $bookInfoParameters){
+        $book = new Book();
+        if (!StringUtils::isEmpty($bookInfoParameters->getBookId())) {
+            $book = $this->bookRepository->find($bookInfoParameters->getBookId());
+        }
+        $book_publisher = $this->publisherService->findOrCreate($bookInfoParameters->getPublisherName());
+        $country = $this->countryService->findOrCreate($bookInfoParameters->getCountryName());
+
+        if (!StringUtils::isEmpty($bookInfoParameters->getLanguage())) {
+            $book->language()->associate($this->languageService->findOrSave($bookInfoParameters->getLanguage()));
+        }else{
+            $book->language()->dissociate();
+        }
+
+        if ($bookInfoParameters->getPublicationDate() != null) {
+            $book->publication_date()->associate($bookInfoParameters->getPublicationDate());
+        }else{
+            $book->publication_date()->dissociate();
+        }
+
+        $book->user_id = Auth::user()->id;
+        $book->title = $bookInfoParameters->getTitle();
+        $book->subtitle = $bookInfoParameters->getSubtitle();
+        $book->ISBN = $bookInfoParameters->getIsbn();
+        $book->genre_id = $bookInfoParameters->getGenre();
+        $book->publisher_id = $book_publisher->id;
+        $book->publisher_country_id = $country->id;
+        $this->bookRepository->save($book);
+        return $book;
+    }
+
+    public function setWizardStep($book, $nextStep){
+        $currentStep = $book->wizard_step;
+        if($currentStep != "COMPLETE"){
+            if($currentStep < $nextStep){
+                $book->wizard_step = $nextStep;
+                $book->save();
+            }
+        }
+    }
+
+    public function saveExtras($book_id, ExtraBookInfoParameters $extraBookInfoParameters){
+        $book = $this->bookRepository->find($book_id);
+        if($book == null){
+            throw new ServiceException("book does not exist");
+        }
+
+        $book->number_of_pages = $extraBookInfoParameters->getPages();
+        $book->print = $extraBookInfoParameters->getPrint();
+        $book->translator = $extraBookInfoParameters->getTranslator();
+        $book->state = $extraBookInfoParameters->getState();
+        $book->summary = $extraBookInfoParameters->getSummary();
+        $book->old_tags = $extraBookInfoParameters->getOldTags();
+        $book->retail_price = $extraBookInfoParameters->getRetailPrice();
+        $book->currency = $extraBookInfoParameters->getRetailPriceCurrency();
+        if(!StringUtils::isEmpty($extraBookInfoParameters->getPublisherSerie())){
+            $publisherSerie = $this->publisherSerieService->findOrSave($extraBookInfoParameters->getPublisherSerie(), $book->publisher->id);
+            $book->publisher_serie()->associate($publisherSerie);
+        }else{
+            $book->publisher_serie()->dissociate();
+        }
+        if(!StringUtils::isEmpty($extraBookInfoParameters->getBookSerie())){
+            $bookSerie = $this->bookSerieService->findOrSave($extraBookInfoParameters->getBookSerie());
+            $book->serie()->associate($bookSerie);
+        }else{
+            $book->serie()->dissociate();
+        }
+        $this->bookRepository->save($book);
+        return $book;
     }
 
     public function getFilteredBooks($book_id, BookFilterValues $bookFilterValues, $orderBy)
@@ -280,7 +360,6 @@ class BookService
         $this->bookRepository->save($book);
         return $book;
     }
-
 
     public function saveImage(CoverInfoParameters $coverInfoParameters, $book)
     {

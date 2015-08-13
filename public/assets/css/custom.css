@@ -105,25 +105,21 @@ legend {
 /*PLACEHOLDERS*/
 .form-control::-webkit-input-placeholder {
   /* WebKit browsers */
-
   color: #ffffff;
   opacity: 1;
 }
 .form-control:-moz-placeholder {
   /* Mozilla Firefox 4 to 18 */
-
   color: #ffffff;
   opacity: 1;
 }
 .form-control::-moz-placeholder {
   /* Mozilla Firefox 19+ */
-
   color: #ffffff;
   opacity: 1;
 }
 .form-control:-ms-input-placeholder {
   /* Internet Explorer 10+ */
-
   color: #ffffff;
 }
 .genre-list {
@@ -153,10 +149,8 @@ legend {
 legend.sub-border {
   width: inherit;
   /* Or auto */
-
   padding: 0 10px;
   /* To give a bit of padding on the left and right */
-
   border-bottom: none;
 }
 .createBookDiv {
@@ -317,7 +311,6 @@ table.book-detail-info-table td {
 }
 .book-detail-div {
   /*left: 0;*/
-
   overflow: scroll;
   position: fixed;
   z-index: 999;
@@ -330,7 +323,6 @@ table.book-detail-info-table td {
   margin-top: 50px;
   box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.26);
   /*border: solid 1px @secondary-color;*/
-
 }
 .book-detail-close {
   position: fixed;
@@ -489,9 +481,7 @@ table.book-detail-info-table td {
   margin-top: 20px;
   width: 90%;
   /*margin-left: auto;*/
-
   /*margin-right: auto;*/
-
 }
 .tab-container fieldset legend {
   color: #2d6ca2;
@@ -545,12 +535,12 @@ ul.nav li a:hover {
 }
 .genre-listitem {
   /*border-radius: 25px;*/
-
   cursor: pointer;
   padding-left: 10px;
 }
 .genres-header {
   padding-left: 16px;
+  border: none;
 }
 .well {
   background-color: #ffffff;
@@ -774,4 +764,61 @@ a.editable-click:hover {
 .detailPanelTrigger:hover {
   cursor: pointer;
   color: #ff0000;
+}
+.btn-primary {
+  background-color: #428bca;
+}
+.btn-primary:hover {
+  background-color: #3276b1;
+}
+.btn-default-no-hover:active:hover,
+.btn-default-no-hover:active,
+.btn-default-no-hover:active:focus,
+.btn-default-no-hover:target {
+  cursor: default !important;
+  background-color: #FFFFFF;
+  color: #333333 !important;
+  text-decoration: none !important;
+  background-position: 0 !important;
+  transition: none !important;
+  background-image: none !important;
+  border: 1px solid #ccc !important;
+}
+.wizard-step-content {
+  position: relative;
+  display: block;
+  padding: 10px 15px;
+  background-color: #eee;
+}
+.wizard-step-current {
+  color: #fff;
+  background-color: #2d6ca2;
+}
+.wizard-step-before {
+  color: #fff;
+  background-color: #5cb85c;
+}
+.nav-pills.nav-wizard > li .nav-arrow.nav-arrow-current {
+  border-color: transparent transparent transparent #2d6ca2;
+}
+.nav-pills.nav-wizard > li .nav-wedge.nav-wedge-current {
+  border-color: #2d6ca2 #2d6ca2 #2d6ca2 transparent;
+}
+.nav-pills.nav-wizard > li .nav-arrow.nav-arrow-before {
+  border-color: transparent transparent transparent #5cb85c;
+}
+.nav-pills.nav-wizard > li .nav-wedge.nav-wedge-before {
+  border-color: #5cb85c #5cb85c #5cb85c transparent;
+}
+.nav-wizard {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.wizard-steps {
+  text-align: center;
+  margin-top: 30px;
+  width: 800px;
+  margin-left: auto;
+  margin-right: auto;
 }

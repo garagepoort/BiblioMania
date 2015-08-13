@@ -164,4 +164,8 @@ class AuthorService
         }
         return $name;
     }
+
+    public function createOrGetAuthor($lastName, $infix, $firstName)
+    {
+    }
 }
