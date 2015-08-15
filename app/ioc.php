@@ -135,6 +135,10 @@ App::singleton('ExtraBookInfoParameterMapper', function () {
     return new ExtraBookInfoParameterMapper();
 });
 
+App::singleton('BookInfoParameterMapper', function () {
+    return new BookInfoParameterMapper();
+});
+
 App::singleton('ImageUploader', function () {
     return new ImageUploader();
 });

@@ -77,7 +77,7 @@
                         op: {{ Form::select('order', $order_by_options, null, array('id' => 'orderby-select-box', 'class'=> 'form-control')); }}</td>
                     <td style="text-align:right;">
                         <button class='btn btn-primary' id='filterButton'>Filter</button>
-                        <button href="createBook" class='clickableRow btn btn-primary'>Nieuw boek</button>
+                        <button href="createOrEditBook/step/1" class='clickableRow btn btn-primary'>Nieuw boek</button>
                     </td>
                 </tr>
             </table>
