@@ -25,20 +25,8 @@ Route::group(array('before' => 'auth'), function () {
     Route::get('editBook/{id}', 'BookController@goToEditBook');
 
     //WIZARD
-    Route::get('createOrEditBook/step1/{id?}', 'BookStepController@goToBookStep1');
-    Route::post('createOrEditBook/step1', 'BookStepController@saveBookStep1');
-    Route::get('createOrEditBook/step2/{id}', 'BookStepController@goToBookStep2');
-    Route::post('createOrEditBook/step2/{id}', 'BookStepController@saveBookStep2');
-    Route::get('createOrEditBook/step3/{id}', 'BookStepController@goToBookStep3');
-    Route::post('createOrEditBook/step3/{id}', 'BookStepController@saveBookStep3');
-    Route::get('createOrEditBook/step4/{id}', 'BookStepController@goToBookStep4');
-    Route::post('createOrEditBook/step4/{id}', 'BookStepController@saveBookStep4');
-    Route::get('createOrEditBook/step5/{id}', 'BookStepController@goToBookStep5');
-    Route::post('createOrEditBook/step5/{id}', 'BookStepController@saveBookStep5');
-    Route::get('createOrEditBook/step6/{id}', 'BookStepController@goToBookStep6');
-    Route::post('createOrEditBook/step6/{id}', 'BookStepController@saveBookStep6');
-    Route::get('createOrEditBook/step7/{id}', 'BookStepController@goToBookStep7');
-    Route::post('createOrEditBook/step7/{id}', 'BookStepController@saveBookStep7');
+    Route::get('createOrEditBook/step/{step}/{id?}', 'BookStepController@get');
+    Route::post('createOrEditBook/step/{step}/{id?}', 'BookStepController@save');
 
     Route::get('logOut', 'LoginController@logOut');
     Route::get('importLanguageFirstPrintInfo', 'BookImportController@importLanguageFirstPrintInfo');

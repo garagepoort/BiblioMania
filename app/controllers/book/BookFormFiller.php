@@ -3,14 +3,17 @@
 class BookFormFiller
 {
 
-    public static function fillBasicInfo($bookId){
+    public static function fillBasicInfo($bookId)
+    {
         $book = Book::with(array('personal_book_info', 'book_from_author', 'publisher_serie', 'tags'))->find($bookId);
         $result['book_id'] = $bookId;
         $result['book_title'] = $book->title;
         $result['book_subtitle'] = $book->subtitle;
         $result['book_isbn'] = $book->ISBN;
 
-        $output = array_map(function ($object) {return $object['name'];}, $book->tags->toArray());
+        $output = array_map(function ($object) {
+            return $object['name'];
+        }, $book->tags->toArray());
         $result['book_tags'] = implode(BookInfoParameterMapper::TAG_DELIMITER, $output);
 
         $result['book_genre_input'] = "";
@@ -49,7 +52,9 @@ class BookFormFiller
 
         return $result;
     }
-    public static function fillForBookExtras($bookId){
+
+    public static function fillForBookExtras($bookId)
+    {
         $book = Book::with(array('personal_book_info', 'book_from_author', 'publisher_serie', 'tags'))->find($bookId);
         $result['book_id'] = $bookId;
         $result['book_number_of_pages'] = $book->number_of_pages;
@@ -80,13 +85,13 @@ class BookFormFiller
         $result['book_id'] = $id;
         $preferredAuthor = $book->preferredAuthor();
 
-        if($preferredAuthor != null) {
+        if ($preferredAuthor != null) {
             $result['author_name'] = $preferredAuthor->name;
             $result['author_infix'] = $preferredAuthor->infix;
             $result['author_firstname'] = $preferredAuthor->firstname;
-            if(StringUtils::isEmpty($preferredAuthor->image)){
+            if (StringUtils::isEmpty($preferredAuthor->image)) {
                 $result['author_image'] = Config::get("properties.questionImage");
-            }else{
+            } else {
                 $result['author_image'] = Config::get("properties.authorImagesLocation") . "/" . $preferredAuthor->image;
             }
 
@@ -113,7 +118,7 @@ class BookFormFiller
         /** @var AuthorService $authorService */
         $authorService = App::make('AuthorService');
         $output = array();
-        foreach($book->authors as $secAuthor){
+        foreach ($book->authors as $secAuthor) {
             array_push($output, $authorService->authorToString($secAuthor));
         }
         $output = array_slice($output, 1);
@@ -155,35 +160,41 @@ class BookFormFiller
         return $result;
     }
 
-    public static function fillForFirstPrint($bookId){
+    public static function fillForFirstPrint($bookId)
+    {
         $book = Book::with(array('personal_book_info', 'book_from_author', 'publisher_serie', 'tags'))->find($bookId);
         $result['book_id'] = $bookId;
-
-        $result['first_print_title'] = $book->first_print_info->title;
-        $result['first_print_subtitle'] = $book->first_print_info->subtitle;
-        $result['first_print_isbn'] = $book->first_print_info->ISBN;
+        $result['first_print_title'] = "";
+        $result['first_print_subtitle'] = "";
+        $result['first_print_isbn'] = "";
         $result['first_print_language'] = "";
-        if($book->first_print_info->language != null){
-            $result['first_print_language'] = $book->first_print_info->language;
-        }
-
         $result['first_print_country'] = "";
-        if ($book->first_print_info->country != null) {
-            $result['first_print_country'] = $book->first_print_info->country->name;
-        }
-
         $result['first_print_publisher'] = "";
-        if ($book->first_print_info->publisher != null) {
-            $result['first_print_publisher'] = $book->first_print_info->publisher->name;
-        }
-
         $result['first_print_publication_date_day'] = "";
         $result['first_print_publication_date_month'] = "";
         $result['first_print_publication_date_year'] = "";
-        if ($book->first_print_info->publication_date != null) {
-            $result['first_print_publication_date_day'] = $book->first_print_info->publication_date->day;
-            $result['first_print_publication_date_month'] = $book->first_print_info->publication_date->month;
-            $result['first_print_publication_date_year'] = $book->first_print_info->publication_date->year;
+
+        if ($book->first_print_info != null) {
+            $result['first_print_title'] = $book->first_print_info->title;
+            $result['first_print_subtitle'] = $book->first_print_info->subtitle;
+            $result['first_print_isbn'] = $book->first_print_info->ISBN;
+            if ($book->first_print_info->language != null) {
+                $result['first_print_language'] = $book->first_print_info->language;
+            }
+
+            if ($book->first_print_info->country != null) {
+                $result['first_print_country'] = $book->first_print_info->country->name;
+            }
+
+            if ($book->first_print_info->publisher != null) {
+                $result['first_print_publisher'] = $book->first_print_info->publisher->name;
+            }
+
+            if ($book->first_print_info->publication_date != null) {
+                $result['first_print_publication_date_day'] = $book->first_print_info->publication_date->day;
+                $result['first_print_publication_date_month'] = $book->first_print_info->publication_date->month;
+                $result['first_print_publication_date_year'] = $book->first_print_info->publication_date->year;
+            }
         }
 
         return $result;
@@ -212,7 +223,7 @@ class BookFormFiller
             $result['buyOrGift'] = 'BUY';
 
             $buy_date = strtotime($book->personal_book_info->buy_info->buy_date);
-            if(!StringUtils::isEmpty($buy_date)){
+            if (!StringUtils::isEmpty($buy_date)) {
                 $result['buy_info_buy_date'] = DateFormatter::toDateWithSlashes($buy_date);
             }
             $result['buy_info_price_payed'] = StringUtils::replace($book->personal_book_info->buy_info->price_payed, ".", ",");
@@ -234,7 +245,7 @@ class BookFormFiller
             $result['buyOrGift'] = 'GIFT';
 
             $receipt_date = strtotime($book->personal_book_info->gift_info->receipt_date);
-            if(!StringUtils::isEmpty($receipt_date)){
+            if (!StringUtils::isEmpty($receipt_date)) {
                 $result['gift_info_receipt_date'] = DateFormatter::toDateWithSlashes($receipt_date);
             }
             $result['gift_info_from'] = $book->personal_book_info->gift_info->from;
@@ -252,10 +263,10 @@ class BookFormFiller
         $book = Book::with(array('personal_book_info', 'book_from_author', 'publisher_serie', 'tags'))->find($bookId);
         $result['book_id'] = $bookId;
 
-        if(StringUtils::isEmpty($book->coverImage)){
+        if (StringUtils::isEmpty($book->coverImage)) {
             $result['book_cover_image'] = Config::get("properties.questionImage");
-        }else{
-            $result['book_cover_image'] = Config::get("properties.bookImagesLocation") . "/" . Auth::user()->username ."/" . $book->coverImage;
+        } else {
+            $result['book_cover_image'] = Config::get("properties.bookImagesLocation") . "/" . Auth::user()->username . "/" . $book->coverImage;
         }
         $result['book_type_of_cover'] = $book->type_of_cover;
 
@@ -268,8 +279,8 @@ class BookFormFiller
         $book = Book::with(array('personal_book_info', 'book_from_author', 'publisher_serie', 'tags'))->find($bookId);
 
         $preferredAuthor = $book->authors[0];
-        foreach($book->authors as $author){
-            if($author->pivot->preferred == true){
+        foreach ($book->authors as $author) {
+            if ($author->pivot->preferred == true) {
                 $preferredAuthor = $author;
             }
         }
@@ -283,15 +294,17 @@ class BookFormFiller
         $result['book_print'] = $book->print;
         $result['book_cover_image'] = $book->coverImage;
 
-        if(StringUtils::isEmpty($book->coverImage)){
+        if (StringUtils::isEmpty($book->coverImage)) {
             $result['book_cover_image'] = Config::get("properties.questionImage");
-        }else{
-            $result['book_cover_image'] = Config::get("properties.bookImagesLocation") . "/" . Auth::user()->username ."/" . $book->coverImage;
+        } else {
+            $result['book_cover_image'] = Config::get("properties.bookImagesLocation") . "/" . Auth::user()->username . "/" . $book->coverImage;
         }
 
         $result['book_type_of_cover'] = $book->type_of_cover;
         $result['book_state'] = $book->state;
-        $output = array_map(function ($object) {return $object['name'];}, $book->tags->toArray());
+        $output = array_map(function ($object) {
+            return $object['name'];
+        }, $book->tags->toArray());
         $result['book_tags'] = implode(BookInfoParameterMapper::TAG_DELIMITER, $output);
         $result['book_old_tags'] = $book->old_tags;
         $result['translator'] = $book->translator;
@@ -300,7 +313,7 @@ class BookFormFiller
         $result['first_print_title'] = $book->first_print_info->title;
         $result['first_print_subtitle'] = $book->first_print_info->subtitle;
         $result['first_print_isbn'] = $book->first_print_info->ISBN;
-        if($book->first_print_info->language != null){
+        if ($book->first_print_info->language != null) {
             $result['first_print_language'] = $book->first_print_info->language;
         }
 
@@ -338,9 +351,9 @@ class BookFormFiller
         $result['author_infix'] = $preferredAuthor->infix;
         $result['author_firstname'] = $preferredAuthor->firstname;
 
-        if(StringUtils::isEmpty($preferredAuthor->image)){
+        if (StringUtils::isEmpty($preferredAuthor->image)) {
             $result['author_image'] = Config::get("properties.questionImage");
-        }else{
+        } else {
             $result['author_image'] = Config::get("properties.authorImagesLocation") . "/" . $preferredAuthor->image;
         }
 
@@ -353,7 +366,7 @@ class BookFormFiller
         /** @var AuthorService $authorService */
         $authorService = App::make('AuthorService');
         $output = array();
-        foreach($book->authors as $secAuthor){
+        foreach ($book->authors as $secAuthor) {
             array_push($output, $authorService->authorToString($secAuthor));
         }
         $output = array_slice($output, 1);
@@ -413,7 +426,7 @@ class BookFormFiller
             $result['buyOrGift'] = 'BUY';
 
             $buy_date = strtotime($book->personal_book_info->buy_info->buy_date);
-            if(!StringUtils::isEmpty($buy_date)){
+            if (!StringUtils::isEmpty($buy_date)) {
                 $result['buy_info_buy_date'] = DateFormatter::toDateWithSlashes($buy_date);
             }
             $result['buy_info_price_payed'] = StringUtils::replace($book->personal_book_info->buy_info->price_payed, ".", ",");
@@ -437,7 +450,7 @@ class BookFormFiller
             $result['buyOrGift'] = 'GIFT';
 
             $receipt_date = strtotime($book->personal_book_info->gift_info->receipt_date);
-            if(!StringUtils::isEmpty($receipt_date)){
+            if (!StringUtils::isEmpty($receipt_date)) {
                 $result['gift_info_receipt_date'] = DateFormatter::toDateWithSlashes($receipt_date);
             }
             $result['gift_book_info_retail_price'] = StringUtils::replace($book->retail_price, ".", ",");

@@ -3,6 +3,7 @@
 class BookService
 {
     const PAGES = 120;
+    const COMPLETE = "COMPLETE";
 
     /** @var  BookRepository */
     private $bookRepository;
@@ -42,6 +43,18 @@ class BookService
 
     public function find($id){
         return $this->bookRepository->find($id);
+    }
+
+    public function getWizardSteps(){
+        return array(
+            1=>"Basis",
+            2=>"Extra",
+            3=>"Auteur",
+            4=>"Eerste druk",
+            5=>"Persoonlijk",
+            6=>"koop/gift",
+            7=>"Cover",
+        );
     }
 
     public function getValueOfLibrary()
@@ -156,12 +169,17 @@ class BookService
 
     public function setWizardStep($book, $nextStep){
         $currentStep = $book->wizard_step;
-        if($currentStep != "COMPLETE"){
+        if($currentStep != self::COMPLETE){
             if($currentStep < $nextStep){
                 $book->wizard_step = $nextStep;
                 $book->save();
             }
         }
+    }
+
+    public function completeWizard($book){
+        $book->wizard_step = self::COMPLETE;
+        $book->save();
     }
 
     public function saveExtras($book_id, ExtraBookInfoParameters $extraBookInfoParameters){

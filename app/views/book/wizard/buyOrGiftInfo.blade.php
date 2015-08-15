@@ -7,7 +7,7 @@
         @include('book/wizard/wizardsteps', array('wizardSteps' => $wizardSteps, 'currentStep' => '6'))
     </div>
     <div class="create-book-div">
-        {{ Form::open(array('id'=>'createOrEditBookForm', 'url' => 'createOrEditBook/step6/' . $book_id, 'class' => 'form-horizontal createBookForm', 'autocomplete' => 'off', 'files' => 'true')); }}
+        {{ Form::open(array('id'=>'createOrEditBookForm', 'url' => 'createOrEditBook/step/6/' . $book_id, 'class' => 'form-horizontal createBookForm', 'autocomplete' => 'off', 'files' => 'true')); }}
         <input id="redirectInput" hidden name="redirect" value="NEXT">
         <div id="error-div" class="material-card error-message" hidden>
             <div id="error-message" class="material-card-content error-message"></div>
