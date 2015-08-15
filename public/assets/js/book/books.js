@@ -72,7 +72,7 @@ $(document).ready(function () {
 
     function addClickToEditElement(element, bookId) {
         element.click(function (event) {
-            window.location = baseUrl + "/editBook/" + bookId;
+            window.location = baseUrl + "/createOrEditBook/step/1/" + bookId;
             event.stopPropagation();
         });
     }

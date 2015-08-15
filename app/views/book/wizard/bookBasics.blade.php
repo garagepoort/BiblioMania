@@ -8,7 +8,7 @@
     </div>
     <div class="create-book-div">
 
-        {{ Form::open(array('id'=>'createOrEditBookForm', 'url' => 'createOrEditBook/step1', 'class' => 'form-horizontal createBookForm', 'autocomplete' => 'off', 'files' => 'true')); }}
+        {{ Form::open(array('id'=>'createOrEditBookForm', 'url' => 'createOrEditBook/step/1/' . $book_id, 'class' => 'form-horizontal createBookForm', 'autocomplete' => 'off', 'files' => 'true')); }}
         <div id="error-div" class="material-card error-message" hidden>
             <div id="error-message" class="material-card-content error-message"></div>
         </div>
