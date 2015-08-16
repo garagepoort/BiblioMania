@@ -18,7 +18,7 @@
                 {{ HTML::image($book_cover_image, 'image', array('style' => 'margin-bottom: 10px;')) }}
             @endif
             <div class="cover-info-top-panel">
-                <!-- {{ Form::label('bookTypeOfCoverLabel', 'Cover type:', array('class' => 'col-md-2')); }} -->
+                <!-- {{ Form::label('bookTypeOfCoverLabel', 'Cover type:', array('class' => 'col-md-2 control-label')); }} -->
                 <!-- {{ $errors->first('book_typeOfCover') }} -->
                 <div class="col-md-4">
                     {{ Form::select('book_type_of_cover', $covers, $book_type_of_cover, array('class' => 'input-sm form-control')); }}
@@ -31,7 +31,7 @@
             <!-- IMAGE -->
 
             <div id="cover-info-self-upload-panel" class="form-group" hidden>
-                {{ Form::label('imageBookLabel', 'Cover:', array('class' => 'col-md-3')); }}
+                {{ Form::label('imageBookLabel', 'Cover:', array('class' => 'col-md-3 control-label')); }}
                         <!-- {{ $errors->first('book_image') }} -->
                 <div class="col-md-4">
                     <div class="fileinput fileinput-new" data-provides="fileinput">
