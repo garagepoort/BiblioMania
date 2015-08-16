@@ -14,7 +14,6 @@
         </div>
 
         <fieldset>
-            <legend>Auteur info</legend>
             @if ($errors->has())
                 @foreach ($errors->all() as $error)
                     <div id="bookInfoMessage" class="alert-danger alert">
