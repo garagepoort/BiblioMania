@@ -31,7 +31,7 @@
                 @endif
                         <!-- NAME -->
                 <div class="form-group">
-                    {{ Form::label('authorNameLabel', 'Naam:', array('class' => 'col-md-3')); }}
+                    {{ Form::label('authorNameLabel', 'Naam:', array('class' => 'col-md-3 control-label')); }}
                     <div class="col-md-3">
                         {{ Form::text('author_firstname', $author_firstname, array('id'=>'author_firstname','class' => 'form-control', 'placeholder' => 'voornaam', 'required' => 'true')); }}
                     </div>
@@ -45,7 +45,7 @@
 
                 <!-- Tags -->
                 <div class="form-group">
-                    {{ Form::label('secondaryAuthorsLabel', 'Extra auteurs:', array('class' => 'col-md-3')); }}
+                    {{ Form::label('secondaryAuthorsLabel', 'Extra auteurs:', array('class' => 'col-md-3 control-label')); }}
                     <div class="col-md-8">
                         {{ Form::text('secondary_authors', $secondary_authors, array('id'=>'secondary_authors_input', 'class' => 'form-control', 'type' => 'text')); }}
                     </div>
@@ -53,8 +53,8 @@
 
                 <!-- BIRTH DATE -->
                 <div class="form-group">
-                    {{ Form::label('birthDateLabel', 'Geboorte datum:', array('class' => 'col-md-3 label-gray')); }}
-                    <div class="col-md-3">
+                    {{ Form::label('birthDateLabel', 'Geboorte datum:', array('class' => 'col-md-3 label-gray control-label')); }}
+                    <div class="col-md-3 control-label">
                         @include('book/create/dateInputFragment', array('label' => 'Geboorte datum:',
                                                'dateDayName'=>'author_date_of_birth_day',
                                                'dateMonthName'=>'author_date_of_birth_month',
@@ -67,8 +67,8 @@
 
                 <!-- DEATH DATE -->
                 <div class="form-group">
-                    {{ Form::label('deathDateLabel', 'Sterfte datum:', array('class' => 'col-md-3 label-gray')); }}
-                    <div class="col-md-3">
+                    {{ Form::label('deathDateLabel', 'Sterfte datum:', array('class' => 'col-md-3 label-gray control-label')); }}
+                    <div class="col-md-3 control-label">
                         @include('book/create/dateInputFragment', array('label' => 'Sterfte datum:',
                                                             'dateDayName'=>'author_date_of_death_day',
                                                             'dateMonthName'=>'author_date_of_death_month',
