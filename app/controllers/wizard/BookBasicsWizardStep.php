@@ -52,7 +52,7 @@ class BookBasicsWizardStep extends  WizardStep
         }
 
         $withArray['title'] = 'Boek basis';
-        $withArray['wizardSteps'] = $this->bookService->getWizardSteps();
+        $withArray['wizardSteps'] = $this->bookService->getWizardSteps($id);
         $withArray['languages'] = $this->languageService->getLanguagesMap();
         $withArray['currencies'] = $this->currencyService->getCurrencies();
         $withArray['genres'] = $genres;

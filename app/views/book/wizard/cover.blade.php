@@ -4,7 +4,7 @@
 @endsection
 @section("content")
     <div class="wizard-steps">
-        @include('book/wizard/wizardsteps', array('wizardSteps' => $wizardSteps, 'currentStep' => '7'))
+        @include('book/wizard/wizardsteps', array('wizardSteps' => $wizardSteps, 'currentStep' => '7', 'progress' => $book_wizard_step))
     </div>
     <div class="create-book-div">
         {{ Form::open(array('id'=>'createOrEditBookForm', 'url' => 'createOrEditBook/step/7/' . $book_id, 'class' => 'form-horizontal createBookForm', 'autocomplete' => 'off', 'files' => 'true')); }}
