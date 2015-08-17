@@ -59,6 +59,10 @@ abstract class Wizard
         return Redirect::to("/" . $this->basePath . "/step/" . $previousStep ."/" . $id);
     }
 
+    public function redirectToStep($id, $step){
+        return Redirect::to("/" . $this->basePath . "/step/" . $step ."/" . $id);
+    }
+
     public abstract function afterLastStepGoTo();
 
     protected abstract function checkIsAllowedToBeInStep($object, $step);
@@ -77,7 +81,7 @@ abstract class Wizard
         $redirectTo = Input::get('redirect');
         if ($redirectTo == "PREVIOUS") {
             return $this->goToPreviousStep($book_id, $step);
-        } else {
+        } else if($redirectTo == "NEXT"){
             if ($this->isLastStep($step)) {
                 $this->beforeGoingToLastStep($result);
                 return $this->afterLastStepGoTo();
@@ -85,6 +89,8 @@ abstract class Wizard
                 $this->beforeGoingToNextStep($result, $step);
                 return $this->goToNextStep($book_id, $step);
             }
+        }else{
+            return $this->redirectToStep($book_id, $redirectTo);
         }
     }
 }

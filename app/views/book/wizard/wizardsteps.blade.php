@@ -1,22 +1,23 @@
 <ul class="nav nav-pills nav-wizard">
     @foreach ($wizardSteps as $key => $wizardStep)
-        <li>
+        <li class="wizard-step">
             @if($key == $currentStep)
                 @if($key != 1)
                     <div class="nav-wedge nav-wedge-current"></div>
                 @endif
 
-                <div class="wizard-step-content wizard-step-current">{{ $wizardStep }}</div>
+                <div class="wizard-step-content wizard-step-current">{{ $wizardStep->title }}</div>
 
                 @if($key != count($wizardSteps))
                     <div class="nav-arrow nav-arrow-current"></div>
                 @endif
-            @elseif($key < $currentStep)
+            @elseif($progress == 'COMPLETE' || $key <= $progress)
                 @if($key != 1)
                     <div class="nav-wedge nav-wedge-before"></div>
                 @endif
 
-                <div class="wizard-step-content wizard-step-before">{{ $wizardStep }}</div>
+                <div class="wizard-step-content wizard-step-before"
+                     onclick="setRedirectTo({{ $key }}); submitForm();">{{ $wizardStep->title }}</div>
 
                 @if($key != count($wizardSteps))
                     <div class="nav-arrow nav-arrow-before"></div>
@@ -26,7 +27,7 @@
                     <div class="nav-wedge"></div>
                 @endif
 
-                <div class="wizard-step-content">{{ $wizardStep }}</div>
+                <div class="wizard-step-content">{{ $wizardStep->title }}</div>
 
                 @if($key != count($wizardSteps))
                     <div class="nav-arrow"></div>

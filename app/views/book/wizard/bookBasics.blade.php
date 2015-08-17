@@ -4,11 +4,12 @@
 @endsection
 @section("content")
     <div class="wizard-steps">
-        @include('book/wizard/wizardsteps', array('wizardSteps' => $wizardSteps, 'currentStep' => '1'))
+        @include('book/wizard/wizardsteps', array('wizardSteps' => $wizardSteps, 'currentStep' => '1', 'progress' => $book_wizard_step))
     </div>
     <div class="create-book-div">
 
         {{ Form::open(array('id'=>'createOrEditBookForm', 'url' => 'createOrEditBook/step/1/' . $book_id, 'class' => 'form-horizontal createBookForm', 'autocomplete' => 'off', 'files' => 'true')); }}
+        <input id="redirectInput" hidden name="redirect" value="NEXT">
         <div id="error-div" class="material-card error-message" hidden>
             <div id="error-message" class="material-card-content error-message"></div>
         </div>
