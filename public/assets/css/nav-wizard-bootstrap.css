@@ -45,22 +45,26 @@
     z-index: 150;
 }
 
-/*.nav-pills.nav-wizard > li:hover .nav-arrow {*/
-    /*border-color: transparent transparent transparent #aaa;*/
-/*}*/
-/*.nav-pills.nav-wizard > li:hover .nav-wedge {*/
-    /*border-color: #aaa #aaa #aaa transparent;*/
-/*}*/
-/*.nav-pills.nav-wizard > li:hover a {*/
-    /*background-color: #aaa;*/
-    /*color: #fff;*/
-/*}*/
-/*.nav-pills.nav-wizard > li.active .nav-arrow {*/
-    /*border-color: transparent transparent transparent #428bca;*/
-/*}*/
-/*.nav-pills.nav-wizard > li.active .nav-wedge {*/
-    /*border-color: #428bca #428bca #428bca transparent;*/
-/*}*/
-/*.nav-pills.nav-wizard > li.active a {*/
-    /*background-color: #428bca;*/
-/*}*/
+.nav-pills.nav-wizard > li:hover {
+    cursor: pointer;
+}
+
+.nav-pills.nav-wizard > li:hover div.nav-arrow {
+    border-color: transparent transparent transparent #aaa;
+}
+.nav-pills.nav-wizard > li:hover div.nav-wedge {
+    border-color: #aaa #aaa #aaa transparent;
+}
+.nav-pills.nav-wizard > li:hover div.wizard-step-content {
+    background-color: #aaa;
+    color: #fff;
+}
+.nav-pills.nav-wizard > li.active div.nav-arrow {
+    border-color: transparent transparent transparent #428bca;
+}
+.nav-pills.nav-wizard > li.active div.nav-wedge {
+    border-color: #428bca #428bca #428bca transparent;
+}
+.nav-pills.nav-wizard > li.active div.wizard-step-content {
+    background-color: #428bca;
+}

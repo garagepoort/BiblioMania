@@ -45,15 +45,15 @@ class BookService
         return $this->bookRepository->find($id);
     }
 
-    public function getWizardSteps(){
+    public function getWizardSteps($id = null){
         return array(
-            1=>"Basis",
-            2=>"Extra",
-            3=>"Auteur",
-            4=>"Eerste druk",
-            5=>"Persoonlijk",
-            6=>"koop/gift",
-            7=>"Cover",
+            1=>(object)array('title' => 'Basis', 'link'=>'createOrEditBook/step/1/'. $id),
+            2=>(object)array('title' => 'Extra', 'link'=>'createOrEditBook/step/2/'. $id),
+            3=>(object)array('title' => 'Auteur', 'link'=>'createOrEditBook/step/3/'. $id),
+            4=>(object)array('title' => 'Eerste druk', 'link'=>'createOrEditBook/step/4/'. $id),
+            5=>(object)array('title' => 'Persoonlijk', 'link'=>'createOrEditBook/step/5/'. $id),
+            6=>(object)array('title' => 'koop/gift', 'link'=>'createOrEditBook/step/6/'. $id),
+            7=>(object)array('title' => 'Cover', 'link'=>'createOrEditBook/step/7/'. $id),
         );
     }
 

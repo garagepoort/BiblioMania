@@ -28,7 +28,7 @@ class PersonalInfoWizardStep extends WizardStep
     {
         $withArray = BookFormFiller::fillForPersonalInfo($id);
         $withArray['title'] = 'Persoonlijke informatie';
-        $withArray['wizardSteps'] = $this->bookService->getWizardSteps();
+        $withArray['wizardSteps'] = $this->bookService->getWizardSteps($id);
         return View::make($this->bookFolder . 'personalinfo')->with($withArray);
     }
 }

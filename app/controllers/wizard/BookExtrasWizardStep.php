@@ -29,7 +29,7 @@ class BookExtrasWizardStep extends WizardStep
     {
         $withArray = BookFormFiller::fillForBookExtras($id);
         $withArray['title'] = 'Boek extras';
-        $withArray['wizardSteps'] = $this->bookService->getWizardSteps();
+        $withArray['wizardSteps'] = $this->bookService->getWizardSteps($id);
         $withArray['tags_json'] = json_encode(Tag::all());
         $withArray['series_json'] = json_encode(Serie::all());
         $withArray['states'] = $this->bookService->getBookStates();;

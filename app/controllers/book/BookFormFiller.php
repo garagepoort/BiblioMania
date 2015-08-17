@@ -10,6 +10,7 @@ class BookFormFiller
         $result['book_title'] = $book->title;
         $result['book_subtitle'] = $book->subtitle;
         $result['book_isbn'] = $book->ISBN;
+        $result['book_wizard_step'] = $book->wizard_step;
 
         $output = array_map(function ($object) {
             return $object['name'];
@@ -63,6 +64,7 @@ class BookFormFiller
         $result['translator'] = $book->translator;
         $result['book_summary'] = $book->summary;
         $result['book_state'] = $book->state;
+        $result['book_wizard_step'] = $book->wizard_step;
         $result['book_serie'] = "";
         $result['book_publisher_serie'] = "";
         $result['book_info_retail_price'] = StringUtils::replace($book->retail_price, ".", ",");
@@ -83,6 +85,7 @@ class BookFormFiller
         $book = Book::with(array('personal_book_info', 'book_from_author', 'publisher_serie', 'tags'))->find($id);
         $result = BookFormFiller::createArrayForCreate();
         $result['book_id'] = $id;
+        $result['book_wizard_step'] = $book->wizard_step;
         $preferredAuthor = $book->preferredAuthor();
 
         if ($preferredAuthor != null) {
@@ -140,6 +143,7 @@ class BookFormFiller
         $result['personal_info_reading_date_input'] = '';
         $result['personal_info_rating'] = '';
         $result['personal_info_review'] = '';
+        $result['book_wizard_step'] = $book->wizard_step;
 
         if ($book->personal_book_info != null) {
             $result['personal_info_owned'] = $book->personal_book_info->get_owned();
@@ -163,6 +167,7 @@ class BookFormFiller
     public static function fillForFirstPrint($bookId)
     {
         $book = Book::with(array('personal_book_info', 'book_from_author', 'publisher_serie', 'tags'))->find($bookId);
+        $result['book_wizard_step'] = $book->wizard_step;
         $result['book_id'] = $bookId;
         $result['first_print_title'] = "";
         $result['first_print_subtitle'] = "";
@@ -203,6 +208,7 @@ class BookFormFiller
     public static function fillForBuyInfo($bookId)
     {
         $book = Book::with(array('personal_book_info', 'book_from_author', 'publisher_serie', 'tags'))->find($bookId);
+        $result['book_wizard_step'] = $book->wizard_step;
         $result['book_id'] = $bookId;
         $result['gift_info_receipt_date'] = '';
         $result['gift_info_from'] = '';
@@ -261,6 +267,7 @@ class BookFormFiller
     public static function fillForCover($bookId)
     {
         $book = Book::with(array('personal_book_info', 'book_from_author', 'publisher_serie', 'tags'))->find($bookId);
+        $result['book_wizard_step'] = $book->wizard_step;
         $result['book_id'] = $bookId;
 
         if (StringUtils::isEmpty($book->coverImage)) {
@@ -473,6 +480,7 @@ class BookFormFiller
     {
         $result = array();
         $result['book_id'] = '';
+        $result['book_wizard_step'] = '';
         $result['book_title'] = 'Nieuw boek';
         $result['book_subtitle'] = '';
         $result['book_isbn'] = '';

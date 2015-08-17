@@ -13,3 +13,11 @@ function hideError(){
 function setRedirectToPrevious(){
     $('#redirectInput').attr('value', 'PREVIOUS');
 }
+
+function setRedirectTo(value){
+    $('#redirectInput').attr('value', value);
+}
+
+function submitForm(){
+    document.getElementById('createOrEditBookForm').submit();
+}

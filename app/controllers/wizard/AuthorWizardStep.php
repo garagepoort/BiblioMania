@@ -29,7 +29,7 @@ class AuthorWizardStep extends WizardStep
     {
         $withArray = BookFormFiller::fillForAuthor($id);
         $withArray['title'] = 'Auteur';
-        $withArray['wizardSteps'] = $this->bookService->getWizardSteps();
+        $withArray['wizardSteps'] = $this->bookService->getWizardSteps($id);
         $withArray['authors_json'] = json_encode(Author::all(['id', 'name', 'firstname', 'infix']));
         return View::make($this->bookFolder . 'author')->with($withArray);
     }
