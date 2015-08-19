@@ -18,6 +18,9 @@ class FileToAuthorParametersMapperTest extends TestCase {
 
         $this->bookFromAuthorParameters = array(new BookFromAuthorParameters("some title", 1234));
         $this->fileToOeuvreParametersMapper->shouldReceive('map')->with("oeuvre")->andReturn($this->bookFromAuthorParameters);
+
+        $values = array("Auteur", "Koppelingen");
+        LineMapping::initializeMapping($values);
     }
 
     public function test_map_mapsCorrect(){
@@ -38,11 +41,10 @@ class FileToAuthorParametersMapperTest extends TestCase {
         /** @var AuthorInfoParameters $author3 */
         $author3 = $parameters[2];
 
-        $this->assertEquals($author1->getFirstname(), "first_firstName");
+        $this->assertEquals($author1->getFirstname(), "");
         $this->assertEquals($author1->getInfix(), "");
-        $this->assertEquals($author1->getName(), "");
+        $this->assertEquals($author1->getName(), "first_firstName");
         $this->assertEquals($author1->getOeuvre(), $this->bookFromAuthorParameters);
-        $this->assertEquals($author1->getImage(), "bookImages/John/image");
 
         $this->assertEquals($author2->getFirstname(), "second");
         $this->assertEquals($author2->getInfix(), "");

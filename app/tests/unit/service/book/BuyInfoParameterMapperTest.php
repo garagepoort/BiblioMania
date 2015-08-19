@@ -7,6 +7,7 @@ class BuyInfoParameterMapperTest extends TestCase {
     const COUNTRY = 'country';
     const DATE = '01/12/1991';
     const PRICE_PAYED = 1234;
+    const CURRENCY = 'EUR';
 
     /** @var  BuyInfoParameterMapper */
     private $buyInfoParameterMapper;
@@ -24,6 +25,7 @@ class BuyInfoParameterMapperTest extends TestCase {
         $mockInput->shouldReceive('input')->with('buy_info_reason', null)->andReturn(self::REASON);
         $mockInput->shouldReceive('input')->with('buy_info_country', null)->andReturn(self::COUNTRY);
         $mockInput->shouldReceive('input')->with('buy_info_price_payed', null)->andReturn(self::PRICE_PAYED);
+        $mockInput->shouldReceive('input')->with('buy_info_price_payed_currency', null)->andReturn(self::CURRENCY);
         Input::swap($mockInput);
 
         $buyInfoParameters = $this->buyInfoParameterMapper->create();
@@ -33,6 +35,7 @@ class BuyInfoParameterMapperTest extends TestCase {
         $this->assertEquals(self::REASON, $buyInfoParameters->getReason());
         $this->assertEquals(self::COUNTRY, $buyInfoParameters->getCountry());
         $this->assertEquals(self::PRICE_PAYED, $buyInfoParameters->getPricePayed());
+        $this->assertEquals(self::CURRENCY, $buyInfoParameters->getCurrency());
         $this->assertEquals("1", $buyInfoParameters->getDate()->format('d'));
         $this->assertEquals("12", $buyInfoParameters->getDate()->format('m'));
         $this->assertEquals("1991", $buyInfoParameters->getDate()->format('Y'));
@@ -46,6 +49,7 @@ class BuyInfoParameterMapperTest extends TestCase {
         $mockInput->shouldReceive('input')->with('buy_info_reason', null)->andReturn(self::REASON);
         $mockInput->shouldReceive('input')->with('buy_info_country', null)->andReturn(self::COUNTRY);
         $mockInput->shouldReceive('input')->with('buy_info_price_payed', null)->andReturn(self::PRICE_PAYED);
+        $mockInput->shouldReceive('input')->with('buy_info_price_payed_currency', null)->andReturn(self::CURRENCY);
         Input::swap($mockInput);
 
         $buyInfoParameters = $this->buyInfoParameterMapper->create();
