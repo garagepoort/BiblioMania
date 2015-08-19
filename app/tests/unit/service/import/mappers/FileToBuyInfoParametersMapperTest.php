@@ -7,16 +7,19 @@ class FileToBuyInfoParametersMapperTest extends TestCase {
     public function setUp(){
         parent::setUp();
         $this->fileToBuyInfoParametersMapperTest = App::make('FileToBuyInfoParametersMapper');
+
+        $values = array("Aanschafdatum", "Winkel", "Aanschafprijs");
+        LineMapping::initializeMapping($values);
     }
 
     public function test_map_worksCorrect(){
         $line_values = [50];
 
-        $line_values[LineMapping::BuyInfoBuyDate] = "12-03-14";
-        $line_values[LineMapping::BuyInfoShop] = "shopBuy";
-        $line_values[LineMapping::BuyInfoPricePayed] = "45";
+        $line_values[LineMapping::$BuyInfoBuyDate] = "12/03/14";
+        $line_values[LineMapping::$BuyInfoShop] = "shopBuy";
+        $line_values[LineMapping::$BuyInfoPricePayed] = "45";
 
-        $expectedDate = DateTime::createFromFormat('d-m-y', "12-03-14");
+        $expectedDate = DateTime::createFromFormat('d/m/Y', "12/03/14");
 
         $parameters = $this->fileToBuyInfoParametersMapperTest->map($line_values);
 

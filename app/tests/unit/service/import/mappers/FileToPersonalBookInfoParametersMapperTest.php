@@ -7,14 +7,17 @@ class FileToPersonalBookInfoParametersMapperTest extends TestCase {
     public function setUp(){
         parent::setUp();
         $this->fileToPersonalBookInfoParametersMapper = App::make('FileToPersonalBookInfoParametersMapper');
+
+        $values = array("Mijn Waardering", "Lees Datum", "Verzamel Status");
+        LineMapping::initializeMapping($values);
     }
 
     public function test_map_worksCorrect(){
         $line_values = [50];
 
-        $line_values[LineMapping::PersonalBookInfoRating] = "12";
-        $line_values[LineMapping::PersonalBookInfoReadingDate] = "12-03-14";
-        $line_values[LineMapping::PersonalBookInfoInCollection] = "In verzameling";
+        $line_values[LineMapping::$PersonalBookInfoRating] = "12";
+        $line_values[LineMapping::$PersonalBookInfoReadingDate] = "12-03-14";
+        $line_values[LineMapping::$PersonalBookInfoInCollection] = "In verzameling";
 
         $expectedDate = DateTime::createFromFormat('d-m-y', "12-03-14");
 

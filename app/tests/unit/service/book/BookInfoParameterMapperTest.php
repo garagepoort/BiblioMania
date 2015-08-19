@@ -16,6 +16,7 @@ class BookInfoParameterMapperTest extends TestCase {
     const RETAIL_PRICE = 123;
     const GIFT = 'GIFT';
     const TAGS = 'TAGS;TAGS2';
+    const CURRENCY = 'EUR';
 
     /** @var  BookInfoParameterMapper */
     private $bookInfoParameterMapper;
@@ -45,6 +46,7 @@ class BookInfoParameterMapperTest extends TestCase {
 
         $mockInput->shouldReceive('input')->with('buyOrGift', null)->andReturn(self::BUY);
         $mockInput->shouldReceive('input')->with('buy_book_info_retail_price', null)->andReturn(self::RETAIL_PRICE);
+        $mockInput->shouldReceive('input')->with('buy_book_info_retail_price_currency', null)->andReturn(self::CURRENCY);
         $mockInput->shouldReceive('input')->with('book_title', null)->andReturn(self::TITLE);
         $mockInput->shouldReceive('input')->with('book_subtitle', null)->andReturn(self::SUBTITLE);
         $mockInput->shouldReceive('input')->with('book_isbn', null)->andReturn(self::ISBN);
@@ -66,6 +68,7 @@ class BookInfoParameterMapperTest extends TestCase {
         $this->assertEquals(self::COUNTRY, $bookInfoParameters->getCountryName());
         $this->assertEquals(self::LANGUAGE, $bookInfoParameters->getLanguage());
         $this->assertEquals(self::RETAIL_PRICE, $bookInfoParameters->getRetailPrice());
+        $this->assertEquals(self::CURRENCY, $bookInfoParameters->getCurrency());
         $this->assertEquals(array("TAGS", "TAGS2"), $bookInfoParameters->getTags());
         $this->assertEquals($this->publicationDateMock, $bookInfoParameters->getPublicationDate());
     }
@@ -89,10 +92,13 @@ class BookInfoParameterMapperTest extends TestCase {
         $mockInput->shouldReceive('input')->with('book_tags', null)->andReturn(self::TAGS);
 
         $mockInput->shouldReceive('input')->with('gift_book_info_retail_price', null)->andReturn(765);
+        $mockInput->shouldReceive('input')->with('gift_book_info_retail_price_currency', null)->andReturn(self::CURRENCY);
+
         Input::swap($mockInput);
 
         $bookInfoParameters = $this->bookInfoParameterMapper->create();
 
         $this->assertEquals(765, $bookInfoParameters->getRetailPrice());
+        $this->assertEquals(self::CURRENCY, $bookInfoParameters->getCurrency());
     }
 }

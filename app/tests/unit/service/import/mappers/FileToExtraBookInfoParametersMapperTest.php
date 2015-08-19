@@ -7,6 +7,9 @@ class FileToExtraBookInfoParametersMapperTest extends TestCase {
     public function setUp(){
         parent::setUp();
         $this->fileToExtraBookInfoParametersMapper = App::make('FileToExtraBookInfoParametersMapper');
+
+        $values = array("Conditie", "Druk", "Vertaler", "Samenvatting", "Tags", "pagina's");
+        LineMapping::initializeMapping($values);
     }
 
     public function test_map_worksCorrect(){
