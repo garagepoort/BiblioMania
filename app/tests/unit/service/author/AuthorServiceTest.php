@@ -34,7 +34,7 @@ class AuthorServiceTest extends TestCase {
         $this->authorService = App::make('AuthorService');
     }
 
-    public function test_saveOrUpdate(){
+    public function test_saveOrUpdate_withoutImage(){
         $authorInfoParameters = new AuthorInfoParameters(
             self::NAME,
             self::FIRSTNAME,
@@ -42,14 +42,14 @@ class AuthorServiceTest extends TestCase {
             $this->dateOfBirthMock,
             $this->dateOfDeathMock,
             self::LINKED_BOOK,
-            self::IMAGE,
+            null,
             array(),
-            true);
+            null);
 
         $this->dateOfBirthMock->shouldReceive('save')->once();
         $this->dateOfDeathMock->shouldReceive('save')->once();
 
-        $this->imageService->shouldReceive("saveUploadImage")->once()->with(self::IMAGE, self::NAME)->andReturn(self::IMAGE_PATH);
+        $this->imageService->shouldReceive("saveUploadImage")->never();
         $this->authorRepository->shouldReceive("getAuthorByFullName")->once()->with(self::NAME, self::FIRSTNAME, self::INFIX)->andReturn(null);
         $this->authorRepository->shouldReceive("save")->once();
 
@@ -60,7 +60,7 @@ class AuthorServiceTest extends TestCase {
         $this->assertEquals($author->infix, self::INFIX);
         $this->assertEquals($author->date_of_birth_id, 12);
         $this->assertEquals($author->date_of_death_id, 13);
-        $this->assertEquals($author->image, self::IMAGE_PATH);
+        $this->assertEquals($author->image, null);
     }
 
     public function test_saveOrUpdate_whenImageFromUrl_savesImageFromUrl(){
@@ -78,10 +78,9 @@ class AuthorServiceTest extends TestCase {
         $this->dateOfBirthMock->shouldReceive('save')->once();
         $this->dateOfDeathMock->shouldReceive('save')->once();
 
-        $this->imageService->shouldReceive("saveImageFromUrl")->once()->with(self::IMAGE, self::NAME)->andReturn(self::IMAGE_PATH);
+        $this->imageService->shouldReceive("saveAuthorImageFromUrl")->once()->with(self::IMAGE, Mockery::any())->andReturn(self::IMAGE_PATH);
         $this->authorRepository->shouldReceive("getAuthorByFullName")->once()->with(self::NAME, self::FIRSTNAME, self::INFIX)->andReturn(null);
         $this->authorRepository->shouldReceive("save")->once();
-        $this->imageService->shouldReceive("removeImage")->once();
 
         $author = $this->authorService->createOrUpdate($authorInfoParameters);
 
@@ -91,6 +90,7 @@ class AuthorServiceTest extends TestCase {
         $this->assertEquals($author->date_of_birth_id, 12);
         $this->assertEquals($author->date_of_death_id, 13);
         $this->assertEquals($author->image, self::IMAGE_PATH);
+        $this->assertEquals($author->useSpriteImage, false);
     }
 
     public function test_saveOrUpdate_whenAuthorAlreadyExists_datesAreUpdatedFromAuthor(){
@@ -101,9 +101,9 @@ class AuthorServiceTest extends TestCase {
             $this->dateOfBirthMock,
             $this->dateOfDeathMock,
             self::LINKED_BOOK,
-            self::IMAGE,
+            null,
             array(),
-            ImageSaveType::UPLOAD);
+            null);
 
         $originalDateOfBirth = Mockery::mock('Eloquent', 'Date');
         $originalDateOfDeath = Mockery::mock('Eloquent', 'Date');
@@ -118,20 +118,13 @@ class AuthorServiceTest extends TestCase {
         $this->dateService->shouldReceive("copyDateValues")->once()->with($originalDateOfBirth, $this->dateOfBirthMock);
         $this->dateService->shouldReceive("copyDateValues")->once()->with($originalDateOfDeath, $this->dateOfDeathMock);
 
-        $this->imageService->shouldReceive("saveUploadImage")->once()->with(self::IMAGE, self::NAME)->andReturn(self::IMAGE_PATH);
         $this->authorRepository->shouldReceive("getAuthorByFullName")->once()->with(self::NAME, self::FIRSTNAME, self::INFIX)->andReturn($originalAuthor);
         $this->authorRepository->shouldReceive("save")->once();
-        $this->imageService->shouldReceive("removeImage")->once();
 
         $author = $this->authorService->createOrUpdate($authorInfoParameters);
 
-        $this->assertEquals($originalAuthor, $author);
-        $this->assertEquals($originalAuthor->name, $author->name);
-        $this->assertEquals($originalAuthor->firstname, $author->firstname);
-        $this->assertEquals($originalAuthor->infix, $author->infix);
         $this->assertEquals($originalDateOfBirth, $author->date_of_birth);
         $this->assertEquals($originalDateOfDeath, $author->date_of_death);
-        $this->assertEquals($originalAuthor->image, $author->image);
     }
 
     public function testSaveImage_whenImageGivenNull_andPreviousImageFilled_keepsPreviousImage(){

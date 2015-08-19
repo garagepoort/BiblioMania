@@ -41,19 +41,21 @@ class BookService
         $this->countryService = App::make('CountryService');
     }
 
-    public function find($id){
+    public function find($id)
+    {
         return $this->bookRepository->find($id);
     }
 
-    public function getWizardSteps($id = null){
+    public function getWizardSteps($id = null)
+    {
         return array(
-            1=>(object)array('title' => 'Basis', 'link'=>'createOrEditBook/step/1/'. $id),
-            2=>(object)array('title' => 'Extra', 'link'=>'createOrEditBook/step/2/'. $id),
-            3=>(object)array('title' => 'Auteur', 'link'=>'createOrEditBook/step/3/'. $id),
-            4=>(object)array('title' => 'Eerste druk', 'link'=>'createOrEditBook/step/4/'. $id),
-            5=>(object)array('title' => 'Persoonlijk', 'link'=>'createOrEditBook/step/5/'. $id),
-            6=>(object)array('title' => 'koop/gift', 'link'=>'createOrEditBook/step/6/'. $id),
-            7=>(object)array('title' => 'Cover', 'link'=>'createOrEditBook/step/7/'. $id),
+            1 => (object)array('title' => 'Basis', 'link' => 'createOrEditBook/step/1/' . $id),
+            2 => (object)array('title' => 'Extra', 'link' => 'createOrEditBook/step/2/' . $id),
+            3 => (object)array('title' => 'Auteur', 'link' => 'createOrEditBook/step/3/' . $id),
+            4 => (object)array('title' => 'Eerste druk', 'link' => 'createOrEditBook/step/4/' . $id),
+            5 => (object)array('title' => 'Persoonlijk', 'link' => 'createOrEditBook/step/5/' . $id),
+            6 => (object)array('title' => 'koop/gift', 'link' => 'createOrEditBook/step/6/' . $id),
+            7 => (object)array('title' => 'Cover', 'link' => 'createOrEditBook/step/7/' . $id),
         );
     }
 
@@ -80,11 +82,13 @@ class BookService
         return array('author' => 'Auteur', 'title' => 'Titel', 'subtitle' => 'Ondertitel', 'rating' => 'Waardering');
     }
 
-    public function getBookCoverTypes(){
+    public function getBookCoverTypes()
+    {
         return array("Hard cover" => "Hard cover", "Paperback" => "Paperback", "Dwarsligger" => "Dwarsligger", "E-book" => "E-book", "Luisterboek" => "Luisterboek");
     }
 
-    public function getBookStates(){
+    public function getBookStates()
+    {
         return array("Perfect" => "Perfect", "Bijna Perfect" => "Bijna Perfect", "Prima" => "Prima", "Redelijk" => "Redelijk", "Slecht" => "Slecht");
     }
 
@@ -121,7 +125,8 @@ class BookService
             ->first();
     }
 
-    public function getAllFullBooks(){
+    public function getAllFullBooks()
+    {
         $with = array(
             'authors',
             'publisher',
@@ -136,7 +141,8 @@ class BookService
         return Book::with($with)->where('user_id', '=', Auth::user()->id)->get();
     }
 
-    public function saveBasics(BookInfoParameters $bookInfoParameters){
+    public function saveBasics(BookInfoParameters $bookInfoParameters)
+    {
         $book = new Book();
         if (!StringUtils::isEmpty($bookInfoParameters->getBookId())) {
             $book = $this->bookRepository->find($bookInfoParameters->getBookId());
@@ -146,13 +152,13 @@ class BookService
 
         if (!StringUtils::isEmpty($bookInfoParameters->getLanguage())) {
             $book->language()->associate($this->languageService->findOrSave($bookInfoParameters->getLanguage()));
-        }else{
+        } else {
             $book->language()->dissociate();
         }
 
         if ($bookInfoParameters->getPublicationDate() != null) {
             $book->publication_date()->associate($bookInfoParameters->getPublicationDate());
-        }else{
+        } else {
             $book->publication_date()->dissociate();
         }
 
@@ -167,24 +173,27 @@ class BookService
         return $book;
     }
 
-    public function setWizardStep($book, $nextStep){
+    public function setWizardStep($book, $nextStep)
+    {
         $currentStep = $book->wizard_step;
-        if($currentStep != self::COMPLETE){
-            if($currentStep < $nextStep){
+        if ($currentStep != self::COMPLETE) {
+            if ($currentStep < $nextStep) {
                 $book->wizard_step = $nextStep;
                 $book->save();
             }
         }
     }
 
-    public function completeWizard($book){
+    public function completeWizard($book)
+    {
         $book->wizard_step = self::COMPLETE;
         $book->save();
     }
 
-    public function saveExtras($book_id, ExtraBookInfoParameters $extraBookInfoParameters){
+    public function saveExtras($book_id, ExtraBookInfoParameters $extraBookInfoParameters)
+    {
         $book = $this->bookRepository->find($book_id);
-        if($book == null){
+        if ($book == null) {
             throw new ServiceException("book does not exist");
         }
 
@@ -196,16 +205,16 @@ class BookService
         $book->old_tags = $extraBookInfoParameters->getOldTags();
         $book->retail_price = $extraBookInfoParameters->getRetailPrice();
         $book->currency = $extraBookInfoParameters->getRetailPriceCurrency();
-        if(!StringUtils::isEmpty($extraBookInfoParameters->getPublisherSerie())){
+        if (!StringUtils::isEmpty($extraBookInfoParameters->getPublisherSerie())) {
             $publisherSerie = $this->publisherSerieService->findOrSave($extraBookInfoParameters->getPublisherSerie(), $book->publisher->id);
             $book->publisher_serie()->associate($publisherSerie);
-        }else{
+        } else {
             $book->publisher_serie()->dissociate();
         }
-        if(!StringUtils::isEmpty($extraBookInfoParameters->getBookSerie())){
+        if (!StringUtils::isEmpty($extraBookInfoParameters->getBookSerie())) {
             $bookSerie = $this->bookSerieService->findOrSave($extraBookInfoParameters->getBookSerie());
             $book->serie()->associate($bookSerie);
-        }else{
+        } else {
             $book->serie()->dissociate();
         }
         $this->bookRepository->save($book);
@@ -345,34 +354,30 @@ class BookService
         $book->publisher_country_id = $country->id;
         $book->first_print_info_id = $firstPrintInfo->id;
 
+        $language = null;
+        $publisherSerie = null;
+        $bookSerie = null;
+        $bookFromAuthor = null;
+
         if (!StringUtils::isEmpty($bookCreationParameters->getBookInfoParameters()->getLanguage())) {
-            $book->language()->associate($this->languageService->findOrSave($bookCreationParameters->getBookInfoParameters()->getLanguage()));
-        }else{
-            $book->language()->dissociate();
+            $language = $this->languageService->findOrSave($bookCreationParameters->getBookInfoParameters()->getLanguage());
         }
-        if ($bookCreationParameters->getBookInfoParameters()->getPublicationDate() != null) {
-            $book->publication_date()->associate($bookCreationParameters->getBookInfoParameters()->getPublicationDate());
-        }else{
-            $book->publication_date()->dissociate();
-        }
-        if(!StringUtils::isEmpty($bookCreationParameters->getExtraBookInfoParameters()->getPublisherSerie())){
+        if (!StringUtils::isEmpty($bookCreationParameters->getExtraBookInfoParameters()->getPublisherSerie())) {
             $publisherSerie = $this->publisherSerieService->findOrSave($bookCreationParameters->getExtraBookInfoParameters()->getPublisherSerie(), $publisher->id);
-            $book->publisher_serie()->associate($publisherSerie);
-        }else{
-            $book->publisher_serie()->dissociate();
         }
-        if(!StringUtils::isEmpty($bookCreationParameters->getExtraBookInfoParameters()->getBookSerie())){
+        if (!StringUtils::isEmpty($bookCreationParameters->getExtraBookInfoParameters()->getBookSerie())) {
             $bookSerie = $this->bookSerieService->findOrSave($bookCreationParameters->getExtraBookInfoParameters()->getBookSerie());
-            $book->serie()->associate($bookSerie);
-        }else{
-            $book->serie()->dissociate();
         }
-        if(!StringUtils::isEmpty($bookCreationParameters->getFirstAuthorInfoParameters()->getLinkedBook())){
+        if (!StringUtils::isEmpty($bookCreationParameters->getFirstAuthorInfoParameters()->getLinkedBook())) {
             $bookFromAuthor = $this->bookFromAuthorService->find($bookCreationParameters->getFirstAuthorInfoParameters()->getLinkedBook(), $author->id);
-            $book->book_from_author()->associate($bookFromAuthor);
-        }else{
-            $book->book_from_author()->dissociate();
         }
+
+        $this->bookRepository->setPublicationDate($book, $bookCreationParameters->getBookInfoParameters()->getPublicationDate());
+        $this->bookRepository->setLanguage($book, $language);
+        $this->bookRepository->setPublisherSerie($book, $publisherSerie);
+        $this->bookRepository->setBookSerie($book, $bookSerie);
+        $this->bookRepository->setBookFromAuthor($book, $bookFromAuthor);
+
 
         $this->saveImage($bookCreationParameters->getCoverInfoParameters(), $book);
         $this->bookRepository->save($book);
@@ -381,26 +386,25 @@ class BookService
 
     public function saveImage(CoverInfoParameters $coverInfoParameters, $book)
     {
-        if($coverInfoParameters->getImage() != null){
-            if($book->image != 'images/questionCover.png' && !StringUtils::isEmpty($book->image)){
+        if ($coverInfoParameters->getImage() != null) {
+            if ($book->image != 'images/questionCover.png' && !StringUtils::isEmpty($book->image)) {
                 $this->imageService->removeBookImage($book->coverImage);
             }
-            if($coverInfoParameters->getImageSaveType() == ImageSaveType::UPLOAD){
+            if ($coverInfoParameters->getImageSaveType() == ImageSaveType::UPLOAD) {
                 $book->coverImage = $this->imageService->saveUploadImageForBook($coverInfoParameters->getImage(), $book);
-            }
-            else if($coverInfoParameters->getImageSaveType() == ImageSaveType::URL){
+            } else if ($coverInfoParameters->getImageSaveType() == ImageSaveType::URL) {
                 $book->coverImage = $this->imageService->saveBookImageFromUrl($coverInfoParameters->getImage(), $book);
-            }
-            else if($coverInfoParameters->getImageSaveType() == ImageSaveType::PATH){
+            } else if ($coverInfoParameters->getImageSaveType() == ImageSaveType::PATH) {
                 $book->coverImage = $coverInfoParameters->getImage();
             }
             $book->useSpriteImage = false;
         }
     }
 
-    public function getPreferredAuthor(Book $book){
-        foreach($book->authors as $author){
-            if($author->pivot->preferred == true){
+    public function getPreferredAuthor(Book $book)
+    {
+        foreach ($book->authors as $author) {
+            if ($author->pivot->preferred == true) {
                 return $author;
             }
         }

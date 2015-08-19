@@ -15,6 +15,9 @@ class FileToBookParametersMapperTest extends TestCase {
         $this->fileToBookParametersMapper = App::make('FileToBookParametersMapper');
 
         $this->dateMock = Mockery::mock('Eloquent', 'Date');
+
+        $values = array("Titel", "Ondertitel", "ISBN", "Omslag prijs", "Land", "Uitgever", "Taal", "Publicatie Datum");
+        LineMapping::initializeMapping($values);
     }
 
     public function test_map_mapsCorrect(){
@@ -24,7 +27,7 @@ class FileToBookParametersMapperTest extends TestCase {
         $line_values[LineMapping::$BookTitle] = "title";
         $line_values[LineMapping::$BookSubtitle] = "subtitle";
         $line_values[LineMapping::$BookISBN] = "1234567890123";
-        $line_values[LineMapping::$BookRetailPrice] = "euro 20";
+        $line_values[LineMapping::$BookRetailPrice] = "20";
         $line_values[LineMapping::$BookPublisherCountry] = "publisherCountry";
         $line_values[LineMapping::$BookPublisher] = "publisher";
         $line_values[LineMapping::$BookLanguage] = "bookLanguage";

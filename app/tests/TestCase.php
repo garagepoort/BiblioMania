@@ -6,6 +6,13 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
 	{
 	  Mockery::close();
 	}
+
+	public function setUp()
+	{
+		parent::setUp(); // Don't forget this!
+
+		$this->prepareForTests();
+	}
 	
 	public function createApplication()
 	{
@@ -14,6 +21,12 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
 		$testEnvironment = 'testing';
 
 		return require __DIR__.'/../../bootstrap/start.php';
+	}
+
+	private function prepareForTests()
+	{
+		Artisan::call('migrate');
+		Mail::pretend(true);
 	}
 
 	public function mock($class)

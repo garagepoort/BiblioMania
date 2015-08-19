@@ -9,11 +9,11 @@ class AddWidthColumnToAuthorAndBook extends Migration {
 	{
 		Schema::table('author', function($table)
 		{
-			$table->unsignedInteger('imageWidth');
+			$table->unsignedInteger('imageWidth')->default(0);
 		});
 		Schema::table('book', function($table)
 		{
-			$table->unsignedInteger('imageWidth');
+			$table->unsignedInteger('imageWidth')->default(0);
 		});
 	}
 
