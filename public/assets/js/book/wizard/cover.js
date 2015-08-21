@@ -30,13 +30,13 @@ $(document).ready(function () {
     function doCoverGoogleImageSearch() {
         searchString = '';
         if (authorSearchCheckbox.is(':checked')) {
-            searchString = searchString + $('#author_name').val() + " " + $('#author_firstname').val() + " ";
+            searchString = searchString + authorName + " ";
         }
         if (titleSearchCheckbox.is(':checked')) {
-            searchString = searchString + $('#book_title_input').val() + " ";
+            searchString = searchString + bookTitle + " ";
         }
         if (isbnSearchCheckbox.is(':checked')) {
-            searchString = searchString + $('#book_isbn_input').val();
+            searchString = searchString + bookIsbn;
         }
 
         executeGoogleSearch(searchString, 'coverInfoContent', 'coverInfoUrl');

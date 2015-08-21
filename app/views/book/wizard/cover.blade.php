@@ -87,6 +87,11 @@
         </fieldset>
         {{ Form::close(); }}
     </div>
+    <script type="text/javascript">
+            var authorName = "{{ $author_name }}";
+            var bookTitle = "{{ $book_title }}";
+            var bookIsbn = "{{ $book_isbn }}";
+    </script>
     {{ HTML::script('assets/js/book/GoogleBookSearch.js'); }}
     {{ HTML::script('assets/js/book/wizard/createBook.js'); }}
     {{ HTML::script('assets/js/book/wizard/cover.js'); }}

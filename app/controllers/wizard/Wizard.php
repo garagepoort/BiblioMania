@@ -33,7 +33,7 @@ abstract class Wizard
             if ($wizardStep->hasErrors() == false) {
                 return $this->goToCorrectNextStep($result->id, $step, $result);
             } else {
-                return $this->goToCurrentStepWithErrors($result->id, $result, $step);
+                return $this->goToCurrentStepWithErrors($book_id, $result, $step);
             }
         } else {
             return $this->onFailureGoTo();
