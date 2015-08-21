@@ -42,4 +42,22 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
 	{
 	  return Mockery::mock('Eloquent', $class)->shouldIgnoreMissing();
 	}
+
+	public function createFakeBook(){
+		$pivot = new stdClass();
+		$pivot->preferred = true;
+
+		$author = new Author();
+		$author->pivot = $pivot;
+
+		$publisher = new Publisher();
+		$publisher->name = "publisher name";
+
+		$book = new Book();
+		$book->id = "book id";
+		$book->publisher = $publisher;
+
+		$book->authors = array($author);
+		return $book;
+	}
 }
