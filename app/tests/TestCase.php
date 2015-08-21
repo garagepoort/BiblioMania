@@ -48,6 +48,8 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
 		$pivot->preferred = true;
 
 		$author = new Author();
+		$author->name = "authorName";
+		$author->firstname = "authorFirstName";
 		$author->pivot = $pivot;
 
 		$publisher = new Publisher();
