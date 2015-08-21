@@ -5,7 +5,9 @@ class BookFormFiller
 
     public static function fillBasicInfo($bookId)
     {
-        $book = Book::with(array('personal_book_info', 'book_from_author', 'publisher_serie', 'tags'))->find($bookId);
+        $book = App::make('BookService')->find($bookId);
+        $book->load('tags');
+
         $result['book_id'] = $bookId;
         $result['book_title'] = $book->title;
         $result['book_subtitle'] = $book->subtitle;
@@ -59,6 +61,7 @@ class BookFormFiller
         $book = Book::with(array('personal_book_info', 'book_from_author', 'publisher_serie', 'tags'))->find($bookId);
         $result['book_id'] = $bookId;
         $result['book_number_of_pages'] = $book->number_of_pages;
+        $result['book_title'] = $book->title;
         $result['book_print'] = $book->print;
         $result['book_old_tags'] = $book->old_tags;
         $result['translator'] = $book->translator;
@@ -86,6 +89,7 @@ class BookFormFiller
         $result = BookFormFiller::createArrayForCreate();
         $result['book_id'] = $id;
         $result['book_wizard_step'] = $book->wizard_step;
+        $result['book_title'] = $book->title;
         $preferredAuthor = $book->preferredAuthor();
 
         if ($preferredAuthor != null) {
@@ -144,6 +148,7 @@ class BookFormFiller
         $result['personal_info_rating'] = '';
         $result['personal_info_review'] = '';
         $result['book_wizard_step'] = $book->wizard_step;
+        $result['book_title'] = $book->title;
 
         if ($book->personal_book_info != null) {
             $result['personal_info_owned'] = $book->personal_book_info->get_owned();
@@ -168,6 +173,7 @@ class BookFormFiller
     {
         $book = Book::with(array('personal_book_info', 'book_from_author', 'publisher_serie', 'tags'))->find($bookId);
         $result['book_wizard_step'] = $book->wizard_step;
+        $result['book_title'] = $book->title;
         $result['book_id'] = $bookId;
         $result['first_print_title'] = "";
         $result['first_print_subtitle'] = "";
@@ -209,6 +215,7 @@ class BookFormFiller
     {
         $book = Book::with(array('personal_book_info', 'book_from_author', 'publisher_serie', 'tags'))->find($bookId);
         $result['book_wizard_step'] = $book->wizard_step;
+        $result['book_title'] = $book->title;
         $result['book_id'] = $bookId;
         $result['gift_info_receipt_date'] = '';
         $result['gift_info_from'] = '';

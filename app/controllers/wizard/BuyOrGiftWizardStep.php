@@ -47,7 +47,7 @@ class BuyOrGiftWizardStep extends WizardStep
         $withArray['wizardSteps'] = $this->bookService->getWizardSteps($id);
         $withArray['currencies'] = $this->currencyService->getCurrencies();
         $withArray['countries_json'] = json_encode($this->countryService->getCountries());
-        $withArray['title'] = 'Persoonlijke informatie';
+        $withArray['title'] = $withArray['book_title'];
         return View::make($this->bookFolder . 'buyOrGiftInfo')->with($withArray);
     }
 }

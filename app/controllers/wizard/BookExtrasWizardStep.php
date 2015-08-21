@@ -28,7 +28,7 @@ class BookExtrasWizardStep extends WizardStep
     public function goToStep($id = null)
     {
         $withArray = BookFormFiller::fillForBookExtras($id);
-        $withArray['title'] = 'Boek extras';
+        $withArray['title'] = $withArray['book_title'];
         $withArray['wizardSteps'] = $this->bookService->getWizardSteps($id);
         $withArray['tags_json'] = json_encode(Tag::all());
         $withArray['series_json'] = json_encode(Serie::all());
