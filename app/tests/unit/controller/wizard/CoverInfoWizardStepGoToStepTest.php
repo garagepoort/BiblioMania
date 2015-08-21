@@ -7,6 +7,8 @@ class CoverInfoWizardStepGoToStepTest extends TestCase
     const TITLE = "book title";
     const ISBN = "isbn";
     const COVER_TYPE = "type1";
+    const USERNAME = 'John';
+    const COVER_IMAGE = "coverImage";
 
     /** @var  CoverInfoWizardStep */
     private $coverInfoWizardStep;
@@ -19,6 +21,9 @@ class CoverInfoWizardStepGoToStepTest extends TestCase
         parent::setUp();
         $this->bookService = $this->mock("BookService");
         $this->coverInfoWizardStep = new CoverInfoWizardStep();
+
+        $user = new User(['username' => self::USERNAME]);
+        $this->be($user);
     }
 
     public function test_returnsWithCorrectVariables()
@@ -42,6 +47,33 @@ class CoverInfoWizardStepGoToStepTest extends TestCase
         $this->assertEquals($view['book_title'], self::TITLE);
         $this->assertEquals($view['author_name'], "authorName authorFirstName");
         $this->assertEquals($view['book_type_of_cover'], self::COVER_TYPE);
+    }
+
+
+    public function test_returnsQuestionImageAsImage_whenNoCoverImageSet()
+    {
+        $this->bookService->shouldReceive('getBookCoverTypes')->andReturn($this->covertypes);
+        $book = $this->createFakeBook();
+        $this->bookService->shouldReceive('find')->andReturn($book);
+
+        $book->coverImage = null;
+
+        $view = $this->coverInfoWizardStep->goToStep(self::BOOK_ID);
+
+        $this->assertEquals($view['book_cover_image'], Config::get("properties.questionImage"));
+    }
+
+    public function test_returnsImage_whenCoverImageSet()
+    {
+        $this->bookService->shouldReceive('getBookCoverTypes')->andReturn($this->covertypes);
+        $book = $this->createFakeBook();
+        $this->bookService->shouldReceive('find')->andReturn($book);
+
+        $book->coverImage = self::COVER_IMAGE;
+
+        $view = $this->coverInfoWizardStep->goToStep(self::BOOK_ID);
+
+        $this->assertEquals($view['book_cover_image'], Config::get("properties.bookImagesLocation") . "/" . self::USERNAME . "/" . self::COVER_IMAGE);
     }
 
 
