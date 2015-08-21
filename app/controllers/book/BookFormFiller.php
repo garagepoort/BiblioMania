@@ -266,7 +266,11 @@ class BookFormFiller
 
     public static function fillForCover($bookId)
     {
-        $book = Book::with(array('personal_book_info', 'book_from_author', 'publisher_serie', 'tags'))->find($bookId);
+        /** @var BookService $bookService */
+        $bookService = App::make('BookService');
+
+        $book = $bookService->find($bookId);
+
         $result['book_wizard_step'] = $book->wizard_step;
         $result['book_id'] = $bookId;
         $result['book_title'] = $book->title;
