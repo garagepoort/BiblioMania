@@ -28,7 +28,7 @@ class AuthorWizardStep extends WizardStep
     public function goToStep($id = null)
     {
         $withArray = BookFormFiller::fillForAuthor($id);
-        $withArray['title'] = 'Auteur';
+        $withArray['title'] = $withArray['book_title'];
         $withArray['wizardSteps'] = $this->bookService->getWizardSteps($id);
         $withArray['authors_json'] = json_encode(Author::all(['id', 'name', 'firstname', 'infix']));
         return View::make($this->bookFolder . 'author')->with($withArray);

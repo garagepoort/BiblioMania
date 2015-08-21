@@ -40,7 +40,7 @@ class CoverInfoWizardStepGoToStepTest extends TestCase
 
         $view = $this->coverInfoWizardStep->goToStep(self::BOOK_ID);
 
-        $this->assertEquals($view['title'], "Cover");
+        $this->assertEquals($view['title'], self::TITLE);
         $this->assertEquals($view['book_id'], self::BOOK_ID);
         $this->assertEquals($view['book_wizard_step'], self::WIZARD_STEP);
         $this->assertEquals($view['book_isbn'], self::ISBN);

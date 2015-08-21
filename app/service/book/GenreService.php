@@ -12,4 +12,9 @@ class GenreService {
         $genre = Genre::where("name", "=", $name)->first();
         return $genre;
     }
+
+    public function getAllParentGenres(){
+        return Genre::where('parent_id', '=', null)->get();
+    }
+
 }
