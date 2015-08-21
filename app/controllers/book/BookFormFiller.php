@@ -269,6 +269,12 @@ class BookFormFiller
         $book = Book::with(array('personal_book_info', 'book_from_author', 'publisher_serie', 'tags'))->find($bookId);
         $result['book_wizard_step'] = $book->wizard_step;
         $result['book_id'] = $bookId;
+        $result['book_title'] = $book->title;
+        $result['book_isbn'] = $book->ISBN;
+
+        if($book->preferredAuthor() != null){
+            $result['author_name'] = $book->preferredAuthor()->name . " " . $book->preferredAuthor()->firstname;
+        }
 
         if (StringUtils::isEmpty($book->coverImage)) {
             $result['book_cover_image'] = Config::get("properties.questionImage");
