@@ -106,5 +106,6 @@
         });
     </script>
     {{ HTML::script('assets/js/book/wizard/createBook.js'); }}
+    {{ HTML::script('assets/js/book/wizard/firstPrint.js'); }}
 @endsection
 @stop

@@ -9,6 +9,11 @@ function validateBuyInfo() {
 $(function() {
     togglePanels();
 
+
+    $('#buy_info_country').autocomplete({
+        lookup: window.country_names
+    });
+
     $("#buyRadioButton, #giftRadioButton").change(function () {
         togglePanels();
     });
