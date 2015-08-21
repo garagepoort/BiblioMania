@@ -28,7 +28,7 @@ class CoverInfoWizardStep extends WizardStep
     {
         $covers = $this->bookService->getBookCoverTypes();
         $withArray = BookFormFiller::fillForCover($id);
-        $withArray['title'] = 'Cover';
+        $withArray['title'] = $withArray['book_title'];
         $withArray['wizardSteps'] = $this->bookService->getWizardSteps($id);
         $withArray['covers'] = $covers;
         return View::make($this->bookFolder . 'cover')->with($withArray);

@@ -12,6 +12,8 @@ class BookBasicsWizardStep extends  WizardStep
     private $currencyService;
     /** @var  CountryService */
     private $countryService;
+    /** @var GenreService */
+    private $genreService;
     /** @var  BookInfoParameterMapper */
     private $bookInfoParameterMapper;
     /** @var  BookFormValidator */
@@ -23,6 +25,7 @@ class BookBasicsWizardStep extends  WizardStep
         $this->languageService = App::make('LanguageService');
         $this->currencyService = App::make('CurrencyService');
         $this->countryService = App::make('CountryService');
+        $this->genreService = App::make('GenreService');
         $this->bookInfoParameterMapper = App::make('BookInfoParameterMapper');
         $this->bookFormValidator = App::make('BookFormValidator');
     }
@@ -44,14 +47,14 @@ class BookBasicsWizardStep extends  WizardStep
 
     public function goToStep($id = null)
     {
-        $genres = Genre::where('parent_id', '=', null)->get();
+        $genres = $this->genreService->getAllParentGenres();
         if ($id == null) {
             $withArray = BookFormFiller::createArrayForCreate();
         } else {
             $withArray = BookFormFiller::fillBasicInfo($id);
         }
 
-        $withArray['title'] = 'Boek basis';
+        $withArray['title'] = $withArray['book_title'];
         $withArray['wizardSteps'] = $this->bookService->getWizardSteps($id);
         $withArray['languages'] = $this->languageService->getLanguagesMap();
         $withArray['currencies'] = $this->currencyService->getCurrencies();
@@ -60,7 +63,6 @@ class BookBasicsWizardStep extends  WizardStep
         $withArray['authors_json'] = json_encode(Author::all(['id', 'name', 'firstname', 'infix']));
         $withArray['publishers_json'] = json_encode(Publisher::all());
         $withArray['tags_json'] = json_encode(Tag::all());
-        $withArray['series_json'] = json_encode(Serie::all());
         $withArray['publisher_series_json'] = json_encode(PublisherSerie::all());
         return View::make($this->bookFolder . 'bookBasics')->with($withArray);
     }
