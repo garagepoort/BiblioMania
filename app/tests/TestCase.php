@@ -48,6 +48,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
 		$pivot->preferred = true;
 
 		$author = new Author();
+		$author->id = 123;
 		$author->name = "authorName";
 		$author->firstname = "authorFirstName";
 		$author->pivot = $pivot;
@@ -61,5 +62,11 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
 
 		$book->authors = array($author);
 		return $book;
+	}
+
+	public function createFakeBookFromAuthor(Author $author){
+		$bookFromAuthor = new BookFromAuthor();
+		$bookFromAuthor->author = $author;
+		return $bookFromAuthor;
 	}
 }

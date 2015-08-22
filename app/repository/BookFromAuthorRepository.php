@@ -2,9 +2,9 @@
 
 class BookFromAuthorRepository implements iRepository{
 
-    public function find($id)
+    public function find($id,$with = array())
     {
-        return BookFromAuthor::find($id);
+        return BookFromAuthor::with($with)->find($id);
     }
 
     public function findByTitle($author_id, $title)
