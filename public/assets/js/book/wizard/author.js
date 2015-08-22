@@ -1,7 +1,7 @@
-var lastKnownAuthor;
 var lastSetAuthorName;
 var lastSetAuthorFirstname;
 var lastSetAuthorInfix;
+var formValidator;
 
 function validateForm() {
     formSubmitting = true;
@@ -94,23 +94,12 @@ function getAuthorInfix() {
 
 
 $(document).ready(function () {
-    $('#book_country').autocomplete({
-        lookup: window.country_names
-    });
-    $('#first_print_country').autocomplete({
-        lookup: window.country_names
-    });
-
-    $('#buy_info_country').autocomplete({
-        lookup: window.country_names
-    });
-
     $("img").on('error', function () {
         $(this).hide();
     });
 
     // VALIDATORS
-    $('.createBookForm').bootstrapValidator({
+    formValidator = $('.createBookForm').bootstrapValidator({
         message: 'This value is not valid',
         message: 'This value is not valid',
         ignore: '',

@@ -1,23 +1,27 @@
 var formSubmitting = false;
 
-function showError(errorMessage){
+function showError(errorMessage) {
     $('#error-message').html(errorMessage);
     $('#error-div').show();
     window.scrollTo(0, 0);
 }
 
-function hideError(){
+function hideError() {
     $('#error-div').hide();
 }
 
-function setRedirectToPrevious(){
+function setRedirectToPrevious() {
     $('#redirectInput').attr('value', 'PREVIOUS');
 }
 
-function setRedirectTo(value){
+function setRedirectTo(value) {
     $('#redirectInput').attr('value', value);
 }
 
-function submitForm(){
-    document.getElementById('createOrEditBookForm').submit();
+function submitForm() {
+    var formValidation = $('.createBookForm').data('bootstrapValidator');
+    formValidation.validate();
+    if(formValidation.isValid() == true){
+        document.getElementById('createOrEditBookForm').submit();
+    }
 }
