@@ -54,6 +54,7 @@ class BookBasicsWizardStep extends  WizardStep
             $withArray = BookFormFiller::fillBasicInfo($id);
         }
 
+        $withArray['currentStep'] = $this;
         $withArray['title'] = $withArray['book_title'];
         $withArray['wizardSteps'] = $this->bookService->getWizardSteps($id);
         $withArray['languages'] = $this->languageService->getLanguagesMap();

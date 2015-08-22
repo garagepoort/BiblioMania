@@ -267,18 +267,6 @@ function getAuthorInfix() {
 
 
 $(document).ready(function () {
-    window.addEventListener("beforeunload", function (e) {
-        var confirmationMessage = 'It looks like you have been editing something. ';
-        confirmationMessage += 'If you leave before saving, your changes will be lost.';
-
-        if (formSubmitting) {
-            return undefined;
-        }
-
-        (e || window.event).returnValue = confirmationMessage; //Gecko + IE
-        return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
-    });
-
     $('#book_country').autocomplete({
         lookup: window.country_names
     });
