@@ -2,9 +2,9 @@
 
 class LanguageRepository implements iRepository{
 
-    public function find($id)
+    public function find($id, $with = array())
     {
-        return Language::find($id);
+        return Language::with($with)->find($id);
     }
 
     public function all()

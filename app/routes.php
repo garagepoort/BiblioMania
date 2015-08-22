@@ -64,6 +64,7 @@ Route::group(array('before' => 'auth'), function () {
     Route::post('editBookFromAuthor', 'AuthorController@editBookFromAuthor');
     Route::post('updateBookFromAuthorTitle', 'AuthorController@updateBookFromAuthorTitle');
     Route::post('saveBookFromAuthors', 'OeuvreController@saveBookFromAuthors');
+    Route::post('linkBookToBookFromAuthor', 'OeuvreController@linkBookToBookFromAuthor');
     Route::post('updateBookFromAuthorPublicationYear', 'OeuvreController@updateBookFromAuthorPublicationYear');
 
 //    COUNTRY

@@ -34,9 +34,6 @@ function saveOeuvre(){
         },
         function(data, status){
             if(status === "success"){
-                //BootstrapDialog.show({
-                //    message: 'Succesvol opgeslagen!'
-                //});
                 location.reload();
             }
         }).fail(function(data){
@@ -88,6 +85,30 @@ $(".oeuvre-author-cross").on("click", function () {
                         BootstrapDialog.show({
                             message: 'Succesvol verwijdert!'
                         });
+                    }
+                }).fail(function () {
+                    BootstrapDialog.show({
+                        message: 'Er ging iets mis. Refresh de pagina even en probeer opnieuw!'
+                    });
+                });
+        },
+        function(){}
+    );
+});
+
+$(".linkLabel").on("click", function () {
+    var oeuvreId = $(this).parent().attr('oeuvre-id');
+    var bookId = $(this).parent().attr('book-id');
+    showConfirmDialog('Bent u zeker dat u dit wilt de link leggen?',"",
+        function () {
+            $.post(baseUrl + "/linkBookToBookFromAuthor",
+                {
+                    book_id: bookId,
+                    book_from_author_id: oeuvreId
+                },
+                function (data, status) {
+                    if (status === "success") {
+                        location.reload();
                     }
                 }).fail(function () {
                     BootstrapDialog.show({

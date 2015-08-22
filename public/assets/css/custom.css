@@ -85,9 +85,6 @@ a:hover {
 .datepicker .multidatepicker {
   color: #ffffff;
 }
-.popover-title {
-  color: #ffffff;
-}
 .title-panel {
   width: 100%;
   padding-left: 20px;
@@ -503,6 +500,15 @@ table.book-detail-info-table td {
 }
 .label-gray {
   color: #aaa;
+}
+.label {
+  border-radius: 2px !important;
+  padding: 4px;
+  text-align: center;
+}
+.linkLabel:hover {
+  cursor: pointer;
+  background-color: #777;
 }
 .tab-content {
   padding: 10px;

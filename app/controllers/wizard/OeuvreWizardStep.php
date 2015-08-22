@@ -22,6 +22,7 @@ class OeuvreWizardStep extends WizardStep
     public function goToStep($id = null)
     {
         $book = $this->bookService->find($id);
+        $book->load("book_from_author");
         $withArray['currentStep'] = $this;
         $withArray['title'] = $book->title;
         $withArray['book_id'] = $book->id;
@@ -29,6 +30,11 @@ class OeuvreWizardStep extends WizardStep
         $withArray['oeuvre'] = $book->preferredAuthor()->oeuvre;
         $withArray['author_id'] = $book->preferredAuthor()->id;
         $withArray['wizardSteps'] = $this->bookService->getWizardSteps($id);
+
+        $withArray['linked_book_id'] = "";
+        if($book->book_from_author != null){
+            $withArray['linked_book_id'] = $book->book_from_author->id;
+        }
         return View::make($this->bookFolder . 'oeuvre')->with($withArray);
     }
 }
