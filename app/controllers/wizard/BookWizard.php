@@ -12,6 +12,7 @@ class BookWizard extends Wizard
             new BookBasicsWizardStep(),
             new BookExtrasWizardStep(),
             new AuthorWizardStep(),
+            new OeuvreWizardStep(),
             new FirstPrintWizardStep(),
             new PersonalInfoWizardStep(),
             new BuyOrGiftWizardStep(),

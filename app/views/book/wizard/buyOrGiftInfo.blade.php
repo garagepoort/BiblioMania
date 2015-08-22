@@ -4,10 +4,10 @@
 @endsection
 @section("content")
     <div class="wizard-steps">
-        @include('book/wizard/wizardsteps', array('wizardSteps' => $wizardSteps, 'currentStep' => '6', 'progress' => $book_wizard_step))
+        @include('book/wizard/wizardsteps', array('wizardSteps' => $wizardSteps, 'currentStep' => $currentStep->stepNumber, 'progress' => $book_wizard_step))
     </div>
     <div class="create-book-div">
-        {{ Form::open(array('id'=>'createOrEditBookForm', 'url' => 'createOrEditBook/step/6/' . $book_id, 'class' => 'form-horizontal createBookForm', 'autocomplete' => 'off', 'files' => 'true')); }}
+        {{ Form::open(array('id'=>'createOrEditBookForm', 'url' => $currentStep->url . $book_id, 'class' => 'form-horizontal createBookForm', 'autocomplete' => 'off', 'files' => 'true')); }}
         <input id="redirectInput" hidden name="redirect" value="NEXT">
         <div id="error-div" class="material-card error-message" hidden>
             <div id="error-message" class="material-card-content error-message"></div>
