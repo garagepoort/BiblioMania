@@ -2,9 +2,9 @@
 
 class AuthorRepository implements iRepository{
 
-    public function find($id)
+    public function find($id, $with = array())
     {
-        return Author::find($id);
+        return Author::with($with)->find($id);
     }
 
     public function all()

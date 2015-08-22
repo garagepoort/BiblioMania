@@ -35,6 +35,7 @@
                         <th>Titel</th>
                         <th>Publicatiejaar</th>
                         <th>Verwijderen</th>
+                        <th>Linked</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -42,11 +43,7 @@
                         <tr>
                             <td>
                                 <a
-                                        @if(count($bookFromAuthor->books)>0)
-                                        class="author-oeuvre-linked author-oeuvre-title"
-                                        @else
                                         class="author-oeuvre-title"
-                                        @endif
                                         data-name="name" href="#"
                                         data-type="text"
                                         data-pk="{{ $bookFromAuthor->id }}"
@@ -67,7 +64,15 @@
                                           class="fa fa-times-circle oeuvre-author-cross" width="10px"/>
                                 @endif
                             </td>
-
+                            <td oeuvre-id="{{ $bookFromAuthor->id }}" book-id="{{ $book_id }}">
+                                @if($bookFromAuthor->id == $linked_book_id)
+                                    <label class="label label-success">LINKED</label>
+                                @elseif(count($bookFromAuthor->books)==0)
+                                    <label class="linkLabel label label-danger">UNLINKED</label>
+                                @else
+                                    <label class="linkLabel label label-warning">LINKED TO OTHER BOOK</label>
+                                @endif
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>

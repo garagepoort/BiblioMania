@@ -2,9 +2,9 @@
 
 class CountryRepository implements iRepository{
 
-    public function find($id)
+    public function find($id, $with = array())
     {
-        return Country::find($id);
+        return Country::with($with)->find($id);
     }
 
     public function findFull($id){

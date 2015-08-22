@@ -1,7 +1,7 @@
 <?php
 
 interface iRepository {
-    public function find($id);
+    public function find($id, $with = array());
     public function all();
     public function save($entity);
     public function delete($entity);

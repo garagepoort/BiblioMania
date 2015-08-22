@@ -2,9 +2,9 @@
 
 class PersonalBookInfoRepository implements iRepository{
 
-    public function find($id)
+    public function find($id, $with = array())
     {
-        return PersonalBookInfo::where('id', '=', $id)->first();
+        return PersonalBookInfo::with($with)->where('id', '=', $id)->first();
     }
 
     public function findByBook($book_id){

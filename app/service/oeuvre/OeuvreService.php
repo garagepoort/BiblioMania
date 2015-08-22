@@ -4,10 +4,13 @@ class OeuvreService
 {
     /** @var  BookFromAuthorRepository */
     private $bookFromAuthorRepository;
+    /** @var BookRepository */
+    private $bookRepository;
 
     function __construct()
     {
         $this->bookFromAuthorRepository = App::make("BookFromAuthorRepository");
+        $this->bookRepository = App::make("BookRepository");
     }
 
 
@@ -36,5 +39,22 @@ class OeuvreService
                 $this->bookFromAuthorRepository->save($bookFromAuthor);
             }
         }
+    }
+
+    public function linkBookToBookFromAuthor($book_id, $book_from_author_id){
+        $book = $this->bookRepository->find($book_id, array("authors"));
+        $bookFromAuthor = $this->bookFromAuthorRepository->find($book_from_author_id, array("author"));
+
+        if($book == null){
+            throw new ServiceException("Book not found");
+        }
+        if($bookFromAuthor == null){
+            throw new ServiceException("BookFromAuthor not found");
+        }
+        if($book->preferredAuthor()->id != $bookFromAuthor->author->id){
+            throw new ServiceException("Author is not the same for book and oeuvreItem");
+        }
+
+        $this->bookRepository->setBookFromAuthor($book, $bookFromAuthor);
     }
 }

@@ -56,13 +56,6 @@ class BookCreationService
         }
 
         $this->syncAuthors($preferredAuthor, $secondaryAuthors, $book);
-
-        if(!StringUtils::isEmpty($preferredAuthorParams->getLinkedBook())){
-            $bookFromAuthor = $this->bookFromAuthorService->find($preferredAuthorParams->getLinkedBook(), $preferredAuthor->id);
-            $book->book_from_author()->associate($bookFromAuthor);
-        }else{
-            $book->book_from_author()->dissociate();
-        }
         $book->save();
         return $book;
     }

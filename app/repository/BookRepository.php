@@ -2,10 +2,12 @@
 
 class BookRepository implements iRepository{
 
-    public function find($id)
+    public function find($id, $with = array())
     {
-        return Book::where('id', '=', $id)
-            ->where('user_id', '=', Auth::user()->id)->first();
+        return Book::with($with)
+            ->where('id', '=', $id)
+            ->where('user_id', '=', Auth::user()->id)
+            ->first();
     }
 
     public function all()
@@ -65,5 +67,6 @@ class BookRepository implements iRepository{
         } else {
             $book->book_from_author()->dissociate();
         }
+        $book->save();
     }
 }

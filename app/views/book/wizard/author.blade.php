@@ -86,21 +86,6 @@
                 'contentDivId' => 'authorImageContent',
                 'file' =>'author_image'))
 
-
-                <div id='author-oeuvre-panel'>
-                    <input id="book-from-author-id-input" hidden name="bookFromAuthorTitle" value="{{ $book_from_author_title }}"/>
-                    <legend>Oeuvre<span style="margin-left:10px"
-                                        class="oeuvre-edit-icon fa fa-pencil-square-o"></span>
-                    </legend>
-                    <ul id='author-oeuvre-list'>
-                    </ul>
-                    <div id='oeuvre-textarea-panel' style="display:none;">
-                    <textarea placeholder="<jaar> - <titel>" id='oeuvre-textarea' name="oeuvre" cols="80"
-                              rows="5"></textarea>
-                        <button class='btn btn-default' id='oeuvreButton'>Pas oeuvre aan</button>
-                    </div>
-                </div>
-
                 @include('book/wizard/submitButtons')
             </div>
 

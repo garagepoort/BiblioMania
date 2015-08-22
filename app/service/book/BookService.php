@@ -41,9 +41,9 @@ class BookService
         $this->countryService = App::make('CountryService');
     }
 
-    public function find($id)
+    public function find($id, $with = array())
     {
-        return $this->bookRepository->find($id);
+        return $this->bookRepository->find($id, $with);
     }
 
     public function getWizardSteps($id = null)
