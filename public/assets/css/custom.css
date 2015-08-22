@@ -206,6 +206,9 @@ button.searchButton {
   display: inline-block;
   margin-left: 30px;
 }
+#oeuvre-textarea {
+  width: 100%;
+}
 .oeuvre-author-pencil {
   cursor: pointer;
 }
