@@ -27,6 +27,7 @@ class OeuvreWizardStep extends WizardStep
         $withArray['book_id'] = $book->id;
         $withArray['book_wizard_step'] = $book->wizard_step;
         $withArray['oeuvre'] = $book->preferredAuthor()->oeuvre;
+        $withArray['author_id'] = $book->preferredAuthor()->id;
         $withArray['wizardSteps'] = $this->bookService->getWizardSteps($id);
         return View::make($this->bookFolder . 'oeuvre')->with($withArray);
     }
