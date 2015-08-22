@@ -11,6 +11,11 @@ abstract class Wizard
     public function __construct(array $wizardSteps, $basePath)
     {
         $this->wizardSteps = $wizardSteps;
+        foreach($this->wizardSteps as $key => $step){
+            $stepNumber = $key + 1;
+            $step->setUrl($basePath . "/step/" . $stepNumber . "/");
+            $step->setStepNumber($stepNumber);
+        }
         $this->basePath = $basePath;
     }
 
