@@ -86,9 +86,6 @@ $(".oeuvre-author-cross").on("click", function () {
                 function (data, status) {
                     if (status === "success") {
                         trElement.remove();
-                        BootstrapDialog.show({
-                            message: 'Succesvol verwijdert!'
-                        });
                     }
                 }).fail(function () {
                     BootstrapDialog.show({
