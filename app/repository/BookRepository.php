@@ -69,4 +69,11 @@ class BookRepository implements iRepository{
         }
         $book->save();
     }
+
+    public function getAllTranslators(){
+        $books = Book::distinct()->select('translator')->where('translator', '!=', '')->groupBy('translator')->get()->toArray();
+        return array_map(function ($object) {
+            return $object['translator'];
+        }, $books);
+    }
 }

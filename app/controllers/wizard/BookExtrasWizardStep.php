@@ -33,6 +33,7 @@ class BookExtrasWizardStep extends WizardStep
         $withArray['wizardSteps'] = $this->bookService->getWizardSteps($id);
         $withArray['tags_json'] = json_encode(Tag::all());
         $withArray['series_json'] = json_encode(Serie::all());
+        $withArray['translators_json'] = json_encode($this->bookService->getAllTranslators());
         $withArray['states'] = $this->bookService->getBookStates();;
         $withArray['currencies'] = $this->currencyService->getCurrencies();
         $withArray['publisher_series_json'] = json_encode(PublisherSerie::all());

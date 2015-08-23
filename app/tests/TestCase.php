@@ -29,6 +29,10 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
 		Mail::pretend(true);
 	}
 
+	/**
+	 * @param $class
+	 * @return \Mockery\Mock
+	 */
 	public function mock($class)
 	{
 	  $mock = Mockery::mock($class)->shouldIgnoreMissing();
@@ -38,6 +42,10 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
 	  return $mock;
 	}
 
+	/**
+	 * @param $class
+	 * @return \Mockery\Mock
+	 */
 	public function mockEloquent($class)
 	{
 	  return Mockery::mock('Eloquent', $class)->shouldIgnoreMissing();
