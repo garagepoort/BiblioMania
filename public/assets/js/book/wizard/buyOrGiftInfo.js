@@ -13,6 +13,9 @@ $(function() {
     $('#buy_info_country').autocomplete({
         lookup: window.country_names
     });
+    $('#buy_info_shop').autocomplete({
+        lookup: window.shop_names
+    });
 
     $("#buyRadioButton, #giftRadioButton").change(function () {
         togglePanels();

@@ -16,6 +16,8 @@ class BuyOrGiftWizardStep extends WizardStep
     private $countryService;
     /** @var  CurrencyService */
     private $currencyService;
+    /** @var  BuyInfoService */
+    private $buyInfoService;
 
     public function __construct()
     {
@@ -25,6 +27,7 @@ class BuyOrGiftWizardStep extends WizardStep
         $this->bookCreationService = App::make('BookCreationService');
         $this->countryService = App::make('CountryService');
         $this->currencyService = App::make('CurrencyService');
+        $this->buyInfoService = App::make('BuyInfoService');
     }
 
     public function executeStep($id = null)
@@ -47,6 +50,7 @@ class BuyOrGiftWizardStep extends WizardStep
         $withArray['currentStep'] = $this;
         $withArray['wizardSteps'] = $this->bookService->getWizardSteps($id);
         $withArray['currencies'] = $this->currencyService->getCurrencies();
+        $withArray['shops_json'] = json_encode($this->buyInfoService->getAllShops());
         $withArray['countries_json'] = json_encode($this->countryService->getCountries());
         $withArray['title'] = $withArray['book_title'];
         return View::make($this->bookFolder . 'buyOrGiftInfo')->with($withArray);
