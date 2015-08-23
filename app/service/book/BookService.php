@@ -443,4 +443,8 @@ class BookService
             ->where('user_id', '=', Auth::user()->id)
             ->count();
     }
+
+    public function getAllTranslators(){
+        return $this->bookRepository->getAllTranslators();
+    }
 }
