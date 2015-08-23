@@ -96,6 +96,23 @@
         </fieldset>
         {{ Form::close(); }}
     </div>
+    <script type="text/javascript">
+        var series_json = {{ $series_json }};
+        var publisher_series_json = {{ $publisher_series_json }};
+        var translators_json = {{ $translators_json }};
+        var serie_titles = [];
+        var publisher_serie_titles = [];
+        var translators = [];
+        $.each(series_json, function (index, obj) {
+            serie_titles[serie_titles.length] = obj.name;
+        });
+        $.each(publisher_series_json, function (index, obj) {
+            publisher_serie_titles[publisher_serie_titles.length] = obj.name;
+        });
+        $.each(translators_json, function (index, obj) {
+            translators[translators.length] = obj;
+        });
+    </script>
     {{ HTML::script('assets/js/book/wizard/createBook.js'); }}
     {{ HTML::script('assets/js/book/wizard/bookExtra.js'); }}
 @endsection
