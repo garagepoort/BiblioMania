@@ -2,6 +2,9 @@ $(document).ready(function () {
     $('#first_print_country').autocomplete({
         lookup: window.country_names
     });
+    $('#first_print_publisher').autocomplete({
+        lookup: window.publisher_names
+    });
 
     // VALIDATORS
     formValidator = $('.createBookForm').bootstrapValidator({
