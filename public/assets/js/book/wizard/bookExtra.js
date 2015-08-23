@@ -9,7 +9,7 @@ $(function(){
     $('#publisher_serie_input').autocomplete({
         lookup: window.publisher_serie_titles
     });
-    $('#serie_input').autocomplete({
+    $('#book_serie_input').autocomplete({
         lookup: window.serie_titles
     });
 });
