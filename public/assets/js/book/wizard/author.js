@@ -98,6 +98,16 @@ $(document).ready(function () {
         $(this).hide();
     });
 
+    $('#author_firstname').autocomplete({
+        lookup: window.author_firstnames
+    });
+    $('#author_name').autocomplete({
+        lookup: window.author_lastnames
+    });
+    $('#author_infix').autocomplete({
+        lookup: window.author_infix
+    });
+
     // VALIDATORS
     formValidator = $('.createBookForm').bootstrapValidator({
         message: 'This value is not valid',
