@@ -1,7 +1,7 @@
-$(function(){
+$(function () {
     $('#author-oeuvre-table').DataTable({
         paging: false,
-        order: [[ 1, "asc" ]]
+        order: [[1, "asc"]]
     });
 
     $(".author-oeuvre-title").editable({
@@ -20,23 +20,21 @@ function validateForm() {
     if (errorMessage) {
         showError(errorMessage);
         return false;
-    }else {
-        saveOeuvre();
     }
     hideError();
     return true;
 }
-function saveOeuvre(){
+function saveOeuvre() {
     $.post(baseUrl + "/saveBookFromAuthors",
         {
-            author_id:author_id,
-            oeuvre:$('#oeuvre-textarea').val()
+            author_id: author_id,
+            oeuvre: $('#oeuvre-textarea').val()
         },
-        function(data, status){
-            if(status === "success"){
+        function (data, status) {
+            if (status === "success") {
                 location.reload();
             }
-        }).fail(function(data){
+        }).fail(function (data) {
             BootstrapDialog.show({
                 message: data.responseJSON.message
             });
@@ -63,8 +61,14 @@ function validateOeuvreList() {
     return errorMessage;
 }
 
-function addOeuvreItems(){
-    validateForm();
+function addOeuvreItems() {
+    var errorMessage = validateOeuvreList();
+    if (errorMessage) {
+        showError(errorMessage);
+    } else {
+        hideError();
+        saveOeuvre();
+    }
 }
 
 $(".oeuvre-author-cross").on("click", function () {
@@ -73,7 +77,7 @@ $(".oeuvre-author-cross").on("click", function () {
     //var author_oeuvre = $.grep(author_json.oeuvre, function (e) {
     //    return e.id == oeuvreId;
     //})[0];
-    showConfirmDialog('Bent u zeker dat u dit wilt verwijderen?',"",
+    showConfirmDialog('Bent u zeker dat u dit wilt verwijderen?', "",
         function () {
             $.post(baseUrl + "/deleteBookFromAuthor",
                 {
@@ -92,14 +96,15 @@ $(".oeuvre-author-cross").on("click", function () {
                     });
                 });
         },
-        function(){}
+        function () {
+        }
     );
 });
 
 $(".linkLabel").on("click", function () {
     var oeuvreId = $(this).parent().attr('oeuvre-id');
     var bookId = $(this).parent().attr('book-id');
-    showConfirmDialog('Bent u zeker dat u dit wilt de link leggen?',"",
+    showConfirmDialog('Bent u zeker dat u dit wilt de link leggen?', "",
         function () {
             $.post(baseUrl + "/linkBookToBookFromAuthor",
                 {
@@ -116,6 +121,7 @@ $(".linkLabel").on("click", function () {
                     });
                 });
         },
-        function(){}
+        function () {
+        }
     );
 });
