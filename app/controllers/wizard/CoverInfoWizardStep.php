@@ -27,8 +27,8 @@ class CoverInfoWizardStep extends WizardStep
     public function goToStep($id = null)
     {
         $covers = $this->bookService->getBookCoverTypes();
-        $withArray['currentStep'] = $this;
         $withArray = BookFormFiller::fillForCover($id);
+        $withArray['currentStep'] = $this;
         $withArray['title'] = $withArray['book_title'];
         $withArray['wizardSteps'] = $this->bookService->getWizardSteps($id);
         $withArray['covers'] = $covers;
