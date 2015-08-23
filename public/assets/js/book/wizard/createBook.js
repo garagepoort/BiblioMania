@@ -19,9 +19,10 @@ function setRedirectTo(value) {
 }
 
 function submitForm() {
-    var formValidation = $('.createBookForm').data('bootstrapValidator');
-    formValidation.validate();
-    if(formValidation.isValid() == true){
+    $('#createOrEditBookForm').bootstrapValidator('validate');
+    var formValidation = $('#createOrEditBookForm').data('bootstrapValidator');
+
+    if (formValidation.isValid() == true) {
         document.getElementById('createOrEditBookForm').submit();
     }
 }
