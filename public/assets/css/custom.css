@@ -834,3 +834,15 @@ a.editable-click:hover {
   margin-left: auto;
   margin-right: auto;
 }
+.form-control::-webkit-input-placeholder {
+  color: #ccc;
+}
+.form-control:-moz-placeholder {
+  color: #ccc;
+}
+.form-control::-moz-placeholder {
+  color: #ccc;
+}
+.form-control:-ms-input-placeholder {
+  color: #ccc;
+}
