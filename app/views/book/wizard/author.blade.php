@@ -96,11 +96,30 @@
     <script type="text/javascript">
         var authors_json = {{ $authors_json }};
         var author_names = [];
+        var author_firstnames = [];
+        var author_lastnames = [];
+        var author_infix = [];
         $.each(authors_json, function (index, obj) {
             if (obj.infix != '') {
                 author_names[author_names.length] = obj.name + ', ' + obj.infix + ', ' + obj.firstname;
             } else {
                 author_names[author_names.length] = obj.name + ', ' + obj.firstname;
+            }
+        });
+
+        $.each(authors_json, function (index, obj) {
+            if (obj.firstname != null && obj.firstname != '' && author_infix.indexOf(obj.firstname) <= -1) {
+                author_firstnames[author_firstnames.length] = obj.firstname;
+            }
+        });
+        $.each(authors_json, function (index, obj) {
+            if (obj.name != null && obj.name != '' && author_infix.indexOf(obj.name) <= -1) {
+                author_lastnames[author_lastnames.length] = obj.name;
+            }
+        });
+        $.each(authors_json, function (index, obj) {
+            if (obj.infix != null && obj.infix != '' && author_infix.indexOf(obj.infix) <= -1) {
+                author_infix[author_infix.length] = obj.infix;
             }
         });
     </script>
