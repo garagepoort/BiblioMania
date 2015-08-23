@@ -50,9 +50,14 @@
 
     <script type="text/javascript">
         var country_json = {{ $countries_json }};
+        var shops_json = {{ $shops_json }};
         var country_names = [];
+        var shop_names = [];
         $.each(country_json, function (index, obj) {
             country_names[country_names.length] = obj.name;
+        });
+        $.each(shops_json, function (index, obj) {
+            shop_names[shop_names.length] = obj;
         });
     </script>
     {{ HTML::script('assets/js/book/wizard/createBook.js'); }}

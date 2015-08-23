@@ -73,4 +73,11 @@ class BuyInfoService
         }
     }
 
+    public function getAllShops(){
+        $buyInfos = BuyInfo::distinct()->select('shop')->where('shop', '!=', '')->groupBy('shop')->get()->toArray();
+        return array_map(function ($object) {
+            return $object['shop'];
+        }, $buyInfos);
+    }
+
 }
