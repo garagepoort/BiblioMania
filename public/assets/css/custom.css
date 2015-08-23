@@ -846,3 +846,6 @@ a.editable-click:hover {
 .form-control:-ms-input-placeholder {
   color: #ccc;
 }
+.autocomplete-suggestion {
+  text-align: left;
+}
