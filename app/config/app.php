@@ -123,7 +123,7 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'Tymon\JWTAuth\Providers\JWTAuthServiceProvider',
 		'Jenssegers\Agent\AgentServiceProvider',
-
+		'Bendani\PhpCommon\LoginService\Providers\LoginServiceProvider',
 	),
 
 	/*
