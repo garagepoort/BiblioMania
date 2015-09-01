@@ -2,6 +2,7 @@
 
 class BookFromAuthorParameters {
 
+    private $id;
     private $title;
     private $year;
 
@@ -11,6 +12,11 @@ class BookFromAuthorParameters {
         $this->year = $year;
     }
 
+    public static function createWithId($id, $title, $year){
+        $bookFromAuthorParam = new BookFromAuthorParameters($title, $year);
+        $bookFromAuthorParam->id = $id;
+        return $bookFromAuthorParam;
+    }
 
     public function getTitle()
     {
@@ -22,5 +28,8 @@ class BookFromAuthorParameters {
         return $this->year;
     }
 
-
+    public function getId()
+    {
+        return $this->id;
+    }
 }

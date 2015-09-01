@@ -84,7 +84,8 @@
         {{ Form::close(); }}
     </div>
     <script type="text/javascript">
-        var author_id = "{{ $author_id }}"
+        var author_id = "{{ $author_id }}";
+        var oeuvre_json = {{ $oeuvre_json }};
     </script>
     {{ HTML::script('assets/js/book/wizard/createBook.js'); }}
     {{ HTML::script('assets/js/book/wizard/oeuvre.js'); }}
