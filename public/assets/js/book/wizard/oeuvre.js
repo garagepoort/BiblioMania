@@ -12,6 +12,8 @@ $(function () {
         }
     });
 
+    fillInOeuvreTextArea();
+
 });
 
 function validateForm() {
@@ -97,6 +99,14 @@ $(".oeuvre-author-cross").on("click", function () {
         }
     );
 });
+
+function fillInOeuvreTextArea(){
+    var oeuvreString = "";
+    $.each(window.oeuvre_json, function (index, obj) {
+        oeuvreString = oeuvreString + obj.publication_year + " - " + obj.title + " - " + obj.id + "\n";
+    });
+    $('#oeuvre-textarea').val(oeuvreString);
+}
 
 $(".linkLabel").on("click", function () {
     var oeuvreId = $(this).parent().attr('oeuvre-id');

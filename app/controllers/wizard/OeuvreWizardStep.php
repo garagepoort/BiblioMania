@@ -28,6 +28,7 @@ class OeuvreWizardStep extends WizardStep
         $withArray['book_id'] = $book->id;
         $withArray['book_wizard_step'] = $book->wizard_step;
         $withArray['oeuvre'] = $book->preferredAuthor()->oeuvre;
+        $withArray['oeuvre_json'] = json_encode($book->preferredAuthor()->oeuvre);
         $withArray['author_id'] = $book->preferredAuthor()->id;
         $withArray['wizardSteps'] = $this->bookService->getWizardSteps($id);
 
