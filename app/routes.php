@@ -28,7 +28,7 @@ Route::group(array('before' => 'auth'), function () {
     Route::get('createOrEditBook/step/{step}/{id?}', 'BookStepController@get');
     Route::post('createOrEditBook/step/{step}/{id?}', 'BookStepController@save');
 
-    Route::get('logOut', 'LoginController@logOut');
+    Route::get('logOut', 'DefaultLoginController@logOut');
     Route::get('importLanguageFirstPrintInfo', 'BookImportController@importLanguageFirstPrintInfo');
 
 //STATISTICS
@@ -106,8 +106,8 @@ Route::group(array('before' => 'localCallOnly'), function () {
 
 //ALL
 Route::get('backupDatabase/{username?}/{password?}', 'AdminController@backupDatabase');
-Route::get('login', 'LoginController@goToLogin');
-Route::post('login', 'LoginController@login');
+Route::get('login', 'DefaultLoginController@getLoginPage');
+Route::post('login', 'DefaultLoginController@doLogin');
 Route::get('changeLanguage/{lang}', 'LanguageController@changeLanguage');
 
 Route::post('createUser', 'UserController@createUser');
