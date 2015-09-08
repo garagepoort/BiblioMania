@@ -2,7 +2,7 @@
 
 class BookService
 {
-    const PAGES = 120;
+    const PAGES = 1000;
     const COMPLETE = "COMPLETE";
 
     /** @var  BookRepository */
