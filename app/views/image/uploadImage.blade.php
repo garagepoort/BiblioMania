@@ -19,7 +19,7 @@
 </div>
 
 <div id="search-panel">
-    @include('googleImageSearch', array('imageUrlInput' => $imageUrlInput,'contentDivId' => $contentDivId))
+    @include('GIS::googleImageSearch', array('imageUrlInput' => $imageUrlInput,'contentDivId' => $contentDivId))
 </div>
 
 <script type="text/javascript">
