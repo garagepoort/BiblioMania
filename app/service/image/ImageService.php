@@ -75,7 +75,6 @@ class ImageService
         $h = imagesy($newImage);
         imagejpeg($newImage, $location); //save image as jpg
         imagedestroy($image);
-        imagedestroy($newImage);
         return array($w, $h);
     }
 

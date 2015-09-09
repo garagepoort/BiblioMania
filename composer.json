@@ -18,7 +18,7 @@
     "tymon/jwt-auth": "0.4.*",
     "jenssegers/agent": "^2.1",
     "bendani/php-common/login-service": "1.0.*",
-    "bendani/php-common/google-image-service": "dev-master"
+    "bendani/php-common/google-image-service": "1.0.*"
   },
   "autoload": {
     "classmap": [
@@ -47,10 +47,7 @@
     ]
   },
   "config": {
-    "preferred-install": "dist",
-    "github-oauth": {
-      "github.com": "3c6e447be24d727755e0237fa2e4b36a043144f9"
-    }
+    "preferred-install": "dist"
   },
   "minimum-stability": "stable",
   "repositories": [
