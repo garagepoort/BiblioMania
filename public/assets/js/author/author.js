@@ -58,5 +58,5 @@ $(function () {
 
 function doAuthorGoogleImageSearch() {
     var searchString = author_json.name + ' ' + author_json.infix + ' ' + author_json.firstname;
-    executeGoogleSearch(searchString, 'authorImageContent', 'authorImageUrl');
+    executeGoogleSearch(searchString);
 }

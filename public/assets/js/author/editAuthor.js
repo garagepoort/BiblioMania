@@ -12,7 +12,7 @@ $(function () {
 
     function doAuthorGoogleImageSearch() {
         var searchString = getAuthorName() + ' ' + getAuthorInfix() + ' ' + getAuthorFirstName();
-        executeGoogleSearch(searchString, 'authorImageContent', 'imageUrl');
+        executeGoogleSearch(searchString);
     }
 
     function getAuthorName() {
