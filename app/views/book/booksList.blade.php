@@ -25,7 +25,9 @@
                         <p class="detailPanelTrigger" bookId="{{ $book->id }}">{{ $book->title }}</p>
                     </td>
                     <td>
+                        @if($book->preferredAuthor() != null)
                         {{ $book->preferredAuthor()->name .', '. $book->preferredAuthor()->firstname }}
+                        @endif
                     </td>
                     <td>
                         {{ $book->publisher->name }}

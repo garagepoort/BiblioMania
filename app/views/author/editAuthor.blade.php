@@ -40,7 +40,7 @@
             </div>
 
             <div id="author-image-google-search-panel">
-                @include('googleImageSearch', array('imageUrlInput' => 'imageUrl','contentDivId' => 'authorImageContent'))
+                @include('GIS::googleImageSearch', array('imageUrlInput' => 'imageUrl','contentDivId' => 'authorImageContent'))
             </div>
 
             <!-- Name input-->
