@@ -88,7 +88,25 @@ class BookController extends BaseController
         $orderBy = Input::get('order_by');
 
         $filterValues = new BookFilterValues($query, $operator, $type, $read, $owned);
-        return $this->bookService->getFilteredBooks($book_id, $filterValues ,$orderBy);
+        $filteredBooks = $this->bookService->getFilteredBooks($book_id, $filterValues, $orderBy);
+        $jsonItems = array_map(function($item){
+            return array(
+                "id"=>$item->id,
+                "imageHeight"=>$item->imageHeight,
+                "imageWidth"=>$item->imageWidth,
+                "spritePointer"=>$item->spritePointer,
+                "coverImage"=>$item->coverImage,
+                "useSpriteImage"=>$item->useSpriteImage,
+            );
+        }, $filteredBooks->getItems());
+
+        $result =array(
+            "total"=>$filteredBooks->getTotal(),
+            "last_page"=>$filteredBooks->getLastPage(),
+            "current_page"=>$filteredBooks->getCurrentPage(),
+            "data"=>$jsonItems
+        );
+        return $result;
     }
 
     public function getBooksList(){
