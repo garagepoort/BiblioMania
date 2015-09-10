@@ -1,5 +1,7 @@
 <?php
 
+use Bendani\PhpCommon\WizardService\Model\Wizard;
+
 class BookWizard extends Wizard
 {
 
