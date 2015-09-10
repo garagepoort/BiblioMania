@@ -106,7 +106,7 @@ $(function () {
 
 function doAuthorGoogleImageSearch() {
     var searchString = getAuthorName() + ' ' + getAuthorInfix() + ' ' + getAuthorFirstName();
-    executeGoogleSearch(searchString, 'authorImageContent', 'authorImageUrl');
+    executeGoogleSearch(searchString);
 }
 
 function fillInAuthorNamesFromBookInfo() {

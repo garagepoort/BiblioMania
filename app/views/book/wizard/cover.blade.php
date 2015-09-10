@@ -81,7 +81,7 @@
                     </tbody>
                 </table>
 
-                @include('googleImageSearch', array('imageUrlInput' => 'coverInfoUrl','contentDivId' => 'coverInfoContent'))
+                @include('GIS::googleImageSearch', array('imageUrlInput' => 'coverInfoUrl','contentDivId' => 'coverInfoContent'))
 
             </div>
             @include('book/wizard/submitButtons')

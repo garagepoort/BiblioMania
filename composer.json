@@ -17,7 +17,8 @@
     "google/apiclient": "1.0.*@beta",
     "tymon/jwt-auth": "0.4.*",
     "jenssegers/agent": "^2.1",
-    "bendani/php-common/login-service": "1.0.*"
+    "bendani/php-common/login-service": "1.0.*",
+    "bendani/php-common/google-image-service": "1.0.*"
   },
   "autoload": {
     "classmap": [
@@ -53,6 +54,10 @@
     {
       "type": "vcs",
       "url": "https://github.com/garagepoort/php-common-loginservice.git"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/garagepoort/php-common-googleimageservice.git"
     }
   ]
 }
