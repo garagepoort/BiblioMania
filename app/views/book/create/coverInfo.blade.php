@@ -68,7 +68,7 @@
                 </tbody>
             </table>
 
-            @include('googleImageSearch', array('imageUrlInput' => 'coverInfoUrl','contentDivId' => 'coverInfoContent'))
+            @include('GIS::googleImageSearch', array('imageUrlInput' => 'coverInfoUrl','contentDivId' => 'coverInfoContent'))
         </div>
     </fieldset>
     {{ HTML::script('assets/js/createBook/coverInfo.js'); }}

@@ -39,6 +39,6 @@ $(document).ready(function () {
             searchString = searchString + bookIsbn;
         }
 
-        executeGoogleSearch(searchString, 'coverInfoContent', 'coverInfoUrl');
+        executeGoogleSearch(searchString);
     }
 });
