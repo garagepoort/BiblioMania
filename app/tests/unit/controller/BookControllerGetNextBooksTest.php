@@ -7,21 +7,29 @@ class BookControllerGetNextBooksTest extends TestCase
 
     /** @var  BookService */
     private $bookService;
-    /** @var  Book */
-    private $book;
 
     private $filteredResults;
 
     public function setUp(){
         parent::setUp();
         $this->bookService = $this->mock('BookService');
-        $this->book = $this->mockEloquent('Book');
+        $this->filteredResults = $this->mock('Illuminate\Pagination\Paginator');
     }
 
     public function test_getsFilteredBooksFromService(){
         $this->bookService->shouldReceive('getFilteredBooks')->with(self::BOOK_ID, any("BookFilterValues"), self::ORDER_BY)
                 ->once()
                 ->andReturn($this->filteredResults);
+
+        $this->filteredResults->shouldReceive('getItems')->andReturn(array(
+            $this->createBook(123,11,21,31, "coverImage1", true),
+            $this->createBook(231,12,22,32, "coverImage2", true),
+            $this->createBook(321,13,23,33, "coverImage3", true),
+        ));
+
+        $this->filteredResults->shouldReceive('getTotal')->andReturn("3");
+        $this->filteredResults->shouldReceive('getCurrentPage')->andReturn("1");
+        $this->filteredResults->shouldReceive('getLastPage')->andReturn("100");
 
         $parameters = array(
             'book_id'=>self::BOOK_ID,
@@ -30,6 +38,26 @@ class BookControllerGetNextBooksTest extends TestCase
 
         $response = $this->action('GET', 'BookController@getNextBooks', null, $parameters);
 
-        $this->assertEquals($response->original, $this->filteredResults);
+        $this->assertEquals($response->original, array(
+            "total"=>"3",
+            "last_page"=>"100",
+            "current_page"=>"1",
+            "data"=>array(
+                array("id"=>"123", "imageHeight"=>"21", "imageWidth"=>"11","spritePointer"=>"31", "coverImage"=>"coverImage1", "useSpriteImage"=>true),
+                array("id"=>"231", "imageHeight"=>"22", "imageWidth"=>"12","spritePointer"=>"32", "coverImage"=>"coverImage2", "useSpriteImage"=>true),
+                array("id"=>"321", "imageHeight"=>"23", "imageWidth"=>"13","spritePointer"=>"33", "coverImage"=>"coverImage3", "useSpriteImage"=>true)
+            )
+        ));
+    }
+
+    private function createBook($id, $imageWidth, $imageHeight, $spritePointer, $coverImage, $useSpriteImage){
+        $book = $this->createFakeBook();
+        $book->id = $id;
+        $book->imageWidth = $imageWidth;
+        $book->imageHeight = $imageHeight;
+        $book->spritePointer = $spritePointer;
+        $book->useSpriteImage = $useSpriteImage;
+        $book->coverImage = $coverImage;
+        return $book;
     }
 }
