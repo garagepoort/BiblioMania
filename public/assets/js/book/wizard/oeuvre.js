@@ -12,7 +12,7 @@ $(function () {
         }
     });
 
-    fillInOeuvreTextArea();
+    //fillInOeuvreTextArea();
 
 });
 
@@ -25,52 +25,6 @@ function validateForm() {
     }
     hideError();
     return true;
-}
-function saveOeuvre() {
-    $.post(baseUrl + "/saveBookFromAuthors",
-        {
-            author_id: author_id,
-            oeuvre: $('#oeuvre-textarea').val()
-        },
-        function (data, status) {
-            if (status === "success") {
-                location.reload();
-            }
-        }).fail(function (data) {
-            BootstrapDialog.show({
-                message: data.responseJSON.message
-            });
-        });
-}
-function validateOeuvreList() {
-    var res = $('#oeuvre-textarea').val().split("\n");
-    var errorMessage = null;
-    if (res != null && res != "") {
-        $.each(res, function (index, obj) {
-            var splitString = obj.split(" - ");
-            if (splitString.length < 2) {
-                errorMessage = "Formaat is jaar - titel";
-            } else {
-                var year = splitString[0];
-                var title = splitString[1];
-                if (!title) {
-                    errorMessage = "Titel moet ingevuld zijn";
-                }
-            }
-        });
-    }
-
-    return errorMessage;
-}
-
-function addOeuvreItems() {
-    var errorMessage = validateOeuvreList();
-    if (errorMessage) {
-        showError(errorMessage);
-    } else {
-        hideError();
-        saveOeuvre();
-    }
 }
 
 $(".oeuvre-author-cross").on("click", function () {
@@ -99,14 +53,6 @@ $(".oeuvre-author-cross").on("click", function () {
         }
     );
 });
-
-function fillInOeuvreTextArea(){
-    var oeuvreString = "";
-    $.each(window.oeuvre_json, function (index, obj) {
-        oeuvreString = oeuvreString + obj.publication_year + " - " + obj.title + " - " + obj.id + "\n";
-    });
-    $('#oeuvre-textarea').val(oeuvreString);
-}
 
 $(".linkLabel").on("click", function () {
     var oeuvreId = $(this).parent().attr('oeuvre-id');
