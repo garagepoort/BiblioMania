@@ -1,19 +1,12 @@
 <?php
 
-class BookStepController extends BaseController
-{
-    private $bookWizard;
+use Bendani\PhpCommon\WizardService\Controllers\StepController;
 
+class BookStepController extends StepController
+{
     public function __construct()
     {
-        $this->bookWizard = new BookWizard();
+        parent::__construct(new BookWizard());
     }
 
-    public function get($step, $id = null){
-        return $this->bookWizard->goToStep($id, $step);
-    }
-
-    public function save($step, $id = null){
-        return $this->bookWizard->executeStep($id, $step);
-    }
 }

@@ -19,12 +19,17 @@ class OeuvreToParameterMapper {
     public function mapToOeuvreListWithId($oeuvreText){
         $oeuvreList = array();
         if (!empty($oeuvreText)) {
-            $titles = explode("\n", $oeuvreText);
-            foreach ($titles as $title) {
-                $res = explode(" - ", $title);
-                $bookFromAuthorParameters = BookFromAuthorParameters::createWithId(trim($res[2]),trim($res[1]), trim($res[0]));
+            $items = explode("\n", $oeuvreText);
+            foreach ($items as $item) {
+                if(!StringUtils::isEmpty($item)){
+                    $res = explode(" - ", $item);
+                    $id = trim($res[0]);
+                    $year = trim($res[1]);
+                    $title = trim($res[2]);
+                    $bookFromAuthorParameters = BookFromAuthorParameters::createWithId($id, $title, $year);
 
-                array_push($oeuvreList, $bookFromAuthorParameters);
+                    array_push($oeuvreList, $bookFromAuthorParameters);
+                }
             }
         }
         return $oeuvreList;

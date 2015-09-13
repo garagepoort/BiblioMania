@@ -1,6 +1,8 @@
 <?php
 
-class BookBasicsWizardStep extends  WizardStep
+use Bendani\PhpCommon\WizardService\Model\WizardStep;
+
+class BookBasicsWizardStep extends WizardStep
 {
     private $bookFolder = "book/wizard/";
 

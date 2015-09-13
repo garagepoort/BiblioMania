@@ -41,6 +41,22 @@ class OeuvreService
         }
     }
 
+    public function editBookFromAuthors($oeuvreList, $authorId){
+        /** @var BookFromAuthorParameters $bookFromAuthorParameters */
+        foreach($oeuvreList as $bookFromAuthorParameters){
+            $foundBookFromAuthor = BookFromAuthor::where('id', '=', $bookFromAuthorParameters->getId())->where('author_id', '=', $authorId)->first();
+            if (is_null($foundBookFromAuthor)) {
+                throw new ServiceException("Oeuvre item met id: " . $bookFromAuthorParameters->getId() . " niet gevonden,.");
+            }else{
+                $foundBookFromAuthor->id = $bookFromAuthorParameters->getId();
+                $foundBookFromAuthor->author_id = $authorId;
+                $foundBookFromAuthor->title = $bookFromAuthorParameters->getTitle();
+                $foundBookFromAuthor->publication_year = $bookFromAuthorParameters->getYear();
+                $this->bookFromAuthorRepository->save($foundBookFromAuthor);
+            }
+        }
+    }
+
     public function linkBookToBookFromAuthor($book_id, $book_from_author_id){
         $book = $this->bookRepository->find($book_id, array("authors"));
         $bookFromAuthor = $this->bookFromAuthorRepository->find($book_from_author_id, array("author"));
