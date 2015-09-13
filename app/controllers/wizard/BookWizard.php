@@ -1,5 +1,7 @@
 <?php
 
+use Bendani\PhpCommon\WizardService\Model\Wizard;
+
 class BookWizard extends Wizard
 {
 
@@ -48,13 +50,14 @@ class BookWizard extends Wizard
         return Redirect::to('/getBooks');
     }
 
-    public function beforeGoingToNextStep($result, $currentStep)
+    public function onEnterNextStep($result, $currentStep)
     {
         $this->bookService->setWizardStep($result, $currentStep + 1);
     }
 
-    protected function beforeGoingToLastStep($object)
+    protected function onFinishLastStep($object)
     {
         $this->bookService->completeWizard($object);
     }
+
 }

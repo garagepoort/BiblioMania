@@ -23,11 +23,13 @@
             @endif
 
             <div class="form-container">
-                <div id='oeuvre-textarea-panel'>
-                    <textarea placeholder="<jaar> - <titel>" id='oeuvre-textarea' name="oeuvre" cols="80"
-                              rows="5"></textarea>
-                    <button class='btn btn-default' id='oeuvreButton' onclick="addOeuvreItems(); return false;">Pas oeuvre aan</button>
+                <div style="margin-bottom: 20px;">
+                    <button class='btn btn-primary' onclick="toggleAddOevreItems(); hideEditOevreItems(); return false;">Voeg oeuvre items toe</button>
+                    <button class='btn btn-primary' onclick="toggleEditOevreItems(); hideAddOevreItems(); return false;">Pas bestaande items aan</button>
                 </div>
+
+                @include('author.addOeuvreItems', array("author_id"=>$author_id))
+                @include('author.editOeuvreItems', array("author_id"=>$author_id, "oeuvre_json"=>$oeuvre_json))
 
                 <table id="author-oeuvre-table" class="table">
                     <thead>
@@ -84,8 +86,6 @@
         {{ Form::close(); }}
     </div>
     <script type="text/javascript">
-        var author_id = "{{ $author_id }}";
-        var oeuvre_json = {{ $oeuvre_json }};
     </script>
     {{ HTML::script('assets/js/book/wizard/createBook.js'); }}
     {{ HTML::script('assets/js/book/wizard/oeuvre.js'); }}
