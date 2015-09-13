@@ -1,5 +1,6 @@
 <div id='edit-oeuvre-textarea-panel' hidden="true">
-    <textarea placeholder="<id> - <jaar> - <titel>" id='edit-oeuvre-textarea' name="oeuvre" cols="80"rows="5" style="width: 100%"></textarea>
+    <textarea placeholder="<id> - <jaar> - <titel>" id='edit-oeuvre-textarea' name="oeuvre" cols="80" rows="5"
+              style="width: 100%"></textarea>
     <button class='btn btn-default' id='oeuvreButton' onclick="editOeuvreItems(); return false;">Pas oeuvre aan</button>
 </div>
 
@@ -10,19 +11,19 @@
         fillInOeuvreTextArea();
     });
 
-    function showEditOevreItems(){
+    function showEditOevreItems() {
         $('#edit-oeuvre-textarea-panel').show();
     }
-    function hideEditOevreItems(){
+    function hideEditOevreItems() {
         $('#edit-oeuvre-textarea-panel').hide();
     }
 
-    function toggleEditOevreItems(){
+    function toggleEditOevreItems() {
         $('#edit-oeuvre-textarea-panel').toggle();
     }
 
 
-    function fillInOeuvreTextArea(){
+    function fillInOeuvreTextArea() {
         var oeuvreString = "";
         $.each(oeuvre_json, function (index, obj) {
             oeuvreString = oeuvreString + obj.id + " - " + obj.publication_year + " - " + obj.title + "\n";
@@ -32,7 +33,7 @@
 
 
     function editOeuvreItems() {
-        var errorMessage = validateOeuvreList();
+        var errorMessage = validateEditOeuvreList();
         if (errorMessage) {
             showError(errorMessage);
         } else {
@@ -59,20 +60,22 @@
     }
 
 
-    function validateOeuvreList() {
+    function validateEditOeuvreList() {
         var res = $('#edit-oeuvre-textarea').val().split("\n");
         var errorMessage = null;
         if (res != null && res != "") {
             $.each(res, function (index, obj) {
-                var splitString = obj.split(" - ");
-                if (splitString.length < 3) {
-                    errorMessage = "Formaat is id - jaar - titel";
-                } else {
-                    var id = splitString[0];
-                    var year = splitString[1];
-                    var title = splitString[2];
-                    if (!title) {
-                        errorMessage = "Titel moet ingevuld zijn";
+                if (obj != "") {
+                    var splitString = obj.split(" - ");
+                    if (splitString.length < 3) {
+                        errorMessage = "Formaat is id - jaar - titel";
+                    } else {
+                        var id = splitString[0];
+                        var year = splitString[1];
+                        var title = splitString[2];
+                        if (!title) {
+                            errorMessage = "Titel moet ingevuld zijn";
+                        }
                     }
                 }
             });

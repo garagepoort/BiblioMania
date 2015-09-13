@@ -32,26 +32,26 @@ class OeuvreController extends Controller
         return Response::make(200);
     }
 
+    public function editBookFromAuthors()
+    {
+        $authorId = Input::get('author_id');
+        $oeuvre = Input::get('oeuvre');
+        $this->oeuvreService->editBookFromAuthors($this->oeuvreToParameterMapper->mapToOeuvreListWithId($oeuvre), $authorId);
+        return Response::make(200);
+    }
+
     public function updateBookFromAuthorPublicationYear()
     {
         $id = Input::get('pk');
         $value = Input::get('value');
-        try {
-            $this->bookFromAuthorService->updateYear($id, $value);
-        } catch (ServiceException $e) {
-            return ResponseCreator::createExceptionResponse($e);
-        }
+        $this->bookFromAuthorService->updateYear($id, $value);
     }
 
     public function linkBookToBookFromAuthor()
     {
         $book_id = Input::get('book_id');
         $book_from_author_id = Input::get('book_from_author_id');
-        try {
-            $this->oeuvreService->linkBookToBookFromAuthor($book_id, $book_from_author_id);
-        } catch (ServiceException $e) {
-            return ResponseCreator::createExceptionResponse($e);
-        }
+        $this->oeuvreService->linkBookToBookFromAuthor($book_id, $book_from_author_id);
     }
 
 }
