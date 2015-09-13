@@ -1,12 +1,13 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: david
  * Date: 23/01/15
  * Time: 20:42
  */
-
-class CountryController extends BaseController{
+class CountryController extends BaseController
+{
 
     private $countryFolder = "country/";
     private $countryService;
@@ -17,7 +18,8 @@ class CountryController extends BaseController{
     }
 
 
-    public function getCountryList(){
+    public function getCountryList()
+    {
         $countries = Country::with('books', 'authors')->orderBy('name', 'asc')->get();
         return View::make($this->countryFolder . 'countryList')->with(array(
             'title' => 'Editeer landen',
@@ -25,37 +27,21 @@ class CountryController extends BaseController{
         ));
     }
 
-    public function editCountry(){
+    public function editCountry()
+    {
         $id = Input::get('pk');
         $name = Input::get('value');
 
-        try {
-            $this->countryService->editCountryName($id, $name);
-        }catch (Exception $e){
-            return $this->handleException($e);
-        }
+        $this->countryService->editCountryName($id, $name);
     }
 
-    public function deleteCountry(){
-        try {
-            $this->countryService->deleteCountry(Input::get('countryId'));
-        }catch (Exception $e){
-            return $this->handleException($e);
-        }
+    public function deleteCountry()
+    {
+        $this->countryService->deleteCountry(Input::get('countryId'));
     }
 
-    public function mergeCountries(){
-        try{
-            $this->countryService->mergeCountries(Input::get('country1_id'), Input::get('country2_id'));
-        }catch (ServiceException $e){
-            return $this->handleException($e);
-        }
-    }
-
-    private function handleException($exception){
-        return Response::json(array(
-            'code'      =>  412,
-            'message'   =>  $exception->getMessage()
-        ), 412);
+    public function mergeCountries()
+    {
+        $this->countryService->mergeCountries(Input::get('country1_id'), Input::get('country2_id'));
     }
 }

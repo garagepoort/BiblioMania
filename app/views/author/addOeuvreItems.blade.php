@@ -1,5 +1,5 @@
 <div id='add-oeuvre-textarea-panel' hidden="true" style="margin-bottom: 20px;">
-    <textarea placeholder="<jaar> - <titel>" id='oeuvre-textarea' name="oeuvre" cols="80"rows="5" style="width: 100%"></textarea>
+    <textarea placeholder="<jaar> - <titel>" id='add-oeuvre-textarea' name="oeuvre" cols="80"rows="5" style="width: 100%"></textarea>
     <button class='btn btn-default' id='oeuvreButton' onclick="addOeuvreItems(); return false;">Voeg items toe</button>
 </div>
 
