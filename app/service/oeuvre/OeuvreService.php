@@ -33,7 +33,7 @@ class OeuvreService
             $foundBookFromAuthor = BookFromAuthor::where('title', '=', $bookFromAuthorParameters->getTitle())->where('author_id', '=', $authorId)->first();
             if (is_null($foundBookFromAuthor)) {
                 $bookFromAuthor = new BookFromAuthor();
-//                $bookFromAuthor->author_id = $authorId;
+                $bookFromAuthor->author_id = $authorId;
                 $bookFromAuthor->title = $bookFromAuthorParameters->getTitle();
                 $bookFromAuthor->publication_year = $bookFromAuthorParameters->getYear();
                 $this->bookFromAuthorRepository->save($bookFromAuthor);
