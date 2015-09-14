@@ -46,9 +46,6 @@
     {{ HTML::script('assets/lib/jquery.collapsible.js') }}
 
             <!-- LESS SCRIPTS -->
-    {{ HTML::style('assets/css/bootstrap-arrow-buttons.css') }}
-    {{ HTML::style('assets/css/bootstrap-breadcrumbs.css') }}
-    {{ HTML::style('assets/css/nav-wizard-bootstrap.css') }}
     {{ HTML::style('assets/css/custom.css') }}
     {{ HTML::script('assets/js/custom.js') }}
 

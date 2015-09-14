@@ -41,4 +41,9 @@ class BookExtrasWizardStep extends WizardStep
         $withArray['publisher_series_json'] = json_encode(PublisherSerie::all());
         return View::make($this->bookFolder . 'bookExtra')->with($withArray);
     }
+
+    public function getTitle()
+    {
+        return "Extra";
+    }
 }

@@ -57,4 +57,9 @@ class BuyOrGiftWizardStep extends WizardStep
         $withArray['title'] = $withArray['book_title'];
         return View::make($this->bookFolder . 'buyOrGiftInfo')->with($withArray);
     }
+
+    public function getTitle()
+    {
+        return "Koop/Gift";
+    }
 }

@@ -36,4 +36,9 @@ class AuthorWizardStep extends WizardStep
         $withArray['authors_json'] = json_encode(Author::all(['id', 'name', 'firstname', 'infix']));
         return View::make($this->bookFolder . 'author')->with($withArray);
     }
+
+    public function getTitle()
+    {
+        return "Auteur";
+    }
 }
