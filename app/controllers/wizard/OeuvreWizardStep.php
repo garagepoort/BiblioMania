@@ -25,14 +25,12 @@ class OeuvreWizardStep extends WizardStep
     {
         $book = $this->bookService->find($id);
         $book->load("book_from_author");
-        $withArray['currentStep'] = $this;
         $withArray['title'] = $book->title;
         $withArray['book_id'] = $book->id;
         $withArray['book_wizard_step'] = $book->wizard_step;
         $withArray['oeuvre'] = $book->preferredAuthor()->oeuvre;
         $withArray['oeuvre_json'] = json_encode($book->preferredAuthor()->oeuvre);
         $withArray['author_id'] = $book->preferredAuthor()->id;
-        $withArray['wizardSteps'] = $this->bookService->getWizardSteps($id);
 
         $withArray['linked_book_id'] = "";
         if($book->book_from_author != null){
