@@ -40,4 +40,9 @@ class OeuvreWizardStep extends WizardStep
         }
         return View::make($this->bookFolder . 'oeuvre')->with($withArray);
     }
+
+    public function getTitle()
+    {
+        return "Oeuvre";
+    }
 }

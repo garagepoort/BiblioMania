@@ -43,4 +43,9 @@ class FirstPrintWizardStep extends WizardStep
         $withArray['publishers_json'] = json_encode(Publisher::all());
         return View::make($this->bookFolder . 'firstprint')->with($withArray);
     }
+
+    public function getTitle()
+    {
+        return "Eerste druk";
+    }
 }

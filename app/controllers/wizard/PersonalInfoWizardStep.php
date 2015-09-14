@@ -34,4 +34,9 @@ class PersonalInfoWizardStep extends WizardStep
         $withArray['wizardSteps'] = $this->bookService->getWizardSteps($id);
         return View::make($this->bookFolder . 'personalinfo')->with($withArray);
     }
+
+    public function getTitle()
+    {
+        return "Persoonlijk";
+    }
 }

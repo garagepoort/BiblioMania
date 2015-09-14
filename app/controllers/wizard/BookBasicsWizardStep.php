@@ -56,9 +56,7 @@ class BookBasicsWizardStep extends WizardStep
             $withArray = BookFormFiller::fillBasicInfo($id);
         }
 
-        $withArray['currentStep'] = $this;
         $withArray['title'] = $withArray['book_title'];
-        $withArray['wizardSteps'] = $this->bookService->getWizardSteps($id);
         $withArray['languages'] = $this->languageService->getLanguagesMap();
         $withArray['currencies'] = $this->currencyService->getCurrencies();
         $withArray['genres'] = $genres;
@@ -68,5 +66,10 @@ class BookBasicsWizardStep extends WizardStep
         $withArray['tags_json'] = json_encode(Tag::all());
         $withArray['publisher_series_json'] = json_encode(PublisherSerie::all());
         return View::make($this->bookFolder . 'bookBasics')->with($withArray);
+    }
+
+    public function getTitle()
+    {
+        return "Basis";
     }
 }
