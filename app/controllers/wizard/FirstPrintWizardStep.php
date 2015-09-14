@@ -35,9 +35,7 @@ class FirstPrintWizardStep extends WizardStep
     public function goToStep($id = null)
     {
         $withArray = BookFormFiller::fillForFirstPrint($id);
-        $withArray['currentStep'] = $this;
         $withArray['title'] = $withArray['book_title'];
-        $withArray['wizardSteps'] = $this->bookService->getWizardSteps($id);
         $withArray['languages'] = $this->languageService->getLanguagesMap();
         $withArray['countries_json'] = json_encode($this->countryService->getCountries());
         $withArray['publishers_json'] = json_encode(Publisher::all());

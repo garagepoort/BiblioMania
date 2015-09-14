@@ -49,8 +49,6 @@ class BuyOrGiftWizardStep extends WizardStep
     public function goToStep($id = null)
     {
         $withArray = BookFormFiller::fillForBuyInfo($id);
-        $withArray['currentStep'] = $this;
-        $withArray['wizardSteps'] = $this->bookService->getWizardSteps($id);
         $withArray['currencies'] = $this->currencyService->getCurrencies();
         $withArray['shops_json'] = json_encode($this->buyInfoService->getAllShops());
         $withArray['countries_json'] = json_encode($this->countryService->getCountries());
