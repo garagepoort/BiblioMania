@@ -36,4 +36,9 @@ class CoverInfoWizardStep extends WizardStep
         $withArray['covers'] = $covers;
         return View::make($this->bookFolder . 'cover')->with($withArray);
     }
+
+    public function getTitle()
+    {
+        return "Cover";
+    }
 }

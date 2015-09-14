@@ -125,6 +125,7 @@ return array(
 		'Jenssegers\Agent\AgentServiceProvider',
 		'Bendani\PhpCommon\LoginService\Providers\LoginServiceProvider',
 		'Bendani\PhpCommon\GoogleImageService\Providers\GoogleImageServiceProvider',
+		'Bendani\PhpCommon\WizardService\Providers\WizardServiceProvider',
 	),
 
 	/*
