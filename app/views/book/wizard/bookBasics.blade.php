@@ -120,13 +120,7 @@
                     </div>
                 </div>
 
-                <div class="control-group">
-                    <label class="control-label" for="bookSubmitButton"></label>
-
-                    <div class="controls">
-                        {{ Form::submit('Volgende', array('id'=>'bookNextButton', 'class'=> 'btn btn-success', 'onclick' => 'return validateForm();')); }}
-                    </div>
-                </div>
+                @include('book/wizard/submitButtons', array("step"=>$currentStep->stepNumber))
             </div>
 
         </fieldset>
