@@ -11,9 +11,9 @@
                         <label class="btn btn-primary filterRadioButton readFilterRadioButton">
                                 <input type="radio" name="readFilter" value="YES"/> Ja
                         </label>
-                        <label class="btn btn-primary filterRadioButton readFilterRadioButton">
+                        <lfabel class="btn btn-primary filterRadioButton readFilterRadioButton">
                             <input type="radio" name="readFilter" value="NO"/> Nee
-                        </label>
+                        </lfabel>
                     </div>
                 </td>
             </tr>
