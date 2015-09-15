@@ -18,7 +18,7 @@ class AbstractUITestCase extends AbstractIntegrationTestCase
     }
 
     public function login($email, $password){
-        $this->driver->get('http://localhost:8888/BiblioMania/login');
+        $this->driver->get('http://localhost/BiblioMania/login');
         $this->assertAtPage('Login');
 
         $emailInput = $this->findElementById('usernameInputLogin');
