@@ -82,7 +82,7 @@
                 @include('GIS::googleImageSearch', array('imageUrlInput' => 'coverInfoUrl','contentDivId' => 'coverInfoContent'))
 
             </div>
-            @include('book/wizard/submitButtons')
+            @include('book/wizard/submitButtons', array("step"=>$currentStep->stepNumber))
         </fieldset>
         {{ Form::close(); }}
     </div>
