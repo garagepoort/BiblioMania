@@ -83,7 +83,7 @@
                     </div>
                 </div>
 
-                @include('book/wizard/submitButtons')
+                @include('book/wizard/submitButtons', array("step"=>$currentStep->stepNumber))
             </div>
 
         </fieldset>
