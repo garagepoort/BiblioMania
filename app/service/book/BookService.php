@@ -62,20 +62,17 @@ class BookService
 
     public function getValueOfLibrary()
     {
-        return DB::table('book')->where('user_id', '=', Auth::user()->id)->sum('retail_price');
+        $this->bookRepository->getValueOfLibrary();
     }
 
     public function getTotalAmountOfBooksInLibrary()
     {
-        return DB::table('book')->where('user_id', '=', Auth::user()->id)->count();
+        return $this->bookRepository->getTotalAmountOfBooksInLibrary();
     }
 
     public function getTotalAmountOfBooksOwned()
     {
-        return Book::join('personal_book_info', 'book_id', '=', 'book.id')
-            ->where('user_id', '=', Auth::user()->id)
-            ->where('personal_book_info.owned', '=', 1)
-            ->count();
+        return $this->bookRepository->getTotalAmountOfBooksOwned();
     }
 
     public function getOrderByValues()
@@ -98,14 +95,27 @@ class BookService
         return Book::where('user_id', '=', Auth::user()->id)->get();
     }
 
-    public function getBooksForList()
+    public function getCompletedBooksForList()
     {
-        return Book::with('publisher', 'authors')->where('user_id', '=', Auth::user()->id)->get();
+        return Book::with('publisher', 'authors')->where('user_id', '=', Auth::user()->id)
+            ->where('wizard_step', '=', 'COMPLETE')
+            ->get();
     }
 
-    public function getBooksWithPersonalBookInfo()
+    public function getDraftBooksForList()
     {
-        return Book::with("personal_book_info")->where('user_id', '=', Auth::user()->id)->get();
+        return Book::with('publisher', 'authors')
+            ->where('user_id', '=', Auth::user()->id)
+            ->where('wizard_step', '!=', 'COMPLETE')
+            ->get();
+    }
+
+    public function getCompletedBooksWithPersonalBookInfo()
+    {
+        return Book::with("personal_book_info")
+            ->where('user_id', '=', Auth::user()->id)
+            ->where('wizard_step', '=', 'COMPLETE')
+            ->get();
     }
 
     public function getFullBook($book_id)
@@ -139,7 +149,9 @@ class BookService
             'publisher_serie',
             'serie');
 
-        return Book::with($with)->where('user_id', '=', Auth::user()->id)->get();
+        return Book::with($with)->where('user_id', '=', Auth::user()->id)
+            ->where('wizard_step', '=', 'COMPLETE')
+            ->get();
     }
 
     public function saveBasics(BookInfoParameters $bookInfoParameters)
@@ -227,6 +239,7 @@ class BookService
         if ($book_id != null) {
             return Book::where('user_id', '=', Auth::user()->id)
                 ->where('id', '=', $book_id)
+                ->where('wizard_step', '=', 'COMPLETE')
                 ->paginate(self::PAGES);
         }
 
@@ -241,7 +254,8 @@ class BookService
             ->leftJoin('first_print_info', 'first_print_info.id', '=', 'book.first_print_info_id')
             ->leftJoin('date', 'date.id', '=', 'first_print_info.publication_date_id')
             ->where('book_author.preferred', '=', 1)
-            ->where('user_id', '=', Auth::user()->id);
+            ->where('user_id', '=', Auth::user()->id)
+            ->where('wizard_step', '=', 'COMPLETE');
 
         //FILTERS
         if ($bookFilterValues->getRead() == BookFilterValues::YES) {
@@ -311,7 +325,7 @@ class BookService
         return $books->paginate(self::PAGES);
     }
 
-    public function searchBooks($criteria)
+    public function searchCompletedBooks($criteria)
     {
         return Book::with(array(
             'authors' => function ($query) {
@@ -319,6 +333,7 @@ class BookService
             },
             'publisher', 'genre', 'personal_book_info', 'first_print_info', 'publication_date', 'country', 'publisher_serie', 'serie'))
             ->where('user_id', '=', Auth::user()->id)
+            ->where('wizard_step', '=', 'COMPLETE')
             ->where(function ($query) use ($criteria) {
                 $query->where('title', 'LIKE', '%' . $criteria . '%')
                     ->orWhere('subtitle', 'LIKE', '%' . $criteria . '%');
@@ -416,6 +431,7 @@ class BookService
     {
         return Book::join('personal_book_info', 'book_id', '=', 'book.id')
             ->where('user_id', '=', Auth::user()->id)
+            ->where('wizard_step', '=', 'COMPLETE')
             ->where('personal_book_info.read', '=', 1)
             ->count();
     }
@@ -424,6 +440,7 @@ class BookService
     {
         return Book::join('personal_book_info', 'book_id', '=', 'book.id')
             ->where('user_id', '=', Auth::user()->id)
+            ->where('wizard_step', '=', 'COMPLETE')
             ->where('personal_book_info.read', '=', 0)
             ->count();
     }
@@ -433,6 +450,7 @@ class BookService
         return Book::join('personal_book_info', 'book_id', '=', 'book.id')
             ->join('buy_info', 'personal_book_info.id', '=', 'buy_info.personal_book_info_id')
             ->where('user_id', '=', Auth::user()->id)
+            ->where('wizard_step', '=', 'COMPLETE')
             ->count();
     }
 
@@ -441,6 +459,7 @@ class BookService
         return Book::join('personal_book_info', 'book_id', '=', 'book.id')
             ->join('gift_info', 'personal_book_info.id', '=', 'gift_info.personal_book_info_id')
             ->where('user_id', '=', Auth::user()->id)
+            ->where('wizard_step', '=', 'COMPLETE')
             ->count();
     }
 

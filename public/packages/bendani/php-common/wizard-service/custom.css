@@ -12,6 +12,10 @@
   color: #fff;
   background-color: #5cb85c;
 }
+.wizard-step-progress {
+  color: #fff;
+  background-color: #c9302c;
+}
 .nav-pills.nav-wizard > li .nav-arrow.nav-arrow-current {
   border-color: transparent transparent transparent #2d6ca2;
 }
@@ -23,6 +27,12 @@
 }
 .nav-pills.nav-wizard > li .nav-wedge.nav-wedge-before {
   border-color: #5cb85c #5cb85c #5cb85c transparent;
+}
+.nav-pills.nav-wizard > li .nav-arrow.nav-arrow-progress {
+  border-color: transparent transparent transparent #c9302c;
+}
+.nav-pills.nav-wizard > li .nav-wedge.nav-wedge-progress {
+  border-color: #c9302c #c9302c #c9302c transparent;
 }
 .nav-wizard {
   width: 100%;
