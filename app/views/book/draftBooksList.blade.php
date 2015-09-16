@@ -1,12 +1,11 @@
 @extends('main')
 
 @section('title')
-    Boeken
+    Onvolledige boeken
 @stop
 
 @section('content')
-    {{ HTML::script('assets/js/book/bookSlidingPanel.js'); }}
-    {{ HTML::script('assets/js/book/booksList.js'); }}
+    {{ HTML::script('assets/js/book/draftBooksList.js'); }}
 
     <div class="list-container table-responsive">
         <table id="bookEditList" class="table">
@@ -22,7 +21,7 @@
             @foreach ($books as $book)
                 <tr>
                     <td>
-                        <p class="detailPanelTrigger" bookId="{{ $book->id }}">{{ $book->title }}</p>
+                        <p bookId="{{ $book->id }}">{{ $book->title }}</p>
                     </td>
                     <td>
                         @if($book->preferredAuthor() != null)
@@ -30,7 +29,9 @@
                         @endif
                     </td>
                     <td>
-                        {{ $book->publisher->name }}
+                        @if($book->preferredAuthor() != null)
+                            {{ $book->publisher->name }}
+                        @endif
                     </td>
                     <td style="text-align: center">
                             <span bookId="{{ $book->id }}" aria-hidden="true" style="margin-left:10px" class="fa fa-pencil editbook-goto" width="10px"/>
@@ -39,6 +40,5 @@
             @endforeach
             </tbody>
         </table>
-        @include('book/bookSlidingPanel')
     </div>
 @stop
