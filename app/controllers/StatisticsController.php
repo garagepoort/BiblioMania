@@ -178,7 +178,7 @@ class StatisticsController extends BaseController
 //        pubYearTable.addColumn({type: 'string', role: 'tooltip', 'p': {'html': true}});
         $rows = array();
         /** @var Book $book */
-        foreach($this->bookService->getBooksWithPersonalBookInfo() as $book){
+        foreach($this->bookService->getCompletedBooksWithPersonalBookInfo() as $book){
             if($book->first_print_info->publication_date != null){
                 $publicationYear = StringUtils::isEmpty($book->first_print_info->publication_date->year) ? "1900" : $book->first_print_info->publication_date->year;
                 $publicationMonth = StringUtils::isEmpty($book->first_print_info->publication_date->month) ? "1" : $book->first_print_info->publication_date->month;

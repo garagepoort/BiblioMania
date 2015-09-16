@@ -110,8 +110,16 @@ class BookController extends BaseController
     }
 
     public function getBooksList(){
-        $books = $this->bookService->getBooksForList();
+        $books = $this->bookService->getCompletedBooksForList();
         return View::make($this->bookFolder . 'booksList')->with(array(
+            'title' => 'Boeken',
+            'books' => $books
+        ));
+    }
+
+    public function getDraftBooksList(){
+        $books = $this->bookService->getDraftBooksForList();
+        return View::make($this->bookFolder . 'draftBooksList')->with(array(
             'title' => 'Boeken',
             'books' => $books
         ));
@@ -120,7 +128,7 @@ class BookController extends BaseController
     public function getBooksFromSearch()
     {
         $criteria = Input::get('criteria');
-        $books = $this->bookService->searchBooks($criteria);
+        $books = $this->bookService->searchCompletedBooks($criteria);
 
         return View::make('books')->with(array(
             'title' => 'Boeken',
