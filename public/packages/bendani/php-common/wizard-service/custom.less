@@ -1,5 +1,6 @@
 @primary-color: #2d6ca2;
 @success-color: #5cb85c;
+@error-color: #c9302c;
 
 .wizard-step-content {
     position: relative;
@@ -20,6 +21,11 @@
 //border-color: #204d74;
 }
 
+.wizard-step-progress {
+    color: #fff;
+    background-color: @error-color;
+}
+
 .nav-pills.nav-wizard > li .nav-arrow.nav-arrow-current {
     border-color: transparent transparent transparent @primary-color;
 }
@@ -34,6 +40,14 @@
 
 .nav-pills.nav-wizard > li .nav-wedge.nav-wedge-before {
     border-color: @success-color @success-color @success-color transparent;
+}
+
+.nav-pills.nav-wizard > li .nav-arrow.nav-arrow-progress {
+    border-color: transparent transparent transparent @error-color;
+}
+
+.nav-pills.nav-wizard > li .nav-wedge.nav-wedge-progress {
+    border-color: @error-color @error-color @error-color transparent;
 }
 
 .nav-wizard {
