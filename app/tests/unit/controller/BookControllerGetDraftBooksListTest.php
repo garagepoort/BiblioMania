@@ -1,6 +1,6 @@
 <?php
 
-class BookControllerGetBooksListTest extends TestCase{
+class BookControllerGetDraftBooksListTest extends TestCase{
 
     const NEW_NAME = "NEW_NAME";
     const PUBLISHER_NAME = "publisher name";
