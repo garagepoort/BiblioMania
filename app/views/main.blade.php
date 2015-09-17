@@ -105,10 +105,11 @@
                            aria-expanded="false">Lijsten
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li>{{ HTML::link('getBooksList', 'Boekenlijst', array('id'=>'booksListNavigationLink', 'title' => 'Boekenlijst')) }}</li>
-                            <li>{{ HTML::link('getAuthorsList', 'Auteurslijst', array('id'=>'authorsListNavigationLink', 'title' => 'Auteurslijst')) }}</li>
-                            <li>{{ HTML::link('getPublishersList', 'Uitgeverslijst', array('id'=>'publishersListNavigationLink', 'title' => 'Uitgeverslijst')) }}</li>
-                            <li>{{ HTML::link('getCountryList', 'Landenlijst', array('id'=>'countryListNavigationLink', 'title' => 'Landenlijst')) }}</li>
+                            <li>{{ HTML::link('getBooksList', 'Boeken', array('id'=>'booksListNavigationLink', 'title' => 'Boeken')) }}</li>
+                            <li>{{ HTML::link('getDraftBooksList', 'Onvolledige Boeken', array('id'=>'draftBooksListNavigationLink', 'title' => 'Onvolledige boeken')) }}</li>
+                            <li>{{ HTML::link('getAuthorsList', 'Auteurs', array('id'=>'authorsListNavigationLink', 'title' => 'Auteurs')) }}</li>
+                            <li>{{ HTML::link('getPublishersList', 'Uitgevers', array('id'=>'publishersListNavigationLink', 'title' => 'Uitgevers')) }}</li>
+                            <li>{{ HTML::link('getCountryList', 'Landen', array('id'=>'countryListNavigationLink', 'title' => 'Landen')) }}</li>
                         </ul>
                     </li>
                     <li>{{ HTML::link('goToStatistics', 'Statistieken', array('id'=>'goToStatisticsNavigationLink', 'title' => 'Statistieken')) }}</li>

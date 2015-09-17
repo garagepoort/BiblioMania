@@ -1,6 +1,6 @@
 <?php
 
-class BookControllerGetBooksListTest extends TestCase{
+class BookControllerGetDraftBooksListTest extends TestCase{
 
     const NEW_NAME = "NEW_NAME";
     const PUBLISHER_NAME = "publisher name";
@@ -15,13 +15,13 @@ class BookControllerGetBooksListTest extends TestCase{
     }
 
     public function test_returnsCorrectView_withBoundVariables(){
-        $this->bookService->shouldReceive("getCompletedBooksForList")
+        $this->bookService->shouldReceive("getDraftBooksForList")
             ->once()
             ->andReturn($this->books);
 
         $parameters = array();
 
-        $this->action('GET', 'BookController@getBooksList', null, $parameters);
+        $this->action('GET', 'BookController@getDraftBooksList', null, $parameters);
 
         $this->assertViewHas('title', 'Boeken');
         $this->assertViewHas('books', $this->books);
