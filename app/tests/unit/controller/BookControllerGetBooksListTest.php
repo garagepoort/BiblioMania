@@ -15,7 +15,7 @@ class BookControllerGetBooksListTest extends TestCase{
     }
 
     public function test_returnsCorrectView_withBoundVariables(){
-        $this->bookService->shouldReceive("getBooksForList")
+        $this->bookService->shouldReceive("getCompletedBooksForList")
             ->once()
             ->andReturn($this->books);
 
