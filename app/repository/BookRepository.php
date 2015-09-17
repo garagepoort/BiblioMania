@@ -70,6 +70,28 @@ class BookRepository implements iRepository{
         $book->save();
     }
 
+    public function getTotalAmountOfBooksOwned(){
+        return Book::join('personal_book_info', 'book_id', '=', 'book.id')
+            ->where('user_id', '=', Auth::user()->id)
+            ->where('wizard_step', '=', 'COMPLETE')
+            ->where('personal_book_info.owned', '=', 1)
+            ->count();
+    }
+
+    public function getTotalAmountOfBooksInLibrary(){
+        return DB::table('book')
+            ->where('user_id', '=', Auth::user()->id)
+            ->where('wizard_step', '=', 'COMPLETE')
+            ->count();
+    }
+
+    public function getValueOfLibrary(){
+        return DB::table('book')
+            ->where('user_id', '=', Auth::user()->id)
+            ->where('wizard_step', '=', 'COMPLETE')
+            ->sum('retail_price');
+    }
+
     public function getAllTranslators(){
         $books = Book::distinct()->select('translator')->where('translator', '!=', '')->groupBy('translator')->get()->toArray();
         return array_map(function ($object) {

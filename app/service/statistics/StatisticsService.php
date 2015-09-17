@@ -29,7 +29,10 @@ class StatisticsService
         $genres = Genre::all();
         $result = array();
         foreach ($genres as $genre) {
-            $result[$genre->name] = Book::where('genre_id', '=', $genre->id)->count();
+            $result[$genre->name] = Book::where('genre_id', '=', $genre->id)
+                ->where('user_id', '=', Auth::user()->id)
+                ->where('wizard_step', '=', 'COMPLETE')
+                ->count();
         }
         return $result;
     }
@@ -38,7 +41,7 @@ class StatisticsService
     {
         $result = array();
 
-        $books = $this->bookService->getBooksWithPersonalBookInfo();
+        $books = $this->bookService->getCompletedBooksWithPersonalBookInfo();
 
         /** @var Book $book */
         foreach ($books as $book) {
