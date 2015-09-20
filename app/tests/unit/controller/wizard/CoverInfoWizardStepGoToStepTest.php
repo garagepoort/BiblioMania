@@ -12,14 +12,14 @@ class CoverInfoWizardStepGoToStepTest extends TestCase
 
     /** @var  CoverInfoWizardStep */
     private $coverInfoWizardStep;
-    /** @var  BookService */
-    private $bookService;
+    /** @var  BookRepository */
+    private $bookRepository;
     private $covertypes = array("type1", "type2");
 
     public function setUp()
     {
         parent::setUp();
-        $this->bookService = $this->mock("BookService");
+        $this->bookRepository = $this->mock("BookRepository");
         $this->coverInfoWizardStep = new CoverInfoWizardStep();
 
         $user = new User(['username' => self::USERNAME]);
@@ -28,9 +28,9 @@ class CoverInfoWizardStepGoToStepTest extends TestCase
 
     public function test_returnsWithCorrectVariables()
     {
-        $this->bookService->shouldReceive('getBookCoverTypes')->andReturn($this->covertypes);
+        $this->bookRepository->shouldReceive('getBookCoverTypes')->andReturn($this->covertypes);
         $book = $this->createFakeBook();
-        $this->bookService->shouldReceive('find')->andReturn($book);
+        $this->bookRepository->shouldReceive('find')->andReturn($book);
 
         $book->wizard_step = self::WIZARD_STEP;
         $book->id = self::BOOK_ID;
@@ -52,9 +52,9 @@ class CoverInfoWizardStepGoToStepTest extends TestCase
 
     public function test_returnsQuestionImageAsImage_whenNoCoverImageSet()
     {
-        $this->bookService->shouldReceive('getBookCoverTypes')->andReturn($this->covertypes);
+        $this->bookRepository->shouldReceive('getBookCoverTypes')->andReturn($this->covertypes);
         $book = $this->createFakeBook();
-        $this->bookService->shouldReceive('find')->andReturn($book);
+        $this->bookRepository->shouldReceive('find')->andReturn($book);
 
         $book->coverImage = null;
 
@@ -65,9 +65,9 @@ class CoverInfoWizardStepGoToStepTest extends TestCase
 
     public function test_returnsImage_whenCoverImageSet()
     {
-        $this->bookService->shouldReceive('getBookCoverTypes')->andReturn($this->covertypes);
+        $this->bookRepository->shouldReceive('getBookCoverTypes')->andReturn($this->covertypes);
         $book = $this->createFakeBook();
-        $this->bookService->shouldReceive('find')->andReturn($book);
+        $this->bookRepository->shouldReceive('find')->andReturn($book);
 
         $book->coverImage = self::COVER_IMAGE;
 

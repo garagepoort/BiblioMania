@@ -10,10 +10,63 @@ class BookRepository implements iRepository{
             ->first();
     }
 
+    public function findCompleted($id, $with = array())
+    {
+        return Book::with($with)
+            ->where('id', '=', $id)
+            ->where('user_id', '=', Auth::user()->id)
+            ->where('wizard_step', '=', 'COMPLETE')
+            ->first();
+    }
+
+    public function findDraft($id, $with = array())
+    {
+        return Book::with($with)
+            ->where('id', '=', $id)
+            ->where('user_id', '=', Auth::user()->id)
+            ->where('wizard_step', '!=', 'COMPLETE')
+            ->first();
+    }
+
+    public function allCompletedPaginated($id, $pages, $with = array())
+    {
+        return Book::with($with)
+            ->where('id', '=', $id)
+            ->where('user_id', '=', Auth::user()->id)
+            ->where('wizard_step', '=', 'COMPLETE')
+            ->paginate($pages);
+    }
+
+    public function allDraftsPaginated($id, $pages, $with = array())
+    {
+        return Book::with($with)
+            ->where('id', '=', $id)
+            ->where('user_id', '=', Auth::user()->id)
+            ->where('wizard_step', '!=', 'COMPLETE')
+            ->paginate($pages);
+    }
+
     public function all()
     {
         return Book::all();
     }
+
+    public function allCompleted($with = array())
+    {
+        return Book::with($with)
+            ->where('user_id', '=', Auth::user()->id)
+            ->where('wizard_step', '=', 'COMPLETE')
+            ->get();
+    }
+
+    public function allDrafts($with = array())
+    {
+        return Book::with($with)
+            ->where('user_id', '=', Auth::user()->id)
+            ->where('wizard_step', '!=', 'COMPLETE')
+            ->get();
+    }
+
 
     public function save($entity)
     {
@@ -97,5 +150,23 @@ class BookRepository implements iRepository{
         return array_map(function ($object) {
             return $object['translator'];
         }, $books);
+    }
+
+    public function getTotalAmountOfBooksRead()
+    {
+        return Book::join('personal_book_info', 'book_id', '=', 'book.id')
+            ->where('user_id', '=', Auth::user()->id)
+            ->where('wizard_step', '=', 'COMPLETE')
+            ->where('personal_book_info.read', '=', 1)
+            ->count();
+    }
+
+    public function getTotalAmountOfBooksBought()
+    {
+        return Book::join('personal_book_info', 'book_id', '=', 'book.id')
+            ->join('buy_info', 'personal_book_info.id', '=', 'buy_info.personal_book_info_id')
+            ->where('user_id', '=', Auth::user()->id)
+            ->where('wizard_step', '=', 'COMPLETE')
+            ->count();
     }
 }
