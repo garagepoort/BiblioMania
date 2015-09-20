@@ -5,6 +5,6 @@
             {{ Form::submit('Vorige', array('id'=>'bookNextButton', 'class'=> 'btn btn-primary', 'onclick' => "setRedirectToPrevious(); return validateForm();")); }}
         @endif
         {{ Form::submit('Volgende', array('id'=>'bookNextButton', 'class'=> 'btn btn-success', 'onclick' => 'return validateForm();')); }}
-        <button style="float: right" href="getBooks" class='clickableRow btn btn-danger' onclick="return false;">Annuleer</button>
+        <button style="float: right" href="{{ URL::to('getBooks') }}" class='clickableRow btn btn-danger' onclick="return false;">Annuleer</button>
     </div>
 </div>
