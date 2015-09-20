@@ -2,6 +2,7 @@
 
 class BookController extends BaseController
 {
+    /** @var string $bookFolder*/
     private $bookFolder = "book/";
 
     /** @var  BookService */
@@ -122,22 +123,6 @@ class BookController extends BaseController
         return View::make($this->bookFolder . 'draftBooksList')->with(array(
             'title' => 'Boeken',
             'books' => $books
-        ));
-    }
-
-    public function getBooksFromSearch()
-    {
-        $criteria = Input::get('criteria');
-        $books = $this->bookService->searchCompletedBooks($criteria);
-
-        return View::make('books')->with(array(
-            'title' => 'Boeken',
-            'books' => $books,
-            'books_json' => $books->toJson(),
-            'total_value_library' => $this->bookService->getValueOfLibrary(),
-            'total_amount_of_books' => $this->bookService->getTotalAmountOfBooksInLibrary(),
-            'total_amount_of_books_owned' => $this->bookService->getTotalAmountOfBooksOwned(),
-            'bookFilters' => BookFilter::getFilters()
         ));
     }
 
