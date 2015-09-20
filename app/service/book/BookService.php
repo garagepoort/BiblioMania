@@ -145,6 +145,7 @@ class BookService
         }
         $book_publisher = $this->publisherService->findOrCreate($bookInfoParameters->getPublisherName());
         $country = $this->countryService->findOrCreate($bookInfoParameters->getCountryName());
+        $tags = $this->tagService->createTags($bookInfoParameters->getTags());
 
         if (!StringUtils::isEmpty($bookInfoParameters->getLanguage())) {
             $book->language()->associate($this->languageService->findOrSave($bookInfoParameters->getLanguage()));
@@ -158,6 +159,7 @@ class BookService
             $book->publication_date()->dissociate();
         }
 
+        $book->tags()->sync($tags);
         $book->user_id = Auth::user()->id;
         $book->title = $bookInfoParameters->getTitle();
         $book->subtitle = $bookInfoParameters->getSubtitle();
