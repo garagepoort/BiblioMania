@@ -90,32 +90,19 @@ class BookService
         return array("Perfect" => "Perfect", "Bijna Perfect" => "Bijna Perfect", "Prima" => "Prima", "Redelijk" => "Redelijk", "Slecht" => "Slecht");
     }
 
-    public function getBooks()
-    {
-        return Book::where('user_id', '=', Auth::user()->id)->get();
-    }
-
     public function getCompletedBooksForList()
     {
-        return Book::with('publisher', 'authors')->where('user_id', '=', Auth::user()->id)
-            ->where('wizard_step', '=', 'COMPLETE')
-            ->get();
+        return $this->bookRepository->allCompleted(array('publisher', 'authors'))
     }
 
     public function getDraftBooksForList()
     {
-        return Book::with('publisher', 'authors')
-            ->where('user_id', '=', Auth::user()->id)
-            ->where('wizard_step', '!=', 'COMPLETE')
-            ->get();
+        return $this->bookRepository->allDrafts(array('publisher', 'authors'));
     }
 
     public function getCompletedBooksWithPersonalBookInfo()
     {
-        return Book::with("personal_book_info")
-            ->where('user_id', '=', Auth::user()->id)
-            ->where('wizard_step', '=', 'COMPLETE')
-            ->get();
+        return $this->bookRepository->allCompleted(array('personal_book_info'));
     }
 
     public function getFullBook($book_id)
@@ -131,12 +118,10 @@ class BookService
             'publisher_serie',
             'serie');
 
-        return Book::with($with)->where('user_id', '=', Auth::user()->id)
-            ->where('id', '=', $book_id)
-            ->first();
+        return $this->bookRepository->find($book_id, $with)
     }
 
-    public function getAllFullBooks()
+    public function getAllCompletedFullBooks()
     {
         $with = array(
             'authors',
@@ -149,9 +134,7 @@ class BookService
             'publisher_serie',
             'serie');
 
-        return Book::with($with)->where('user_id', '=', Auth::user()->id)
-            ->where('wizard_step', '=', 'COMPLETE')
-            ->get();
+        return $this->bookRepository->allCompleted($with);
     }
 
     public function saveBasics(BookInfoParameters $bookInfoParameters)
@@ -325,23 +308,6 @@ class BookService
         return $books->paginate(self::PAGES);
     }
 
-    public function searchCompletedBooks($criteria)
-    {
-        return Book::with(array(
-            'authors' => function ($query) {
-                $query->orderBy('name', 'DESC');
-            },
-            'publisher', 'genre', 'personal_book_info', 'first_print_info', 'publication_date', 'country', 'publisher_serie', 'serie'))
-            ->where('user_id', '=', Auth::user()->id)
-            ->where('wizard_step', '=', 'COMPLETE')
-            ->where(function ($query) use ($criteria) {
-                $query->where('title', 'LIKE', '%' . $criteria . '%')
-                    ->orWhere('subtitle', 'LIKE', '%' . $criteria . '%');
-            })
-            ->orderBy('title')
-            ->paginate(self::PAGES);
-    }
-
     /**
      * @param BookCreationParameters $bookCreationParameters
      * @return Book
@@ -417,50 +383,14 @@ class BookService
         }
     }
 
-    public function getPreferredAuthor(Book $book)
-    {
-        foreach ($book->authors as $author) {
-            if ($author->pivot->preferred == true) {
-                return $author;
-            }
-        }
-        return null;
-    }
-
     public function getTotalAmountOfBooksRead()
     {
-        return Book::join('personal_book_info', 'book_id', '=', 'book.id')
-            ->where('user_id', '=', Auth::user()->id)
-            ->where('wizard_step', '=', 'COMPLETE')
-            ->where('personal_book_info.read', '=', 1)
-            ->count();
-    }
-
-    public function getTotalAmountOfBooksUnRead()
-    {
-        return Book::join('personal_book_info', 'book_id', '=', 'book.id')
-            ->where('user_id', '=', Auth::user()->id)
-            ->where('wizard_step', '=', 'COMPLETE')
-            ->where('personal_book_info.read', '=', 0)
-            ->count();
+        return $this->bookRepository->getTotalAmountOfBooksRead();
     }
 
     public function getTotalAmountOfBooksBought()
     {
-        return Book::join('personal_book_info', 'book_id', '=', 'book.id')
-            ->join('buy_info', 'personal_book_info.id', '=', 'buy_info.personal_book_info_id')
-            ->where('user_id', '=', Auth::user()->id)
-            ->where('wizard_step', '=', 'COMPLETE')
-            ->count();
-    }
-
-    public function getTotalAmountOfBooksGotten()
-    {
-        return Book::join('personal_book_info', 'book_id', '=', 'book.id')
-            ->join('gift_info', 'personal_book_info.id', '=', 'gift_info.personal_book_info_id')
-            ->where('user_id', '=', Auth::user()->id)
-            ->where('wizard_step', '=', 'COMPLETE')
-            ->count();
+        return $this->bookRepository->getTotalAmountOfBooksBought();
     }
 
     public function getAllTranslators(){
