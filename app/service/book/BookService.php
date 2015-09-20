@@ -92,7 +92,7 @@ class BookService
 
     public function getCompletedBooksForList()
     {
-        return $this->bookRepository->allCompleted(array('publisher', 'authors'))
+        return $this->bookRepository->allCompleted(array('publisher', 'authors'));
     }
 
     public function getDraftBooksForList()
@@ -118,7 +118,7 @@ class BookService
             'publisher_serie',
             'serie');
 
-        return $this->bookRepository->find($book_id, $with)
+        return $this->bookRepository->find($book_id, $with);
     }
 
     public function getAllCompletedFullBooks()
