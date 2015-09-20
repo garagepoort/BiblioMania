@@ -6,6 +6,19 @@ function getImageStyle(height, width, image, spritePointer) {
     styleString = styleString + "background-position:  0px -" + spritePointer + "px;margin-bottom: 0px;";
     return styleString;
 }
+
+function showError(id, errorMessage) {
+    $('#' + id).show();
+    $('#' + id).children()[0].innerHTML =  errorMessage;
+    $('html, body').animate({
+        scrollTop: $('#' + id).offset().top -100
+    }, 2000);
+}
+
+function hideError(id) {
+    $(id).hide();
+}
+
 function createMaterialCardImage(image, height, width, spritePointer){
     var styleString = getImageStyle(height, width, image, spritePointer);
     var materialCard = $("<div></div>");
