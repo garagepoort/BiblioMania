@@ -16,10 +16,15 @@ class AuthorService
         $this->imageService = App::make('ImageService');
     }
 
+    public function find($id){
+        return $this->authorRepository->find($id, array('oeuvre'));
+    }
+
     public function saveOrGetSecondaryAuthor(AuthorInfoParameters $authorInfoParameters){
         $author_model = $this->authorRepository->getAuthorByFullName($authorInfoParameters->getName(),
-            $authorInfoParameters->getFirstname(),
-            $authorInfoParameters->getInfix());
+        $authorInfoParameters->getFirstname(),
+        $authorInfoParameters->getInfix());
+
         if (is_null($author_model)) {
             $author_model = new Author();
             $author_model->name = $authorInfoParameters->getName();

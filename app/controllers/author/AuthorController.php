@@ -99,11 +99,12 @@ class AuthorController extends BaseController {
 	}
 
 	public function getAuthor($author_id){
-		$author = Author::with('oeuvre')->find($author_id);
+		$author = $this->authorService->find($author_id);
 		return View::make($this->authorFolder . 'author')->with(array(
 			'title' => 'Auteur',
 			'author' => $author,
-            'author_json' => json_encode($author)
+            'author_json' => json_encode($author),
+            'oeuvre_json' => json_encode($author->oeuvre)
 		));
 	}
 

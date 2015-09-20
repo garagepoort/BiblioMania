@@ -15,9 +15,7 @@
             </ul>
 
             <!-- Tab panes -->
-            <div id="error-div" class="material-card error-message" hidden>
-                <div id="error-message" class="material-card-content error-message"></div>
-            </div>
+            @include('error', array("id"=>"error-div"))
             <div>
                 <div role="tabpanel" class="tab-pane active" id="overview">
                     @include('statistics/statisticsOverview')
