@@ -15,8 +15,8 @@ class BookBasicsWizardStepGoToStepTest extends TestCase
 
     /** @var  BookBasicsWizardStep */
     private $bookBasicsWizardStep;
-    /** @var  BookService */
-    private $bookService;
+    /** @var  BookRepository */
+    private $bookRepository;
     /** @var  LanguageService */
     private $languageService;
     /** @var  CurrencyService */
@@ -27,7 +27,7 @@ class BookBasicsWizardStepGoToStepTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $this->bookService = $this->mock("BookService");
+        $this->bookRepository = $this->mock("BookRepository");
         $this->languageService = $this->mock("LanguageService");
         $this->currencyService = $this->mock("CurrencyService");
         $this->genreService = $this->mock("GenreService");
@@ -41,7 +41,7 @@ class BookBasicsWizardStepGoToStepTest extends TestCase
     public function test_returnsWithCorrectVariables()
     {
         $book = $this->createFakeBook();
-        $this->bookService->shouldReceive('find')->andReturn($book);
+        $this->bookRepository->shouldReceive('find')->andReturn($book);
         $this->languageService->shouldReceive('getLanguagesMap')->andReturn($this->languages);
         $this->currencyService->shouldReceive('getCurrencies')->andReturn($this->currencies);
         $this->genreService->shouldReceive('getAllParentGenres')->andReturn($this->genres);
