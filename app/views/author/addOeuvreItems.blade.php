@@ -1,4 +1,5 @@
 <div id='add-oeuvre-textarea-panel' hidden="true" style="margin-bottom: 20px;">
+    @include('error', array("id"=>"error-div-add-oeuvre"))
     <textarea placeholder="<jaar> - <titel>" id='add-oeuvre-textarea' name="oeuvre" cols="80"rows="5" style="width: 100%"></textarea>
     <button class='btn btn-default' id='oeuvreButton' onclick="addOeuvreItems(); return false;">Voeg items toe</button>
 </div>
@@ -22,9 +23,9 @@
     function addOeuvreItems() {
         var errorMessage = validateOeuvreList();
         if (errorMessage) {
-            showError(errorMessage);
+            showError("error-div-add-oeuvre", errorMessage);
         } else {
-            hideError();
+            hideError("error-div-add-oeuvre");
             saveOeuvre();
         }
     }

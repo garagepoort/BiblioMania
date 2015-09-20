@@ -103,7 +103,8 @@ class AuthorController extends BaseController {
 		return View::make($this->authorFolder . 'author')->with(array(
 			'title' => 'Auteur',
 			'author' => $author,
-            'author_json' => json_encode($author)
+            'author_json' => json_encode($author),
+            'oeuvre_json' => json_encode($author->oeuvre)
 		));
 	}
 
