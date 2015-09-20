@@ -8,9 +8,7 @@
         {{ Form::open(array('id'=>'createOrEditBookForm', 'url' => $currentStep->url . $book_id, 'class' => 'form-horizontal createBookForm', 'autocomplete' => 'off', 'files' => 'true')); }}
         <input id="redirectInput" hidden name="redirect" value="NEXT">
 
-        <div id="error-div" class="material-card error-message" hidden>
-            <div id="error-message" class="material-card-content error-message"></div>
-        </div>
+        @include('error', array("id"=>"error-div"))
 
         <fieldset>
             @if($book_cover_image != '')

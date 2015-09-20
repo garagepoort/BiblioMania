@@ -3,10 +3,10 @@ function validateForm() {
     formSubmitting = true;
     var errorMessage = validateGenre();
     if (errorMessage) {
-        showError(errorMessage);
+        showError("error-div", errorMessage);
         return false;
     }
-    hideError();
+    hideError("error-div");
     return true;
 }
 

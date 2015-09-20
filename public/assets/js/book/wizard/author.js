@@ -7,10 +7,10 @@ function validateForm() {
     formSubmitting = true;
     var errorMessage;
     if (errorMessage) {
-        showError(errorMessage);
+        showError("error-div", errorMessage);
         return false;
     }
-    hideError();
+    hideError("error-div");
     return true;
 }
 

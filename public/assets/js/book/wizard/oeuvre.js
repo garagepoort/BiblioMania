@@ -20,10 +20,10 @@ function validateForm() {
     formSubmitting = true;
     var errorMessage = validateOeuvreList();
     if (errorMessage) {
-        showError(errorMessage);
+        showError("error-div", errorMessage);
         return false;
     }
-    hideError();
+    hideError("error-div");
     return true;
 }
 

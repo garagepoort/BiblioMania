@@ -60,6 +60,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
 		$author->name = "authorName";
 		$author->firstname = "authorFirstName";
 		$author->pivot = $pivot;
+		$author->oeuvre = array();
 
 		$publisher = new Publisher();
 		$publisher->name = "publisher name";
@@ -69,6 +70,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
 		$book->publisher = $publisher;
 
 		$book->authors = array($author);
+		$author->books = array($book);
 		return $book;
 	}
 
