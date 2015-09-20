@@ -1,6 +1,15 @@
 <div class="material-card">
     <div class="material-card-title">Oeuvre</div>
     <div class="material-card-content">
+        <div style="margin-bottom: 20px;">
+            <button class='btn btn-primary' onclick="toggleAddOevreItems(); hideEditOevreItems(); return false;">Voeg oeuvre items toe</button>
+            <button class='btn btn-primary' onclick="toggleEditOevreItems(); hideAddOevreItems(); return false;">Pas bestaande items aan</button>
+        </div>
+
+
+        @include('author.addOeuvreItems', array("author_id"=>$author->id))
+        @include('author.editOeuvreItems', array("author_id"=>$author->id, "oeuvre_json"=>$oeuvre_json))
+
         <table id="author-oeuvre-table" class="table">
             <thead>
             <tr>

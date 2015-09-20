@@ -1,4 +1,5 @@
-<div id='edit-oeuvre-textarea-panel' hidden="true">
+<div id='edit-oeuvre-textarea-panel' hidden="true" style="margin-bottom: 20px;">
+    @include('error', array("id"=>"error-div-edit-oeuvre"))
     <textarea placeholder="<id> - <jaar> - <titel>" id='edit-oeuvre-textarea' name="oeuvre" cols="80" rows="5"
               style="width: 100%"></textarea>
     <button class='btn btn-default' id='oeuvreButton' onclick="editOeuvreItems(); return false;">Pas oeuvre aan</button>
@@ -35,9 +36,9 @@
     function editOeuvreItems() {
         var errorMessage = validateEditOeuvreList();
         if (errorMessage) {
-            showError(errorMessage);
+            showError("error-div-edit-oeuvre", errorMessage);
         } else {
-            hideError();
+            hideError("error-div-edit-oeuvre");
             editOeuvre();
         }
     }
