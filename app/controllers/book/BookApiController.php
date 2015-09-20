@@ -18,7 +18,7 @@ class BookApiController extends BaseController
         if($user != null){
             return $user;
         }else{
-            return $this->bookService->getAllFullBooks();
+            return $this->bookService->getAllCompletedFullBooks();
         }
     }
 
