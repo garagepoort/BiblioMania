@@ -50,11 +50,7 @@ class BookBasicsWizardStep extends WizardStep
     public function goToStep($id = null)
     {
         $genres = $this->genreService->getAllParentGenres();
-        if ($id == null) {
-            $withArray = BookFormFiller::createArrayForCreate();
-        } else {
-            $withArray = BookFormFiller::fillBasicInfo($id);
-        }
+        $withArray = BookFormFiller::fillBasicInfo($id);
 
         $withArray['title'] = $withArray['book_title'];
         $withArray['languages'] = $this->languageService->getLanguagesMap();
