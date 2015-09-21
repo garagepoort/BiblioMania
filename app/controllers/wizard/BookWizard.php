@@ -41,9 +41,9 @@ class BookWizard extends Wizard
         return true;
     }
 
-    public function afterLastStepGoTo()
+    public function afterLastStepGoTo($result)
     {
-        return Redirect::to('/getBooks');
+        return Redirect::to('/getBooks?scroll_id=' . $result->id);
     }
 
     protected function onFailureGoTo(){
