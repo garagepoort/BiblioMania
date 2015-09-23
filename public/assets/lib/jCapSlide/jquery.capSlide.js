@@ -8,7 +8,7 @@
 			if(!o.showcaption)	$this.find('.ic_caption').css('display','none');
 			else $this.find('.ic_text').css('display','none');
 				
-			var _img = $this.find('img:first');
+			var _img = $this.first();
 			var w = _img.css('width');
 			var h = _img.css('height');
 			$('.ic_caption',$this).css({'color':o.caption_color,'background-color':o.caption_bgcolor,'bottom':'0px','width':w});
