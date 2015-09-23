@@ -22,9 +22,9 @@ class BookControllerGetNextBooksTest extends TestCase
                 ->andReturn($this->filteredResults);
 
         $this->filteredResults->shouldReceive('getItems')->andReturn(array(
-            $this->createBook(123,11,21,31, "coverImage1", true),
-            $this->createBook(231,12,22,32, "coverImage2", true),
-            $this->createBook(321,13,23,33, "coverImage3", true),
+            $this->createBook(123,11,21,31, "coverImage1", true, "old tag"),
+            $this->createBook(231,12,22,32, "coverImage2", true, "other old tag"),
+            $this->createBook(321,13,23,33, "coverImage3", true, ""),
         ));
 
         $this->filteredResults->shouldReceive('getTotal')->andReturn("3");
@@ -43,14 +43,14 @@ class BookControllerGetNextBooksTest extends TestCase
             "last_page"=>"100",
             "current_page"=>"1",
             "data"=>array(
-                array("id"=>"123", "imageHeight"=>"21", "imageWidth"=>"11","spritePointer"=>"31", "coverImage"=>"coverImage1", "useSpriteImage"=>true),
-                array("id"=>"231", "imageHeight"=>"22", "imageWidth"=>"12","spritePointer"=>"32", "coverImage"=>"coverImage2", "useSpriteImage"=>true),
-                array("id"=>"321", "imageHeight"=>"23", "imageWidth"=>"13","spritePointer"=>"33", "coverImage"=>"coverImage3", "useSpriteImage"=>true)
+                array("id"=>"123", "imageHeight"=>"21", "imageWidth"=>"11","spritePointer"=>"31", "coverImage"=>"coverImage1", "useSpriteImage"=>true, "hasWarnings" =>true),
+                array("id"=>"231", "imageHeight"=>"22", "imageWidth"=>"12","spritePointer"=>"32", "coverImage"=>"coverImage2", "useSpriteImage"=>true, "hasWarnings" =>true),
+                array("id"=>"321", "imageHeight"=>"23", "imageWidth"=>"13","spritePointer"=>"33", "coverImage"=>"coverImage3", "useSpriteImage"=>true, "hasWarnings" =>false)
             )
         ));
     }
 
-    private function createBook($id, $imageWidth, $imageHeight, $spritePointer, $coverImage, $useSpriteImage){
+    private function createBook($id, $imageWidth, $imageHeight, $spritePointer, $coverImage, $useSpriteImage, $old_tags){
         $book = $this->createFakeBook();
         $book->id = $id;
         $book->imageWidth = $imageWidth;
@@ -58,6 +58,7 @@ class BookControllerGetNextBooksTest extends TestCase
         $book->spritePointer = $spritePointer;
         $book->useSpriteImage = $useSpriteImage;
         $book->coverImage = $coverImage;
+        $book->old_tags = $old_tags;
         return $book;
     }
 }
