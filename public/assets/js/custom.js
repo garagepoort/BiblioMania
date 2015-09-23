@@ -19,7 +19,7 @@ function hideError(id) {
     $(id).hide();
 }
 
-function createMaterialCardImage(image, height, width, spritePointer){
+function createMaterialCardImage(image, height, width, spritePointer, showExclamation){
     var styleString = getImageStyle(height, width, image, spritePointer);
     var materialCard = $("<div></div>");
     materialCard.attr("class", "material-card imageLinkWrapper ic_container");
@@ -29,6 +29,15 @@ function createMaterialCardImage(image, height, width, spritePointer){
     materialContent.attr("class", "material-card-content");
     materialContent.attr("style", styleString);
 
+    if(showExclamation){
+        var exclamationImage = $("<img/>");
+        exclamationImage.attr("src", baseUrl + "/images/exclamation_mark.png");
+        exclamationImage.attr("class", "exclamation");
+        exclamationImage.attr("data-toggle", "tooltip");
+        exclamationImage.attr("data-placement", "top");
+        exclamationImage.attr("title", "Dit book heeft oude tags");
+        materialContent.append(exclamationImage);
+    }
     materialCard.append(materialContent);
     return materialCard;
 }

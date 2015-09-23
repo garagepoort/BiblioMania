@@ -166,6 +166,8 @@
     function redirectOnChange(sel) {
         window.document.location = $("option:selected", sel).attr("href");
     }
+
+
     var baseUrl = "{{ URL::to('/') }}";
             @if(Auth::check())
                 var username = "{{ Auth::user()->username }}";

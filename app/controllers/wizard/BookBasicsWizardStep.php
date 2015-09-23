@@ -71,6 +71,6 @@ class BookBasicsWizardStep extends WizardStep
 
     public function onExitGoTo($result)
     {
-        return Redirect::to('getBooks');
+        return Redirect::to('getBooks?scroll_id=' . $result->id);
     }
 }
