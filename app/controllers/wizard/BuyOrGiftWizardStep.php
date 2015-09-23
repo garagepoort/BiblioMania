@@ -60,4 +60,9 @@ class BuyOrGiftWizardStep extends WizardStep
     {
         return "Koop/Gift";
     }
+
+    public function onExitGoTo($result)
+    {
+        return Redirect::to('getBooks');
+    }
 }

@@ -39,4 +39,9 @@ class AuthorWizardStep extends WizardStep
     {
         return "Auteur";
     }
+
+    public function onExitGoTo($result)
+    {
+        return Redirect::to('getBooks');
+    }
 }

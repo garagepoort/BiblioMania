@@ -68,4 +68,9 @@ class BookBasicsWizardStep extends WizardStep
     {
         return "Basis";
     }
+
+    public function onExitGoTo($result)
+    {
+        return Redirect::to('getBooks');
+    }
 }
