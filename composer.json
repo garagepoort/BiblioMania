@@ -19,7 +19,7 @@
     "jenssegers/agent": "^2.1",
     "bendani/php-common/login-service": "1.0.*",
     "bendani/php-common/google-image-service": "1.0.*",
-    "bendani/php-common/wizard-service": "dev-master"
+    "bendani/php-common/wizard-service": "3.0.*"
   },
   "autoload": {
     "classmap": [
