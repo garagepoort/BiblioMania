@@ -1,6 +1,7 @@
 <?php
 
 use Bendani\PhpCommon\WizardService\Model\Wizard;
+use Bendani\PhpCommon\WizardService\Model\WizardStep;
 
 class BookWizard extends Wizard
 {
@@ -24,9 +25,9 @@ class BookWizard extends Wizard
         $this->bookService = App::make('BookService');
     }
 
-    protected function checkIsAllowedToBeInStep($id, $stepToSave)
+    protected function checkIsAllowedToBeInStep($id, WizardStep $stepToSave)
     {
-        if($stepToSave == 1){
+        if($stepToSave->stepNumber == 1){
             return true;
         }
         $book = $this->bookService->find($id);
@@ -35,7 +36,7 @@ class BookWizard extends Wizard
         }
 
         $bookStep = $book->wizard_step;
-        if ($bookStep != "COMPLETE" && $bookStep < $stepToSave) {
+        if ($bookStep != "COMPLETE" && $bookStep < $stepToSave->stepNumber) {
             return false;
         }
         return true;
@@ -50,9 +51,9 @@ class BookWizard extends Wizard
         return Redirect::to('/getBooks');
     }
 
-    public function onEnterNextStep($result, $currentStep)
+    public function onEnterNextStep($result, WizardStep $currentStep)
     {
-        $this->bookService->setWizardStep($result, $currentStep + 1);
+        $this->bookService->setWizardStep($result, $currentStep->stepNumber + 1);
     }
 
     protected function onFinishLastStep($object)

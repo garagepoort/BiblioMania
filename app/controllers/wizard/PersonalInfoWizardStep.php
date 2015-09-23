@@ -37,4 +37,9 @@ class PersonalInfoWizardStep extends WizardStep
     {
         return "Persoonlijk";
     }
+
+    public function onExitGoTo($result)
+    {
+        return Redirect::to('getBooks');
+    }
 }
