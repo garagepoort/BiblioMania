@@ -95,7 +95,7 @@ $(document).ready(function () {
                 var tdElement = $("<td></td>");
 
                 var bookImageObject = getBookImageObject(book);
-                var materialCard = createMaterialCardImage(bookImageObject.imageString, bookImageObject.height, bookImageObject.width, bookImageObject.spritePointer);
+                var materialCard = createMaterialCardImage(bookImageObject.imageString, bookImageObject.height, bookImageObject.width, bookImageObject.spritePointer, book.hasWarnings);
                 materialCard.attr("bookid", book.id);
 
                 var icCaptionElement = $("<div class=\"ic_caption editBookPanel\"><p class=\"ic_category\">Edit<i class=\"fa fa-pencil editImagePencilIcon\"></i></p></div>");
@@ -111,6 +111,9 @@ $(document).ready(function () {
                     scrollElement = materialCard[0];
                 }
             }
+
+            $('[data-toggle="tooltip"]').tooltip();
+
             $('#books-container-table > tbody:last').append(trElement);
             if(scrollElement != null){
                 scrollToElement(scrollElement);
