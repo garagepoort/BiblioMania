@@ -29,6 +29,11 @@ function createMaterialCardImage(image, height, width, spritePointer){
     materialContent.attr("class", "material-card-content");
     materialContent.attr("style", styleString);
 
+    var exclamationImage = $("<img/>");
+    exclamationImage.attr("src", baseUrl + "/images/exclamation_mark.png");
+    exclamationImage.attr("class", "exclamation");
+
+    materialContent.append(exclamationImage);
     materialCard.append(materialContent);
     return materialCard;
 }
