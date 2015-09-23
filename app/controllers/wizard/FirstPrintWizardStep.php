@@ -46,4 +46,10 @@ class FirstPrintWizardStep extends WizardStep
     {
         return "Eerste druk";
     }
+
+    public function onExitGoTo($result)
+    {
+        return Redirect::to('getBooks');
+    }
+
 }

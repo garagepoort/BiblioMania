@@ -39,4 +39,9 @@ class CoverInfoWizardStep extends WizardStep
     {
         return "Cover";
     }
+
+    public function onExitGoTo($result)
+    {
+        return Redirect::to('getBooks');
+    }
 }
