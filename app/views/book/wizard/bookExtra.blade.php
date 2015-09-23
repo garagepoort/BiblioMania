@@ -8,7 +8,6 @@
         {{ Form::open(array('id'=>'createOrEditBookForm', 'url' => $currentStep->url . $book_id, 'class' => 'form-horizontal createBookForm', 'autocomplete' => 'off', 'files' => 'true')); }}
 
         <fieldset>
-            <input id="redirectInput" hidden name="redirect" value="NEXT">
             <legend>Boek extras</legend>
             @if ($errors->has())
                 @foreach ($errors->all() as $error)
@@ -90,7 +89,7 @@
                 </div>
             </div>
 
-            @include('book/wizard/submitButtons', array("step"=>$currentStep->stepNumber))
+            @include('WIZARDSERVICE::wizardbuttons', array("onSubmit"=>"validateForm();"))
         </fieldset>
         {{ Form::close(); }}
     </div>

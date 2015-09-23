@@ -43,4 +43,9 @@ class OeuvreWizardStep extends WizardStep
     {
         return "Oeuvre";
     }
+
+    public function onExitGoTo($result)
+    {
+        return Redirect::to('getBooks');
+    }
 }

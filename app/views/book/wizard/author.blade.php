@@ -6,8 +6,6 @@
     @include('WIZARDSERVICE::wizardsteps', array('progress' => $book_wizard_step))
     <div class="create-book-div">
         {{ Form::open(array('id'=>'createOrEditBookForm', 'url' => $currentStep->url . $book_id, 'class' => 'form-horizontal createBookForm', 'autocomplete' => 'off', 'files' => 'true')); }}
-        <input id="redirectInput" hidden name="redirect" value="NEXT">
-
         @include('error', array("id"=>"error-div"))
 
         <fieldset>
@@ -82,7 +80,7 @@
                 'contentDivId' => 'authorImageContent',
                 'file' =>'author_image'))
 
-                @include('book/wizard/submitButtons', array("step"=>$currentStep->stepNumber))
+                @include('WIZARDSERVICE::wizardbuttons', array("onSubmit"=>"validateForm();"))
             </div>
 
         </fieldset>
