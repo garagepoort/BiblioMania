@@ -66,7 +66,7 @@ $(document).ready(function () {
         });
     }
 
-    function addLazyLoading(imageElement){
+    function addLazyLoading(imageElement) {
         $(imageElement).lazyLoadXT();
     }
 
@@ -115,14 +115,14 @@ $(document).ready(function () {
             $('[data-toggle="tooltip"]').tooltip();
 
             $('#books-container-table > tbody:last').append(trElement);
-            if(scrollElement != null){
-                scrollToElement(scrollElement);
-            }
+        }
+        if (scrollElement != null) {
+            scrollToElement(scrollElement);
         }
     }
 
     function addClickToBookImage(element) {
-       addSlidingPanelClickToElement(element);
+        addSlidingPanelClickToElement(element);
     }
 
     $("#filterButton").click(function () {
