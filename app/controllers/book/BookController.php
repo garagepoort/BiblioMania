@@ -63,9 +63,6 @@ class BookController extends BaseController
             'order_by_options' => $this->bookService->getOrderByValues(),
             'book_id' => $bookId,
             'scroll_id' => $scrollId,
-            'total_value_library' => $this->bookService->getValueOfLibrary(),
-            'total_amount_of_books' => $this->bookService->getTotalAmountOfBooksInLibrary(),
-            'total_amount_of_books_owned' => $this->bookService->getTotalAmountOfBooksOwned(),
             'bookFilters' => BookFilter::getFilters()
         ));
     }
@@ -89,7 +86,8 @@ class BookController extends BaseController
         $orderBy = Input::get('order_by');
 
         $filterValues = new BookFilterValues($query, $operator, $type, $read, $owned);
-        $filteredBooks = $this->bookService->getFilteredBooks($book_id, $filterValues, $orderBy);
+        /** @var FilteredBooksResult $filteredBooksResult */
+        $filteredBooksResult = $this->bookService->getFilteredBooks($book_id, $filterValues, $orderBy);
         $jsonItems = array_map(function($item){
             return array(
                 "id"=>$item->id,
@@ -98,15 +96,20 @@ class BookController extends BaseController
                 "spritePointer"=>$item->spritePointer,
                 "coverImage"=>$item->coverImage,
                 "useSpriteImage"=>$item->useSpriteImage,
-                "hasWarnings"=>!StringUtils::isEmpty($item->old_tags),
+                "hasWarnings"=>!StringUtils::isEmpty($item->old_tags)
             );
-        }, $filteredBooks->getItems());
+        }, $filteredBooksResult->getPaginatedItems()->getItems());
 
         $result =array(
-            "total"=>$filteredBooks->getTotal(),
-            "last_page"=>$filteredBooks->getLastPage(),
-            "current_page"=>$filteredBooks->getCurrentPage(),
-            "data"=>$jsonItems
+            "total"=>$filteredBooksResult->getPaginatedItems()->getTotal(),
+            "last_page"=>$filteredBooksResult->getPaginatedItems()->getLastPage(),
+            "current_page"=>$filteredBooksResult->getPaginatedItems()->getCurrentPage(),
+            "data"=>$jsonItems,
+            "library_information" => array(
+                "total_amount_books" => $filteredBooksResult->getTotalAmountOfBooks(),
+                "total_amount_books_owned" => $filteredBooksResult->getTotalAmountOfBooksOwned(),
+                "total_value" => $filteredBooksResult->getTotalValue(),
+            )
         );
         return $result;
     }
