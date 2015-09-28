@@ -8,28 +8,37 @@ class BookControllerGetNextBooksTest extends TestCase
     /** @var  BookService */
     private $bookService;
 
-    private $filteredResults;
+    /** @var  FilteredBooksResult $filteredBooksResult */
+    private $filteredBooksResult;
+    private $paginatedItems;
 
     public function setUp(){
         parent::setUp();
         $this->bookService = $this->mock('BookService');
-        $this->filteredResults = $this->mock('Illuminate\Pagination\Paginator');
+        $this->paginatedItems = $this->mock('Illuminate\Pagination\Paginator');
+        $this->filteredBooksResult = $this->mock('FilteredBooksResult');
     }
 
     public function test_getsFilteredBooksFromService(){
         $this->bookService->shouldReceive('getFilteredBooks')->with(self::BOOK_ID, any("BookFilterValues"), self::ORDER_BY)
                 ->once()
-                ->andReturn($this->filteredResults);
+                ->andReturn($this->filteredBooksResult);
 
-        $this->filteredResults->shouldReceive('getItems')->andReturn(array(
+        $this->filteredBooksResult->shouldReceive('getPaginatedItems')->andReturn($this->paginatedItems);
+        $this->filteredBooksResult->shouldReceive('getTotalAmountOfBooks')->andReturn("3");
+        $this->filteredBooksResult->shouldReceive('getTotalAmountOfBooksOwned')->andReturn("2");
+        $this->filteredBooksResult->shouldReceive('getTotalValue')->andReturn("300");
+
+        $this->paginatedItems->shouldReceive('getItems')->andReturn(array(
             $this->createBook(123,11,21,31, "coverImage1", true, "old tag"),
             $this->createBook(231,12,22,32, "coverImage2", true, "other old tag"),
             $this->createBook(321,13,23,33, "coverImage3", true, ""),
         ));
 
-        $this->filteredResults->shouldReceive('getTotal')->andReturn("3");
-        $this->filteredResults->shouldReceive('getCurrentPage')->andReturn("1");
-        $this->filteredResults->shouldReceive('getLastPage')->andReturn("100");
+        $this->paginatedItems->shouldReceive('getTotal')->andReturn("3");
+        $this->paginatedItems->shouldReceive('getCurrentPage')->andReturn("1");
+        $this->paginatedItems->shouldReceive('getLastPage')->andReturn("100");
+
 
         $parameters = array(
             'book_id'=>self::BOOK_ID,
@@ -46,6 +55,11 @@ class BookControllerGetNextBooksTest extends TestCase
                 array("id"=>"123", "imageHeight"=>"21", "imageWidth"=>"11","spritePointer"=>"31", "coverImage"=>"coverImage1", "useSpriteImage"=>true, "hasWarnings" =>true),
                 array("id"=>"231", "imageHeight"=>"22", "imageWidth"=>"12","spritePointer"=>"32", "coverImage"=>"coverImage2", "useSpriteImage"=>true, "hasWarnings" =>true),
                 array("id"=>"321", "imageHeight"=>"23", "imageWidth"=>"13","spritePointer"=>"33", "coverImage"=>"coverImage3", "useSpriteImage"=>true, "hasWarnings" =>false)
+            ),
+            "library_information" => array(
+                "total_amount_books" => "3",
+                "total_amount_books_owned" => "2",
+                "total_value" => "300"
             )
         ));
     }
