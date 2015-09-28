@@ -219,13 +219,19 @@ class BookService
         return $book;
     }
 
+
     public function getFilteredBooks($book_id, BookFilterValues $bookFilterValues, $orderBy)
     {
         if ($book_id != null) {
-            return Book::where('user_id', '=', Auth::user()->id)
-                ->where('id', '=', $book_id)
-                ->where('wizard_step', '=', 'COMPLETE')
-                ->paginate(self::PAGES);
+            $books = Book::select(DB::raw('book.*'))
+                ->leftJoin('personal_book_info', 'personal_book_info.book_id', '=', 'book.id')
+                ->where('user_id', '=', Auth::user()->id)
+                ->where('book.id', '=', $book_id)
+                ->where('wizard_step', '=', 'COMPLETE');
+
+            list($totalValue, $totalAmountOfBooks, $totalAmountOfBooksOwned) = $this->getCollectionInformation($books);
+
+            return new FilteredBooksResult($totalAmountOfBooks, $totalAmountOfBooksOwned, $totalValue, $books->paginate(self::PAGES));
         }
 
         $books = Book::select(DB::raw('book.*'))
@@ -307,7 +313,10 @@ class BookService
         $books = $books->orderBy('date.month', 'ASC');
         $books = $books->orderBy('date.day', 'ASC');
 
-        return $books->paginate(self::PAGES);
+
+        list($totalValue, $totalAmountOfBooks, $totalAmountOfBooksOwned) = $this->getCollectionInformation($books);
+
+        return new FilteredBooksResult($totalAmountOfBooks, $totalAmountOfBooksOwned, $totalValue, $books->paginate(self::PAGES));
     }
 
     /**
@@ -397,5 +406,17 @@ class BookService
 
     public function getAllTranslators(){
         return $this->bookRepository->getAllTranslators();
+    }
+
+    /**
+     * @param $books
+     * @return array
+     */
+    public function getCollectionInformation($books)
+    {
+        $totalValue = $books->sum('book.retail_price');
+        $totalAmountOfBooks = $books->count();
+        $totalAmountOfBooksOwned = $books->where('personal_book_info.owned', '=', 1)->count();
+        return array($totalValue, $totalAmountOfBooks, $totalAmountOfBooksOwned);
     }
 }

@@ -48,6 +48,7 @@
             <!-- LESS SCRIPTS -->
     {{ HTML::style('assets/css/custom.css') }}
     {{ HTML::script('assets/js/custom.js') }}
+    {{ HTML::script('assets/js/border_sliding_panel.js') }}
 
             <!-- STAR RATING -->
     {{ HTML::script('assets/lib/bootstrap-star-rating/js/star-rating.min.js') }}

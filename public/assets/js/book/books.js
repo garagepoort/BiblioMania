@@ -80,6 +80,8 @@ $(document).ready(function () {
     function fillInBookContainer(data) {
         var scrollElement = null;
         var books = data.data;
+        var library_information = data.library_information;
+        fillInLibraryInformation(library_information.total_amount_books, library_information.total_amount_books_owned, library_information.total_value);
         var amountBooks = Object.keys(books).length;
 
         for (var i = 0; i < amountBooks / 6; i++) {
@@ -124,14 +126,6 @@ $(document).ready(function () {
     function addClickToBookImage(element) {
         addSlidingPanelClickToElement(element);
     }
-
-    $("#filterButton").click(function () {
-        if ($('#book-collection-filter-panel').is(":visible")) {
-            $('#book-collection-filter-panel').hide();
-        } else {
-            $('#book-collection-filter-panel').show();
-        }
-    });
 
     $(function () {
         $("#deselect").on("click", function (event) {
