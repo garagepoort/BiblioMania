@@ -111,6 +111,7 @@ $(document).ready(function () {
                 addClickToEditElement(icCaptionElement, book.id);
                 if (window.scroll_id != null && window.scroll_id == book.id) {
                     scrollElement = materialCard[0];
+                    window.scroll_id = null;
                 }
             }
 
