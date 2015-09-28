@@ -66,7 +66,7 @@ $(document).ready(function () {
         });
     }
 
-    function addLazyLoading(imageElement){
+    function addLazyLoading(imageElement) {
         $(imageElement).lazyLoadXT();
     }
 
@@ -80,6 +80,8 @@ $(document).ready(function () {
     function fillInBookContainer(data) {
         var scrollElement = null;
         var books = data.data;
+        var library_information = data.library_information;
+        fillInLibraryInformation(library_information.total_amount_books, library_information.total_amount_books_owned, library_information.total_value);
         var amountBooks = Object.keys(books).length;
 
         for (var i = 0; i < amountBooks / 6; i++) {
@@ -109,29 +111,22 @@ $(document).ready(function () {
                 addClickToEditElement(icCaptionElement, book.id);
                 if (window.scroll_id != null && window.scroll_id == book.id) {
                     scrollElement = materialCard[0];
+                    window.scroll_id = null;
                 }
             }
 
             $('[data-toggle="tooltip"]').tooltip();
 
             $('#books-container-table > tbody:last').append(trElement);
-            if(scrollElement != null){
-                scrollToElement(scrollElement);
-            }
+        }
+        if (scrollElement != null) {
+            scrollToElement(scrollElement);
         }
     }
 
     function addClickToBookImage(element) {
-       addSlidingPanelClickToElement(element);
+        addSlidingPanelClickToElement(element);
     }
-
-    $("#filterButton").click(function () {
-        if ($('#book-collection-filter-panel').is(":visible")) {
-            $('#book-collection-filter-panel').hide();
-        } else {
-            $('#book-collection-filter-panel').show();
-        }
-    });
 
     $(function () {
         $("#deselect").on("click", function (event) {

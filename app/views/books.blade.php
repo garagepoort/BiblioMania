@@ -76,37 +76,10 @@
                     <td>Sorteer
                         op: {{ Form::select('order', $order_by_options, null, array('id' => 'orderby-select-box', 'class'=> 'form-control')); }}</td>
                     <td style="text-align:right;">
-                        <button class='btn btn-primary' id='filterButton'>Filter</button>
                         <button href="createOrEditBook/step/1" class='clickableRow btn btn-primary'>Nieuw boek</button>
                     </td>
                 </tr>
             </table>
-
-            <div class="card-row">
-
-                <div class="book-collection-info-panel material-card card-column-left">
-                    <div class="material-card-title">Informatie collectie</div>
-                    <div class="material-card-content">
-                        <div class="row">
-                            {{ Form::label('amountOfBooksLabel', 'Aantal boeken:' , array('class' => 'control-label col-md-6')); }}
-                            {{ Form::label('amountOfBooks', $total_amount_of_books , array('class' => 'control-label col-md-3')); }}
-                        </div>
-                        <div class="row">
-                            {{ Form::label('valueLabel', 'Aantal boeken in bezit:' , array('class' => 'control-label col-md-6')); }}
-                            {{ Form::label('value', $total_amount_of_books_owned, array('class' => 'control-label col-md-3')); }}
-                        </div>
-                        <div class="row">
-                            {{ Form::label('valueLabel', 'Waarde bibliotheek:' , array('class' => 'control-label col-md-6')); }}
-                            {{ Form::label('value', $total_value_library  . ' euro', array('class' => 'control-label col-md-3')); }}
-                        </div>
-                    </div>
-                </div>
-
-                <div id="book-collection-filter-panel" class="book-collection-filter-panel card-column-right" hidden>
-                    @include('book/bookFilters')
-                </div>
-
-            </div>
 
             <table class="table books-table" id="books-container-table">
                 <tbody class="infinite-container">
@@ -119,5 +92,7 @@
         </div>
 
         @include('book/bookSlidingPanel')
+        @include('library/libraryInformationSlidingPanel')
+        @include('library/libraryFilterSlidingPanel')
     </div>
 @stop
