@@ -125,14 +125,6 @@ $(document).ready(function () {
         addSlidingPanelClickToElement(element);
     }
 
-    $("#filterButton").click(function () {
-        if ($('#book-collection-filter-panel').is(":visible")) {
-            $('#book-collection-filter-panel').hide();
-        } else {
-            $('#book-collection-filter-panel').show();
-        }
-    });
-
     $(function () {
         $("#deselect").on("click", function (event) {
             $(".ownedFilterRadioButton").children('input.selected').removeClass('selected');
