@@ -314,9 +314,6 @@ table.book-detail-info-table td {
 }
 .book-detail-div {
   /*left: 0;*/
-  overflow: scroll;
-  position: fixed;
-  z-index: 999;
   top: 0px;
   background-color: #ffffff;
   border: 10px solid #2d6ca2;
@@ -326,6 +323,56 @@ table.book-detail-info-table td {
   margin-top: 50px;
   box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.26);
   /*border: solid 1px @secondary-color;*/
+}
+.libraryInformationSlidingPanel.sliding-panel {
+  left: -400px;
+  width: 400px;
+  height: 150px;
+  top: 100px;
+  overflow: inherit;
+  background-color: #ffffff;
+}
+.libraryFilterSlidingPanel.sliding-panel {
+  left: -300px;
+  width: 300px;
+  height: 150px;
+  top: 135px;
+  overflow: inherit;
+  background-color: #ffffff;
+  z-index: 998;
+}
+.slidingPanelTitle {
+  height: 34px;
+  line-height: 34px;
+}
+.libraryInformationBookmark.bookmark {
+  margin-top: -135px;
+}
+.libraryFilterBookmark.bookmark {
+  margin-top: -186px;
+}
+.bookMark {
+  height: 34px;
+  width: 34px;
+  margin-left: 100%;
+  background-color: #2d6ca2;
+  z-index: 999;
+  position: relative;
+}
+.info-icon {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.sliding-panel {
+  overflow: scroll;
+  position: fixed;
+  z-index: 999;
 }
 .book-detail-close {
   position: fixed;

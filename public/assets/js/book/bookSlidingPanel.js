@@ -1,12 +1,17 @@
 var lastClickedBookId = undefined;
-var bookDetailAnimationBusy = false;
 var currencies = new Object();
+var bookDetailDiv;
+var bookSlidingPanel;
 
 $(document).ready(function () {
     currencies['EUR'] = '€'
     currencies['USD'] = '$'
     currencies['PND'] = '£'
-    $('.book-detail-div').on('click', function(event){
+
+    bookDetailDiv = $('.book-detail-div');
+    bookSlidingPanel = new BorderSlidingPanel(bookDetailDiv, "right");
+
+    bookDetailDiv.on('click', function(event){
         event.stopPropagation();
     });
 
@@ -20,44 +25,23 @@ $(document).ready(function () {
 
 });
 
-function closeAndOpenBookDetail(book, bookId) {
-    bookDetailAnimationBusy = true;
-    var detail = $('.book-detail-div');
-    TweenLite.to(detail, 1, {
-        right: "-700px",
-        ease:Power1.easeOut,
-        onComplete: function () {
-            bookDetailAnimationBusy = false;
-            detail.removeClass('visible');
-            fillInBookInfo(book);
-            openBookDetail(bookId);
-        }
+function closeAndOpenBookDetail(book) {
+    bookSlidingPanel.close(function () {
+        bookDetailDiv.removeClass('visible');
+        fillInBookInfo(book);
+        openBookDetail();
     });
 }
 
 function closeBookDetail() {
-    bookDetailAnimationBusy = true;
-    var detail = $('.book-detail-div');
-    TweenLite.to(detail, 1, {
-        right: "-700px",
-        ease:Power1.easeOut,
-        onComplete: function () {
-            bookDetailAnimationBusy = false;
-            detail.removeClass('visible');
-        }
+    bookSlidingPanel.close(function () {
+        bookDetailDiv.removeClass('visible');
     });
 }
 
-function openBookDetail(bookId) {
-    bookDetailAnimationBusy = true;
-    var detail = $('.book-detail-div');
-    TweenLite.to(detail, 1, {
-        right: "0px",
-        ease:Power1.easeOut,
-        onComplete: function () {
-            bookDetailAnimationBusy = false;
-            detail.addClass('visible');
-        }
+function openBookDetail() {
+    bookSlidingPanel.open(function(){
+        bookDetailDiv.addClass('visible');
     });
 }
 
@@ -210,11 +194,10 @@ function stringToFormattedDate(dateString) {
 function addSlidingPanelClickToElement(element){
     element.click(function (event) {
         event.stopPropagation();
-        if (bookDetailAnimationBusy === false) {
-            var div = $('.book-detail-div');
+        if (bookSlidingPanel.animationBusy === false) {
             var bookId = $(this).attr('bookId');
 
-            if(div.hasClass('visible') && lastClickedBookId == bookId){
+            if(bookDetailDiv.hasClass('visible') && lastClickedBookId == bookId){
                 closeBookDetail();
             }else{
                 showLoadingDialog();
@@ -223,12 +206,12 @@ function addSlidingPanelClickToElement(element){
                         hideLoadingDialog();
                         if (status === "success") {
                             var book = data;
-                            if (div.hasClass('visible') && lastClickedBookId !== bookId) {
-                                closeAndOpenBookDetail(book, bookId);
+                            if (bookDetailDiv.hasClass('visible') && lastClickedBookId !== bookId) {
+                                closeAndOpenBookDetail(book);
                                 lastClickedBookId = bookId;
-                            } else if (div.hasClass('visible') === false) {
+                            } else if (bookDetailDiv.hasClass('visible') === false) {
                                 fillInBookInfo(book);
-                                openBookDetail(bookId);
+                                openBookDetail();
                                 lastClickedBookId = bookId;
                             }
                         }
