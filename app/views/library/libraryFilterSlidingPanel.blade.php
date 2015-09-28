@@ -1,7 +1,5 @@
-<div class="material-card">
-    <div class="material-card-title">
-        Filter
-    </div>
+<div id="libraryFilterSlidingPanel" class="sliding-panel libraryFilterSlidingPanel">
+    <div id="libraryFilterSlidingPanelTitle" class="slidingPanelTitle material-card-title">Filter</div>
     <div class="material-card-content">
         <table id="book-filters-table" class="book-filters-table">
             <tr>
@@ -9,7 +7,7 @@
                 <td>
                     <div class="btn-group" data-toggle="buttons">
                         <label class="btn btn-primary filterRadioButton readFilterRadioButton">
-                                <input type="radio" name="readFilter" value="YES"/> Ja
+                            <input type="radio" name="readFilter" value="YES"/> Ja
                         </label>
                         <lfabel class="btn btn-primary filterRadioButton readFilterRadioButton">
                             <input type="radio" name="readFilter" value="NO"/> Nee
@@ -37,4 +35,23 @@
             </tr>
         </table>
     </div>
+    <div id="libraryFilterBookMark" class="bookMark libraryFilterBookmark">
+        {{ HTML::image('images/filter_icon.png', 'filter',array('class'=>'info-icon')) }}
+    </div>
 </div>
+
+<script type="text/javascript">
+    $(function () {
+        var slidingPanel = new BorderSlidingPanel($('#libraryFilterSlidingPanel'), "left");
+        $('#libraryFilterSlidingPanel').on('mouseover', function () {
+            slidingPanel.open(function () {
+
+            });
+        });
+        $('#libraryFilterSlidingPanel').on('mouseout', function () {
+            slidingPanel.close(function () {
+
+            });
+        });
+    });
+</script>

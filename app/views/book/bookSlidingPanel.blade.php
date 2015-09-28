@@ -1,4 +1,4 @@
-<div id="slide" class="book-detail-div">
+<div id="slide" class="book-detail-div sliding-panel">
     <div id="book-detail-close-div" class="book-detail-close">
         <span id="close-book-detail-icon" class="glyphicon glyphicon-arrow-right" aria-hidden="true" style="float: left;"></span>
 
