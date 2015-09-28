@@ -2,16 +2,16 @@
     <div id="libraryInformationSlidingPanelTitle" class="slidingPanelTitle material-card-title">Informatie collectie</div>
     <div class="material-card-content">
         <div class="row">
-            {{ Form::label('amountOfBooksLabel', 'Aantal boeken:' , array('class' => 'control-label col-md-9')); }}
-            {{ Form::label('amountOfBooks', $total_amount_of_books , array('class' => 'control-label col-md-2')); }}
+            {{ Form::label('amountOfBooksLabel', 'Aantal boeken:' , array('class' => 'control-label col-md-6')); }}
+            {{ Form::label('amountOfBooks', "0" , array('id'=>'amountOfBooksLibrary', 'class' => 'control-label col-md-4')); }}
         </div>
         <div class="row">
-            {{ Form::label('valueLabel', 'Aantal boeken in bezit:' , array('class' => 'control-label col-md-9')); }}
-            {{ Form::label('value', $total_amount_of_books_owned, array('class' => 'control-label col-md-2')); }}
+            {{ Form::label('valueLabel', 'Aantal boeken in bezit:' , array('class' => 'control-label col-md-6')); }}
+            {{ Form::label('value', "0", array('id'=>'amountOfBooksOwnedLibrary', 'class' => 'control-label col-md-4')); }}
         </div>
         <div class="row">
-            {{ Form::label('valueLabel', 'Waarde bibliotheek:' , array('class' => 'control-label col-md-9')); }}
-            {{ Form::label('value', $total_value_library  . ' euro', array('class' => 'control-label col-md-2')); }}
+            {{ Form::label('valueLabel', 'Waarde bibliotheek:' , array('class' => 'control-label col-md-6')); }}
+            {{ Form::label('value', "0", array('id'=>'valueLibrary', 'class' => 'control-label col-md-4')); }}
         </div>
     </div>
     <div id="libraryInformationBookMark" class="bookMark libraryInformationBookmark">
@@ -20,6 +20,13 @@
 </div>
 
 <script type="text/javascript">
+
+    function fillInLibraryInformation(amountOfBooks, amountOfBooksOwned, value){
+        $('#amountOfBooksLibrary').text(amountOfBooks);
+        $('#amountOfBooksOwnedLibrary').text(amountOfBooksOwned);
+        $('#valueLibrary').text("€ " + value);
+    }
+
     $(function () {
         var slidingPanel = new BorderSlidingPanel($('#libraryInformationSlidingPanel'), "left");
         $('#libraryInformationSlidingPanel').on('mouseover', function () {
