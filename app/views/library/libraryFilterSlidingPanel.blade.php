@@ -42,15 +42,13 @@
 
 <script type="text/javascript">
     $(function () {
-        var slidingPanel = new BorderSlidingPanel($('#libraryFilterSlidingPanel'), "left");
+        var slidingPanel = new BorderSlidingPanel($('#libraryFilterSlidingPanel'), "left", 10);
         $('#libraryFilterSlidingPanel').on('mouseover', function () {
             slidingPanel.open(function () {
-
             });
         });
         $('#libraryFilterSlidingPanel').on('mouseout', function () {
             slidingPanel.close(function () {
-
             });
         });
     });
