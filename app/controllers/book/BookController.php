@@ -96,7 +96,8 @@ class BookController extends BaseController
                 "spritePointer"=>$item->spritePointer,
                 "coverImage"=>$item->coverImage,
                 "useSpriteImage"=>$item->useSpriteImage,
-                "hasWarnings"=>!StringUtils::isEmpty($item->old_tags)
+                "hasWarnings"=>!StringUtils::isEmpty($item->old_tags),
+                "read"=>$item->personal_book_info->read
             );
         }, $filteredBooksResult->getPaginatedItems()->getItems());
 

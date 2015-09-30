@@ -225,6 +225,7 @@ class BookService
         if ($book_id != null) {
             $books = Book::select(DB::raw('book.*'))
                 ->leftJoin('personal_book_info', 'personal_book_info.book_id', '=', 'book.id')
+                ->with('personal_book_info')
                 ->where('user_id', '=', Auth::user()->id)
                 ->where('book.id', '=', $book_id)
                 ->where('wizard_step', '=', 'COMPLETE');
@@ -244,6 +245,7 @@ class BookService
             ->leftJoin('personal_book_info', 'personal_book_info.book_id', '=', 'book.id')
             ->leftJoin('first_print_info', 'first_print_info.id', '=', 'book.first_print_info_id')
             ->leftJoin('date', 'date.id', '=', 'first_print_info.publication_date_id')
+            ->with('personal_book_info')
             ->where('book_author.preferred', '=', 1)
             ->where('user_id', '=', Auth::user()->id)
             ->where('wizard_step', '=', 'COMPLETE');
