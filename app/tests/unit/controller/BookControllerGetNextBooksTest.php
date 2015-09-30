@@ -54,7 +54,7 @@ class BookControllerGetNextBooksTest extends TestCase
             "data"=>array(
                 array("id"=>"123", "imageHeight"=>"21", "imageWidth"=>"11","spritePointer"=>"31", "coverImage"=>"coverImage1", "useSpriteImage"=>true, "hasWarnings" =>true, "read"=>true),
                 array("id"=>"231", "imageHeight"=>"22", "imageWidth"=>"12","spritePointer"=>"32", "coverImage"=>"coverImage2", "useSpriteImage"=>true, "hasWarnings" =>true, "read"=>true),
-                array("id"=>"321", "imageHeight"=>"23", "imageWidth"=>"13","spritePointer"=>"33", "coverImage"=>"coverImage3", "useSpriteImage"=>true, "hasWarnings" =>false, "read"=>trueg)
+                array("id"=>"321", "imageHeight"=>"23", "imageWidth"=>"13","spritePointer"=>"33", "coverImage"=>"coverImage3", "useSpriteImage"=>true, "hasWarnings" =>false, "read"=>true)
             ),
             "library_information" => array(
                 "total_amount_books" => "3",
