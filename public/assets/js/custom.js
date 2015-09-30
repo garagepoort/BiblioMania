@@ -20,7 +20,7 @@ function hideError(id) {
 }
 
 function createMaterialCardImage(bookId, image, height, width, spritePointer, showExclamation, read){
-    var readIcon = getIcon("/images/reading-fail.png", "Dit boek is niet gelezen", "reading-icon");
+    var readIcon = getIcon("/images/check-circle-fail.png", "Dit boek is niet gelezen", "reading-icon");
     var styleString = getImageStyle(height, width, image, spritePointer);
     var materialCard = $("<div></div>");
     materialCard.attr("class", "material-card imageLinkWrapper ic_container");
@@ -35,7 +35,7 @@ function createMaterialCardImage(bookId, image, height, width, spritePointer, sh
         materialContent.append(exclamationIcon);
     }
     if(read) {
-        readIcon = getIcon("/images/reading-success.png", "Dit boek is gelezen", "reading-icon");
+        readIcon = getIcon("/images/check-circle-success.png", "Dit boek is gelezen", "reading-icon");
     }
     readIcon.addClass("clickableImage");
     readIcon.attr("href", baseUrl + "/createOrEditBook/step/6/" + bookId);
