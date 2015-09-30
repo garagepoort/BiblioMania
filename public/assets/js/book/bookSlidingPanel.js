@@ -9,7 +9,7 @@ $(document).ready(function () {
     currencies['PND'] = '£'
 
     bookDetailDiv = $('.book-detail-div');
-    bookSlidingPanel = new BorderSlidingPanel(bookDetailDiv, "right");
+    bookSlidingPanel = new BorderSlidingPanel(bookDetailDiv, "right", 0);
 
     bookDetailDiv.on('click', function(event){
         event.stopPropagation();

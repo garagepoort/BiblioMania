@@ -1,8 +1,8 @@
-function BorderSlidingPanel(div, position){
+function BorderSlidingPanel(div, position, offset){
     this.div = div;
     this.position = position;
     this.animationBusy = false;
-    this.width = div.outerWidth();
+    this.width = div.outerWidth() + offset;
 }
 
 BorderSlidingPanel.prototype.close = function(onCompleteDo){
