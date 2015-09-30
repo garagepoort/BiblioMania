@@ -28,15 +28,13 @@
     }
 
     $(function () {
-        var slidingPanel = new BorderSlidingPanel($('#libraryInformationSlidingPanel'), "left");
+        var slidingPanel = new BorderSlidingPanel($('#libraryInformationSlidingPanel'), "left", 10);
         $('#libraryInformationSlidingPanel').on('mouseover', function () {
             slidingPanel.open(function () {
-
             });
         });
         $('#libraryInformationSlidingPanel').on('mouseout', function () {
             slidingPanel.close(function () {
-
             });
         });
     });
