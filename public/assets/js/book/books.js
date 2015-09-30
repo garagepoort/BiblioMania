@@ -97,7 +97,7 @@ $(document).ready(function () {
                 var tdElement = $("<td></td>");
 
                 var bookImageObject = getBookImageObject(book);
-                var materialCard = createMaterialCardImage(bookImageObject.imageString, bookImageObject.height, bookImageObject.width, bookImageObject.spritePointer, book.hasWarnings);
+                var materialCard = createMaterialCardImage(book.id, bookImageObject.imageString, bookImageObject.height, bookImageObject.width, bookImageObject.spritePointer, book.hasWarnings, book.read);
                 materialCard.attr("bookid", book.id);
 
                 var icCaptionElement = $("<div class=\"ic_caption editBookPanel\"><p class=\"ic_category\">Edit<i class=\"fa fa-pencil editImagePencilIcon\"></i></p></div>");
