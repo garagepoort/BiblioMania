@@ -74,7 +74,7 @@ class BookController extends BaseController
         return $this->bookService->getFullBook($book_id);
     }
 
-    public function getNextBooks()
+    public function searchBooks()
     {
         $query = Input::get('query');
         $operator = Input::get('operator');
@@ -85,9 +85,9 @@ class BookController extends BaseController
         $book_id = Input::get('book_id');
         $orderBy = Input::get('order_by');
 
-        $filterValues = new BookFilterValues($query, $operator, $type, $read, $owned);
+        $searchValues = new BookSearchValues($query, $operator, $type, $read, $owned);
         /** @var FilteredBooksResult $filteredBooksResult */
-        $filteredBooksResult = $this->bookService->getFilteredBooks($book_id, $filterValues, $orderBy);
+        $filteredBooksResult = $this->bookService->getFilteredBooks($book_id, $searchValues, $orderBy);
         $jsonItems = array_map(function($item){
             return array(
                 "id"=>$item->id,

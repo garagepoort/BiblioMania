@@ -220,7 +220,7 @@ class BookService
     }
 
 
-    public function getFilteredBooks($book_id, BookFilterValues $bookFilterValues, $orderBy)
+    public function getFilteredBooks($book_id, BookSearchValues $bookFilterValues, $orderBy)
     {
         if ($book_id != null) {
             $books = Book::select(DB::raw('book.*'))
@@ -251,15 +251,15 @@ class BookService
             ->where('wizard_step', '=', 'COMPLETE');
 
         //FILTERS
-        if ($bookFilterValues->getRead() == BookFilterValues::YES) {
+        if ($bookFilterValues->getRead() == BookSearchValues::YES) {
             $books = $books->where("personal_book_info.read", '=', true);
-        } else if ($bookFilterValues->getRead() == BookFilterValues::NO) {
+        } else if ($bookFilterValues->getRead() == BookSearchValues::NO) {
             $books = $books->where("personal_book_info.read", '=', false);
         }
 
-        if ($bookFilterValues->getOwns() == BookFilterValues::YES) {
+        if ($bookFilterValues->getOwns() == BookSearchValues::YES) {
             $books = $books->where("personal_book_info.owned", '=', true);
-        } else if ($bookFilterValues->getOwns() == BookFilterValues::NO) {
+        } else if ($bookFilterValues->getOwns() == BookSearchValues::NO) {
             $books = $books->where("personal_book_info.owned", '=', false);
         }
 

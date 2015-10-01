@@ -1,6 +1,6 @@
 <?php
 
-class BookControllerGetNextBooksTest extends TestCase
+class BookControllerSearchBooksTest extends TestCase
 {
     const ORDER_BY = "order_by";
     const BOOK_ID = "book id";
@@ -20,7 +20,7 @@ class BookControllerGetNextBooksTest extends TestCase
     }
 
     public function test_getsFilteredBooksFromService(){
-        $this->bookService->shouldReceive('getFilteredBooks')->with(self::BOOK_ID, any("BookFilterValues"), self::ORDER_BY)
+        $this->bookService->shouldReceive('getFilteredBooks')->with(self::BOOK_ID, any("BookSearchValues"), self::ORDER_BY)
                 ->once()
                 ->andReturn($this->filteredBooksResult);
 
@@ -45,7 +45,7 @@ class BookControllerGetNextBooksTest extends TestCase
             'order_by'=>self::ORDER_BY,
         );
 
-        $response = $this->action('GET', 'BookController@getNextBooks', null, $parameters);
+        $response = $this->action('GET', 'BookController@searchBooks', null, $parameters);
 
         $this->assertEquals($response->original, array(
             "total"=>"3",
