@@ -6,7 +6,7 @@
  * Time: 11:25
  */
 
-class BookFilterValues {
+class BookSearchValues {
 
     const N_A = 'N/A';
     const YES = 'YES';
