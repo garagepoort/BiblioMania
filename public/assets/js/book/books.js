@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    nextBooksUrl = "/getNextBooks?";
+    nextBooksUrl = "/searchBooks?";
 
     if (window.book_id != null) {
         startLoadingPaged(window.baseUrl + nextBooksUrl + "book_id=" + window.book_id, 1, fillInBookContainer);
@@ -19,7 +19,7 @@ $(document).ready(function () {
         var type = $('#search_param_type').val();
         var ownedVal = $(".ownedFilterRadioButton input.selected").val();
         var readVal = $(".readFilterRadioButton input.selected").val();
-        var url = window.baseUrl + "/getNextBooks?query=" + query
+        var url = window.baseUrl + "/searchBooks?query=" + query
             + "&order_by=" + $('#orderby-select-box').val()
             + "&operator=" + operator
             + "&type=" + type
@@ -31,7 +31,7 @@ $(document).ready(function () {
     }
 
     function doFilterBooks() {
-        var url = window.baseUrl + "/getNextBooks?";
+        var url = window.baseUrl + "/gBooks?";
         var params = {
             bookTitle: $('#title-filter-input').val(),
             book_subtitle: $('#subtitle-filter-input').val(),
