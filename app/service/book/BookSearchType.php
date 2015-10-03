@@ -1,6 +1,6 @@
 <?php
 
-class BookFilterType extends BasicEnum{
+class BookSearchType extends BasicEnum{
     const ALL = "all";
     const BOOK_TITLE = "book.title";
     const BOOK_GENRE = "genre.name";

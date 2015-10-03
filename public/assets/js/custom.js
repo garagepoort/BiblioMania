@@ -1,5 +1,14 @@
 var request;
 
+$(function(){
+    if (typeof String.prototype.startsWith != 'function') {
+        // see below for better implementation!
+        String.prototype.startsWith = function (str){
+            return this.indexOf(str) === 0;
+        };
+    }
+});
+
 function getImageStyle(height, width, image, spritePointer) {
     var styleString = "width: " + width+ "px;height:" + height + "px; background: url(" + image + ");";
 
