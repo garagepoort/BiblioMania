@@ -25,7 +25,8 @@ class BookService
     private $publisherService;
     /** @var  CountryService */
     private $countryService;
-
+    /** @var BookFilterHandler $bookFilterHandler */
+    private $bookFilterHandler;
 
     function __construct()
     {
@@ -39,6 +40,7 @@ class BookService
         $this->authorService = App::make('AuthorService');
         $this->publisherService = App::make('PublisherService');
         $this->countryService = App::make('CountryService');
+        $this->bookFilterHandler = App::make('BookFilterHandler');
     }
 
     public function find($id, $with = array())
@@ -219,8 +221,39 @@ class BookService
         return $book;
     }
 
+    public function filterBooks($filters){
+        $books = Book::select(DB::raw('book.*'))
+            ->leftJoin('serie', 'book.serie_id', '=', 'serie.id')
+            ->leftJoin('publisher_serie', 'book.publisher_serie_id', '=', 'publisher_serie.id')
+            ->leftJoin('book_author', 'book_author.book_id', '=', 'book.id')
+            ->leftJoin('genre', 'genre.id', '=', 'book.genre_id')
+            ->leftJoin('genre as genre_parent', 'genre.parent_id', '=', 'genre_parent.id')
+            ->leftJoin('author', 'book_author.author_id', '=', 'author.id')
+            ->leftJoin('personal_book_info', 'personal_book_info.book_id', '=', 'book.id')
+            ->leftJoin('first_print_info', 'first_print_info.id', '=', 'book.first_print_info_id')
+            ->leftJoin('date', 'date.id', '=', 'first_print_info.publication_date_id')
+            ->with('personal_book_info')
+            ->where('book_author.preferred', '=', 1)
+            ->where('user_id', '=', Auth::user()->id)
+            ->where('wizard_step', '=', 'COMPLETE');
 
-    public function getFilteredBooks($book_id, BookSearchValues $bookFilterValues, $orderBy)
+        foreach($filters as $filter){
+            $books = $this->bookFilterHandler->handle($filter['id'], $books, $filter['value']);
+        }
+
+        $books = $books->orderBy('author.name');
+        $books = $books->orderBy('author.firstname');
+        $books = $books->orderBy('date.year', 'ASC');
+        $books = $books->orderBy('date.month', 'ASC');
+        $books = $books->orderBy('date.day', 'ASC');
+
+        list($totalValue, $totalAmountOfBooks, $totalAmountOfBooksOwned) = $this->getCollectionInformation(clone $books);
+
+        return new FilteredBooksResult($totalAmountOfBooks, $totalAmountOfBooksOwned, $totalValue, $books->paginate(self::PAGES));
+    }
+
+
+    public function searchBooks($book_id, BookSearchValues $bookFilterValues, $orderBy)
     {
         if ($book_id != null) {
             $books = Book::select(DB::raw('book.*'))
@@ -230,7 +263,7 @@ class BookService
                 ->where('book.id', '=', $book_id)
                 ->where('wizard_step', '=', 'COMPLETE');
 
-            list($totalValue, $totalAmountOfBooks, $totalAmountOfBooksOwned) = $this->getCollectionInformation($books);
+            list($totalValue, $totalAmountOfBooks, $totalAmountOfBooksOwned) = $this->getCollectionInformation(clone $books);
 
             return new FilteredBooksResult($totalAmountOfBooks, $totalAmountOfBooksOwned, $totalValue, $books->paginate(self::PAGES));
         }
@@ -281,16 +314,16 @@ class BookService
             }
 
             //SEARCH
-            if ($bookFilterValues->getType() != BookFilterType::ALL) {
+            if ($bookFilterValues->getType() != BookSearchType::ALL) {
                 $books = $books->where($bookFilterValues->getType(), $operatorString, $queryString);
             } else {
                 $books = $books->where(function ($query) use ($operatorString, $queryString) {
-                    $query->Where(BookFilterType::AUTHOR_NAME, $operatorString, $queryString)
-                        ->orWhere(BookFilterType::AUTHOR_FIRSTNAME, $operatorString, $queryString)
-                        ->orWhere(BookFilterType::PUBLISHER_SERIE, $operatorString, $queryString)
-                        ->orWhere(BookFilterType::BOOK_SERIE, $operatorString, $queryString)
-                        ->orWhere(BookFilterType::BOOK_GENRE, $operatorString, $queryString)
-                        ->orWhere(BookFilterType::BOOK_TITLE, $operatorString, $queryString);
+                    $query->Where(BookSearchType::AUTHOR_NAME, $operatorString, $queryString)
+                        ->orWhere(BookSearchType::AUTHOR_FIRSTNAME, $operatorString, $queryString)
+                        ->orWhere(BookSearchType::PUBLISHER_SERIE, $operatorString, $queryString)
+                        ->orWhere(BookSearchType::BOOK_SERIE, $operatorString, $queryString)
+                        ->orWhere(BookSearchType::BOOK_GENRE, $operatorString, $queryString)
+                        ->orWhere(BookSearchType::BOOK_TITLE, $operatorString, $queryString);
                 });
             }
         }
