@@ -1,4 +1,7 @@
 <div id="libraryFilterSlidingPanel" class="sliding-panel libraryFilterSlidingPanel">
+    <div id="libraryFilterBookMark" class="bookMark libraryFilterBookmark">
+        {{ HTML::image('images/filter_icon.png', 'filter',array('class'=>'info-icon')) }}
+    </div>
     <div id="libraryFilterSlidingPanelTitle" class="slidingPanelTitle material-card-title">Filter</div>
     <div class="material-card-content">
         <table id="book-filters-table" class="book-filters-table">
@@ -10,22 +13,29 @@
                 </td>
             </tr>
         </table>
-    </div>
-    <div id="libraryFilterBookMark" class="bookMark libraryFilterBookmark">
-        {{ HTML::image('images/filter_icon.png', 'filter',array('class'=>'info-icon')) }}
+        <div id="book-form-container" class="filter-form-container"></div>
+        <div id="personal-form-container" class="filter-form-container"></div>
     </div>
 </div>
 
 <script type="text/javascript">
+    var message;
+    var filterPanelOpen = false;
     $(function () {
+
+        message = constructFilterMessage();
         var slidingPanel = new BorderSlidingPanel($('#libraryFilterSlidingPanel'), "left", 10);
-        $('#libraryFilterSlidingPanel').on('mouseover', function () {
-            slidingPanel.open(function () {
-            });
-        });
-        $('#libraryFilterSlidingPanel').on('mouseout', function () {
-            slidingPanel.close(function () {
-            });
+
+        $('#libraryFilterBookMark').on('click', function () {
+            if(filterPanelOpen){
+                slidingPanel.close(function () {
+                    filterPanelOpen = false;
+                });
+            }else{
+                slidingPanel.open(function () {
+                    filterPanelOpen = true;
+                });
+            }
         });
 
         $('#selectFiltersButton').on('click', function(){
@@ -60,30 +70,48 @@
         if (checkbox.is(":checked")) {
             createFilterField(checkbox);
         } else {
-            $("tr[forFilter='" + checkbox.attr("id") + "']").remove();
+            $("div[forFilter='" + checkbox.attr("id") + "']").remove();
         }
     }
 
     function createFilterField(checkbox) {
         var filterType = checkbox.attr("filterType");
         var placeholder = checkbox.attr("filterText");
-        var table = $('#book-filters-table');
-        var tr = $('<tr></tr>');
-        var td = $('<td></td>');
-        tr.append(td);
-        tr.attr("forFilter", checkbox.attr("id"));
-        td.append("<label>"+placeholder+"</label>");
+        var filterId = checkbox.attr("id");
+        var formgroup = $("<div class=\"form-group\"></div>");
+        formgroup.attr("forFilter", filterId);
+        var inputgroup = $("<div class=\"col-md-10\"></div>");
+
+        formgroup.append("<label class='control-label col-md-10'>"+placeholder+"</label>");
+        formgroup.append(inputgroup);
+
         if (filterType == "text") {
             var input = $("<input class=\"form-control filterInput\" type=\"text\" placeholder=\"" + placeholder + "\"/>")
-            input.attr("filterInputId", checkbox.attr("id"));
-            td.append(input);
+            input.attr("filterInputId", filterId);
+            inputgroup.append(input);
         }
         if (filterType == "boolean") {
             var input = $("<input class=\"filterInput\" type=\"checkbox\"/>")
-            input.attr("filterInputId", checkbox.attr("id"));
-            td.append(input);
+            input.attr("filterInputId", filterId);
+            inputgroup.append(input);
         }
-        table.append(tr);
+        if (filterType == "options") {
+            var filterOptions = JSON.parse(checkbox.attr('filterOptions'));
+            var select = $("<select class=\"filterInput input-sm form-control\"></select>");
+            select.attr("filterInputId", filterId);
+            for(var option in filterOptions){
+                var optionEl = $('<option>' + option + '</option>');
+                optionEl.attr('value', filterOptions[option]);
+                select.append(optionEl);
+            }
+            inputgroup.append(select);
+        }
+        if(filterId.startsWith("book.")){
+            $('#book-form-container').append(formgroup);
+        }
+        if(filterId.startsWith("personal.")){
+            $('#personal-form-container').append(formgroup);
+        }
     }
 
     function doFilterBooks(filters) {
@@ -102,7 +130,7 @@
         BootstrapDialog.show({
             title: "Selecteer filters",
             closable: true,
-            message: constructFilterMessage(),
+            message: message,
             buttons: [
                 {
                     icon: "fa fa-times-circle",
@@ -119,9 +147,9 @@
         var div = $('<div></div>');
 
         var bookList = $('<dl class="filters-list"></dl>');
-        bookList.append($('<dt>Boek</dt>'))
+        bookList.append($('<dt><h4>Boek</h4></dt>'))
         var personalList = $('<dl class="filters-list"></dl>');
-        personalList.append($('<dt>Persoonlijk</dt>'))
+        personalList.append($('<dt><h4>Persoonlijk</h4></dt>'))
 
         @foreach($filters as $filter)
             var filterId = "{{$filter->getFilterId() }}";
@@ -131,6 +159,9 @@
             input.attr('id', filterId);
             input.attr('filterType', "{{$filter->getType() }}");
             input.attr('filterText', "{{$filter->getField() }}");
+            @if($filter->getType() == 'options')
+            input.attr('filterOptions', '{{ json_encode($filter->getOptions()) }}');
+            @endif
             listItem.append(input);
             listItem.append(label);
 
