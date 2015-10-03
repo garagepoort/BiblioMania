@@ -11,7 +11,8 @@ class BookFilterHandler
         $this->filters = array(
             "book.title" => new BookTitleFilterHandler(),
             "personal.owned" => new BookOwnedFilterHandler(),
-            "personal.read" => new BookReadFilterHandler()
+            "personal.read" => new BookReadFilterHandler(),
+            "personal.rating" => new BookRatingFilterHandler()
         );
     }
 
