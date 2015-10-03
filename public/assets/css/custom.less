@@ -202,6 +202,7 @@ table.left-right-align td:nth-child(1) {
 /*BOOKS*/
 .book-filters-table {
   width: 100%;
+  margin-bottom: 20px;
 }
 .book-filters-table tbody tr td {
   padding: 5px;
@@ -429,7 +430,6 @@ table.book-detail-info-table td {
 .libraryInformationSlidingPanel.sliding-panel {
   left: -410px;
   width: 400px;
-  height: 150px;
   top: 100px;
   overflow: inherit;
   background-color: @accent-color;
@@ -438,13 +438,17 @@ table.book-detail-info-table td {
 .libraryFilterSlidingPanel.sliding-panel {
   left: -510px;
   width: 500px;
-  height: 150px;
   top: 141px;
   overflow: inherit;
   background-color: @accent-color;
   z-index: 998;
 }
 
+.filter-form-container {
+  float: left;
+  overflow: hidden;
+  width: 48%;
+}
 
 .slidingPanelTitle {
   height: 34px;
@@ -455,7 +459,6 @@ table.book-detail-info-table td {
   margin-top: -135px;
 }
 .libraryFilterBookmark.bookmark {
-  margin-top: -98px;
 }
 
 .filters-list {
@@ -481,6 +484,7 @@ table.book-detail-info-table td {
   z-index: 999;
   position: relative;
   box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.26);
+  float: left;
 }
 
 .info-icon {
@@ -1043,6 +1047,7 @@ div.container-fluid {
   padding: 10px;
   background-color: @accent-color;
   width: 100%;
+  overflow: hidden;
 }
 
 .card-row {
