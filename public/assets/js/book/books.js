@@ -20,25 +20,6 @@ $(document).ready(function () {
     $('#searchBooksButton').on('click', function () {
         doSearchBooks();
     });
-
-    $("#deselect").on("click", function (event) {
-        $(".ownedFilterRadioButton").children('input.selected').removeClass('selected');
-        $(".readFilterRadioButton").children('input.selected').removeClass('selected');
-        $('.filterRadioButton').removeClass("active");
-        doFilterBooks();
-    });
-
-    $(".ownedFilterRadioButton").on("click", function (event) {
-        $(".ownedFilterRadioButton").children('input.selected').removeClass('selected');
-        $(this).children('input').addClass('selected');
-        doFilterBooks();
-    });
-
-    $(".readFilterRadioButton").on("click", function (event) {
-        $(".readFilterRadioButton").children('input.selected').removeClass('selected');
-        $(this).children('input').addClass('selected');
-        doFilterBooks();
-    });
 });
 
 function doSearchBooks() {
