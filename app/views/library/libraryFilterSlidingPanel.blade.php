@@ -41,6 +41,9 @@
         $('#selectFiltersButton').on('click', function(){
             showSelectFiltersDialog();;
         });
+        $('#deselect').on('click', function(){
+            doFilterBooks("");
+        });
 
         $('#filterButton').on('click', function () {
             var filters = [];
@@ -80,7 +83,7 @@
         var filterId = checkbox.attr("id");
         var formgroup = $("<div class=\"form-group\"></div>");
         formgroup.attr("forFilter", filterId);
-        var inputgroup = $("<div class=\"col-md-10\"></div>");
+        var inputgroup = $("<div class=\"col-md-10 filter-input\"></div>");
 
         formgroup.append("<label class='control-label col-md-10'>"+placeholder+"</label>");
         formgroup.append(inputgroup);

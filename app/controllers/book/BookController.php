@@ -79,6 +79,9 @@ class BookController extends BaseController
 
     public function filterBooks(){
         $filters = Input::get('filter');
+        if(!is_array($filters)){
+            $filters = array();
+        }
 
         $filteredBooksResult = $this->bookService->filterBooks($filters);
 
