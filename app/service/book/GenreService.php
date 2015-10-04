@@ -17,4 +17,8 @@ class GenreService {
         return Genre::where('parent_id', '=', null)->get();
     }
 
+
+    public function getAllGenres(){
+        return Genre::all();
+    }
 }
