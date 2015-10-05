@@ -86,7 +86,7 @@
             <div class="book-detail-small-info-panel material-card card-column-left">
                 <div class="material-card-title">Details</div>
                 <div class="material-card-content">
-                    <table width="100%">
+                    <table width="100%" class="left-right-align">
                         <tr>
                             <td><label>Cover prijs:</label></td>
                             <td><label id='book-detail-retail-price'></label></td>
@@ -110,14 +110,14 @@
             <div class="book-detail-small-info-panel material-card card-column-right">
                 <div class="material-card-title">Persoonlijk</div>
                 <div class="material-card-content">
-                    <table width="100%">
+                    <table width="100%" class="left-right-align">
                         <tr>
                             <td><label>In collectie:</label></td>
-                            <td><input disabled type="checkbox" id='book-detail-owned'></td>
+                            <td><span id='book-detail-owned'></span></td>
                         </tr>
                         <tr>
                             <td><label>Gelezen:</label></td>
-                            <td><input disabled type="checkbox" id='book-detail-read'/></td>
+                            <td><span class="font-weight-700" id='book-detail-reading-date'></span></td>
                         </tr>
                         <tr class="buy-info-tr">
                             <td><label>Aanschafdatum:</label></td>
@@ -170,7 +170,7 @@
             <div class="book-detail-small-info-panel material-card card-column-left">
                 <div class="material-card-title">Eerste druk</div>
                 <div class="material-card-content">
-                    <table width="100%">
+                    <table width="100%" class="left-right-align">
                         <tr>
                             <td><label>Titel:</label></td>
                             <td><label id='book-detail-first-print-title'></label></td>

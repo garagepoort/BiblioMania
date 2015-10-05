@@ -136,6 +136,21 @@ legend {
   color: @primary-color;
 }
 
+.text-align-right {
+  text-align: right;
+}
+
+.text-align-left {
+  text-align: left;
+}
+
+table.left-right-align td:nth-child(2) {
+  text-align: right;
+}
+
+table.left-right-align td:nth-child(1) {
+  text-align: left;
+}
 /*PLACEHOLDERS*/
 .form-control::-webkit-input-placeholder {
   /* WebKit browsers */
@@ -187,6 +202,7 @@ legend {
 /*BOOKS*/
 .book-filters-table {
   width: 100%;
+  margin-bottom: 20px;
 }
 .book-filters-table tbody tr td {
   padding: 5px;
@@ -412,24 +428,31 @@ table.book-detail-info-table td {
 }
 
 .libraryInformationSlidingPanel.sliding-panel {
-  left: -400px;
+  left: -410px;
   width: 400px;
-  height: 150px;
   top: 100px;
   overflow: inherit;
   background-color: @accent-color;
 }
 
 .libraryFilterSlidingPanel.sliding-panel {
-  left: -300px;
-  width: 300px;
-  height: 150px;
-  top: 135px;
+  left: -510px;
+  width: 500px;
+  top: 141px;
   overflow: inherit;
   background-color: @accent-color;
   z-index: 998;
 }
 
+.filter-input {
+  margin-bottom: 12px;
+}
+
+.filter-form-container {
+  float: left;
+  overflow: hidden;
+  width: 48%;
+}
 
 .slidingPanelTitle {
   height: 34px;
@@ -440,33 +463,61 @@ table.book-detail-info-table td {
   margin-top: -135px;
 }
 .libraryFilterBookmark.bookmark {
-  margin-top: -186px;
+}
+
+.filters-list {
+  list-style-type: none;
+  text-align: left;
+  float: left;
+  padding: 20px;
+}
+
+.filters-list dd label{
+  margin-left: 10px;
+}
+
+.filters-list dt {
+  margin-bottom: 10px;
 }
 
 .bookMark {
   height: 34px;
-  width: 34px;
+  width: 50px;
   margin-left:100%;
   background-color: @primary-color;
   z-index: 999;
   position: relative;
+  box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.26);
+  float: left;
 }
 
 .info-icon {
   width: 20px;
   height: 20px;
   position: absolute;
-  margin: auto;
+  margin-left: 19px;
+  margin-right: auto;
+  margin-bottom: auto;
+  margin-top: auto;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
+}
+.font-weight-700 {
+ font-weight: 700;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
 }
 
 .sliding-panel {
   overflow: scroll;
   position: fixed;
   z-index: 999;
+  box-shadow: 5px 5px 5px 1px rgba(0, 0, 0, 0.26);
 }
 
 .book-detail-close {
@@ -524,9 +575,17 @@ table.book-detail-info-table td {
 }
 
 .exclamation {
-  position: relative;
-  top: 0px;
-  left: 50px;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 20px;
+  height: 20px;
+}
+
+.reading-icon {
+  position: absolute;
+  top: 5px;
+  left: 5px;
   width: 20px;
   height: 20px;
 }
@@ -992,6 +1051,7 @@ div.container-fluid {
   padding: 10px;
   background-color: @accent-color;
   width: 100%;
+  overflow: hidden;
 }
 
 .card-row {
@@ -1062,4 +1122,8 @@ div.container-fluid {
 
 .autocomplete-suggestion {
   text-align: left;
+}
+
+.modal-footer {
+  clear: both;
 }

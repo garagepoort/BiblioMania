@@ -9,7 +9,7 @@ $(document).ready(function () {
     currencies['PND'] = '£'
 
     bookDetailDiv = $('.book-detail-div');
-    bookSlidingPanel = new BorderSlidingPanel(bookDetailDiv, "right");
+    bookSlidingPanel = new BorderSlidingPanel(bookDetailDiv, "right", 0);
 
     bookDetailDiv.on('click', function(event){
         event.stopPropagation();
@@ -47,14 +47,14 @@ function openBookDetail() {
 
 function fillInBookInfo(book) {
     if (book.personal_book_info.owned == 1) {
-        $('#book-detail-owned').prop('checked', true);
+        $('#book-detail-owned').html("<img class='icon' src='" + baseUrl +"/images/check-circle-success.png' />");
     } else {
-        $('#book-detail-owned').prop('checked', false);
+        $('#book-detail-owned').html("<img class='icon' src='" + baseUrl +"/images/cross_error.png' />");
     }
     if (book.personal_book_info.read == 1) {
-        $('#book-detail-read').prop('checked', true);
+        $('#book-detail-reading-date').html(stringToFormattedDate(book.personal_book_info.reading_dates[0].date));
     } else {
-        $('#book-detail-read').prop('checked', false);
+        $('#book-detail-reading-date').html("<img class='icon' src='" + baseUrl +"/images/cross_error.png' />");
     }
 
     $('#book-detail-title').text(book.title);
