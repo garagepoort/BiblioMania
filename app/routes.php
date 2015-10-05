@@ -19,7 +19,8 @@ Route::group(array('before' => 'auth'), function () {
     Route::get('getBooksList', 'BookController@getBooksList');
     Route::get('getDraftBooksList', 'BookController@getDraftBooksList');
     Route::get('getFullBook', 'BookController@getFullBook');
-    Route::get('getNextBooks', 'BookController@getNextBooks');
+    Route::get('searchBooks', 'BookController@searchBooks');
+    Route::get('filterBooks', 'BookController@filterBooks');
 
     //WIZARD
     Route::get('createOrEditBook/step/{step}/{id?}', 'BookStepController@get');
