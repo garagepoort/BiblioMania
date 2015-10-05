@@ -20,7 +20,7 @@ class BookControllerSearchBooksTest extends TestCase
     }
 
     public function test_getsFilteredBooksFromService(){
-        $this->bookService->shouldReceive('getFilteredBooks')->with(self::BOOK_ID, any("BookSearchValues"), self::ORDER_BY)
+        $this->bookService->shouldReceive('searchBooks')->with(self::BOOK_ID, any("BookSearchValues"), self::ORDER_BY)
                 ->once()
                 ->andReturn($this->filteredBooksResult);
 
