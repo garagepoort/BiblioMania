@@ -14,7 +14,7 @@ class BookCountryFilterHandler implements OptionsFilterHandler
 
     public function handleFilter($queryBuilder, $value, $operator)
     {
-        return $queryBuilder->where("country", "=", $value);
+        return $queryBuilder->where("book_country.name", "=", $value);
     }
 
     public function getFilterId()
