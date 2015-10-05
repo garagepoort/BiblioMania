@@ -20,6 +20,10 @@ App::singleton('CurrencyService', function () {
     return new CurrencyService();
 });
 
+App::singleton('BookFilterHandler', function () {
+    return new BookFilterHandler();
+});
+
 App::singleton('ApiAuthenticationService', function () {
     return new ApiAuthenticationService();
 });
