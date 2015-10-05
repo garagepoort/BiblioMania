@@ -3,9 +3,9 @@
 class BookReadingMonthFilterHandler implements OptionsFilterHandler
 {
 
-    public function handleFilter($queryBuilder, $value)
+    public function handleFilter($queryBuilder, $value, $operator)
     {
-        return $queryBuilder->whereMonth("reading_date.date", "=", $value);
+        return $queryBuilder->whereMonth("reading_date.date", FilterOperator::getDatabaseOperator($operator), $value);
     }
 
     public function getFilterId()
@@ -39,5 +39,10 @@ class BookReadingMonthFilterHandler implements OptionsFilterHandler
             "november"=>11,
             "december"=>12,
             );
+    }
+
+    public function getSupportedOperators()
+    {
+        return array("="=>FilterOperator::EQUALS, ">"=>FilterOperator::GREATER_THAN, "<"=>FilterOperator::LESS_THAN);
     }
 }

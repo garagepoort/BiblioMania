@@ -242,7 +242,7 @@ class BookService
             ->where('wizard_step', '=', 'COMPLETE');
 
         foreach($filters as $filter){
-            $books = $this->bookFilterHandler->handle($filter['id'], $books, $filter['value']);
+            $books = $this->bookFilterHandler->handle($filter['id'], $books, $filter['value'], $filter['operator']);
         }
 
         $books = $books->orderBy('author.name');

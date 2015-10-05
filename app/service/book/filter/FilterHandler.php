@@ -9,11 +9,13 @@
 interface FilterHandler
 {
 
-    public function handleFilter($queryBuilder, $value);
+    public function handleFilter($queryBuilder, $value, $operator);
 
     public function getFilterId();
 
     public function getType();
 
     public function getField();
+
+    public function getSupportedOperators();
 }

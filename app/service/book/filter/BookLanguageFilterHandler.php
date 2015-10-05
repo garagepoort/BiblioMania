@@ -12,7 +12,7 @@ class BookLanguageFilterHandler implements OptionsFilterHandler
         $this->languageService = App::make('LanguageService');
     }
 
-    public function handleFilter($queryBuilder, $value)
+    public function handleFilter($queryBuilder, $value, $operator)
     {
         return $queryBuilder->where("book_language.language", "=", $value);
     }
@@ -39,5 +39,10 @@ class BookLanguageFilterHandler implements OptionsFilterHandler
             $result[$language->language] = $language->language;
         }
         return $result;
+    }
+
+    public function getSupportedOperators()
+    {
+        return array("="=>FilterOperator::EQUALS);
     }
 }
