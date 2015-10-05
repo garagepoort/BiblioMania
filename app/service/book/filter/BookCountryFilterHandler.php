@@ -12,7 +12,7 @@ class BookCountryFilterHandler implements OptionsFilterHandler
         $this->countryService = App::make('CountryService');
     }
 
-    public function handleFilter($queryBuilder, $value)
+    public function handleFilter($queryBuilder, $value, $operator)
     {
         return $queryBuilder->where("country", "=", $value);
     }
@@ -39,5 +39,10 @@ class BookCountryFilterHandler implements OptionsFilterHandler
             $result[$country->name] = $country->name;
         }
         return $result;
+    }
+
+    public function getSupportedOperators()
+    {
+        return array("="=>FilterOperator::EQUALS);
     }
 }

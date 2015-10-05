@@ -2,7 +2,7 @@
 
 class BookReadFilterHandler implements FilterHandler
 {
-    public function handleFilter($queryBuilder, $value)
+    public function handleFilter($queryBuilder, $value, $operator)
     {
         return $queryBuilder->where("personal_book_info.read", "=", StringUtils::toBoolean($value));
     }
@@ -20,5 +20,10 @@ class BookReadFilterHandler implements FilterHandler
     public function getField()
     {
         return "Gelezen";
+    }
+
+    public function getSupportedOperators()
+    {
+        return array("="=>FilterOperator::EQUALS);
     }
 }

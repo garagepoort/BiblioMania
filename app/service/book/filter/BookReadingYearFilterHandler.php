@@ -3,9 +3,9 @@
 class BookReadingYearFilterHandler implements FilterHandler
 {
 
-    public function handleFilter($queryBuilder, $value)
+    public function handleFilter($queryBuilder, $value, $operator)
     {
-        return $queryBuilder->whereYear("reading_date.date", "=", $value);
+        return $queryBuilder->whereYear("reading_date.date", FilterOperator::getDatabaseOperator($operator), $value);
     }
 
     public function getFilterId()
@@ -15,11 +15,16 @@ class BookReadingYearFilterHandler implements FilterHandler
 
     public function getType()
     {
-        return "text";
+        return "number";
     }
 
     public function getField()
     {
         return "Leesjaar";
+    }
+
+    public function getSupportedOperators()
+    {
+        return array("="=>FilterOperator::EQUALS, ">"=>FilterOperator::GREATER_THAN, "<"=>FilterOperator::LESS_THAN);
     }
 }

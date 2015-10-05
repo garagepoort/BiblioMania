@@ -18,6 +18,8 @@
     </div>
 </div>
 
+{{ HTML::style('assets/css/libraryfilter/libraryfilter.css') }}
+
 <script type="text/javascript">
     var message;
     var filterPanelOpen = false;
@@ -50,6 +52,7 @@
             $('.filterInput').each(function () {
 
                 var filterId = $(this).attr('filterInputId');
+                var filterOperator = $(this).attr('filterOperator');
                 var value = $(this).val();
                 if ($(this).attr('type') == "checkbox") {
                     if ($(this).is(":checked")) {
@@ -60,24 +63,16 @@
                 }
                 filters.push({
                     id: filterId,
-                    value: value
+                    value: value,
+                    operator: filterOperator
                 });
                 doFilterBooks(filters);
             });
         });
     });
 
-    function filterChange(checkbox) {
-        var checkbox = $(checkbox);
-
-        if (checkbox.is(":checked")) {
-            createFilterField(checkbox);
-        } else {
-            $("div[forFilter='" + checkbox.attr("id") + "']").remove();
-        }
-    }
-
     function createFilterField(checkbox) {
+        var filterSupportedOperators = JSON.parse(checkbox.attr('filterSupportedOperators'));
         var filterType = checkbox.attr("filterType");
         var placeholder = checkbox.attr("filterText");
         var filterId = checkbox.attr("id");
@@ -88,27 +83,44 @@
         formgroup.append("<label class='control-label col-md-10'>"+placeholder+"</label>");
         formgroup.append(inputgroup);
 
+        var input;
+
         if (filterType == "text") {
-            var input = $("<input class=\"form-control filterInput\" type=\"text\" placeholder=\"" + placeholder + "\"/>")
-            input.attr("filterInputId", filterId);
-            inputgroup.append(input);
+            input = $("<input class=\"form-control filterInput\" type=\"text\" placeholder=\"" + placeholder + "\"/>")
+        }
+        if (filterType == "number") {
+            input = $("<input class=\"form-control filterInput\" type=\"number\" placeholder=\"" + placeholder + "\"/>")
         }
         if (filterType == "boolean") {
-            var input = $("<input class=\"filterInput\" type=\"checkbox\"/>")
-            input.attr("filterInputId", filterId);
-            inputgroup.append(input);
+            input = $("<input class=\"filterInput\" type=\"checkbox\"/>")
         }
         if (filterType == "options") {
             var filterOptions = JSON.parse(checkbox.attr('filterOptions'));
-            var select = $("<select class=\"filterInput input-sm form-control\"></select>");
-            select.attr("filterInputId", filterId);
+            input = $("<select class=\"filterInput input-sm form-control\"></select>");
             for(var option in filterOptions){
                 var optionEl = $('<option>' + option + '</option>');
                 optionEl.attr('value', filterOptions[option]);
-                select.append(optionEl);
+                input.append(optionEl);
             }
-            inputgroup.append(select);
         }
+        input.attr("filterOperator", filterSupportedOperators[Object.keys(filterSupportedOperators)[0]]);
+        input.attr("filterInputId", filterId);
+
+        if(Object.keys(filterSupportedOperators).length > 1){
+            var operatorSelect = $('<select class="input-sm form-control operator-select"></select>');
+            operatorSelect.attr('onchange', "changeOperator(this,'" + filterId +"')");
+            for(var option in filterSupportedOperators) {
+                var optionEl = $('<option>' + option + '</option>');
+                optionEl.attr('value', filterSupportedOperators[option]);
+                operatorSelect.append(optionEl);
+            }
+            input.addClass("operator-input")
+            inputgroup.append(operatorSelect);
+        }
+
+        inputgroup.append(input);
+
+
         if(filterId.startsWith("book.")){
             $('#book-form-container').append(formgroup);
         }
@@ -162,6 +174,7 @@
             input.attr('id', filterId);
             input.attr('filterType', "{{$filter->getType() }}");
             input.attr('filterText', "{{$filter->getField() }}");
+            input.attr('filterSupportedOperators', '{{ json_encode($filter->getSupportedOperators()) }}');
             @if($filter->getType() == 'options')
             input.attr('filterOptions', '{{ json_encode($filter->getOptions()) }}');
             @endif
@@ -180,4 +193,19 @@
         div.append(personalList);
         return div;
     }
+
+    function filterChange(checkbox) {
+        var checkbox = $(checkbox);
+
+        if (checkbox.is(":checked")) {
+            createFilterField(checkbox);
+        } else {
+            $("div[forFilter='" + checkbox.attr("id") + "']").remove();
+        }
+    }
+
+    function changeOperator(selectField, filterId){
+        $("[filterInputId='" + filterId+"']").attr("filterOperator", $(selectField).val());
+    }
+
 </script>

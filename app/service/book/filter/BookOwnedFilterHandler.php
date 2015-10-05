@@ -2,7 +2,7 @@
 
 class BookOwnedFilterHandler implements FilterHandler
 {
-    public function handleFilter($queryBuilder, $value)
+    public function handleFilter($queryBuilder, $value, $operator)
     {
         return $queryBuilder->where("personal_book_info.owned", "=", StringUtils::toBoolean($value));
     }
@@ -20,5 +20,10 @@ class BookOwnedFilterHandler implements FilterHandler
     public function getField()
     {
         return "In bezit";
+    }
+
+    public function getSupportedOperators()
+    {
+        return array("="=>FilterOperator::EQUALS);
     }
 }

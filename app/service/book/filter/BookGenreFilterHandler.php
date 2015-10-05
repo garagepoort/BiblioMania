@@ -12,7 +12,7 @@ class BookGenreFilterHandler implements OptionsFilterHandler
         $this->genreService = App::make('GenreService');
     }
 
-    public function handleFilter($queryBuilder, $value)
+    public function handleFilter($queryBuilder, $value, $operator)
     {
         return $queryBuilder->where("genre.name", "=", $value);
     }
@@ -39,5 +39,10 @@ class BookGenreFilterHandler implements OptionsFilterHandler
             $result[$genre->name] = $genre->name;
         }
         return $result;
+    }
+
+    public function getSupportedOperators()
+    {
+        return array("="=>FilterOperator::EQUALS);
     }
 }
