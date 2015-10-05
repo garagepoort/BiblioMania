@@ -21,10 +21,10 @@ class BookFilterHandler
         );
     }
 
-    public function handle($filterId, $queryBuilder, $value){
+    public function handle($filterId, $queryBuilder, $value, $operator){
         /** @var FilterHandler $handler */
         $handler = $this->filters[$filterId];
-        return $handler->handleFilter($queryBuilder, $value);
+        return $handler->handleFilter($queryBuilder, $value, $operator);
     }
 
     public function getFilters()

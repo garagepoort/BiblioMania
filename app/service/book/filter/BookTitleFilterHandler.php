@@ -2,7 +2,7 @@
 
 class BookTitleFilterHandler implements FilterHandler
 {
-    public function handleFilter($queryBuilder, $value)
+    public function handleFilter($queryBuilder, $value, $operator)
     {
         return $queryBuilder->where("book.title", "LIKE", '%'.$value.'%');
     }
@@ -20,5 +20,10 @@ class BookTitleFilterHandler implements FilterHandler
     public function getField()
     {
         return "Titel boek";
+    }
+
+    public function getSupportedOperators()
+    {
+        return array("="=>FilterOperator::EQUALS);
     }
 }
