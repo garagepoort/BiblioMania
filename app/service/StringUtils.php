@@ -40,4 +40,12 @@ class StringUtils {
     {
         return strtolower($value);
     }
+
+    public static function toBoolean($string){
+        return $string === 'true'? true: false;
+    }
+
+    public static function toMysqlBoolean($string){
+        return $string === 'true'? 1: 0;
+    }
 }

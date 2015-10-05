@@ -1,6 +1,6 @@
 <?php
 
-class BookControllerGetNextBooksTest extends TestCase
+class BookControllerSearchBooksTest extends TestCase
 {
     const ORDER_BY = "order_by";
     const BOOK_ID = "book id";
@@ -20,7 +20,7 @@ class BookControllerGetNextBooksTest extends TestCase
     }
 
     public function test_getsFilteredBooksFromService(){
-        $this->bookService->shouldReceive('getFilteredBooks')->with(self::BOOK_ID, any("BookFilterValues"), self::ORDER_BY)
+        $this->bookService->shouldReceive('searchBooks')->with(self::BOOK_ID, any("BookSearchValues"), self::ORDER_BY)
                 ->once()
                 ->andReturn($this->filteredBooksResult);
 
@@ -45,16 +45,16 @@ class BookControllerGetNextBooksTest extends TestCase
             'order_by'=>self::ORDER_BY,
         );
 
-        $response = $this->action('GET', 'BookController@getNextBooks', null, $parameters);
+        $response = $this->action('GET', 'BookController@searchBooks', null, $parameters);
 
         $this->assertEquals($response->original, array(
             "total"=>"3",
             "last_page"=>"100",
             "current_page"=>"1",
             "data"=>array(
-                array("id"=>"123", "imageHeight"=>"21", "imageWidth"=>"11","spritePointer"=>"31", "coverImage"=>"coverImage1", "useSpriteImage"=>true, "hasWarnings" =>true),
-                array("id"=>"231", "imageHeight"=>"22", "imageWidth"=>"12","spritePointer"=>"32", "coverImage"=>"coverImage2", "useSpriteImage"=>true, "hasWarnings" =>true),
-                array("id"=>"321", "imageHeight"=>"23", "imageWidth"=>"13","spritePointer"=>"33", "coverImage"=>"coverImage3", "useSpriteImage"=>true, "hasWarnings" =>false)
+                array("id"=>"123", "imageHeight"=>"21", "imageWidth"=>"11","spritePointer"=>"31", "coverImage"=>"coverImage1", "useSpriteImage"=>true, "hasWarnings" =>true, "read"=>true),
+                array("id"=>"231", "imageHeight"=>"22", "imageWidth"=>"12","spritePointer"=>"32", "coverImage"=>"coverImage2", "useSpriteImage"=>true, "hasWarnings" =>true, "read"=>true),
+                array("id"=>"321", "imageHeight"=>"23", "imageWidth"=>"13","spritePointer"=>"33", "coverImage"=>"coverImage3", "useSpriteImage"=>true, "hasWarnings" =>false, "read"=>true)
             ),
             "library_information" => array(
                 "total_amount_books" => "3",
@@ -73,6 +73,9 @@ class BookControllerGetNextBooksTest extends TestCase
         $book->useSpriteImage = $useSpriteImage;
         $book->coverImage = $coverImage;
         $book->old_tags = $old_tags;
+        $personalBookInfo = new PersonalBookInfo();
+        $book->personal_book_info = $personalBookInfo;
+        $personalBookInfo->read = true;
         return $book;
     }
 }

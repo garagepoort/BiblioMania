@@ -1,5 +1,14 @@
 var request;
 
+$(function(){
+    if (typeof String.prototype.startsWith != 'function') {
+        // see below for better implementation!
+        String.prototype.startsWith = function (str){
+            return this.indexOf(str) === 0;
+        };
+    }
+});
+
 function getImageStyle(height, width, image, spritePointer) {
     var styleString = "width: " + width+ "px;height:" + height + "px; background: url(" + image + ");";
 
@@ -19,7 +28,8 @@ function hideError(id) {
     $(id).hide();
 }
 
-function createMaterialCardImage(image, height, width, spritePointer, showExclamation){
+function createMaterialCardImage(bookId, image, height, width, spritePointer, showExclamation, read){
+    var readIcon = getIcon("/images/check-circle-fail.png", "Dit boek is niet gelezen", "reading-icon");
     var styleString = getImageStyle(height, width, image, spritePointer);
     var materialCard = $("<div></div>");
     materialCard.attr("class", "material-card imageLinkWrapper ic_container");
@@ -30,16 +40,33 @@ function createMaterialCardImage(image, height, width, spritePointer, showExclam
     materialContent.attr("style", styleString);
 
     if(showExclamation){
-        var exclamationImage = $("<img/>");
-        exclamationImage.attr("src", baseUrl + "/images/exclamation_mark.png");
-        exclamationImage.attr("class", "exclamation");
-        exclamationImage.attr("data-toggle", "tooltip");
-        exclamationImage.attr("data-placement", "top");
-        exclamationImage.attr("title", "Dit book heeft oude tags");
-        materialContent.append(exclamationImage);
+        var exclamationIcon = getIcon("/images/exclamation_mark.png", "Dit boek heeft oude tags", "exclamation");
+        materialContent.append(exclamationIcon);
     }
+    if(read) {
+        readIcon = getIcon("/images/check-circle-success.png", "Dit boek is gelezen", "reading-icon");
+    }
+    readIcon.addClass("clickableImage");
+    readIcon.attr("href", baseUrl + "/createOrEditBook/step/6/" + bookId);
+    materialContent.append(readIcon);
+
     materialCard.append(materialContent);
+
+    $(".clickableImage").click(function () {
+        window.document.location = $(this).attr("href");
+    });
+
     return materialCard;
+}
+
+function getIcon(image, title, clas) {
+    var icon = $("<img/>");
+    icon.attr("src", baseUrl + image);
+    icon.attr("class", clas);
+    icon.attr("data-toggle", "tooltip");
+    icon.attr("data-placement", "top");
+    icon.attr("title", title);
+    return icon;
 }
 
 function getBookImageObject(book) {
