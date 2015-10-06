@@ -82,7 +82,7 @@ class BookController extends BaseController
         if(!is_array($filters)){
             $filters = array();
         }
-
+        Session::put('book.filters', $filters);
         $filteredBooksResult = $this->bookService->filterBooks($filters);
 
         return $this->mapBooksToJson($filteredBooksResult);

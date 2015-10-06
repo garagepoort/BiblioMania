@@ -10,7 +10,7 @@ class BookReadingYearFilterHandler implements FilterHandler
 
     public function getFilterId()
     {
-        return "personal.readingyear";
+        return "personal-readingyear";
     }
 
     public function getType()

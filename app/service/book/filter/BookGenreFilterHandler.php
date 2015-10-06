@@ -19,7 +19,7 @@ class BookGenreFilterHandler implements OptionsFilterHandler
 
     public function getFilterId()
     {
-        return "book.genre";
+        return "book-genre";
     }
 
     public function getType()

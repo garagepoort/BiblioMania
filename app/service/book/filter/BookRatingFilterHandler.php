@@ -9,7 +9,7 @@ class BookRatingFilterHandler implements OptionsFilterHandler
 
     public function getFilterId()
     {
-        return "personal.rating";
+        return "personal-rating";
     }
 
     public function getType()

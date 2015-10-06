@@ -9,7 +9,7 @@ class BookTitleFilterHandler implements FilterHandler
 
     public function getFilterId()
     {
-        return "book.title";
+        return "book-title";
     }
 
     public function getType()

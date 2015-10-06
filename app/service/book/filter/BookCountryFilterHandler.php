@@ -19,7 +19,7 @@ class BookCountryFilterHandler implements OptionsFilterHandler
 
     public function getFilterId()
     {
-        return "book.country";
+        return "book-country";
     }
 
     public function getType()
