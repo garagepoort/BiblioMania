@@ -72,6 +72,8 @@
                 doFilterBooks(filters);
             });
         });
+
+        fillFiltersFromJson();
     });
 
     function createFilterField(checkbox) {
@@ -139,10 +141,10 @@
 
         inputgroup.append(input);
 
-        if(filterId.startsWith("book.")){
+        if(filterId.startsWith("book-")){
             $('#book-form-container').append(formgroup);
         }
-        if(filterId.startsWith("personal.")){
+        if(filterId.startsWith("personal-")){
             $('#personal-form-container').append(formgroup);
         }
 
@@ -201,10 +203,10 @@
             listItem.append(input);
             listItem.append(label);
 
-            if(filterId.startsWith("book.")){
+            if(filterId.startsWith("book-")){
                 bookList.append(listItem);
             }
-            if(filterId.startsWith("personal.")){
+            if(filterId.startsWith("personal-")){
                 personalList.append(listItem);
             }
         @endforeach
@@ -226,6 +228,24 @@
 
     function changeOperator(selectField, filterId){
         $("[filterInputId='" + filterId+"']").attr("filterOperator", $(selectField).val());
+    }
+
+    function fillFiltersFromJson(){
+        var json_filters = {{  json_encode(Session::get('book.filters')) }};
+        for(var i = 0; i < json_filters.length; i++){
+            var filter = json_filters[i];
+            var filterCheckbox = message.find("#" + filter.id);
+            var filterType = filterCheckbox.attr("filterType");
+            filterCheckbox.prop('checked', true);
+            filterCheckbox.change();
+            if(filterType == "multiselect") {
+                $('[filterInputId="' + filter.id + '"]').multiselect("select", filter.value);
+            }else if(filterType == "boolean"){
+                $('[filterInputId="' + filter.id + '"]').prop("checked", filter.value);
+            }else{
+                $('[filterInputId="' + filter.id + '"]').val(filter.value);
+            }
+        }
     }
 
 </script>

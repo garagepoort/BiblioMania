@@ -9,7 +9,7 @@ class BookRetailPriceFilterHandler implements FilterHandler
 
     public function getFilterId()
     {
-        return "book.retail_price";
+        return "book-retail_price";
     }
 
     public function getType()
