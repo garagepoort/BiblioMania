@@ -5,6 +5,7 @@ class FilterOperator extends BasicEnum{
     const GREATER_THAN = "greater_than";
     const LESS_THAN = "less_than";
     const CONTAINS = "contains";
+    const IN = "in";
     const ENDS_WITH = "ends_with";
     const BEGINS_WITH = "begins_with";
 

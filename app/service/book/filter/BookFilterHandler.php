@@ -13,6 +13,7 @@ class BookFilterHandler
             "book.country" => new BookCountryFilterHandler(),
             "book.language" => new BookLanguageFilterHandler(),
             "book.genre" => new BookGenreFilterHandler(),
+            "book.retail_price" => new BookRetailPriceFilterHandler(),
             "personal.owned" => new BookOwnedFilterHandler(),
             "personal.read" => new BookReadFilterHandler(),
             "personal.rating" => new BookRatingFilterHandler(),

@@ -19,6 +19,9 @@
 </div>
 
 {{ HTML::style('assets/css/libraryfilter/libraryfilter.css') }}
+{{ HTML::style('assets/lib/multi-select/css/bootstrap-multiselect.css') }}
+{{ HTML::script('assets/lib/multi-select/js/bootstrap-multiselect.js') }}
+{{ HTML::script('assets/lib/multi-select/js/bootstrap-multiselect-collapsible-groups.js') }}
 
 <script type="text/javascript">
     var message;
@@ -94,15 +97,31 @@
         if (filterType == "boolean") {
             input = $("<input class=\"filterInput\" type=\"checkbox\"/>")
         }
+
         if (filterType == "options") {
             var filterOptions = JSON.parse(checkbox.attr('filterOptions'));
+
             input = $("<select class=\"filterInput input-sm form-control\"></select>");
+
             for(var option in filterOptions){
                 var optionEl = $('<option>' + option + '</option>');
                 optionEl.attr('value', filterOptions[option]);
                 input.append(optionEl);
             }
         }
+
+        if(filterType == "multiselect"){
+            var filterOptions = JSON.parse(checkbox.attr('filterOptions'));
+
+            input = $("<select class=\"filterInput input-sm form-control\" multiple=\"multiple\"></select>");
+
+            for(var option in filterOptions){
+                var optionEl = $('<option>' + option + '</option>');
+                optionEl.attr('value', filterOptions[option]);
+                input.append(optionEl);
+            }
+        }
+
         input.attr("filterOperator", filterSupportedOperators[Object.keys(filterSupportedOperators)[0]]);
         input.attr("filterInputId", filterId);
 
@@ -120,13 +139,14 @@
 
         inputgroup.append(input);
 
-
         if(filterId.startsWith("book.")){
             $('#book-form-container').append(formgroup);
         }
         if(filterId.startsWith("personal.")){
             $('#personal-form-container').append(formgroup);
         }
+
+        $('select[multiple="multiple"]').multiselect();
     }
 
     function doFilterBooks(filters) {
@@ -175,8 +195,8 @@
             input.attr('filterType', "{{$filter->getType() }}");
             input.attr('filterText', "{{$filter->getField() }}");
             input.attr('filterSupportedOperators', '{{ json_encode($filter->getSupportedOperators()) }}');
-            @if($filter->getType() == 'options')
-            input.attr('filterOptions', '{{ json_encode($filter->getOptions()) }}');
+            @if($filter->getType() == 'options' || $filter->getType() == 'multiselect')
+                input.attr('filterOptions', '{{ json_encode($filter->getOptions()) }}');
             @endif
             listItem.append(input);
             listItem.append(label);
