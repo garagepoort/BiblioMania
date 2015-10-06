@@ -448,12 +448,6 @@ table.book-detail-info-table td {
   margin-bottom: 12px;
 }
 
-.filter-form-container {
-  float: left;
-  overflow: hidden;
-  width: 48%;
-}
-
 .slidingPanelTitle {
   height: 34px;
   line-height: 34px;
@@ -930,18 +924,18 @@ ul.nav li a:hover {
   color: @accent-color;
 }
 
-.navbar-default .navbar-nav .open .dropdown-menu > li > a {
+.navbar-default .navbar-nav .open .dropdown-menu.navigation-dropdown-menu > li > a {
   color: @accent-color;
   background-color: @primary-color;
 }
 
-.navbar-default .navbar-nav .open .dropdown-menu > li > a:hover {
+.navbar-default .navbar-nav .open .dropdown-menu.navigation-dropdown-menu > li > a:hover {
   background-color: @accent-color;
   color: @primary-color;
   background-image: none;
 }
 
-.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+.dropdown-menu.navigation-dropdown-menu > li > a:hover, .dropdown-menu.navigation-dropdown-menu > li > a:focus {
   background-color: @accent-color;
   color: @primary-color;
   background-image: none;
@@ -951,7 +945,7 @@ ul.nav li a:hover {
   border: none;
 }
 
-.dropdown-menu {
+.dropdown-menu.navigation-dropdown-menu {
   background: @primary-color;
 }
 
@@ -1051,7 +1045,6 @@ div.container-fluid {
   padding: 10px;
   background-color: @accent-color;
   width: 100%;
-  overflow: hidden;
 }
 
 .card-row {
