@@ -14,7 +14,7 @@ class BookCountryFilterHandler implements OptionsFilterHandler
 
     public function handleFilter($queryBuilder, $value, $operator)
     {
-        return $queryBuilder->where("country", "=", $value);
+        return $queryBuilder->whereIn("book_country.name", $value);
     }
 
     public function getFilterId()
@@ -24,7 +24,7 @@ class BookCountryFilterHandler implements OptionsFilterHandler
 
     public function getType()
     {
-        return "options";
+        return "multiselect";
     }
 
     public function getField()
@@ -43,6 +43,6 @@ class BookCountryFilterHandler implements OptionsFilterHandler
 
     public function getSupportedOperators()
     {
-        return array("="=>FilterOperator::EQUALS);
+        return array("in"=>FilterOperator::IN);
     }
 }

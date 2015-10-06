@@ -4,7 +4,7 @@ class BookRatingFilterHandler implements OptionsFilterHandler
 {
     public function handleFilter($queryBuilder, $value, $operator)
     {
-        return $queryBuilder->where("personal_book_info.rating", FilterOperator::getDatabaseOperator($operator), $value);
+        return $queryBuilder->whereIn("personal_book_info.rating", $value);
     }
 
     public function getFilterId()
@@ -14,7 +14,7 @@ class BookRatingFilterHandler implements OptionsFilterHandler
 
     public function getType()
     {
-        return "options";
+        return "multiselect";
     }
 
     public function getField()
@@ -29,6 +29,7 @@ class BookRatingFilterHandler implements OptionsFilterHandler
 
     public function getSupportedOperators()
     {
-        return array("="=>FilterOperator::EQUALS, ">"=>FilterOperator::GREATER_THAN, "<"=>FilterOperator::LESS_THAN);
+        return array("in"=>FilterOperator::IN);
     }
+
 }
