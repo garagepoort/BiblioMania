@@ -10,7 +10,7 @@ class BookReadingMonthFilterHandler implements OptionsFilterHandler
 
     public function getFilterId()
     {
-        return "personal.readingmonth";
+        return "personal-readingmonth";
     }
 
     public function getType()

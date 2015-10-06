@@ -19,7 +19,7 @@ class BookLanguageFilterHandler implements OptionsFilterHandler
 
     public function getFilterId()
     {
-        return "book.language";
+        return "book-language";
     }
 
     public function getType()
