@@ -24,9 +24,19 @@
 {{ HTML::script('assets/lib/multi-select/js/bootstrap-multiselect.js') }}
 {{ HTML::script('assets/lib/multi-select/js/bootstrap-multiselect-collapsible-groups.js') }}
 
+{{ HTML::script('assets/js/filter/Filter.js') }}
+{{ HTML::script('assets/js/filter/FilterRepository.js') }}
+{{ HTML::script('assets/js/filter/MultiSelectFilter.js') }}
+{{ HTML::script('assets/js/filter/OptionsFilters.js') }}
+{{ HTML::script('assets/js/filter/BooleanFilter.js') }}
+{{ HTML::script('assets/js/filter/TextFilter.js') }}
+{{ HTML::script('assets/js/filter/NumberFilter.js') }}
+{{ HTML::script('assets/js/filter/OperatorSelector.js') }}
+
 <script type="text/javascript">
     var message;
     var filterPanelOpen = false;
+    var filters = [];
 
     $(function () {
 
@@ -53,87 +63,12 @@
         });
 
         $('#filterButton').on('click', function () {
-            var filters = constructFilters();
+            var filters = FilterRepository.createJson();
             doFilterBooks(filters);
         });
 
-        fillFiltersFromJson();
+//        fillFiltersFromJson();
     });
-
-    function createFilterField(checkbox) {
-        var filterSupportedOperators = JSON.parse(checkbox.attr('filterSupportedOperators'));
-        var filterType = checkbox.attr("filterType");
-        var placeholder = checkbox.attr("filterText");
-        var filterId = checkbox.attr("id");
-        var formgroup = $("<div class=\"form-group\"></div>");
-        formgroup.attr("forFilter", filterId);
-        var inputgroup = $("<div class=\"col-md-10 filter-input\"></div>");
-
-        formgroup.append("<label class='control-label col-md-10'>" + placeholder + "</label>");
-        formgroup.append(inputgroup);
-
-        var input;
-
-        if (filterType == "text") {
-            input = $("<input class=\"form-control filterInput\" type=\"text\" placeholder=\"" + placeholder + "\"/>")
-        }
-        if (filterType == "number") {
-            input = $("<input class=\"form-control filterInput\" type=\"number\" placeholder=\"" + placeholder + "\"/>")
-        }
-        if (filterType == "boolean") {
-            input = $("<input class=\"filterInput\" type=\"checkbox\"/>")
-        }
-
-        if (filterType == "options") {
-            var filterOptions = JSON.parse(checkbox.attr('filterOptions'));
-
-            input = $("<select class=\"filterInput input-sm form-control\"></select>");
-
-            for (var option in filterOptions) {
-                var optionEl = $('<option>' + option + '</option>');
-                optionEl.attr('value', filterOptions[option]);
-                input.append(optionEl);
-            }
-        }
-
-        if (filterType == "multiselect") {
-            var filterOptions = JSON.parse(checkbox.attr('filterOptions'));
-
-            input = $("<select class=\"filterInput input-sm form-control\" multiple=\"multiple\"></select>");
-
-            for (var option in filterOptions) {
-                var optionEl = $('<option>' + option + '</option>');
-                optionEl.attr('value', filterOptions[option]);
-                input.append(optionEl);
-            }
-        }
-
-        input.attr("filterOperator", filterSupportedOperators[Object.keys(filterSupportedOperators)[0]]);
-        input.attr("filterInputId", filterId);
-
-        if (Object.keys(filterSupportedOperators).length > 1) {
-            var operatorSelect = $('<select class="input-sm form-control operator-select"></select>');
-            operatorSelect.attr('onchange', "changeOperator(this,'" + filterId + "')");
-            for (var option in filterSupportedOperators) {
-                var optionEl = $('<option>' + option + '</option>');
-                optionEl.attr('value', filterSupportedOperators[option]);
-                operatorSelect.append(optionEl);
-            }
-            input.addClass("operator-input")
-            inputgroup.append(operatorSelect);
-        }
-
-        inputgroup.append(input);
-
-        if (filterId.startsWith("book-")) {
-            $('#book-form-container').append(formgroup);
-        }
-        if (filterId.startsWith("personal-")) {
-            $('#personal-form-container').append(formgroup);
-        }
-
-        $('select[multiple="multiple"]').multiselect();
-    }
 
     function doFilterBooks(filters) {
         var url = window.baseUrl + "/filterBooks?";
@@ -172,27 +107,27 @@
         var personalList = $('<dl class="filters-list"></dl>');
         personalList.append($('<dt><h4>Persoonlijk</h4></dt>'))
 
-                @foreach($filters as $filter)
+        @foreach($filters as $filter)
                     var filterId = "{{$filter->getFilterId() }}";
-        var listItem = $('<dd></dd>');
-        var label = $("<label>{{ $filter->getField() }}</label>");
-        var input = $('<input type="checkbox" onchange="filterChange(this)"/>');
-        input.attr('id', filterId);
-        input.attr('filterType', "{{$filter->getType() }}");
-        input.attr('filterText', "{{$filter->getField() }}");
-        input.attr('filterSupportedOperators', '{{ json_encode($filter->getSupportedOperators()) }}');
-        @if($filter->getType() == 'options' || $filter->getType() == 'multiselect')
-            input.attr('filterOptions', '{{ json_encode($filter->getOptions()) }}');
-        @endif
-        listItem.append(input);
-        listItem.append(label);
+                    var filterType = "{{$filter->getType() }}";
+                    var filterField = "{{$filter->getField() }}";
+                    var filterOperators = {{ json_encode($filter->getSupportedOperators()) }};
+                    var filterOptions = [];
+                    var listItem = $('<dd></dd>');
 
-        if (filterId.startsWith("book-")) {
-            bookList.append(listItem);
-        }
-        if (filterId.startsWith("personal-")) {
-            personalList.append(listItem);
-        }
+                    @if($filter->getType() == 'options' || $filter->getType() == 'multiselect')
+                        filterOptions = {{ json_encode($filter->getOptions()) }};
+                    @endif
+                    var filter = new Filter(filterId, filterType, filterField, filterOperators, filterOptions);
+                    filters[filterId] = filter;
+                    listItem.append(filter.createSelectFilterElement());
+
+                    if (filterId.startsWith("book-")) {
+                        bookList.append(listItem);
+                    }
+                    if (filterId.startsWith("personal-")) {
+                        personalList.append(listItem);
+                    }
         @endforeach
 
         div.append(bookList);
@@ -204,7 +139,7 @@
         var checkbox = $(checkbox);
 
         if (checkbox.is(":checked")) {
-            createFilterField(checkbox);
+            filterField(checkbox);
         } else {
             $("div[forFilter='" + checkbox.attr("id") + "']").remove();
         }
