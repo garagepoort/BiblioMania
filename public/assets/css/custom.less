@@ -51,6 +51,7 @@ input {
 @success-color: #5cb85c;
 @success-color-dark: #3d8c3d;
 @container-color: #fff;
+@warning-color: #ec971f;
 
 @font-size: 16px;
 @title-panel-font: "vincent";
@@ -61,6 +62,10 @@ body {
   font-size: @font-size;
   background-color: @secondary-color;
   text-align: center;
+}
+
+.bookMark.background-warning {
+  background-color: @warning-color;
 }
 
 div.tableDiv {
@@ -456,7 +461,35 @@ table.book-detail-info-table td {
 .libraryInformationBookmark.bookmark {
   margin-top: -135px;
 }
-.libraryFilterBookmark.bookmark {
+
+.libraryInformationBookmark.bookmark .info-icon {
+  background-image: url("../../images/info_icon.png");
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.libraryInformationBookmark.bookmark .info-icon:hover {
+  background-image: url("../../images/info_icon_orange.png");
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+}
+
+.libraryFilterBookmark.bookmark .info-icon {
+  background-image: url("../../images/filter_icon.png");
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.libraryFilterBookmark.bookmark .info-icon:hover {
+  background-image: url("../../images/filter_icon_orange.png");
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
 }
 
 .filters-list {
