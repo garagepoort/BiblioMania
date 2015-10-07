@@ -40,6 +40,9 @@ body {
   background-color: #428bca;
   text-align: center;
 }
+.bookMark.background-warning {
+  background-color: #ec971f;
+}
 div.tableDiv {
   margin-left: auto;
   margin-right: auto;
@@ -361,6 +364,32 @@ table.book-detail-info-table td {
 }
 .libraryInformationBookmark.bookmark {
   margin-top: -135px;
+}
+.libraryInformationBookmark.bookmark .info-icon {
+  background-image: url("../../images/info_icon.png");
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.libraryInformationBookmark.bookmark .info-icon:hover {
+  background-image: url("../../images/info_icon_orange.png");
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+}
+.libraryFilterBookmark.bookmark .info-icon {
+  background-image: url("../../images/filter_icon.png");
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.libraryFilterBookmark.bookmark .info-icon:hover {
+  background-image: url("../../images/filter_icon_orange.png");
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
 }
 .filters-list {
   list-style-type: none;

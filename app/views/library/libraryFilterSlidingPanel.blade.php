@@ -1,6 +1,7 @@
 <div id="libraryFilterSlidingPanel" class="sliding-panel libraryFilterSlidingPanel">
     <div id="libraryFilterBookMark" class="bookMark libraryFilterBookmark">
-        {{ HTML::image('images/filter_icon.png', 'filter',array('class'=>'info-icon')) }}
+{{--        {{ HTML::image('images/filter_icon.png', 'filter',array('class'=>'info-icon')) }}--}}
+        <div class="info-icon"></div>
     </div>
     <div id="libraryFilterSlidingPanelTitle" class="slidingPanelTitle material-card-title">Filter</div>
     <div class="material-card-content">
@@ -26,51 +27,34 @@
 <script type="text/javascript">
     var message;
     var filterPanelOpen = false;
+
     $(function () {
 
         message = constructFilterMessage();
         var slidingPanel = new BorderSlidingPanel($('#libraryFilterSlidingPanel'), "left", 10);
 
         $('#libraryFilterBookMark').on('click', function () {
-            if(filterPanelOpen){
+            if (filterPanelOpen) {
                 slidingPanel.close(function () {
                     filterPanelOpen = false;
                 });
-            }else{
+            } else {
                 slidingPanel.open(function () {
                     filterPanelOpen = true;
                 });
             }
         });
 
-        $('#selectFiltersButton').on('click', function(){
-            showSelectFiltersDialog();;
+        $('#selectFiltersButton').on('click', function () {
+            showSelectFiltersDialog();
         });
-        $('#deselect').on('click', function(){
+        $('#deselect').on('click', function () {
             doFilterBooks("");
         });
 
         $('#filterButton').on('click', function () {
-            var filters = [];
-            $('.filterInput').each(function () {
-
-                var filterId = $(this).attr('filterInputId');
-                var filterOperator = $(this).attr('filterOperator');
-                var value = $(this).val();
-                if ($(this).attr('type') == "checkbox") {
-                    if ($(this).is(":checked")) {
-                        value = true;
-                    } else {
-                        value = false;
-                    }
-                }
-                filters.push({
-                    id: filterId,
-                    value: value,
-                    operator: filterOperator
-                });
-                doFilterBooks(filters);
-            });
+            var filters = constructFilters();
+            doFilterBooks(filters);
         });
 
         fillFiltersFromJson();
@@ -85,7 +69,7 @@
         formgroup.attr("forFilter", filterId);
         var inputgroup = $("<div class=\"col-md-10 filter-input\"></div>");
 
-        formgroup.append("<label class='control-label col-md-10'>"+placeholder+"</label>");
+        formgroup.append("<label class='control-label col-md-10'>" + placeholder + "</label>");
         formgroup.append(inputgroup);
 
         var input;
@@ -105,19 +89,19 @@
 
             input = $("<select class=\"filterInput input-sm form-control\"></select>");
 
-            for(var option in filterOptions){
+            for (var option in filterOptions) {
                 var optionEl = $('<option>' + option + '</option>');
                 optionEl.attr('value', filterOptions[option]);
                 input.append(optionEl);
             }
         }
 
-        if(filterType == "multiselect"){
+        if (filterType == "multiselect") {
             var filterOptions = JSON.parse(checkbox.attr('filterOptions'));
 
             input = $("<select class=\"filterInput input-sm form-control\" multiple=\"multiple\"></select>");
 
-            for(var option in filterOptions){
+            for (var option in filterOptions) {
                 var optionEl = $('<option>' + option + '</option>');
                 optionEl.attr('value', filterOptions[option]);
                 input.append(optionEl);
@@ -127,10 +111,10 @@
         input.attr("filterOperator", filterSupportedOperators[Object.keys(filterSupportedOperators)[0]]);
         input.attr("filterInputId", filterId);
 
-        if(Object.keys(filterSupportedOperators).length > 1){
+        if (Object.keys(filterSupportedOperators).length > 1) {
             var operatorSelect = $('<select class="input-sm form-control operator-select"></select>');
-            operatorSelect.attr('onchange', "changeOperator(this,'" + filterId +"')");
-            for(var option in filterSupportedOperators) {
+            operatorSelect.attr('onchange', "changeOperator(this,'" + filterId + "')");
+            for (var option in filterSupportedOperators) {
                 var optionEl = $('<option>' + option + '</option>');
                 optionEl.attr('value', filterSupportedOperators[option]);
                 operatorSelect.append(optionEl);
@@ -141,10 +125,10 @@
 
         inputgroup.append(input);
 
-        if(filterId.startsWith("book-")){
+        if (filterId.startsWith("book-")) {
             $('#book-form-container').append(formgroup);
         }
-        if(filterId.startsWith("personal-")){
+        if (filterId.startsWith("personal-")) {
             $('#personal-form-container').append(formgroup);
         }
 
@@ -163,7 +147,7 @@
         startLoadingPaged(url, 1, fillInBookContainer);
     }
 
-    function showSelectFiltersDialog(){
+    function showSelectFiltersDialog() {
         BootstrapDialog.show({
             title: "Selecteer filters",
             closable: true,
@@ -173,14 +157,14 @@
                     icon: "fa fa-times-circle",
                     label: 'Sluiten',
                     cssClass: 'btn-default',
-                    action: function(dialogItself){
+                    action: function (dialogItself) {
                         dialogItself.close();
                     }
                 }]
         });
     }
 
-    function constructFilterMessage(){
+    function constructFilterMessage() {
         var div = $('<div></div>');
 
         var bookList = $('<dl class="filters-list"></dl>');
@@ -188,27 +172,27 @@
         var personalList = $('<dl class="filters-list"></dl>');
         personalList.append($('<dt><h4>Persoonlijk</h4></dt>'))
 
-        @foreach($filters as $filter)
-            var filterId = "{{$filter->getFilterId() }}";
-            var listItem = $('<dd></dd>');
-            var label = $("<label>{{ $filter->getField() }}</label>");
-            var input = $('<input type="checkbox" onchange="filterChange(this)"/>');
-            input.attr('id', filterId);
-            input.attr('filterType', "{{$filter->getType() }}");
-            input.attr('filterText', "{{$filter->getField() }}");
-            input.attr('filterSupportedOperators', '{{ json_encode($filter->getSupportedOperators()) }}');
-            @if($filter->getType() == 'options' || $filter->getType() == 'multiselect')
-                input.attr('filterOptions', '{{ json_encode($filter->getOptions()) }}');
-            @endif
-            listItem.append(input);
-            listItem.append(label);
+                @foreach($filters as $filter)
+                    var filterId = "{{$filter->getFilterId() }}";
+        var listItem = $('<dd></dd>');
+        var label = $("<label>{{ $filter->getField() }}</label>");
+        var input = $('<input type="checkbox" onchange="filterChange(this)"/>');
+        input.attr('id', filterId);
+        input.attr('filterType', "{{$filter->getType() }}");
+        input.attr('filterText', "{{$filter->getField() }}");
+        input.attr('filterSupportedOperators', '{{ json_encode($filter->getSupportedOperators()) }}');
+        @if($filter->getType() == 'options' || $filter->getType() == 'multiselect')
+            input.attr('filterOptions', '{{ json_encode($filter->getOptions()) }}');
+        @endif
+        listItem.append(input);
+        listItem.append(label);
 
-            if(filterId.startsWith("book-")){
-                bookList.append(listItem);
-            }
-            if(filterId.startsWith("personal-")){
-                personalList.append(listItem);
-            }
+        if (filterId.startsWith("book-")) {
+            bookList.append(listItem);
+        }
+        if (filterId.startsWith("personal-")) {
+            personalList.append(listItem);
+        }
         @endforeach
 
         div.append(bookList);
@@ -226,26 +210,49 @@
         }
     }
 
-    function changeOperator(selectField, filterId){
-        $("[filterInputId='" + filterId+"']").attr("filterOperator", $(selectField).val());
+    function changeOperator(selectField, filterId) {
+        $("[filterInputId='" + filterId + "']").attr("filterOperator", $(selectField).val());
     }
 
-    function fillFiltersFromJson(){
+    function fillFiltersFromJson() {
         var json_filters = {{  json_encode(Session::get('book.filters')) }};
-        for(var i = 0; i < json_filters.length; i++){
+        for (var i = 0; i < json_filters.length; i++) {
             var filter = json_filters[i];
             var filterCheckbox = message.find("#" + filter.id);
             var filterType = filterCheckbox.attr("filterType");
             filterCheckbox.prop('checked', true);
             filterCheckbox.change();
-            if(filterType == "multiselect") {
+            if (filterType == "multiselect") {
                 $('[filterInputId="' + filter.id + '"]').multiselect("select", filter.value);
-            }else if(filterType == "boolean"){
+            } else if (filterType == "boolean") {
                 $('[filterInputId="' + filter.id + '"]').prop("checked", filter.value);
-            }else{
+            } else {
                 $('[filterInputId="' + filter.id + '"]').val(filter.value);
             }
         }
+    }
+
+    function constructFilters() {
+        var filters = [];
+        $('.filterInput').each(function () {
+
+            var filterId = $(this).attr('filterInputId');
+            var filterOperator = $(this).attr('filterOperator');
+            var value = $(this).val();
+            if ($(this).attr('type') == "checkbox") {
+                if ($(this).is(":checked")) {
+                    value = true;
+                } else {
+                    value = false;
+                }
+            }
+            filters.push({
+                id: filterId,
+                value: value,
+                operator: filterOperator
+            });
+        });
+        return filters;
     }
 
 </script>
