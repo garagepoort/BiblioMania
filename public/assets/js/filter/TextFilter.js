@@ -19,9 +19,9 @@ TextFilter.prototype.createFilterElement = function(){
     var input = $("<input class=\"form-control filterInput\" type=\"text\" placeholder=\"" + this.placeholder + "\"/>");
 
     var operatorSelect = new OperatorSelector(this.filterId, this.operators, input);
-    input.addClass("operator-input")
     this.operatorSelector = operatorSelect;
     if (Object.keys(this.operators).length > 1) {
+        input.addClass("operator-input")
         inputgroup.append(operatorSelect.createElement());
     }
     inputgroup.append(input);

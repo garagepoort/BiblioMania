@@ -136,6 +136,7 @@
         div.append(personalList);
         return div;
     }
+
     function fillFiltersFromJson() {
         var json_filters = {{  json_encode(Session::get('book.filters')) }};
         if (json_filters !== null) {
