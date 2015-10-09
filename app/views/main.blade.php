@@ -12,18 +12,7 @@
 
     {{ HTML::script('assets/js/jquery.js'); }}
 
-    {{--<!-- BOOTSTRAP -->--}}
-    {{--{{ HTML::script('assets/js/bootstrap.js'); }}--}}
-    {{--{{ HTML::style('/assets/css/bootstrap.css') }}--}}
-    {{--{{ HTML::style('assets/css/bootstrap-theme.css') }}--}}
-
-            <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-
-    <!-- Optional theme -->
-    {{--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">--}}
-
-    <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
     <!-- DATEPICKER -->
@@ -101,11 +90,11 @@
                 <ul class="nav navbar-nav">
                     <li>{{ HTML::link('getBooks', 'Boeken', array('id'=>'booksNavigationLink', 'title' => 'Boeken')) }}</li>
                     <li>{{ HTML::link('getAuthors', 'Auteurs', array('id'=>'authorsNavigationLink', 'title' => 'Auteurs')) }}</li>
-                    <li class="dropdown">
+                    <li class="dropdown navigation-dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                            aria-expanded="false">Lijsten
                             <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
+                        <ul class="dropdown-menu navigation-dropdown-menu" role="menu">
                             <li>{{ HTML::link('getBooksList', 'Boeken', array('id'=>'booksListNavigationLink', 'title' => 'Boeken')) }}</li>
                             <li>{{ HTML::link('getDraftBooksList', 'Onvolledige Boeken', array('id'=>'draftBooksListNavigationLink', 'title' => 'Onvolledige boeken')) }}</li>
                             <li>{{ HTML::link('getAuthorsList', 'Auteurs', array('id'=>'authorsListNavigationLink', 'title' => 'Auteurs')) }}</li>
