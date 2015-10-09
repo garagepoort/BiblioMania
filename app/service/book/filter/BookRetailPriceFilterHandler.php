@@ -1,16 +1,15 @@
 <?php
 
-class BookReadingYearFilterHandler implements FilterHandler
+class BookRetailPriceFilterHandler implements FilterHandler
 {
-
     public function handleFilter($queryBuilder, $value, $operator)
     {
-        return $queryBuilder->whereYear("reading_date.date", FilterOperator::getDatabaseOperator($operator), $value);
+        return $queryBuilder->where("book.retail_price", FilterOperator::getDatabaseOperator($operator), $value);
     }
 
     public function getFilterId()
     {
-        return "personal-readingyear";
+        return "book-retail_price";
     }
 
     public function getType()
@@ -20,7 +19,7 @@ class BookReadingYearFilterHandler implements FilterHandler
 
     public function getField()
     {
-        return "Leesjaar";
+        return "Cover prijs";
     }
 
     public function getSupportedOperators()

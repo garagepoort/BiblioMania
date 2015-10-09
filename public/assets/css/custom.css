@@ -40,6 +40,9 @@ body {
   background-color: #428bca;
   text-align: center;
 }
+.bookMark.background-warning {
+  background-color: #ec971f;
+}
 div.tableDiv {
   margin-left: auto;
   margin-right: auto;
@@ -355,11 +358,6 @@ table.book-detail-info-table td {
 .filter-input {
   margin-bottom: 12px;
 }
-.filter-form-container {
-  float: left;
-  overflow: hidden;
-  width: 48%;
-}
 .slidingPanelTitle {
   height: 34px;
   line-height: 34px;
@@ -367,17 +365,31 @@ table.book-detail-info-table td {
 .libraryInformationBookmark.bookmark {
   margin-top: -135px;
 }
-.filters-list {
-  list-style-type: none;
-  text-align: left;
-  float: left;
-  padding: 20px;
+.libraryInformationBookmark.bookmark .info-icon {
+  background-image: url("../../images/info_icon.png");
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  background-position: center;
 }
-.filters-list dd label {
-  margin-left: 10px;
+.libraryInformationBookmark.bookmark .info-icon:hover {
+  background-image: url("../../images/info_icon_orange.png");
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
 }
-.filters-list dt {
-  margin-bottom: 10px;
+.libraryFilterBookmark.bookmark .info-icon {
+  background-image: url("../../images/filter_icon.png");
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.libraryFilterBookmark.bookmark .info-icon:hover {
+  background-image: url("../../images/filter_icon_orange.png");
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
 }
 .bookMark {
   height: 34px;
@@ -745,17 +757,17 @@ ul.nav li a:hover {
 .navbar-default .navbar-link:hover {
   color: #ffffff;
 }
-.navbar-default .navbar-nav .open .dropdown-menu > li > a {
+.navbar-default .navbar-nav .open .dropdown-menu.navigation-dropdown-menu > li > a {
   color: #ffffff;
   background-color: #2d6ca2;
 }
-.navbar-default .navbar-nav .open .dropdown-menu > li > a:hover {
+.navbar-default .navbar-nav .open .dropdown-menu.navigation-dropdown-menu > li > a:hover {
   background-color: #ffffff;
   color: #2d6ca2;
   background-image: none;
 }
-.dropdown-menu > li > a:hover,
-.dropdown-menu > li > a:focus {
+.dropdown-menu.navigation-dropdown-menu > li > a:hover,
+.dropdown-menu.navigation-dropdown-menu > li > a:focus {
   background-color: #ffffff;
   color: #2d6ca2;
   background-image: none;
@@ -765,7 +777,7 @@ ul.nav li a:hover {
 ul.nav li a:hover {
   border: none;
 }
-.dropdown-menu {
+.dropdown-menu.navigation-dropdown-menu {
   background: #2d6ca2;
 }
 div.navbar-collapse {
@@ -844,7 +856,6 @@ div.container-fluid {
   padding: 10px;
   background-color: #ffffff;
   width: 100%;
-  overflow: hidden;
 }
 .card-row {
   width: 100%;
