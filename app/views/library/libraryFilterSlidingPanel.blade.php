@@ -16,6 +16,7 @@
         </table>
         <div id="book-form-container" class="filter-form-container"></div>
         <div id="personal-form-container" class="filter-form-container"></div>
+        <div id="buy-gift-form-container" class="filter-form-container"></div>
     </div>
 </div>
 
@@ -104,6 +105,9 @@
                     if (filter.id.startsWith("personal-")) {
                         $('#personal-form-container').append(filter.getFilterValueInputElement());
                     }
+                    if (filter.id.startsWith("buy-gift-")) {
+                        $('#buy-gift-form-container').append(filter.getFilterValueInputElement());
+                    }
                 } else {
                     filter.removeFilterInputFromDom();
                 }
@@ -117,9 +121,12 @@
         var div = $('<div></div>');
 
         var bookList = $('<dl class="filters-list"></dl>');
-        bookList.append($('<dt><h4>Boek</h4></dt>'))
+        bookList.append($('<dt><h4>Boek</h4></dt>'));
         var personalList = $('<dl class="filters-list"></dl>');
-        personalList.append($('<dt><h4>Persoonlijk</h4></dt>'))
+        personalList.append($('<dt><h4>Persoonlijk</h4></dt>'));
+        var buyGiftList = $('<dl class="filters-list"></dl>');
+        buyGiftList.append($('<dt><h4>Koop/Gift</h4></dt>'));
+
         for (var f in FilterRepository.filters) {
             var filter = FilterRepository.getFilters()[f];
             var listItem = $('<dd></dd>');
@@ -131,9 +138,13 @@
             if (filter.id.startsWith("personal-")) {
                 personalList.append(listItem);
             }
+            if (filter.id.startsWith("buy-gift-")) {
+                buyGiftList.append(listItem);
+            }
         }
         div.append(bookList);
         div.append(personalList);
+        div.append(buyGiftList);
         return div;
     }
 
