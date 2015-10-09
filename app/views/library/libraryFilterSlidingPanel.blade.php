@@ -144,6 +144,7 @@
                 var filterObject = FilterRepository.getFilter(filter.id);
                 filterObject.doSelect(true);
                 filterObject.setValue(filter.value);
+                filterObject.setSelectedOperator(filter.operator);
             }
         }
     }

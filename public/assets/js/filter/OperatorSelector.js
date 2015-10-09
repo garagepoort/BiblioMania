@@ -18,3 +18,8 @@ OperatorSelector.prototype.createElement = function(){
 OperatorSelector.prototype.getSelectedOperator = function() {
     return this.inputElement.val();
 }
+
+OperatorSelector.prototype.setSelectedOperator = function(value) {
+    return this.inputElement.val(value);
+}
+

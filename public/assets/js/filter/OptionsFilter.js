@@ -21,11 +21,11 @@ OptionsFilter.prototype.createFilterElement = function(){
         input.append(optionEl);
     }
 
+    var operatorSelect = new OperatorSelector(this.filterId, this.operators, input);
+    input.addClass("operator-input")
+    this.operatorSelector = operatorSelect;
     if (Object.keys(this.operators).length > 1) {
-        var operatorSelect = new OperatorSelector(this.filterId, this.operators, input);
-        input.addClass("operator-input")
         inputgroup.append(operatorSelect.createElement());
-        this.operatorSelector = operatorSelect;
     }
 
     inputgroup.append(input);
@@ -48,4 +48,8 @@ OptionsFilter.prototype.getSelectedOperator = function(){
         return this.operators[Object.keys(this.operators)[0]];
     }
     return this.operatorSelector.getSelectedOperator();
+}
+
+OptionsFilter.prototype.setSelectedOperator = function(value){
+    this.operatorSelector.setSelectedOperator(value);
 }
