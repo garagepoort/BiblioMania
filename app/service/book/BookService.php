@@ -236,9 +236,12 @@ class BookService
             ->leftJoin('date', 'date.id', '=', 'first_print_info.publication_date_id')
             ->leftJoin("personal_book_info_reading_date", "personal_book_info.id", "=","personal_book_info_reading_date.personal_book_info_id")
             ->leftJoin("reading_date", "personal_book_info_reading_date.reading_date_id", "=", "reading_date.id")
+            ->leftJoin("buy_info", "buy_info.personal_book_info_id", "=", "personal_book_info.id")
+            ->leftJoin("gift_info", "gift_info.personal_book_info_id", "=", "personal_book_info.id")
+            ->leftJoin("publisher", "book.publisher_id", "=", "publisher.id")
             ->with('personal_book_info')
             ->where('book_author.preferred', '=', 1)
-            ->where('user_id', '=', Auth::user()->id)
+            ->where('book.user_id', '=', Auth::user()->id)
             ->where('wizard_step', '=', 'COMPLETE');
 
         foreach($filters as $filter){
