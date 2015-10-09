@@ -25,10 +25,10 @@ MultiSelectFilter.prototype.createFilterElement = function(){
 
 
     var operatorSelect = new OperatorSelector(this.filterId, this.operators, input);
-    input.addClass("operator-input")
     this.operatorSelector = operatorSelect;
 
     if (Object.keys(this.operators).length > 1) {
+        input.addClass("operator-input")
         inputgroup.append(operatorSelect.createElement());
     }
     inputgroup.append(input);

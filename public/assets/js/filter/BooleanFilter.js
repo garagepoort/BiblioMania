@@ -21,7 +21,6 @@ BooleanFilter.prototype.createFilterElement = function(){
     this.formgroupElement = formgroup;
 }
 
-
 BooleanFilter.prototype.getValue = function(){
     if (this.inputElement.is(":checked")) {
         return true;
