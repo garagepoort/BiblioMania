@@ -37,3 +37,6 @@ BooleanFilter.prototype.setValue = function(value) {
 BooleanFilter.prototype.getSelectedOperator = function(){
     return 'equals';
 }
+
+BooleanFilter.prototype.setSelectedOperator = function(value){
+}

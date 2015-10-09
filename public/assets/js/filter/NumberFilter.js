@@ -19,11 +19,11 @@ NumberFilter.prototype.createFilterElement = function(){
 
     var input = $("<input class=\"form-control filterInput\" type=\"text\" placeholder=\"" + this.placeholder + "\"/>");
 
+    var operatorSelect = new OperatorSelector(this.filterId, this.operators, input);
+    input.addClass("operator-input");
+    this.operatorSelector = operatorSelect;
     if (Object.keys(this.operators).length > 1) {
-        var operatorSelect = new OperatorSelector(this.filterId, this.operators, input);
-        input.addClass("operator-input");
         inputgroup.append(operatorSelect.createElement());
-        this.operatorSelector = operatorSelect;
     }
     inputgroup.append(input);
     this.inputElement = input;
@@ -43,4 +43,8 @@ NumberFilter.prototype.getSelectedOperator = function(){
         return this.operators[Object.keys(this.operators)[0]];
     }
     return this.operatorSelector.getSelectedOperator();
+}
+
+NumberFilter.prototype.setSelectedOperator = function(value){
+    this.operatorSelector.setSelectedOperator(value);
 }

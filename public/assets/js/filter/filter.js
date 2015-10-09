@@ -32,6 +32,7 @@ function triggerSelectFilter(id) {
 }
 
 Filter.prototype.doSelect = function(selected){
+    this.checkbox.prop("checked", selected);
     this.onChange(this, selected);
 }
 
@@ -61,6 +62,10 @@ Filter.prototype.getFilterValue = function(){
 
 Filter.prototype.getSelectedOperator = function(){
     return this.filterValueInput.getSelectedOperator();
+}
+
+Filter.prototype.setSelectedOperator = function(value){
+    return this.filterValueInput.setSelectedOperator(value);
 }
 
 
