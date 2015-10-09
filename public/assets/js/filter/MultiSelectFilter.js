@@ -36,7 +36,9 @@ MultiSelectFilter.prototype.createFilterElement = function(){
 
     formgroup.append("<label class='control-label col-md-10'>" + this.field + "</label>");
     formgroup.append(inputgroup);
-    input.multiselect();
+    input.multiselect({
+        enableFiltering: true
+    });
     this.inputElement = input;
     this.formgroupElement = formgroup;
 }
