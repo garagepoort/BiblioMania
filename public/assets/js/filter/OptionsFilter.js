@@ -4,6 +4,9 @@ function OptionsFilter(filterId, field, operators, options){
     this.options = options;
     this.operators = operators;
     this.inputElement;
+    this.formgroupElement;
+
+    this.createFilterElement();
 }
 
 OptionsFilter.prototype.createFilterElement = function(){
@@ -17,8 +20,6 @@ OptionsFilter.prototype.createFilterElement = function(){
         optionEl.attr('value', this.options[option]);
         input.append(optionEl);
     }
-    input.attr("filterOperator", this.operators[Object.keys(this.operators)[0]]);
-    input.attr("filterInputId", this.filterId);
 
     if (Object.keys(this.operators).length > 1) {
         var operatorSelect = new OperatorSelector(this.filterId, this.operators, input);
@@ -31,11 +32,15 @@ OptionsFilter.prototype.createFilterElement = function(){
     formgroup.append("<label class='control-label col-md-10'>" + this.field + "</label>");
     formgroup.append(inputgroup);
     this.inputElement = input;
-    return formgroup;
+    this.formgroupElement = formgroup;
 }
 
 OptionsFilter.prototype.getValue = function(){
     return this.inputElement.val();
+}
+
+OptionsFilter.prototype.setValue = function(value) {
+    this.inputElement.val(value);
 }
 
 OptionsFilter.prototype.getSelectedOperator = function(){

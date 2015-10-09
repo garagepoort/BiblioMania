@@ -4,6 +4,9 @@ function NumberFilter(filterId, placeholder, operators){
     this.operators = operators;
     this.inputElement;
     this.operatorSelector;
+    this.formgroupElement;
+
+    this.createFilterElement();
 }
 
 NumberFilter.prototype.createFilterElement = function(){
@@ -15,8 +18,6 @@ NumberFilter.prototype.createFilterElement = function(){
     formgroup.append(inputgroup);
 
     var input = $("<input class=\"form-control filterInput\" type=\"text\" placeholder=\"" + this.placeholder + "\"/>");
-    input.attr("filterOperator", this.operators[Object.keys(this.operators)[0]]);
-    input.attr("filterInputId", this.filterId);
 
     if (Object.keys(this.operators).length > 1) {
         var operatorSelect = new OperatorSelector(this.filterId, this.operators, input);
@@ -26,11 +27,15 @@ NumberFilter.prototype.createFilterElement = function(){
     }
     inputgroup.append(input);
     this.inputElement = input;
-    return formgroup;
+    this.formgroupElement = formgroup;
 }
 
 NumberFilter.prototype.getValue = function(){
     return this.inputElement.val();
+}
+
+NumberFilter.prototype.setValue = function(value) {
+    this.inputElement.val(value);
 }
 
 NumberFilter.prototype.getSelectedOperator = function(){

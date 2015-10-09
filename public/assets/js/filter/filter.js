@@ -1,13 +1,16 @@
-function Filter(id, type, field, supportedOperators, options){
+function Filter(id, type, field, supportedOperators, options, onChange){
     this.id = id;
     this.type = type;
     this.field = field;
     this.supportedOperators = supportedOperators;
     this.options = options;
-    this.filterInputObject;
-    this.filterHtmlElement;
+    this.onChange = onChange;
+    this.filterValueInput;
+    this.filterValueInputElement;
+    this.filterSelectorElement;
 
-    FilterRepository.addFilter(id, this);
+    this.createSelectFilterElement();
+    this.createFilterField();
 }
 
 Filter.prototype.createSelectFilterElement = function(){
@@ -15,26 +18,52 @@ Filter.prototype.createSelectFilterElement = function(){
     var label = $("<label>" + this.field + "</label>");
     var input = $('<input type="checkbox" onchange="triggerSelectFilter(\'' + this.id + '\')"/>');
     input.attr('id', this.id);
-    input.attr('filterType', this.type);
-    input.attr('filterText', this.field);
-    this.checkbox = input;
     container.append(label);
     container.append(input);
-    return container;
+
+    this.label = label;
+    this.checkbox = input;
+    this.filterSelectorElement = container;
 };
 
 function triggerSelectFilter(id) {
     var filter = FilterRepository.getFilter(id);
-    if (filter.checkbox.is(":checked")) {
-        filter.createFilterField();
-    } else {
-        filter.filterHtmlElement.remove();
-    }
+    filter.doSelect(filter.checkbox.is(":checked"));
+}
+
+Filter.prototype.doSelect = function(selected){
+    this.onChange(this, selected);
+}
+
+Filter.prototype.setValue = function(value){
+    this.filterValueInput.setValue(value);
 }
 
 Filter.prototype.isFilterSelected = function(){
     return this.checkbox.is(":checked");
 }
+
+Filter.prototype.getHtmlElement = function(){
+    return this.filterSelectorElement;
+}
+
+Filter.prototype.removeFilterInputFromDom = function(){
+    this.filterValueInputElement.remove();
+}
+
+Filter.prototype.getFilterValueInputElement = function(){
+    return this.filterValueInputElement;
+}
+
+Filter.prototype.getFilterValue = function(){
+    return this.filterValueInput.getValue();
+}
+
+Filter.prototype.getSelectedOperator = function(){
+    return this.filterValueInput.getSelectedOperator();
+}
+
+
 
 Filter.prototype.createFilterField = function() {
     var filterInput;
@@ -56,14 +85,6 @@ Filter.prototype.createFilterField = function() {
         filterInput = new MultiSelectFilter(this.id, this.field, this.supportedOperators, this.options);
     }
 
-    this.filterInputObject = filterInput;
-    this.filterHtmlElement = filterInput.createFilterElement();
-    if (this.id.startsWith("book-")) {
-        $('#book-form-container').append(this.filterHtmlElement);
-    }
-    if (this.id.startsWith("personal-")) {
-        $('#personal-form-container').append(this.filterHtmlElement);
-    }
-
-    return this.filterHtmlElement;
+    this.filterValueInput = filterInput;
+    this.filterValueInputElement = filterInput.formgroupElement;
 }
