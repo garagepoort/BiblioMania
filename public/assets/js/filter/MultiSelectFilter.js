@@ -24,11 +24,12 @@ MultiSelectFilter.prototype.createFilterElement = function(){
     }
 
 
+    var operatorSelect = new OperatorSelector(this.filterId, this.operators, input);
+    input.addClass("operator-input")
+    this.operatorSelector = operatorSelect;
+
     if (Object.keys(this.operators).length > 1) {
-        var operatorSelect = new OperatorSelector(this.filterId, this.operators, input);
-        input.addClass("operator-input")
         inputgroup.append(operatorSelect.createElement());
-        this.operatorSelector = operatorSelect;
     }
     inputgroup.append(input);
 
@@ -49,8 +50,9 @@ MultiSelectFilter.prototype.setValue = function(value) {
 }
 
 MultiSelectFilter.prototype.getSelectedOperator = function(){
-    if(this.operatorSelector == undefined){
-        return this.operators[Object.keys(this.operators)[0]];
-    }
     return this.operatorSelector.getSelectedOperator();
+}
+
+MultiSelectFilter.prototype.setSelectedOperator = function(value){
+    this.operatorSelector.setSelectedOperator(value);
 }
