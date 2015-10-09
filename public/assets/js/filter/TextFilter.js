@@ -3,6 +3,9 @@ function TextFilter(filterId, placeholder, operators){
     this.placeholder = placeholder;
     this.operators = operators;
     this.inputElement;
+    this.formgroupElement;
+
+    this.createFilterElement();
 }
 
 TextFilter.prototype.createFilterElement = function(){
@@ -14,8 +17,6 @@ TextFilter.prototype.createFilterElement = function(){
     formgroup.append(inputgroup);
 
     var input = $("<input class=\"form-control filterInput\" type=\"text\" placeholder=\"" + this.placeholder + "\"/>");
-    input.attr("filterOperator", this.operators[Object.keys(this.operators)[0]]);
-    input.attr("filterInputId", this.filterId);
 
     if (Object.keys(this.operators).length > 1) {
         var operatorSelect = new OperatorSelector(this.filterId, this.operators, input);
@@ -25,7 +26,7 @@ TextFilter.prototype.createFilterElement = function(){
     }
     inputgroup.append(input);
     this.inputElement = input;
-    return formgroup;
+    this.formgroupElement = formgroup;
 }
 
 TextFilter.prototype.getValue = function(){
@@ -37,4 +38,8 @@ TextFilter.prototype.getSelectedOperator = function(){
         return this.operators[Object.keys(this.operators)[0]];
     }
     return this.operatorSelector.getSelectedOperator();
+}
+
+TextFilter.prototype.setValue = function(value) {
+    this.inputElement.val(value);
 }

@@ -22,8 +22,8 @@ FilterRepository.createJson = function () {
         if(filterObject.isFilterSelected()){
             filters.push({
                 id: filterObject.id,
-                value: filterObject.filterInputObject.getValue(),
-                operator: filterObject.filterInputObject.getSelectedOperator()
+                value: filterObject.getFilterValue(),
+                operator: filterObject.getSelectedOperator()
             });
         }
     }

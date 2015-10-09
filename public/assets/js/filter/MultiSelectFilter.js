@@ -4,6 +4,9 @@ function MultiSelectFilter(filterId, field, operators, options){
     this.options = options;
     this.operators = operators;
     this.inputElement;
+    this.formgroupElement;
+
+    this.createFilterElement();
 }
 
 MultiSelectFilter.prototype.createFilterElement = function(){
@@ -13,8 +16,6 @@ MultiSelectFilter.prototype.createFilterElement = function(){
     var inputgroup = $("<div class=\"col-md-10 filter-input\"></div>");
 
     var input = $("<select class=\"filterInput input-sm form-control\" multiple=\"multiple\"></select>");
-    input.attr("filterOperator", this.operators[Object.keys(this.operators)[0]]);
-    input.attr("filterInputId", this.filterId);
 
     for (var option in this.options) {
         var optionEl = $('<option>' + option + '</option>');
@@ -36,11 +37,15 @@ MultiSelectFilter.prototype.createFilterElement = function(){
     formgroup.append(inputgroup);
     input.multiselect();
     this.inputElement = input;
-    return formgroup;
+    this.formgroupElement = formgroup;
 }
 
 MultiSelectFilter.prototype.getValue = function(){
     return this.inputElement.val();
+}
+
+MultiSelectFilter.prototype.setValue = function(value) {
+    this.inputElement.multiselect("select", value);
 }
 
 MultiSelectFilter.prototype.getSelectedOperator = function(){

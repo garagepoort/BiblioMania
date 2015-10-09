@@ -1,6 +1,6 @@
 <div id="libraryFilterSlidingPanel" class="sliding-panel libraryFilterSlidingPanel">
     <div id="libraryFilterBookMark" class="bookMark libraryFilterBookmark">
-{{--        {{ HTML::image('images/filter_icon.png', 'filter',array('class'=>'info-icon')) }}--}}
+        {{--        {{ HTML::image('images/filter_icon.png', 'filter',array('class'=>'info-icon')) }}--}}
         <div class="info-icon"></div>
     </div>
     <div id="libraryFilterSlidingPanelTitle" class="slidingPanelTitle material-card-title">Filter</div>
@@ -39,21 +39,7 @@
     var filters = [];
 
     $(function () {
-
-        message = constructFilterMessage();
-        var slidingPanel = new BorderSlidingPanel($('#libraryFilterSlidingPanel'), "left", 10);
-
-        $('#libraryFilterBookMark').on('click', function () {
-            if (filterPanelOpen) {
-                slidingPanel.close(function () {
-                    filterPanelOpen = false;
-                });
-            } else {
-                slidingPanel.open(function () {
-                    filterPanelOpen = true;
-                });
-            }
-        });
+        getFilters();
 
         $('#selectFiltersButton').on('click', function () {
             showSelectFiltersDialog();
@@ -66,8 +52,6 @@
             var filters = FilterRepository.createJson();
             doFilterBooks(filters);
         });
-
-//        fillFiltersFromJson();
     });
 
     function doFilterBooks(filters) {
@@ -99,6 +83,36 @@
         });
     }
 
+    function fillFilterRepository(filters) {
+        for (var f in filters) {
+            var filter = filters[f];
+            var filterId = filter.id;
+            var filterType = filter.type;
+            var filterField = filter.field;
+            var filterOperators = filter.supportedOperators;
+            var filterOptions = [];
+
+            if (filter.options != undefined) {
+                filterOptions = filter.options;
+            }
+
+            var filter = new Filter(filterId, filterType, filterField, filterOperators, filterOptions, function (filter, selected) {
+                if (selected) {
+                    if (filter.id.startsWith("book-")) {
+                        $('#book-form-container').append(filter.getFilterValueInputElement());
+                    }
+                    if (filter.id.startsWith("personal-")) {
+                        $('#personal-form-container').append(filter.getFilterValueInputElement());
+                    }
+                } else {
+                    filter.removeFilterInputFromDom();
+                }
+            });
+
+            FilterRepository.addFilter(filterId, filter);
+        }
+    }
+
     function constructFilterMessage() {
         var div = $('<div></div>');
 
@@ -106,88 +120,58 @@
         bookList.append($('<dt><h4>Boek</h4></dt>'))
         var personalList = $('<dl class="filters-list"></dl>');
         personalList.append($('<dt><h4>Persoonlijk</h4></dt>'))
+        for (var f in FilterRepository.filters) {
+            var filter = FilterRepository.getFilters()[f];
+            var listItem = $('<dd></dd>');
+            listItem.append(filter.getHtmlElement());
 
-        @foreach($filters as $filter)
-                    var filterId = "{{$filter->getFilterId() }}";
-                    var filterType = "{{$filter->getType() }}";
-                    var filterField = "{{$filter->getField() }}";
-                    var filterOperators = {{ json_encode($filter->getSupportedOperators()) }};
-                    var filterOptions = [];
-                    var listItem = $('<dd></dd>');
-
-                    @if($filter->getType() == 'options' || $filter->getType() == 'multiselect')
-                        filterOptions = {{ json_encode($filter->getOptions()) }};
-                    @endif
-                    var filter = new Filter(filterId, filterType, filterField, filterOperators, filterOptions);
-                    filters[filterId] = filter;
-                    listItem.append(filter.createSelectFilterElement());
-
-                    if (filterId.startsWith("book-")) {
-                        bookList.append(listItem);
-                    }
-                    if (filterId.startsWith("personal-")) {
-                        personalList.append(listItem);
-                    }
-        @endforeach
-
+            if (filter.id.startsWith("book-")) {
+                bookList.append(listItem);
+            }
+            if (filter.id.startsWith("personal-")) {
+                personalList.append(listItem);
+            }
+        }
         div.append(bookList);
         div.append(personalList);
         return div;
     }
-
-    function filterChange(checkbox) {
-        var checkbox = $(checkbox);
-
-        if (checkbox.is(":checked")) {
-            filterField(checkbox);
-        } else {
-            $("div[forFilter='" + checkbox.attr("id") + "']").remove();
-        }
-    }
-
-    function changeOperator(selectField, filterId) {
-        $("[filterInputId='" + filterId + "']").attr("filterOperator", $(selectField).val());
-    }
-
     function fillFiltersFromJson() {
         var json_filters = {{  json_encode(Session::get('book.filters')) }};
-        for (var i = 0; i < json_filters.length; i++) {
-            var filter = json_filters[i];
-            var filterCheckbox = message.find("#" + filter.id);
-            var filterType = filterCheckbox.attr("filterType");
-            filterCheckbox.prop('checked', true);
-            filterCheckbox.change();
-            if (filterType == "multiselect") {
-                $('[filterInputId="' + filter.id + '"]').multiselect("select", filter.value);
-            } else if (filterType == "boolean") {
-                $('[filterInputId="' + filter.id + '"]').prop("checked", filter.value);
-            } else {
-                $('[filterInputId="' + filter.id + '"]').val(filter.value);
+        if (json_filters !== null) {
+            for (var i = 0; i < json_filters.length; i++) {
+                var filter = json_filters[i];
+                var filterObject = FilterRepository.getFilter(filter.id);
+                filterObject.doSelect(true);
+                filterObject.setValue(filter.value);
             }
         }
     }
 
-    function constructFilters() {
-        var filters = [];
-        $('.filterInput').each(function () {
+    function getFilters() {
+        request = $.get(baseUrl + "/bookFilters",
+                function (data, status) {
+                    if (status === "success") {
+                        fillFilterRepository(data);
+                        message = constructFilterMessage();
+                        var slidingPanel = new BorderSlidingPanel($('#libraryFilterSlidingPanel'), "left", 10);
 
-            var filterId = $(this).attr('filterInputId');
-            var filterOperator = $(this).attr('filterOperator');
-            var value = $(this).val();
-            if ($(this).attr('type') == "checkbox") {
-                if ($(this).is(":checked")) {
-                    value = true;
-                } else {
-                    value = false;
+                        $('#libraryFilterBookMark').on('click', function () {
+                            if (filterPanelOpen) {
+                                slidingPanel.close(function () {
+                                    filterPanelOpen = false;
+                                });
+                            } else {
+                                slidingPanel.open(function () {
+                                    filterPanelOpen = true;
+                                });
+                            }
+                        });
+
+                        fillFiltersFromJson();
+                    }
                 }
-            }
-            filters.push({
-                id: filterId,
-                value: value,
-                operator: filterOperator
-            });
-        });
-        return filters;
+        );
     }
 
 </script>
