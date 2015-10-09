@@ -19,6 +19,11 @@ BooleanFilter.prototype.createFilterElement = function(){
     inputgroup.append(input);
     this.inputElement = input;
     this.formgroupElement = formgroup;
+    input.bootstrapSwitch({
+        size: "small",
+        onText: "Ja",
+        offText: "Nee",
+    });
 }
 
 BooleanFilter.prototype.getValue = function(){

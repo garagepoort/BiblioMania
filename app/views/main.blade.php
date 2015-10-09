@@ -19,6 +19,10 @@
     {{ HTML::script('assets/lib/datepicker/js/bootstrap-datepicker.js') }}
     {{ HTML::style('assets/lib/datepicker/css/datepicker.css') }}
 
+    <!-- BOOTSTRAP SWITCH -->
+    {{ HTML::script('assets/lib/bootstrap-switch/bootstrap-switch.min.js') }}
+    {{ HTML::style('assets/lib/bootstrap-switch/bootstrap-switch.min.css') }}
+
             <!-- JASNY -->
     {{ HTML::script('assets/lib/jasny-bootstrap/js/jasny-bootstrap.min.js') }}
     {{ HTML::style('assets/lib/jasny-bootstrap/css/jasny-bootstrap.min.css') }}
