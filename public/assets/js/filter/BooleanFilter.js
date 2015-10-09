@@ -2,6 +2,9 @@ function BooleanFilter(filterId, field){
     this.filterId = filterId;
     this.field = field;
     this.inputElement;
+    this.formgroupElement;
+
+    this.createFilterElement();
 }
 
 BooleanFilter.prototype.createFilterElement = function(){
@@ -13,11 +16,9 @@ BooleanFilter.prototype.createFilterElement = function(){
     formgroup.append(inputgroup);
 
     var input = $("<input class=\"filterInput\" type=\"checkbox\"/>");
-    input.attr("filterInputId", this.filterId);
-    input.attr("filterOperator", 'equals');
     inputgroup.append(input);
     this.inputElement = input;
-    return formgroup;
+    this.formgroupElement = formgroup;
 }
 
 
@@ -27,6 +28,10 @@ BooleanFilter.prototype.getValue = function(){
     } else {
         return false;
     }
+}
+
+BooleanFilter.prototype.setValue = function(value) {
+    this.inputElement.prop("checked", value);
 }
 
 BooleanFilter.prototype.getSelectedOperator = function(){

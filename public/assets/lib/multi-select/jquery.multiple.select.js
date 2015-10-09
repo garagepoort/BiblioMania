@@ -282,9 +282,9 @@
                 this.$noResults.show();
             }
 
-            if (this.options.container) {
+            if (this.options.filterSelectorElement) {
                 var offset = this.$drop.offset();
-                this.$drop.appendTo($(this.options.container));
+                this.$drop.appendTo($(this.options.filterSelectorElement));
                 this.$drop.offset({ top: offset.top, left: offset.left });
             }
             if (this.options.filter) {
@@ -299,7 +299,7 @@
             this.options.isOpen = false;
             this.$choice.find('>div').removeClass('open');
             this.$drop.hide();
-            if (this.options.container) {
+            if (this.options.filterSelectorElement) {
                 this.$parent.append(this.$drop);
                 this.$drop.css({
                     'top': 'auto',
