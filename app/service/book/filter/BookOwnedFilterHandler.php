@@ -9,7 +9,7 @@ class BookOwnedFilterHandler implements FilterHandler
 
     public function getFilterId()
     {
-        return "personal.owned";
+        return "personal-owned";
     }
 
     public function getType()
