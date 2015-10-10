@@ -1008,7 +1008,7 @@ Applied as jQuery method.
         @method tip()
         */         
         tip: function() {
-            return this.container() ? this.container().$tip : null;
+            return this.filterSelectorElement() ? this.filterSelectorElement().$tip : null;
         },
 
         /* returns container object */
@@ -1175,7 +1175,7 @@ Applied as jQuery method.
         @param {boolean} closeAll Whether to close all other editable containers when showing this one. Default true.
         **/          
         toggle: function(closeAll) {
-            if(this.container() && this.tip() && this.tip().is(':visible')) {
+            if(this.filterSelectorElement() && this.tip() && this.tip().is(':visible')) {
                 this.hide();
             } else {
                 this.show(closeAll);
@@ -1715,8 +1715,8 @@ Makes editable any HTML element on the page. Applied as jQuery method.
             }
             
             //transfer new option to container! 
-            if(this.container) {
-                this.container.option(key, value);  
+            if(this.filterSelectorElement) {
+                this.filterSelectorElement.option(key, value);
             }
              
             //pass option to input directly (as it points to the same in form)
@@ -1785,7 +1785,7 @@ Makes editable any HTML element on the page. Applied as jQuery method.
             }
             
             //init editableContainer: popover, tooltip, inline, etc..
-            if(!this.container) {
+            if(!this.filterSelectorElement) {
                 var containerOptions = $.extend({}, this.options, {
                     value: this.value,
                     input: this.input //pass input to form (as it is already created)
@@ -1793,13 +1793,13 @@ Makes editable any HTML element on the page. Applied as jQuery method.
                 this.$element.editableContainer(containerOptions);
                 //listen `save` event 
                 this.$element.on("save.internal", $.proxy(this.save, this));
-                this.container = this.$element.data('editableContainer'); 
-            } else if(this.container.tip().is(':visible')) {
+                this.filterSelectorElement = this.$element.data('editableContainer');
+            } else if(this.filterSelectorElement.tip().is(':visible')) {
                 return;
             }      
             
             //show container
-            this.container.show(closeAll);
+            this.filterSelectorElement.show(closeAll);
         },
         
         /**
@@ -1807,8 +1807,8 @@ Makes editable any HTML element on the page. Applied as jQuery method.
         @method hide()
         **/       
         hide: function () {   
-            if(this.container) {  
-                this.container.hide();
+            if(this.filterSelectorElement) {
+                this.filterSelectorElement.hide();
             }
         },
         
@@ -1818,7 +1818,7 @@ Makes editable any HTML element on the page. Applied as jQuery method.
         @param {boolean} closeAll Whether to close all other editable containers when showing this one. Default true.
         **/  
         toggle: function(closeAll) {
-            if(this.container && this.container.tip().is(':visible')) {
+            if(this.filterSelectorElement && this.filterSelectorElement.tip().is(':visible')) {
                 this.hide();
             } else {
                 this.show(closeAll);
@@ -1906,8 +1906,8 @@ Makes editable any HTML element on the page. Applied as jQuery method.
             } else {
                 this.value = value;
             }
-            if(this.container) {
-                this.container.option('value', this.value);
+            if(this.filterSelectorElement) {
+                this.filterSelectorElement.option('value', this.value);
             }
             $.when(this.render(response))
             .then($.proxy(function() {
@@ -1920,8 +1920,8 @@ Makes editable any HTML element on the page. Applied as jQuery method.
         @method activate()
         **/         
         activate: function() {
-            if(this.container) {
-               this.container.activate(); 
+            if(this.filterSelectorElement) {
+               this.filterSelectorElement.activate();
             }
         },
         
@@ -1932,8 +1932,8 @@ Makes editable any HTML element on the page. Applied as jQuery method.
         destroy: function() {
             this.disable();
             
-            if(this.container) {
-               this.container.destroy(); 
+            if(this.filterSelectorElement) {
+               this.filterSelectorElement.destroy();
             }
             
             this.input.destroy();
@@ -4745,7 +4745,7 @@ Editableform based on Twitter Bootstrap 3
         },                               
         
         setContainerOption: function(key, value) {
-            this.container().options[key] = value; 
+            this.filterSelectorElement().options[key] = value;
         },               
 
         /**
@@ -4890,9 +4890,9 @@ Editableform based on Twitter Bootstrap 3
 
                 var orgPlacement = placement;
                 var docScroll    = document.documentElement.scrollTop || document.body.scrollTop;
-                var parentWidth  = this.options.container == 'body' ? window.innerWidth  : $parent.outerWidth();
-                var parentHeight = this.options.container == 'body' ? window.innerHeight : $parent.outerHeight();
-                var parentLeft   = this.options.container == 'body' ? 0 : $parent.offset().left;
+                var parentWidth  = this.options.filterSelectorElement == 'body' ? window.innerWidth  : $parent.outerWidth();
+                var parentHeight = this.options.filterSelectorElement == 'body' ? window.innerHeight : $parent.outerHeight();
+                var parentLeft   = this.options.filterSelectorElement == 'body' ? 0 : $parent.offset().left;
 
                 placement = placement == 'bottom' && pos.top   + pos.height  + actualHeight - docScroll > parentHeight  ? 'top'    :
                             placement == 'top'    && pos.top   - docScroll   - actualHeight < 0                         ? 'bottom' :
@@ -4911,7 +4911,7 @@ Editableform based on Twitter Bootstrap 3
             this.applyPlacement(calculatedOffset, placement);            
                      
                 
-            }).call(this.container());
+            }).call(this.filterSelectorElement());
           /*jshint laxcomma: false, eqeqeq: true*/  
         }            
     });

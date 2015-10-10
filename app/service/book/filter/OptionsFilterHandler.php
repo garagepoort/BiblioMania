@@ -10,4 +10,5 @@ interface OptionsFilterHandler extends FilterHandler
 {
 
     public function getOptions();
+
 }

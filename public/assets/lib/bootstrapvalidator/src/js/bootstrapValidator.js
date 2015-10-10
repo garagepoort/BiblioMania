@@ -303,7 +303,7 @@ if (typeof jQuery === 'undefined') {
                     group     = this.options.fields[field].group || this.options.group,
                     $parent   = $field.parents(group),
                     // Allow user to indicate where the error messages are shown
-                    container = ('function' === typeof (this.options.fields[field].container || this.options.container)) ? (this.options.fields[field].container || this.options.container).call(this, $field, this) : (this.options.fields[field].container || this.options.container),
+                    container = ('function' === typeof (this.options.fields[field].filterSelectorElement || this.options.filterSelectorElement)) ? (this.options.fields[field].filterSelectorElement || this.options.filterSelectorElement).call(this, $field, this) : (this.options.fields[field].filterSelectorElement || this.options.filterSelectorElement),
                     $message  = (container && container !== 'tooltip' && container !== 'popover') ? $(container) : this._getMessageContainer($field, group);
 
                 if (container && container !== 'tooltip' && container !== 'popover') {
@@ -1037,7 +1037,7 @@ if (typeof jQuery === 'undefined') {
                     $allErrors   = $message.find('.help-block[data-bv-validator][data-bv-for="' + field + '"]'),
                     $errors      = validatorName ? $allErrors.filter('[data-bv-validator="' + validatorName + '"]') : $allErrors,
                     $icon        = $field.data('bv.icon'),
-                    container    = ('function' === typeof (this.options.fields[field].container || this.options.container)) ? (this.options.fields[field].container || this.options.container).call(this, $field, this) : (this.options.fields[field].container || this.options.container),
+                    container    = ('function' === typeof (this.options.fields[field].filterSelectorElement || this.options.filterSelectorElement)) ? (this.options.fields[field].filterSelectorElement || this.options.filterSelectorElement).call(this, $field, this) : (this.options.fields[field].filterSelectorElement || this.options.filterSelectorElement),
                     isValidField = null;
 
                 // Update status
@@ -1125,7 +1125,7 @@ if (typeof jQuery === 'undefined') {
                     case ($icon && 'tooltip' === container):
                         (isValidField === false)
                                 ? $icon.css('cursor', 'pointer').tooltip('destroy').tooltip({
-                                    container: 'body',
+                                    filterSelectorElement: 'body',
                                     html: true,
                                     placement: 'auto top',
                                     title: $allErrors.filter('[data-bv-result="' + that.STATUS_INVALID + '"]').eq(0).html()
@@ -1136,7 +1136,7 @@ if (typeof jQuery === 'undefined') {
                     case ($icon && 'popover' === container):
                         (isValidField === false)
                                 ? $icon.css('cursor', 'pointer').popover('destroy').popover({
-                                    container: 'body',
+                                    filterSelectorElement: 'body',
                                     content: $allErrors.filter('[data-bv-result="' + that.STATUS_INVALID + '"]').eq(0).html(),
                                     html: true,
                                     placement: 'auto top',
@@ -1657,7 +1657,7 @@ if (typeof jQuery === 'undefined') {
                     // Remove feedback icons, tooltip/popover container
                     $icon = $field.data('bv.icon');
                     if ($icon) {
-                        var container = ('function' === typeof (this.options.fields[field].container || this.options.container)) ? (this.options.fields[field].container || this.options.container).call(this, $field, this) : (this.options.fields[field].container || this.options.container);
+                        var container = ('function' === typeof (this.options.fields[field].filterSelectorElement || this.options.filterSelectorElement)) ? (this.options.fields[field].filterSelectorElement || this.options.filterSelectorElement).call(this, $field, this) : (this.options.fields[field].filterSelectorElement || this.options.filterSelectorElement);
                         switch (container) {
                             case 'tooltip':
                                 $icon.tooltip('destroy').remove();
