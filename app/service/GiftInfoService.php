@@ -53,9 +53,12 @@ class GiftInfoService
             ->get();
 
         $result = array();
+        $result["Geen waarde"] = "";
         foreach($giftInfos as $gifter){
             if(!StringUtils::isEmpty($gifter->from)){
                 $result[$gifter->from] = $gifter->from;
+            }else{
+                $result["Geen waarde"] = $gifter->from;
             }
         }
 
