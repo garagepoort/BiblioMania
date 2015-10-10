@@ -30,10 +30,6 @@ class BookGiftFromFilterHandler implements OptionsFilterHandler
         /** @var GiftInfoService $giftInfoService */
         $giftInfoService = App::make("GiftInfoService");
         $gifters = $giftInfoService->getAllGifters();
-//        $options = array();
-//        foreach($publishers as $publisher){
-//            $options[$publisher->name] = $publisher->id;
-//        }
         return $gifters;
     }
 
