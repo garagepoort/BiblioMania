@@ -25,3 +25,8 @@ select.input-sm.form-control.operator-select {
 .filters-list dt {
   margin-bottom: 10px;
 }
+.multiselect-container.dropdown-menu {
+  max-height: 250px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
