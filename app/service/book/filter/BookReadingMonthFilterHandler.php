@@ -5,7 +5,8 @@ class BookReadingMonthFilterHandler implements OptionsFilterHandler
 
     public function handleFilter($queryBuilder, $value, $operator)
     {
-        return $queryBuilder->whereIn(DB::raw("MONTH(reading_date.date)"), $value);
+        return $queryBuilder
+            ->whereIn(DB::raw("MONTH(reading_date.date)"), $value);
     }
 
     public function getFilterId()
