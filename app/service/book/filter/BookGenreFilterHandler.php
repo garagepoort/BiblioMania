@@ -37,8 +37,13 @@ class BookGenreFilterHandler implements OptionsFilterHandler
     public function getOptions()
     {
         $result= array();
+        $result["Geen waarde"] = "";
         foreach($this->genreService->getAllGenres() as $genre){
-            $result[$genre->name] = $genre->name;
+            if(!StringUtils::isEmpty($genre->name)){
+                $result[$genre->name] = $genre->name;
+            }else{
+                $result["Geen waarde"] = $genre->name;
+            }
         }
         return $result;
     }
