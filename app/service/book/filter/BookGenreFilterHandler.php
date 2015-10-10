@@ -14,7 +14,9 @@ class BookGenreFilterHandler implements OptionsFilterHandler
 
     public function handleFilter($queryBuilder, $value, $operator)
     {
-        return $queryBuilder->whereIn("genre.name", $value);
+        return $queryBuilder
+            ->leftJoin('genre', 'genre.id', '=', 'book.genre_id')
+            ->whereIn("genre.name", $value);
     }
 
     public function getFilterId()
