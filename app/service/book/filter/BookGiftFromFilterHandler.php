@@ -5,7 +5,9 @@ class BookGiftFromFilterHandler implements OptionsFilterHandler
 
     public function handleFilter($queryBuilder, $value, $operator)
     {
-        return $queryBuilder->whereIn("gift_info.from", $value);
+        return $queryBuilder
+            ->leftJoin("gift_info", "gift_info.personal_book_info_id", "=", "personal_book_info.id")
+            ->whereIn("gift_info.from", $value);
     }
 
     public function getFilterId()

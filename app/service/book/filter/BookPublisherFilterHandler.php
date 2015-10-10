@@ -5,7 +5,9 @@ class BookPublisherFilterHandler implements OptionsFilterHandler
 
     public function handleFilter($queryBuilder, $value, $operator)
     {
-        return $queryBuilder->whereIn("publisher.id", $value);
+        return $queryBuilder
+            ->leftJoin("publisher", "book.publisher_id", "=", "publisher.id")
+            ->whereIn("publisher.id", $value);
     }
 
     public function getFilterId()

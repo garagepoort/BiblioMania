@@ -5,7 +5,8 @@ class BookReadingYearFilterHandler implements FilterHandler
 
     public function handleFilter($queryBuilder, $value, $operator)
     {
-        return $queryBuilder->whereYear("reading_date.date", FilterOperator::getDatabaseOperator($operator), $value);
+        return $queryBuilder
+            ->whereYear("reading_date.date", FilterOperator::getDatabaseOperator($operator), $value);
     }
 
     public function getFilterId()

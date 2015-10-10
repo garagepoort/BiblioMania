@@ -14,7 +14,8 @@ class BookLanguageFilterHandler implements OptionsFilterHandler
 
     public function handleFilter($queryBuilder, $value, $operator)
     {
-        return $queryBuilder->whereIn("book_language.language", $value);
+        return $queryBuilder->leftJoin('language as book_language', 'book.language_id', '=', 'book_language.id')
+            ->whereIn("book_language.language", $value);
     }
 
     public function getFilterId()
