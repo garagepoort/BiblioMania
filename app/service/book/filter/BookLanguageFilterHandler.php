@@ -14,17 +14,18 @@ class BookLanguageFilterHandler implements OptionsFilterHandler
 
     public function handleFilter($queryBuilder, $value, $operator)
     {
-        return $queryBuilder->where("book_language.language", "=", $value);
+        return $queryBuilder->leftJoin('language as book_language', 'book.language_id', '=', 'book_language.id')
+            ->whereIn("book_language.language", $value);
     }
 
     public function getFilterId()
     {
-        return "book.language";
+        return "book-language";
     }
 
     public function getType()
     {
-        return "options";
+        return "multiselect";
     }
 
     public function getField()
@@ -43,6 +44,6 @@ class BookLanguageFilterHandler implements OptionsFilterHandler
 
     public function getSupportedOperators()
     {
-        return array("="=>FilterOperator::EQUALS);
+        return array("in"=>FilterOperator::IN);
     }
 }
