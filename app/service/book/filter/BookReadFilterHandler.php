@@ -9,7 +9,7 @@ class BookReadFilterHandler implements FilterHandler
 
     public function getFilterId()
     {
-        return "personal.read";
+        return "personal-read";
     }
 
     public function getType()

@@ -65,9 +65,21 @@ class BookController extends BaseController
             'title' => 'Boeken',
             'order_by_options' => $this->bookService->getOrderByValues(),
             'book_id' => $bookId,
-            'scroll_id' => $scrollId,
-            'filters' => $this->bookFilterHandler->getFilters()
+            'scroll_id' => $scrollId
         ));
+    }
+
+    public function getFilters(){
+        $jsonItems = array_map(function ($item) {
+            return array(
+                "id" => $item->getFilterId(),
+                "type" => $item->getType(),
+                "field" => $item->getField(),
+                "options" => method_exists($item, "getOptions") ? $item->getOptions() : null,
+                "supportedOperators" => $item->getSupportedOperators()
+            );
+        }, $this->bookFilterHandler->getFilters());
+        return $jsonItems;
     }
 
     public function getFullBook()
@@ -82,7 +94,7 @@ class BookController extends BaseController
         if(!is_array($filters)){
             $filters = array();
         }
-
+        Session::put('book.filters', $filters);
         $filteredBooksResult = $this->bookService->filterBooks($filters);
 
         return $this->mapBooksToJson($filteredBooksResult);

@@ -14,17 +14,19 @@ class BookGenreFilterHandler implements OptionsFilterHandler
 
     public function handleFilter($queryBuilder, $value, $operator)
     {
-        return $queryBuilder->where("genre.name", "=", $value);
+        return $queryBuilder
+            ->leftJoin('genre', 'genre.id', '=', 'book.genre_id')
+            ->whereIn("genre.name", $value);
     }
 
     public function getFilterId()
     {
-        return "book.genre";
+        return "book-genre";
     }
 
     public function getType()
     {
-        return "options";
+        return "multiselect";
     }
 
     public function getField()
@@ -43,6 +45,7 @@ class BookGenreFilterHandler implements OptionsFilterHandler
 
     public function getSupportedOperators()
     {
-        return array("="=>FilterOperator::EQUALS);
+        return array("in"=>FilterOperator::IN);
     }
+
 }

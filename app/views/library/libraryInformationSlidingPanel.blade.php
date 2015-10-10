@@ -15,7 +15,8 @@
         </div>
     </div>
     <div id="libraryInformationBookMark" class="bookMark libraryInformationBookmark">
-        {{ HTML::image('images/info_icon.png', 'information',array('class'=>'info-icon')) }}
+        <div class="info-icon"></div>
+{{--        {{ HTML::image('images/info_icon.png', 'information',array('class'=>'info-icon')) }}--}}
     </div>
 </div>
 
@@ -28,14 +29,19 @@
     }
 
     $(function () {
+        var infoPanelOpen = false;
         var slidingPanel = new BorderSlidingPanel($('#libraryInformationSlidingPanel'), "left", 10);
-        $('#libraryInformationSlidingPanel').on('mouseover', function () {
-            slidingPanel.open(function () {
-            });
-        });
-        $('#libraryInformationSlidingPanel').on('mouseout', function () {
-            slidingPanel.close(function () {
-            });
+
+        $('#libraryInformationSlidingPanel').on('click', function () {
+            if (infoPanelOpen) {
+                slidingPanel.close(function () {
+                    infoPanelOpen = false;
+                });
+            } else {
+                slidingPanel.open(function () {
+                    infoPanelOpen = true;
+                });
+            }
         });
     });
 </script>
