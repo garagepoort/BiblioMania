@@ -31,8 +31,13 @@ class BookPublisherFilterHandler implements OptionsFilterHandler
         $publisherService = App::make("PublisherService");
         $publishers = $publisherService->getPublishers();
         $options = array();
+        $options["Geen waarde"] = "";
         foreach($publishers as $publisher){
-            $options[$publisher->name] = $publisher->id;
+            if(!StringUtils::isEmpty($publisher->name)){
+                $options[$publisher->name] = $publisher->id;
+            }else{
+                $options["Geen waarde"] = $publisher->id;
+            }
         }
         return $options;
     }
