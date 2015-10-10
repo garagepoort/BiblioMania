@@ -4,7 +4,9 @@ class BookBuyPriceFilterHandler implements FilterHandler
 {
     public function handleFilter($queryBuilder, $value, $operator)
     {
-        return $queryBuilder->where("buy_info.price_payed", FilterOperator::getDatabaseOperator($operator), $value);
+        return $queryBuilder
+            ->leftJoin("buy_info", "buy_info.personal_book_info_id", "=", "personal_book_info.id")
+            ->where("buy_info.price_payed", FilterOperator::getDatabaseOperator($operator), $value);
     }
 
     public function getFilterId()
