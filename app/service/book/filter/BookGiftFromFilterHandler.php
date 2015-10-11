@@ -1,5 +1,7 @@
 <?php
 
+use Bendani\PhpCommon\FilterService\Model\OptionsFilterHandler;
+
 class BookGiftFromFilterHandler implements OptionsFilterHandler
 {
 
@@ -36,5 +38,15 @@ class BookGiftFromFilterHandler implements OptionsFilterHandler
     public function getSupportedOperators()
     {
         return array("in"=>FilterOperator::IN);
+    }
+
+    public function getGroup()
+    {
+        return "buy-gift";
+    }
+
+    public function joinQuery($queryBuilder)
+    {
+        return $queryBuilder;
     }
 }

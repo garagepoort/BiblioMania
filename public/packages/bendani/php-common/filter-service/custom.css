@@ -1,0 +1,13 @@
+select.input-sm.form-control.operator-select {
+  width: 30%;
+  float: left;
+}
+.form-control.filterinput.operator-input {
+  width: 60%;
+  float: right;
+}
+.multiselect-container.dropdown-menu {
+  max-height: 250px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
