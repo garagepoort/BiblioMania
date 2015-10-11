@@ -21,11 +21,8 @@
 </div>
 
 {{ HTML::style('assets/css/libraryfilter/libraryfilter.css') }}
-{{ HTML::style('assets/lib/multi-select/css/bootstrap-multiselect.css') }}
-{{ HTML::script('assets/lib/multi-select/js/bootstrap-multiselect.js') }}
-{{ HTML::script('assets/lib/multi-select/js/bootstrap-multiselect-collapsible-groups.js') }}
-
 {{ HTML::script('packages/bendani/php-common/filter-service/filters.min.js') }}
+{{ HTML::style('packages/bendani/php-common/filter-service/filters.min.css') }}
 
 <script type="text/javascript">
     var message;
