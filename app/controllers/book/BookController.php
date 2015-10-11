@@ -33,7 +33,7 @@ class BookController extends BaseController
     private $languageService;
     /** @var  CurrencyService */
     private $currencyService;
-    /** @var  BookFilterHandler */
+    /** @var  BookFilterManager */
     private $bookFilterHandler;
 
 
@@ -53,7 +53,7 @@ class BookController extends BaseController
         $this->personalBookInfoParameterMapper = App::make('PersonalBookInfoParameterMapper');
         $this->countryService = App::make('CountryService');
         $this->languageService = App::make('LanguageService');
-        $this->bookFilterHandler = App::make('BookFilterHandler');
+        $this->bookFilterHandler = App::make('BookFilterManager');
     }
 
     public function getBooks()
@@ -70,16 +70,7 @@ class BookController extends BaseController
     }
 
     public function getFilters(){
-        $jsonItems = array_map(function ($item) {
-            return array(
-                "id" => $item->getFilterId(),
-                "type" => $item->getType(),
-                "field" => $item->getField(),
-                "options" => method_exists($item, "getOptions") ? $item->getOptions() : null,
-                "supportedOperators" => $item->getSupportedOperators()
-            );
-        }, $this->bookFilterHandler->getFilters());
-        return $jsonItems;
+        return $this->bookFilterHandler->getFiltersInJson();
     }
 
     public function getFullBook()

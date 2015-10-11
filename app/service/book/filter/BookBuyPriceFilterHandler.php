@@ -1,11 +1,12 @@
 <?php
 
+use Bendani\PhpCommon\FilterService\Model\FilterHandler;
+
 class BookBuyPriceFilterHandler implements FilterHandler
 {
     public function handleFilter($queryBuilder, $value, $operator)
     {
         return $queryBuilder
-            ->leftJoin("buy_info", "buy_info.personal_book_info_id", "=", "personal_book_info.id")
             ->where("buy_info.price_payed", FilterOperator::getDatabaseOperator($operator), $value);
     }
 
@@ -27,5 +28,15 @@ class BookBuyPriceFilterHandler implements FilterHandler
     public function getSupportedOperators()
     {
         return array("="=>FilterOperator::EQUALS, ">"=>FilterOperator::GREATER_THAN, "<"=>FilterOperator::LESS_THAN);
+    }
+
+    public function getGroup()
+    {
+        return "personal";
+    }
+
+    public function joinQuery($queryBuilder)
+    {
+        return $queryBuilder->leftJoin("buy_info", "buy_info.personal_book_info_id", "=", "personal_book_info.id");
     }
 }

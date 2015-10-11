@@ -1,5 +1,7 @@
 <?php
 
+use Bendani\PhpCommon\FilterService\Model\OptionsFilterHandler;
+
 class BookRatingFilterHandler implements OptionsFilterHandler
 {
     public function handleFilter($queryBuilder, $value, $operator)
@@ -32,4 +34,13 @@ class BookRatingFilterHandler implements OptionsFilterHandler
         return array("in"=>FilterOperator::IN);
     }
 
+    public function getGroup()
+    {
+        return "personal";
+    }
+
+    public function joinQuery($queryBuilder)
+    {
+        return $queryBuilder;
+    }
 }

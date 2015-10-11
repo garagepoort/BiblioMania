@@ -1,5 +1,7 @@
 <?php
 
+use Bendani\PhpCommon\FilterService\Model\FilterHandler;
+
 class BookRetailPriceFilterHandler implements FilterHandler
 {
     public function handleFilter($queryBuilder, $value, $operator)
@@ -25,5 +27,15 @@ class BookRetailPriceFilterHandler implements FilterHandler
     public function getSupportedOperators()
     {
         return array("="=>FilterOperator::EQUALS, ">"=>FilterOperator::GREATER_THAN, "<"=>FilterOperator::LESS_THAN);
+    }
+
+    public function getGroup()
+    {
+        return "book";
+    }
+
+    public function joinQuery($queryBuilder)
+    {
+        return $queryBuilder;
     }
 }
