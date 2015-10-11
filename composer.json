@@ -20,8 +20,8 @@
     "bendani/php-common/login-service": "1.0.*",
     "bendani/php-common/google-image-service": "1.0.*",
     "bendani/php-common/wizard-service": "3.0.*",
-    "bendani/php-common/filter-service": "dev-master",
-    "bendani/php-common/utils": "dev-master"
+    "bendani/php-common/filter-service": "1.0.*",
+    "bendani/php-common/utils": "1.0.*"
   },
   "autoload": {
     "classmap": [
