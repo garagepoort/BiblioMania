@@ -1,5 +1,7 @@
 <?php
 
+use Bendani\PhpCommon\FilterService\Model\OptionsFilterHandler;
+
 class BookCountryFilterHandler implements OptionsFilterHandler
 {
     /** @var  CountryService $countryService */
@@ -51,5 +53,15 @@ class BookCountryFilterHandler implements OptionsFilterHandler
     public function getSupportedOperators()
     {
         return array("in"=>FilterOperator::IN);
+    }
+
+    public function getGroup()
+    {
+        return "book";
+    }
+
+    public function joinQuery($queryBuilder)
+    {
+        return $queryBuilder;
     }
 }

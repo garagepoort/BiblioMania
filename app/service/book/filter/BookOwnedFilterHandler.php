@@ -1,5 +1,7 @@
 <?php
 
+use Bendani\PhpCommon\FilterService\Model\FilterHandler;
+
 class BookOwnedFilterHandler implements FilterHandler
 {
     public function handleFilter($queryBuilder, $value, $operator)
@@ -25,5 +27,15 @@ class BookOwnedFilterHandler implements FilterHandler
     public function getSupportedOperators()
     {
         return array("="=>FilterOperator::EQUALS);
+    }
+
+    public function getGroup()
+    {
+        return "personal";
+    }
+
+    public function joinQuery($queryBuilder)
+    {
+        return $queryBuilder;
     }
 }

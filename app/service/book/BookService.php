@@ -25,7 +25,7 @@ class BookService
     private $publisherService;
     /** @var  CountryService */
     private $countryService;
-    /** @var BookFilterHandler $bookFilterHandler */
+    /** @var BookFilterManager $bookFilterHandler */
     private $bookFilterHandler;
 
     function __construct()
@@ -40,7 +40,7 @@ class BookService
         $this->authorService = App::make('AuthorService');
         $this->publisherService = App::make('PublisherService');
         $this->countryService = App::make('CountryService');
-        $this->bookFilterHandler = App::make('BookFilterHandler');
+        $this->bookFilterHandler = App::make('BookFilterManager');
     }
 
     public function find($id, $with = array())

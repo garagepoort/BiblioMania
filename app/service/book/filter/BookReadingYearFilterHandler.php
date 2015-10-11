@@ -1,5 +1,7 @@
 <?php
 
+use Bendani\PhpCommon\FilterService\Model\FilterHandler;
+
 class BookReadingYearFilterHandler implements FilterHandler
 {
 
@@ -27,5 +29,15 @@ class BookReadingYearFilterHandler implements FilterHandler
     public function getSupportedOperators()
     {
         return array("="=>FilterOperator::EQUALS, ">"=>FilterOperator::GREATER_THAN, "<"=>FilterOperator::LESS_THAN);
+    }
+
+    public function getGroup()
+    {
+        return "personal";
+    }
+
+    public function joinQuery($queryBuilder)
+    {
+        return $queryBuilder;
     }
 }
