@@ -1,4 +1,5 @@
 <?php
+use Bendani\PhpCommon\Utils\Model\StringUtils;
 
 /**
  * Created by PhpStorm.

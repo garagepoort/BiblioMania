@@ -1,6 +1,8 @@
 <?php
 
 use Bendani\PhpCommon\FilterService\Model\FilterHandler;
+use Bendani\PhpCommon\FilterService\Model\FilterOperator;
+use Bendani\PhpCommon\Utils\Model\StringUtils;
 
 class BookOwnedFilterHandler implements FilterHandler
 {

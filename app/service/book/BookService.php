@@ -1,5 +1,8 @@
 <?php
 
+use Bendani\PhpCommon\FilterService\Model\FilterOperator;
+use Bendani\PhpCommon\Utils\Model\StringUtils;
+
 class BookService
 {
     const PAGES = 1000;
@@ -25,8 +28,8 @@ class BookService
     private $publisherService;
     /** @var  CountryService */
     private $countryService;
-    /** @var BookFilterManager $bookFilterHandler */
-    private $bookFilterHandler;
+    /** @var BookFilterManager $bookFilterManager */
+    private $bookFilterManager;
 
     function __construct()
     {
@@ -40,7 +43,7 @@ class BookService
         $this->authorService = App::make('AuthorService');
         $this->publisherService = App::make('PublisherService');
         $this->countryService = App::make('CountryService');
-        $this->bookFilterHandler = App::make('BookFilterManager');
+        $this->bookFilterManager = App::make('BookFilterManager');
     }
 
     public function find($id, $with = array())
@@ -238,7 +241,7 @@ class BookService
             ->where('wizard_step', '=', 'COMPLETE');
 
         foreach($filters as $filter){
-            $books = $this->bookFilterHandler->handle($filter['id'], $books, $filter['value'], $filter['operator']);
+            $books = $this->bookFilterManager->handle($filter['id'], $books, $filter['value'], $filter['operator']);
         }
 
         $books = $books->orderBy('author.name');
