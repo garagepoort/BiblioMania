@@ -1,5 +1,7 @@
 <?php
 
+use Bendani\PhpCommon\Utils\Model\StringUtils;
+
 class BookInfoParameterMapper
 {
     const TAG_DELIMITER = ";";

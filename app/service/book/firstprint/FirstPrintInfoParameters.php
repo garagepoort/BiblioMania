@@ -1,5 +1,7 @@
 <?php
 
+use Bendani\PhpCommon\Utils\Model\StringUtils;
+
 class FirstPrintInfoParameters {
 
     private $title;

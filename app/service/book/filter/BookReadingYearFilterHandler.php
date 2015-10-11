@@ -1,6 +1,7 @@
 <?php
 
 use Bendani\PhpCommon\FilterService\Model\FilterHandler;
+use Bendani\PhpCommon\FilterService\Model\FilterOperator;
 
 class BookReadingYearFilterHandler implements FilterHandler
 {
