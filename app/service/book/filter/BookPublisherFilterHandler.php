@@ -1,6 +1,8 @@
 <?php
 
+use Bendani\PhpCommon\FilterService\Model\FilterOperator;
 use Bendani\PhpCommon\FilterService\Model\OptionsFilterHandler;
+use Bendani\PhpCommon\Utils\Model\StringUtils;
 
 class BookPublisherFilterHandler implements OptionsFilterHandler
 {

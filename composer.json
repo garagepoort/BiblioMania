@@ -20,7 +20,8 @@
     "bendani/php-common/login-service": "1.0.*",
     "bendani/php-common/google-image-service": "1.0.*",
     "bendani/php-common/wizard-service": "3.0.*",
-    "bendani/php-common/filter-service": "dev-master"
+    "bendani/php-common/filter-service": "dev-master",
+    "bendani/php-common/utils": "dev-master"
   },
   "autoload": {
     "classmap": [
@@ -70,6 +71,10 @@
     {
       "type": "vcs",
       "url": "https://github.com/garagepoort/php-common-filterservice.git"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/garagepoort/php-common-utils.git"
     }
   ]
 }

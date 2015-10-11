@@ -1,5 +1,7 @@
 <?php
 
+use Bendani\PhpCommon\Utils\Model\StringUtils;
+
 class FileToBookParametersMapper {
     /** @var  DateImporter */
     private $dateImporter;
