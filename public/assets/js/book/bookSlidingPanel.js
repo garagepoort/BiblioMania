@@ -127,16 +127,14 @@ function fillInBookInfo(book) {
     //REVIEW
     showOrHide($('#book-detail-review'), book.personal_book_info.review);
     //BUY OR GIFT
+    $('.gift-info-tr').hide();
+    $('.buy-info-tr').hide();
     if (book.personal_book_info.buy_info == null) {
-        $('.buy-info-tr').hide();
-        $('.gift-info-tr').show();
         showOrHide($('#book-detail-gift-info-from'), book.personal_book_info.gift_info.from);
         showOrHide($('#book-detail-gift-info-occasion'), book.personal_book_info.gift_info.occasion);
         showOrHide($('#book-detail-gift-info-date'), dateToString(book.personal_book_info.gift_info.receipt_date));
         showOrHide($('#book-detail-gift-info-reason'), book.personal_book_info.gift_info.reason);
     } else {
-        $('.buy-info-tr').show();
-        $('.gift-info-tr').hide();
         showOrHide($('#book-detail-buy-info-date'), stringToFormattedDate(book.personal_book_info.buy_info.buy_date));
         showOrHide($('#book-detail-buy-info-price-payed'), book.personal_book_info.buy_info.price_payed + " " + book.personal_book_info.buy_info.currency);
         showOrHide($('#book-detail-buy-info-shop'), book.personal_book_info.buy_info.shop);
