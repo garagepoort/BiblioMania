@@ -93,7 +93,7 @@ function fillInBookInfo(book) {
     }
 
     // FIRST PRINT
-
+    $(".first-print-info-tr").hide();
     if (book.first_print_info != null) {
         $('book-detail-small-info-panel').show();
         showOrHide($('#book-detail-first-print-title'), book.first_print_info.title);
