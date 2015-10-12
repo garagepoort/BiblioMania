@@ -1,6 +1,4 @@
 $(document).ready(function() {
-	$("#star-rating").rating();
-
     $('#star').raty({
         score: function() {
             return $('#star-rating-input').val();
