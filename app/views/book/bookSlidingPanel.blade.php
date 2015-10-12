@@ -171,31 +171,31 @@
                 <div class="material-card-title">Eerste druk</div>
                 <div class="material-card-content">
                     <table width="100%" class="left-right-align">
-                        <tr>
+                        <tr class="first-print-info-tr">
                             <td><label>Titel:</label></td>
                             <td><label id='book-detail-first-print-title'></label></td>
                         </tr>
-                        <tr>
+                        <tr class="first-print-info-tr">
                             <td><label>Ondertitel:</label></td>
                             <td><label id='book-detail-first-print-subtitle'></label></td>
                         </tr>
-                        <tr>
+                        <tr class="first-print-info-tr">
                             <td><label>ISBN:</label></td>
                             <td><label id='book-detail-first-print-isbn'></label></td>
                         </tr>
-                        <tr>
+                        <tr class="first-print-info-tr">
                             <td><label>Land:</label></td>
                             <td><label id='book-detail-first-print-country'></label></td>
                         </tr>
-                        <tr>
+                        <tr class="first-print-info-tr">
                             <td><label>Taal:</label></td>
                             <td><label id='book-detail-first-print-language'></label></td>
                         </tr>
-                        <tr>
+                        <tr class="first-print-info-tr">
                             <td><label>Uitgever:</label></td>
                             <td><label id='book-detail-first-print-publisher'></label></td>
                         </tr>
-                        <tr>
+                        <tr class="first-print-info-tr">
                             <td><label>Publicatie datum:</label></td>
                             <td><label id='book-detail-first-print-publication-date'></label></td>
                         </tr>
