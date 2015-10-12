@@ -47,10 +47,6 @@ function addCapSlideToElement(element) {
     });
 }
 
-function addLazyLoading(imageElement) {
-    $(imageElement).lazyLoadXT();
-}
-
 function addClickToEditElement(element, bookId) {
     element.click(function (event) {
         window.location = baseUrl + "/createOrEditBook/step/1/" + bookId;
