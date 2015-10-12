@@ -161,7 +161,7 @@ function fillInBookInfo(book) {
 }
 
 function showOrHide(element, value) {
-    if (value === "" || value == 0 || value == null) {
+    if (value === "" || value == 0 || value == null || value == undefined) {
         element.parent().parent().hide();
     } else {
         element.text(value);
