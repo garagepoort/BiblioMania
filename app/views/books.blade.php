@@ -52,9 +52,6 @@
 @stop
 
 @section('content')
-    <!-- LAZY LOAD -->
-    {{ HTML::script('assets/lib/lazy-load/jquery.lazyloadxt.extra.min.js') }}
-    {{ HTML::style('assets/lib/lazy-load/jquery.lazyloadxt.spinner.min.css') }}
     <!-- JCAPSLIDE -->
     {{ HTML::script('assets/lib/jCapSlide/jquery.capSlide.js') }}
     {{ HTML::style('assets/lib/jCapSlide/css/style.css') }}
