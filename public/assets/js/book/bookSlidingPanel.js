@@ -71,7 +71,16 @@ function fillInBookInfo(book) {
     }
     showOrHide($('#book-detail-genre'), book.genre.name);
     showOrHide($('#book-detail-publication-date'), dateToString(book.publication_date));
-    $('#book-detail-summary').text(book.summary);
+    $('#book-detail-summary')
+        .expander('destroy')
+        .text(book.summary)
+        .expander({
+            expandText: 'meer',
+            userCollapseText: 'minder',
+            slicePoint: '200',
+            expandEffect: 'fadeIn',
+            collapseEffect: 'fadeOut'
+        });
     if (book.serie != null) {
         showOrHide($('#book-detail-serie'), book.serie.name);
     } else {
@@ -82,12 +91,6 @@ function fillInBookInfo(book) {
     } else {
         $('#book-detail-publisher-serie').parent().parent().hide();
     }
-
-    $('#book-detail-summary').shorten({
-        moreText: 'meer',
-        lessText: 'minder',
-        showChars: '200'
-    });
 
     // FIRST PRINT
 
