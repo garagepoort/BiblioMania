@@ -20,6 +20,8 @@ class BuyOrGiftWizardStep extends WizardStep
     private $currencyService;
     /** @var  BuyInfoService */
     private $buyInfoService;
+    /** @var  GiftInfoService */
+    private $giftInfoService;
 
     public function __construct()
     {
@@ -30,6 +32,7 @@ class BuyOrGiftWizardStep extends WizardStep
         $this->countryService = App::make('CountryService');
         $this->currencyService = App::make('CurrencyService');
         $this->buyInfoService = App::make('BuyInfoService');
+        $this->giftInfoService = App::make('GiftInfoService');
     }
 
     public function executeStep($id = null)
@@ -52,6 +55,7 @@ class BuyOrGiftWizardStep extends WizardStep
         $withArray['currencies'] = $this->currencyService->getCurrencies();
         $withArray['shops_json'] = json_encode($this->buyInfoService->getAllShops());
         $withArray['countries_json'] = json_encode($this->countryService->getCountries());
+        $withArray['gifters_json'] = json_encode($this->giftInfoService->getAllGifters());
         $withArray['title'] = $withArray['book_title'];
         return View::make($this->bookFolder . 'buyOrGiftInfo')->with($withArray);
     }
