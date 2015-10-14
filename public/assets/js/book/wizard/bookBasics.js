@@ -22,13 +22,6 @@ $(function () {
 
     initializeGenre();
 
-    $('#book_author_input').autocomplete({
-        lookup: window.author_names
-    });
-
-    $('#book-info-tab-link').click(function () {
-        fillAuthorInput();
-    });
     $('#searchGoogleInformationButton').click(function () {
         searchBook($('#book_isbn_input').val());
     });
@@ -44,22 +37,6 @@ $(function () {
     })
 
     $('.collapsible').collapsible();
-
-    $('#book_author_input').focusout(function () {
-        var oldAuthor = getAuthorFullString();
-        if ($('#book_author_input').val() != oldAuthor) {
-            if (isBookLinked()) {
-                showConfirmDialog('Bent u zeker?', oeuvreMessage, function () {
-                    unlink();
-                    fillInAuthorNamesFromBookInfo();
-                }, function () {
-                    $('#book_author_input').val(oldAuthor);
-                });
-            } else {
-                fillInAuthorNamesFromBookInfo();
-            }
-        }
-    });
 
     $(".genre-listitem").click(function () {
         $(".active").removeClass("active");
