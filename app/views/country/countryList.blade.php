@@ -42,4 +42,5 @@
         </div>
     </div>
     {{ HTML::script('assets/js/country/countryList.js'); }}
+    {{ HTML::script('assets/js/country/CountryService.js'); }}
 @stop
