@@ -1,6 +1,7 @@
 $(function () {
 
     $.fn.editable.defaults.mode = 'inline';
+    var imagesLookedUp = false;
 
     var authorImageObject = getAuthorImageObject(author_json);
     $('#author-image-div').attr('style',
@@ -16,6 +17,10 @@ $(function () {
 
     $('#author-image-edit-wrapper').on("click", function(){
         $('#author-image-upload-div').toggle();
+        if(!imagesLookedUp){
+            doAuthorGoogleImageSearch();
+            imagesLookedUp = true;
+        }
     });
 
 
@@ -52,8 +57,6 @@ $(function () {
             function(){}
         );
     });
-
-    doAuthorGoogleImageSearch();
 });
 
 function doAuthorGoogleImageSearch() {
