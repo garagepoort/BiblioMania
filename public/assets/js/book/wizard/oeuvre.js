@@ -53,24 +53,18 @@ $(".oeuvre-author-cross").on("click", function () {
 $(".linkLabel").on("click", function () {
     var oeuvreId = $(this).parent().attr('oeuvre-id');
     var bookId = $(this).parent().attr('book-id');
-    showConfirmDialog('Bent u zeker dat u dit wilt de link leggen?', "",
-        function () {
-            $.post(baseUrl + "/linkBookToBookFromAuthor",
-                {
-                    book_id: bookId,
-                    book_from_author_id: oeuvreId
-                },
-                function (data, status) {
-                    if (status === "success") {
-                        location.reload();
-                    }
-                }).fail(function () {
-                    BootstrapDialog.show({
-                        message: 'Er ging iets mis. Refresh de pagina even en probeer opnieuw!'
-                    });
-                });
-        },
-        function () {
+
+    ConfirmationDialog.show({
+        message: 'Bent u zeker dat u dit wilt de link leggen?',
+        onConfirmAction: function(){
+            BookFromAuthorService.linkBook({
+                bookId: bookId,
+                bookFromAuthorId: oeuvreId,
+                showNotifications: true,
+                onSuccess: function(){
+                    location.reload();
+                }
+            });
         }
-    );
+    });
 });

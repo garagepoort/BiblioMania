@@ -10,24 +10,16 @@ function CountryService() {
  * */
 CountryService.deleteCountry = function (options) {
     var DELETE_COUNTRY_URL = baseUrl + "/deleteCountry";
-    $.post(DELETE_COUNTRY_URL,
-        {countryId: options.countryId},
-        function (data, status) {
-            if (status === "success") {
-                if(options.onSuccess){
-                    options.onSuccess();
-                }
-                if (options.showNotifications) {
-                    showNotification('', 'Succesvol verwijdert.', 'success');
-                }
-            }
-        })
-        .fail(function (data) {
-            if (options.onFailure) {
-                options.onFailure();
-            }
-            if (options.showNotifications) {
-                showNotification('Opgelet!', data.responseJSON.message, 'danger');
-            }
-        });
+
+    var postOptions = {
+        url: DELETE_COUNTRY_URL,
+        data: {countryId: options.countryId},
+        onSuccess: options.onSuccess,
+        onFailure: options.onFailure
+    }
+    if(options.showNotifications){
+        postOptions.onSuccessNotification = 'Succesvol verwijdert.';
+    }
+
+    ResourceUtilities.doPost(postOptions);
 }
