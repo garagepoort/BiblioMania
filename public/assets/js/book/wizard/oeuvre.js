@@ -41,11 +41,20 @@ $(".oeuvre-author-cross").on("click", function () {
                 },
                 function (data, status) {
                     if (status === "success") {
+                        $.notify({
+                            title: '<strong>Succes!</strong>',
+                            message: 'Het oeuvre item is succesvol verwijdert.'
+                        },{
+                            type: 'success'
+                        });
                         trElement.remove();
                     }
                 }).fail(function () {
-                    BootstrapDialog.show({
-                        message: 'Er ging iets mis. Refresh de pagina even en probeer opnieuw!'
+                    $.notify({
+                        title: '<strong>Opgelet!</strong>',
+                        message: 'Er ging iets mis probeer het later opnieuw.'
+                    },{
+                        type: 'danger'
                     });
                 });
         },
