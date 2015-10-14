@@ -42,14 +42,10 @@ $(document).ready(function () {
                 function (data, status) {
                     if (status === "success") {
                         trElement.remove();
-                        BootstrapDialog.show({
-                            message: 'Succesvol verwijdert!'
-                        });
+                        showNotification('', 'Succesvol verwijdert.', 'success');
                     }
                 }).fail(function (data) {
-                    BootstrapDialog.show({
-                        message: data.responseJSON.message
-                    });
+                    showNotification('Opgelet!', data.responseJSON.message, 'danger');
                 });
         }, function () {
         });
@@ -146,15 +142,11 @@ $(document).ready(function () {
                         if (status === "success") {
                             emptySessionStorage();
                             dialogItself.close();
-                            BootstrapDialog.show({
-                                message: 'Succesvol samengevoegd!'
-                            });
+                            showNotification('', 'Succesvol samengevoegd.', 'success');
                         }
                     }).fail(function (data) {
                         emptySessionStorage();
-                        BootstrapDialog.show({
-                            message: data.responseJSON.message
-                        });
+                        showNotification('Opgelet!', data.responseJSON.message, 'danger');
                     });
             },
             function () {

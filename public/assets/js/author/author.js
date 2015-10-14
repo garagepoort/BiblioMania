@@ -35,27 +35,17 @@ $(function () {
         var author_oeuvre = $.grep(author_json.oeuvre, function (e) {
             return e.id == oeuvreId;
         })[0];
-        showConfirmDialog('Bent u zeker dat u dit wilt verwijderen?', author_oeuvre.title + " - " + author_oeuvre.publication_year,
-            function () {
-                $.post(baseUrl + "/deleteBookFromAuthor",
-                    {
-                        bookFromAuthorId: oeuvreId
-                    },
-                    function (data, status) {
-                        if (status === "success") {
-                            trElement.remove();
-                            BootstrapDialog.show({
-                                message: 'Succesvol verwijdert!'
-                            });
-                        }
-                    }).fail(function () {
-                        BootstrapDialog.show({
-                            message: 'Er ging iets mis. Refresh de pagina even en probeer opnieuw!'
-                        });
-                    });
-            },
-            function(){}
-        );
+
+        ConfirmationDialog.show({
+            message: 'Bent u zeker dat u item ' + author_oeuvre.title +' wilt verwijderen?',
+            onConfirmAction: function (){
+                BookFromAuthorService.deleteBookFromAuthor({
+                    bookFromAuthorId: oeuvreId,
+                    showNotifications: true,
+                    onSuccess: function (){ trElement.remove(); }
+                });
+            }
+        });
     });
 });
 

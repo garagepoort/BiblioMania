@@ -176,6 +176,15 @@ function showLoadingDialog(){
     });
 }
 
+function showNotification(title, message, type){
+    $.notify({
+        title: '<strong>' + title + '</strong>',
+        message: message
+    },{
+        type: type
+    });
+}
+
 function hideLoadingDialog(){
     $.isLoading("hide");
 }
