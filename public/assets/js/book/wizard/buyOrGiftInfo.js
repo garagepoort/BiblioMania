@@ -16,6 +16,9 @@ $(function() {
     $('#buy_info_shop').autocomplete({
         lookup: window.shop_names
     });
+    $('#gift_info_from').autocomplete({
+        lookup: window.gifter_names
+    });
 
     $("#buyRadioButton, #giftRadioButton").change(function () {
         togglePanels();

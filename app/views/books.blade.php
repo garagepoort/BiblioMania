@@ -24,7 +24,7 @@
             </td>
             <td>
                 <div class="input-group-btn search-panel-operator">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    <button type="button" class="btn btn-default dropdown-toggle no-round-corners" data-toggle="dropdown">
                         <span id="search_concept">bevat</span> <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" role="menu">
@@ -52,9 +52,6 @@
 @stop
 
 @section('content')
-    <!-- LAZY LOAD -->
-    {{ HTML::script('assets/lib/lazy-load/jquery.lazyloadxt.extra.min.js') }}
-    {{ HTML::style('assets/lib/lazy-load/jquery.lazyloadxt.spinner.min.css') }}
     <!-- JCAPSLIDE -->
     {{ HTML::script('assets/lib/jCapSlide/jquery.capSlide.js') }}
     {{ HTML::style('assets/lib/jCapSlide/css/style.css') }}

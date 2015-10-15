@@ -21,18 +21,8 @@
 </div>
 
 {{ HTML::style('assets/css/libraryfilter/libraryfilter.css') }}
-{{ HTML::style('assets/lib/multi-select/css/bootstrap-multiselect.css') }}
-{{ HTML::script('assets/lib/multi-select/js/bootstrap-multiselect.js') }}
-{{ HTML::script('assets/lib/multi-select/js/bootstrap-multiselect-collapsible-groups.js') }}
-
-{{ HTML::script('assets/js/filter/Filter.js') }}
-{{ HTML::script('assets/js/filter/FilterRepository.js') }}
-{{ HTML::script('assets/js/filter/MultiSelectFilter.js') }}
-{{ HTML::script('assets/js/filter/OptionsFilters.js') }}
-{{ HTML::script('assets/js/filter/BooleanFilter.js') }}
-{{ HTML::script('assets/js/filter/TextFilter.js') }}
-{{ HTML::script('assets/js/filter/NumberFilter.js') }}
-{{ HTML::script('assets/js/filter/OperatorSelector.js') }}
+{{ HTML::script('packages/bendani/php-common/filter-service/filters.min.js') }}
+{{ HTML::style('packages/bendani/php-common/filter-service/filters.min.css') }}
 
 <script type="text/javascript">
     var message;
@@ -85,36 +75,21 @@
     }
 
     function fillFilterRepository(filters) {
-        for (var f in filters) {
-            var filter = filters[f];
-            var filterId = filter.id;
-            var filterType = filter.type;
-            var filterField = filter.field;
-            var filterOperators = filter.supportedOperators;
-            var filterOptions = [];
-
-            if (filter.options != undefined) {
-                filterOptions = filter.options;
-            }
-
-            var filter = new Filter(filterId, filterType, filterField, filterOperators, filterOptions, function (filter, selected) {
-                if (selected) {
-                    if (filter.id.startsWith("book-")) {
-                        $('#book-form-container').append(filter.getFilterValueInputElement());
-                    }
-                    if (filter.id.startsWith("personal-")) {
-                        $('#personal-form-container').append(filter.getFilterValueInputElement());
-                    }
-                    if (filter.id.startsWith("buy-gift-")) {
-                        $('#buy-gift-form-container').append(filter.getFilterValueInputElement());
-                    }
-                } else {
-                    filter.removeFilterInputFromDom();
+        FilterRepository.fillFilterRepository(filters, function (filter, selected) {
+            if (selected) {
+                if (filter.id.startsWith("book-")) {
+                    $('#book-form-container').append(filter.getFilterValueInputElement());
                 }
-            });
-
-            FilterRepository.addFilter(filterId, filter);
-        }
+                if (filter.id.startsWith("personal-")) {
+                    $('#personal-form-container').append(filter.getFilterValueInputElement());
+                }
+                if (filter.id.startsWith("buy-gift-")) {
+                    $('#buy-gift-form-container').append(filter.getFilterValueInputElement());
+                }
+            } else {
+                filter.removeFilterInputFromDom();
+            }
+        });
     }
 
     function constructFilterMessage() {

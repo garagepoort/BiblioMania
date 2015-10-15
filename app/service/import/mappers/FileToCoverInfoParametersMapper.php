@@ -1,5 +1,7 @@
 <?php
 
+use Bendani\PhpCommon\Utils\Model\StringUtils;
+
 class FileToCoverInfoParametersMapper {
 
     public function map($line_values){

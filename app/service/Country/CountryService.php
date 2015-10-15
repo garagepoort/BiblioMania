@@ -62,7 +62,7 @@ class CountryService
 
             $this->countryRepository->delete($country);
         }else{
-            throw new ServiceException("country.error.notDeletable " . $country->name);
+            throw new ServiceException("Je kan geen land verwijderen dat nog bestaande links heeft met boeken, steden, auteurs of eerste drukken.");
         }
     }
 

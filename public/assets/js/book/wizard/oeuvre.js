@@ -30,51 +30,34 @@ function validateForm() {
 $(".oeuvre-author-cross").on("click", function () {
     var trElement = $(this).parent().parent();
     var oeuvreId = $(this).parent().attr('oeuvre-id');
-    //var author_oeuvre = $.grep(author_json.oeuvre, function (e) {
-    //    return e.id == oeuvreId;
-    //})[0];
-    showConfirmDialog('Bent u zeker dat u dit wilt verwijderen?', "",
-        function () {
-            $.post(baseUrl + "/deleteBookFromAuthor",
-                {
-                    bookFromAuthorId: oeuvreId
-                },
-                function (data, status) {
-                    if (status === "success") {
-                        trElement.remove();
-                    }
-                }).fail(function () {
-                    BootstrapDialog.show({
-                        message: 'Er ging iets mis. Refresh de pagina even en probeer opnieuw!'
-                    });
-                });
-        },
-        function () {
+
+    ConfirmationDialog.show({
+        message: 'Bent u zeker dat u oeuvre item wilt verwijderen?',
+        onConfirmAction: function (){
+            BookFromAuthorService.deleteBookFromAuthor({
+                bookFromAuthorId: oeuvreId,
+                showNotifications: true,
+                onSuccess: function (){ trElement.remove(); }
+            });
         }
-    );
+    });
 });
 
 $(".linkLabel").on("click", function () {
     var oeuvreId = $(this).parent().attr('oeuvre-id');
     var bookId = $(this).parent().attr('book-id');
-    showConfirmDialog('Bent u zeker dat u dit wilt de link leggen?', "",
-        function () {
-            $.post(baseUrl + "/linkBookToBookFromAuthor",
-                {
-                    book_id: bookId,
-                    book_from_author_id: oeuvreId
-                },
-                function (data, status) {
-                    if (status === "success") {
-                        location.reload();
-                    }
-                }).fail(function () {
-                    BootstrapDialog.show({
-                        message: 'Er ging iets mis. Refresh de pagina even en probeer opnieuw!'
-                    });
-                });
-        },
-        function () {
+
+    ConfirmationDialog.show({
+        message: 'Bent u zeker dat u dit wilt de link leggen?',
+        onConfirmAction: function(){
+            BookFromAuthorService.linkBook({
+                bookId: bookId,
+                bookFromAuthorId: oeuvreId,
+                showNotifications: true,
+                onSuccess: function(){
+                    location.reload();
+                }
+            });
         }
-    );
+    });
 });

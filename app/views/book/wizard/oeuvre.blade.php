@@ -84,5 +84,6 @@
     </script>
     {{ HTML::script('assets/js/book/wizard/createBook.js'); }}
     {{ HTML::script('assets/js/book/wizard/oeuvre.js'); }}
+    {{ HTML::script('assets/js/author/BookFromAuthorService.js'); }}
 @endsection
 @stop

@@ -1,5 +1,8 @@
 <?php
 
+use Bendani\PhpCommon\FilterService\Model\FilterOperator;
+use Bendani\PhpCommon\FilterService\Model\OptionsFilterHandler;
+
 class BookLanguageFilterHandler implements OptionsFilterHandler
 {
     /** @var  LanguageService $languageService */
@@ -45,5 +48,15 @@ class BookLanguageFilterHandler implements OptionsFilterHandler
     public function getSupportedOperators()
     {
         return array("in"=>FilterOperator::IN);
+    }
+
+    public function getGroup()
+    {
+        return "book";
+    }
+
+    public function joinQuery($queryBuilder)
+    {
+        return $queryBuilder;
     }
 }

@@ -1,10 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: david
- * Date: 06/06/15
- * Time: 23:05
- */
+
+use Bendani\PhpCommon\Utils\Model\BasicEnum;
 
 class ImageSaveType extends BasicEnum {
 
