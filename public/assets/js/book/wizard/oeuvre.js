@@ -30,24 +30,17 @@ function validateForm() {
 $(".oeuvre-author-cross").on("click", function () {
     var trElement = $(this).parent().parent();
     var oeuvreId = $(this).parent().attr('oeuvre-id');
-    showConfirmDialog('Bent u zeker dat u dit wilt verwijderen?', "",
-        function () {
-            $.post(baseUrl + "/deleteBookFromAuthor",
-                {
-                    bookFromAuthorId: oeuvreId
-                },
-                function (data, status) {
-                    if (status === "success") {
-                        showNotification('Succes!', 'Het oeuvre item is succesvol verwijdert.', 'success');
-                        trElement.remove();
-                    }
-                }).fail(function () {
-                    showNotification('Opgelet!', 'Er ging iets mis probeer het later opnieuw.', 'danger');
-                });
-        },
-        function () {
+
+    ConfirmationDialog.show({
+        message: 'Bent u zeker dat u oeuvre item wilt verwijderen?',
+        onConfirmAction: function (){
+            BookFromAuthorService.deleteBookFromAuthor({
+                bookFromAuthorId: oeuvreId,
+                showNotifications: true,
+                onSuccess: function (){ trElement.remove(); }
+            });
         }
-    );
+    });
 });
 
 $(".linkLabel").on("click", function () {

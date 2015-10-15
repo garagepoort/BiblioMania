@@ -15,6 +15,7 @@ $(document).ready(function() {
             function(data, status){
                 if(status === "success"){
                     showNotification('', 'Succesvol samengevoegd.', 'success');
+                    location.reload();
                 }
             }).fail(function(data){
                 showNotification('Opgelet!', data.responseJSON.message, 'danger');
