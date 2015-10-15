@@ -5,21 +5,20 @@ $(document).ready(function() {
 
 
     var mergeCountriesFunction = function(){
-        $.post(baseUrl + "/mergeCountries",
+        var MERGE_COUNTRIES_URL = baseUrl + "/mergeCountries";
+
+        $.post(MERGE_COUNTRIES_URL,
             {
                 country1_id:newMergePanel.getSelectedMergeId(),
                 country2_id:newMergePanel.getSecondMergeId()
             },
             function(data, status){
                 if(status === "success"){
-                    BootstrapDialog.show({
-                        message: 'Succesvol samengevoegd!'
-                    });
+                    showNotification('', 'Succesvol samengevoegd.', 'success');
+                    location.reload();
                 }
             }).fail(function(data){
-                BootstrapDialog.show({
-                    message: data.responseJSON.message
-                });
+                showNotification('Opgelet!', data.responseJSON.message, 'danger');
             });
     }
 
@@ -72,23 +71,16 @@ $(document).ready(function() {
     $('.countrylist-cross').on('click', function(){
         var trElement = $(this).parent().parent();
         var countryId = trElement.attr('country-id');
-        showConfirmDialog('Bent u zeker dat u het land wilt verwijderen?', '', function(){
-            $.post(baseUrl + "/deleteCountry",
-                {
-                    countryId:countryId
-                },
-                function(data, status){
-                    if(status === "success"){
-                        trElement.remove();
-                        BootstrapDialog.show({
-                            message: 'Succesvol verwijdert!'
-                        });
-                    }
-                }).fail(function(data){
-                    BootstrapDialog.show({
-                        message: data.responseJSON.message
-                    });
+
+        ConfirmationDialog.show({
+            message: 'Bent u zeker dat u het land wilt verwijderen?',
+            onConfirmAction: function() {
+                CountryService.deleteCountry({
+                    countryId: countryId,
+                    showNotifications: true,
+                    onSuccess: function (){ trElement.remove(); }
                 });
-        }, function(){});
+            }
+        });
     });
 });

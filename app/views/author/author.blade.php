@@ -87,4 +87,5 @@
         var author_json = {{ $author_json }};
     </script>
     {{ HTML::script('assets/js/author/author.js'); }}
+    {{ HTML::script('assets/js/author/BookFromAuthorService.js'); }}
 @stop

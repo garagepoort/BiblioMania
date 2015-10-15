@@ -15,7 +15,13 @@
   font-weight: bold;
   src: url("../fonts/Vincent-Regular.otf") format("opentype");
 }
-* {
+.no-round-corners {
+  -webkit-border-radius: 0 !important;
+  -moz-border-radius: 0 !important;
+  border-radius: 0 !important;
+}
+input,
+button {
   -webkit-border-radius: 0 !important;
   -moz-border-radius: 0 !important;
   border-radius: 0 !important;
@@ -631,7 +637,6 @@ table.book-detail-info-table td {
 }
 ul.nav li a {
   color: #2d6ca2;
-  background-color: #1D2326;
 }
 .drawer-icon {
   float: left;

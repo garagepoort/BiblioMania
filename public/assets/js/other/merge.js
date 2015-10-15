@@ -15,15 +15,16 @@ MergePanel.prototype.showMergeDialog = function () {
     var message = '1: ' + this.firstItem.name + '\n';
     message = message + '2: ' + this.secondItem.name;
 
-    showConfirmDialog('Ben je zeker dat je dit wilt samenvoegen?', message,
-        function () {
-            that.mergeAction();
-        },
-        function () {
+    ConfirmationDialog.show({
+        title: 'Ben je zeker dat je dit wilt samenvoegen?',
+        message: message,
+        onConfirmAction: that.mergeAction,
+        onCancelAction: function () {
             that.emptyItems();
             that.cancelAction();
             that.refreshMergePanel();
-        });
+        }
+    });
 }
 
 MergePanel.prototype.checkMergeItem = function (itemId, itemName) {

@@ -1,5 +1,7 @@
 <?php
 
+use Bendani\PhpCommon\Utils\Model\StringUtils;
+
 abstract class LineMapping
 {
     public static $BookTitle = "INVALID";

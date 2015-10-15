@@ -1,6 +1,7 @@
 $(function () {
 
     $.fn.editable.defaults.mode = 'inline';
+    var imagesLookedUp = false;
 
     var authorImageObject = getAuthorImageObject(author_json);
     $('#author-image-div').attr('style',
@@ -16,6 +17,10 @@ $(function () {
 
     $('#author-image-edit-wrapper').on("click", function(){
         $('#author-image-upload-div').toggle();
+        if(!imagesLookedUp){
+            doAuthorGoogleImageSearch();
+            imagesLookedUp = true;
+        }
     });
 
 
@@ -30,30 +35,18 @@ $(function () {
         var author_oeuvre = $.grep(author_json.oeuvre, function (e) {
             return e.id == oeuvreId;
         })[0];
-        showConfirmDialog('Bent u zeker dat u dit wilt verwijderen?', author_oeuvre.title + " - " + author_oeuvre.publication_year,
-            function () {
-                $.post(baseUrl + "/deleteBookFromAuthor",
-                    {
-                        bookFromAuthorId: oeuvreId
-                    },
-                    function (data, status) {
-                        if (status === "success") {
-                            trElement.remove();
-                            BootstrapDialog.show({
-                                message: 'Succesvol verwijdert!'
-                            });
-                        }
-                    }).fail(function () {
-                        BootstrapDialog.show({
-                            message: 'Er ging iets mis. Refresh de pagina even en probeer opnieuw!'
-                        });
-                    });
-            },
-            function(){}
-        );
-    });
 
-    doAuthorGoogleImageSearch();
+        ConfirmationDialog.show({
+            message: 'Bent u zeker dat u item ' + author_oeuvre.title +' wilt verwijderen?',
+            onConfirmAction: function (){
+                BookFromAuthorService.deleteBookFromAuthor({
+                    bookFromAuthorId: oeuvreId,
+                    showNotifications: true,
+                    onSuccess: function (){ trElement.remove(); }
+                });
+            }
+        });
+    });
 });
 
 function doAuthorGoogleImageSearch() {

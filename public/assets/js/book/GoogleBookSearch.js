@@ -11,11 +11,11 @@ function searchBook(isbn){
                     volumeInfo = data.items[0].volumeInfo;
                     $('#book_title_input').val(volumeInfo.title);
 
-                    if(volumeInfo.authors != undefined){
-                        authorFirstName = volumeInfo.authors[0].split(" ")[0];
-                        authorLastName = volumeInfo.authors[0].split(" ")[1];
-                        $('#book_author_input').val(authorLastName + ", " +authorFirstName);
-                    }
+                    //if(volumeInfo.authors != undefined){
+                    //    authorFirstName = volumeInfo.authors[0].split(" ")[0];
+                    //    authorLastName = volumeInfo.authors[0].split(" ")[1];
+                    //    $('#book_author_input').val(authorLastName + ", " +authorFirstName);
+                    //}
 
                     if(volumeInfo.publisher){
                         $('#book_publisher_input').val(volumeInfo.publisher)
@@ -25,13 +25,13 @@ function searchBook(isbn){
                         $('#book_publication_date_year').val(volumeInfo.publishedDate.substring(0,4))
                     }
 
-                    if(volumeInfo.pageCount){
-                        $('#book_number_of_pages_input').val(volumeInfo.pageCount)
-                    }
-
-                    if(volumeInfo.description){
-                        $('#book_summary_input').val(volumeInfo.description)
-                    }
+                    //if(volumeInfo.pageCount){
+                    //    $('#book_number_of_pages_input').val(volumeInfo.pageCount)
+                    //}
+                    //
+                    //if(volumeInfo.description){
+                    //    $('#book_summary_input').val(volumeInfo.description)
+                    //}
                 }
             }
             $.isLoading("hide");

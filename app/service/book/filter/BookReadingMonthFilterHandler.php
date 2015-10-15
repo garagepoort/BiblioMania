@@ -1,5 +1,8 @@
 <?php
 
+use Bendani\PhpCommon\FilterService\Model\FilterOperator;
+use Bendani\PhpCommon\FilterService\Model\OptionsFilterHandler;
+
 class BookReadingMonthFilterHandler implements OptionsFilterHandler
 {
 
@@ -45,5 +48,15 @@ class BookReadingMonthFilterHandler implements OptionsFilterHandler
     public function getSupportedOperators()
     {
         return array("in"=>FilterOperator::IN);
+    }
+
+    public function getGroup()
+    {
+        return "personal";
+    }
+
+    public function joinQuery($queryBuilder)
+    {
+        return $queryBuilder;
     }
 }
