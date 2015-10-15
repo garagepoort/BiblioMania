@@ -24,7 +24,7 @@
             </td>
             <td>
                 <div class="input-group-btn search-panel-operator">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    <button type="button" class="btn btn-default dropdown-toggle no-round-corners" data-toggle="dropdown">
                         <span id="search_concept">bevat</span> <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" role="menu">
