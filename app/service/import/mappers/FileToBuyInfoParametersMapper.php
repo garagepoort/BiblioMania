@@ -1,5 +1,7 @@
 <?php
 
+use Bendani\PhpCommon\Utils\Model\StringUtils;
+
 class FileToBuyInfoParametersMapper {
 
     public function map($line_values){

@@ -1,5 +1,9 @@
 <?php
 
+use Bendani\PhpCommon\FilterService\Model\FilterOperator;
+use Bendani\PhpCommon\FilterService\Model\OptionsFilterHandler;
+use Bendani\PhpCommon\Utils\Model\StringUtils;
+
 class BookGenreFilterHandler implements OptionsFilterHandler
 {
     /** @var  GenreService $genreService */
@@ -53,4 +57,13 @@ class BookGenreFilterHandler implements OptionsFilterHandler
         return array("in"=>FilterOperator::IN);
     }
 
+    public function getGroup()
+    {
+        return "book";
+    }
+
+    public function joinQuery($queryBuilder)
+    {
+        return $queryBuilder;
+    }
 }

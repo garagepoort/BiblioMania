@@ -34,24 +34,16 @@ $(document).ready(function () {
     $('.publisherlist-cross').on('click', function () {
         var trElement = $(this).parent().parent();
         var publisherId = trElement.attr('publisher-id');
-        showConfirmDialog('Bent u zeker dat u de uitgever wilt verwijderen?', '', function () {
-            $.post(baseUrl + "/deletePublisher",
-                {
-                    publisherId: publisherId
-                },
-                function (data, status) {
-                    if (status === "success") {
-                        trElement.remove();
-                        BootstrapDialog.show({
-                            message: 'Succesvol verwijdert!'
-                        });
-                    }
-                }).fail(function (data) {
-                    BootstrapDialog.show({
-                        message: data.responseJSON.message
-                    });
+
+        ConfirmationDialog.show({
+            message: 'Bent u zeker dat u de uitgever wilt verwijderen?',
+            onConfirmAction: function(){
+                PublisherService.deletePublisher({
+                    publisherId: publisherId,
+                    onSuccess: function(){trElement.remove();},
+                    showNotifications: true
                 });
-        }, function () {
+            }
         });
     });
 
@@ -135,32 +127,30 @@ $(document).ready(function () {
         var message = 'Uitgever 1: ' + publisher1_name + '\n';
         message = message + 'Uitgever 2: ' + publisher2_name;
 
-        showConfirmDialog('Ben je zeker dat je deze uitgevers wilt samenvoegen?', message,
-            function () {
-                $.post(baseUrl + "/mergePublishers",
-                    {
-                        publisher1_id: publisher1_id === mergePublisherId ? publisher1_id : publisher2_id,
-                        publisher2_id: publisher2_id === mergePublisherId ? publisher1_id : publisher2_id
-                    },
-                    function (data, status) {
-                        if (status === "success") {
-                            emptySessionStorage();
-                            dialogItself.close();
-                            BootstrapDialog.show({
-                                message: 'Succesvol samengevoegd!'
-                            });
-                        }
-                    }).fail(function (data) {
+        var p1 = publisher1_id === mergePublisherId ? publisher1_id : publisher2_id;
+        var p2 = publisher2_id === mergePublisherId ? publisher1_id : publisher2_id;
+        ConfirmationDialog.show({
+            title: 'Ben je zeker dat je deze uitgevers wilt samenvoegen?',
+            message: message,
+            onConfirmAction: function(){
+                PublisherService.mergePublishers({
+                    publisher1_id: p1,
+                    publisher2_id: p2,
+                    showNotifications: true,
+                    onSuccess: function(){
                         emptySessionStorage();
-                        BootstrapDialog.show({
-                            message: data.responseJSON.message
-                        });
-                    });
+                        location.reload();
+                    },
+                    onFailure: function(){
+                        emptySessionStorage();
+                    }
+                });
             },
-            function () {
+            onCancelAction: function(){
                 emptySessionStorage();
                 fillInMergePanel();
-            });
+            }
+        });
     }
 
     function publisher1Selected() {

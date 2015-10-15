@@ -1,5 +1,8 @@
 <?php
 
+use Bendani\PhpCommon\FilterService\Model\FilterOperator;
+use Bendani\PhpCommon\Utils\Model\StringUtils;
+
 class AuthorService
 {
     /** @var  ImageService */

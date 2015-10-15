@@ -71,7 +71,16 @@ function fillInBookInfo(book) {
     }
     showOrHide($('#book-detail-genre'), book.genre.name);
     showOrHide($('#book-detail-publication-date'), dateToString(book.publication_date));
-    $('#book-detail-summary').text(book.summary);
+    $('#book-detail-summary')
+        .expander('destroy')
+        .text(book.summary)
+        .expander({
+            expandText: 'meer',
+            userCollapseText: 'minder',
+            slicePoint: '200',
+            expandEffect: 'fadeIn',
+            collapseEffect: 'fadeOut'
+        });
     if (book.serie != null) {
         showOrHide($('#book-detail-serie'), book.serie.name);
     } else {
@@ -83,14 +92,8 @@ function fillInBookInfo(book) {
         $('#book-detail-publisher-serie').parent().parent().hide();
     }
 
-    $('#book-detail-summary').shorten({
-        moreText: 'meer',
-        lessText: 'minder',
-        showChars: '200'
-    });
-
     // FIRST PRINT
-
+    $(".first-print-info-tr").hide();
     if (book.first_print_info != null) {
         $('book-detail-small-info-panel').show();
         showOrHide($('#book-detail-first-print-title'), book.first_print_info.title);
@@ -124,16 +127,14 @@ function fillInBookInfo(book) {
     //REVIEW
     showOrHide($('#book-detail-review'), book.personal_book_info.review);
     //BUY OR GIFT
+    $('.gift-info-tr').hide();
+    $('.buy-info-tr').hide();
     if (book.personal_book_info.buy_info == null) {
-        $('.buy-info-tr').hide();
-        $('.gift-info-tr').show();
         showOrHide($('#book-detail-gift-info-from'), book.personal_book_info.gift_info.from);
         showOrHide($('#book-detail-gift-info-occasion'), book.personal_book_info.gift_info.occasion);
         showOrHide($('#book-detail-gift-info-date'), dateToString(book.personal_book_info.gift_info.receipt_date));
         showOrHide($('#book-detail-gift-info-reason'), book.personal_book_info.gift_info.reason);
     } else {
-        $('.buy-info-tr').show();
-        $('.gift-info-tr').hide();
         showOrHide($('#book-detail-buy-info-date'), stringToFormattedDate(book.personal_book_info.buy_info.buy_date));
         showOrHide($('#book-detail-buy-info-price-payed'), book.personal_book_info.buy_info.price_payed + " " + book.personal_book_info.buy_info.currency);
         showOrHide($('#book-detail-buy-info-shop'), book.personal_book_info.buy_info.shop);
@@ -158,7 +159,7 @@ function fillInBookInfo(book) {
 }
 
 function showOrHide(element, value) {
-    if (value === "" || value == 0 || value == null) {
+    if (value === "" || value == 0 || value == null || value == undefined) {
         element.parent().parent().hide();
     } else {
         element.text(value);
