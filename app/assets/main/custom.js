@@ -110,33 +110,6 @@ function getAuthorImageObject(author) {
     return {imageString: imageString, spritePointer: spritePointer, height: height, width: width};
 }
 
-function showConfirmDialog(title, message, action, noButtonAction){
-    BootstrapDialog.show({
-        title: title,
-        closable: false,
-        message: message,
-        buttons: [
-            {
-                icon: "fa fa-check-circle",
-                label: 'Ja',
-                cssClass: 'btn-primary',
-                action: function(dialogItself){
-                    action();
-                    dialogItself.close();
-                }
-            },
-            {
-                icon: "fa fa-times-circle",
-                label: 'Annuleer',
-                cssClass: 'btn-warning',
-                action: function(dialogItself){
-                    noButtonAction();
-                    dialogItself.close();
-                }
-            }]
-    });
-}
-
 function startLoadingPaged(url, page, action){
     $('#loader-icon').show();
     $('#no-results-message').hide();

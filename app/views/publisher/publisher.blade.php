@@ -6,6 +6,7 @@
 @stop
 @section('content')
     {{ HTML::script('assets/js/publisher/publisher.js'); }}
+    {{ HTML::script('assets/js/publisher/PublisherService.js'); }}
 
     <div class="info-container">
         <div class="material-card">

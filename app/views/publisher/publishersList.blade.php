@@ -5,6 +5,7 @@
 @stop
 @section('content')
     {{ HTML::script('assets/js/publisher/publishersList.js'); }}
+    {{ HTML::script('assets/js/publisher/PublisherService.js'); }}
 
     <div class="list-container">
         <div id="publisher-list-merge-container" class="container list-merge-container" hidden>
