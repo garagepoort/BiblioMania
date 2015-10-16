@@ -2,6 +2,10 @@
 @section("title")
     {{ $title }}
 @endsection
+@section("title-buttons")
+    <button class="btn btn-danger" onclick="DeleteBookDialog.show({{ $book_id }}); return false;">Verwijder boek</button>
+@endsection
+
 @section("content")
     @include('WIZARDSERVICE::wizardsteps', array('progress' => $book_wizard_step))
     <div class="create-book-div">
@@ -153,5 +157,7 @@
     {{ HTML::script('assets/js/book/wizard/createBook.js'); }}
     {{ HTML::script('assets/js/book/GoogleBookSearch.js'); }}
     {{ HTML::script('assets/js/book/wizard/bookBasics.js'); }}
+    {{ HTML::script('assets/js/book/BookService.js'); }}
+    {{ HTML::script('assets/js/book/DeleteBookDialog.js'); }}
 @endsection
 @stop

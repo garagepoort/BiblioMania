@@ -91,6 +91,9 @@
         <div class="contentContainer">
             <div class="title-panel">
                 @yield('title')
+                <div class="float-right vertical-align title-panel-buttons">
+                    @yield('title-buttons')
+                </div>
             </div>
             <div class="contentPanel">
                 @yield('content')
