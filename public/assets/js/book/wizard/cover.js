@@ -42,3 +42,7 @@ $(document).ready(function () {
         executeGoogleSearch(searchString);
     }
 });
+
+function validateForm(){
+    return validate(function(){return null;});
+}

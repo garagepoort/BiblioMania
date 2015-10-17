@@ -124,6 +124,8 @@
             var d = new Date(),
                     month = d.getMonth();
             year = d.getYear();
+
+            NotificationRepository.showNotifications();
         });
 
         function redirectOnChange(sel) {
@@ -134,6 +136,7 @@
         @if(Auth::check())
             var username = "{{ Auth::user()->username }}";
         @endif
+
     </script>
     </body>
 </html>
