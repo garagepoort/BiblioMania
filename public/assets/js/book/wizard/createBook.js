@@ -1,11 +1,12 @@
-var formSubmitting = false;
+function validate(validationFunction) {
+    var errorMessage = validationFunction();
+    if (errorMessage) {
+        showError("error-div", errorMessage);
+        return false;
+    }
 
-function setRedirectToPrevious() {
-    $('#redirectInput').attr('value', 'PREVIOUS');
-}
-
-function setRedirectTo(value) {
-    $('#redirectInput').attr('value', value);
+    hideError("error-div");
+    return true;
 }
 
 function submitForm() {
