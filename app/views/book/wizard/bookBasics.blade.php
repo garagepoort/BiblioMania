@@ -3,7 +3,7 @@
     {{ $title }}
 @endsection
 @section("title-buttons")
-    <button class="btn btn-danger" onclick="DeleteBookDialog.show({{ $book_id }}); return false;">Verwijder boek</button>
+    @include("book/wizard/bookDeleteButton", array("bookId"=>$book_id))
 @endsection
 
 @section("content")

@@ -2,6 +2,9 @@
 @section("title")
     {{ $title }}
 @endsection
+@section("title-buttons")
+    @include("book/wizard/bookDeleteButton", array("bookId"=>$book_id))
+@endsection
 @section("content")
     @include('WIZARDSERVICE::wizardsteps', array('progress' => $book_wizard_step))
     <div class="create-book-div">
@@ -62,5 +65,7 @@
     </script>
     {{ HTML::script('assets/js/book/wizard/createBook.js'); }}
     {{ HTML::script('assets/js/book/wizard/buyOrGiftInfo.js'); }}
+    {{ HTML::script('assets/js/book/DeleteBookDialog.js'); }}
+    {{ HTML::script('assets/js/book/BookService.js'); }}
 @endsection
 @stop
