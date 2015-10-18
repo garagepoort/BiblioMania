@@ -24,7 +24,6 @@
         {{ HTML::style('assets/lib/bootstrapvalidator/dist/css/bootstrapValidator.min.css', ["type" => "text/css"]) }}
 
                 <!-- LESS SCRIPTS -->
-        {{ HTML::style('assets/css/custom.css', ["type" => "text/css"]) }}
         {{ HTML::script('assets/js/border_sliding_panel.js', ["type" => "text/javascript"]) }}
 
                 <!-- RATY -->
@@ -34,10 +33,6 @@
                 <!-- TAGS -->
         {{ HTML::script('assets/lib/sliptree-bootstrap-tokenfield/bootstrap-tokenfield.js', ["type" => "text/javascript"]) }}
         {{ HTML::style('assets/lib/sliptree-bootstrap-tokenfield/css/bootstrap-tokenfield.min.css', ["type" => "text/css"]) }}
-
-
-        <!-- ANIMATIONS -->
-        {{ HTML::style('assets/css/animate.css', ["type" => "text/css"]) }}
 
         {{--EDITABLE--}}
         <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css"
