@@ -2,23 +2,23 @@
 
 @font-face {
   font-family: "vincent";
-  src: url("../../../../public/assets/fonts/Vincent-Regular.otf") format("opentype");
+  src: url("/BiblioMania/assets/fonts/Vincent-Regular.otf") format("opentype");
 }
 
 @font-face {
   font-family: "baron";
-  src: url("../../../../public/assets/fonts/baron_black.otf") format("opentype");
+  src: url("/BiblioMania/assets/fonts/baron_black.otf") format("opentype");
 }
 
 @font-face {
   font-family: "parisish";
-  src: url("../../../../public/assets/fonts/Parisish.ttf") format("opentype");
+  src: url("/BiblioMania/assets/fonts/Parisish.ttf") format("opentype");
 }
 
 @font-face {
   font-family: "vincent";
   font-weight: bold;
-  src: url("../../../../public/assets/fonts/Vincent-Regular.otf") format("opentype");
+  src: url("/BiblioMania/assets/fonts/Vincent-Regular.otf") format("opentype");
 }
 
 .no-round-corners {
@@ -130,6 +130,17 @@ a:hover {
   //color: @accent-color;
 }
 
+.float-right{
+  float: right;
+}
+
+//parent has to have height set to use vertical-align
+.vertical-align {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
 .title-panel {
   width: 100%;
   padding-left: 20px;
@@ -137,6 +148,11 @@ a:hover {
   color: @accent-color;
   font-family: @title-panel-font;
   font-size: 36px;
+  height: 58px;
+}
+
+.title-panel-buttons {
+  margin-right: 10px;
 }
 
 div.editBookPanel {
@@ -469,14 +485,14 @@ table.book-detail-info-table td {
 }
 
 .libraryInformationBookmark.bookmark .info-icon {
-  background-image: url("../../../../public/images/info_icon.png");
+  background-image: url("/BiblioMania/images/info_icon.png");
   background-size: 20px 20px;
   background-repeat: no-repeat;
   background-position: center;
 }
 
 .libraryInformationBookmark.bookmark .info-icon:hover {
-  background-image: url("../../../../public/images/info_icon_orange.png");
+  background-image: url("/BiblioMania/images/info_icon_orange.png");
   background-size: 20px 20px;
   background-repeat: no-repeat;
   background-position: center;
@@ -484,14 +500,14 @@ table.book-detail-info-table td {
 }
 
 .libraryFilterBookmark.bookmark .info-icon {
-  background-image: url("../../../../public/images/filter_icon.png");
+  background-image: url("/BiblioMania/images/filter_icon.png");
   background-size: 20px 20px;
   background-repeat: no-repeat;
   background-position: center;
 }
 
 .libraryFilterBookmark.bookmark .info-icon:hover {
-  background-image: url("../../../../public/images/filter_icon_orange.png");
+  background-image: url("/BiblioMania/images/filter_icon_orange.png");
   background-size: 20px 20px;
   background-repeat: no-repeat;
   background-position: center;
