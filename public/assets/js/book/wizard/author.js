@@ -4,7 +4,7 @@ var lastSetAuthorInfix;
 var formValidator;
 
 function validateForm() {
-    return validate(function(){ return null; })
+    return validate();
 }
 
 $(function () {

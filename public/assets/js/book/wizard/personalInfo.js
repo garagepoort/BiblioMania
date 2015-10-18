@@ -26,5 +26,5 @@ $(document).ready(function() {
 });
 
 function validateForm(){
-    return validate(function(){return null;});
+    return validate();
 }
