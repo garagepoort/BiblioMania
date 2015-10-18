@@ -94,6 +94,14 @@ a:hover {
 .datepicker .multidatepicker {
   color: #ffffff;
 }
+.float-right {
+  float: right;
+}
+.vertical-align {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
 .title-panel {
   width: 100%;
   padding-left: 20px;
@@ -101,6 +109,10 @@ a:hover {
   color: #ffffff;
   font-family: "vincent";
   font-size: 36px;
+  height: 58px;
+}
+.title-panel-buttons {
+  margin-right: 10px;
 }
 div.editBookPanel {
   cursor: pointer;

@@ -10,6 +10,10 @@ class BookRepository implements iRepository{
             ->first();
     }
 
+    public function deleteBookById($id){
+        $this->find($id)->delete();
+    }
+
     public function findCompleted($id, $with = array())
     {
         return Book::with($with)

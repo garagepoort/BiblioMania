@@ -29,12 +29,21 @@ $(function() {
     });
 
     function togglePanels(){
+        var buyInfoBuyDate = $('#buy_info_buy_date');
+        var giftInfoReceiptDate = $('#gift_info_receipt_date');
         if ($("#buyRadioButton").is(':checked')) {
             $('#giftInfoPanel').hide(200);
             $('#buyInfoPanel').show(200);
+
+            if(buyInfoBuyDate.val() == ''){
+                buyInfoBuyDate.val(giftInfoReceiptDate.val());
+            }
         }else{
             $('#buyInfoPanel').hide(200);
             $('#giftInfoPanel').show(200);
+            if(giftInfoReceiptDate.val() == ''){
+                giftInfoReceiptDate.val(buyInfoBuyDate.val())
+            }
         }
     }
 });
