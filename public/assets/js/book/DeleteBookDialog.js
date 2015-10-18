@@ -10,6 +10,11 @@ DeleteBookDialog.show = function(bookId){
                 bookId: bookId,
                 showNotifications: true,
                 onSuccess: function(){
+                    NotificationRepository.addNotification({
+                        title: "Boek verwijderd",
+                        message: "",
+                        type: "danger"
+                    })
                     window.location.href = baseUrl + "/getBooks";
                 }
             });
