@@ -1,11 +1,18 @@
 function validate(validationFunction) {
-    var errorMessage = validationFunction();
-    if (errorMessage) {
-        showError("error-div", errorMessage);
-        return false;
+    if(validationFunction){
+        var errorMessage = validationFunction();
+        if (errorMessage) {
+            showError("error-div", errorMessage);
+            return false;
+        }
     }
 
     hideError("error-div");
+    NotificationRepository.addNotification({
+        title: "Boek opgeslagen",
+        message: "",
+        type: "success"
+    });
     return true;
 }
 
