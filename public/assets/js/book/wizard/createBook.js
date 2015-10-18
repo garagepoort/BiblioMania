@@ -1,11 +1,19 @@
-var formSubmitting = false;
+function validate(validationFunction) {
+    if(validationFunction){
+        var errorMessage = validationFunction();
+        if (errorMessage) {
+            showError("error-div", errorMessage);
+            return false;
+        }
+    }
 
-function setRedirectToPrevious() {
-    $('#redirectInput').attr('value', 'PREVIOUS');
-}
-
-function setRedirectTo(value) {
-    $('#redirectInput').attr('value', value);
+    hideError("error-div");
+    NotificationRepository.addNotification({
+        title: "Boek opgeslagen",
+        message: "",
+        type: "success"
+    });
+    return true;
 }
 
 function submitForm() {

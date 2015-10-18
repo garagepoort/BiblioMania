@@ -1,13 +1,6 @@
 var genresOpen = false;
 function validateForm() {
-    formSubmitting = true;
-    var errorMessage = validateGenre();
-    if (errorMessage) {
-        showError("error-div", errorMessage);
-        return false;
-    }
-    hideError("error-div");
-    return true;
+    return validate(validateGenre);
 }
 
 function validateGenre() {
