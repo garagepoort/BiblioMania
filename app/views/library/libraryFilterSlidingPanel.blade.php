@@ -20,6 +20,7 @@
     </div>
 </div>
 
+{{ HTML::style('assets/css/libraryfilter/libraryfilter.css') }}
 {{ HTML::script('packages/bendani/php-common/filter-service/filters.min.js') }}
 {{ HTML::style('packages/bendani/php-common/filter-service/filters.min.css') }}
 

@@ -6,10 +6,6 @@ function validateBuyInfo() {
     return errorMessage;
 }
 
-function validateForm(){
-    return validate(validateBuyInfo);
-}
-
 $(function() {
     togglePanels();
 

@@ -164,6 +164,7 @@ class BookService
             $book->publication_date()->dissociate();
         }
 
+        $book->tags()->sync($tags);
         $book->user_id = Auth::user()->id;
         $book->title = $bookInfoParameters->getTitle();
         $book->subtitle = $bookInfoParameters->getSubtitle();
@@ -172,7 +173,6 @@ class BookService
         $book->publisher_id = $book_publisher->id;
         $book->publisher_country_id = $country->id;
         $this->bookRepository->save($book);
-        $book->tags()->sync($tags);
         return $book;
     }
 

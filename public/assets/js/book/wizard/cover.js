@@ -42,7 +42,3 @@ $(document).ready(function () {
         executeGoogleSearch(searchString);
     }
 });
-
-function validateForm(){
-    return validate();
-}

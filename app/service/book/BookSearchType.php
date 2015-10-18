@@ -1,7 +1,5 @@
 <?php
 
-use Bendani\PhpCommon\Utils\Model\BasicEnum;
-
 class BookSearchType extends BasicEnum{
     const ALL = "all";
     const BOOK_TITLE = "book.title";

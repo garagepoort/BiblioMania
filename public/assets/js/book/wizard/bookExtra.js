@@ -1,5 +1,5 @@
 function validateForm(){
-    return validate();
+    return true;
 }
 
 $(function(){

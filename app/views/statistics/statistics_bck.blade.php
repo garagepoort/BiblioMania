@@ -4,6 +4,7 @@
     Statistieken
 @stop
 @section('content')
+    {{ HTML::style('assets/css/statistics.css') }}
     <!-- Chart Type -->
     <div class="statistics-container">
         <div id="overviewContainer" class="chartContainer-overview material-card">

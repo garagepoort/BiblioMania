@@ -154,11 +154,7 @@ function showNotification(title, message, type){
         title: '<strong>' + title + '</strong>',
         message: message
     },{
-        type: type,
-        animate: {
-            enter: 'animated fadeInDown',
-            exit: 'animated fadeOutUp'
-        }
+        type: type
     });
 }
 
