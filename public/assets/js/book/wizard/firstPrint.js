@@ -35,3 +35,7 @@ $(document).ready(function () {
         data.bv.disableSubmitButtons(false);
     });
 });
+
+function validateForm(){
+    return validate();
+}
