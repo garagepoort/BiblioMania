@@ -24,7 +24,6 @@
         {{ HTML::style('assets/lib/bootstrapvalidator/dist/css/bootstrapValidator.min.css', ["type" => "text/css"]) }}
 
                 <!-- LESS SCRIPTS -->
-        {{ HTML::style('assets/css/custom.css', ["type" => "text/css"]) }}
         {{ HTML::script('assets/js/border_sliding_panel.js', ["type" => "text/javascript"]) }}
 
                 <!-- RATY -->
@@ -124,6 +123,8 @@
             var d = new Date(),
                     month = d.getMonth();
             year = d.getYear();
+
+            NotificationRepository.showNotifications();
         });
 
         function redirectOnChange(sel) {
@@ -134,6 +135,7 @@
         @if(Auth::check())
             var username = "{{ Auth::user()->username }}";
         @endif
+
     </script>
     </body>
 </html>

@@ -17,14 +17,7 @@ $(function () {
 });
 
 function validateForm() {
-    formSubmitting = true;
-    var errorMessage = validateOeuvreList();
-    if (errorMessage) {
-        showError("error-div", errorMessage);
-        return false;
-    }
-    hideError("error-div");
-    return true;
+    return validate(validateOeuvreList);
 }
 
 $(".oeuvre-author-cross").on("click", function () {
