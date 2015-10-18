@@ -1,46 +1,37 @@
-@import "mixins.less";
-
 @font-face {
   font-family: "vincent";
-  src: url("../fonts/Vincent-Regular.otf") format("opentype");
+  src: url("../../../../public/assets/fonts/Vincent-Regular.otf") format("opentype");
 }
-
 @font-face {
   font-family: "baron";
-  src: url("../fonts/baron_black.otf") format("opentype");
+  src: url("../../../../public/assets/fonts/baron_black.otf") format("opentype");
 }
-
 @font-face {
   font-family: "parisish";
-  src: url("../fonts/Parisish.ttf") format("opentype");
+  src: url("../../../../public/assets/fonts/Parisish.ttf") format("opentype");
 }
-
 @font-face {
   font-family: "vincent";
   font-weight: bold;
-  src: url("../fonts/Vincent-Regular.otf") format("opentype");
+  src: url("../../../../public/assets/fonts/Vincent-Regular.otf") format("opentype");
 }
-
 .no-round-corners {
   -webkit-border-radius: 0 !important;
   -moz-border-radius: 0 !important;
   border-radius: 0 !important;
 }
-
-input, button{
+input,
+button {
   -webkit-border-radius: 0 !important;
   -moz-border-radius: 0 !important;
   border-radius: 0 !important;
 }
-
 img {
   background: url('images/questionCover.png') no-repeat;
 }
-
 input {
-  color: @primary-color;
+  color: #2d6ca2;
 }
-
 .input-xs {
   height: 22px;
   padding: 5px 5px;
@@ -48,184 +39,139 @@ input {
   line-height: 1.5;
   border-radius: 3px;
 }
-
-@font: "helvetica";
-@primary-color: #2d6ca2;
-@secondary-color: #428bca;
-@accent-color: #FFFFFF;
-
-@success-color: #5cb85c;
-@success-color-dark: #3d8c3d;
-@container-color: #fff;
-@warning-color: #ec971f;
-
-@font-size: 16px;
-@title-panel-font: "vincent";
-
 body {
-  font-family: @font;
-  color: @primary-color;
-  font-size: @font-size;
-  background-color: @secondary-color;
+  font-family: "helvetica";
+  color: #2d6ca2;
+  font-size: 16px;
+  background-color: #428bca;
   text-align: center;
 }
-
 .bookMark.background-warning {
-  background-color: @warning-color;
+  background-color: #ec971f;
 }
-
 div.tableDiv {
   margin-left: auto;
   margin-right: auto;
   width: 500px;
 }
-
 small.help-block {
-  color: @primary-color;
+  color: #2d6ca2;
 }
-
 select {
-  color: @accent-color;
+  color: #ffffff;
 }
-
 .modal-body {
-  color: @accent-color;
+  color: #ffffff;
 }
-
-.glyphicon, .fa, .clickable {
+.glyphicon,
+.fa,
+.clickable {
   -moz-user-select: none;
   -webkit-user-select: none;
   cursor: pointer;
 }
-
-.glyphicon:hover, .fa:hover, .clickable:hover {
+.glyphicon:hover,
+.fa:hover,
+.clickable:hover {
   color: black;
 }
-
-.editImagePencilIcon{
+.editImagePencilIcon {
   -moz-user-select: none;
   -webkit-user-select: none;
   cursor: pointer;
 }
-
 .editImagePencilIcon:hover {
   color: white;
 }
-
 .clickedGenre {
   color: black;
   font-weight: bold;
 }
-
 a:hover {
   color: black;
   background-color: #def;
 }
-
 .datepicker .multidatepicker {
-  color: @accent-color;
+  color: #ffffff;
 }
-
-.popover-title {
-  //color: @accent-color;
-}
-
-.float-right{
+.float-right {
   float: right;
 }
-
-//parent has to have height set to use vertical-align
 .vertical-align {
   position: relative;
   top: 50%;
   transform: translateY(-50%);
 }
-
 .title-panel {
   width: 100%;
   padding-left: 20px;
-  background-color: @primary-color;
-  color: @accent-color;
-  font-family: @title-panel-font;
+  background-color: #2d6ca2;
+  color: #ffffff;
+  font-family: "vincent";
   font-size: 36px;
   height: 58px;
 }
-
 .title-panel-buttons {
   margin-right: 10px;
 }
-
 div.editBookPanel {
   cursor: pointer;
 }
-
 legend {
-  color: @primary-color;
+  color: #2d6ca2;
 }
-
 .text-align-right {
   text-align: right;
 }
-
 .text-align-left {
   text-align: left;
 }
-
 table.left-right-align td:nth-child(2) {
   text-align: right;
 }
-
 table.left-right-align td:nth-child(1) {
   text-align: left;
 }
 /*PLACEHOLDERS*/
 .form-control::-webkit-input-placeholder {
   /* WebKit browsers */
-  color: @accent-color;
+  color: #ffffff;
   opacity: 1;
 }
-
 .form-control:-moz-placeholder {
   /* Mozilla Firefox 4 to 18 */
-  color: @accent-color;
+  color: #ffffff;
   opacity: 1;
 }
-
 .form-control::-moz-placeholder {
   /* Mozilla Firefox 19+ */
-  color: @accent-color;
+  color: #ffffff;
   opacity: 1;
 }
-
 .form-control:-ms-input-placeholder {
   /* Internet Explorer 10+ */
-  color: @accent-color;
+  color: #ffffff;
 }
-
 .genre-list {
   list-style-type: none;
 }
-
-.form-container .control-label{
+.form-container .control-label {
   text-align: left;
 }
 /*END PLACEHOLDERS*/
-
 .contentContainer {
   text-align: left;
   display: inline-block;
   margin-top: 100px;
   width: 1200px;
-  background-color: @container-color;
-  border: 5px solid @primary-color;
+  background-color: #ffffff;
+  border: 5px solid #2d6ca2;
   box-shadow: 0 25px 50px 0 rgba(0, 0, 0, 0.26);
 }
-
 .contentPanel {
   padding-right: 50px;
   padding-left: 50px;
 }
-
 /*BOOKS*/
 .book-filters-table {
   width: 100%;
@@ -234,19 +180,18 @@ table.left-right-align td:nth-child(1) {
 .book-filters-table tbody tr td {
   padding: 5px;
 }
-
 legend.sub-border {
-  width: inherit; /* Or auto */
-  padding: 0 10px; /* To give a bit of padding on the left and right */
+  width: inherit;
+  /* Or auto */
+  padding: 0 10px;
+  /* To give a bit of padding on the left and right */
   border-bottom: none;
 }
-
 .createBookDiv {
   width: 800px;
   margin-right: auto;
   margin-left: auto;
 }
-
 .create-book-div {
   width: 830px;
   margin-right: auto;
@@ -254,143 +199,115 @@ legend.sub-border {
   margin-top: 40px;
   margin-bottom: 40px;
 }
-
 .google-image-search-table tbody tr td {
   padding: 10px;
 }
-
 .googleSearchLoader {
   margin-left: auto;
   margin-right: auto;
   display: block;
   margin-top: 20px;
 }
-
 .cover-info-filter-table tbody tr td {
   padding-left: 10px;
 }
-
 .cover-info-top-panel {
   margin-bottom: 20px;
 }
-
 .google-selected-image {
   border: 8px solid deepskyblue;
 }
-
 .green-linked-div {
-  color: @accent-color;
+  color: #ffffff;
   background-color: green;
   padding: 3px 10px;
   border-radius: 3px !important;
   margin-left: 10px;
   text-align: center;
 }
-
 .author-oeuvre-linked-book-title {
   color: #428bca;
 }
-
 button.searchButton {
   height: 36px;
   width: 50px;
 }
-
 #oeuvre-textarea-panel {
   color: black;
   display: inline-block;
   margin-left: 30px;
 }
-
 #oeuvre-textarea {
   width: 100%;
 }
-
-
 .oeuvre-author-pencil {
   cursor: pointer;
 }
-
 #oeuvreButton {
   margin-top: 10px;
 }
-
 .buyOrGiftPanel {
   margin-bottom: 40px;
 }
-
 .author-oeuvre-link-icon {
   padding-left: 10px;
   cursor: pointer;
 }
-
 .title-table {
   margin-bottom: 20px;
   margin-top: 20px;
 }
-
 .table.books-table tbody tr td {
   border-top: none;
   text-align: center;
   vertical-align: bottom;
   padding-bottom: 50px;
 }
-
 .table.authors-table tbody tr td {
   border-top: none;
   text-align: center;
   vertical-align: bottom;
   padding-bottom: 50px;
 }
-
 .book-detail-main-info {
   height: 15px;
   margin-bottom: 20px;
 }
-
 .book-detail-other-info {
   margin-top: 20px;
 }
-
 div.books-container {
   width: 100%;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 50px;
 }
-
 .book-collection-info-panel {
   width: 50%;
 }
-
 .book-collection-filter-panel {
   margin-bottom: 40px;
   width: 46%;
 }
-
 .book-detail-info-table {
   width: 90%;
   margin-left: auto;
   margin-right: auto;
 }
-
 table.book-detail-info-table > tbody > tr > td {
   padding-top: 30px;
   width: 50%;
 }
-
 .book-detail-small-info-panel {
   width: 290px;
-  background-color: @accent-color;
+  background-color: #ffffff;
 }
-
 .book-detail-small-info-panel.card-column-left {
   float: left;
   margin: 0px;
   margin-bottom: 15px;
   width: 48%;
 }
-
 .book-detail-small-info-panel.card-column-right {
   overflow: hidden;
   width: 48%;
@@ -399,33 +316,24 @@ table.book-detail-info-table > tbody > tr > td {
   margin-top: 0;
   margin-bottom: 15px;
 }
-
 .book-detail-small-info-panel > legend {
   border: none;
   margin-bottom: 10px;
 }
-
-.book-detail-small-info-panel > table {
-}
-
 .book-detail-small-info-panel > table > tbody > tr > td:nth-child(2) {
   width: 100%;
   text-align: left;
   padding-left: 10px;
 }
-
 .book-detail-small-info-panel > table > tbody > tr > td:nth-child(1) {
   white-space: nowrap;
 }
-
 table.book-detail-main-info-table td {
   padding: 2px;
 }
-
 table.book-detail-info-table td {
   vertical-align: top;
 }
-
 .book-detail-summary.material-card {
   margin-top: 20px;
   text-align: justify;
@@ -433,98 +341,84 @@ table.book-detail-info-table td {
   margin-left: 0;
   margin-right: 0;
 }
-
 .book-detail-summary p {
   width: 90%;
   margin-left: auto;
   margin-right: auto;
 }
-
 .book-detail-div {
   /*left: 0;*/
   top: 0px;
-  background-color: @accent-color;
-  border: 10px solid @primary-color;
+  background-color: #ffffff;
+  border: 10px solid #2d6ca2;
   right: -700px;
   width: 700px;
   height: 95%;
   margin-top: 50px;
   box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.26);
-
   /*border: solid 1px @secondary-color;*/
 }
-
 .libraryInformationSlidingPanel.sliding-panel {
   left: -410px;
   width: 400px;
   top: 100px;
   overflow: inherit;
-  background-color: @accent-color;
+  background-color: #ffffff;
 }
-
 .libraryFilterSlidingPanel.sliding-panel {
   left: -510px;
   width: 500px;
   top: 141px;
   overflow: inherit;
-  background-color: @accent-color;
+  background-color: #ffffff;
   z-index: 998;
 }
-
 .filter-input {
   margin-bottom: 12px;
 }
-
 .slidingPanelTitle {
   height: 34px;
   line-height: 34px;
 }
-
 .libraryInformationBookmark.bookmark {
   margin-top: -135px;
 }
-
 .libraryInformationBookmark.bookmark .info-icon {
-  background-image: url("../../images/info_icon.png");
+  background-image: url("../../../../public/images/info_icon.png");
   background-size: 20px 20px;
   background-repeat: no-repeat;
   background-position: center;
 }
-
 .libraryInformationBookmark.bookmark .info-icon:hover {
-  background-image: url("../../images/info_icon_orange.png");
+  background-image: url("../../../../public/images/info_icon_orange.png");
   background-size: 20px 20px;
   background-repeat: no-repeat;
   background-position: center;
   cursor: pointer;
 }
-
 .libraryFilterBookmark.bookmark .info-icon {
-  background-image: url("../../images/filter_icon.png");
+  background-image: url("../../../../public/images/filter_icon.png");
   background-size: 20px 20px;
   background-repeat: no-repeat;
   background-position: center;
 }
-
 .libraryFilterBookmark.bookmark .info-icon:hover {
-  background-image: url("../../images/filter_icon_orange.png");
+  background-image: url("../../../../public/images/filter_icon_orange.png");
   background-size: 20px 20px;
   background-repeat: no-repeat;
   background-position: center;
   cursor: pointer;
 }
-
 .bookMark {
   height: 34px;
   width: 50px;
-  margin-left:100%;
-  background-color: @primary-color;
+  margin-left: 100%;
+  background-color: #2d6ca2;
   z-index: 999;
   position: relative;
   box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.26);
   float: left;
 }
-
 .info-icon {
   width: 20px;
   height: 20px;
@@ -539,52 +433,44 @@ table.book-detail-info-table td {
   bottom: 0;
 }
 .font-weight-700 {
- font-weight: 700;
+  font-weight: 700;
 }
-
 .icon {
   width: 20px;
   height: 20px;
 }
-
 .sliding-panel {
   overflow: scroll;
   position: fixed;
   z-index: 999;
   box-shadow: 5px 5px 5px 1px rgba(0, 0, 0, 0.26);
 }
-
 .book-detail-close {
   position: fixed;
   width: 700px;
-  color: @accent-color;
-  font-family: @title-panel-font;
-  background-color: @primary-color;
+  color: #ffffff;
+  font-family: "vincent";
+  background-color: #2d6ca2;
 }
-
 .book-sliding-panel-title {
   margin-top: 0px;
   margin-left: 40px;
 }
-
 .book-detail-container {
   width: 90%;
   margin-left: auto;
   margin-right: auto;
   height: 300px;
 }
-
 .pagination {
   padding-top: 40px;
   width: 100%;
 }
-
 #book-detail-coverimage {
   float: left;
   margin-left: 10px;
   box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.26);
 }
-
 .book-details-info-container.material-card {
   width: 70%;
   float: right;
@@ -592,12 +478,10 @@ table.book-detail-info-table td {
   margin-right: 0px;
   margin-left: 0px;
 }
-
 .bookCoverLink {
   width: 142px;
   max-height: 210px;
 }
-
 .imageLinkWrapper {
   cursor: pointer;
   width: 142px;
@@ -605,9 +489,7 @@ table.book-detail-info-table td {
   display: table-cell;
   vertical-align: middle;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-//  transform:scale(1.1,1.1) translate3d(0,0,0);
 }
-
 .exclamation {
   position: absolute;
   top: 5px;
@@ -615,7 +497,6 @@ table.book-detail-info-table td {
   width: 20px;
   height: 20px;
 }
-
 .reading-icon {
   position: absolute;
   top: 5px;
@@ -623,139 +504,113 @@ table.book-detail-info-table td {
   width: 20px;
   height: 20px;
 }
-
 .imageLinkWrapper:hover {
   box-shadow: 0 25px 50px 0 rgba(0, 0, 0, 0.26);
-  transform:scale(1.05,1.05) translate3d(0,0,0);
+  transform: scale(1.05, 1.05) translate3d(0, 0, 0);
 }
-
 .authorCoverLink {
   width: 142px;
   cursor: pointer;
   max-height: 210px;
 }
 /*END BOOKS*/
-
 /*AUTHOR*/
 .info-container {
-  color: @primary-color;
+  color: #2d6ca2;
   width: 88%;
   margin-left: auto;
   margin-right: auto;
   margin-top: 50px;
   margin-bottom: 50px;
 }
-
 .author-image-div div.material-card-content {
   padding: 0px;
 }
-
 .author-image-div {
   margin-left: 10px;
   margin-right: 15px;
   float: left;
   margin-bottom: 20px;
 }
-
-.author-oeuvre-linked{
+.author-oeuvre-linked {
   color: red;
 }
-
 .author-image-upload-div {
   clear: both;
   margin-left: 20px;
   margin-top: 20px;
 }
-
 .helper {
   display: inline-block;
   height: 100%;
   vertical-align: middle;
 }
-
-.author-image-div div.author-image-edit-wrapper{
-  visibility:hidden;
+.author-image-div div.author-image-edit-wrapper {
+  visibility: hidden;
 }
 .author-image-div:hover div.author-image-edit-wrapper {
   cursor: pointer;
   text-align: center;
   width: 100%;
   height: 100%;
-  visibility:visible;
-  background: rgba(0, 0, 0, 0.60);
+  visibility: visible;
+  background: rgba(0, 0, 0, 0.6);
 }
-
 .author-image-edit-icon {
   width: 40px;
   height: 40px;
   vertical-align: middle;
 }
 /*END AUTHOR*/
-
-//PUBLISHER
 .list-container {
   margin-left: auto;
   margin-right: auto;
   margin-top: 20px;
 }
-
 .list-merge-container {
   margin-top: 20px;
   background-color: #eb9316;
   width: 100%;
   border-radius: 5px !important;
-  color: @accent-color;
+  color: #ffffff;
   padding-bottom: 10px;
   box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.26);
 }
-
 .editListPanel {
   margin-top: 20px;
 }
-
 .selectMergePublisher {
   width: 20%;
 }
-
-//END PUBLISHER
 /*PAGINATION*/
 .pagination li {
-  background-color: @secondary-color;
+  background-color: #428bca;
 }
-
 /*END PAGINATION*/
-
 .loginLabel {
   margin-right: 10px;
 }
-
 .loginPanel {
   width: 800px;
   margin-right: auto;
   margin-left: auto;
 }
-
 .loginButton {
   margin-left: 10px;
 }
-
 /*CREATE USER*/
 .createUserPanel {
   width: 800px;
   margin-right: auto;
   margin-left: auto;
 }
-
 /*.createUserPanel input {
   color: @accent-color;
 }*/
-
 /*END CREATE USER*/
-
 .ui-widget * {
   outline: none;
 }
-
 /*TABS*/
 .tab-container {
   margin-top: 20px;
@@ -763,72 +618,57 @@ table.book-detail-info-table td {
   /*margin-left: auto;*/
   /*margin-right: auto;*/
 }
-
 .tab-container fieldset legend {
-  color: @primary-color;
-  border-bottom: 1px solid @primary-color;
+  color: #2d6ca2;
+  border-bottom: 1px solid #2d6ca2;
 }
-
 .form-container {
   width: 100%;
   margin-left: auto;
   margin-right: auto;
 }
-
 .filterDialog {
-  background-color: @accent-color;
-
+  background-color: #ffffff;
 }
-
 .label-gray {
   color: #aaa;
 }
-
 .label {
   border-radius: 2px !important;
   padding: 4px;
   text-align: center;
-  //display: block;
 }
-
 .linkLabel:hover {
   cursor: pointer;
   background-color: #777;
 }
 .tab-content {
   padding: 10px;
-  background-color: @accent-color;
-  color: @primary-color;
+  background-color: #ffffff;
+  color: #2d6ca2;
 }
-
 ul.nav li a {
-  color: @primary-color;
+  color: #2d6ca2;
 }
-
 .drawer-icon {
   float: left;
   width: 40px;
   margin-right: 10px;
 }
-
 .nav-tabs > li.active > a,
 .nav-tabs > li.active > a:focus,
 ul.nav li a:hover {
-  color: @accent-color;
-  background-color: @primary-color;
-  border: 1px solid @primary-color;
+  color: #ffffff;
+  background-color: #2d6ca2;
+  border: 1px solid #2d6ca2;
 }
-
 .nav-tabs {
   font-family: "vincent";
   margin-bottom: 0;
   border-bottom: none;
 }
-
 /*END TABS*/
-
 /*GENRES*/
-
 .genres-container {
   padding-left: 10px;
   padding-right: 10px;
@@ -836,215 +676,169 @@ ul.nav li a:hover {
   padding-bottom: 0px;
   cursor: pointer;
 }
-
 .genre-listitem {
   /*border-radius: 25px;*/
   cursor: pointer;
   padding-left: 10px;
 }
-
 .genres-header {
   padding-left: 16px;
   border: none;
-  //z-index: 2;
-  //color: #fff;
-  //background-color: #449d44;
-  //border-color: #398439;
-  //font-size: 14px;
-  //font: inherit;
-  //font-weight: bold;
-  //line-height: 1.42857143;
-  //white-space: nowrap;
-  //vertical-align: middle;
 }
-
 .well {
-  background-color: @accent-color;
-  background: @accent-color;
-  color: @primary-color;
+  background-color: #ffffff;
+  background: #ffffff;
+  color: #2d6ca2;
 }
-
 /*END GENRES*/
-
 /*REVIEW STARS*/
 .animated {
   -webkit-transition: height 0.2s;
   -moz-transition: height 0.2s;
   transition: height 0.2s;
 }
-
 .stars {
   margin: 20px 0;
   font-size: 24px;
   color: #d17581;
 }
-
 .reading-date-plus {
   cursor: pointer;
 }
-
 .reading-date-min {
   cursor: pointer;
 }
-
 #reading-dates-table tbody tr {
   margin: 10px;
 }
-
 /*NAVBAR*/
 .search-box-table {
   margin-top: 7px;
 }
-
 .navbar-default {
-  background-color: @primary-color;
-  border-color: @primary-color;
+  background-color: #2d6ca2;
+  border-color: #2d6ca2;
   box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.26);
 }
-
 .navbar-inner {
-  background-color: @primary-color;
+  background-color: #2d6ca2;
 }
-
 .navbar-default .navbar-brand {
-  color: @accent-color;
+  color: #ffffff;
 }
-
-.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
-  color: @accent-color;
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+  color: #ffffff;
 }
-
 .navbar-default .navbar-text {
-  color: @accent-color;
+  color: #ffffff;
 }
-
 .navbar-default .navbar-nav > li > a {
-  color: @accent-color;
-  background-color: @primary-color;
+  color: #ffffff;
+  background-color: #2d6ca2;
 }
-
-.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
-  color: @primary-color;
-  background-color: @accent-color;
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+  color: #2d6ca2;
+  background-color: #ffffff;
 }
-
-.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
-  color: @accent-color;
-  background-color: @primary-color;
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+  color: #ffffff;
+  background-color: #2d6ca2;
 }
-
-.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
-  color: @accent-color;
-  background-color: @primary-color;
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+  color: #ffffff;
+  background-color: #2d6ca2;
 }
-
 .navbar-default .navbar-toggle {
-  border-color: @primary-color;
+  border-color: #2d6ca2;
 }
-
-.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
-  background-color: @primary-color;
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+  background-color: #2d6ca2;
 }
-
 .navbar-default .navbar-toggle .icon-bar {
-  background-color: @primary-color;
+  background-color: #2d6ca2;
 }
-
 .navbar-default .navbar-collapse,
 .navbar-default .navbar-form {
-  border-color: @primary-color;
+  border-color: #2d6ca2;
 }
-
 .navbar-default .navbar-link {
-  color: @accent-color;
+  color: #ffffff;
 }
-
 .navbar-default .navbar-link:hover {
-  color: @accent-color;
+  color: #ffffff;
 }
-
 .navbar-default .navbar-nav .open .dropdown-menu.navigation-dropdown-menu > li > a {
-  color: @accent-color;
-  background-color: @primary-color;
+  color: #ffffff;
+  background-color: #2d6ca2;
 }
-
 .navbar-default .navbar-nav .open .dropdown-menu.navigation-dropdown-menu > li > a:hover {
-  background-color: @accent-color;
-  color: @primary-color;
+  background-color: #ffffff;
+  color: #2d6ca2;
   background-image: none;
 }
-
-.dropdown-menu.navigation-dropdown-menu > li > a:hover, .dropdown-menu.navigation-dropdown-menu > li > a:focus {
-  background-color: @accent-color;
-  color: @primary-color;
+.dropdown-menu.navigation-dropdown-menu > li > a:hover,
+.dropdown-menu.navigation-dropdown-menu > li > a:focus {
+  background-color: #ffffff;
+  color: #2d6ca2;
   background-image: none;
 }
-
-.nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, ul.nav li a:hover {
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:focus,
+ul.nav li a:hover {
   border: none;
 }
-
 .dropdown-menu.navigation-dropdown-menu {
-  background: @primary-color;
+  background: #2d6ca2;
 }
-
 div.navbar-collapse {
-  background-color: @primary-color;
+  background-color: #2d6ca2;
 }
-
 a.navbar-brand {
-  background-color: @primary-color;
+  background-color: #2d6ca2;
   font-family: "baron";
 }
-
 div.container-fluid {
-  background-color: @primary-color;
+  background-color: #2d6ca2;
 }
-
 /*AUTOCOMPLETE*/
-
 .autocomplete-suggestions {
   border: 1px solid #999;
-  background: @accent-color;
+  background: #ffffff;
   overflow: auto;
 }
-
 .autocomplete-suggestion {
   padding: 2px 5px;
   white-space: nowrap;
   overflow: hidden;
-  color: @primary-color
+  color: #2d6ca2;
 }
-
 .autocomplete-selected {
   background: #F0F0F0;
 }
-
 .autocomplete-suggestions strong {
   font-weight: normal;
   color: #3399FF;
 }
-
 .autocomplete-group {
   padding: 2px 5px;
 }
-
 .autocomplete-group strong {
   display: block;
   border-bottom: 1px solid #000;
 }
-
-//BOOTSTRAP DIALOG
 .bootstrap-dialog-message {
-  color: @primary-color;
+  color: #2d6ca2;
 }
-
-//DATATABLES
 #publisherEditList_filter {
-  color: @primary-color;
+  color: #2d6ca2;
 }
-
-//isLoading
 .isloading-wrapper.isloading-right {
   margin-left: 10px;
 }
@@ -1052,7 +846,7 @@ div.container-fluid {
   text-align: center;
 }
 .isloading-overlay .isloading-wrapper {
-  background: @accent-color;
+  background: #ffffff;
   -webkit-border-radius: 7px !important;
   -webkit-background-clip: padding-box !important;
   -moz-border-radius: 7px !important;
@@ -1064,28 +858,22 @@ div.container-fluid {
   margin-top: 300px;
   color: black;
 }
-
-
-//MATERIAL DESIGN
 .material-card {
   box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.26);
   margin: 10px;
 }
-
 .material-card-title {
-  font-family: @title-panel-font;
+  font-family: "vincent";
   width: 100%;
   padding-left: 10px;
-  color: @accent-color;
-  background-color: @primary-color;
+  color: #ffffff;
+  background-color: #2d6ca2;
 }
-
 .material-card-content {
   padding: 10px;
-  background-color: @accent-color;
+  background-color: #ffffff;
   width: 100%;
 }
-
 .card-row {
   width: 100%;
   padding-bottom: 10px;
@@ -1093,16 +881,13 @@ div.container-fluid {
   margin-right: auto;
   clear: both;
 }
-
 .card-column-left {
-  float:left;
+  float: left;
 }
-
 .card-column-right {
   float: right;
   overflow: hidden;
 }
-
 .error-message {
   background-color: #D75141;
   color: #ffffff;
@@ -1110,34 +895,30 @@ div.container-fluid {
   margin-bottom: 15px;
   width: 88%;
 }
-
-.editable-click, a.editable-click, a.editable-click:hover {
+.editable-click,
+a.editable-click,
+a.editable-click:hover {
   text-decoration: none;
   border: none;
 }
-
 .detailPanelTrigger {
   cursor: pointer;
 }
-
 .detailPanelTrigger:hover {
   cursor: pointer;
   color: #ff0000;
 }
-
-// BUTTONS
 .btn-primary {
   background-color: #428bca;
 }
 .btn-primary:hover {
   background-color: #3276b1;
 }
-
 .btn-default-no-hover:active:hover,
 .btn-default-no-hover:active,
 .btn-default-no-hover:active:focus,
 .btn-default-no-hover:target {
-  cursor:default !important;
+  cursor: default !important;
   background-color: #FFFFFF;
   color: #333333 !important;
   text-decoration: none !important;
@@ -1146,16 +927,21 @@ div.container-fluid {
   background-image: none !important;
   border: 1px solid #ccc !important;
 }
-
-.form-control::-webkit-input-placeholder { color: #ccc; }
-.form-control:-moz-placeholder { color: #ccc; }
-.form-control::-moz-placeholder { color: #ccc; }
-.form-control:-ms-input-placeholder { color: #ccc; }
-
+.form-control::-webkit-input-placeholder {
+  color: #ccc;
+}
+.form-control:-moz-placeholder {
+  color: #ccc;
+}
+.form-control::-moz-placeholder {
+  color: #ccc;
+}
+.form-control:-ms-input-placeholder {
+  color: #ccc;
+}
 .autocomplete-suggestion {
   text-align: left;
 }
-
 .modal-footer {
   clear: both;
 }

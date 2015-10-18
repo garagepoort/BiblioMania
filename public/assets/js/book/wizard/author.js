@@ -4,14 +4,7 @@ var lastSetAuthorInfix;
 var formValidator;
 
 function validateForm() {
-    formSubmitting = true;
-    var errorMessage;
-    if (errorMessage) {
-        showError("error-div", errorMessage);
-        return false;
-    }
-    hideError("error-div");
-    return true;
+    return validate();
 }
 
 $(function () {

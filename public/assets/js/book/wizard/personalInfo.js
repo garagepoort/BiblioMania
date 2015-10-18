@@ -24,3 +24,7 @@ $(document).ready(function() {
         $('#reason-not-owned-panel').show(250);
     }
 });
+
+function validateForm(){
+    return validate();
+}
