@@ -35,6 +35,10 @@
         {{ HTML::script('assets/lib/sliptree-bootstrap-tokenfield/bootstrap-tokenfield.js', ["type" => "text/javascript"]) }}
         {{ HTML::style('assets/lib/sliptree-bootstrap-tokenfield/css/bootstrap-tokenfield.min.css', ["type" => "text/css"]) }}
 
+
+        <!-- ANIMATIONS -->
+        {{ HTML::style('assets/css/animate.css', ["type" => "text/css"]) }}
+
         {{--EDITABLE--}}
         <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css"
               rel="stylesheet">
