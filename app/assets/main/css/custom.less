@@ -227,6 +227,12 @@ table.left-right-align td:nth-child(1) {
 }
 
 /*BOOKS*/
+.top-book-panel {
+  margin-top: 10px;
+  margin-bottom: 40px;
+  padding: 20px;
+}
+
 .book-filters-table {
   width: 100%;
   margin-bottom: 20px;
@@ -963,12 +969,36 @@ ul.nav li a:hover {
   color: @accent-color;
 }
 
-.navbar-default .navbar-nav .open .dropdown-menu.navigation-dropdown-menu > li > a {
+//DEFAULT DROPDOWN
+.open .dropdown-menu > li > a {
+  color: @primary-color;
+  background-color: @accent-color;
+}
+
+.open .dropdown-menu > li > a:hover {
+  background-color: @primary-color;
+  color: @accent-color;
+  background-image: none;
+  border: none;
+}
+
+.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+  background-color: @primary-color;
+  color: @accent-color;
+  background-image: none;
+}
+
+.dropdown-menu {
+  background: @accent-color;
+}
+
+//DROPDOWN IN NAVIGATION MENU
+.open .dropdown-menu.navigation-dropdown-menu > li > a {
   color: @accent-color;
   background-color: @primary-color;
 }
 
-.navbar-default .navbar-nav .open .dropdown-menu.navigation-dropdown-menu > li > a:hover {
+.open .dropdown-menu.navigation-dropdown-menu > li > a:hover {
   background-color: @accent-color;
   color: @primary-color;
   background-image: none;
