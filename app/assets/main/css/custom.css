@@ -1,19 +1,19 @@
 @font-face {
   font-family: "vincent";
-  src: url("/BiblioMania/assets/fonts/Vincent-Regular.otf") format("opentype");
+  src: url("../../../../public/assets/fonts/Vincent-Regular.otf") format("opentype");
 }
 @font-face {
   font-family: "baron";
-  src: url("/BiblioMania/assets/fonts/baron_black.otf") format("opentype");
+  src: url("../../../../public/assets/fonts/baron_black.otf") format("opentype");
 }
 @font-face {
   font-family: "parisish";
-  src: url("/BiblioMania/assets/fonts/Parisish.ttf") format("opentype");
+  src: url("../../../../public/assets/fonts/Parisish.ttf") format("opentype");
 }
 @font-face {
   font-family: "vincent";
   font-weight: bold;
-  src: url("/BiblioMania/assets/fonts/Vincent-Regular.otf") format("opentype");
+  src: url("../../../../public/assets/fonts/Vincent-Regular.otf") format("opentype");
 }
 .no-round-corners {
   -webkit-border-radius: 0 !important;
@@ -372,26 +372,26 @@ table.book-detail-info-table td {
   margin-top: -135px;
 }
 .libraryInformationBookmark.bookmark .info-icon {
-  background-image: url("/BiblioMania/images/info_icon.png");
+  background-image: url("../../../../public/images/info_icon.png");
   background-size: 20px 20px;
   background-repeat: no-repeat;
   background-position: center;
 }
 .libraryInformationBookmark.bookmark .info-icon:hover {
-  background-image: url("/BiblioMania/images/info_icon_orange.png");
+  background-image: url("../../../../public/images/info_icon_orange.png");
   background-size: 20px 20px;
   background-repeat: no-repeat;
   background-position: center;
   cursor: pointer;
 }
 .libraryFilterBookmark.bookmark .info-icon {
-  background-image: url("/BiblioMania/images/filter_icon.png");
+  background-image: url("../../../../public/images/filter_icon.png");
   background-size: 20px 20px;
   background-repeat: no-repeat;
   background-position: center;
 }
 .libraryFilterBookmark.bookmark .info-icon:hover {
-  background-image: url("/BiblioMania/images/filter_icon_orange.png");
+  background-image: url("../../../../public/images/filter_icon_orange.png");
   background-size: 20px 20px;
   background-repeat: no-repeat;
   background-position: center;
