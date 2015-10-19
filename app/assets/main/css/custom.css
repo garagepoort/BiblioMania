@@ -719,6 +719,7 @@ ul.nav li a:hover {
 /*NAVBAR*/
 .search-box-table {
   margin-top: 7px;
+  margin-right: 20px;
 }
 .navbar-default {
   background-color: #2d6ca2;
