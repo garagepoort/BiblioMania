@@ -83,9 +83,7 @@ function fillInBookContainer(data) {
             var tdElement = $("<td></td>");
 
             var bookImageObject = getBookImageObject(book);
-            var materialCard = createMaterialCardImage(book.id, bookImageObject.imageString, bookImageObject.height, bookImageObject.width, bookImageObject.spritePointer, book.hasWarnings, book.read);
-            materialCard.attr("bookid", book.id);
-
+            var materialCard = new BookCard(book.id, bookImageObject, book.warnings, book.read).create();
             var icCaptionElement = $("<div class=\"ic_caption editBookPanel\"><p class=\"ic_category\">Edit<i class=\"fa fa-pencil editImagePencilIcon\"></i></p></div>");
 
             materialCard.append(icCaptionElement);
@@ -100,11 +98,9 @@ function fillInBookContainer(data) {
                 window.scroll_id = null;
             }
         }
-
-        $('[data-toggle="tooltip"]').tooltip();
-
         $('#books-container-table > tbody:last').append(trElement);
     }
+    $('[data-toggle="tooltip"]').tooltip();
     if (scrollElement != null) {
         scrollToElement(scrollElement);
     }

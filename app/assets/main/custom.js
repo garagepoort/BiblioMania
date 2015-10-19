@@ -28,37 +28,6 @@ function hideError(id) {
     $(id).hide();
 }
 
-function createMaterialCardImage(bookId, image, height, width, spritePointer, showExclamation, read){
-    var readIcon = getIcon("/images/check-circle-fail.png", "Dit boek is niet gelezen", "reading-icon");
-    var styleString = getImageStyle(height, width, image, spritePointer);
-    var materialCard = $("<div></div>");
-    materialCard.attr("class", "material-card imageLinkWrapper ic_container");
-    materialCard.attr("style", "width: " + width+ "px;");
-
-    var materialContent = $("<div></div>");
-    materialContent.attr("class", "material-card-content");
-    materialContent.attr("style", styleString);
-
-    if(showExclamation){
-        var exclamationIcon = getIcon("/images/exclamation_mark.png", "Dit boek heeft oude tags", "exclamation");
-        materialContent.append(exclamationIcon);
-    }
-    if(read) {
-        readIcon = getIcon("/images/check-circle-success.png", "Dit boek is gelezen", "reading-icon");
-    }
-    readIcon.addClass("clickableImage");
-    readIcon.attr("href", baseUrl + "/createOrEditBook/step/6/" + bookId);
-    materialContent.append(readIcon);
-
-    materialCard.append(materialContent);
-
-    $(".clickableImage").click(function () {
-        window.document.location = $(this).attr("href");
-    });
-
-    return materialCard;
-}
-
 function getIcon(image, title, clas) {
     var icon = $("<img/>");
     icon.attr("src", baseUrl + image);
