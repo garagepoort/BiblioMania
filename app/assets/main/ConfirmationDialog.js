@@ -10,16 +10,20 @@ function ConfirmationDialog(){
 *   - onCancelAction [optional]
 *   - onConfirmNotification [optional]
 *   - onCancelNotification [optional]
-*
+*   - type [optional]
 * */
 ConfirmationDialog.show = function(options){
     if(!options.title){
         options.title = "Informatie"
     }
+    if(!options.type){
+        options.type = "Information"
+    }
     BootstrapDialog.show({
         title: options.title,
-        closable: false,
         message: options.message,
+        type: options.type,
+        closable: false,
         buttons: [
             {
                 icon: "fa fa-check-circle",

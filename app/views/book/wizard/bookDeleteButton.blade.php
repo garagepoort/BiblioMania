@@ -1,0 +1,1 @@
+<button class="btn btn-danger" onclick="DeleteBookDialog.show({{ $bookId }}); return false;">Verwijder boek</button>
