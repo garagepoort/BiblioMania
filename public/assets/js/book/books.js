@@ -20,6 +20,15 @@ $(document).ready(function () {
     $('#searchBooksButton').on('click', function () {
         doSearchBooks();
     });
+
+    $('#orderByDropdown').find('a').click(function(e) {
+        e.preventDefault();
+        var param = $(this).attr("value");
+        var concept = $(this).text();
+        $('#orderByDropdownButtonLabel').text(concept);
+        $('#orderby-input').val(param);
+        doSearchBooks();
+    });
 });
 
 function doSearchBooks() {
@@ -30,7 +39,7 @@ function doSearchBooks() {
     var ownedVal = $(".ownedFilterRadioButton input.selected").val();
     var readVal = $(".readFilterRadioButton input.selected").val();
     var url = window.baseUrl + "/searchBooks?query=" + query
-        + "&order_by=" + $('#orderby-select-box').val()
+        + "&order_by=" + $('#orderby-input').val()
         + "&operator=" + operator
         + "&type=" + type
         + "&read=" + readVal

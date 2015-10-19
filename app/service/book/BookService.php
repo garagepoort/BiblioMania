@@ -339,7 +339,7 @@ class BookService
             $books = $books->orderBy('author.name');
         }
         if ($orderBy == 'subtitle') {
-            $books = $books->orderBy('subtitle');
+            $books = $books->orderBy('book.subtitle');
         }
         if ($orderBy == 'rating') {
             $books = $books->orderBy('personal_book_info.rating', 'DESC');

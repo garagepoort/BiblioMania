@@ -1,5 +1,8 @@
 @extends('main')
 
+@section("title-buttons")
+    <button style="float: right" href="createOrEditBook/step/1" class='clickableRow btn btn-success'><span class="fa fa-plus"></span>   Nieuw boek</button>
+@endsection
 
 @section('navbarRight')
     <table class="search-box-table">
@@ -24,7 +27,8 @@
             </td>
             <td>
                 <div class="input-group-btn search-panel-operator">
-                    <button type="button" class="btn btn-default dropdown-toggle no-round-corners" data-toggle="dropdown">
+                    <button type="button" class="btn btn-default dropdown-toggle no-round-corners"
+                            data-toggle="dropdown">
                         <span id="search_concept">bevat</span> <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" role="menu">
@@ -49,10 +53,10 @@
 
 @section('title')
     Mijn collectie
-@stop
+    @stop
 
-@section('content')
-    <!-- JCAPSLIDE -->
+    @section('content')
+            <!-- JCAPSLIDE -->
     {{ HTML::script('assets/lib/jCapSlide/jquery.capSlide.js') }}
     {{ HTML::style('assets/lib/jCapSlide/css/style.css') }}
 
@@ -68,15 +72,23 @@
     <div class="books-container">
         <div class="contentPanel">
 
-            <table width='100%' class='title-table'>
-                <tr>
-                    <td>Sorteer
-                        op: {{ Form::select('order', $order_by_options, null, array('id' => 'orderby-select-box', 'class'=> 'form-control')); }}</td>
-                    <td style="text-align:right;">
-                        <button href="createOrEditBook/step/1" class='clickableRow btn btn-primary'>Nieuw boek</button>
-                    </td>
-                </tr>
-            </table>
+            <div class="top-book-panel">
+
+                <div id="orderByDropdown" class="dropdown" style="float: left">
+                    <label>Sorteer op:  </label>
+                    <button class="btn btn-default dropdown-toggle" type="button" id="orderByDropDownButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        <span id="orderByDropdownButtonLabel">Auteur</span>
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="orderByDropDownButton">
+                        @foreach($order_by_options as $key => $value)
+                            <li><a value="{{$key}}" href="#">{{$value}}</a></li>
+                        @endforeach
+                    </ul>
+                    <input id="orderby-input" hidden value="author"/>
+                </div>
+            </div>
 
             <table class="table books-table" id="books-container-table">
                 <tbody class="infinite-container">
