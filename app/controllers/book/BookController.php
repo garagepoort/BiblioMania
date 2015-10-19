@@ -148,7 +148,7 @@ class BookController extends BaseController
                 "spritePointer" => $item->spritePointer,
                 "coverImage" => $item->coverImage,
                 "useSpriteImage" => $item->useSpriteImage,
-                "hasWarnings" => !StringUtils::isEmpty($item->old_tags),
+                "warnings" => $this->createBookWarnings($item),
                 "read" => $item->personal_book_info->read
             );
         }, $filteredBooksResult->getPaginatedItems()->getItems());
@@ -167,4 +167,22 @@ class BookController extends BaseController
         return $result;
     }
 
+    private function createBookWarnings($book){
+        $warnings = array();
+        if(!StringUtils::isEmpty($book->old_tags)){
+            array_push($warnings, array(
+                "id"=>"bookHasOldTags",
+                "message"=>"Dit boek heeft oude tags",
+                "icon"=>"/images/exclamation_mark.png"
+            ));
+        }
+        if($book->book_from_author_id == null){
+            array_push($warnings, array(
+                "id"=>"bookIsNotLinkedToOeuvre",
+                "message"=>"Dit boek is niet gelinked aan een oeuvre",
+                "icon"=>"/images/linked_warning.png"
+            ));
+        }
+        return $warnings;
+    }
 }
