@@ -71,6 +71,14 @@ class BookController extends BaseController
         ));
     }
 
+    public function deleteBook(){
+        try {
+            $this->bookService->deleteBook(Input::get("bookId"));
+        }catch (ServiceException $e){
+            return ResponseCreator::createExceptionResponse($e);
+        }
+    }
+
     public function getFilters(){
         return $this->bookFilterHandler->getFiltersInJson();
     }

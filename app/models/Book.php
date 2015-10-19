@@ -1,12 +1,16 @@
 <?php
 
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
+
 class Book extends Eloquent {
+	use SoftDeletingTrait;
+
     protected $table = 'book';
 
     protected $fillable = array(
-    	'title', 
-    	'subtitle', 
-    	'ISBN', 
+    	'title',
+    	'subtitle',
+    	'ISBN',
     	'translator',
     	'type_of_cover',
     	'coverImage',
@@ -26,8 +30,11 @@ class Book extends Eloquent {
 		'language_id',
 		'wizard_step'
     	);
-    
-    protected $with = array('publication_date', 'first_print_info', 'language');
+
+
+	protected $dates = ['deleted_at'];
+
+	protected $with = array('publication_date', 'first_print_info', 'language');
 
 	public function preferredAuthor(){
 		foreach($this->authors as $author){
