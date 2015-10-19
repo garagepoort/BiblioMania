@@ -457,4 +457,15 @@ class BookService
         $totalAmountOfBooksOwned = $books->where('personal_book_info.owned', '=', 1)->count();
         return array($totalValue, $totalAmountOfBooks, $totalAmountOfBooksOwned);
     }
+
+    public function deleteBook($id)
+    {
+        $book = $this->bookRepository->find($id);
+
+        if($book == null){
+            throw new ServiceException("Book to delete not found");
+        }
+
+        $this->bookRepository->delete($book);
+    }
 }
