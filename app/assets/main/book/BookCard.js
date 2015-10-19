@@ -25,6 +25,11 @@ BookCard.prototype.create = function(){
         exclamationIcon.attr("style", "top: " + top +"px");
         materialContent.append(exclamationIcon);
         top = top + 25;
+
+        if(warning.goToLink && warning.goToLink !== ""){
+            exclamationIcon.addClass("clickableImage");
+            exclamationIcon.attr("href", baseUrl + warning.goToLink + this.id);
+        }
     }
     materialCard.append(materialContent);
 

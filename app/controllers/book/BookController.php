@@ -173,14 +173,16 @@ class BookController extends BaseController
             array_push($warnings, array(
                 "id"=>"bookHasOldTags",
                 "message"=>"Dit boek heeft oude tags",
-                "icon"=>"/images/exclamation_mark.png"
+                "icon"=>"/images/exclamation_mark.png",
+                "goToLink"=>"/createOrEditBook/step/2/"
             ));
         }
         if($book->book_from_author_id == null){
             array_push($warnings, array(
                 "id"=>"bookIsNotLinkedToOeuvre",
                 "message"=>"Dit boek is niet gelinked aan een oeuvre",
-                "icon"=>"/images/linked_warning.png"
+                "icon"=>"/images/linked_warning.png",
+                "goToLink"=>"/createOrEditBook/step/4/"
             ));
         }
         return $warnings;
