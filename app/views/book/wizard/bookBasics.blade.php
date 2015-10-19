@@ -3,7 +3,9 @@
     {{ $title }}
 @endsection
 @section("title-buttons")
-    @include("book/wizard/bookDeleteButton", array("bookId"=>$book_id))
+    @if($book_id != null)
+        @include("book/wizard/bookDeleteButton", array("bookId"=>$book_id))
+    @endif
 @endsection
 
 @section("content")
