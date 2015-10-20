@@ -49,6 +49,11 @@ $(".linkLabel").on("click", function () {
                 showNotifications: true,
                 onSuccess: function(){
                     location.reload();
+                    NotificationRepository.addNotification({
+                        title: "",
+                        message: 'Succesvol gelinkt aan boek.',
+                        type: "success"
+                    });
                 }
             });
         }
