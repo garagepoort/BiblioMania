@@ -1,0 +1,8 @@
+<div class="material-card imageLinkWrapper ic_container" style="width: {{ book.width }}">
+    <div class="material-card-content" style="{{ imageStyle }}">
+        <img data-toggle="tooltip" data-placement="top" title="{{ warning.message }}" ng-repeat="warning in book.warnings" ng-src="{{ warning.icon }}" class="warning-icon clickableImage" href="{{warning.goToLink}}" style="top: {{ $index * 25 + 5}}px;">
+    </div>
+    <div class="ic_caption editBookPanel">
+        <p class="ic_category">Edit<i class="fa fa-pencil editImagePencilIcon"></i></p>
+    </div>
+</div>
