@@ -134,3 +134,20 @@ function showNotification(title, message, type){
 function hideLoadingDialog(){
     $.isLoading("hide");
 }
+
+function dateToString(date) {
+    if (date != null) {
+        result = "";
+        if (date.day != "0" && date.day != null) {
+            result = date.day + "-";
+        }
+        if (date.month != "0" && date.month != null) {
+            result = result + date.month + "-";
+        }
+        if (date.year != "0" && date.year != null) {
+            result = result + date.year;
+        }
+        return result
+    }
+    return "";
+}

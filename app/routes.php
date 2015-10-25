@@ -14,6 +14,9 @@
 //USER
 Route::group(array('before' => 'auth'), function () {
 
+    Route::get('books', 'BookController@getBooks');
+    Route::get('books/{id}', 'BookController@getFullBook');
+
 //  BOOKS
     Route::get('getBooks', 'BookController@getBooks');
     Route::get('getBooksList', 'BookController@getBooksList');
@@ -114,23 +117,9 @@ Route::get('changeLanguage/{lang}', 'LanguageController@changeLanguage');
 Route::post('createUser', 'UserController@createUser');
 Route::get('createUser', 'UserController@goToCreateUser');
 
-Route::get('/', function () {
-    if (Auth::check()) {
-        if (Agent::isMobile() || Agent::isTablet()) {
-            return Redirect::to('getBooksList');
-        } else {
-            return Redirect::to('getBooks');
-        }
-    } else {
-        return Redirect::to('login')
-            ->with('login_errors', true);
-    }
-});
+//HOME
+Route::get('/', 'HomeController@goHome');
 
 App::missing(function ($exception) {
-    if (Agent::isMobile() || Agent::isTablet()) {
-        return Redirect::to('getBooksList');
-    } else {
-        return Redirect::to('getBooks');
-    }
+    return Redirect::to('/');
 });
