@@ -37,6 +37,8 @@ class BookController extends BaseController
     private $currencyService;
     /** @var  BookFilterManager */
     private $bookFilterHandler;
+    /** @var  BookJsonMapper */
+    private $bookJsonMapper;
 
 
     public function __construct()
@@ -56,19 +58,12 @@ class BookController extends BaseController
         $this->countryService = App::make('CountryService');
         $this->languageService = App::make('LanguageService');
         $this->bookFilterHandler = App::make('BookFilterManager');
+        $this->bookJsonMapper = App::make('BookJsonMapper');
     }
 
     public function getBooks()
     {
-        $bookId = Input::get('book_id');
-        $scrollId = Input::get('scroll_id');
-
-        return View::make('books')->with(array(
-            'title' => 'Boeken',
-            'order_by_options' => $this->bookService->getOrderByValues(),
-            'book_id' => $bookId,
-            'scroll_id' => $scrollId
-        ));
+        return $this->searchBooks();
     }
 
     public function deleteBook(){
@@ -83,11 +78,13 @@ class BookController extends BaseController
         return $this->bookFilterHandler->getFiltersInJson();
     }
 
-    public function getFullBook()
+    public function getFullBook($book_id)
     {
-        $book_id = Input::get('book_id');
-
-        return $this->bookService->getFullBook($book_id);
+        $fullBook = $this->bookService->getFullBook($book_id);
+        if($fullBook == null){
+            return ResponseCreator::createExceptionResponse(new ServiceException("No book found with id " . $book_id));
+        }
+        return $this->bookJsonMapper->mapBookToJson($fullBook);
     }
 
     public function filterBooks(){
@@ -141,12 +138,16 @@ class BookController extends BaseController
     public function mapBooksToJson($filteredBooksResult)
     {
         $jsonItems = array_map(function ($item) {
+
+            list($imageHeight, $imageWidth, $bookImage) = $this->bookJsonMapper->getCoverImageFromBook($item);
+
             return array(
                 "id" => $item->id,
-                "imageHeight" => $item->imageHeight,
-                "imageWidth" => $item->imageWidth,
+                "title" => $item->title,
+                "imageHeight" => $imageHeight,
+                "imageWidth" => $imageWidth,
                 "spritePointer" => $item->spritePointer,
-                "coverImage" => $item->coverImage,
+                "coverImage" => $bookImage,
                 "useSpriteImage" => $item->useSpriteImage,
                 "warnings" => $this->createBookWarnings($item),
                 "read" => $item->personal_book_info->read
@@ -169,11 +170,27 @@ class BookController extends BaseController
 
     private function createBookWarnings($book){
         $warnings = array();
+        $baseUrl = URL::to('/');
+        if($book->read){
+            array_push($warnings, array(
+                "id"=>"bookread",
+                "message"=>"Dit boek is gelezen",
+                "icon"=> $baseUrl . "/images/check-circle-success.png",
+                "goToLink"=>"/createOrEditBook/step/6/"
+            ));
+        }else{
+            array_push($warnings, array(
+                "id"=>"bookread",
+                "message"=>"Dit boek is niet gelezen",
+                "icon"=> $baseUrl . "/images/check-circle-fail.png",
+                "goToLink"=>"/createOrEditBook/step/6/"
+            ));
+        }
         if(!StringUtils::isEmpty($book->old_tags)){
             array_push($warnings, array(
                 "id"=>"bookHasOldTags",
                 "message"=>"Dit boek heeft oude tags",
-                "icon"=>"/images/exclamation_mark.png",
+                "icon"=> $baseUrl . "/images/exclamation_mark.png",
                 "goToLink"=>"/createOrEditBook/step/2/"
             ));
         }
@@ -181,7 +198,7 @@ class BookController extends BaseController
             array_push($warnings, array(
                 "id"=>"bookIsNotLinkedToOeuvre",
                 "message"=>"Dit boek is niet gelinked aan een oeuvre",
-                "icon"=>"/images/linked_warning.png",
+                "icon"=>$baseUrl . "/images/linked_warning.png",
                 "goToLink"=>"/createOrEditBook/step/4/"
             ));
         }

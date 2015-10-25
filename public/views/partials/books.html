@@ -1,0 +1,53 @@
+<!-- JCAPSLIDE -->
+<script type="text/javascript" src="assets/lib/jCapSlide/jquery.capSlide.js"></script>
+<link href="assets/lib/jCapSlide/css/style.css">
+
+<script type="text/javascript">
+    var book_id = "";
+    var scroll_id = "";
+</script>
+<script type="text/javascript" src="assets/js/book/bookSlidingPanel.js"></script>
+<script type="text/javascript" src="assets/js/book/books.js"></script>
+<script type="text/javascript" src="assets/js/filter_dropdown.js"></script>
+<script type="text/javascript" src="assets/js/books/search_books.js"></script>
+
+<div class="books-container">
+    <div class="contentPanel">
+
+        <div class="top-book-panel">
+
+            <div id="orderByDropdown" class="dropdown" style="float: left">
+                <label>Sorteer op:  </label>
+                <button class="btn btn-default dropdown-toggle" type="button" id="orderByDropDownButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <span id="orderByDropdownButtonLabel">Auteur</span>
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="orderByDropDownButton">
+                    <li ng-repeat="orderBy in orderValues"><a value="{{orderBy.value}}" href="#/books">{{orderBy.key}}</a></li>
+                </ul>
+                <input id="orderby-input" hidden value="author"/>
+            </div>
+        </div>
+
+        <table st-table="bookCollection" class="table books-table" id="books-container-table">
+            <tbody class="infinite-container">
+                <tr ng-repeat="bookRow in bookCollection">
+
+                    <td ng-repeat="book in bookRow.books">
+                        <book-card book="book"></book-card>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!--<div id="books-loading-waypoint" style="text-align:center;">-->
+            <!--{{ HTML::image('images/ajax-loader.gif', 'loader', array('id'=>'loader-icon')) }}-->
+            <!--<p id="no-results-message" hidden>No results found.</p>-->
+        <!--</div>-->
+    </div>
+
+    <book-detail></book-detail>
+    <!--@include('book/bookSlidingPanel')-->
+    <!--@include('library/libraryInformationSlidingPanel')-->
+    <!--@include('library/libraryFilterSlidingPanel')-->
+</div>
