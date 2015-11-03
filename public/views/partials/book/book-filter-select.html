@@ -1,0 +1,32 @@
+<div>
+    <dl class="filters-list">
+        <dt>
+        <h4>Boek</h4>
+        </dt>
+        <dt>
+        <dd ng-repeat="filter in allFilters['book']">
+            <input type="checkbox" ng-click="selectFilter($event, filter)"/> <label>{{filter.field}}</label>
+        </dd>
+        </dt>
+    </dl>
+    <dl class="filters-list">
+        <dt>
+        <h4>Persoonlijk</h4>
+        </dt>
+        <dt>
+        <dd ng-repeat="filter in allFilters['personal']">
+            <input type="checkbox" ng-click="selectFilter($event, filter)"/> <label>{{filter.field}}</label>
+        </dd>
+        </dt>
+    </dl>
+    <dl class="filters-list">
+        <dt>
+        <h4>Koop/Gift</h4>
+        </dt>
+        <dt>
+        <dd ng-repeat="filter in allFilters['buy-gift']">
+            <input type="checkbox" ng-click="selectFilter($event, filter)"/> <label>{{filter.field}}</label>
+        </dd>
+        </dt>
+    </dl>
+</div>

@@ -7,22 +7,28 @@
         <meta charset="UTF-8">
         <title></title>
 
+        <script type="text/javascript" src="assets/js/jquery.js"></script>
+        <!--GOOGLE IMAGE SEARCH-->
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+
         <!--ANGULAR-->
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-route.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-resource.js"></script>
 
-        <!--GOOGLE IMAGE SEARCH-->
-        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-
-        <script type="text/javascript" src="assets/js/jquery.js"></script>
-
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
+        <!--BiblioMania-->
         <script type="text/javascript" src="assets/main.min.js"></script>
+        <script type="text/javascript" src="packages/bendani/php-common/login-service/com.bendani.php.common.loginservice.authentication.model.js"></script>
+        <script type="text/javascript" src="packages/bendani/php-common/login-service/com.bendani.php.common.loginservice.login.directive.js"></script>
         <link href="assets/main.min.css" rel="stylesheet">
         <script type="text/javascript" src="assets/js/angular/com.bendani.bibliomania.app.js"></script>
+
+
+
 
 
 
@@ -98,6 +104,7 @@
                     <!--set buttons on scope and loop over them-->
                 </div>
             </div>
+            <errorcontainer></errorcontainer>
             <div class="contentPanel" ng-view>
                 <!--use ng-view to insert content-->
             </div>

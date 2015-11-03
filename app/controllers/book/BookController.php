@@ -84,7 +84,7 @@ class BookController extends BaseController
         if($fullBook == null){
             return ResponseCreator::createExceptionResponse(new ServiceException("No book found with id " . $book_id));
         }
-        return $this->bookJsonMapper->mapBookToJson($fullBook);
+        return $this->bookJsonMapper->mapToJson($fullBook);
     }
 
     public function filterBooks(){
@@ -141,9 +141,12 @@ class BookController extends BaseController
 
             list($imageHeight, $imageWidth, $bookImage) = $this->bookJsonMapper->getCoverImageFromBook($item);
 
+            /** @var Book $item*/
             return array(
                 "id" => $item->id,
                 "title" => $item->title,
+                "subtitle" => $item->subtitle,
+                "author" => $item->preferredAuthor()->name . " " . $item->preferredAuthor()->firstname,
                 "imageHeight" => $imageHeight,
                 "imageWidth" => $imageWidth,
                 "spritePointer" => $item->spritePointer,
@@ -188,7 +191,7 @@ class BookController extends BaseController
         }
         if(!StringUtils::isEmpty($book->old_tags)){
             array_push($warnings, array(
-                "id"=>"bookHasOldTags",
+                "id"=>" bookHasOldTags",
                 "message"=>"Dit boek heeft oude tags",
                 "icon"=> $baseUrl . "/images/exclamation_mark.png",
                 "goToLink"=>"/createOrEditBook/step/2/"

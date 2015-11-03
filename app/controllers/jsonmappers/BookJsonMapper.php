@@ -1,16 +1,24 @@
 <?php
 use Bendani\PhpCommon\Utils\Model\StringUtils;
 
-/**
- * Created by PhpStorm.
- * User: davidmaes
- * Date: 25/10/15
- * Time: 21:13
- */
 class BookJsonMapper
 {
+    /** @var  PersonalBookInfoJsonMapper $personalBookInfoJsonMapper */
+    private $personalBookInfoJsonMapper;
+    /** @var  FirstPrintInfoJsonMapper $firstPrintInfoJsonMapper */
+    private $firstPrintInfoJsonMapper;
+    /** @var  DateToJsonMapper $dateToJsonMapper */
+    private $dateToJsonMapper;
 
-    public function mapBookToJson(Book $book){
+    public function __construct()
+    {
+        $this->personalBookInfoJsonMapper = App::make('PersonalBookInfoJsonMapper');
+        $this->firstPrintInfoJsonMapper = App::make('FirstPrintInfoJsonMapper');
+        $this->dateToJsonMapper = App::make('DateToJsonMapper');
+    }
+
+
+    public function mapToJson(Book $book){
         list($imageHeight, $imageWidth, $bookImage) = $this->getCoverImageFromBook($book);
         $jsonArray = array(
             "id" => $book->id,
@@ -19,7 +27,7 @@ class BookJsonMapper
             "author" => $book->preferredAuthor()->firstname . ' ' . $book->preferredAuthor()->name,
             "subtitle" => $book->subtitle,
             "publisher" => $book->publisher->name,
-            "publicationDate" => $book->publication_date,
+            "publicationDate" => $this->dateToJsonMapper->mapToJson($book->publication_date),
             "summary" => $book->summary,
             "country" => $book->country->name,
             "language" => $book->language->language,
@@ -33,24 +41,9 @@ class BookJsonMapper
             "print" => $book->print,
             "translator" => $book->translator,
             "useSpriteImage" => $book->useSpriteImage,
-            "read" => $book->personal_book_info->read
+            "personalBookInfo" => $this->personalBookInfoJsonMapper->mapToJson($book->personal_book_info),
+            "firstPrintInfo" => $this->firstPrintInfoJsonMapper->mapToJson($book->first_print_info)
         );
-
-        $buy_info = $book->personal_book_info->buy_info;
-        if($buy_info != null){
-            $jsonArray["buyDate"] = $buy_info->buy_date;
-            $jsonArray["buyPrice"] = $buy_info->price_payed;
-            $jsonArray["buyShop"] = $buy_info->price_payed;
-            $jsonArray["buyReason"] = $buy_info->reason;
-            if($buy_info->city != null){
-                $jsonArray["buyCity"] = $buy_info->city->name;
-                if($buy_info->city->country != null){
-                    $jsonArray["buyCountry"] = $buy_info->city->country->name;
-                }
-            }
-        }else{
-
-        }
 
         return $jsonArray;
     }

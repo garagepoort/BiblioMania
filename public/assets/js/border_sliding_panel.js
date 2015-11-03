@@ -5,6 +5,10 @@ function BorderSlidingPanel(div, position, offset){
     this.width = div.outerWidth() + offset;
 }
 
+BorderSlidingPanel.prototype.getHtmlElement = function(){
+    return this.div;
+}
+
 BorderSlidingPanel.prototype.close = function(onCompleteDo){
     this.animationBusy = true;
     var that = this;
