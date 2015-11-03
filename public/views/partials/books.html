@@ -15,7 +15,6 @@
     <div class="contentPanel">
 
         <div class="top-book-panel">
-
             <div id="orderByDropdown" class="dropdown" style="float: left">
                 <label>Sorteer op:  </label>
                 <button class="btn btn-default dropdown-toggle" type="button" id="orderByDropDownButton"
@@ -28,25 +27,34 @@
                 </ul>
                 <input id="orderby-input" hidden value="author"/>
             </div>
+
+            <div class="input-group" style="width: 200px; float: right">
+                <input id="searchBooksInput" ng-model="searchBooksQuery" type="text" class="form-control half-round-corners-left" placeholder="Search" name="criteria" aria-describedby="basic-addon1">
+                <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon1"></span>
+            </div>
         </div>
 
-        <table st-table="bookCollection" class="table books-table" id="books-container-table">
-            <tbody class="infinite-container">
-                <tr ng-repeat="bookRow in bookCollection">
+        <!--<table st-table="bookCollection" class="table books-table" id="books-container-table">-->
+            <!--<tbody class="infinite-container">-->
+                <!--<tr ng-repeat="bookRow in bookCollection">-->
 
-                    <td ng-repeat="book in bookRow.books">
-                        <book-card book="book"></book-card>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                    <!--<td ng-repeat="book in bookRow.books | filter: search">-->
+                        <!--<book-card book="book"></book-card>-->
+                    <!--</td>-->
+                <!--</tr>-->
+            <!--</tbody>-->
+        <!--</table>-->
+
+        <book-card ng-repeat="book in books | filter: search" book="book"></book-card>
+
         <!--<div id="books-loading-waypoint" style="text-align:center;">-->
             <!--{{ HTML::image('images/ajax-loader.gif', 'loader', array('id'=>'loader-icon')) }}-->
             <!--<p id="no-results-message" hidden>No results found.</p>-->
         <!--</div>-->
     </div>
 
-    <book-detail></book-detail>
+    <book-detail book-detail-panel-open="bookModel.bookDetailPanelOpen"></book-detail>
+    <book-filter-sliding-panel></book-filter-sliding-panel>
     <!--@include('book/bookSlidingPanel')-->
     <!--@include('library/libraryInformationSlidingPanel')-->
     <!--@include('library/libraryFilterSlidingPanel')-->

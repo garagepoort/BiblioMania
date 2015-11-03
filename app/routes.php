@@ -16,6 +16,7 @@ Route::group(array('before' => 'auth'), function () {
 
     Route::get('books', 'BookController@getBooks');
     Route::get('books/{id}', 'BookController@getFullBook');
+    Route::get('bookFilters', 'BookController@getFilters');
 
 //  BOOKS
     Route::get('getBooks', 'BookController@getBooks');
@@ -24,7 +25,6 @@ Route::group(array('before' => 'auth'), function () {
     Route::get('getFullBook', 'BookController@getFullBook');
     Route::get('searchBooks', 'BookController@searchBooks');
     Route::get('filterBooks', 'BookController@filterBooks');
-    Route::get('bookFilters', 'BookController@getFilters');
     Route::post('deleteBook', 'BookController@deleteBook');
 
     //WIZARD
