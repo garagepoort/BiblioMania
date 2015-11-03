@@ -1,16 +1,19 @@
 'use strict';
 
-angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.bibliomania.book.model'])
-    .controller('BookController', ['$scope', 'Book', function ($scope, Book) {
-
+angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.bibliomania.book.model', 'com.bendani.bibliomania.error.container'])
+    .controller('BookController', ['$scope', 'Book', 'ErrorContainer',function ($scope, Book, ErrorContainer) {
 
         function init(){
-            $scope.bookModel = {selectedBookId:null};
+            $scope.searchBooksQuery = "";
+
+            $scope.bookModel = {
+                selectedBookId:null,
+                bookDetailPanelOpen:false
+            };
+
             Book.get(function (books) {
                 retrieveBooks(books);
-            }, function(data){
-                $scope.error = data;
-            });
+            }, ErrorContainer.handleRestError);
 
             $scope.orderValues = [
                 { key: 'Auteur', value:'author'},
@@ -20,9 +23,36 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
             ];
         }
 
+        $scope.closeBookDetailPanel = function(){
+            $scope.bookModel.bookDetailPanelOpen = false;
+            $scope.$apply();
+        }
+
+        $scope.openBookDetailPanel = function(){
+            $scope.bookModel.bookDetailPanelOpen = true;
+            $scope.$apply();
+        }
+
+        $scope.isBookDetailPanelOpen = function(){
+            return $scope.bookModel.bookDetailPanelOpen;
+        }
+
         $scope.setSelectedBookId = function(selectBookId){
             $scope.bookModel.selectedBookId = selectBookId;
             $scope.$apply();
+        }
+
+        $scope.search = function(item){
+            if ( (item.title.toLowerCase().indexOf($scope.searchBooksQuery) != -1)
+                || (item.subtitle.toLowerCase().indexOf($scope.searchBooksQuery) != -1)
+                || (item.author.toLowerCase().indexOf($scope.searchBooksQuery) != -1) ){
+                return true;
+            }
+            return false;
+        };
+
+        $scope.getSelectedBookId = function(){
+            return $scope.bookModel.selectedBookId;
         }
 
         function retrieveBooks(books) {

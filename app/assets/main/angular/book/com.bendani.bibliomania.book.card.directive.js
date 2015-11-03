@@ -6,10 +6,9 @@ angular
             restrict: "E",
             templateUrl: "../BiblioMania/views/partials/book/book-card-directive.html",
             controller: ['$scope', function($scope) {
-                $scope.imageStyle = getImageStyle($scope.book.imageHeight, $scope.book.imageWidth, $scope.book.coverImage, $scope.book.spritePointer);
             }],
             link: function ($scope, element) {
-                $(element).capslide({
+                $(element).find(".ic_container").capslide({
                     showcaption: false,
                     overlay_bgcolor: ""
                 });
@@ -17,10 +16,13 @@ angular
                 $(element).find('[data-toggle="tooltip"]').tooltip();
 
                 $(element).click(function (event) {
-                    $scope.$parent.setSelectedBookId($scope.book.id);
+                    if($scope.$parent.isBookDetailPanelOpen() && $scope.$parent.getSelectedBookId() == $scope.book.id){
+                        $scope.$parent.closeBookDetailPanel();
+                    }else{
+                        $scope.$parent.setSelectedBookId($scope.book.id);
+                        $scope.$parent.openBookDetailPanel();
+                    }
                 });
-
-
             }
         };
     });

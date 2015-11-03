@@ -2,13 +2,20 @@ angular
     .module('com.bendani.bibliomania.book.detail.directive', ['com.bendani.bibliomania.book.model'])
     .directive('bookDetail', [ 'Book', function (Book){
         return {
-            scope: true,
+            scope: {
+                bookDetailPanelOpen : "="
+            },
             restrict: "E",
             replace: true,
             templateUrl: "../BiblioMania/views/partials/book/book-detail-directive.html",
             link: function ($scope, element) {
                 $scope.bookSlidingPanel = new BorderSlidingPanel($(element), "right", 0);
                 $scope.imageStyle = "";
+
+                $scope.currencies = [];
+                $scope.currencies['EUR'] = '€';
+                $scope.currencies['USD'] = '$';
+                $scope.currencies['PND'] = '£';
 
                 $(element).on('click', function(event){
                     event.stopPropagation();
@@ -17,7 +24,7 @@ angular
                 function retrieveFullBook(newValue) {
                     $scope.book = Book.get({id: newValue}, function (data) {
                         $scope.imageStyle = getImageStyle($scope.book.imageHeight, $scope.book.imageWidth, $scope.book.coverImage, $scope.book.spritePointer);
-                        closeAndOpenBookDetail();
+                        openBookDetail();
                     }, function (error) {
                         alert(error);
                     });
@@ -29,12 +36,14 @@ angular
                     }
                 }, true);
 
-                function closeAndOpenBookDetail() {
-                    $scope.bookSlidingPanel.close(function () {
-                        $(element).removeClass('visible');
+
+                $scope.$watch('bookDetailPanelOpen', function(value){
+                    if(value){
                         openBookDetail();
-                    });
-                }
+                    }else{
+                        closeBookDetail();
+                    }
+                });
 
                 function closeBookDetail() {
                     $scope.bookSlidingPanel.close(function () {
@@ -43,6 +52,12 @@ angular
                 }
 
                 function openBookDetail() {
+                    $('#star-detail').raty({
+                        score: $scope.book.personalBookInfo.rating,
+                        number: 10,
+                        readOnly: true,
+                        path: '/BiblioMania/assets/lib/raty-2.7.0/lib/images'
+                    });
                     $scope.bookSlidingPanel.open(function(){
                         $(element).addClass('visible');
                     });

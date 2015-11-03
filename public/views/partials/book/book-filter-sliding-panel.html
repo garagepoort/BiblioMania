@@ -1,0 +1,29 @@
+<div id="libraryFilterSlidingPanel" class="sliding-panel libraryFilterSlidingPanel">
+    <div id="libraryFilterBookMark" class="bookMark libraryFilterBookmark">
+        <img src="images/filter_icon.png" class="info-icon">
+        <div class="info-icon"></div>
+    </div>
+    <div id="libraryFilterSlidingPanelTitle" class="slidingPanelTitle material-card-title">Filter</div>
+    <div class="material-card-content">
+        <table id="book-filters-table" class="book-filters-table">
+            <tr>
+                <td>
+                    <button class="btn btn-success" id="filterButton" ng-click="doFilterBooks(allSelectedFilters)">Filter</button>
+                    <button class="btn btn-warning" id="deselect" ng-click="doFilterBooks('')">Reset</button>
+                    <button class="btn btn-default" id="selectFiltersButton" ng-click="showSelectFiltersDialog()">Selecteer filters</button>
+                </td>
+            </tr>
+        </table>
+        <ul>
+            <li ng-repeat="filter in filters.selected">
+                {{filter.field}}
+            </li>
+        </ul>
+        <div id="book-form-container" class="filter-form-container"></div>
+        <div id="personal-form-container" class="filter-form-container"></div>
+        <div id="buy-gift-form-container" class="filter-form-container"></div>
+    </div>
+</div>
+
+<script type="text/javascript" src="packages/bendani/php-common/filter-service/filters.min.js"></script>
+<link href="packages/bendani/php-common/filter-service/filters.min.css">
