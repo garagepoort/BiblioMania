@@ -40,16 +40,17 @@ class BookCountryFilterHandler implements OptionsFilterHandler
 
     public function getOptions()
     {
-        $result= array();
-        $result["Geen waarde"] = "";
+        $options= array();
+        $noValueOption = array("key" => "Geen waarde", "value" => "");
+        array_push($options, $noValueOption);
         foreach($this->countryService->getCountries() as $country){
             if(!StringUtils::isEmpty($country->name)){
-                $result[$country->name] = $country->name;
+                array_push($options, array("key"=>$country->name, "value"=>$country->name));
             }else{
-                $result["Geen waarde"] = $country->name;
+                $noValueOption["value"] = $country->name;
             }
         }
-        return $result;
+        return $options;
     }
 
     public function getSupportedOperators()

@@ -2,6 +2,7 @@
 
 use Bendani\PhpCommon\FilterService\Model\FilterOperator;
 use Bendani\PhpCommon\FilterService\Model\OptionsFilterHandler;
+use Bendani\PhpCommon\Utils\Model\StringUtils;
 
 class BookLanguageFilterHandler implements OptionsFilterHandler
 {
@@ -38,11 +39,17 @@ class BookLanguageFilterHandler implements OptionsFilterHandler
 
     public function getOptions()
     {
-        $result= array();
+        $options= array();
+        $noValueOption = array("key" => "Geen waarde", "value" => "");
+        array_push($options, $noValueOption);
         foreach($this->languageService->getLanguages() as $language){
-            $result[$language->language] = $language->language;
+            if(!StringUtils::isEmpty($language->language)){
+                array_push($options, array("key"=>$language->language, "value"=>$language->language));
+            }else{
+                $noValueOption["value"] = $language->language;
+            }
         }
-        return $result;
+        return $options;
     }
 
     public function getSupportedOperators()

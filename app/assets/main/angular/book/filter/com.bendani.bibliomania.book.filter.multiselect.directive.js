@@ -1,12 +1,12 @@
 angular
-    .module('com.bendani.bibliomania.book.filter.text.directive', [])
-    .directive('bookFilterText', function (){
+    .module('com.bendani.bibliomania.book.filter.multiselect.directive', [])
+    .directive('bookFilterMultiselect', function (){
         return {
             scope: {
                 filter: "=filter"
             },
             restrict: "E",
-            templateUrl: "../BiblioMania/views/partials/book/book-filter-text.html",
+            templateUrl: "../BiblioMania/views/partials/book/book-filter-multiselect.html",
             controller: ['$scope', '$compile', function($scope, $compile) {
                 $scope.filter.value = "";
                 $scope.filter.selectedOperator = $scope.filter.supportedOperators[0];
@@ -16,6 +16,9 @@ angular
                 }
             }],
             link: function($scope, $elem){
+                $elem.find(".filterinput").multiselect({
+                    enableFiltering: true
+                });
             }
         };
     });
