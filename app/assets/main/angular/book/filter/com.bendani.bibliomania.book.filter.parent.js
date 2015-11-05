@@ -14,6 +14,9 @@ angular.module('com.bendani.bibliomania.book.filter.parent', [])
             if($scope.filter.type === "text"){
                 htm = '<book-filter-text filter="filter"></book-filter-text>';
             }
+            if($scope.filter.type === "multiselect"){
+                htm = '<book-filter-multiselect filter="filter"></book-filter-multiselect>';
+            }
             var compiled = $compile(htm)($scope);
             $elem.append(compiled);
         }

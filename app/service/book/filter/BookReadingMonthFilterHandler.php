@@ -29,20 +29,20 @@ class BookReadingMonthFilterHandler implements OptionsFilterHandler
 
     public function getOptions()
     {
-        return array(
-            "januari"=>1,
-            "februari"=>2,
-            "maart"=>3,
-            "april"=>4,
-            "mei"=>5,
-            "juni"=>6,
-            "juli"=>7,
-            "augustus"=>8,
-            "september"=>9,
-            "oktober"=>10,
-            "november"=>11,
-            "december"=>12,
-            );
+        $options= array();
+        array_push($options, array("key" => "januari", "value" => 1));
+        array_push($options, array("key" => "februari", "value" => 2));
+        array_push($options, array("key" => "maart", "value" => 3));
+        array_push($options, array("key" => "april", "value" => 4));
+        array_push($options, array("key" => "mei", "value" => 5));
+        array_push($options, array("key" => "juni", "value" => 6));
+        array_push($options, array("key" => "juli", "value" => 7));
+        array_push($options, array("key" => "augustus", "value" => 8));
+        array_push($options, array("key" => "september", "value" => 9));
+        array_push($options, array("key" => "oktober", "value" => 10));
+        array_push($options, array("key" => "november", "value" => 11));
+        array_push($options, array("key" => "december", "value" => 12));
+        return $options;
     }
 
     public function getSupportedOperators()
