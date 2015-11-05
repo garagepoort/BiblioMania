@@ -1,8 +1,7 @@
 <div class="form-group">
     <label class='control-label col-md-10'>{{filter.field}}</label>
     <div class="col-md-10 filter-input">
-        <select ng-show="shouldShowOperators()" class="input-sm form-control operator-select" ng-model="filter.selectedOperator" ng-options="operator.key for operator in filter.supportedOperators track by operator.value">
-        </select>
+        <select ng-show="shouldShowOperators()" class="input-sm form-control operator-select" ng-model="filter.selectedOperator" ng-options="operator.value as operator.key for operator in filter.supportedOperators"></select>
         <select class="filterinput input-sm form-control" multiple="multiple" ng-model="filter.value"
                 ng-options="option.value as option.key for option in filter.options"></select>
     </div>

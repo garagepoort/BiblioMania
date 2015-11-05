@@ -2,6 +2,7 @@
 
 use Bendani\PhpCommon\FilterService\Model\FilterOperator;
 use Bendani\PhpCommon\FilterService\Model\OptionsFilterHandler;
+use Bendani\PhpCommon\Utils\Model\StringUtils;
 
 class BookGiftFromFilterHandler implements OptionsFilterHandler
 {
@@ -32,8 +33,18 @@ class BookGiftFromFilterHandler implements OptionsFilterHandler
     {
         /** @var GiftInfoService $giftInfoService */
         $giftInfoService = App::make("GiftInfoService");
-        $gifters = $giftInfoService->getAllGifters();
-        return $gifters;
+
+        $options= array();
+        $noValueOption = array("key" => "Geen waarde", "value" => "");
+        array_push($options, $noValueOption);
+        foreach($giftInfoService->getAllGifters() as $gifter){
+            if(!StringUtils::isEmpty($gifter->from)){
+                array_push($options, array("key"=>$gifter->from, "value"=>$gifter->from));
+            }else{
+                $noValueOption["value"] = $gifter->from;
+            }
+        }
+        return $options;
     }
 
     public function getSupportedOperators()
