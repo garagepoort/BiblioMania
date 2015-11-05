@@ -24,7 +24,7 @@ angular
                 function retrieveFullBook(newValue) {
                     $scope.book = Book.get({id: newValue}, function (data) {
                         $scope.imageStyle = getImageStyle($scope.book.imageHeight, $scope.book.imageWidth, $scope.book.coverImage, $scope.book.spritePointer);
-                        openBookDetail();
+                        $scope.openBookDetail();
                     }, function (error) {
                         alert(error);
                     });
@@ -39,19 +39,19 @@ angular
 
                 $scope.$watch('bookDetailPanelOpen', function(value){
                     if(value){
-                        openBookDetail();
+                        $scope.openBookDetail();
                     }else{
-                        closeBookDetail();
+                        $scope.closeBookDetail();
                     }
                 });
 
-                function closeBookDetail() {
+                $scope.closeBookDetail = function() {
                     $scope.bookSlidingPanel.close(function () {
                         $(element).removeClass('visible');
                     });
                 }
 
-                function openBookDetail() {
+                $scope.openBookDetail = function() {
                     $('#star-detail').raty({
                         score: $scope.book.personalBookInfo.rating,
                         number: 10,

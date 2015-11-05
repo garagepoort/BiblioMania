@@ -15,6 +15,7 @@
 Route::group(array('before' => 'auth'), function () {
 
     Route::get('books', 'BookController@getBooks');
+    Route::post('books/search', 'BookController@search');
     Route::get('books/{id}', 'BookController@getFullBook');
     Route::get('bookFilters', 'BookController@getFilters');
 

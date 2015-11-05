@@ -28,7 +28,9 @@ class BookOwnedFilterHandler implements FilterHandler
 
     public function getSupportedOperators()
     {
-        return array("="=>FilterOperator::EQUALS);
+        return array(
+            array("key"=>"=", "value"=>FilterOperator::EQUALS)
+        );
     }
 
     public function getGroup()

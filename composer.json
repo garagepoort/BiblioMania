@@ -17,10 +17,10 @@
     "google/apiclient": "1.0.*@beta",
     "tymon/jwt-auth": "0.4.*",
     "jenssegers/agent": "^2.1",
-    "bendani/php-common/login-service": "1.0.*",
+    "bendani/php-common/login-service": "dev-feature/spike_for_angular",
     "bendani/php-common/google-image-service": "1.0.*",
     "bendani/php-common/wizard-service": "3.0.*",
-    "bendani/php-common/filter-service": "1.0.*",
+    "bendani/php-common/filter-service": "dev-angular_spike",
     "bendani/php-common/utils": "1.0.*"
   },
   "autoload": {
@@ -45,7 +45,8 @@
       "php artisan clear-compiled",
       "php artisan optimize",
       "php artisan asset:publish bendani/php-common/wizard-service",
-      "php artisan asset:publish bendani/php-common/filter-service"
+      "php artisan asset:publish bendani/php-common/filter-service",
+      "php artisan asset:publish bendani/php-common/login-service"
     ],
     "post-create-project-cmd": [
       "php artisan key:generate"
@@ -58,7 +59,7 @@
   "repositories": [
     {
       "type": "vcs",
-      "url": "https://github.com/garagepoort/php-common-loginservice.git"
+      "url": "/Users/davidmaes/Development/personal/php-common-loginservice"
     },
     {
       "type": "vcs",
@@ -70,7 +71,7 @@
     },
     {
       "type": "vcs",
-      "url": "https://github.com/garagepoort/php-common-filterservice.git"
+      "url": "/Users/davidmaes/Development/personal/php-common-filterservice"
     },
     {
       "type": "vcs",

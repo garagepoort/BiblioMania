@@ -10,10 +10,6 @@ angular
             controller: ['$scope', 'BookFilter', 'ErrorContainer',function($scope, BookFilter, ErrorContainer) {
 
                 function init() {
-                    $scope.bookFilters = [];
-                    $scope.personalFilters = [];
-                    $scope.giftBuyFilters = [];
-
                     $scope.allFilters = {};
 
                     getFilters();
@@ -27,46 +23,14 @@ angular
                         var index = $scope.selectedFilters.indexOf(filter);
                         $scope.selectedFilters.splice(index, 1);
                     }
-                }
-
-                function fillFilterRepository(filters) {
-                    for (var f in filters) {
-                        var filter = filters[f];
-                        var filterId = filter.id;
-                        var filterGroup = filter.group;
-                        var filterType = filter.type;
-                        var filterField = filter.field;
-                        var filterOperators = filter.supportedOperators;
-                        var filterOptions = [];
-
-                        if (filter.options != undefined) {
-                            filterOptions = filter.options;
-                        }
-
-                        var filter = new Filter(filterId, filterGroup, filterType, filterField, filterOperators, filterOptions, function (filter, selected) {
-                            if (selected) {
-                                if (filter.id.startsWith("book-")) {
-                                    $('#book-form-container').append(filter.getFilterValueInputElement());
-                                }
-                                if (filter.id.startsWith("personal-")) {
-                                    $('#personal-form-container').append(filter.getFilterValueInputElement());
-                                }
-                                if (filter.id.startsWith("buy-gift-")) {
-                                    $('#buy-gift-form-container').append(filter.getFilterValueInputElement());
-                                }
-                                $scope.allSelectedFilters.push(filter);
-                            } else {
-                                filter.removeFilterInputFromDom();
-                                $scope.allSelectedFilters.remove(filter);
-                            }
-                        });
-                    }
-                }
+                };
 
                 function getFilters() {
                     BookFilter.query(function(filters){
                         for(var i = 0; i< filters.length; i++){
                             var filter = filters[i];
+                            filter.selectedOperator = filter.supportedOperators[0].value;
+                            filter.value = "";
                             if ($scope.allFilters[filter.group] === undefined){
                                 $scope.allFilters[filter.group] = [];
                             }

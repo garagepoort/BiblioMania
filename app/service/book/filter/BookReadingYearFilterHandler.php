@@ -29,7 +29,11 @@ class BookReadingYearFilterHandler implements FilterHandler
 
     public function getSupportedOperators()
     {
-        return array("="=>FilterOperator::EQUALS, ">"=>FilterOperator::GREATER_THAN, "<"=>FilterOperator::LESS_THAN);
+        return array(
+            array("key"=>"=", "value"=>FilterOperator::EQUALS),
+            array("key"=>">", "value"=>FilterOperator::GREATER_THAN),
+            array("key"=>"<", "value"=>FilterOperator::LESS_THAN)
+        );
     }
 
     public function getGroup()
