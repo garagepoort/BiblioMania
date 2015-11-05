@@ -8,7 +8,7 @@ class BookOwnedFilterHandler implements FilterHandler
 {
     public function handleFilter($queryBuilder, $value, $operator)
     {
-        return $queryBuilder->where("personal_book_info.owned", "=", StringUtils::toBoolean($value));
+        return $queryBuilder->where("personal_book_info.owned", "=", $value);
     }
 
     public function getFilterId()

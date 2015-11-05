@@ -40,16 +40,17 @@ class BookGenreFilterHandler implements OptionsFilterHandler
 
     public function getOptions()
     {
-        $result= array();
-        $result["Geen waarde"] = "";
+        $options= array();
+        $noValueOption = array("key" => "Geen waarde", "value" => "");
+        array_push($options, $noValueOption);
         foreach($this->genreService->getAllGenres() as $genre){
             if(!StringUtils::isEmpty($genre->name)){
-                $result[$genre->name] = $genre->name;
+                array_push($options, array("key"=>$genre->name, "value"=>$genre->name));
             }else{
-                $result["Geen waarde"] = $genre->name;
+                $noValueOption["value"] = $genre->name;
             }
         }
-        return $result;
+        return $options;
     }
 
     public function getSupportedOperators()

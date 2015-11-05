@@ -21,6 +21,7 @@ BiblioManiaUtilities.helpers = {
 };
 
 var application = angular.module('BiblioMania', ['ngRoute',
+    'frapontillo.bootstrap-switch',
     'com.bendani.bibliomania.error.container',
     'com.bendani.bibliomania.error.container.directive',
     'com.bendani.bibliomania.book.model',
@@ -37,6 +38,7 @@ var application = angular.module('BiblioMania', ['ngRoute',
     'com.bendani.bibliomania.book.filter.parent',
     'com.bendani.bibliomania.book.filter.boolean.directive',
     'com.bendani.bibliomania.book.filter.text.directive',
+    'com.bendani.bibliomania.book.filter.multiselect.directive',
     'smart-table'])
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider
