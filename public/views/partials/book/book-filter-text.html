@@ -1,0 +1,8 @@
+<div class="form-group">
+    <label class='control-label col-md-10'>{{filter.field}}</label>
+    <div class="col-md-10 filter-input">
+        <select class="input-sm form-control operator-select" ng-model="filter.selectedOperator" ng-options="operator.key for operator in filter.supportedOperators track by operator.value">
+        </select>
+        <input class="filterInput" ng-model="filter.value" type="text"/>
+    </div>
+</div>

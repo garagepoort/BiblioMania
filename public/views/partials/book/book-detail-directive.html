@@ -1,6 +1,6 @@
 <div id="slide" class="book-detail-div sliding-panel">
     <div id="book-detail-close-div" class="book-detail-close">
-        <span id="close-book-detail-icon" class="glyphicon glyphicon-arrow-right" aria-hidden="true" style="float: left;"></span>
+        <span ng-click="closeBookDetail()" id="close-book-detail-icon" class="glyphicon glyphicon-arrow-right" aria-hidden="true" style="float: left;"></span>
 
         <h1 class="book-sliding-panel-title" id="book-detail-title"> {{book.title}}</h1>
         <h4 ng-show="book.subtitle" class="book-sliding-panel-title" id="book-detail-subtitle">{{book.subtitle}}</h4>

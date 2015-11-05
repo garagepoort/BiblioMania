@@ -47,7 +47,9 @@ class BookReadingMonthFilterHandler implements OptionsFilterHandler
 
     public function getSupportedOperators()
     {
-        return array("in"=>FilterOperator::IN);
+        return array(
+            array("key"=>"in", "value"=>FilterOperator::IN)
+        );
     }
 
     public function getGroup()

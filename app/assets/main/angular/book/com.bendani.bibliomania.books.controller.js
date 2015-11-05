@@ -57,10 +57,11 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
 
         function retrieveBooks(books) {
             $scope.books = books.data;
-            fillInBookContainer(books.data);
+            $scope.fillInBookContainer(books.data);
         }
 
-        function fillInBookContainer(books) {
+        $scope.fillInBookContainer = function(books) {
+            $scope.books = books;
             $scope.bookCollection = [];
 
             var amountBooks = Object.keys(books).length;

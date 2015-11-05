@@ -34,6 +34,9 @@ var application = angular.module('BiblioMania', ['ngRoute',
     'com.bendani.bibliomania.book.filter.model',
     'com.bendani.bibliomania.book.filter.sliding.panel.directive',
     'com.bendani.bibliomania.book.filter.select.directive',
+    'com.bendani.bibliomania.book.filter.parent',
+    'com.bendani.bibliomania.book.filter.boolean.directive',
+    'com.bendani.bibliomania.book.filter.text.directive',
     'smart-table'])
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider
