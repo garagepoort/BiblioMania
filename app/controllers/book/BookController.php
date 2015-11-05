@@ -98,6 +98,18 @@ class BookController extends BaseController
         return $this->mapBooksToJson($filteredBooksResult);
     }
 
+    public function search(){
+        $filters  = Input::all();
+        if(!is_array($filters)){
+            $filters = array();
+        }
+        Session::put('book.filters', $filters);
+
+        $filteredBooksResult = $this->bookService->filterBooks($filters);
+
+        return $this->mapBooksToJson($filteredBooksResult);
+    }
+
     public function searchBooks()
     {
         $query = Input::get('query');

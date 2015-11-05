@@ -20,17 +20,22 @@ class BookJsonMapper
 
     public function mapToJson(Book $book){
         list($imageHeight, $imageWidth, $bookImage) = $this->getCoverImageFromBook($book);
+
+        $publisher = $book->publisher != null ? $book->publisher->name : "";
+        $language = $book->language != null ? $book->language->language : "";
+        $country = $book->country != null ? $book->country->name : "";
+
         $jsonArray = array(
             "id" => $book->id,
             "title" => $book->title,
             "isbn" => $book->isbn,
             "author" => $book->preferredAuthor()->firstname . ' ' . $book->preferredAuthor()->name,
             "subtitle" => $book->subtitle,
-            "publisher" => $book->publisher->name,
+            "publisher" => $publisher,
             "publicationDate" => $this->dateToJsonMapper->mapToJson($book->publication_date),
             "summary" => $book->summary,
-            "country" => $book->country->name,
-            "language" => $book->language->language,
+            "country" => $country,
+            "language" => $language,
             "imageHeight" => $imageHeight,
             "imageWidth" => $imageWidth,
             "spritePointer" => $book->spritePointer,
