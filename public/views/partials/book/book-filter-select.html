@@ -4,8 +4,8 @@
         <h4>Boek</h4>
         </dt>
         <dt>
-        <dd ng-repeat="filter in allFilters['book']">
-            <input type="checkbox" ng-click="selectFilter($event, filter)"/> <label>{{filter.field}}</label>
+        <dd ng-repeat="filter in getAllBookFilters()">
+            <input ng-checked="filters.selected.indexOf(filter) != -1" type="checkbox" ng-click="selectFilter($event, filter)"/> <label>{{filter.field}}</label>
         </dd>
         </dt>
     </dl>
@@ -14,8 +14,8 @@
         <h4>Persoonlijk</h4>
         </dt>
         <dt>
-        <dd ng-repeat="filter in allFilters['personal']">
-            <input type="checkbox" ng-click="selectFilter($event, filter)"/> <label>{{filter.field}}</label>
+        <dd ng-repeat="filter in getAllPersonalFilters()">
+            <input ng-checked="filters.selected.indexOf(filter) != -1" type="checkbox" ng-click="selectFilter($event, filter)"/> <label>{{filter.field}}</label>
         </dd>
         </dt>
     </dl>
@@ -24,8 +24,8 @@
         <h4>Koop/Gift</h4>
         </dt>
         <dt>
-        <dd ng-repeat="filter in allFilters['buy-gift']">
-            <input type="checkbox" ng-click="selectFilter($event, filter)"/> <label>{{filter.field}}</label>
+        <dd ng-repeat="filter in getAllBuyGiftFilters()">
+            <input ng-checked="filters.selected.indexOf(filter) != -1" type="checkbox" ng-click="selectFilter($event, filter)"/> <label>{{filter.field}}</label>
         </dd>
         </dt>
     </dl>
