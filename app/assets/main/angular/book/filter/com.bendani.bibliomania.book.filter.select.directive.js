@@ -1,45 +1,41 @@
 angular
-    .module('com.bendani.bibliomania.book.filter.select.directive', ['com.bendani.bibliomania.book.filter.model', 'com.bendani.bibliomania.error.container'])
+    .module('com.bendani.bibliomania.book.filter.select.directive', [])
     .directive('bookFilterSelect', function (){
         return {
             scope: {
-                selectedFilters: "=selectedFilters"
+                filters: "=filters"
             },
             restrict: "E",
             templateUrl: "../BiblioMania/views/partials/book/book-filter-select.html",
-            controller: ['$scope', 'BookFilter', 'ErrorContainer',function($scope, BookFilter, ErrorContainer) {
-
-                function init() {
-                    $scope.allFilters = {};
-
-                    getFilters();
-                }
+            controller: ['$scope', 'BookFilter', 'ErrorContainer',function($scope) {
 
                 $scope.selectFilter = function selectFilter($event, filter){
                     var checkbox = $event.target;
                     if(checkbox.checked){
-                        $scope.selectedFilters.push(filter);
+                        $scope.filters.selected.push(filter);
                     }else{
-                        var index = $scope.selectedFilters.indexOf(filter);
-                        $scope.selectedFilters.splice(index, 1);
+                        var index = $scope.filters.selected.indexOf(filter);
+                        $scope.filters.selected.splice(index, 1);
                     }
                 };
 
-                function getFilters() {
-                    BookFilter.query(function(filters){
-                        for(var i = 0; i< filters.length; i++){
-                            var filter = filters[i];
-                            filter.selectedOperator = filter.supportedOperators[0].value;
-                            filter.value = "";
-                            if ($scope.allFilters[filter.group] === undefined){
-                                $scope.allFilters[filter.group] = [];
-                            }
-                            $scope.allFilters[filter.group].push(filter);
-                        }
-                    }, ErrorContainer.handleRestError);
-                }
+                $scope.getAllBookFilters = function(){
+                    return $scope.filters.all.filter(function(element){
+                        return element.group === 'book';
+                    });
+                };
 
-                init();
+                $scope.getAllPersonalFilters = function(){
+                    return $scope.filters.all.filter(function(element){
+                        return element.group === 'personal';
+                    });
+                };
+
+                $scope.getAllBuyGiftFilters = function(){
+                    return $scope.filters.all.filter(function(element){
+                        return element.group === 'buy-gift';
+                    });
+                };
             }]
         };
     });
