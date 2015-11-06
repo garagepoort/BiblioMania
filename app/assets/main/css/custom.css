@@ -993,3 +993,6 @@ a.editable-click:hover {
 .modal-footer {
   clear: both;
 }
+.modal-body {
+  color: #2d6ca2;
+}

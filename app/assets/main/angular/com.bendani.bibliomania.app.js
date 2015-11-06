@@ -21,6 +21,8 @@ BiblioManiaUtilities.helpers = {
 };
 
 var application = angular.module('BiblioMania', ['ngRoute',
+    'ui.bootstrap',
+    'ui.bootstrap.tpls',
     'frapontillo.bootstrap-switch',
     'com.bendani.bibliomania.error.container',
     'com.bendani.bibliomania.error.container.directive',

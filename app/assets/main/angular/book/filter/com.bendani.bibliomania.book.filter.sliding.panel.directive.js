@@ -1,19 +1,20 @@
 angular
-    .module('com.bendani.bibliomania.book.filter.sliding.panel.directive', ['com.bendani.bibliomania.error.container'])
+    .module('com.bendani.bibliomania.book.filter.sliding.panel.directive', ['com.bendani.bibliomania.error.container', 'com.bendani.bibliomania.book.filter.model'])
     .directive('bookFilterSlidingPanel', function (){
         return {
             scope: true,
             restrict: "E",
             templateUrl: "../BiblioMania/views/partials/book/book-filter-sliding-panel.html",
-            controller: ['$scope', '$compile', '$http', 'ErrorContainer', function($scope, $compile, $http, ErrorContainer) {
+            controller: ['$scope', '$compile', '$http', 'ErrorContainer', 'BookFilter', '$uibModal', function($scope, $compile, $http, ErrorContainer, BookFilter, $uibModal) {
                 var filterPanelOpen  = false;
-                var message;
 
                 function init(){
                     $scope.filters = {
-                        selected: []
+                        selected: [],
+                        all: []
                     };
-                    message = $compile("<book-filter-select selected-filters='filters.selected'></book-filter-select>")($scope);
+
+                    getFilters();
 
                     var slidingPanel = new BorderSlidingPanel($('#libraryFilterSlidingPanel'), "left", 10);
                     $('#libraryFilterBookMark').on('click', function () {
@@ -29,20 +30,11 @@ angular
                     });
 
                 }
+
                 $scope.showSelectFiltersDialog = function () {
-                    BootstrapDialog.show({
-                        title: "Selecteer filters",
-                        closable: true,
-                        message: $(message),
-                        buttons: [
-                            {
-                                icon: "fa fa-times-circle",
-                                label: 'Sluiten',
-                                cssClass: 'btn-default',
-                                action: function (dialogItself) {
-                                    dialogItself.close();
-                                }
-                            }]
+                    $uibModal.open({
+                        templateUrl: '../BiblioMania/views/partials/book/book-filter-select-modal.html',
+                        scope: $scope
                     });
                 };
 
@@ -63,6 +55,17 @@ angular
                         });
                     }
                     return filters;
+                }
+
+                function getFilters() {
+                    BookFilter.query(function(filters){
+                        for(var i = 0; i< filters.length; i++){
+                            var filter = filters[i];
+                            filter.selectedOperator = filter.supportedOperators[0].value;
+                            filter.value = "";
+                        }
+                        $scope.filters.all = filters;
+                    }, ErrorContainer.handleRestError);
                 }
 
                 init();
