@@ -41,10 +41,17 @@ angular
                 };
 
                 $scope.filterBooks = function() {
+                    $scope.$parent.loading = true;
                     $http.post("../BiblioMania/books/search", convertFiltersToJson()).then(function(bookData){
                         $scope.$parent.fillInBookContainer(bookData.data.data);
+                        $scope.$parent.loading = false;
                     }, ErrorContainer.handleRestError);
                 };
+
+                $scope.resetBookFilter = function(){
+                    $scope.filters.selected = [];
+                    $scope.$parent.resetBooks();
+                }
 
                 function convertFiltersToJson(){
                     var filters = [];
