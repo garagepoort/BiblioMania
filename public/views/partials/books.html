@@ -35,7 +35,8 @@
         </div>
 
         <div class="book-panel">
-            <book-card ng-repeat="book in books | filter: search" book="book"></book-card>
+            <img src="/BiblioMania/images/ajax-loader.gif" ng-show="loading">
+            <book-card ng-show="!loading" ng-repeat="book in books | filter: search" book="book"></book-card>
         </div>
 
     </div>
