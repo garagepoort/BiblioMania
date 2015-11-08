@@ -1,14 +1,16 @@
 angular
-    .module('com.bendani.bibliomania.book.filter.sliding.panel.directive', ['com.bendani.bibliomania.error.container', 'com.bendani.bibliomania.book.filter.model'])
+    .module('com.bendani.bibliomania.book.filter.sliding.panel.directive', ['com.bendani.bibliomania.error.container', 'com.bendani.bibliomania.book.filter.model', 'com.bendani.php.common.filterservice'])
     .directive('bookFilterSlidingPanel', function (){
         return {
             scope: true,
             restrict: "E",
             templateUrl: "../BiblioMania/views/partials/book/book-filter-sliding-panel.html",
-            controller: ['$scope', '$compile', '$http', 'ErrorContainer', 'BookFilter', '$uibModal', function($scope, $compile, $http, ErrorContainer, BookFilter, $uibModal) {
+            controller: ['$scope', '$compile', '$http', 'ErrorContainer', 'BookFilter', '$uibModal', '$injector', function($scope, $compile, $http, ErrorContainer, BookFilter, $uibModal, $injector) {
                 var filterPanelOpen  = false;
 
                 function init(){
+
+                    console.log("angular has directive filter parent: " + $injector.has('filterParentDirective'));
                     $scope.filters = {
                         selected: [],
                         all: []
@@ -31,7 +33,7 @@ angular
 
                 }
 
-                $scope.showSelectFiltersDialog = function () {
+                 $scope.showSelectFiltersDialog = function () {
                     $uibModal.open({
                         templateUrl: '../BiblioMania/views/partials/book/book-filter-select-modal.html',
                         scope: $scope

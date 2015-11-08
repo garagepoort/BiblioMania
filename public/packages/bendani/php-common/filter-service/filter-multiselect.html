@@ -1,0 +1,16 @@
+<div class="form-group">
+    <label class='control-label col-md-10'>{{filter.field}}</label>
+    <div class="col-md-10 filter-input">
+        <select ng-show="shouldShowOperators()" class="input-sm form-control operator-select" ng-model="filter.selectedOperator" ng-options="operator.value as operator.key for operator in filter.supportedOperators"></select>
+        <multiselect
+                ng-class="shouldShowOperators() ?  'operator-input' : ''"
+                ng-model="filter.value"
+                options="option.value as option.key for option in filter.options"
+                data-multiple="true"
+                data-compare-by="value"
+                scroll-after-rows="5"
+                filter-after-rows="5"
+                max-width="100">
+        </multiselect>
+    </div>
+</div>
