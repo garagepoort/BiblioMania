@@ -1,22 +1,31 @@
 'use strict';
 
 angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.bibliomania.book.model', 'com.bendani.bibliomania.error.container'])
-    .controller('BookController', ['$scope', 'Book', 'ErrorContainer',function ($scope, Book, ErrorContainer) {
+    .controller('BookController', ['$scope', 'Book', 'ErrorContainer', '$http',function ($scope, Book, ErrorContainer, $http) {
+
+        function retrieveAllBooks() {
+            $scope.loading=true;
+            Book.get(function (books) {
+                $scope.books = books.data;
+                $scope.loading = false;
+                $scope.libraryInformation = books.library_information;
+            }, ErrorContainer.handleRestError);
+        }
 
         function init(){
+            $scope.$parent.title = 'Boeken';
             $scope.searchBooksQuery = "";
             $scope.loading=true;
             $scope.predicate="author";
             $scope.reverseOrder=false;
+            $scope.libraryInformation= {};
 
             $scope.bookModel = {
                 selectedBookId:null,
                 bookDetailPanelOpen:false
             };
 
-            Book.get(function (books) {
-                retrieveBooks(books);
-            }, ErrorContainer.handleRestError);
+            retrieveAllBooks();
 
             $scope.orderValues = [
                 { key: 'Auteur', value:'author'},
@@ -67,37 +76,17 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
         };
 
         $scope.resetBooks = function(){
-            $scope.loading=true;
-            Book.get(function (books) {
-                retrieveBooks(books);
+            retrieveAllBooks();
+        };
+
+        $scope.filterBooks = function(filters){
+            $scope.loading = true;
+            $http.post("../BiblioMania/books/search", filters).then(function(response){
+                $scope.books = response.data.data
+                $scope.loading = false;
+                $scope.libraryInformation = response.data.library_information;
             }, ErrorContainer.handleRestError);
         };
 
-        function retrieveBooks(books) {
-            $scope.books = books.data;
-            $scope.fillInBookContainer(books.data);
-            $scope.loading=false;
-        }
-
-        $scope.fillInBookContainer = function(books) {
-            $scope.books = books;
-            $scope.bookCollection = [];
-
-            var amountBooks = Object.keys(books).length;
-
-            for (var i = 0; i < amountBooks / 6; i++) {
-                var columns = 6;
-                if (i * 6 + 6 > amountBooks) {
-                    columns = amountBooks % 6;
-                }
-
-                var bookRow = { books: [] };
-                for (var j = 0; j < columns; j++) {
-                    var book = books[(6 * i) + j];
-                    bookRow.books.push(book);
-                }
-                $scope.bookCollection.push(bookRow);
-            }
-        };
         init();
     }]);
