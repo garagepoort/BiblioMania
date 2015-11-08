@@ -158,6 +158,7 @@ class BookController extends BaseController
                 "id" => $item->id,
                 "title" => $item->title,
                 "subtitle" => $item->subtitle,
+                "rating" => $item->personal_book_info->rating,
                 "author" => $item->preferredAuthor()->name . " " . $item->preferredAuthor()->firstname,
                 "imageHeight" => $imageHeight,
                 "imageWidth" => $imageWidth,
