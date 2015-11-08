@@ -34,23 +34,10 @@
             </div>
         </div>
 
-        <!--<table st-table="bookCollection" class="table books-table" id="books-container-table">-->
-            <!--<tbody class="infinite-container">-->
-                <!--<tr ng-repeat="bookRow in bookCollection">-->
+        <div class="book-panel">
+            <book-card ng-repeat="book in books | filter: search" book="book"></book-card>
+        </div>
 
-                    <!--<td ng-repeat="book in bookRow.books | filter: search">-->
-                        <!--<book-card book="book"></book-card>-->
-                    <!--</td>-->
-                <!--</tr>-->
-            <!--</tbody>-->
-        <!--</table>-->
-
-        <book-card ng-repeat="book in books | filter: search" book="book"></book-card>
-
-        <!--<div id="books-loading-waypoint" style="text-align:center;">-->
-            <!--{{ HTML::image('images/ajax-loader.gif', 'loader', array('id'=>'loader-icon')) }}-->
-            <!--<p id="no-results-message" hidden>No results found.</p>-->
-        <!--</div>-->
     </div>
 
     <book-detail book-detail-panel-open="bookModel.bookDetailPanelOpen"></book-detail>
