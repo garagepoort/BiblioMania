@@ -1,0 +1,12 @@
+<div>
+    <dl ng-repeat="group in groups" class="filters-list">
+        <dt>
+        <h4>{{ group }}</h4>
+        </dt>
+        <dt>
+        <dd ng-repeat="filter in getAllFiltersFromGroup(group)">
+            <input ng-checked="filters.selected.indexOf(filter) != -1" type="checkbox" ng-click="selectFilter($event, filter)"/> <label>{{filter.field}}</label>
+        </dd>
+        </dt>
+    </dl>
+</div>
