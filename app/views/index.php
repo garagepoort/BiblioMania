@@ -1,4 +1,5 @@
-<html ng-app="BiblioMania">
+<!DOCTYPE html>
+<html lang="en" ng-app="BiblioMania">
     <head>
         <!--<link rel="icon" type="image/png" sizes="32x32" href="{{ URL::to('/') }}/favicon/favicon-32x32.png">-->
         <!--<link rel="icon" type="image/png" sizes="96x96" href="{{ URL::to('/') }}favicon/favicon-96x96.png">-->
