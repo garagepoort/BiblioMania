@@ -5,6 +5,7 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
 
         function init(){
             $scope.searchBooksQuery = "";
+            $scope.loading=true;
 
             $scope.bookModel = {
                 selectedBookId:null,
@@ -26,21 +27,21 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
         $scope.closeBookDetailPanel = function(){
             $scope.bookModel.bookDetailPanelOpen = false;
             $scope.$apply();
-        }
+        };
 
         $scope.openBookDetailPanel = function(){
             $scope.bookModel.bookDetailPanelOpen = true;
             $scope.$apply();
-        }
+        };
 
         $scope.isBookDetailPanelOpen = function(){
             return $scope.bookModel.bookDetailPanelOpen;
-        }
+        };
 
         $scope.setSelectedBookId = function(selectBookId){
             $scope.bookModel.selectedBookId = selectBookId;
             $scope.$apply();
-        }
+        };
 
         $scope.search = function(item){
             if ( (item.title.toLowerCase().indexOf($scope.searchBooksQuery) != -1)
@@ -53,11 +54,19 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
 
         $scope.getSelectedBookId = function(){
             return $scope.bookModel.selectedBookId;
-        }
+        };
+
+        $scope.resetBooks = function(){
+            $scope.loading=true;
+            Book.get(function (books) {
+                retrieveBooks(books);
+            }, ErrorContainer.handleRestError);
+        };
 
         function retrieveBooks(books) {
             $scope.books = books.data;
             $scope.fillInBookContainer(books.data);
+            $scope.loading=false;
         }
 
         $scope.fillInBookContainer = function(books) {
@@ -79,6 +88,6 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
                 }
                 $scope.bookCollection.push(bookRow);
             }
-        }
+        };
         init();
     }]);
