@@ -6,6 +6,8 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
         function init(){
             $scope.searchBooksQuery = "";
             $scope.loading=true;
+            $scope.predicate="author";
+            $scope.reverseOrder=false;
 
             $scope.bookModel = {
                 selectedBookId:null,
@@ -42,6 +44,14 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
             $scope.bookModel.selectedBookId = selectBookId;
             $scope.$apply();
         };
+
+        $scope.order = function(ordering){
+            $scope.predicate = ordering;
+        }
+
+        $scope.setReverse = function(reverse){
+            $scope.reverseOrder = reverse;
+        }
 
         $scope.search = function(item){
             if ( (item.title.toLowerCase().indexOf($scope.searchBooksQuery) != -1)

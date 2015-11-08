@@ -19,13 +19,17 @@
                 <label>Sorteer op:  </label>
                 <button class="btn btn-default dropdown-toggle" type="button" id="orderByDropDownButton"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    <span id="orderByDropdownButtonLabel">Auteur</span>
+                    <span id="orderByDropdownButtonLabel">{{ predicate }}</span>
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="orderByDropDownButton">
-                    <li ng-repeat="orderBy in orderValues"><a value="{{orderBy.value}}" href="#/books">{{orderBy.key}}</a></li>
+                    <li ng-repeat="orderBy in orderValues"><a href="#/books" ng-click="order(orderBy.value)">{{orderBy.key}}</a></li>
                 </ul>
-                <input id="orderby-input" hidden value="author"/>
+            </div>
+
+            <div class="btn-group" role="group" aria-label="..." style="margin-left: 20px">
+                <button ng-class="reverseOrder ? 'btn-grey' : 'btn-primary'" type="button" ng-click="setReverse(false)" class="btn half-round-corners-left"><span class="glyphicon glyphicon-sort-by-attributes gi-1_5x"></span></button>
+                <button ng-class="reverseOrder ? 'btn-primary' : 'btn-grey'" type="button" ng-click="setReverse(true)" class="btn half-round-corners-right"><span class="glyphicon glyphicon-sort-by-attributes-alt gi-1_5x"></span></button>
             </div>
 
             <div class="input-group" style="width: 200px; float: right">
@@ -36,7 +40,7 @@
 
         <div class="book-panel">
             <img src="/BiblioMania/images/ajax-loader.gif" ng-show="loading">
-            <book-card ng-show="!loading" ng-repeat="book in books | filter: search" book="book"></book-card>
+            <book-card ng-show="!loading" ng-repeat="book in books | filter: search | orderBy:predicate:reverseOrder" book="book"></book-card>
         </div>
 
     </div>
