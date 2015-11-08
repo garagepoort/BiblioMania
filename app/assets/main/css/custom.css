@@ -200,6 +200,9 @@ table.left-right-align td:nth-child(1) {
   margin-bottom: 40px;
   padding: 20px;
 }
+.book-panel {
+  text-align: center;
+}
 .book-filters-table {
   width: 100%;
   margin-bottom: 20px;
