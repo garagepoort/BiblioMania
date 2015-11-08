@@ -5,12 +5,10 @@ angular
             scope: true,
             restrict: "E",
             templateUrl: "../BiblioMania/views/partials/book/book-filter-sliding-panel.html",
-            controller: ['$scope', '$compile', '$http', 'ErrorContainer', 'BookFilter', '$uibModal', '$injector', function($scope, $compile, $http, ErrorContainer, BookFilter, $uibModal, $injector) {
+            controller: ['$scope', '$compile', '$http', 'ErrorContainer', 'BookFilter', '$uibModal', function($scope, $compile, $http, ErrorContainer, BookFilter, $uibModal) {
                 var filterPanelOpen  = false;
 
                 function init(){
-
-                    console.log("angular has directive filter parent: " + $injector.has('filterParentDirective'));
                     $scope.filters = {
                         selected: [],
                         all: []
@@ -40,18 +38,14 @@ angular
                     });
                 };
 
-                $scope.filterBooks = function() {
-                    $scope.$parent.loading = true;
-                    $http.post("../BiblioMania/books/search", convertFiltersToJson()).then(function(bookData){
-                        $scope.$parent.fillInBookContainer(bookData.data.data);
-                        $scope.$parent.loading = false;
-                    }, ErrorContainer.handleRestError);
+                $scope.doFilterBooks = function() {
+                    $scope.$parent.filterBooks(convertFiltersToJson());
                 };
 
                 $scope.resetBookFilter = function(){
                     $scope.filters.selected = [];
                     $scope.$parent.resetBooks();
-                }
+                };
 
                 function convertFiltersToJson(){
                     var filters = [];
