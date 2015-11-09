@@ -5,7 +5,6 @@ use Bendani\PhpCommon\WizardService\Model\WizardStep;
 
 class BookWizard extends Wizard
 {
-
     /** @var  BookService */
     private $bookService;
 
@@ -59,6 +58,10 @@ class BookWizard extends Wizard
     protected function onFinishLastStep($object)
     {
         $this->bookService->completeWizard($object);
+    }
+
+    public function getAllSteps(){
+        return $this->wizardSteps;
     }
 
 }

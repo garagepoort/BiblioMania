@@ -25,17 +25,19 @@ var application = angular.module('BiblioMania', ['ngRoute',
     'ui.bootstrap.tpls',
     'com.bendani.bibliomania.error.container',
     'com.bendani.bibliomania.error.container.directive',
-    'com.bendani.bibliomania.book.model',
     'com.bendani.bibliomania.book.controller',
+    'com.bendani.bibliomania.book.wizard.controller',
     'com.bendani.bibliomania.login.controller',
     'com.bendani.bibliomania.main.controller',
     'com.bendani.bibliomania.book.card.directive',
     'com.bendani.bibliomania.book.detail.directive',
     'com.bendani.php.common.loginservice.login.directive',
     'com.bendani.php.common.loginservice.authentication.model',
-    'com.bendani.bibliomania.book.filter.model',
     'com.bendani.bibliomania.book.filter.sliding.panel.directive',
     'com.bendani.bibliomania.library.information.sliding.panel.directive',
+    'com.bendani.php.common.wizardservice.wizard.directive',
+    'com.bendani.php.common.wizardservice.wizard.steps.directive',
+    'com.bendani.bibliomania.book.wizard.model',
     'smart-table'])
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider
@@ -46,6 +48,10 @@ var application = angular.module('BiblioMania', ['ngRoute',
             .when('/login', {
                 templateUrl: '../BiblioMania/views/partials/login.html',
                 controller: 'LoginController'
+            })
+            .when('/editBook/:bookId?', {
+                templateUrl: '../BiblioMania/views/partials/book/wizard/book-wizard.html',
+                controller: 'BookWizardController'
             })
             .otherwise({
                 redirectTo: '/'
