@@ -5,10 +5,10 @@ function ErrorContainer($location) {
     this.handleRestError = function(data){
         if (data.status == undefined) {
             this.errorMessage = "unexpected error";
-        } else {
-            if(data.status == 401){
-                $location.path("/login");
-            }
+        } else if(data.status == 401){
+            $location.path("/login");
+        }else{
+            this.setErrorMessage("Er ging iets mis: " + data);
         }
     }
 
