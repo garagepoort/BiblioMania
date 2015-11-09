@@ -3,7 +3,8 @@ angular
     .directive('wizard', function (){
         return {
             scope: {
-                steps: "="
+                steps: "=",
+                model: "=",
             },
             restrict: "E",
             templateUrl: "../BiblioMania/views/partials/book/wizard/wizard-directive.html",

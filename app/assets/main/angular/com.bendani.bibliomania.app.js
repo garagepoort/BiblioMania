@@ -38,6 +38,7 @@ var application = angular.module('BiblioMania', ['ngRoute',
     'com.bendani.php.common.wizardservice.wizard.directive',
     'com.bendani.php.common.wizardservice.wizard.steps.directive',
     'com.bendani.bibliomania.book.wizard.model',
+    'com.bendani.bibliomania.book.basics.controller',
     'smart-table'])
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider
