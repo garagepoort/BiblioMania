@@ -31,15 +31,6 @@
         <script type="text/javascript" src="assets/js/angular/com.bendani.bibliomania.app.js"></script>
 
 
-
-
-
-
-        <!-- BOOTSTRAP-VALIDATOR -->
-        <script type="text/javascript" src="assets/lib/bootstrapvalidator/dist/js/bootstrapValidator.min.js"></script>
-        <script type="text/javascript" src="assets/lib/bootstrapvalidator/dist/js/language/be_NL.js"></script>
-        <link href="assets/lib/bootstrapvalidator/dist/css/bootstrapValidator.min.css" rel="stylesheet">
-
         <!-- LESS SCRIPTS -->
         <script type="text/javascript" src="assets/js/border_sliding_panel.js"></script>
 
@@ -47,23 +38,6 @@
         <script type="text/javascript" src="assets/lib/raty-2.7.0/lib/jquery.raty.js"></script>
         <link href="assets/lib/raty-2.7.0/lib/jquery.raty.css">
 
-        <!-- TAGS -->
-        <script type="text/javascript" src="assets/lib/sliptree-bootstrap-tokenfield/bootstrap-tokenfield.js"></script>
-        <link href="assets/lib/sliptree-bootstrap-tokenfield/css/bootstrap-tokenfield.min.css">
-
-        <!--EDITABLE-->
-        <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
-        <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
-
-        <!-- DATATABLES -->
-        <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.4/js/jquery.dataTables.js"></script>
-        <script type="text/javascript" charset="utf8"
-                src="//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js"></script>
-        <link rel="stylesheet" type="text/css"
-              href="//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css">
-
-        <!--Tweenlite-->
-        <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.17.0/TweenMax.min.js" type="text/javascript"></script>
     </head>
     <body ng-controller="MainController">
 
