@@ -28,7 +28,7 @@ class BookJsonMapper
         $jsonArray = array(
             "id" => $book->id,
             "title" => $book->title,
-            "isbn" => $book->isbn,
+            "isbn" => $book->ISBN,
             "author" => $book->preferredAuthor()->firstname . ' ' . $book->preferredAuthor()->name,
             "subtitle" => $book->subtitle,
             "publisher" => $publisher,
@@ -46,6 +46,7 @@ class BookJsonMapper
             "print" => $book->print,
             "translator" => $book->translator,
             "useSpriteImage" => $book->useSpriteImage,
+            "progress" => $book->wizard_step,
             "personalBookInfo" => $this->personalBookInfoJsonMapper->mapToJson($book->personal_book_info),
             "firstPrintInfo" => $this->firstPrintInfoJsonMapper->mapToJson($book->first_print_info)
         );

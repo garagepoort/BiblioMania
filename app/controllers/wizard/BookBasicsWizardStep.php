@@ -20,6 +20,8 @@ class BookBasicsWizardStep extends WizardStep
     private $bookInfoParameterMapper;
     /** @var  BookFormValidator */
     private $bookFormValidator;
+    /** @var  BookBasicsJsonMapper */
+    private $bookBasicsJsonMapper;
 
     public function __construct()
     {
@@ -30,6 +32,7 @@ class BookBasicsWizardStep extends WizardStep
         $this->genreService = App::make('GenreService');
         $this->bookInfoParameterMapper = App::make('BookInfoParameterMapper');
         $this->bookFormValidator = App::make('BookFormValidator');
+        $this->bookBasicsJsonMapper = App::make('BookBasicsJsonMapper');
     }
 
     public function executeStep($id = null)
@@ -47,21 +50,17 @@ class BookBasicsWizardStep extends WizardStep
         }
     }
 
-    public function goToStep($id = null)
+    public function getModel($id = null)
     {
-        $genres = $this->genreService->getAllParentGenres();
-        $withArray = BookFormFiller::fillBasicInfo($id);
-
-        $withArray['title'] = $withArray['book_title'];
-        $withArray['languages'] = $this->languageService->getLanguagesMap();
-        $withArray['currencies'] = $this->currencyService->getCurrencies();
-        $withArray['genres'] = $genres;
-        $withArray['countries_json'] = json_encode($this->countryService->getCountries());
-        $withArray['authors_json'] = json_encode(Author::all(['id', 'name', 'firstname', 'infix']));
-        $withArray['publishers_json'] = json_encode(Publisher::all());
-        $withArray['tags_json'] = json_encode(Tag::all());
-        $withArray['publisher_series_json'] = json_encode(PublisherSerie::all());
-        return View::make($this->bookFolder . 'bookBasics')->with($withArray);
+        $bookBasics = new BookBasics();
+        if($id != null){
+            $fullBook = $this->bookService->getFullBook($id);
+            if($fullBook == null){
+                return ResponseCreator::createExceptionResponse(new ServiceException("Book with id not found"));
+            }
+            $bookBasics = $this->bookBasicsJsonMapper->mapToJson($fullBook);
+        }
+        return $bookBasics->toJson();
     }
 
     public function getTitle()

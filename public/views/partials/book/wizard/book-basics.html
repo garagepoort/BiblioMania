@@ -17,7 +17,7 @@
                 <label class="control-label col-md-2">Titel:</label>
 
                 <div class="col-md-9">
-                    <input type="text" class="form-control" placeholder="titel" required="true" ng-model="model.title"/>
+                    <input type="text" class="form-control" placeholder="titel" required="true" ng-model="container.model.title"/>
                 </div>
             </div>
 
@@ -26,7 +26,7 @@
                 <label class="control-label col-md-2">Ondertitel:</label>
 
                 <div class="col-md-9">
-                    <input type="text" class="form-control" placeholder="ondertitel" ng-model="model.subtitle"/>
+                    <input type="text" class="form-control" placeholder="ondertitel" ng-model="container.model.subtitle"/>
                 </div>
             </div>
 
@@ -35,7 +35,7 @@
                 <label class="control-label col-md-2">ISBN:</label>
 
                 <div class="col-md-5">
-                    <input type="text" class="form-control" placeholder="isbn" ng-model="model.isbn" required="true"/>
+                    <input type="text" class="form-control" placeholder="isbn" ng-model="container.model.isbn" required="true"/>
                 </div>
                 <div class="col-md-5">
                     <button id="searchGoogleInformationButton" class="btn btn-primary" onclick="return false;">Zoek
@@ -47,7 +47,7 @@
             <!-- GENRE -->
             <div class="form-group">
                 <label class="control-label col-md-2">Genre:</label>
-                <input id="book_genre_input" type="text" name="book_genre" hidden required ng-model="model.genre">
+                <input id="book_genre_input" type="text" name="book_genre" hidden required ng-model="container.model.genre">
 
                 <div class="genres-container col-md-8">
                     <div class="collapsible genres-header list-group-item" id="genres-header"><span
@@ -67,7 +67,7 @@
                 <label class="control-label col-md-2">Tags:</label>
 
                 <div class="col-md-9">
-                    <input type="text" class="form-control" ng-model="model.tags"/>
+                    <tags-input ng-model="container.model.tags"></tags-input>
                 </div>
             </div>
 
@@ -78,7 +78,7 @@
                 <label class="control-label col-md-2">Uitgever:</label>
 
                 <div class="col-md-5">
-                    <input type="text" class="form-control" placeholder="uitgever" ng-model="model.publisher"
+                    <input type="text" class="form-control" placeholder="uitgever" ng-model="container.model.publisher"
                            required="true"/>
                 </div>
             </div>
@@ -106,7 +106,7 @@
 
                 <div class="col-md-5">
                     TODO: AUTOCOMPLETE
-                    <input type="text" class="form-control" placeholder="land" ng-model="model.country" required="true"/>
+                    <input type="text" class="form-control" placeholder="land" ng-model="container.model.country" required="true"/>
                 </div>
 
                 <!-- LANGUAGE -->

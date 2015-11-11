@@ -19,9 +19,10 @@
     "jenssegers/agent": "^2.1",
     "bendani/php-common/login-service": "dev-feature/spike_for_angular",
     "bendani/php-common/google-image-service": "1.0.*",
-    "bendani/php-common/wizard-service": "3.0.*",
+    "bendani/php-common/wizard-service": "dev-angular_spike",
     "bendani/php-common/filter-service": "dev-angular_spike",
-    "bendani/php-common/utils": "1.0.*"
+    "bendani/php-common/utils": "1.0.*",
+    "netresearch/jsonmapper": "^0.10.0"
   },
   "autoload": {
     "classmap": [
@@ -67,7 +68,7 @@
     },
     {
       "type": "vcs",
-      "url": "https://github.com/garagepoort/php-common-wizardservice.git"
+      "url": "/Users/davidmaes/Development/personal/php-common-wizardservice"
     },
     {
       "type": "vcs",

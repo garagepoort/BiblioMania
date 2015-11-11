@@ -114,6 +114,7 @@ class BookService
     {
         $with = array(
             'authors',
+            'tags',
             'publisher',
             'genre',
             'personal_book_info',

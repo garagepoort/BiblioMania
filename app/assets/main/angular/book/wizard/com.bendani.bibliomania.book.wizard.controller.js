@@ -5,24 +5,15 @@ angular.module('com.bendani.bibliomania.book.wizard.controller', ['com.bendani.b
 
         function init(){
             $scope.book = {};
+            $scope.book.id = $routeParams.bookId;
             $scope.$parent.title = 'Boek wijzigen';
             retrieveBookWizard();
-
-            var bookId = $routeParams.bookId;
-
-            if(bookId !== undefined){
-                retrieveFullBook(bookId);
-            }
         }
 
         function retrieveBookWizard(){
             BookWizard.query(function (steps) {
                 $scope.steps = steps;
             }, ErrorContainer.handleRestError);
-        }
-
-        function retrieveFullBook(newValue) {
-            $scope.book = Book.get({id: newValue}, function (data) {}, ErrorContainer.handleRestError);
         }
 
         init();
