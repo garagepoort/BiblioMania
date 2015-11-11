@@ -21,7 +21,7 @@ class OeuvreWizardStep extends WizardStep
         return $this->bookService->find($id);
     }
 
-    public function goToStep($id = null)
+    public function getModel($id = null)
     {
         $book = $this->bookService->find($id);
         $book->load("book_from_author");

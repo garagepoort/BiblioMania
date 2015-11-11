@@ -27,7 +27,7 @@ class AuthorWizardStep extends WizardStep
         return $this->bookCreationService->saveAuthorsToBook($id, $preferredAuthorParams, $secondaryAuthorParameters);
     }
 
-    public function goToStep($id = null)
+    public function getModel($id = null)
     {
         $withArray = BookFormFiller::fillForAuthor($id);
         $withArray['title'] = $withArray['book_title'];

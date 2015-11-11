@@ -10,9 +10,11 @@ class BookStepController extends StepController
 
     public function getBookWizard(){
         $steps = array_map(function($item, $index){
+        /** @var $item \Bendani\PhpCommon\WizardService\Model\WizardStep */
             return array(
                 "title"=>$item->getTitle(),
-                "number"=>$index
+                "number"=>$index,
+                "modelUrl"=>$item->url,
             );
         }, $this->getWizard()->getAllSteps(), array_keys($this->getWizard()->getAllSteps()));
         return $steps;

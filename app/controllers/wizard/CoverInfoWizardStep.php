@@ -26,7 +26,7 @@ class CoverInfoWizardStep extends WizardStep
         return $this->bookCreationService->saveCoverInfoToBook($id, $coverInfoParameters);
     }
 
-    public function goToStep($id = null)
+    public function getModel($id = null)
     {
         $covers = $this->bookService->getBookCoverTypes();
         $withArray = BookFormFiller::fillForCover($id);

@@ -27,7 +27,7 @@ class BookExtrasWizardStep extends WizardStep
         return $this->bookService->saveExtras($id, $bookExtras);
     }
 
-    public function goToStep($id = null)
+    public function getModel($id = null)
     {
         $withArray = BookFormFiller::fillForBookExtras($id);
         $withArray['title'] = $withArray['book_title'];

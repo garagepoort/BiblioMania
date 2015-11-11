@@ -32,7 +32,7 @@ class FirstPrintWizardStep extends WizardStep
         return $this->bookCreationService->saveFirstPrintForBook($id, $firstPrintParameters);
     }
 
-    public function goToStep($id = null)
+    public function getModel($id = null)
     {
         $withArray = BookFormFiller::fillForFirstPrint($id);
         $withArray['title'] = $withArray['book_title'];
