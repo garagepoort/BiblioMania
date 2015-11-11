@@ -1,4 +1,4 @@
-function ErrorContainer($location) {
+function ErrorContainer($scope, $location) {
 
     this.errorMessage="";
 
@@ -8,7 +8,7 @@ function ErrorContainer($location) {
         } else if(data.status == 401){
             $location.path("/login");
         }else{
-            this.setErrorMessage("Er ging iets mis: " + data);
+            this.errorMessage = "Er ging iets mis: " + data;
         }
     }
 

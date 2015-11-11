@@ -26,7 +26,7 @@ class PersonalInfoWizardStep extends WizardStep
         return $this->bookCreationService->savePersonalInformationForBook($id, $personalParams);
     }
 
-    public function goToStep($id = null)
+    public function getModel($id = null)
     {
         $withArray = BookFormFiller::fillForPersonalInfo($id);
         $withArray['title'] = $withArray['book_title'];

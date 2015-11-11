@@ -49,7 +49,7 @@ class BuyOrGiftWizardStep extends WizardStep
         return $book;
     }
 
-    public function goToStep($id = null)
+    public function getModel($id = null)
     {
         $withArray = BookFormFiller::fillForBuyInfo($id);
         $withArray['currencies'] = $this->currencyService->getCurrencies();

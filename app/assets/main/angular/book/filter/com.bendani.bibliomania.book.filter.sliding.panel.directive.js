@@ -5,7 +5,7 @@ angular
             scope: true,
             restrict: "E",
             templateUrl: "../BiblioMania/views/partials/book/book-filter-sliding-panel.html",
-            controller: ['$scope', '$compile', '$http', 'ErrorContainer', 'BookFilter', '$uibModal', function($scope, $compile, $http, ErrorContainer, BookFilter, $uibModal) {
+            controller: ['$scope', '$compile', 'ErrorContainer', 'BookFilter', '$uibModal', function($scope, $compile, ErrorContainer, BookFilter, $uibModal) {
                 var filterPanelOpen  = false;
 
                 function init(){

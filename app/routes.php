@@ -30,6 +30,7 @@ Route::group(array('before' => 'auth'), function () {
 
     //WIZARD
     Route::get('bookwizard', 'BookStepController@getBookWizard');
+    Route::get('bookwizard/step/{step}/{book_id?}', 'BookStepController@getBookWizardModel');
     Route::get('createOrEditBook/step/{step}/{id?}', 'BookStepController@get');
     Route::post('createOrEditBook/step/{step}/{id?}', 'BookStepController@save');
 
