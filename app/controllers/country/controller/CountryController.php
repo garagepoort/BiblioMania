@@ -10,13 +10,21 @@ class CountryController extends BaseController
 {
 
     private $countryFolder = "country/";
+    /** @var CountryService $countryService */
     private $countryService;
+    /** @var CountryJsonMapper $countryJsonMapper */
+    private $countryJsonMapper;
 
     function __construct(CountryService $countryService)
     {
         $this->countryService = $countryService;
+        $this->countryJsonMapper = App::make('CountryJsonMapper');
     }
 
+
+    public function getCountries(){
+        return $this->countryJsonMapper->mapArrayToJson($this->countryService->getCountries());
+    }
 
     public function getCountryList()
     {
