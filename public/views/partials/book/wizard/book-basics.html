@@ -71,7 +71,9 @@
 
                 <div class="col-md-9">
                     TODO AUTOCOMPLETE
-                    <tags-input ng-model="container.model.tags"></tags-input>
+                    <tags-input ng-model="container.model.tags">
+                        <auto-complete source="searchTags($query)"></auto-complete>
+                    </tags-input>
                 </div>
             </div>
 
