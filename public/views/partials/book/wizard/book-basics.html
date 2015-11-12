@@ -110,9 +110,14 @@
                 <label class="control-label col-md-2">Land:</label>
 
                 <div class="col-md-5">
-                    TODO: AUTOCOMPLETE
-                    <input type="text" class="form-control" placeholder="land" ng-model="container.model.country"
-                           required="true"/>
+                    <angucomplete placeholder="land"
+                                  pause="100"
+                                  selectedobject="container.model.country"
+                                  localdata="data.countries"
+                                  searchfields="name"
+                                  titlefield="name"
+                                  minlength="1"
+                                  inputclass="form-control"/>
                 </div>
 
                 <!-- LANGUAGE -->
