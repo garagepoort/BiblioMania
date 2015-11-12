@@ -20,4 +20,8 @@ class TagService {
         }
         return $tags;
     }
+
+    public function getAllTags(){
+        return Tag::all();
+    }
 }
