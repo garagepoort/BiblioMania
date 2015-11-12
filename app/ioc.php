@@ -28,6 +28,10 @@ App::singleton('TagJsonMapper', function () {
     return new TagJsonMapper();
 });
 
+App::singleton('CountryJsonMapper', function () {
+    return new CountryJsonMapper();
+});
+
 App::singleton('CurrencyService', function () {
     return new CurrencyService();
 });
