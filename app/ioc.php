@@ -134,11 +134,6 @@ App::singleton('AuthorFormValidator', function () {
     return new AuthorFormValidator();
 });
 
-App::singleton('BookDTOMapper', function () {
-    return new BookDTOMapper();
-});
-
-
 App::singleton('AuthorInfoParameterMapper', function () {
     return new AuthorInfoParameterMapper();
 });
