@@ -53,6 +53,7 @@ class BookBasicsWizardStep extends WizardStep
     public function getModel($id = null)
     {
         $bookBasics = new BookBasics();
+        $bookBasics = $bookBasics->toJson();
         if($id != null){
             $fullBook = $this->bookService->getFullBook($id);
             if($fullBook == null){
@@ -60,7 +61,7 @@ class BookBasicsWizardStep extends WizardStep
             }
             $bookBasics = $this->bookBasicsJsonMapper->mapToJson($fullBook);
         }
-        return $bookBasics->toJson();
+        return $bookBasics;
     }
 
     public function getTitle()
