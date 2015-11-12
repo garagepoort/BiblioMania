@@ -18,7 +18,7 @@ class BookBasicsJsonMapper
             $bookBasics->setLanguage($book->language->language);
         }
 
-        return $bookBasics;
+        return $bookBasics->toJson();
     }
 
     /**

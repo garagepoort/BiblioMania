@@ -19,6 +19,8 @@ Route::group(array('before' => 'auth'), function () {
     Route::get('books/{id}', 'BookController@getFullBook');
     Route::get('bookFilters', 'BookController@getFilters');
 
+    Route::get('genres', 'GenreController@getGenres');
+
 //  BOOKS
     Route::get('getBooks', 'BookController@getBooks');
     Route::get('getBooksList', 'BookController@getBooksList');
