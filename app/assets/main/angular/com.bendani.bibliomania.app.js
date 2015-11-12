@@ -58,7 +58,7 @@ var application = angular.module('BiblioMania', ['ngRoute',
                 redirectTo: '/'
             });
     }])
-    .run(["$rootScope", "$location", function($rootScope, $location) {
+    .run(["$rootScope", function($rootScope) {
         $rootScope.baseUrl = "../BiblioMania/";
         $rootScope.partialsUrl = "../BiblioMania/views/partials/";
     }]);

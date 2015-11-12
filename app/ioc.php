@@ -20,6 +20,10 @@ App::singleton('BookBasicsJsonMapper', function () {
     return new BookBasicsJsonMapper();
 });
 
+App::singleton('GenreJsonMapper', function () {
+    return new GenreJsonMapper();
+});
+
 App::singleton('CurrencyService', function () {
     return new CurrencyService();
 });

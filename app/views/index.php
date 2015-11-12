@@ -38,6 +38,12 @@
         <script type="text/javascript" src="assets/lib/raty-2.7.0/lib/jquery.raty.js"></script>
         <link href="assets/lib/raty-2.7.0/lib/jquery.raty.css">
 
+        <!--TWEENLITE-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js"></script>
+
+        <!--ABN TREE-->
+        <link href="assets/lib/abntree/abn-tree.css" rel="stylesheet">
+        <script type="text/javascript" src="assets/lib/abntree/abn-tree-directive.js"></script>
     </head>
     <body ng-controller="MainController">
 

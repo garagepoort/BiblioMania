@@ -1,4 +1,4 @@
-function ErrorContainer($scope, $location) {
+function ErrorContainer($location) {
 
     this.errorMessage="";
 

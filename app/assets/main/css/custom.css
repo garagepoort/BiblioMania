@@ -105,10 +105,6 @@ select {
 .editImagePencilIcon:hover {
   color: white;
 }
-.clickedGenre {
-  color: black;
-  font-weight: bold;
-}
 a:hover {
   color: black;
   background-color: #def;
@@ -173,9 +169,6 @@ table.left-right-align td:nth-child(1) {
 .form-control:-ms-input-placeholder {
   /* Internet Explorer 10+ */
   color: #ffffff;
-}
-.genre-list {
-  list-style-type: none;
 }
 .form-container .control-label {
   text-align: left;
@@ -686,13 +679,6 @@ ul.nav li a {
   width: 40px;
   margin-right: 10px;
 }
-.nav-tabs > li.active > a,
-.nav-tabs > li.active > a:focus,
-ul.nav li a:hover {
-  color: #ffffff;
-  background-color: #2d6ca2;
-  border: 1px solid #2d6ca2;
-}
 .nav-tabs {
   font-family: "vincent";
   margin-bottom: 0;
@@ -701,25 +687,9 @@ ul.nav li a:hover {
 /*END TABS*/
 /*GENRES*/
 .genres-container {
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-top: 0px;
-  padding-bottom: 0px;
-  cursor: pointer;
-}
-.genre-listitem {
-  /*border-radius: 25px;*/
-  cursor: pointer;
-  padding-left: 10px;
-}
-.genres-header {
-  padding-left: 16px;
-  border: none;
-}
-.well {
-  background-color: #ffffff;
-  background: #ffffff;
-  color: #2d6ca2;
+  background: whitesmoke;
+  border: 1px solid lightgray;
+  border-radius: 5px;
 }
 /*END GENRES*/
 /*REVIEW STARS*/
