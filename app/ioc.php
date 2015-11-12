@@ -24,6 +24,10 @@ App::singleton('GenreJsonMapper', function () {
     return new GenreJsonMapper();
 });
 
+App::singleton('TagJsonMapper', function () {
+    return new TagJsonMapper();
+});
+
 App::singleton('CurrencyService', function () {
     return new CurrencyService();
 });
