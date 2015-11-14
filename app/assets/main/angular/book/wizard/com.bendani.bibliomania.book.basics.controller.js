@@ -1,16 +1,18 @@
 'use strict';
 
 angular.module('com.bendani.bibliomania.book.basics.controller', ['ngTagsInput',
-    'angularBootstrapNavTree', 'angucomplete',
+    'angularBootstrapNavTree',
     'com.bendani.bibliomania.error.container', 'com.bendani.bibliomania.book.model',
     'com.bendani.bibliomania.genre.model', 'com.bendani.bibliomania.tag.model',
-    'com.bendani.bibliomania.country.model'])
-    .controller('BookBasicsController', ['$scope', 'Genre', 'Tag', 'Country', 'ErrorContainer',function ($scope, Genre, Tag, Country, ErrorContainer) {
+    'com.bendani.bibliomania.country.model',
+    'com.bendani.bibliomania.publisher.model'])
+    .controller('BookBasicsController', ['$scope', 'Genre', 'Tag', 'Country', 'Publisher', 'ErrorContainer',function ($scope, Genre, Tag, Country, Publisher, ErrorContainer) {
         $scope.data = {};
         $scope.genreTree = {};
         $scope.data.genres = Genre.query(function(genres){}, ErrorContainer.handleRestError);
         $scope.data.tags = Tag.query(function(tags){}, ErrorContainer.handleRestError);
         $scope.data.countries = Country.query(function(countries){}, ErrorContainer.handleRestError);
+        $scope.data.publishers = Publisher.query(function(publishers){}, ErrorContainer.handleRestError);
 
         $scope.selectGenre = function(branch){
             $scope.container.model.genre = branch.label;
