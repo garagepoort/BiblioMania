@@ -12,12 +12,18 @@ class PublisherController extends BaseController{
 
     /** @var  PublisherService */
     private $publisherService;
+    /** @var  PublisherJsonMapper */
+    private $publisherJsonMapper;
 
     function __construct()
     {
         $this->publisherService = App::make('PublisherService');
+        $this->publisherJsonMapper = App::make('PublisherJsonMapper');
     }
 
+    public function getPublishers(){
+        return $this->publisherJsonMapper->mapArrayToJson($this->publisherService->getPublishers());
+    }
 
     public function getPublisher($id){
         $publisher = Publisher::with(array('books', 'first_print_infos'))->find($id);

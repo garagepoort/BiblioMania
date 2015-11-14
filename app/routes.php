@@ -20,6 +20,7 @@ Route::group(array('before' => 'auth'), function () {
     Route::get('bookFilters', 'BookController@getFilters');
     Route::get('tags', 'TagController@getTags');
     Route::get('countries', 'CountryController@getCountries');
+    Route::get('publishers', 'PublisherController@getPublishers');
 
     Route::get('genres', 'GenreController@getGenres');
 
