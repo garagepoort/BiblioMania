@@ -32,6 +32,10 @@ App::singleton('CountryJsonMapper', function () {
     return new CountryJsonMapper();
 });
 
+App::singleton('PublisherJsonMapper', function () {
+    return new PublisherJsonMapper();
+});
+
 App::singleton('CurrencyService', function () {
     return new CurrencyService();
 });
