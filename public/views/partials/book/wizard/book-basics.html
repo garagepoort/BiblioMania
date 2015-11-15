@@ -85,7 +85,7 @@
             <div class="col-md-5">
                 <input ng-model="container.model.publisher" type="text" placeholder="uitgever" class="form-control"
                        required="true"
-                       uib-typeahead="publisher as publisher.name for publisher in data.publishers | filter:$viewValue | limitTo:8"
+                       uib-typeahead="publisher.name as publisher.name for publisher in data.publishers | filter:$viewValue | limitTo:8"
                        class="form-control">
             </div>
         </div>
@@ -121,7 +121,7 @@
             <div class="col-md-5">
                 <input ng-model="container.model.country" type="text" placeholder="land" class="form-control"
                        required="true"
-                       uib-typeahead="country as country.name for country in data.countries | filter:$viewValue | limitTo:8"
+                       uib-typeahead="country.name as country.name for country in data.countries | filter:$viewValue | limitTo:8"
                        class="form-control">
             </div>
 
