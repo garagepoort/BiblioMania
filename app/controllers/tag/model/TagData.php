@@ -13,6 +13,14 @@ class TagData
         $this->text = $text;
     }
 
+    /**
+     * @return string
+     */
+    public function getText()
+    {
+        return $this->text;
+    }
+
     public function toJson(){
         return array(
             "text"=>$this->text
