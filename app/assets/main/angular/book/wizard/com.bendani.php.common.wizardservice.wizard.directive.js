@@ -4,8 +4,7 @@ angular
         return {
             scope: {
                 steps: "=",
-                progressStep: "@",
-                modelId: "@"
+                progressStep: "@"
             },
             restrict: "E",
             templateUrl: "../BiblioMania/views/partials/book/wizard/wizard-directive.html",
@@ -23,8 +22,8 @@ angular
                     $scope.container.model = {};
                     $scope.$watch('steps', function (newValue) {
                         if ($scope.steps != undefined) {
-                            $scope.currentStep = $scope.steps[0];
-                            if ($scope.modelId != undefined) {
+                            $scope.currentStep = $scope.steps[$routeParams.step];
+                            if ($routeParams.modelId != undefined) {
                                 retrieveModel();
                             }
                         }
@@ -40,10 +39,10 @@ angular
                 };
 
                 $scope.submitForm = function () {
-                    if ($scope.modelId === undefined || $scope.modelId == '') {
+                    if ($routeParams.modelId === undefined || $routeParams.modelId == '') {
                         $http.post($scope.currentStep.modelUrl, $scope.container.model).then(handleSuccessResponse, ErrorContainer.handleRestError);
                     }else{
-                        $scope.container.model.id = $scope.modelId;
+                        $scope.container.model.id = $routeParams.modelId;
                         $http.put($scope.currentStep.modelUrl, $scope.container.model).then(handleSuccessResponse, ErrorContainer.handleRestError);
                     }
                 };
@@ -51,8 +50,8 @@ angular
 
                 function getStepUrl() {
                     var url = $rootScope.baseUrl.concat($scope.currentStep.modelUrl);
-                    if ($scope.modelId !== undefined) {
-                        url = url.concat("/").concat($scope.modelId);
+                    if ($routeParams.modelId !== undefined) {
+                        url = url.concat("/").concat($routeParams.modelId);
                     }
                     return url;
                 }
