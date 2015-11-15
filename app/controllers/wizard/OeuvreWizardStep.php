@@ -39,11 +39,6 @@ class OeuvreWizardStep extends WizardStep
         return View::make($this->bookFolder . 'oeuvre')->with($withArray);
     }
 
-    public function getTitle()
-    {
-        return "Oeuvre";
-    }
-
     public function onExitGoTo($result)
     {
         return Redirect::to('getBooks?scroll_id=' . $result->id);

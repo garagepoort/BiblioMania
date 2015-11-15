@@ -21,6 +21,7 @@ Route::group(array('before' => 'auth'), function () {
     Route::get('tags', 'TagController@getTags');
     Route::get('countries', 'CountryController@getCountries');
     Route::get('publishers', 'PublisherController@getPublishers');
+    Route::get('languages', 'LanguageController@getLanguages');
 
     Route::get('genres', 'GenreController@getGenres');
 

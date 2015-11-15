@@ -36,18 +36,7 @@
             attrs.expandLevel = '3';
           }
           expand_level = parseInt(attrs.expandLevel, 10);
-          if (!scope.treeData) {
-            alert('no treeData defined for the tree!');
-            return;
-          }
-          if (scope.treeData.length == null) {
-            if (treeData.label != null) {
-              scope.treeData = [treeData];
-            } else {
-              alert('treeData should be an array of root branches');
-              return;
-            }
-          }
+
           for_each_branch = function(f) {
             var do_f, root_branch, _i, _len, _ref, _results;
             do_f = function(branch, level) {

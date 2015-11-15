@@ -1,6 +1,6 @@
 <?php
 
-class BookBasics
+class BookBasicsData
 {
     /**
      * @var string
@@ -111,6 +111,8 @@ class BookBasics
             "isbn"=>$this->isbn,
             "language"=>$this->language,
             "publisher"=>$this->publisher,
+            "genre"=>$this->genre,
+            "country"=>$this->country,
             "tags"=>$this->tags
         );
     }

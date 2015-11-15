@@ -37,9 +37,7 @@ var application = angular.module('BiblioMania', ['ngRoute',
     'com.bendani.bibliomania.library.information.sliding.panel.directive',
     'com.bendani.php.common.wizardservice.wizard.directive',
     'com.bendani.php.common.wizardservice.wizard.steps.directive',
-    'com.bendani.bibliomania.book.wizard.model',
-    'com.bendani.bibliomania.book.basics.controller',
-    'smart-table'])
+    'com.bendani.bibliomania.book.basics.controller'])
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider
             .when('/books', {
