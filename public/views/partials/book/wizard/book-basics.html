@@ -1,4 +1,4 @@
-<fieldset>
+<fieldset ng-controller="BookBasicsController">
 
     <legend>Boek info</legend>
     <!--@if ($errors->has())-->
@@ -59,6 +59,8 @@
                 </div>
             </div>
             <div class="col-md-4">
+                <button type="button" ng-click="genreTree.expand_all();" class="btn btn-default" style="margin-bottom: 20px">Alles open</button>
+                <button type="button" ng-click="genreTree.collapse_all();" class="btn btn-default" style="margin-bottom: 20px">Alles toe</button>
                 <div ng-show="container.model.genre" class="alert alert-success">Selectie: <b>{{ container.model.genre}}</b></div>
             </div>
         </div>
@@ -93,15 +95,22 @@
             <label class="control-label col-md-2">Publicatie:</label>
 
             <div class="col-md-7 control-label">
-                TODO date input
-                <!--@include('book/create/dateInputFragment', array('label' => 'Publicatie',-->
-                <!--'dateDayName'=>'book_publication_date_day',-->
-                <!--'dateMonthName'=>'book_publication_date_month',-->
-                <!--'dateYearName'=>'book_publication_date_year',-->
-                <!--'dateDayValue' => $book_publication_date_day,-->
-                <!--'dateMonthValue' => $book_publication_date_month,-->
-                <!--'dateYearValue' => $book_publication_date_year-->
-                <!--))-->
+                <table>
+                    <tr>
+                        <td>Dag:</td>
+                        <td style='padding: 0 10px;'>
+                            <input type="text" class="input-xs form-control" placeholder="dag" ng-model="container.model.publicationDate.day" style="width: 80px" ng-maxlength="2" />
+                        </td>
+                        <td>Maand:</td>
+                        <td style='padding: 0 10px;'>
+                            <input type="text" class="input-xs form-control" placeholder="dag" ng-model="container.model.publicationDate.month" style="width: 80px" ng-maxlength="2" />
+                        </td>
+                        <td>Jaar:</td>
+                        <td style='padding: 0 10px;'>
+                            <input type="text" class="input-xs form-control" placeholder="dag" ng-model="container.model.publicationDate.year" style="width: 80px" ng-maxlength="4" />
+                        </td>
+                    </tr>
+                </table>
             </div>
         </div>
 

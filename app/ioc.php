@@ -20,8 +20,12 @@ App::singleton('JsonMappingService', function () {
     return new JsonMappingService();
 });
 
-App::singleton('BookBasicsJsonMapper', function () {
-    return new BookBasicsJsonMapper();
+App::singleton('BookBasicsService', function () {
+    return new BookBasicsService();
+});
+
+App::singleton('BookBasicsToJsonAdapter', function () {
+    return new BookBasicsToJsonAdapter();
 });
 
 App::singleton('GenreJsonMapper', function () {

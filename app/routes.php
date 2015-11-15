@@ -35,10 +35,13 @@ Route::group(array('before' => 'auth'), function () {
     Route::post('deleteBook', 'BookController@deleteBook');
 
     //WIZARD
-    Route::get('bookwizard', 'BookStepController@getBookWizard');
     Route::get('bookwizard/step/{step}/{book_id?}', 'BookStepController@getBookWizardModel');
     Route::get('createOrEditBook/step/{step}/{id?}', 'BookStepController@get');
     Route::post('createOrEditBook/step/{step}/{id?}', 'BookStepController@save');
+
+    Route::get('bookBasics/{id}', 'BookBasicsWizardStepResource@getBookBasics');
+    Route::put('bookBasics', 'BookBasicsWizardStepResource@updateBookBasics');
+    Route::post('bookBasics', 'BookBasicsWizardStepResource@createBookBasics');
 
     Route::get('logOut', 'DefaultLoginController@logOut');
     Route::get('importLanguageFirstPrintInfo', 'BookImportController@importLanguageFirstPrintInfo');

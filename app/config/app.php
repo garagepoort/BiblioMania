@@ -195,6 +195,7 @@ return array(
 		'JWTAuth'   => 'Tymon\JWTAuth\Facades\JWTAuth',
 		'JWTFactory' => 'Tymon\JWTAuth\Facades\JWTFactory',
 		'Agent' => 'Jenssegers\Agent\Facades\Agent',
+		'Uuid' => 'Webpatser\Uuid\Uuid',
 	),
 
 );
