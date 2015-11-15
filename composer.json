@@ -22,7 +22,8 @@
     "bendani/php-common/wizard-service": "dev-angular_spike",
     "bendani/php-common/filter-service": "dev-angular_spike",
     "bendani/php-common/utils": "1.0.*",
-    "netresearch/jsonmapper": "^0.10.0"
+    "netresearch/jsonmapper": "^0.10.0",
+    "webpatser/laravel-uuid": "2.*"
   },
   "autoload": {
     "classmap": [
