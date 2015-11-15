@@ -40,7 +40,7 @@ angular
                 };
 
                 $scope.submitForm = function () {
-                    if ($scope.modelId === undefined) {
+                    if ($scope.modelId === undefined || $scope.modelId == '') {
                         $http.post($scope.currentStep.modelUrl, $scope.container.model).then(handleSuccessResponse, ErrorContainer.handleRestError);
                     }else{
                         $scope.container.model.id = $scope.modelId;

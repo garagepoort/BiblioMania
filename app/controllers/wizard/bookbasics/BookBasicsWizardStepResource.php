@@ -36,9 +36,9 @@ class BookBasicsWizardStepResource extends BaseController
     }
 
     public function createBookBasics(){
-        $updateBookBasicsRequest = $this->jsonMappingService->mapInputToJson(Input::get(), new UpdateBookBasicsFromJsonAdapter());
+        $createBookBasicsRequest = $this->jsonMappingService->mapInputToJson(Input::get(), new CreateBookBasicsFromJsonAdapter());
 
-        $this->bookBasicsService->updateBookBasics($updateBookBasicsRequest);
+        $this->bookBasicsService->createBookBasics($createBookBasicsRequest);
     }
 
 }
