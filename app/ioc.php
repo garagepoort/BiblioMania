@@ -16,6 +16,10 @@ App::singleton('GenreService', function () {
     return new GenreService();
 });
 
+App::singleton('JsonMappingService', function () {
+    return new JsonMappingService();
+});
+
 App::singleton('BookBasicsJsonMapper', function () {
     return new BookBasicsJsonMapper();
 });

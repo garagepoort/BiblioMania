@@ -1,4 +1,11 @@
-<wizard-steps steps="steps" progress-step="1" current-step="1"></wizard-steps>
+<wizard-steps steps="steps" progress-step="progressStep" current-step="1"></wizard-steps>
 <div class="create-book-div">
-        <div ng-include="'../BiblioMania/views/partials/book/wizard/book-basics.html'" ng-controller="BookBasicsController" onload="container = container"></div>
+    <form ng-submit="submitForm()" id="wizardForm" novalidate class="form-horizontal createBookForm" autocomplete="off" files="true">
+        <div dynamic-controller="currentStepwizardForm.controller" ng-show="currentStep !== undefined" ng-include="currentStep.templateUrl" onload="container = container"></div>
+    <div class="control-group">
+        <div class="controls">
+            <button type="submit" class="btn btn-success" ng-disabled="wizardForm.$invalid">Volgende</button>
+        </div>
+    </div>
+    </form>
 </div>

@@ -1,133 +1,129 @@
-<form id="createOrEditBookForm" novalidate class="form-horizontal createBookForm" autocomplete="off" files="true">
-    <fieldset>
+<fieldset>
 
-        <legend>Boek info</legend>
-        <!--@if ($errors->has())-->
-        <!--@foreach ($errors->all() as $error)-->
-        <!--<div id="bookInfoMessage" class="alert-danger alert">-->
-        <!--<strong>{{ $error }}</strong>-->
-        <!--</div>-->
-        <!--@endforeach-->
-        <!--@endif-->
+    <legend>Boek info</legend>
+    <!--@if ($errors->has())-->
+    <!--@foreach ($errors->all() as $error)-->
+    <!--<div id="bookInfoMessage" class="alert-danger alert">-->
+    <!--<strong>{{ $error }}</strong>-->
+    <!--</div>-->
+    <!--@endforeach-->
+    <!--@endif-->
 
-        <div class="form-container">
+    <div class="form-container">
 
-            <!-- TITLE -->
-            <div class="form-group">
-                <label class="control-label col-md-2">Titel:</label>
+        <!-- TITLE -->
+        <div class="form-group">
+            <label class="control-label col-md-2">Titel:</label>
 
-                <div class="col-md-9">
-                    <input type="text" class="form-control" placeholder="titel" required="true"
-                           ng-model="container.model.title"/>
-                </div>
-            </div>
-
-            <!-- SUBTITLE -->
-            <div class="form-group">
-                <label class="control-label col-md-2">Ondertitel:</label>
-
-                <div class="col-md-9">
-                    <input type="text" class="form-control" placeholder="ondertitel"
-                           ng-model="container.model.subtitle"/>
-                </div>
-            </div>
-
-            <!-- ISBN -->
-            <div class="form-group">
-                <label class="control-label col-md-2">ISBN:</label>
-
-                <div class="col-md-5">
-                    <input type="text" class="form-control" placeholder="isbn" ng-model="container.model.isbn"
-                           required="true"/>
-                </div>
-                <div class="col-md-5">
-                    <button id="searchGoogleInformationButton" class="btn btn-primary" onclick="return false;">Zoek
-                        boek informatie
-                    </button>
-                </div>
-            </div>
-
-            <!-- GENRE -->
-            <div class="form-group">
-                <label class="control-label col-md-2">Genre:</label>
-                <input id="book_genre_input" type="text" name="book_genre" hidden required
-                       ng-model="container.model.genre">
-
-                <div class="col-md-5">
-                    <div class="well genres-container">
-                        <abn-tree tree-control="genreTree" tree-data="data.genres" on-select="selectGenre(branch)"></abn-tree>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <button ng-click="genreTree.expand_all()" class="btn btn-default" style="margin-bottom: 20px">Alles open</button>
-                    <button ng-click="genreTree.collapse_all()" class="btn btn-default" style="margin-bottom: 20px">Alles toe</button>
-                    <div ng-show="container.model.genre" class="alert alert-success">Selectie: <b>{{ container.model.genre }}</b></div>
-                </div>
-            </div>
-
-            <!-- Tags -->
-            <div class="form-group">
-                <label class="control-label col-md-2">Tags:</label>
-
-                <div class="col-md-9">
-                    <tags-input ng-model="container.model.tags">
-                        <auto-complete source="searchTags($query)"></auto-complete>
-                    </tags-input>
-                </div>
-            </div>
-
-
-            <!-- PUBLISHER -->
-            <legend>Uitgever</legend>
-            <div class="form-group">
-                <label class="control-label col-md-2">Uitgever:</label>
-
-                <div class="col-md-5">
-                    <input ng-model="container.model.publisher" type="text" placeholder="uitgever" class="form-control" required="true" ng-model="selected"
-                           uib-typeahead="publisher as publisher.name for publisher in data.publishers | filter:$viewValue | limitTo:8" class="form-control">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <!-- PUBLICATION DATE -->
-                <label class="control-label col-md-2">Publicatie:</label>
-
-                <div class="col-md-7 control-label">
-                    TODO date input
-                    <!--@include('book/create/dateInputFragment', array('label' => 'Publicatie',-->
-                    <!--'dateDayName'=>'book_publication_date_day',-->
-                    <!--'dateMonthName'=>'book_publication_date_month',-->
-                    <!--'dateYearName'=>'book_publication_date_year',-->
-                    <!--'dateDayValue' => $book_publication_date_day,-->
-                    <!--'dateMonthValue' => $book_publication_date_month,-->
-                    <!--'dateYearValue' => $book_publication_date_year-->
-                    <!--))-->
-                </div>
-            </div>
-
-            <div class="form-group">
-                <!-- COUNTRY -->
-                <label class="control-label col-md-2">Land:</label>
-
-                <div class="col-md-5">
-                    <angucomplete placeholder="land"
-                                  pause="100"
-                                  selectedobject="container.model.country"
-                                  localdata="data.countries"
-                                  searchfields="name"
-                                  titlefield="name"
-                                  minlength="1"
-                                  inputclass="form-control"/>
-                </div>
-
-                <!-- LANGUAGE -->
-                <label class="control-label col-md-2">Taal:</label>
-
-                <div class="col-md-3">
-                    TODO languages select
-                </div>
+            <div class="col-md-9">
+                <input type="text" class="form-control" placeholder="titel" required="true"
+                       ng-model="container.model.title"/>
             </div>
         </div>
 
-    </fieldset>
-</form>
+        <!-- SUBTITLE -->
+        <div class="form-group">
+            <label class="control-label col-md-2">Ondertitel:</label>
+
+            <div class="col-md-9">
+                <input type="text" class="form-control" placeholder="ondertitel"
+                       ng-model="container.model.subtitle"/>
+            </div>
+        </div>
+
+        <!-- ISBN -->
+        <div class="form-group">
+            <label class="control-label col-md-2">ISBN:</label>
+
+            <div class="col-md-5">
+                <input type="text" class="form-control" placeholder="isbn" ng-model="container.model.isbn"
+                       required="true"/>
+            </div>
+            <div class="col-md-5">
+                <button id="searchGoogleInformationButton" class="btn btn-primary" onclick="return false;">Zoek
+                    boek informatie
+                </button>
+            </div>
+        </div>
+
+        <!-- GENRE -->
+        <div class="form-group">
+            <label class="control-label col-md-2">Genre:</label>
+            <input id="book_genre_input" type="text" name="book_genre" hidden required
+                   ng-model="container.model.genre">
+
+            <div class="col-md-5">
+                <div class="well genres-container">
+                    <abn-tree tree-control="genreTree" tree-data="data.genres"
+                              on-select="selectGenre(branch)"></abn-tree>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div ng-show="container.model.genre" class="alert alert-success">Selectie: <b>{{ container.model.genre}}</b></div>
+            </div>
+        </div>
+
+        <!-- Tags -->
+        <div class="form-group">
+            <label class="control-label col-md-2">Tags:</label>
+
+            <div class="col-md-9">
+                <tags-input ng-model="container.model.tags">
+                    <auto-complete source="searchTags($query)"></auto-complete>
+                </tags-input>
+            </div>
+        </div>
+
+
+        <!-- PUBLISHER -->
+        <legend>Uitgever</legend>
+        <div class="form-group">
+            <label class="control-label col-md-2">Uitgever:</label>
+
+            <div class="col-md-5">
+                <input ng-model="container.model.publisher" type="text" placeholder="uitgever" class="form-control"
+                       required="true"
+                       uib-typeahead="publisher as publisher.name for publisher in data.publishers | filter:$viewValue | limitTo:8"
+                       class="form-control">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <!-- PUBLICATION DATE -->
+            <label class="control-label col-md-2">Publicatie:</label>
+
+            <div class="col-md-7 control-label">
+                TODO date input
+                <!--@include('book/create/dateInputFragment', array('label' => 'Publicatie',-->
+                <!--'dateDayName'=>'book_publication_date_day',-->
+                <!--'dateMonthName'=>'book_publication_date_month',-->
+                <!--'dateYearName'=>'book_publication_date_year',-->
+                <!--'dateDayValue' => $book_publication_date_day,-->
+                <!--'dateMonthValue' => $book_publication_date_month,-->
+                <!--'dateYearValue' => $book_publication_date_year-->
+                <!--))-->
+            </div>
+        </div>
+
+        <div class="form-group">
+            <!-- COUNTRY -->
+            <label class="control-label col-md-2">Land:</label>
+
+            <div class="col-md-5">
+                <input ng-model="container.model.country" type="text" placeholder="land" class="form-control"
+                       required="true"
+                       uib-typeahead="country as country.name for country in data.countries | filter:$viewValue | limitTo:8"
+                       class="form-control">
+            </div>
+
+            <!-- LANGUAGE -->
+            <label class="control-label col-md-2">Taal:</label>
+
+            <div class="col-md-3">
+                <select class="input-sm form-control" ng-model="container.model.language"
+                        ng-options="language.name as language.name for language in data.languages"></select>
+            </div>
+        </div>
+    </div>
+
+</fieldset>

@@ -42,14 +42,8 @@ class FirstPrintWizardStep extends WizardStep
         return View::make($this->bookFolder . 'firstprint')->with($withArray);
     }
 
-    public function getTitle()
-    {
-        return "Eerste druk";
-    }
-
     public function onExitGoTo($result)
     {
         return Redirect::to('getBooks?scroll_id=' . $result->id);
     }
-
 }
