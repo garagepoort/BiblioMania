@@ -5,13 +5,13 @@ angular
             scope: {
                 steps: "=",
                 progressStep: "@",
-                currentStep: "@"
+                currentStep: "="
             },
             restrict: "E",
             templateUrl: "../BiblioMania/views/partials/book/wizard/wizard-steps-directive.html",
             controller: ['$scope', function($scope) {
                 $scope.getWizardClass = function(step){
-                    if(step.number == $scope.currentStep){
+                    if(step.number == $scope.currentStep.number){
                         return 'current';
                     }
                     if($scope.progressStep == 'COMPLETE' || step.number < $scope.progressStep){

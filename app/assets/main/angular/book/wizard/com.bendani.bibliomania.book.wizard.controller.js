@@ -5,7 +5,6 @@ angular.module('com.bendani.bibliomania.book.wizard.controller', ['com.bendani.b
 
         function init() {
             $scope.book = {};
-            $scope.book.id = $routeParams.bookId;
             $scope.$parent.title = 'Boek wijzigen';
             retrieveBookWizard();
         }

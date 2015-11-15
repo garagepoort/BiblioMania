@@ -48,7 +48,7 @@ var application = angular.module('BiblioMania', ['ngRoute',
                 templateUrl: '../BiblioMania/views/partials/login.html',
                 controller: 'LoginController'
             })
-            .when('/editBook/:bookId?', {
+            .when('/editBook/:step/:modelId?', {
                 templateUrl: '../BiblioMania/views/partials/book/wizard/book-wizard.html',
                 controller: 'BookWizardController'
             })
