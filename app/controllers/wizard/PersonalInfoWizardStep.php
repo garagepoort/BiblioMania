@@ -33,11 +33,6 @@ class PersonalInfoWizardStep extends WizardStep
         return View::make($this->bookFolder . 'personalinfo')->with($withArray);
     }
 
-    public function getTitle()
-    {
-        return "Persoonlijk";
-    }
-
     public function onExitGoTo($result)
     {
         return Redirect::to('getBooks?scroll_id=' . $result->id);

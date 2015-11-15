@@ -40,11 +40,6 @@ class BookExtrasWizardStep extends WizardStep
         return View::make($this->bookFolder . 'bookExtra')->with($withArray);
     }
 
-    public function getTitle()
-    {
-        return "Extra";
-    }
-
     public function onExitGoTo($result)
     {
         return Redirect::to('getBooks?scroll_id=' . $result->id);

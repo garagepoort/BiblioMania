@@ -35,11 +35,6 @@ class CoverInfoWizardStep extends WizardStep
         return View::make($this->bookFolder . 'cover')->with($withArray);
     }
 
-    public function getTitle()
-    {
-        return "Cover";
-    }
-
     public function onExitGoTo($result)
     {
         return Redirect::to('getBooks?scroll_id=' . $result->id);

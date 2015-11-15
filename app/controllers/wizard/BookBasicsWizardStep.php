@@ -22,6 +22,8 @@ class BookBasicsWizardStep extends WizardStep
     private $bookFormValidator;
     /** @var  BookBasicsJsonMapper */
     private $bookBasicsJsonMapper;
+    /** @var  JsonMappingService $jsonMappingService */
+    private $jsonMappingService;
 
     public function __construct()
     {
@@ -33,10 +35,13 @@ class BookBasicsWizardStep extends WizardStep
         $this->bookInfoParameterMapper = App::make('BookInfoParameterMapper');
         $this->bookFormValidator = App::make('BookFormValidator');
         $this->bookBasicsJsonMapper = App::make('BookBasicsJsonMapper');
+        $this->jsonMappingService = App::make('JsonMappingService');
     }
 
     public function executeStep($id = null)
     {
+        $bookBasicData = $this->jsonMappingService->mapInputToJson(Input::get(), new BookBasicsData());
+
         $validator = $this->bookFormValidator->createValidatorForBasics();
 
         if ($validator->fails()) {
@@ -52,7 +57,7 @@ class BookBasicsWizardStep extends WizardStep
 
     public function getModel($id = null)
     {
-        $bookBasics = new BookBasics();
+        $bookBasics = new BookBasicsData();
         $bookBasics = $bookBasics->toJson();
         if($id != null){
             $fullBook = $this->bookService->getFullBook($id);
@@ -62,11 +67,6 @@ class BookBasicsWizardStep extends WizardStep
             $bookBasics = $this->bookBasicsJsonMapper->mapToJson($fullBook);
         }
         return $bookBasics;
-    }
-
-    public function getTitle()
-    {
-        return "Basis";
     }
 
     public function onExitGoTo($result)

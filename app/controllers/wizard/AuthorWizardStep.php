@@ -35,11 +35,6 @@ class AuthorWizardStep extends WizardStep
         return View::make($this->bookFolder . 'author')->with($withArray);
     }
 
-    public function getTitle()
-    {
-        return "Auteur";
-    }
-
     public function onExitGoTo($result)
     {
         return Redirect::to('getBooks?scroll_id=' . $result->id);

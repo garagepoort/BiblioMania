@@ -60,11 +60,6 @@ class BuyOrGiftWizardStep extends WizardStep
         return View::make($this->bookFolder . 'buyOrGiftInfo')->with($withArray);
     }
 
-    public function getTitle()
-    {
-        return "Koop/Gift";
-    }
-
     public function onExitGoTo($result)
     {
         return Redirect::to('getBooks?scroll_id=' . $result->id);
