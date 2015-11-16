@@ -27,7 +27,7 @@
             <label class="control-label col-md-2">ISBN </label>
 
             <div class="col-md-5">
-                <input name="isbn" type="text" class="form-control" placeholder="isbn" ng-model="container.model.isbn" required="true" ng-pattern="/^[0-9]{13}$/"/>
+                <input name="isbn" type="number" class="form-control" placeholder="isbn" ng-model="container.model.isbn" required="true" ng-pattern="/^[0-9]{13}$/"/>
                 <span ng-show="wizardForm.isbn.$error.required && wizardForm.isbn.$dirty" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Isbn is verplicht</span>
                 <span ng-show="wizardForm.isbn.$error.pattern && wizardForm.isbn.$dirty" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Isbn moet exact 13 nummers zijn</span>
             </div>
