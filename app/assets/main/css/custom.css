@@ -909,12 +909,19 @@ div.container-fluid {
   float: right;
   overflow: hidden;
 }
+.form-error-message {
+  color: #D75141;
+}
 .error-message {
   background-color: #D75141;
   color: #ffffff;
   margin-top: 15px;
   margin-bottom: 15px;
   width: 88%;
+}
+.form-group.required .control-label:after {
+  content: "*";
+  color: red;
 }
 .editable-click,
 a.editable-click,
