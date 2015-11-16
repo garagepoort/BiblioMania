@@ -25,6 +25,7 @@ angular
 
                     if ($routeParams.modelId != undefined) {
                         retrieveModel();
+                        setLocationOnSteps();
                     }
                 }
 
@@ -48,6 +49,12 @@ angular
                     }
                 };
 
+                function setLocationOnSteps() {
+                    for (var i = 0; i < $scope.steps.length; i++) {
+                        var step = $scope.steps[i];
+                        step.location = $scope.wizardPath + "/" + i + "/" + $routeParams.modelId;
+                    }
+                }
 
                 function getStepUrl() {
                     var url = $rootScope.baseUrl.concat($scope.currentStep.modelUrl);

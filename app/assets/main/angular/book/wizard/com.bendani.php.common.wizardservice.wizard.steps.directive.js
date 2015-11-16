@@ -9,7 +9,7 @@ angular
             },
             restrict: "E",
             templateUrl: "../BiblioMania/views/partials/book/wizard/wizard-steps-directive.html",
-            controller: ['$scope', function($scope) {
+            controller: ['$scope', '$location', function($scope, $location) {
                 $scope.getWizardClass = function(step){
                     if(step.number == $scope.currentStep.number){
                         return 'current';
@@ -21,6 +21,10 @@ angular
                         return 'progress';
                     }
                     return '';
+                }
+
+                $scope.goToStep = function(step){
+                    $location.path(step.location);
                 }
             }]
         };

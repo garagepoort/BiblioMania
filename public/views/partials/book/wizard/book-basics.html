@@ -27,7 +27,7 @@
             <label class="control-label col-md-2">ISBN </label>
 
             <div class="col-md-5">
-                <input name="isbn" type="number" class="form-control" placeholder="isbn" ng-model="container.model.isbn" required="true" ng-pattern="/^[0-9]{13}$/"/>
+                <input name="isbn" type="text" class="form-control" placeholder="isbn" ng-model="container.model.isbn" required="true" ng-pattern="/^[0-9]{13}$/"/>
                 <span ng-show="wizardForm.isbn.$error.required && wizardForm.isbn.$dirty" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Isbn is verplicht</span>
                 <span ng-show="wizardForm.isbn.$error.pattern && wizardForm.isbn.$dirty" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Isbn moet exact 13 nummers zijn</span>
             </div>
@@ -79,27 +79,31 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group required">
             <!-- PUBLICATION DATE -->
-            <label class="control-label col-md-2">Publicatie</label>
+            <label class="control-label col-md-2">Publicatie </label>
 
-            <div class="col-md-7 control-label">
+            <div class="col-md-7">
                 <table>
                     <tr>
                         <td>Dag:</td>
                         <td style='padding: 0 10px;'>
-                            <input type="text" class="input-xs form-control" placeholder="dag" ng-model="container.model.publicationDate.day" style="width: 80px" ng-maxlength="2" />
+                            <input name="publicationDay" type="number" class="form-control" placeholder="dag" ng-model="container.model.publicationDate.day" style="width: 80px" ng-maxlength="2" min="1" max="31"/>
                         </td>
                         <td>Maand:</td>
                         <td style='padding: 0 10px;'>
-                            <input type="text" class="input-xs form-control" placeholder="dag" ng-model="container.model.publicationDate.month" style="width: 80px" ng-maxlength="2" />
+                            <input name="publicationMonth" type="number" class="form-control" placeholder="maand" ng-model="container.model.publicationDate.month" style="width: 80px" ng-maxlength="2" min="1" max="12"/>
                         </td>
                         <td>Jaar:</td>
                         <td style='padding: 0 10px;'>
-                            <input type="text" class="input-xs form-control" placeholder="dag" ng-model="container.model.publicationDate.year" style="width: 80px" ng-maxlength="4" />
+                            <input required name="publicationYear" type="number" class="form-control" placeholder="jaar" ng-model="container.model.publicationDate.year" style="width: 80px" ng-pattern="/^[0-9]{4}$/" />
                         </td>
                     </tr>
                 </table>
+                <span ng-show="wizardForm.publicationDay.$invalid && wizardForm.publicationDay.$dirty" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Ongeldige dag</span>
+                <span ng-show="wizardForm.publicationMonth.$invalid && wizardForm.publicationMonth.$dirty" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Ongeldige maand</span>
+                <span ng-show="wizardForm.publicationYear.$error.required && wizardForm.publicationYear.$dirty" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Publicatiejaar is verplicht</span>
+                <span ng-show="wizardForm.publicationYear.$error.pattern && wizardForm.publicationYear.$dirty" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Ongeldig jaartal</span>
             </div>
         </div>
 
