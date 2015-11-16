@@ -1,56 +1,44 @@
 <fieldset ng-controller="BookBasicsController">
 
     <legend>Boek info</legend>
-    <!--@if ($errors->has())-->
-    <!--@foreach ($errors->all() as $error)-->
-    <!--<div id="bookInfoMessage" class="alert-danger alert">-->
-    <!--<strong>{{ $error }}</strong>-->
-    <!--</div>-->
-    <!--@endforeach-->
-    <!--@endif-->
 
     <div class="form-container">
-
         <!-- TITLE -->
-        <div class="form-group">
-            <label class="control-label col-md-2">Titel:</label>
+        <div class="form-group required" ng-class="{'has-error has-feedback' : wizardForm.title.$invalid && wizardForm.title.$dirty}">
+            <label class="control-label col-md-2">Titel </label>
 
             <div class="col-md-9">
-                <input type="text" class="form-control" placeholder="titel" required="true"
-                       ng-model="container.model.title"/>
+                <input name="title" type="text" class="form-control" placeholder="titel" required="true" ng-model="container.model.title"/>
+                <span ng-show="wizardForm.title.$invalid && wizardForm.title.$dirty" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Titel is verplicht</span>
             </div>
         </div>
 
         <!-- SUBTITLE -->
         <div class="form-group">
-            <label class="control-label col-md-2">Ondertitel:</label>
+            <label class="control-label col-md-2">Ondertitel</label>
 
             <div class="col-md-9">
-                <input type="text" class="form-control" placeholder="ondertitel"
-                       ng-model="container.model.subtitle"/>
+                <input type="text" class="form-control" placeholder="ondertitel" ng-model="container.model.subtitle"/>
             </div>
         </div>
 
         <!-- ISBN -->
-        <div class="form-group">
-            <label class="control-label col-md-2">ISBN:</label>
+        <div class="form-group required">
+            <label class="control-label col-md-2">ISBN </label>
 
             <div class="col-md-5">
-                <input type="text" class="form-control" placeholder="isbn" ng-model="container.model.isbn"
-                       required="true"/>
-            </div>
-            <div class="col-md-5">
-                <button id="searchGoogleInformationButton" class="btn btn-primary" onclick="return false;">Zoek
-                    boek informatie
-                </button>
+                <input name="isbn" type="text" class="form-control" placeholder="isbn" ng-model="container.model.isbn" required="true" ng-pattern="/^[0-9]{13}$/"/>
+                <span ng-show="wizardForm.isbn.$error.required && wizardForm.isbn.$dirty" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Isbn is verplicht</span>
+                <span ng-show="wizardForm.isbn.$error.pattern && wizardForm.isbn.$dirty" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Isbn moet exact 13 nummers zijn</span>
             </div>
         </div>
 
         <!-- GENRE -->
-        <div class="form-group">
-            <label class="control-label col-md-2">Genre:</label>
-            <input id="book_genre_input" type="text" name="book_genre" hidden required
+        <div class="form-group required">
+            <label class="control-label col-md-2">Genre </label>
+            <input id="book_genre_input" type="text" name="genre" hidden required
                    ng-model="container.model.genre">
+            <span ng-show="wizardForm.genre.$invalid && wizardForm.genre.$dirty" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Genre is verplicht</span>
 
             <div class="col-md-5">
                 <div class="well genres-container">
@@ -67,7 +55,7 @@
 
         <!-- Tags -->
         <div class="form-group">
-            <label class="control-label col-md-2">Tags:</label>
+            <label class="control-label col-md-2">Tags</label>
 
             <div class="col-md-9">
                 <tags-input ng-model="container.model.tags">
@@ -79,20 +67,21 @@
 
         <!-- PUBLISHER -->
         <legend>Uitgever</legend>
-        <div class="form-group">
-            <label class="control-label col-md-2">Uitgever:</label>
+        <div class="form-group required">
+            <label class="control-label col-md-2">Uitgever </label>
 
             <div class="col-md-5">
-                <input ng-model="container.model.publisher" type="text" placeholder="uitgever" class="form-control"
+                <input name="publisher" ng-model="container.model.publisher" type="text" placeholder="uitgever" class="form-control"
                        required="true"
                        uib-typeahead="publisher.name as publisher.name for publisher in data.publishers | filter:$viewValue | limitTo:8"
                        class="form-control">
+                <span ng-show="wizardForm.publisher.$invalid && wizardForm.publisher.$dirty" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Uitgever is verplicht</span>
             </div>
         </div>
 
         <div class="form-group">
             <!-- PUBLICATION DATE -->
-            <label class="control-label col-md-2">Publicatie:</label>
+            <label class="control-label col-md-2">Publicatie</label>
 
             <div class="col-md-7 control-label">
                 <table>
@@ -114,23 +103,23 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group required">
             <!-- COUNTRY -->
-            <label class="control-label col-md-2">Land:</label>
+            <label class="control-label col-md-2">Land </label>
 
             <div class="col-md-5">
-                <input ng-model="container.model.country" type="text" placeholder="land" class="form-control"
-                       required="true"
-                       uib-typeahead="country.name as country.name for country in data.countries | filter:$viewValue | limitTo:8"
-                       class="form-control">
+                <input name="country" ng-model="container.model.country" type="text" placeholder="land" class="form-control" required="true"
+                       uib-typeahead="country.name as country.name for country in data.countries | filter:$viewValue | limitTo:8" class="form-control">
+                <span ng-show="wizardForm.country.$invalid && wizardForm.country.$dirty" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Land is verplicht</span>
             </div>
 
             <!-- LANGUAGE -->
-            <label class="control-label col-md-2">Taal:</label>
+            <label class="control-label col-md-2">Taal </label>
 
             <div class="col-md-3">
-                <select class="input-sm form-control" ng-model="container.model.language"
+                <select name="language" class="input-sm form-control" ng-model="container.model.language"
                         ng-options="language.name as language.name for language in data.languages"></select>
+                <span ng-show="wizardForm.language.$invalid && wizardForm.language.$dirty" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i>Taal is verplicht</span>
             </div>
         </div>
     </div>
