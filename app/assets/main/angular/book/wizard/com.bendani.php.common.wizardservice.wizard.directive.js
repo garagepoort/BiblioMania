@@ -4,11 +4,12 @@ angular
         return {
             scope: {
                 steps: "=",
-                progressStep: "@"
+                progressStep: "@",
+                wizardPath: "@",
             },
             restrict: "E",
             templateUrl: "../BiblioMania/views/partials/book/wizard/wizard-directive.html",
-            controller: ['$rootScope', '$scope', '$controller', '$routeParams', '$http', 'ErrorContainer', function ($rootScope, $scope, $controller, $routeParams, $http, ErrorContainer) {
+            controller: ['$rootScope', '$scope', '$controller', '$routeParams', '$http', '$location','ErrorContainer', function ($rootScope, $scope, $controller, $routeParams, $http, $location, ErrorContainer) {
 
                 function retrieveModel() {
                     $http.get(getStepUrl()).then(
@@ -20,17 +21,17 @@ angular
                 function init() {
                     $scope.container = {};
                     $scope.container.model = {};
-                    $scope.$watch('steps', function (newValue) {
-                        if ($scope.steps != undefined) {
-                            $scope.currentStep = $scope.steps[$routeParams.step];
-                            if ($routeParams.modelId != undefined) {
-                                retrieveModel();
-                            }
-                        }
-                    });
+                    $scope.currentStep = $scope.steps[$routeParams.step];
+
+                    if ($routeParams.modelId != undefined) {
+                        retrieveModel();
+                    }
                 }
 
                 var handleSuccessResponse = function (response) {
+                    var nextStep = parseInt($routeParams.step) + 1;
+                    $location.path($scope.wizardPath + "/" + nextStep + "/" + response.data);
+
                     NotificationRepository.addNotification({
                         title: "Boek opgeslagen",
                         message: "",

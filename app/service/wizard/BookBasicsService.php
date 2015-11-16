@@ -30,13 +30,13 @@ class BookBasicsService
         /** @var Book $book */
         $book = new Book();
         $book->user_id = Auth::user()->id;
-        $this->saveBook($baseBookBasicsRequest, $book);
+        return $this->saveBook($baseBookBasicsRequest, $book);
     }
 
     public function updateBookBasics(UpdateBookBasicsRequest $updateBookBasicsRequest){
         /** @var Book $book */
         $book = $this->bookRepository->find($updateBookBasicsRequest->getId());
-        $this->saveBook($updateBookBasicsRequest, $book);
+        return $this->saveBook($updateBookBasicsRequest, $book);
     }
 
     /**
@@ -76,6 +76,7 @@ class BookBasicsService
 
         $this->bookRepository->save($book);
         $book->tags()->sync($tags);
+        return $book;
     }
 
     /**
