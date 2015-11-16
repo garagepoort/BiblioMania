@@ -1,6 +1,6 @@
 <wizard-steps steps="steps" progress-step="progressStep" current-step="currentStep"></wizard-steps>
 <div class="create-book-div">
-    <form ng-submit="submitForm()" id="wizardForm" novalidate class="form-horizontal createBookForm" autocomplete="off" files="true">
+    <form ng-submit="submitForm()" id="wizardForm" name="wizardForm" novalidate class="form-horizontal createBookForm" autocomplete="off" files="true">
         <div ng-show="currentStep !== undefined" ng-include="currentStep.templateUrl" onload="container = container"></div>
     <div class="control-group">
         <div class="controls">
