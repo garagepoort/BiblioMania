@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('com.bendani.bibliomania.book.wizard.controller', ['com.bendani.bibliomania.error.container', 'com.bendani.bibliomania.book.model'])
-    .controller('BookWizardController', ['$scope', 'Book', 'ErrorContainer', '$routeParams', function ($scope, Book, ErrorContainer, $routeParams) {
+angular.module('com.bendani.bibliomania.book.wizard.controller', [])
+    .controller('BookWizardController', ['$scope', function ($scope) {
 
         function init() {
             $scope.book = {};
@@ -20,7 +20,8 @@ angular.module('com.bendani.bibliomania.book.wizard.controller', ['com.bendani.b
                 {
                     title: "Extra",
                     number: 1,
-                    modelUrl: "createOrEditBook/step/2",
+                    modelUrl: "bookExtras",
+                    templateUrl: "../BiblioMania/views/partials/book/wizard/book-extras.html"
                 },
                 {
                     title: "Auteur",

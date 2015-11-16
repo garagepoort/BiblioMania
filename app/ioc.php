@@ -36,6 +36,14 @@ App::singleton('TagJsonMapper', function () {
     return new TagJsonMapper();
 });
 
+App::singleton('BookExtrasService', function () {
+    return new BookExtrasService();
+});
+
+App::singleton('BookExtrasToJsonAdapter', function () {
+    return new BookExtrasToJsonAdapter();
+});
+
 App::singleton('CountryJsonMapper', function () {
     return new CountryJsonMapper();
 });

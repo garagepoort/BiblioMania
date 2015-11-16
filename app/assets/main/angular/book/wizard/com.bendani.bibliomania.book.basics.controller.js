@@ -2,8 +2,9 @@
 
 angular.module('com.bendani.bibliomania.book.basics.controller', ['ngTagsInput',
     'angularBootstrapNavTree',
-    'com.bendani.bibliomania.error.container', 'com.bendani.bibliomania.book.model',
-    'com.bendani.bibliomania.genre.model', 'com.bendani.bibliomania.tag.model',
+    'com.bendani.bibliomania.error.container',
+    'com.bendani.bibliomania.genre.model',
+    'com.bendani.bibliomania.tag.model',
     'com.bendani.bibliomania.country.model',
     'com.bendani.bibliomania.publisher.model',
     'com.bendani.bibliomania.language.model'])
