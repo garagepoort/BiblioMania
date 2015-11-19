@@ -79,33 +79,7 @@
             </div>
         </div>
 
-        <div class="form-group required">
-            <!-- PUBLICATION DATE -->
-            <label class="control-label col-md-2">Publicatie </label>
-
-            <div class="col-md-7">
-                <table>
-                    <tr>
-                        <td>Dag:</td>
-                        <td style='padding: 0 10px;'>
-                            <input name="publicationDay" type="number" class="form-control" placeholder="dag" ng-model="container.model.publicationDate.day" style="width: 80px" ng-maxlength="2" min="1" max="31"/>
-                        </td>
-                        <td>Maand:</td>
-                        <td style='padding: 0 10px;'>
-                            <input name="publicationMonth" type="number" class="form-control" placeholder="maand" ng-model="container.model.publicationDate.month" style="width: 80px" ng-maxlength="2" min="1" max="12"/>
-                        </td>
-                        <td>Jaar:</td>
-                        <td style='padding: 0 10px;'>
-                            <input required name="publicationYear" type="number" class="form-control" placeholder="jaar" ng-model="container.model.publicationDate.year" style="width: 80px" ng-pattern="/^[0-9]{4}$/" />
-                        </td>
-                    </tr>
-                </table>
-                <span ng-show="wizardForm.publicationDay.$invalid && wizardForm.publicationDay.$dirty" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Ongeldige dag</span>
-                <span ng-show="wizardForm.publicationMonth.$invalid && wizardForm.publicationMonth.$dirty" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Ongeldige maand</span>
-                <span ng-show="wizardForm.publicationYear.$error.required && wizardForm.publicationYear.$dirty" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Publicatiejaar is verplicht</span>
-                <span ng-show="wizardForm.publicationYear.$error.pattern && wizardForm.publicationYear.$dirty" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Ongeldig jaartal</span>
-            </div>
-        </div>
+        <date label="Publicatie " ng-model="container.model.publicationDate" required="true"></date>
 
         <div class="form-group required">
             <!-- COUNTRY -->

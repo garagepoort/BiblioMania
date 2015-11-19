@@ -3,50 +3,72 @@
 
 class BookBasicsToJsonAdapter
 {
-    public function mapToJson(Book $book)
-    {
-        $bookBasics = new UpdateBookBasicsFromJsonAdapter();
-        $bookBasics->setTitle($book->title);
-        $bookBasics->setSubtitle($book->subtitle);
-        $bookBasics->setIsbn($book->ISBN);
-        $bookBasics->setGenre($book->genre->name);
-        $bookBasics->setTags($this->mapTags($book));
-
-        if($book->publication_date != null){
-            $bookBasics->setPublicationDate($this->mapDate($book->publication_date));
-        }
-        if ($book->publisher != null) {
-            $bookBasics->setPublisher($book->publisher->name);
-        }
-        if ($book->language != null) {
-            $bookBasics->setLanguage($book->language->language);
-        }
-        if ($book->country != null) {
-            $bookBasics->setCountry($book->country->name);
-        }
-
-        return $bookBasics->toJson();
-    }
+    /** @var  string */
+    private $title;
+    /** @var  string */
+    private $subtitle;
+    /** @var  string */
+    private $isbn;
+    /** @var  string */
+    private $genre;
+    /** @var  TagToJsonAdapter[]  */
+    private $tags;
+    /** @var  DateToJsonAdapter */
+    private $publicationDate;
+    /** @var  string */
+    private $publisher;
+    /** @var  string */
+    private $language;
+    /** @var  string */
+    private $country;
 
     /**
-     * @param Book $book
-     * @return array
+     * BookBasicsToJsonAdapter constructor.
      */
-    public function mapTags(Book $book)
+    public function __construct(Book $book)
     {
-        $tags = array_map(function ($item) {
-            $tagData = new TagData();
-            $tagData->setText($item['name']);
-            return $tagData;
-        }, $book->tags->toArray());
-        return $tags;
+        $this->title = $book->title;
+        $this->subtitle = $book->subtitle;
+        $this->isbn = $book->ISBN;
+        $this->genre = $book->genre->name;
+        $this->tags = array_map(function ($item) { return new TagToJsonAdapter($item); }, $book->tags->all());;
+
+        if($book->publication_date != null){
+            $this->publicationDate = new DateToJsonAdapter($book->publication_date);
+        }
+        if ($book->publisher != null) {
+            $this->publisher = $book->publisher->name;
+        }
+        if ($book->language != null) {
+            $this->language = $book->language->language;
+        }
+        if ($book->country != null) {
+            $this->country = $book->country->name;
+        }
     }
 
-    public function mapDate(Date $date){
-        $dateJsonData = new DateJsonData();
-        $dateJsonData->setDay($date->day);
-        $dateJsonData->setMonth($date->month);
-        $dateJsonData->setYear($date->year);
-        return $dateJsonData;
+    public function mapToJson(){
+        $result = array(
+            "title"=>$this->title,
+            "subtitle"=>$this->subtitle,
+            "isbn"=>$this->isbn,
+            "language"=>$this->language,
+            "publisher"=>$this->publisher,
+            "genre"=>$this->genre,
+            "country"=>$this->country
+        );
+
+        if($this->publicationDate != null){
+            $result["publicationDate"] = $this->publicationDate->mapToJson();
+        }
+
+        if($this->tags != null){
+            $result["tags"] = array_map(function($item){
+                /** @var TagToJsonAdapter $item */
+                return $item->mapToJson();
+            },$this->tags);
+        }
+
+        return $result;
     }
 }

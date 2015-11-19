@@ -24,10 +24,6 @@ App::singleton('BookBasicsService', function () {
     return new BookBasicsService();
 });
 
-App::singleton('BookBasicsToJsonAdapter', function () {
-    return new BookBasicsToJsonAdapter();
-});
-
 App::singleton('GenreJsonMapper', function () {
     return new GenreJsonMapper();
 });
@@ -38,10 +34,6 @@ App::singleton('TagJsonMapper', function () {
 
 App::singleton('BookExtrasService', function () {
     return new BookExtrasService();
-});
-
-App::singleton('BookExtrasToJsonAdapter', function () {
-    return new BookExtrasToJsonAdapter();
 });
 
 App::singleton('CountryJsonMapper', function () {

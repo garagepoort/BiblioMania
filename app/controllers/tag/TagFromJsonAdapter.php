@@ -1,6 +1,6 @@
 <?php
 
-class TagData
+class TagFromJsonAdapter
 {
     /** @var string */
     private $text;
@@ -19,11 +19,5 @@ class TagData
     public function getText()
     {
         return $this->text;
-    }
-
-    public function toJson(){
-        return array(
-            "text"=>$this->text
-        );
     }
 }

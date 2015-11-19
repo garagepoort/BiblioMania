@@ -1,6 +1,6 @@
 <?php
 
-class DateJsonData implements DateRequest
+class DateFromJsonAdapter implements DateRequest
 {
 
     /** @var Integer */
@@ -57,13 +57,5 @@ class DateJsonData implements DateRequest
     public function setYear($year)
     {
         $this->year = $year;
-    }
-
-    public function toJson(){
-        return array(
-            "day"=>$this->day,
-            "month"=>$this->month,
-            "year"=>$this->year,
-        );
     }
 }

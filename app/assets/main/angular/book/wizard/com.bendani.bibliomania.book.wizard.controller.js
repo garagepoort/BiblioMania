@@ -6,6 +6,13 @@ angular.module('com.bendani.bibliomania.book.wizard.controller', [])
         function init() {
             $scope.book = {};
             $scope.$parent.title = 'Boek wijzigen';
+            $scope.successHandler = function(){
+                NotificationRepository.showNotification({
+                    title: "Boek opgeslagen",
+                    message: "",
+                    type: "success"
+                });
+            };
             retrieveBookWizard();
         }
 
@@ -13,44 +20,44 @@ angular.module('com.bendani.bibliomania.book.wizard.controller', [])
             $scope.steps = [
                 {
                     title: "Basis",
-                    number: 0,
+                    number: 1,
                     modelUrl: "bookBasics",
                     templateUrl: "../BiblioMania/views/partials/book/wizard/book-basics.html"
                 },
                 {
                     title: "Extra",
-                    number: 1,
+                    number: 2,
                     modelUrl: "bookExtras",
                     templateUrl: "../BiblioMania/views/partials/book/wizard/book-extras.html"
                 },
                 {
                     title: "Auteur",
-                    number: 2,
-                    modelUrl: "createOrEditBook/step/3",
-                    templateUrl: "../BiblioMania/views/partials/book/wizard/book-basics.html"
+                    number: 3,
+                    modelUrl: "bookAuthor",
+                    templateUrl: "../BiblioMania/views/partials/book/wizard/book-author.html"
                 }, {
                     title: "Oeuvre",
-                    number: 3,
+                    number: 4,
                     modelUrl: "createOrEditBook/step/4",
                     templateUrl: "../BiblioMania/views/partials/book/wizard/book-basics.html"
                 }, {
                     title: "Eerste druk",
-                    number: 4,
+                    number: 5,
                     modelUrl: "createOrEditBook/step/5",
                     templateUrl: "../BiblioMania/views/partials/book/wizard/book-basics.html"
                 }, {
                     title: "Persoonlijk",
-                    number: 5,
+                    number: 6,
                     modelUrl: "createOrEditBook/step/6",
                     templateUrl: "../BiblioMania/views/partials/book/wizard/book-basics.html"
                 }, {
                     title: "Koop/Gift",
-                    number: 6,
+                    number: 7,
                     modelUrl: "createOrEditBook/step/7",
                     templateUrl: "../BiblioMania/views/partials/book/wizard/book-basics.html"
                 }, {
                     title: "Cover",
-                    number: 7,
+                    number: 8,
                     modelUrl: "createOrEditBook/step/8",
                     templateUrl: "../BiblioMania/views/partials/book/wizard/book-basics.html"
                 }];

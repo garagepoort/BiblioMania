@@ -7,6 +7,8 @@ class BookBasicsService
     private $publisherService;
     /** @var  BookRepository $bookRepository*/
     private $bookRepository;
+    /** @var  BookService $bookService*/
+    private $bookService;
     /** @var  CountryService $countryService*/
     private $countryService;
     /** @var  TagService $tagService*/
@@ -24,6 +26,7 @@ class BookBasicsService
         $this->tagService = App::make('TagService');
         $this->languageService = App::make('LanguageService');
         $this->genreService = App::make('GenreService');
+        $this->bookService = App::make('BookService');
     }
 
     public function createBookBasics(BaseBookBasicsRequest $baseBookBasicsRequest){
@@ -75,6 +78,7 @@ class BookBasicsService
         $book->publisher_country_id = $country->id;
 
         $this->bookRepository->save($book);
+        $this->bookService->setWizardStep($book, 2);
         $book->tags()->sync($tags);
         return $book;
     }

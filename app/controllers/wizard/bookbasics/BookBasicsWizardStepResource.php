@@ -8,8 +8,6 @@ class BookBasicsWizardStepResource extends BaseController
     private $bookService;
     /** @var  BookBasicsService $bookBasicsService */
     private $bookBasicsService;
-    /** @var  BookBasicsToJsonAdapter */
-    private $bookBasicsJsonMapper;
     /** @var  JsonMappingService $jsonMappingService */
     private $jsonMappingService;
 
@@ -17,7 +15,6 @@ class BookBasicsWizardStepResource extends BaseController
     {
         $this->bookBasicsService = App::make('BookBasicsService');
         $this->bookService = App::make('BookService');
-        $this->bookBasicsJsonMapper = App::make('BookBasicsToJsonAdapter');
         $this->jsonMappingService = App::make('JsonMappingService');
     }
 
@@ -26,7 +23,8 @@ class BookBasicsWizardStepResource extends BaseController
         if($fullBook == null){
             return ResponseCreator::createExceptionResponse(new ServiceException("Book with id not found"));
         }
-        return $this->bookBasicsJsonMapper->mapToJson($fullBook);
+        $bookBasicsToJsonAdapter = new BookBasicsToJsonAdapter($fullBook);
+        return $bookBasicsToJsonAdapter->mapToJson();
     }
 
     public function updateBookBasics(){
