@@ -24,6 +24,10 @@ NotificationRepository.addNotification = function(notification){
     NotificationRepository.setNotifications(notifications);
 };
 
+NotificationRepository.showNotification = function(notification){
+    showNotification(notification.title, notification.message, notification.type);
+};
+
 NotificationRepository.showNotifications = function(){
     var notifications = NotificationRepository.getNotifications();
     if(!notifications){

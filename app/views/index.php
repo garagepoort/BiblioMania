@@ -20,6 +20,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-route.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-resource.js"></script>
+<!--        <script type="text/javascript" src="assets/main/angular/angular-resource.js"></script>-->
 
         <!--BiblioMania-->
         <script type="text/javascript" src="assets/main.min.js"></script>
@@ -87,7 +88,6 @@
                     <!--set buttons on scope and loop over them-->
                 </div>
             </div>
-            <errorcontainer></errorcontainer>
             <div class="contentPanel" ng-view>
                 <!--use ng-view to insert content-->
             </div>

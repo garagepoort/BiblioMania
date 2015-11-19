@@ -34,6 +34,8 @@ Route::group(array('before' => 'auth'), function () {
     Route::get('filterBooks', 'BookController@filterBooks');
     Route::post('deleteBook', 'BookController@deleteBook');
 
+
+
     //WIZARD
     Route::get('bookBasics/{id}', 'BookBasicsWizardStepResource@getBookBasics');
     Route::put('bookBasics', 'BookBasicsWizardStepResource@updateBookBasics');
@@ -41,6 +43,12 @@ Route::group(array('before' => 'auth'), function () {
 
     Route::get('bookExtras/{id}', 'BookExtrasWizardStepResource@getBookExtras');
     Route::put('bookExtras', 'BookExtrasWizardStepResource@updateBookExtras');
+
+    Route::get('bookAuthor/{id}', 'BookAuthorWizardStepResource@getBookAuthor');
+    Route::put('bookAuthor', 'BookAuthorWizardStepResource@updateBookAuthor');
+
+
+
 
     Route::get('logOut', 'DefaultLoginController@logOut');
     Route::get('importLanguageFirstPrintInfo', 'BookImportController@importLanguageFirstPrintInfo');

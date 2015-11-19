@@ -1,11 +1,27 @@
-<wizard-steps steps="steps" progress-step="progressStep" current-step="currentStep"></wizard-steps>
 <div class="create-book-div">
-    <form ng-submit="submitForm()" id="wizardForm" name="wizardForm" novalidate class="form-horizontal createBookForm" autocomplete="off" files="true">
-        <div ng-show="currentStep !== undefined" ng-include="currentStep.templateUrl" onload="container = container"></div>
-    <div class="control-group">
-        <div class="controls">
-            <button type="submit" class="btn btn-success" ng-disabled="wizardForm.$invalid">Volgende</button>
+    <link href="packages/bendani/php-common/wizard-service/nav-wizard-bootstrap.css" rel="stylesheet">
+    <link href="packages/bendani/php-common/wizard-service/custom.css" rel="stylesheet">
+
+    <form ng-submit="submitForm(successHandler)" id="wizardForm" name="wizardForm" novalidate class="form-horizontal createBookForm" autocomplete="off" files="true">
+
+        <div class="wizard-steps">
+            <ul class="nav nav-pills nav-wizard">
+                <li class="wizard-step" ng-repeat="step in steps">
+                    <div class="nav-wedge" ng-class="'nav-wedge-' + getWizardClass(step)" ng-click="goToStep(step, wizardForm.$invalid)" ng-show="$index > 0"></div>
+
+                    <div class="wizard-step-content" ng-class="'wizard-step-' + getWizardClass(step)" ng-click="goToStep(step, wizardForm.$invalid)">{{ step.title }}</div>
+
+                    <div class="nav-arrow" ng-class="'nav-arrow-' + getWizardClass(step)" ng-click="goToStep(step, wizardForm.$invalid)" ng-show="$index < steps.length-1"></div>
+                </li>
+            </ul>
         </div>
-    </div>
+
+        <div ng-show="currentStep !== undefined" ng-include="currentStep.templateUrl" onload="container = container"></div>
+
+        <div class="control-group">
+            <div class="controls">
+                <button type="submit" class="btn btn-success" ng-disabled="wizardForm.$invalid">Volgende</button>
+            </div>
+        </div>
     </form>
 </div>

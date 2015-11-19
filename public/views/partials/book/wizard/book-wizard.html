@@ -1,3 +1,4 @@
 <div class="wizard-container">
-    <wizard steps="steps" progress-step="{{book.progress}}" wizard-path="/editBook"></wizard>
+    <errorcontainer></errorcontainer>
+    <wizard steps="steps" wizard-path="/editBook" on-save-step="successHandler"></wizard>
 </div>

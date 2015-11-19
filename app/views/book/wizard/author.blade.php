@@ -23,10 +23,9 @@
 
             <div class="form-container">
 
-                @if($author_image != '')
-                {{ HTML::image($author_image, 'image', array('style' => 'margin-bottom: 10px;')) }}
-                @endif
-                        <!-- NAME -->
+                <img ng-src="container.model.image" />
+
+                <!-- NAME -->
                 <div class="form-group">
                     {{ Form::label('authorNameLabel', 'Naam:', array('class' => 'col-md-3 control-label')); }}
                     <div class="col-md-3">
@@ -40,7 +39,7 @@
                     </div>
                 </div>
 
-                <!-- Tags -->
+
                 <div class="form-group">
                     {{ Form::label('secondaryAuthorsLabel', 'Extra auteurs:', array('class' => 'col-md-3 control-label')); }}
                     <div class="col-md-8">

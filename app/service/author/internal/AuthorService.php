@@ -22,6 +22,47 @@ class AuthorService
     public function find($id){
         return $this->authorRepository->find($id, array('oeuvre'));
     }
+    
+    public function createOrFindAuthor(CreateAuthorRequest $createAuthorRequest){
+        $author_model = $this->authorRepository->getAuthorByFullName($createAuthorRequest->getName()->getLastname(),
+            $createAuthorRequest->getName()->getFirstname(),
+            $createAuthorRequest->getName()->getInfix());
+
+        if (is_null($author_model)) {
+            $author_model = new Author();
+            $author_model->name = $createAuthorRequest->getName()->getLastname();
+            $author_model->firstname = $createAuthorRequest->getName()->getFirstname();
+            $author_model->infix = $createAuthorRequest->getName()->getInfix();
+        }
+
+        $date_of_birth = $author_model->date_of_birth();
+        $date_of_death = $author_model->date_of_death();
+        $date_of_birth->dissociate();
+        $date_of_death->dissociate();
+
+        if($createAuthorRequest->getDateOfBirth() != null){
+            $author_model->date_of_birth_id = $this->dateService->create($createAuthorRequest->getDateOfBirth())->id;
+        }
+        if($createAuthorRequest->getDateOfDeath() != null){
+            $author_model->date_of_death_id = $this->dateService->create($createAuthorRequest->getDateOfDeath())->id;
+        }
+
+        $this->authorRepository->save($author_model);
+
+        $date_of_birth->delete();
+        $date_of_death->delete();
+
+        return $author_model;
+    }
+
+    public function syncAuthors($preferredAuthor, $secondaryAuthors, $book)
+    {
+        $authors = array($preferredAuthor->id => array('preferred' => true));
+        foreach ($secondaryAuthors as $secAuthor) {
+            $authors[$secAuthor->id] = array('preferred' => false);
+        }
+        $book->authors()->sync($authors);
+    }
 
     public function saveOrGetSecondaryAuthor(AuthorInfoParameters $authorInfoParameters){
         $author_model = $this->authorRepository->getAuthorByFullName($authorInfoParameters->getName(),
@@ -45,6 +86,7 @@ class AuthorService
         $this->saveImage($image, $imageSaveType, $author);
         $this->authorRepository->save($author);
     }
+
 
     /**
      * @param AuthorInfoParameters $authorInfoParameters

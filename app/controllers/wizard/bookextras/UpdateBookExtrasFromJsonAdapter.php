@@ -224,20 +224,4 @@ class UpdateBookExtrasFromJsonAdapter implements UpdateBookExtrasRequest
     {
         $this->publisherSeries = $publisherSeries;
     }
-
-    public function toJson(){
-        $result = array(
-            "coverPriceCurrency"=>$this->coverPriceCurrency,
-            "coverPrice"=>$this->coverPrice,
-            "translator"=>$this->translator,
-            "state"=>$this->state,
-            "oldTags"=>$this->oldTags,
-            "bookSeries"=>$this->bookSeries,
-            "publisherSeries"=>$this->publisherSeries,
-            "summary"=>$this->summary,
-            "print"=>$this->print,
-            "pages"=>$this->pages,
-        );
-        return $result;
-    }
 }
