@@ -2,6 +2,7 @@
 
 angular.module('com.bendani.bibliomania.book.basics.controller', ['ngTagsInput',
     'angularBootstrapNavTree',
+    'com.bendani.bibliomania.date.directive',
     'com.bendani.bibliomania.error.container',
     'com.bendani.bibliomania.genre.model',
     'com.bendani.bibliomania.tag.model',

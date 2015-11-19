@@ -11,12 +11,15 @@ class BookExtrasService
     private $bookSerieService;
     /** @var  PublisherSerieService */
     private $publisherSerieService;
+    /** @var BookService */
+    private $bookService;
 
     public function __construct()
     {
         $this->bookRepository = App::make('BookRepository');
         $this->bookSerieService = App::make('BookSerieService');
         $this->publisherSerieService = App::make('PublisherSerieService');
+        $this->bookService = App::make('BookService');
     }
 
     public function updateBookExtras(UpdateBookExtrasRequest $updateBookExtrasRequest){
@@ -48,6 +51,7 @@ class BookExtrasService
         }
 
         $this->bookRepository->save($book);
+        $this->bookService->setWizardStep($book, 2);
         return $book;
     }
 

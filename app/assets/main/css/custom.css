@@ -18,6 +18,14 @@
 .input-group-addon.glyphicon {
   top: 0px;
 }
+input.no-spinner::-webkit-inner-spin-button,
+input.no-spinner::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input.no-spinner {
+  -moz-appearance: textfield;
+}
 .no-round-corners {
   -webkit-border-radius: 0 !important;
   -moz-border-radius: 0 !important;
@@ -110,6 +118,9 @@ a:hover {
 }
 .float-right {
   float: right;
+}
+.float-left {
+  float: left;
 }
 .vertical-align {
   position: relative;

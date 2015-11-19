@@ -22,7 +22,7 @@ class CreateBookBasicsFromJsonAdapter implements BaseBookBasicsRequest
      */
     private $genre;
     /**
-     * @var TagData[]
+     * @var TagFromJsonAdapter[]
      */
     private $tags;
     /**
@@ -42,7 +42,7 @@ class CreateBookBasicsFromJsonAdapter implements BaseBookBasicsRequest
     private $language;
 
     /**
-     * @var DateJsonData
+     * @var DateFromJsonAdapter
      * @required
      */
     private $publicationDate;
@@ -80,7 +80,7 @@ class CreateBookBasicsFromJsonAdapter implements BaseBookBasicsRequest
     }
 
     /**
-     * @param TagData[] $tags
+     * @param TagFromJsonAdapter[] $tags
      */
     public function setTags($tags)
     {
@@ -144,7 +144,7 @@ class CreateBookBasicsFromJsonAdapter implements BaseBookBasicsRequest
     }
 
     /**
-     * @return TagData[]
+     * @return TagFromJsonAdapter[]
      */
     public function getTags()
     {
@@ -176,7 +176,7 @@ class CreateBookBasicsFromJsonAdapter implements BaseBookBasicsRequest
     }
 
     /**
-     * @return DateJsonData
+     * @return DateFromJsonAdapter
      */
     public function getPublicationDate()
     {
@@ -184,35 +184,11 @@ class CreateBookBasicsFromJsonAdapter implements BaseBookBasicsRequest
     }
 
     /**
-     * @param DateJsonData $publicationDate
+     * @param DateFromJsonAdapter $publicationDate
      */
     public function setPublicationDate($publicationDate)
     {
         $this->publicationDate = $publicationDate;
     }
 
-    public function toJson(){
-        $result = array(
-            "title"=>$this->title,
-            "subtitle"=>$this->subtitle,
-            "isbn"=>$this->isbn,
-            "language"=>$this->language,
-            "publisher"=>$this->publisher,
-            "genre"=>$this->genre,
-            "country"=>$this->country
-        );
-
-        if($this->publicationDate != null){
-            $result["publicationDate"] = $this->publicationDate->toJson();
-        }
-
-        if($this->tags != null){
-            $result["tags"] = array_map(function($item){
-                /** @var TagData $item */
-                return $item->toJson();
-            },$this->tags);
-        }
-
-        return $result;
-    }
 }

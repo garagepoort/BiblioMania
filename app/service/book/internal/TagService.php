@@ -22,6 +22,10 @@ class TagService {
     }
 
     public function getAllTags(){
+//        $result = [];
+//        foreach(Tag::all() as $tag){
+//            array_push($result, $tag);
+//        }
         return Tag::all();
     }
 }
