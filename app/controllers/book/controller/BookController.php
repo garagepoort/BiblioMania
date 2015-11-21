@@ -4,7 +4,7 @@ use Bendani\PhpCommon\Utils\Model\StringUtils;
 
 class BookController extends BaseController
 {
-    /** @var string $bookFolder*/
+    /** @var string $bookFolder */
     private $bookFolder = "book/";
 
     /** @var  BookService */
@@ -66,30 +66,29 @@ class BookController extends BaseController
         return $this->searchBooks();
     }
 
-    public function deleteBook(){
-        try {
-            $this->bookService->deleteBook(Input::get("bookId"));
-        }catch (ServiceException $e){
-            return ResponseCreator::createExceptionResponse($e);
-        }
+    public function deleteBook()
+    {
+        $this->bookService->deleteBook(Input::get("bookId"));
     }
 
-    public function getFilters(){
+    public function getFilters()
+    {
         return $this->bookFilterHandler->getFiltersInJson();
     }
 
     public function getFullBook($book_id)
     {
         $fullBook = $this->bookService->getFullBook($book_id);
-        if($fullBook == null){
-            return ResponseCreator::createExceptionResponse(new ServiceException("No book found with id " . $book_id));
+        if ($fullBook == null) {
+            throw new ServiceException("No book found with id " . $book_id);
         }
         return $this->bookJsonMapper->mapToJson($fullBook);
     }
 
-    public function filterBooks(){
+    public function filterBooks()
+    {
         $filters = Input::get('filter');
-        if(!is_array($filters)){
+        if (!is_array($filters)) {
             $filters = array();
         }
         Session::put('book.filters', $filters);
@@ -98,9 +97,10 @@ class BookController extends BaseController
         return $this->mapBooksToJson($filteredBooksResult);
     }
 
-    public function search(){
-        $filters  = Input::all();
-        if(!is_array($filters)){
+    public function search()
+    {
+        $filters = Input::all();
+        if (!is_array($filters)) {
             $filters = array();
         }
         Session::put('book.filters', $filters);
@@ -127,7 +127,8 @@ class BookController extends BaseController
         return $this->mapBooksToJson($filteredBooksResult);
     }
 
-    public function getBooksList(){
+    public function getBooksList()
+    {
         $books = $this->bookService->getCompletedBooksForList();
         return View::make($this->bookFolder . 'booksList')->with(array(
             'title' => 'Boeken',
@@ -135,7 +136,8 @@ class BookController extends BaseController
         ));
     }
 
-    public function getDraftBooksList(){
+    public function getDraftBooksList()
+    {
         $books = $this->bookService->getDraftBooksForList();
         return View::make($this->bookFolder . 'draftBooksList')->with(array(
             'title' => 'Boeken',
@@ -153,7 +155,7 @@ class BookController extends BaseController
 
             list($imageHeight, $imageWidth, $bookImage) = $this->bookJsonMapper->getCoverImageFromBook($item);
 
-            /** @var Book $item*/
+            /** @var Book $item */
             return array(
                 "id" => $item->id,
                 "title" => $item->title,
@@ -184,38 +186,39 @@ class BookController extends BaseController
         return $result;
     }
 
-    private function createBookWarnings($book){
+    private function createBookWarnings($book)
+    {
         $warnings = array();
         $baseUrl = URL::to('/');
-        if($book->read){
+        if ($book->read) {
             array_push($warnings, array(
-                "id"=>"bookread",
-                "message"=>"Dit boek is gelezen",
-                "icon"=> $baseUrl . "/images/check-circle-success.png",
-                "goToLink"=>"/createOrEditBook/step/6/"
+                "id" => "bookread",
+                "message" => "Dit boek is gelezen",
+                "icon" => $baseUrl . "/images/check-circle-success.png",
+                "goToLink" => "/createOrEditBook/step/6/"
             ));
-        }else{
+        } else {
             array_push($warnings, array(
-                "id"=>"bookread",
-                "message"=>"Dit boek is niet gelezen",
-                "icon"=> $baseUrl . "/images/check-circle-fail.png",
-                "goToLink"=>"/createOrEditBook/step/6/"
-            ));
-        }
-        if(!StringUtils::isEmpty($book->old_tags)){
-            array_push($warnings, array(
-                "id"=>" bookHasOldTags",
-                "message"=>"Dit boek heeft oude tags",
-                "icon"=> $baseUrl . "/images/exclamation_mark.png",
-                "goToLink"=>"/createOrEditBook/step/2/"
+                "id" => "bookread",
+                "message" => "Dit boek is niet gelezen",
+                "icon" => $baseUrl . "/images/check-circle-fail.png",
+                "goToLink" => "/createOrEditBook/step/6/"
             ));
         }
-        if($book->book_from_author_id == null){
+        if (!StringUtils::isEmpty($book->old_tags)) {
             array_push($warnings, array(
-                "id"=>"bookIsNotLinkedToOeuvre",
-                "message"=>"Dit boek is niet gelinked aan een oeuvre",
-                "icon"=>$baseUrl . "/images/linked_warning.png",
-                "goToLink"=>"/createOrEditBook/step/4/"
+                "id" => " bookHasOldTags",
+                "message" => "Dit boek heeft oude tags",
+                "icon" => $baseUrl . "/images/exclamation_mark.png",
+                "goToLink" => "/createOrEditBook/step/2/"
+            ));
+        }
+        if ($book->book_from_author_id == null) {
+            array_push($warnings, array(
+                "id" => "bookIsNotLinkedToOeuvre",
+                "message" => "Dit boek is niet gelinked aan een oeuvre",
+                "icon" => $baseUrl . "/images/linked_warning.png",
+                "goToLink" => "/createOrEditBook/step/4/"
             ));
         }
         return $warnings;

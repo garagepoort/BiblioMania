@@ -1,0 +1,42 @@
+<fieldset ng-controller="WizardOeuvreController">
+
+    <legend>Oeuvre</legend>
+
+    <span ng-show="wizardForm.addOeuvre.$error.formatError && wizardForm.addOeuvre.$dirty" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Fout formaat</span>
+    <textarea ng-model="container.model.oeuvreItemsToAdd"
+              placeholder="<jaar> - <titel>" id='add-oeuvre-textarea'
+              name="addOeuvre" cols="80"rows="5"
+              ui-validate="{formatError : 'validateOeuvreList($value)'}"
+              style="width: 100%"></textarea>
+
+    <button ng-disabled="wizardForm.$invalid || container.model.oeuvreItemsToAdd === undefined" type="button" class='btn btn-primary' id='oeuvreButton' ng-click="addOeuvreItems()">Voeg items toe</button>
+
+    <div class="well" style="margin-top: 20px;">
+        <table id="author-oeuvre-table" class="table">
+            <thead>
+            <tr>
+                <th>Titel</th>
+                <th>Publicatiejaar</th>
+                <th>Verwijderen</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="oeuvreItem in data.oeuvre">
+                <td>
+                    {{ oeuvreItem.title }}
+                </td>
+                <td>
+                    {{ oeuvreItem.publicationYear }}
+                </td>
+                <td style="text-align: center">
+                    <span aria-hidden="true" style="margin-left:10px" ng-click="deleteOeuvreItem(oeuvreItem)" class="fa fa-times-circle oeuvre-author-cross clickable" width="10px"/>
+                </td>
+                <td>
+                    <label class="linkLabel label" ng-click="linkBookToOeuvreItem(oeuvreItem)" ng-class="linkLabel(oeuvreItem)">{{ linkText(oeuvreItem) }}</label>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</fieldset>

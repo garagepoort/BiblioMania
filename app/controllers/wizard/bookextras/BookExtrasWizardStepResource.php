@@ -19,7 +19,7 @@ class BookExtrasWizardStepResource extends BaseController
     public function getBookExtras($id){
         $fullBook = $this->bookService->getFullBook($id, array('publication_date', 'publisher_serie', 'serie'));
         if($fullBook == null){
-            return ResponseCreator::createExceptionResponse(new ServiceException("Book with id not found"));
+            throw new ServiceException("Book with id not found");
         }
         $bookExtrasToJsonAdapter = new BookExtrasToJsonAdapter($fullBook);
         return $bookExtrasToJsonAdapter->mapToJson();

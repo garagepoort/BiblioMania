@@ -6,15 +6,15 @@ class AuthorFromJsonAdapter implements CreateAuthorRequest
     /** @required */
     private $name;
     /** @var string */
-    private $image;
+    private $imageUrl;
     /** @var DateFromJsonAdapter */
     private $dateOfBirth;
     /** @var DateFromJsonAdapter */
     private $dateOfDeath;
 
-    function getImage()
+    function getImageUrl()
     {
-        return $this->image;
+        return $this->imageUrl;
     }
 
     function getDateOfBirth()
@@ -46,9 +46,9 @@ class AuthorFromJsonAdapter implements CreateAuthorRequest
     /**
      * @param string $image
      */
-    public function setImage($image)
+    public function setImageUrl($image)
     {
-        $this->image = $image;
+        $this->imageUrl = $image;
     }
 
     /**

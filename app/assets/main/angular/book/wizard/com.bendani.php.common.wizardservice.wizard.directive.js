@@ -9,13 +9,15 @@ angular
             },
             restrict: "E",
             templateUrl: "../BiblioMania/views/partials/book/wizard/wizard-directive.html",
-            controller: ['$rootScope', '$scope', '$controller', '$routeParams', '$http', '$location','ErrorContainer', function ($rootScope, $scope, $controller, $routeParams, $http, $location, ErrorContainer) {
+            controller: ['$rootScope', '$scope', '$controller', '$routeParams', '$http', '$location', 'ErrorContainer', function ($rootScope, $scope, $controller, $routeParams, $http, $location, ErrorContainer) {
 
                 function retrieveModel() {
-                    $http.get(getStepUrl()).then(
-                        function (response) {
-                            $scope.container.model = response.data;
-                        }, ErrorContainer.handleRestError);
+                    if ($scope.currentStep.modelUrl !== undefined) {
+                        $http.get(getStepUrl()).then(
+                            function (response) {
+                                $scope.container.model = response.data;
+                            }, ErrorContainer.handleRestError);
+                    }
                 }
 
                 function init() {
@@ -24,51 +26,49 @@ angular
                     $scope.container = {};
                     $scope.container.model = {};
                     $scope.progressStep = 1;
-                    $scope.currentStep = $scope.steps.filter(function(el){ return el.number == $routeParams.step; })[0];
+                    $scope.currentStep = $scope.steps.filter(function (el) {
+                        return el.number === parseInt($routeParams.step);
+                    })[0];
 
-                    if ($routeParams.modelId != undefined) {
+                    if ($routeParams.modelId !== undefined) {
                         retrieveModel();
                         setLocationOnSteps();
                     }
                 }
 
-                $scope.successHandler = function (response) {
-                    var nextStep = parseInt($routeParams.step) + 1;
-                    $location.path($scope.wizardPath + "/" + nextStep + "/" + response.data);
+                $scope.successHandler = function(modelId){
+                    moveToNextStep(modelId);
                 };
 
                 $scope.submitForm = function (successHandler) {
-                    if ($routeParams.modelId === undefined || $routeParams.modelId == '') {
-                        $http.post($scope.currentStep.modelUrl, $scope.container.model).then(function(response){
-                            $scope.onSaveStep();
-                            successHandler(response);
-                        }, ErrorContainer.handleRestError);
+                    if($scope.currentStep.modelUrl !== undefined){
+                        if ($routeParams.modelId === undefined || $routeParams.modelId === '') {
+                            saveModel(successHandler);
+                        } else {
+                            updateModel(successHandler);
+                        }
                     }else{
-                        $scope.container.model.id = $routeParams.modelId;
-                        $http.put($scope.currentStep.modelUrl, $scope.container.model).then(function(response){
-                            $scope.onSaveStep();
-                            successHandler(response);
-                        }, ErrorContainer.handleRestError);
+                        successHandler();
                     }
                 };
 
-                $scope.getWizardClass = function(step){
-                    if(step.number == $scope.currentStep.number){
+                $scope.getWizardClass = function (step) {
+                    if (step.number === $scope.currentStep.number) {
                         return 'current';
                     }
-                    if($scope.progressStep == 'COMPLETE' || step.number < $scope.currentStep.number){
+                    if ($scope.progressStep === 'COMPLETE' || step.number < $scope.currentStep.number) {
                         return 'before';
                     }
-                    if(step.number == $scope.progressStep){
+                    if (step.number === $scope.progressStep) {
                         return 'progress';
                     }
                     return '';
                 };
 
-                $scope.goToStep = function(step, formInvalid){
-                    if(formInvalid){
+                $scope.goToStep = function (step, formInvalid) {
+                    if (formInvalid) {
                         ErrorContainer.setErrorMessage("Niet alle velden zijn correct ingevuld.");
-                    }else if(step.number == $scope.currentStep.number+1 || step.number < $scope.currentStep.number){
+                    } else if (step.number === $scope.currentStep.number + 1 || step.number < $scope.currentStep.number) {
                         var successHandler = function () {
                             $location.path(step.location);
                         };
@@ -89,6 +89,34 @@ angular
                         url = url.concat("/").concat($routeParams.modelId);
                     }
                     return url;
+                }
+
+                function saveModel(successHandler){
+                    $http.post($scope.currentStep.modelUrl, $scope.container.model).then(function (response) {
+                        $scope.onSaveStep();
+                        successHandler(response.data);
+                    }, ErrorContainer.handleRestError);
+                }
+
+                function updateModel(successHandler){
+                    $scope.container.model.id = $routeParams.modelId;
+                    $http.put($scope.currentStep.modelUrl, $scope.container.model).then(function (response) {
+                        $scope.onSaveStep();
+                        successHandler(response.data);
+                    }, ErrorContainer.handleRestError);
+                }
+
+                function moveToStep(step, modelId){
+                    var url = $scope.wizardPath + "/" + step;
+                    if(modelId !== undefined){
+                        url = url + "/" + modelId;
+                    }
+                    $location.path(url);
+                }
+
+                function moveToNextStep(modelId){
+                    var nextStep = parseInt($routeParams.step) + 1;
+                    moveToStep(nextStep, modelId);
                 }
 
                 init();

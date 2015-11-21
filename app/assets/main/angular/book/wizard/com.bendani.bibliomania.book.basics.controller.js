@@ -2,7 +2,7 @@
 
 angular.module('com.bendani.bibliomania.book.basics.controller', ['ngTagsInput',
     'angularBootstrapNavTree',
-    'com.bendani.bibliomania.date.directive',
+    'php.common.uiframework.date',
     'com.bendani.bibliomania.error.container',
     'com.bendani.bibliomania.genre.model',
     'com.bendani.bibliomania.tag.model',
@@ -13,11 +13,11 @@ angular.module('com.bendani.bibliomania.book.basics.controller', ['ngTagsInput',
         $scope.data = {};
         $scope.genreTree = {};
 
-        $scope.data.genres = Genre.query(function(genres){}, ErrorContainer.handleRestError);
-        $scope.data.tags = Tag.query(function(tags){}, ErrorContainer.handleRestError);
-        $scope.data.countries = Country.query(function(countries){}, ErrorContainer.handleRestError);
-        $scope.data.publishers = Publisher.query(function(publishers){}, ErrorContainer.handleRestError);
-        $scope.data.languages = Language.query(function(languages){}, ErrorContainer.handleRestError);
+        $scope.data.genres = Genre.query(function(){}, ErrorContainer.handleRestError);
+        $scope.data.tags = Tag.query(function(){}, ErrorContainer.handleRestError);
+        $scope.data.countries = Country.query(function(){}, ErrorContainer.handleRestError);
+        $scope.data.publishers = Publisher.query(function(){}, ErrorContainer.handleRestError);
+        $scope.data.languages = Language.query(function(){}, ErrorContainer.handleRestError);
 
         $scope.selectGenre = function(branch){
             $scope.container.model.genre = branch.label;
@@ -25,7 +25,7 @@ angular.module('com.bendani.bibliomania.book.basics.controller', ['ngTagsInput',
 
         $scope.searchTags = function($query){
             return $scope.data.tags.filter(function (item) {
-                return item.text.toLowerCase().indexOf($query) != -1;
+                return item.text.toLowerCase().indexOf($query) !== -1;
             });
-        }
+        };
     }]);

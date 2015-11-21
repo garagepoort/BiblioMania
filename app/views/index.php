@@ -20,14 +20,17 @@
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-route.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-resource.js"></script>
-<!--        <script type="text/javascript" src="assets/main/angular/angular-resource.js"></script>-->
 
         <!--BiblioMania-->
         <script type="text/javascript" src="assets/main.min.js"></script>
         <script type="text/javascript" src="packages/bendani/php-common/filter-service/filters.min.js"></script>
         <script type="text/javascript" src="packages/bendani/php-common/login-service/com.bendani.php.common.loginservice.authentication.model.js"></script>
         <script type="text/javascript" src="packages/bendani/php-common/login-service/com.bendani.php.common.loginservice.login.directive.js"></script>
+        <script type="text/javascript" src="packages/bendani/php-common/uiframework/uiframework.min.js"></script>
+
         <link href="packages/bendani/php-common/filter-service/filters.min.css" rel="stylesheet">
+        <link href="packages/bendani/php-common/uiframework/uiframework.min.css" rel="stylesheet">
+
         <link href="assets/main.min.css" rel="stylesheet">
         <script type="text/javascript" src="assets/js/angular/com.bendani.bibliomania.app.js"></script>
 

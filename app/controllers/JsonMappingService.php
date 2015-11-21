@@ -18,4 +18,13 @@ class JsonMappingService
             throw new ServiceException($ex->getMessage(), 400, $ex);
         }
     }
+
+    public function mapInputArrayToJson($input, $mapObject){
+        try{
+            $jsonObject = json_decode(json_encode($input), FALSE);
+            return $this->jsonMapper->mapArray($jsonObject, array(), $mapObject);
+        }catch (JsonMapper_Exception $ex){
+            throw new ServiceException($ex->getMessage(), 400, $ex);
+        }
+    }
 }

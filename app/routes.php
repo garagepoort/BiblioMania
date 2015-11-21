@@ -23,6 +23,14 @@ Route::group(array('before' => 'auth'), function () {
     Route::get('publishers', 'PublisherController@getPublishers');
     Route::get('languages', 'LanguageController@getLanguages');
 
+    Route::get('oeuvre/by-book/{id}', 'OeuvreController@getOeuvreByBook');
+    Route::post('oeuvre/create-items', 'OeuvreController@saveOeuvreItemsToAuthor');
+    Route::put('oeuvre/{id}', 'OeuvreController@updateOeuvreItem');
+    Route::delete('oeuvre/{id}', 'OeuvreController@deleteOeuvreItem');
+
+    Route::get('authors/by-book/{id}', 'AuthorController@getAuthorByBook');
+
+
     Route::get('genres', 'GenreController@getGenres');
 
 //  BOOKS
@@ -34,19 +42,18 @@ Route::group(array('before' => 'auth'), function () {
     Route::get('filterBooks', 'BookController@filterBooks');
     Route::post('deleteBook', 'BookController@deleteBook');
 
-
-
     //WIZARD
-    Route::get('bookBasics/{id}', 'BookBasicsWizardStepResource@getBookBasics');
-    Route::put('bookBasics', 'BookBasicsWizardStepResource@updateBookBasics');
-    Route::post('bookBasics', 'BookBasicsWizardStepResource@createBookBasics');
+    Route::get('bookwizard/basics/{id}', 'BookBasicsWizardStepResource@getBookBasics');
+    Route::put('bookwizard/basics', 'BookBasicsWizardStepResource@updateBookBasics');
+    Route::post('bookwizard/basics', 'BookBasicsWizardStepResource@createBookBasics');
 
-    Route::get('bookExtras/{id}', 'BookExtrasWizardStepResource@getBookExtras');
-    Route::put('bookExtras', 'BookExtrasWizardStepResource@updateBookExtras');
+    Route::get('bookwizard/extras/{id}', 'BookExtrasWizardStepResource@getBookExtras');
+    Route::put('bookwizard/extras', 'BookExtrasWizardStepResource@updateBookExtras');
 
-    Route::get('bookAuthor/{id}', 'BookAuthorWizardStepResource@getBookAuthor');
-    Route::put('bookAuthor', 'BookAuthorWizardStepResource@updateBookAuthor');
+    Route::get('bookwizard/author/{id}', 'BookAuthorWizardStepResource@getBookAuthor');
+    Route::put('bookwizard/author', 'BookAuthorWizardStepResource@updateBookAuthor');
 
+    Route::get('bookwizard/oeuvre/{id}', 'OeuvreWizardStepResource@getOeuvre');
 
 
 
