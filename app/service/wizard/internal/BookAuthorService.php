@@ -46,12 +46,14 @@ class BookAuthorService
      */
     private function saveSecondaryAuthors(UpdateBookAuthorRequest $updateBookAuthorRequest)
     {
-        $secondaryAuthors = [];
-        foreach ($updateBookAuthorRequest->getSecondaryAuthors() as $secondaryAuthor) {
-            $author = $this->authorService->createOrFindAuthor($secondaryAuthor);
-            array_push($secondaryAuthors, $author);
-        }
-        return $secondaryAuthors;
+            $secondaryAuthors = [];
+            if($updateBookAuthorRequest->getSecondaryAuthors() != null){
+                foreach ($updateBookAuthorRequest->getSecondaryAuthors() as $secondaryAuthor) {
+                    $author = $this->authorService->createOrFindAuthor($secondaryAuthor);
+                    array_push($secondaryAuthors, $author);
+                }
+            }
+            return $secondaryAuthors;
     }
 
 }

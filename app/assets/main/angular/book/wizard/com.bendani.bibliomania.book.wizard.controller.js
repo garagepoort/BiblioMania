@@ -1,18 +1,11 @@
 'use strict';
 
-angular.module('com.bendani.bibliomania.book.wizard.controller', [])
+angular.module('com.bendani.bibliomania.book.wizard.controller', ['com.bendani.bibliomania.wizard.oeuvre.controller'])
     .controller('BookWizardController', ['$scope', function ($scope) {
 
         function init() {
             $scope.book = {};
             $scope.$parent.title = 'Boek wijzigen';
-            $scope.successHandler = function(){
-                NotificationRepository.showNotification({
-                    title: "Boek opgeslagen",
-                    message: "",
-                    type: "success"
-                });
-            };
             retrieveBookWizard();
         }
 
@@ -21,25 +14,24 @@ angular.module('com.bendani.bibliomania.book.wizard.controller', [])
                 {
                     title: "Basis",
                     number: 1,
-                    modelUrl: "bookBasics",
+                    modelUrl: "bookwizard/basics",
                     templateUrl: "../BiblioMania/views/partials/book/wizard/book-basics.html"
                 },
                 {
                     title: "Extra",
                     number: 2,
-                    modelUrl: "bookExtras",
+                    modelUrl: "bookwizard/extras",
                     templateUrl: "../BiblioMania/views/partials/book/wizard/book-extras.html"
                 },
                 {
                     title: "Auteur",
                     number: 3,
-                    modelUrl: "bookAuthor",
+                    modelUrl: "bookwizard/author",
                     templateUrl: "../BiblioMania/views/partials/book/wizard/book-author.html"
                 }, {
                     title: "Oeuvre",
                     number: 4,
-                    modelUrl: "createOrEditBook/step/4",
-                    templateUrl: "../BiblioMania/views/partials/book/wizard/book-basics.html"
+                    templateUrl: "../BiblioMania/views/partials/book/wizard/oeuvre.html"
                 }, {
                     title: "Eerste druk",
                     number: 5,

@@ -7,7 +7,7 @@ interface CreateAuthorRequest
      */
     function getName();
 
-    function getImage();
+    function getImageUrl();
 
     function getDateOfBirth();
 

@@ -33,4 +33,9 @@ class BookFromAuthorRepository implements iRepository{
     {
         BookFromAuthor::find($id)->delete();
     }
+
+    public function getFromAuthor($author_id)
+    {
+        return BookFromAuthor::with(array('books'))->where("author_id", "=", $author_id)->get();
+    }
 }

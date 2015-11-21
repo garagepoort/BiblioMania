@@ -6,11 +6,14 @@ class OeuvreService
     private $bookFromAuthorRepository;
     /** @var BookRepository */
     private $bookRepository;
+    /** @var  AuthorRepository */
+    private $authorRepository;
 
     function __construct()
     {
         $this->bookFromAuthorRepository = App::make("BookFromAuthorRepository");
         $this->bookRepository = App::make("BookRepository");
+        $this->authorRepository = App::make("AuthorRepository");
     }
 
 
@@ -72,5 +75,56 @@ class OeuvreService
         }
 
         $this->bookRepository->setBookFromAuthor($book, $bookFromAuthor);
+    }
+
+    public function saveOeuvreItem(CreateOeuvreItemRequest $createRequest)
+    {
+        $author = $this->authorRepository->find($createRequest->getAuthorId());
+        if($author == null){
+            throw new ServiceException("Author not found");
+        }
+        /** @var BookFromAuthor $oeuvreItem */
+        $oeuvreItem = new BookFromAuthor();
+        $oeuvreItem->author_id = $createRequest->getAuthorId();
+        $oeuvreItem->publication_year = $createRequest->getPublicationYear();
+        $oeuvreItem->title = $createRequest->getTitle();
+        $oeuvreItem->save();
+    }
+
+    public function deleteOeuvreItem($id)
+    {
+        $item = $this->bookFromAuthorRepository->find($id);
+        Ensure::objectNotNull("Oeuvre item", $item);
+        if(count($item->books)>0){
+            throw new ServiceException("Not allowed to delete book from author. Still has books linked to it.");
+        }
+        $item->delete();
+    }
+
+    public function updateOeuvreItem($id, UpdateOeuvreItemRequest $oeuvreItemRequest){
+        /** @var BookFromAuthor $oeuvreItem */
+        $oeuvreItem = $this->bookFromAuthorRepository->find($id);
+        $author = $this->authorRepository->find($oeuvreItemRequest->getAuthorId());
+
+        Ensure::objectNotNull("Oeuvre item", $oeuvreItem);
+        Ensure::objectNotNull("Author", $author);
+
+        $oeuvreItem->title = $oeuvreItemRequest->getTitle();
+        $oeuvreItem->author_id = $oeuvreItemRequest->getAuthorId();
+        $oeuvreItem->publication_year = $oeuvreItemRequest->getPublicationYear();
+
+        foreach($oeuvreItem->books as $book){
+            $book->book_from_author_id = null;
+            $book->save();
+        }
+
+        foreach($oeuvreItemRequest->getLinkedBooks() as $bookId){
+            $book = $this->bookRepository->find($bookId);
+            Ensure::objectNotNull("Book", $book);
+            $book->book_from_author_id = $id;
+            $book->save();
+        }
+
+        $oeuvreItem->save();
     }
 }

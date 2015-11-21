@@ -5,7 +5,7 @@ angular
             scope: true,
             restrict: "E",
             templateUrl: "../BiblioMania/views/partials/book/book-card-directive.html",
-            controller: ['$scope', function($scope) {
+            controller: [function() {
             }],
             link: function ($scope, element) {
                 $(element).find(".ic_container").capslide({
@@ -15,8 +15,8 @@ angular
 
                 $(element).find('[data-toggle="tooltip"]').tooltip();
 
-                $(element).click(function (event) {
-                    if($scope.$parent.isBookDetailPanelOpen() && $scope.$parent.getSelectedBookId() == $scope.book.id){
+                $(element).click(function () {
+                    if($scope.$parent.isBookDetailPanelOpen() && $scope.$parent.getSelectedBookId() === $scope.book.id){
                         $scope.$parent.closeBookDetailPanel();
                     }else{
                         $scope.$parent.setSelectedBookId($scope.book.id);
