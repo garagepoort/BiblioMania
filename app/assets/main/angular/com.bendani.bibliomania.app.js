@@ -3,26 +3,27 @@ var BiblioManiaUtilities = BiblioManiaUtilities || {};
 
 BiblioManiaUtilities.helpers = {
     dateToString: function(date) {
-        if (date != null) {
-            result = "";
-            if (date.day != "0" && date.day != null) {
+        if (date !== null) {
+            var result = "";
+            if (date.day !== "0" && date.day !== null) {
                 result = date.day + "-";
             }
-            if (date.month != "0" && date.month != null) {
+            if (date.month !== "0" && date.month !== null) {
                 result = result + date.month + "-";
             }
-            if (date.year != "0" && date.year != null) {
+            if (date.year !== "0" && date.year !== null) {
                 result = result + date.year;
             }
-            return result
+            return result;
         }
         return "";
     }
 };
 
-var application = angular.module('BiblioMania', ['ngRoute',
+angular.module('BiblioMania', ['ngRoute',
     'ui.bootstrap',
     'ui.bootstrap.tpls',
+    'ui.validate',
     'com.bendani.bibliomania.error.container',
     'com.bendani.bibliomania.error.container.directive',
     'com.bendani.bibliomania.book.controller',

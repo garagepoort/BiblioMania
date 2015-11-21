@@ -1,6 +1,6 @@
 <?php
 
-class BookAuthorWizardStepResource extends BaseController
+class OeuvreWizardStepResource extends BaseController
 {
     /** @var  BookService */
     private $bookService;
@@ -16,13 +16,14 @@ class BookAuthorWizardStepResource extends BaseController
         $this->jsonMappingService = App::make('JsonMappingService');
     }
 
-    public function getBookAuthor($id){
+    public function getOeuvre($id){
+        /** @var Book $fullBook */
         $fullBook = $this->bookService->getFullBook($id, array('publication_date', 'publisher_serie', 'serie'));
         if($fullBook == null){
             throw new ServiceException("Book with id not found");
         }
-        $bookAuthorToJsonAdapter = new BookAuthorToJsonAdapter($fullBook);
-        return $bookAuthorToJsonAdapter->mapToJson();
+        $oeuvreToJsonAdapter = new OeuvreToJsonAdapter($fullBook->preferredAuthor());
+        return $oeuvreToJsonAdapter->mapToJson();
     }
 
     public function updateBookAuthor(){

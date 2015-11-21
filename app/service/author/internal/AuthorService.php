@@ -47,6 +47,10 @@ class AuthorService
             $author_model->date_of_death_id = $this->dateService->create($createAuthorRequest->getDateOfDeath())->id;
         }
 
+        if(!StringUtils::isEmpty($createAuthorRequest->getImageUrl())){
+            $author_model->image = $this->imageService->saveAuthorImageFromUrl($createAuthorRequest->getImageUrl(), $author_model);
+        }
+
         $this->authorRepository->save($author_model);
 
         $date_of_birth->delete();

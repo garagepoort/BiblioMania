@@ -18,16 +18,17 @@
             <label class="control-label col-md-2">Ondertitel</label>
 
             <div class="col-md-9">
-                <input type="text" class="form-control" placeholder="ondertitel" ng-model="container.model.subtitle"/>
+                <input name="subtitle" type="text" class="form-control" placeholder="ondertitel" ng-model="container.model.subtitle"/>
             </div>
         </div>
 
         <!-- ISBN -->
         <div class="form-group required">
-            <label class="control-label col-md-2">ISBN </label>
+            <label class="control-label col-md-2" >ISBN </label>
 
             <div class="col-md-5">
-                <input name="isbn" type="text" class="form-control" placeholder="isbn" ng-model="container.model.isbn" required="true" ng-pattern="/^[0-9]{13}$/"/>
+                <input name="isbn" type="text" class="form-control" placeholder="isbn" ng-model="container.model.isbn" required="true" ng-pattern="/^[0-9]{13}$/"
+                       ng-class="{'has-error has-feedback' : wizardForm.isbn.$invalid && wizardForm.isbn.$dirty}"/>
                 <span ng-show="wizardForm.isbn.$error.required && wizardForm.isbn.$dirty" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Isbn is verplicht</span>
                 <span ng-show="wizardForm.isbn.$error.pattern && wizardForm.isbn.$dirty" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Isbn moet exact 13 nummers zijn</span>
             </div>
@@ -74,6 +75,7 @@
                 <input name="publisher" ng-model="container.model.publisher" type="text" placeholder="uitgever" class="form-control"
                        required="true"
                        uib-typeahead="publisher.name as publisher.name for publisher in data.publishers | filter:$viewValue | limitTo:8"
+                       ng-class="{'has-error has-feedback' : wizardForm.publisher.$invalid && wizardForm.publisher.$dirty}"
                        class="form-control">
                 <span ng-show="wizardForm.publisher.$invalid && wizardForm.publisher.$dirty" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Uitgever is verplicht</span>
             </div>
@@ -87,6 +89,7 @@
 
             <div class="col-md-5">
                 <input name="country" ng-model="container.model.country" type="text" placeholder="land" class="form-control" required="true"
+                       ng-class="{'has-error has-feedback' : wizardForm.country.$invalid && wizardForm.country.$dirty}"
                        uib-typeahead="country.name as country.name for country in data.countries | filter:$viewValue | limitTo:8" class="form-control">
                 <span ng-show="wizardForm.country.$invalid && wizardForm.country.$dirty" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Land is verplicht</span>
             </div>
@@ -96,6 +99,7 @@
 
             <div class="col-md-3">
                 <select name="language" class="input-sm form-control" ng-model="container.model.language"
+                        ng-class="{'has-error has-feedback' : wizardForm.language.$invalid && wizardForm.language.$dirty}"
                         ng-options="language.name as language.name for language in data.languages"></select>
                 <span ng-show="wizardForm.language.$invalid && wizardForm.language.$dirty" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i>Taal is verplicht</span>
             </div>

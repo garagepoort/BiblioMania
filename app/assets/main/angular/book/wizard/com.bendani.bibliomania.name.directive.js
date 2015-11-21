@@ -6,8 +6,6 @@ angular
                 nameModel: "=ngModel"
             },
             restrict: "E",
-            templateUrl: "../BiblioMania/views/partials/name-directive.html",
-            controller: ['$scope', function($scope) {
-            }]
+            templateUrl: "../BiblioMania/views/partials/name-directive.html"
         };
     });

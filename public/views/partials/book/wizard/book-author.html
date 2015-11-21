@@ -1,13 +1,16 @@
 <fieldset ng-controller="BookAuthorController">
 
     <legend>Hoofd Auteur</legend>
+    <img ng-src="{{ getAuthorImage() }}" style="margin-bottom: 20px;">
     <name class="col-md-11" ng-model="container.model.preferredAuthor.name"></name>
     <date label="Geboorte jaar" ng-model="container.model.preferredAuthor.dateOfBirth"></date>
     <date label="Sterfte jaar" ng-model="container.model.preferredAuthor.dateOfDeath"></date>
-    <google-image-search ng-model="container.model.preferredAuthor.imageUrl" query="poes"></google-image-search>
+
+    <button type="button" style="margin-bottom: 10px;" class="btn-default btn round-corners" ng-click="searchAuthorImage()">Zoek auteur afbeelding</button>
+    <google-image-search ng-model="container.model.preferredAuthor.imageUrl" query="authorImageQuery"></google-image-search>
 
     <legend>Extra Auteurs</legend>
-    <button type="button" class="btn-default btn round-corners" ng-click="addSecondaryAuthor()">Voeg toe</button>
+    <button type="button" class="btn-default btn round-corners" ng-click="addSecondaryAuthor()" style="margin-bottom: 20px">Voeg auteur toe</button>
     <div ng-repeat="author in container.model.secondaryAuthors">
         <name class="col-md-11" ng-model="author.name"></name>
         <span class="glyphicon glyphicon-remove-circle clickable col-md-1" style="margin-top: 8px" ng-click="removeSecondaryAuthor(author)"></span>

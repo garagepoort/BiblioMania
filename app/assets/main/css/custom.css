@@ -16,7 +16,7 @@
   src: url("/BiblioMania/assets/fonts/Vincent-Regular.otf") format("opentype");
 }
 .input-group-addon.glyphicon {
-  top: 0px;
+  top: 0;
 }
 input.no-spinner::-webkit-inner-spin-button,
 input.no-spinner::-webkit-outer-spin-button {
@@ -335,8 +335,7 @@ table.book-detail-info-table > tbody > tr > td {
 }
 .book-detail-small-info-panel.card-column-left {
   float: left;
-  margin: 0px;
-  margin-bottom: 15px;
+  margin: 0px 0px 15px;
   width: 48%;
 }
 .book-detail-small-info-panel.card-column-right {
@@ -379,14 +378,14 @@ table.book-detail-info-table td {
 }
 .book-detail-div {
   /*left: 0;*/
-  top: 0px;
+  top: 0;
   background-color: #ffffff;
   border: 10px solid #2d6ca2;
   right: -700px;
   width: 700px;
   height: 95%;
   margin-top: 50px;
-  box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.26);
+  box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.26);
   /*border: solid 1px @secondary-color;*/
 }
 .libraryInformationSlidingPanel.sliding-panel {
