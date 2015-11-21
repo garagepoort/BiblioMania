@@ -24,6 +24,7 @@ angular.module('BiblioMania', ['ngRoute',
     'ui.bootstrap',
     'ui.bootstrap.tpls',
     'ui.validate',
+    'angular-growl',
     'com.bendani.bibliomania.error.container',
     'com.bendani.bibliomania.error.container.directive',
     'com.bendani.bibliomania.book.controller',
@@ -40,7 +41,7 @@ angular.module('BiblioMania', ['ngRoute',
     'com.bendani.bibliomania.book.basics.controller',
     'com.bendani.bibliomania.book.extras.controller',
     'com.bendani.bibliomania.book.author.controller'])
-    .config(['$routeProvider', function ($routeProvider) {
+    .config(['$routeProvider', 'growlProvider', function ($routeProvider, growlProvider) {
         $routeProvider
             .when('/books', {
                 templateUrl: '../BiblioMania/views/partials/books.html',
@@ -57,6 +58,8 @@ angular.module('BiblioMania', ['ngRoute',
             .otherwise({
                 redirectTo: '/'
             });
+
+        growlProvider.globalTimeToLive(5000);
     }])
     .run(["$rootScope", function($rootScope) {
         $rootScope.baseUrl = "../BiblioMania/";

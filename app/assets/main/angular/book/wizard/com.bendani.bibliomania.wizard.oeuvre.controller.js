@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('com.bendani.bibliomania.wizard.oeuvre.controller', ['com.bendani.bibliomania.oeuvre.model', 'com.bendani.bibliomania.error.container', 'com.bendani.bibliomania.author.model'])
-    .controller('WizardOeuvreController', ['$scope', '$routeParams', 'Oeuvre', 'Author', 'ErrorContainer', function ($scope, $routeParams, Oeuvre, Author, ErrorContainer) {
+    .controller('WizardOeuvreController', ['$scope', '$routeParams', 'Oeuvre', 'Author', 'ErrorContainer', 'growl', function ($scope, $routeParams, Oeuvre, Author, ErrorContainer, growl) {
 
         function init(){
             $scope.data = {};
@@ -35,7 +35,7 @@ angular.module('com.bendani.bibliomania.wizard.oeuvre.controller', ['com.bendani
                 oeuvreItem.linkedBooks.push(bookId);
             }
             Oeuvre.update({id: oeuvreItem.id}, oeuvreItem, function(){
-                console.log('update of oeuvreItem successful');
+                growl.addSuccessMessage("Oeuvre item geupdate");
             }, ErrorContainer.handleRestError);
         };
 
@@ -61,12 +61,15 @@ angular.module('com.bendani.bibliomania.wizard.oeuvre.controller', ['com.bendani
             Oeuvre.createItems(itemsToAdd, function(){
                 $scope.container.model.oeuvreItemsToAdd = undefined;
                 $scope.data.oeuvre = Oeuvre.getByBook({ id: $routeParams.modelId });
+                growl.addSuccessMessage("Oeuvre items toegevoegd");
             }, ErrorContainer.handleRestError);
         };
 
         $scope.deleteOeuvreItem = function(oeuvreItem){
+            growl.addInfoMessage("Oeuvre item wordt verwijderd");
             Oeuvre.delete({ id: oeuvreItem.id}, function(){
                 $scope.data.oeuvre = Oeuvre.getByBook({ id: $routeParams.modelId });
+                growl.addSuccessMessage("Verwijderen van oeuvre item voltooid");
             }, ErrorContainer.handleRestError);
         };
 
