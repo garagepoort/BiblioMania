@@ -33,9 +33,6 @@
 
         <link href="assets/main.min.css" rel="stylesheet">
         <script type="text/javascript" src="assets/js/angular/com.bendani.bibliomania.app.js"></script>
-
-
-        <!-- LESS SCRIPTS -->
         <script type="text/javascript" src="assets/js/border_sliding_panel.js"></script>
 
         <!-- RATY -->
@@ -51,6 +48,7 @@
     </head>
     <body ng-controller="MainController">
 
+        <div growl></div>
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
             <div class="container-fluid">
                 <!-- Brand and toggle get grouped for better mobile display -->
