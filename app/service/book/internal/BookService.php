@@ -30,6 +30,8 @@ class BookService
     private $countryService;
     /** @var BookFilterManager $bookFilterManager */
     private $bookFilterManager;
+    /** @var GenreService */
+    private $genreService;
 
     function __construct()
     {
@@ -44,6 +46,7 @@ class BookService
         $this->publisherService = App::make('PublisherService');
         $this->countryService = App::make('CountryService');
         $this->bookFilterManager = App::make('BookFilterManager');
+        $this->genreService = App::make('GenreService');
     }
 
     public function find($id, $with = array())
@@ -51,18 +54,48 @@ class BookService
         return $this->bookRepository->find($id, $with);
     }
 
-    public function getWizardSteps($id = null)
-    {
-        return array(
-            1 => (object)array('title' => 'Basis', 'link' => 'createOrEditBook/step/1/' . $id),
-            2 => (object)array('title' => 'Extra', 'link' => 'createOrEditBook/step/2/' . $id),
-            3 => (object)array('title' => 'Auteur', 'link' => 'createOrEditBook/step/3/' . $id),
-            4 => (object)array('title' => 'Oeuvre', 'link' => 'createOrEditBook/step/4/' . $id),
-            5 => (object)array('title' => 'Eerste druk', 'link' => 'createOrEditBook/step/5/' . $id),
-            6 => (object)array('title' => 'Persoonlijk', 'link' => 'createOrEditBook/step/6/' . $id),
-            7 => (object)array('title' => 'koop/gift', 'link' => 'createOrEditBook/step/7/' . $id),
-            8 => (object)array('title' => 'Cover', 'link' => 'createOrEditBook/step/8/' . $id),
-        );
+    public function create(CreateBookRequest $createBookRequest){
+        $book = new Book();
+        $genre = $this->genreService->getGenreByName($createBookRequest->getGenre());
+        $author = $this->authorService->find($createBookRequest->getPreferredAuthorId());
+
+        Ensure::objectNotNull("Book", $book);
+        Ensure::objectNotNull("Author", $author);
+        Ensure::objectNotNull("Genre", $genre);
+        Ensure::objectNotNull("PublicationDate", $createBookRequest->getPublicationDate());
+        Ensure::stringNotBlank("Language", $createBookRequest->getLanguage());
+        Ensure::stringNotBlank("Title", $createBookRequest->getTitle());
+        Ensure::stringNotBlank("Isbn", $createBookRequest->getIsbn());
+        Ensure::stringNotBlank("Publisher", $createBookRequest->getPublisher());
+        Ensure::stringNotBlank("Country", $createBookRequest->getCountry());
+
+        $bookPublisher = $this->publisherService->findOrCreate($createBookRequest->getPublisher());
+        $country = $this->countryService->findOrCreate($createBookRequest->getCountry());
+        $book->language()->associate($this->languageService->findOrSave($createBookRequest->getLanguage()));
+
+        $tagsAsStrings = $this->mapTags($createBookRequest);
+        $tags = $this->tagService->createTags($tagsAsStrings);
+
+        $date = $this->createPublicationDate($createBookRequest);
+        $book->publication_date()->associate($date);
+
+        $book->title = $createBookRequest->getTitle();
+        $book->subtitle = $createBookRequest->getSubtitle();
+        $book->ISBN = $createBookRequest->getIsbn();
+        $book->genre_id = $genre->id;
+        $book->publisher_id = $bookPublisher->id;
+        $book->publisher_country_id = $country->id;
+        $book->user_id = Auth::user()->id;
+
+
+        $this->bookRepository->save($book);
+        $book->tags()->sync($tags);
+        $this->authorService->syncAuthors($author, [], $book);
+        return $book;
+    }
+
+    public function getBooksByAuthor($authorId){
+        return $this->bookRepository->booksFromAuthor($authorId);
     }
 
     public function getValueOfLibrary()
@@ -468,5 +501,36 @@ class BookService
         }
 
         $this->bookRepository->delete($book);
+    }
+
+
+
+    /**
+     * @param CreateBookRequest $createRequest
+     * @return array
+     */
+    private function mapTags(CreateBookRequest $createRequest)
+    {
+        if($createRequest->getTags() == null){
+            return array();
+        }
+        $tagsAsStrings = array_map(function ($item) {
+            return $item->getText();
+        }, $createRequest->getTags());
+        return $tagsAsStrings;
+    }
+
+    /**
+     * @param CreateBookRequest $createBook
+     * @return Date
+     */
+    private function createPublicationDate(CreateBookRequest $createBook)
+    {
+        $date = new Date();
+        $date->day = $createBook->getPublicationDate()->getDay();
+        $date->month = $createBook->getPublicationDate()->getDay();
+        $date->year = $createBook->getPublicationDate()->getYear();
+        $date->save();
+        return $date;
     }
 }

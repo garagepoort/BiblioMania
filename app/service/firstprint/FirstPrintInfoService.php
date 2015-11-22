@@ -19,7 +19,6 @@ class FirstPrintInfoService
         $this->languageService = App::make('LanguageService');
     }
 
-
     public function findOrCreate(FirstPrintInfoParameters $firstPrintInfoParameters)
     {
         $firstPrintInfo = new FirstPrintInfo();

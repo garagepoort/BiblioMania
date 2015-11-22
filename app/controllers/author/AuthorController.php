@@ -18,6 +18,8 @@ class AuthorController extends BaseController
     private $imageService;
     /** @var BookService */
     private $bookService;
+    /** @var JsonMappingService */
+    private $jsonMappingService;
 
     function __construct()
     {
@@ -28,8 +30,24 @@ class AuthorController extends BaseController
         $this->imageService = App::make('ImageService');
         $this->authorInfoParameterMapper = App::make('AuthorInfoParameterMapper');
         $this->bookService = App::make('BookService');
+        $this->jsonMappingService = App::make('JsonMappingService');
     }
 
+    public function createAuthor(){
+        $author = $this->authorService->create($this->jsonMappingService->mapInputToJson(Input::get(), new CreateAuthorFromJsonAdapter()));
+        return Response::json(array('success' => true, 'id' => $author->id), 200);
+    }
+
+    public function updateAuthor(){
+        return $this->authorService->update($this->jsonMappingService->mapInputToJson(Input::get(), new UpdateAuthorFromJsonAdapter()))->id;
+    }
+
+    public function getAuthor($id){
+        $author = $this->authorService->find($id);
+        Ensure::objectNotNull("author", $author);
+        $authorToJsonAdapter = new AuthorToJsonAdapter($author);
+        return $authorToJsonAdapter->mapToJson();
+    }
 
     public function getAuthorByBook($id){
         /** @var Book $book */
@@ -40,6 +58,13 @@ class AuthorController extends BaseController
 
         $authorToJsonAdapter = new AuthorToJsonAdapter($book->preferredAuthor());
         return $authorToJsonAdapter->mapToJson();
+    }
+
+    public function getAllAuthors(){
+        return array_map(function($item){
+            $authorToJsonAdapter = new AuthorToJsonAdapter($item);
+            return $authorToJsonAdapter->mapToJson();
+        }, $this->authorService->getAllAuthors()->all());
     }
 
     public function getAuthors()
@@ -115,17 +140,6 @@ class AuthorController extends BaseController
         $type = Input::get('type');
         $orderBy = Input::get('orderBy');
         return $this->authorService->getFilteredAuthors($query, $operator, $type, $orderBy);
-    }
-
-    public function getAuthor($author_id)
-    {
-        $author = $this->authorService->find($author_id);
-        return View::make($this->authorFolder . 'author')->with(array(
-            'title' => 'Auteur',
-            'author' => $author,
-            'author_json' => json_encode($author),
-            'oeuvre_json' => json_encode($author->oeuvre)
-        ));
     }
 
     public function getOeuvreForAuthor($author_id)

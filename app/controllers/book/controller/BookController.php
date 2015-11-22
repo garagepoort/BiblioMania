@@ -39,6 +39,8 @@ class BookController extends BaseController
     private $bookFilterHandler;
     /** @var  BookJsonMapper */
     private $bookJsonMapper;
+    /** @var  JsonMappingService */
+    private $jsonMappingService;
 
 
     public function __construct()
@@ -59,11 +61,23 @@ class BookController extends BaseController
         $this->languageService = App::make('LanguageService');
         $this->bookFilterHandler = App::make('BookFilterManager');
         $this->bookJsonMapper = App::make('BookJsonMapper');
+        $this->jsonMappingService = App::make('JsonMappingService');
     }
 
     public function getBooks()
     {
         return $this->searchBooks();
+    }
+
+    public function getBooksByAuthor($authorId){
+        return array_map(function($item){
+            $bookToJsonAdapter = new BookToJsonAdapter($item);
+            return $bookToJsonAdapter->mapToJson();
+        }, $this->bookService->getBooksByAuthor($authorId)->all());
+    }
+
+    public function createBook(){
+        return $this->bookService->create($this->jsonMappingService->mapInputToJson(Input::get(), new CreateBookFromJsonAdapter()));
     }
 
     public function deleteBook()

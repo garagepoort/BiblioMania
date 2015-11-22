@@ -173,4 +173,12 @@ class BookRepository implements iRepository{
             ->where('wizard_step', '=', 'COMPLETE')
             ->count();
     }
+
+    public function booksFromAuthor($authorId)
+    {
+        return Book::join('book_author', 'book_author.book_id', '=', 'book.id')
+            ->where('user_id', '=', Auth::user()->id)
+            ->where('book_author.author_id', '=', $authorId)
+            ->get();
+    }
 }
