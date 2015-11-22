@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('com.bendani.bibliomania.book.wizard.controller', ['com.bendani.bibliomania.wizard.oeuvre.controller'])
+angular.module('com.bendani.bibliomania.book.wizard.controller', ['com.bendani.bibliomania.wizard.oeuvre.controller', 'com.bendani.bibliomania.wizard.first.print.controller'])
     .controller('BookWizardController', ['$scope', function ($scope) {
 
         function init() {
@@ -35,8 +35,8 @@ angular.module('com.bendani.bibliomania.book.wizard.controller', ['com.bendani.b
                 }, {
                     title: "Eerste druk",
                     number: 5,
-                    modelUrl: "createOrEditBook/step/5",
-                    templateUrl: "../BiblioMania/views/partials/book/wizard/book-basics.html"
+                    modelUrl: "bookwizard/firstprint",
+                    templateUrl: "../BiblioMania/views/partials/book/wizard/firstprint.html"
                 }, {
                     title: "Persoonlijk",
                     number: 6,

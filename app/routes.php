@@ -15,13 +15,17 @@
 Route::group(array('before' => 'auth'), function () {
 
     Route::get('books', 'BookController@getBooks');
+    Route::post('books', 'BookController@createBook');
     Route::post('books/search', 'BookController@search');
     Route::get('books/{id}', 'BookController@getFullBook');
+
     Route::get('bookFilters', 'BookController@getFilters');
     Route::get('tags', 'TagController@getTags');
     Route::get('countries', 'CountryController@getCountries');
     Route::get('publishers', 'PublisherController@getPublishers');
     Route::get('languages', 'LanguageController@getLanguages');
+
+    Route::get('firstprints/by-book/{id}', 'FirstPrintController@getFirstPrintInfoByBook');
 
     Route::get('oeuvre/by-book/{id}', 'OeuvreController@getOeuvreByBook');
     Route::post('oeuvre/create-items', 'OeuvreController@saveOeuvreItemsToAuthor');
@@ -29,6 +33,12 @@ Route::group(array('before' => 'auth'), function () {
     Route::delete('oeuvre/{id}', 'OeuvreController@deleteOeuvreItem');
 
     Route::get('authors/by-book/{id}', 'AuthorController@getAuthorByBook');
+    Route::get('authors', 'AuthorController@getAllAuthors');
+    Route::get('authors/{id}', 'AuthorController@getAuthor');
+    Route::post('authors', 'AuthorController@createAuthor');
+    Route::put('authors', 'AuthorController@updateAuthor');
+    Route::get('authors/{id}/books', 'BookController@getBooksByAuthor');
+    Route::get('authors/{id}/oeuvre', 'OeuvreController@getOeuvreFromAuthor');
 
 
     Route::get('genres', 'GenreController@getGenres');
@@ -68,25 +78,6 @@ Route::group(array('before' => 'auth'), function () {
     Route::get('getBooksAddedPerYearChart', 'StatisticsController@getBooksAddedPerYearChart');
     Route::get('getBooksReadPerYearChart', 'StatisticsController@getBooksReadPerYearChart');
     Route::get('getBooksAndPublicationDate', 'StatisticsController@getBooksAndPublicationDate');
-
-//  AUTHOR
-    Route::get('getAuthor/{id}', 'AuthorController@getAuthor');
-    Route::get('getAuthors', 'AuthorController@getAuthors');
-    Route::get('editAuthor/{id}', 'AuthorController@goToEditAuthor');
-    Route::get('getAuthorsList', 'AuthorController@getAuthorsList');
-    Route::get('getOeuvreForAuthor/{id}', 'AuthorController@getOeuvreForAuthor');
-    Route::get('getNextAuthors', 'AuthorController@getNextAuthors');
-    Route::get('getAuthorsWithOeuvreJson', 'AuthorController@getAuthorsWithOeuvreJson');
-    Route::post('editAuthorInList', 'AuthorController@editAuthorInList');
-    Route::post('editAuthor', 'AuthorController@editAuthor');
-    Route::post('changeAuthorImage', 'AuthorController@changeAuthorImage');
-
-//  PUBLISHER
-    Route::get('publisher/{id}', 'PublisherController@getPublisher');
-    Route::get('getPublishersList', 'PublisherController@getPublishersList');
-    Route::post('editPublisher', 'PublisherController@editPublisher');
-    Route::post('deletePublisher', 'PublisherController@deletePublisher');
-    Route::post('mergePublishers', 'PublisherController@mergePublishers');
 
 //  BOOK FROM AUTHOR
     Route::post('deleteBookFromAuthor', 'AuthorController@deleteBookFromAuthor');

@@ -26,6 +26,27 @@ input.no-spinner::-webkit-outer-spin-button {
 input.no-spinner {
   -moz-appearance: textfield;
 }
+.input-width-sm {
+  width: 210px;
+}
+.input-width-md {
+  width: 310px;
+}
+.input-width-lg {
+  width: 410px;
+}
+.form-group.form-group-small {
+  width: 95px;
+  min-width: inherit;
+}
+.form-group.form-group-large {
+  width: 325px;
+  min-width: inherit;
+}
+.form-group.form-group-extra-large {
+  width: 440px;
+  min-width: inherit;
+}
 .no-round-corners {
   -webkit-border-radius: 0 !important;
   -moz-border-radius: 0 !important;

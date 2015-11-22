@@ -1,0 +1,16 @@
+<div class="create-book-div">
+    <form ng-submit="submitForm()" id="createAuthorForm" name="createAuthorForm" novalidate class="form-horizontal createBookForm">
+        <fieldset>
+            <legend>{{ model.name.firstname + " " + model.name.lastname }}</legend>
+            <img ng-src="{{ getAuthorImage() }}" style="margin-bottom: 20px;">
+            <name class="col-md-11" ng-model="model.name"></name>
+            <date label="Geboorte jaar" ng-model="model.dateOfBirth"></date>
+            <date label="Sterfte jaar" ng-model="model.dateOfDeath"></date>
+
+            <button type="button" style="margin-bottom: 10px;" class="btn-default btn round-corners" ng-click="searchAuthorImage()">Zoek auteur afbeelding</button>
+            <google-image-search ng-model="model.imageUrl" query="authorImageQuery"></google-image-search>
+
+            <button class="btn btn-primary">Save</button>
+        </fieldset>
+    </form>
+</div>
