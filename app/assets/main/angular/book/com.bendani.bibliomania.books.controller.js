@@ -56,11 +56,11 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
 
         $scope.order = function(ordering){
             $scope.predicate = ordering;
-        }
+        };
 
         $scope.setReverse = function(reverse){
             $scope.reverseOrder = reverse;
-        }
+        };
 
         $scope.search = function(item){
             if ( (item.title.toLowerCase().indexOf($scope.searchBooksQuery) != -1)

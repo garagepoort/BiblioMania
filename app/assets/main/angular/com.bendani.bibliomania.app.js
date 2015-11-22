@@ -40,7 +40,11 @@ angular.module('BiblioMania', ['ngRoute',
     'com.bendani.php.common.wizardservice.wizard.directive',
     'com.bendani.bibliomania.book.basics.controller',
     'com.bendani.bibliomania.book.extras.controller',
-    'com.bendani.bibliomania.book.author.controller'])
+    'com.bendani.bibliomania.book.author.controller',
+    'com.bendani.bibliomania.create.book.controller',
+    'com.bendani.bibliomania.edit.author.ui',
+    'com.bendani.bibliomania.create.author.ui',
+    'com.bendani.bibliomania.author.selection.controller'])
     .config(['$routeProvider', 'growlProvider', function ($routeProvider, growlProvider) {
         $routeProvider
             .when('/books', {
@@ -54,6 +58,10 @@ angular.module('BiblioMania', ['ngRoute',
             .when('/editBook/:step/:modelId?', {
                 templateUrl: '../BiblioMania/views/partials/book/wizard/book-wizard.html',
                 controller: 'BookWizardController'
+            })
+            .when('/createBook', {
+                templateUrl: '../BiblioMania/views/partials/book/create-book.html',
+                controller: 'CreateBookController'
             })
             .otherwise({
                 redirectTo: '/'

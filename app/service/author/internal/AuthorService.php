@@ -22,6 +22,51 @@ class AuthorService
     public function find($id){
         return $this->authorRepository->find($id, array('oeuvre'));
     }
+
+    public function create(CreateAuthorRequest $createAuthorRequest){
+        $author_model = new Author();
+        return $this->saveAuthor($author_model, $createAuthorRequest);
+    }
+
+    public function update(UpdateAuthorRequest $updateAuthorRequest){
+        $author_model = $this->authorRepository->find($updateAuthorRequest->getId());
+        Ensure::objectNotNull("author", $author_model);
+
+        return $this->saveAuthor($author_model, $updateAuthorRequest);
+    }
+
+    private function saveAuthor($author, BaseAuthorRequest $baseAuthorRequest){
+        $author->name = $baseAuthorRequest->getName()->getLastname();
+        $author->firstname = $baseAuthorRequest->getName()->getFirstname();
+        $author->infix = $baseAuthorRequest->getName()->getInfix();
+
+        if($baseAuthorRequest->getDateOfBirth() != null){
+            $date_of_birth = $author->date_of_birth();
+            if($date_of_birth != null){
+                $date_of_birth->dissociate();
+                $this->authorRepository->save($author);
+                $date_of_birth->delete();
+            }
+            $author->date_of_birth_id = $this->dateService->create($baseAuthorRequest->getDateOfBirth())->id;
+        }
+
+        if($baseAuthorRequest->getDateOfDeath() != null){
+            $date_of_death = $author->date_of_death();
+            if($date_of_death != null){
+                $date_of_death->dissociate();
+                $this->authorRepository->save($author);
+                $date_of_death->delete();
+            }
+            $author->date_of_death_id = $this->dateService->create($baseAuthorRequest->getDateOfDeath())->id;
+        }
+
+        if(!StringUtils::isEmpty($baseAuthorRequest->getImageUrl())){
+            $author->image = $this->imageService->saveAuthorImageFromUrl($baseAuthorRequest->getImageUrl(), $author);
+        }
+
+        $this->authorRepository->save($author);
+        return $author;
+    }
     
     public function createOrFindAuthor(CreateAuthorRequest $createAuthorRequest){
         $author_model = $this->authorRepository->getAuthorByFullName($createAuthorRequest->getName()->getLastname(),
@@ -221,5 +266,10 @@ class AuthorService
 
     public function createOrGetAuthor($lastName, $infix, $firstName)
     {
+    }
+
+    public function getAllAuthors()
+    {
+        return $this->authorRepository->all();
     }
 }
