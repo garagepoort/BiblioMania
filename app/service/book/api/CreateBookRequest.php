@@ -23,4 +23,6 @@ interface CreateBookRequest
     function getPublicationDate();
 
     function getPreferredAuthorId();
+
+    function getImageUrl();
 }
