@@ -1,0 +1,11 @@
+<div class="create-author-dialog">
+    <div class="modal-header">
+        <h3 class="modal-title">Auteur creatie</h3>
+    </div>
+    <div class="modal-body" ng-controller="AuthorCreationModalController">
+        <create-author on-save="data.onSaveAuthor(authorId)"></create-author>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-danger" type="button" ng-click="$dismiss()">Annuleer</button>
+    </div>
+</div>

@@ -40,6 +40,8 @@ class CreateBookFromJsonAdapter implements CreateBookRequest
      * @required
      */
     private $language;
+    /** @var string */
+    private $imageUrl;
 
     /**
      * @var DateFromJsonAdapter
@@ -208,6 +210,22 @@ class CreateBookFromJsonAdapter implements CreateBookRequest
     public function setPreferredAuthorId($preferredAuthorId)
     {
         $this->preferredAuthorId = $preferredAuthorId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getImageUrl()
+    {
+        return $this->imageUrl;
+    }
+
+    /**
+     * @param string $imageUrl
+     */
+    public function setImageUrl($imageUrl)
+    {
+        $this->imageUrl = $imageUrl;
     }
 
 }

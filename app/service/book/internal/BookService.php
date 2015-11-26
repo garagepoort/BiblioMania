@@ -92,6 +92,10 @@ class BookService
         $book->user_id = Auth::user()->id;
 
 
+        if(!StringUtils::isEmpty($createBookRequest->getImageUrl())){
+            $book->coverImage = $this->imageService->saveBookImageFromUrl($createBookRequest->getImageUrl(), $book);
+        }
+
         $this->bookRepository->save($book);
         $book->tags()->sync($tags);
         $this->authorService->syncAuthors($author, [], $book);

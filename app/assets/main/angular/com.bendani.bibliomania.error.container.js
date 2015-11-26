@@ -54,8 +54,8 @@ angular.module('com.bendani.bibliomania.error.container', [])
                 handleRestError: function (data) {
                     _handleRestError(data);
                 },
-                setErrorCode: function (error, params, children) {
-                    _setErrorCode(error, params, children);
+                setErrorCode: function (error) {
+                    _setErrorCode(error);
                 },
                 handleRestErrorAndScrollToTop: function (data) {
                     _handleRestError(data);

@@ -142,5 +142,5 @@ Route::get('createUser', 'UserController@goToCreateUser');
 Route::get('/', 'HomeController@goHome');
 
 App::missing(function ($exception) {
-    return Redirect::to('/');
+    return Response::make('', 404);
 });
