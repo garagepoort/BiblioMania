@@ -54,6 +54,10 @@ class BookService
         return $this->bookRepository->find($id, $with);
     }
 
+    public function allBooks(){
+        return $this->bookRepository->allCompleted(array('personal_book_info', 'authors'));
+    }
+
     public function create(CreateBookRequest $createBookRequest){
         $book = new Book();
         $genre = $this->genreService->getGenreByName($createBookRequest->getGenre());

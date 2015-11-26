@@ -11,11 +11,6 @@
 }
 
 @font-face {
-  font-family: "parisish";
-  src: url("/BiblioMania/assets/fonts/Parisish.ttf") format("opentype");
-}
-
-@font-face {
   font-family: "vincent";
   font-weight: bold;
   src: url("/BiblioMania/assets/fonts/Vincent-Regular.otf") format("opentype");
@@ -127,6 +122,12 @@ body {
   font-size: @font-size;
   background-color: @secondary-color;
   text-align: center;
+}
+
+table.table-hover tbody tr {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  cursor: pointer;
 }
 
 .bookMark.background-warning {
@@ -260,9 +261,6 @@ table.left-right-align td:nth-child(1) {
   color: @accent-color;
 }
 
-.form-container .control-label{
-  text-align: left;
-}
 /*END PLACEHOLDERS*/
 
 .contentContainer {
@@ -837,6 +835,29 @@ table.book-detail-info-table td {
   width: 100%;
   margin-left: auto;
   margin-right: auto;
+}
+
+.form-container .control-label{
+  text-align: left;
+  font-weight: normal;
+}
+
+.form-content {
+  padding-left: 50px;
+  margin-bottom: 50px;
+}
+
+.form-subtitle {
+  font-weight: bold;
+  font-size: 16px;
+  margin-left: -15px;
+  margin-right: -15px;
+  margin-bottom: 20px;
+}
+
+.form-subtitle-button {
+  float: right;
+  margin-top: -30px;
 }
 
 .filterDialog {

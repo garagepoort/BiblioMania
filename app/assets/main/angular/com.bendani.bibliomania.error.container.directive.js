@@ -5,5 +5,5 @@ angular.module('com.bendani.bibliomania.error.container.directive', ['com.bendan
                 restrict: 'E',
                 templateUrl: '../BiblioMania/views/partials/error-container.html',
                 replace: true
-            }
+            };
         }]);

@@ -16,7 +16,6 @@ class OeuvreService
         $this->authorRepository = App::make("AuthorRepository");
     }
 
-
     public function linkNewOeuvreFromAuthor($author_id, $oeuvreText)
     {
         if (!empty($oeuvreText)) {
@@ -28,6 +27,28 @@ class OeuvreService
                 $bookFromAuthorService->save($author_id, $res[1], $res[0]);
             }
         }
+    }
+
+    public function linkBookToOeuvreItem($oeuvreId, LinkBookToOeuvreItemRequest $bookToOeuvreItemRequest){
+        /** @var BookFromAuthor $oeuvreItem */
+        $oeuvreItem = $this->find($oeuvreId);
+        Ensure::objectNotNull("oeuvre item", $oeuvreItem);
+        $book = $this->bookRepository->find($bookToOeuvreItemRequest->getBookId());
+        Ensure::objectNotNull("book", $book);
+
+        $book->book_from_author_id = $oeuvreItem->id;
+        $book->save();
+    }
+
+    public function deleteLinkedBookFromOeuvreItem($oeuvreId, LinkBookToOeuvreItemRequest $bookToOeuvreItemRequest){
+        /** @var BookFromAuthor $oeuvreItem */
+        $oeuvreItem = $this->find($oeuvreId);
+        Ensure::objectNotNull("oeuvre item", $oeuvreItem);
+        $book = $this->bookRepository->find($bookToOeuvreItemRequest->getBookId());
+        Ensure::objectNotNull("book", $book);
+
+        $book->book_from_author_id = null;
+        $book->save();
     }
 
     public function saveBookFromAuthors($oeuvreList, $authorId){
@@ -101,9 +122,9 @@ class OeuvreService
         $item->delete();
     }
 
-    public function updateOeuvreItem($id, UpdateOeuvreItemRequest $oeuvreItemRequest){
+    public function updateOeuvreItem(UpdateOeuvreItemRequest $oeuvreItemRequest){
         /** @var BookFromAuthor $oeuvreItem */
-        $oeuvreItem = $this->bookFromAuthorRepository->find($id);
+        $oeuvreItem = $this->bookFromAuthorRepository->find($oeuvreItemRequest->getId());
         $author = $this->authorRepository->find($oeuvreItemRequest->getAuthorId());
 
         Ensure::objectNotNull("Oeuvre item", $oeuvreItem);
@@ -121,10 +142,15 @@ class OeuvreService
         foreach($oeuvreItemRequest->getLinkedBooks() as $bookId){
             $book = $this->bookRepository->find($bookId);
             Ensure::objectNotNull("Book", $book);
-            $book->book_from_author_id = $id;
+            $book->book_from_author_id = $oeuvreItemRequest->getId();
             $book->save();
         }
 
         $oeuvreItem->save();
+    }
+
+    public function find($id)
+    {
+        return $this->bookFromAuthorRepository->find($id);
     }
 }

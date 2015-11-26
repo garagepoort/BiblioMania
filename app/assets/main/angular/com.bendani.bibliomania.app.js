@@ -44,6 +44,7 @@ angular.module('BiblioMania', ['ngRoute',
     'com.bendani.bibliomania.create.book.controller',
     'com.bendani.bibliomania.edit.author.ui',
     'com.bendani.bibliomania.create.author.ui',
+    'com.bendani.bibliomania.edit.oeuvre.ui',
     'com.bendani.bibliomania.author.selection.controller'])
     .config(['$routeProvider', 'growlProvider', function ($routeProvider, growlProvider) {
         $routeProvider
@@ -64,7 +65,7 @@ angular.module('BiblioMania', ['ngRoute',
                 controller: 'CreateBookController'
             })
             .otherwise({
-                redirectTo: '/'
+                redirectTo: '/books'
             });
 
         growlProvider.globalTimeToLive(5000);
