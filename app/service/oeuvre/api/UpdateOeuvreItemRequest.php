@@ -3,6 +3,8 @@
 interface UpdateOeuvreItemRequest
 {
 
+    function getId();
+
     function getLinkedBooks();
 
     function getTitle();

@@ -5,10 +5,9 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
 
         function retrieveAllBooks() {
             $scope.loading=true;
-            Book.get(function (books) {
-                $scope.books = books.data;
+            Book.query(function (books) {
+                $scope.books = books;
                 $scope.loading = false;
-                $scope.libraryInformation = books.library_information;
             }, ErrorContainer.handleRestError);
         }
 
@@ -63,9 +62,9 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
         };
 
         $scope.search = function(item){
-            if ( (item.title.toLowerCase().indexOf($scope.searchBooksQuery) != -1)
-                || (item.subtitle.toLowerCase().indexOf($scope.searchBooksQuery) != -1)
-                || (item.author.toLowerCase().indexOf($scope.searchBooksQuery) != -1) ){
+            if ( (item.title.toLowerCase().indexOf($scope.searchBooksQuery) !== -1)
+                || (item.subtitle.toLowerCase().indexOf($scope.searchBooksQuery) !== -1)
+                || (item.author.toLowerCase().indexOf($scope.searchBooksQuery) !== -1) ){
                 return true;
             }
             return false;

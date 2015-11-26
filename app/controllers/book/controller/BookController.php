@@ -64,9 +64,11 @@ class BookController extends BaseController
         $this->jsonMappingService = App::make('JsonMappingService');
     }
 
-    public function getBooks()
-    {
-        return $this->searchBooks();
+    public function getBooks(){
+        return array_map(function($item){
+            $bookToJsonAdapter = new BookToJsonAdapter($item);
+            return $bookToJsonAdapter->mapToJson();
+        }, $this->bookService->allBooks()->all());
     }
 
     public function getBooksByAuthor($authorId){

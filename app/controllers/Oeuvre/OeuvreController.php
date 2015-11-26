@@ -50,8 +50,34 @@ class OeuvreController extends Controller
         $this->oeuvreService->deleteOeuvreItem($id);
     }
 
-    public function updateOeuvreItem($id){
-        $this->oeuvreService->updateOeuvreItem($id, $this->jsonMappingService->mapInputToJson(Input::get(), new UpdateOeuvreItemFromJsonAdapter()));
+    public function getOeuvreItem($id){
+        $oeuvreItem = $this->oeuvreService->find($id);
+        Ensure::objectNotNull("oeuvre item", $oeuvreItem);
+        $oeuvreItemToJsonAdapter = new OeuvreItemToJsonAdapter($oeuvreItem);
+        return $oeuvreItemToJsonAdapter->mapToJson();
+    }
+
+    public function linkBookToOeuvreItem($oeuvreId){
+        $mapInputToJson = $this->jsonMappingService->mapInputToJson(Input::get(), new LinkBookToOeuvreItemFromJsonAdapter());
+        $this->oeuvreService->linkBookToOeuvreItem($oeuvreId, $mapInputToJson);
+    }
+    public function deleteBookFromOeuvreItem($oeuvreId){
+        $mapInputToJson = $this->jsonMappingService->mapInputToJson(Input::get(), new LinkBookToOeuvreItemFromJsonAdapter());
+        $this->oeuvreService->deleteLinkedBookFromOeuvreItem($oeuvreId, $mapInputToJson);
+    }
+
+    public function getOeuvreItemLinkedBooks($id){
+        /** @var BookFromAuthor $oeuvreItem */
+        $oeuvreItem = $this->oeuvreService->find($id);
+        Ensure::objectNotNull("oeuvre item", $oeuvreItem);
+        return array_map(function($book){
+            $bookToJsonAdapter = new BookToJsonAdapter($book);
+            return $bookToJsonAdapter->mapToJson();
+        }, $oeuvreItem->books->all());
+    }
+
+    public function updateOeuvreItem(){
+        $this->oeuvreService->updateOeuvreItem($this->jsonMappingService->mapInputToJson(Input::get(), new UpdateOeuvreItemFromJsonAdapter()));
     }
 
     public function getOeuvreByBook($id){

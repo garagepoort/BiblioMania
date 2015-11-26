@@ -36,7 +36,7 @@ angular.module('com.bendani.bibliomania.create.book.controller', ['ngTagsInput',
 
             $scope.showSelectAuthorDialog = function () {
                 var modalInstance = $uibModal.open({
-                    templateUrl: '../BiblioMania/views/partials/book/select-author-modal.html',
+                    templateUrl: '../BiblioMania/views/partials/author/select-author-modal.html',
                     scope: $scope
                 });
 
