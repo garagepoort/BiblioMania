@@ -2,6 +2,8 @@
 
 class UpdateOeuvreItemFromJsonAdapter implements UpdateOeuvreItemRequest
 {
+    /** @var  int */
+    private $id;
     /** @var  int[] */
     private $linkedBooks;
     /** @var  int */
@@ -10,6 +12,22 @@ class UpdateOeuvreItemFromJsonAdapter implements UpdateOeuvreItemRequest
     private $title;
     /** @var int */
     private $publicationYear;
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
 
     /**
      * @return int[]

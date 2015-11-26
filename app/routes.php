@@ -29,8 +29,12 @@ Route::group(array('before' => 'auth'), function () {
 
     Route::get('oeuvre/by-book/{id}', 'OeuvreController@getOeuvreByBook');
     Route::post('oeuvre/create-items', 'OeuvreController@saveOeuvreItemsToAuthor');
-    Route::put('oeuvre/{id}', 'OeuvreController@updateOeuvreItem');
+    Route::put('oeuvre', 'OeuvreController@updateOeuvreItem');
     Route::delete('oeuvre/{id}', 'OeuvreController@deleteOeuvreItem');
+    Route::get('oeuvre/{id}', 'OeuvreController@getOeuvreItem');
+    Route::get('oeuvre/{id}/books', 'OeuvreController@getOeuvreItemLinkedBooks');
+    Route::post('oeuvre/{id}/books', 'OeuvreController@linkBookToOeuvreItem');
+    Route::put('oeuvre/{id}/unlink-book', 'OeuvreController@deleteBookFromOeuvreItem');
 
     Route::get('authors/by-book/{id}', 'AuthorController@getAuthorByBook');
     Route::get('authors', 'AuthorController@getAllAuthors');

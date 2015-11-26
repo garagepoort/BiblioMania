@@ -3,6 +3,9 @@ angular.module('com.bendani.bibliomania.oeuvre.model', [ 'ngResource' ])
         return $resource('../BiblioMania/oeuvre/:id', {}, {
             update: { method: 'PUT' },
             getByBook: { method : 'GET', url : '../BiblioMania/oeuvre/by-book/:id', isArray: true},
-            createItems: { method : 'POST', url : '../BiblioMania/oeuvre/create-items'}
+            createItems: { method : 'POST', url : '../BiblioMania/oeuvre/create-items'},
+            books: { method : 'GET', url : '../BiblioMania/oeuvre/:id/books', isArray: true},
+            linkBook: { method : 'POST', url : '../BiblioMania/oeuvre/:id/books'},
+            unlinkBook: { method : 'PUT', url : '../BiblioMania/oeuvre/:id/unlink-book'}
         });
     } ]);

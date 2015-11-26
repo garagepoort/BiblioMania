@@ -1,27 +1,98 @@
-function ErrorContainer($location) {
-
-    this.errorMessage='';
-
-    this.handleRestError = function(data){
-        if(data === undefined || data.status === undefined){
-            this.errorMessage = "Er ging iets mis: " + data;
-        }
-
-        else if(data.status == 401){
-            $location.path("/login");
-        }else{
-            this.errorMessage = "Er is een onverwachte fout opgetreden: " + data;
-        }
-    };
-
-    this.setErrorMessage = function(message){
-        this.errorMessage = message;
-    };
-
-    this.reset = function(){
-        this.errorMessage = '';
-    }
-}
+'use strict';
 
 angular.module('com.bendani.bibliomania.error.container', [])
-    .service('ErrorContainer', ["$location", ErrorContainer]);
+
+    .provider('ErrorContainer', function ErrorContainerProvider() {
+
+        function ErrorContainer($rootScope, $location) {
+
+            var _currentErrorCode = "";
+            var _skipResetOnNextRouteChange = false;
+            var _expanded = false;
+
+            var _setErrorCode = function (error) {
+                _currentErrorCode = error;
+            };
+
+            var _handleRestError = function (data) {
+                if (data.data === undefined) {
+                    _currentErrorCode = "unexpected error";
+                } else if(data.status == 401){
+                    $location.path("/login");
+                }else{
+                    _currentErrorCode = "Er ging iets mis: " + data.data.message;
+                }
+            };
+
+            var _reset = function () {
+                _currentErrorCode = "";
+                _expanded = false;
+            };
+
+            var _isExpanded = function () {
+                return _expanded;
+            };
+
+            var _isCollapsed = function () {
+                return !_isExpanded();
+            };
+
+            var _toggleExpansion = function () {
+                _expanded = !_expanded;
+            };
+
+            var service = {
+                errorCode: function () {
+                    return _currentErrorCode;
+                },
+                reset: function () {
+                    _reset();
+                },
+                noError: function () {
+                    _reset();
+                },
+                handleRestError: function (data) {
+                    _handleRestError(data);
+                },
+                setErrorCode: function (error, params, children) {
+                    _setErrorCode(error, params, children);
+                },
+                handleRestErrorAndScrollToTop: function (data) {
+                    _handleRestError(data);
+                    //ScrollService.scrollToTop();
+                },
+                setErrorCodeAndScrollToTop: function (error, params, children) {
+                    _setErrorCode(error, params, children);
+                    //ScrollService.scrollToTop();
+                },
+                onRouteChangeSuccess: function () {
+                    if (_skipResetOnNextRouteChange) {
+                        _skipResetOnNextRouteChange = false;
+                    } else {
+                        service.reset();
+                    }
+                },
+                skipResetOnNextRouteChange: function () {
+                    _skipResetOnNextRouteChange = true;
+                },
+                isCollapsed: function () {
+                    return _isCollapsed();
+                },
+                isExpanded: function () {
+                    return _isExpanded();
+                },
+                toggleExpansion: function () {
+                    return _toggleExpansion();
+                }
+            };
+
+            $rootScope.$on('$routeChangeSuccess', service.onRouteChangeSuccess);
+
+            return service;
+
+        }
+
+        this.$get = ['$rootScope', '$location', function ($rootScope, $location) {
+            return new ErrorContainer($rootScope, $location);
+        }];
+    });
