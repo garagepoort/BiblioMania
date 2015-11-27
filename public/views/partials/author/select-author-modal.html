@@ -12,13 +12,26 @@
         <div>
             <table class="table table-hover">
                 <thead>
-                <tr>
-                    <th>Naam</th>
+                <tr style="cursor: pointer">
+                    <th ng-click="order('name.firstname')">
+                        Voornaam
+                        <i class="fa" ng-show="predicate === 'name.firstname'" ng-class="reverse ? 'fa-caret-up' : 'fa-caret-down'"></i>
+                    </th>
+                    <th ng-click="order('name.infix')">
+                        Tussen
+                        <i class="fa" ng-show="predicate === 'name.infix'" ng-class="reverse ? 'fa-caret-up' : 'fa-caret-down'"></i>
+                    </th>
+                    <th ng-click="order('name.lastname')">
+                        Naam
+                        <i class="fa" ng-show="predicate === 'name.lastname'" ng-class="reverse ? 'fa-caret-up' : 'fa-caret-down'"></i>
+                    </th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="author in data.authors | filter: search " ng-click="selectAuthor(author)" style="cursor: pointer">
-                    <td>{{ author.name.firstname + ' ' + author.name.infix + ' ' + author.name.lastname}}</td>
+                <tr ng-repeat="author in data.authors | filter: search | orderBy:predicate:reverse" ng-click="selectAuthor(author)" style="cursor: pointer">
+                    <td>{{ author.name.firstname }}</td>
+                    <td>{{ author.name.infix }}</td>
+                    <td>{{ author.name.lastname }}</td>
                 </tr>
                 </tbody>
             </table>
