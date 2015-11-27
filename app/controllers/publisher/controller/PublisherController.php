@@ -24,7 +24,20 @@ class PublisherController extends BaseController
 
     public function getPublishers()
     {
-        return $this->publisherJsonMapper->mapArrayToJson($this->publisherService->getPublishers());
+        return array_map(function($item){
+            $publisherToJson = new PublisherToJsonAdapter($item);
+            return $publisherToJson->mapToJson();
+        }, $this->publisherService->getPublishers()->all());
+    }
+
+    public function getPublisherSeries($publisherId)
+    {
+        $result = array();
+        foreach($this->publisherService->getPublisherSeries($publisherId) as $serie){
+            $publisherSerieToJson = new PublisherSerieToJsonAdapter($serie);
+            array_push($result, $publisherSerieToJson->mapToJson());
+        }
+        return $result;
     }
 
     public function getPublisher($id)

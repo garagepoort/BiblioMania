@@ -10,7 +10,10 @@ class PublisherRepository implements iRepository{
 
     public function find($id, $with = array())
     {
-        return Publisher::with($with)->find($id);
+        return Publisher::with($with)
+            ->where('id', '=', $id)
+            ->where('user_id', '=', Auth::user()->id)
+            ->first();
     }
 
     public function all()
