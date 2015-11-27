@@ -4,6 +4,8 @@ angular.module('com.bendani.bibliomania.author.selection.controller', [])
         function init(){
             $scope.data.authors = Author.query(function(){}, ErrorContainer.handleRestError);
             $scope.searchAuthorsQuery = '';
+            $scope.predicate = 'name.lastname';
+            $scope.reverse = false;
         }
 
         $scope.selectAuthor = function(author){
@@ -16,6 +18,11 @@ angular.module('com.bendani.bibliomania.author.selection.controller', [])
                 return true;
             }
             return false;
+        };
+
+        $scope.order = function(predicate) {
+            $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+            $scope.predicate = predicate;
         };
 
         init();
