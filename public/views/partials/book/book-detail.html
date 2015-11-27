@@ -1,0 +1,33 @@
+<div class="create-book-div" ng-controller="CreateBookController">
+    <errorcontainer></errorcontainer>
+    <div class="col-md-6">
+        <div class="form-subtitle">Boek informatie</div>
+        <div class="form-content detail-panel">
+            <dl class="dl-horizontal">
+                <dt>Titel</dt>
+                <dd>{{book.title}}</dd>
+                <dt>Ondertitel</dt>
+                <dd>{{book.subtitle}}</dd>
+                <dt>isbn</dt>
+                <dd>{{book.isbn}}</dd>
+            </dl>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-subtitle">
+            <div>Eerste druk informatie</div>
+            <button class="btn btn-sm form-subtitle-button btn-default round-corners"><i class="fa fa-pencil"> Wijzig</i>
+            </button>
+        </div>
+        <div class="form-content detail-panel">
+            <dl class="dl-horizontal">
+                <dt>Titel</dt>
+                <dd>{{book.title}}</dd>
+                <dt>Ondertitel</dt>
+                <dd>{{book.subtitle}}</dd>
+                <dt>isbn</dt>
+                <dd>{{book.isbn}}</dd>
+            </dl>
+        </div>
+    </div>
+</div>
