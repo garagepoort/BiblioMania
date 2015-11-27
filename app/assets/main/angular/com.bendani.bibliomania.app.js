@@ -45,6 +45,7 @@ angular.module('BiblioMania', ['ngRoute',
     'com.bendani.bibliomania.edit.author.ui',
     'com.bendani.bibliomania.edit.oeuvre.ui',
     'com.bendani.bibliomania.author.selection.controller',
+    'com.bendani.bibliomania.book.details.ui',
     'com.bendani.bibliomania.author.creation.modal.controller'])
     .config(['$routeProvider', 'growlProvider', function ($routeProvider, growlProvider) {
         $routeProvider
