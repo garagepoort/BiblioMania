@@ -22,7 +22,6 @@ Route::group(array('before' => 'auth'), function () {
     Route::get('bookFilters', 'BookController@getFilters');
     Route::get('tags', 'TagController@getTags');
     Route::get('countries', 'CountryController@getCountries');
-    Route::get('publishers', 'PublisherController@getPublishers');
     Route::get('languages', 'LanguageController@getLanguages');
 
     Route::get('firstprints/by-book/{id}', 'FirstPrintController@getFirstPrintInfoByBook');
@@ -44,6 +43,8 @@ Route::group(array('before' => 'auth'), function () {
     Route::get('authors/{id}/books', 'BookController@getBooksByAuthor');
     Route::get('authors/{id}/oeuvre', 'OeuvreController@getOeuvreFromAuthor');
 
+    Route::get('publishers', 'PublisherController@getPublishers');
+    Route::get('publishers/{id}/series', 'PublisherController@getPublisherSeries');
 
     Route::get('genres', 'GenreController@getGenres');
 

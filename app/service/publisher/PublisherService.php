@@ -67,6 +67,13 @@ class PublisherService
             ->orderBy('name', 'asc')->get();
     }
 
+    public function getPublisherSeries($publisherId){
+        /** @var Publisher $publisher */
+        $publisher = $this->publisherRepository->find($publisherId, array('series'));
+        Ensure::objectNotNull('publisher', $publisher);
+        return $publisher->series();
+    }
+
     public function mergePublishers($publisher_id1, $publisher_id2){
         $publisher1 = Publisher::with('first_print_infos', 'books')->find($publisher_id1);
         $publisher2 = Publisher::with('first_print_infos', 'books')->find($publisher_id2);

@@ -29,35 +29,18 @@
                             <span ng-show="createBookForm.isbn.$error.pattern && createBookForm.isbn.$dirty" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Isbn moet exact 13 nummers zijn</span>
                     </div>
 
-                    <!-- GENRE -->
-                    <div class="form-group required col-md-12">
-                        <label class="control-label col-md-12">Genre </label>
-                        <input id="book_genre_input" type="text" name="genre" hidden required
-                               ng-model="model.genre">
-                        <span ng-show="createBookForm.genre.$invalid && createBookForm.genre.$dirty" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Genre is verplicht</span>
-
-                        <div class="col-md-6">
-                            <div class="well genres-container">
-                                <abn-tree tree-control="genreTree" tree-data="data.genres"
-                                          on-select="selectGenre(branch)"></abn-tree>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <button type="button" ng-click="genreTree.expand_all();" class="btn btn-default" style="margin-bottom: 20px">Alles open</button>
-                            <button type="button" ng-click="genreTree.collapse_all();" class="btn btn-default" style="margin-bottom: 20px">Alles toe</button>
-                            <div ng-show="model.genre" class="alert alert-success">Selectie: <b>{{ model.genre}}</b></div>
-                        </div>
-                    </div>
-
                     <!-- Tags -->
                     <div class="form-group col-md-12">
                         <label class="control-label">Tags</label>
 
-                        <tags-input ng-model="model.tags">
+                        <tags-input ng-model="model.tags" class="input-width-lg no-round-corners">
                             <auto-complete source="searchTags($query)"></auto-complete>
                         </tags-input>
                     </div>
+                </div>
 
+                <div class="form-subtitle">Uitgave informatie</div>
+                <div class="form-content">
                     <div class="form-group required col-md-12">
                         <label class="control-label">Uitgever </label>
 
@@ -93,7 +76,25 @@
                             <span ng-show="createBookForm.language.$invalid && createBookForm.language.$dirty" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i>Taal is verplicht</span>
                         </div>
                     </div>
+                </div>
 
+                <div class="form-subtitle">Genre</div>
+                <div class="form-content col-md-12">
+                    <input id="book_genre_input" type="text" name="genre" hidden required
+                           ng-model="model.genre">
+                    <span ng-show="createBookForm.genre.$invalid && createBookForm.genre.$dirty" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Genre is verplicht</span>
+
+                    <div class="col-md-6">
+                        <div class="well genres-container">
+                            <abn-tree tree-control="genreTree" tree-data="data.genres"
+                                      on-select="selectGenre(branch)"></abn-tree>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <button type="button" ng-click="genreTree.expand_all();" class="btn btn-default" style="margin-bottom: 20px">Alles open</button>
+                        <button type="button" ng-click="genreTree.collapse_all();" class="btn btn-default" style="margin-bottom: 20px">Alles toe</button>
+                        <div ng-show="model.genre" class="alert alert-success">Selectie: <b>{{ model.genre}}</b></div>
+                    </div>
                 </div>
 
                 <div class="form-subtitle">
@@ -108,8 +109,8 @@
 
                 <div class="form-subtitle">
                     <div>Auteur</div>
-                        <button type="button" class="btn-default btn form-subtitle-button round-corners" ng-click="showSelectAuthorDialog()">Selecteer een bestaande auteur</button>
-                        <button type="button" class="btn-default btn form-subtitle-button round-corners" ng-click="showCreateAuthorDialog()">Maak een nieuwe auteur aan</button>
+                    <button type="button" class="btn-default btn form-subtitle-button round-corners" ng-click="showSelectAuthorDialog()">Auteur selecteren</button>
+                    <button type="button" class="btn-default btn form-subtitle-button round-corners" ng-click="showCreateAuthorDialog()">Auteur aanmaken</button>
                 </div>
                 <div class="form-content">
                     <h2>{{ data.selectedAuthor.name.firstname + " " + data.selectedAuthor.name.lastname}}</h2>
