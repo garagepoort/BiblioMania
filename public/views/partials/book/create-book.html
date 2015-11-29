@@ -4,9 +4,15 @@
         <fieldset>
 
             <div class="form-container">
-                <div class="form-subtitle">Boek informatie</div>
+                <div class="form-subtitle">
+                    <div>Boek informatie</div>
+                    <button type="button" class="btn btn-sm round-corners btn-default form-subtitle-button" ng-click="openSelectImageDialog()">Selecteer cover</button>
+                </div>
                 <div class="form-content col-md-12">
-                <!-- TITLE -->
+
+                    <img actual-src="{{ model.imageUrl }}" fallback-src="images/questionCover.png"/>
+
+                    <!-- TITLE -->
                     <div class="form-group required col-md-12" ng-class="{'has-error has-feedback' : createBookForm.title.$invalid && createBookForm.title.$dirty}">
                         <label class="control-label ">Titel </label>
                         <input name="title" type="text" class="form-control input-width-md" placeholder="titel" required="true" ng-model="model.title"/>
@@ -95,16 +101,6 @@
                         <button type="button" ng-click="genreTree.collapse_all();" class="btn btn-default" style="margin-bottom: 20px">Alles toe</button>
                         <div ng-show="model.genre" class="alert alert-success">Selectie: <b>{{ model.genre}}</b></div>
                     </div>
-                </div>
-
-                <div class="form-subtitle">
-                    <div>Cover</div>
-                    <button type="button" style="margin-bottom: 10px;" class="btn-default btn btn-sm round-corners form-subtitle-button"
-                            ng-click="searchBookImage()">Zoek boek cover
-                    </button>
-                </div>
-                <div class="form-content">
-                    <google-image-search ng-model="model.imageUrl" query="bookImageQuery"></google-image-search>
                 </div>
 
                 <div class="form-subtitle">

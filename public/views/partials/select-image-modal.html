@@ -1,0 +1,21 @@
+<div ng-controller="ImageSelectionController">
+    <div class="modal-header">
+        <h3 class="modal-title">Selecteer afbeelding</h3>
+    </div>
+    <div class="modal-body">
+        <div class="input-group" style="width: 500px; float: right; margin-bottom: 20px">
+            <input id="searchInput" ng-model="imageSelectModal.searchQuery" type="text"
+                   ng-model-options="{debounce: 1000}"
+                   class="form-control half-round-corners-left" placeholder="Search" name="criteria"
+                   aria-describedby="basic-addon1">
+            <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon1"></span>
+        </div>
+        <div style="clear: both">
+            <google-image-search ng-model="imageSelectModal.imageUrl" query="imageSelectModal.searchQuery"></google-image-search>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="selectImage()">Selecteer</button>
+        <button class="btn btn-danger" type="button" ng-click="$dismiss()">Annuleer</button>
+    </div>
+</div>
