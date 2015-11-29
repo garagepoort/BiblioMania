@@ -4,7 +4,7 @@
         <div class="col-md-6">
             <div class="form-subtitle">
                 <div>Boek informatie</div>
-                <label class="label label-warning form-subtitle-label">{{book.genre}}</label>
+                <!--<label class="label label-warning form-subtitle-label">{{book.genre}}</label>-->
             </div>
             <div class="form-content detail-panel">
                 <dl class="dl-horizontal">
@@ -23,13 +23,17 @@
                 </dl>
             </div>
         </div>
-        <div class="col-md-6" ng-show="book.firstPrintInfo">
+        <div class="col-md-6">
             <div class="form-subtitle">
                 <div>Eerste druk informatie</div>
                 <button class="btn btn-sm form-subtitle-button btn-default round-corners"><i class="fa fa-pencil"> Wijzig</i>
                 </button>
             </div>
-            <div class="form-content detail-panel">
+            <div class="form-content detail-panel" ng-show="book.firstPrintInfo === undefined">
+                <div class="alert alert-warning">Er is nog geen eerste druk informatie voor dit boek.</div>
+            </div>
+
+            <div class="form-content detail-panel" ng-show="book.firstPrintInfo">
                 <dl class="dl-horizontal">
                     <dt>Titel</dt>
                     <dd>{{book.firstPrintInfo.title}}</dd>
@@ -57,6 +61,10 @@
             </div>
             <div class="form-content detail-panel">
                 <dl class="dl-horizontal">
+                    <dt>gelezen</dt>
+                    <dd><img ng-show="book.personalBookInfo.read" class='icon' ng-src="/BiblioMania/images/check-circle-success.png" /></dd>
+                    <dt>rating</dt>
+                    <dd><div class="star-detail"></div></dd>
                     <dt>review</dt>
                     <dd>{{book.personalBookInfo.review}}</dd>
                 </dl>
@@ -70,8 +78,16 @@
             </div>
             <div class="form-content detail-panel">
                 <dl class="dl-horizontal">
-                    <dt>review</dt>
-                    <dd>{{book.personalBookInfo.review}}</dd>
+                    <dt ng-show="book.personalBookInfo.buyInfo.price !== null">prijs</dt>
+                    <dd ng-show="book.personalBookInfo.buyInfo.price !== null">{{book.personalBookInfo.buyInfo.price + ' ' + book.personalBookInfo.buyInfo.currency}}</dd>
+                    <dt>winkel</dt>
+                    <dd>{{book.personalBookInfo.buyInfo.shop}}</dd>
+                    <dt>reden</dt>
+                    <dd>{{book.personalBookInfo.buyInfo.reason}}</dd>
+                    <dt>stad</dt>
+                    <dd>{{book.personalBookInfo.buyInfo.city}}</dd>
+                    <dt>land</dt>
+                    <dd>{{book.personalBookInfo.buyInfo.country}}</dd>
                 </dl>
             </div>
         </div>
@@ -88,15 +104,15 @@
                     <dd>{{book.personalBookInfo.giftInfo.occasion}}</dd>
                     <dt>reden</dt>
                     <dd>{{book.personalBookInfo.giftInfo.reason}}</dd>
-                    <dt ng-show="book.personalBookInfo.giftInfo.date">datum</dt>
-                    <dd>{{convertDate(book.personalBookInfo.giftInfo.reason)}}</dd>
+                    <dt>datum</dt>
+                    <dd ng-show="book.personalBookInfo.giftInfo.date">{{convertDate(book.personalBookInfo.giftInfo.date)}}</dd>
                 </dl>
             </div>
         </div>
     </div>
 
     <div class="container-fluid">
-        <div class="col-md-6" ng-show="book.personalBookInfo">
+        <div class="col-md-6">
             <div class="form-subtitle">
                 <div>Lees data</div>
                 <button type="button" class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="openAddReadingDateModal()"><i class="fa fa-plus"> Leesdatum toevoegen</i></button>
@@ -122,7 +138,7 @@
         <div class="col-md-6">
             <div class="form-subtitle">
                 <div>Auteurs</div>
-                <button class="btn btn-sm form-subtitle-button btn-default round-corners"><i class="fa fa-plus"> Auteur toevoegen</i></button>
+                <button class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="showSelectAuthorDialog()"><i class="fa fa-plus"> Auteur toevoegen</i></button>
             </div>
             <div class="form-content detail-panel">
                 <table class="table table-hover table-striped">
@@ -131,13 +147,15 @@
                         <th>Voornaam</th>
                         <th>Naam</th>
                         <th>Hoofd Auteur</th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr ng-repeat="author in book.authors" style="cursor: pointer">
                         <td>{{ author.name.firstname }}</td>
                         <td>{{ author.name.lastname }}</td>
-                        <td style="text-align: center"><img class='icon' ng-src="/BiblioMania/images/check-circle-success.png" /></td>
+                        <td style="text-align: center"><img ng-show="author.preferred" class='icon' ng-src="/BiblioMania/images/check-circle-success.png" /></td>
+                        <td><i class="clickable fa fa-times-circle"></i></td>
                     </tr>
                     </tbody>
                 </table>

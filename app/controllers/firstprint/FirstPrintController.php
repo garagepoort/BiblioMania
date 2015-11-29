@@ -6,14 +6,24 @@ class FirstPrintController extends BaseController
     private $bookService;
     /** @var  FirstPrintInfoService */
     private $firstPrintInfoService;
+    /** @var  FirstPrintInfoRepository */
+    private $firstPrintInfoRepository;
     /** @var  JsonMappingService $jsonMappingService */
     private $jsonMappingService;
 
     public function __construct()
     {
         $this->firstPrintInfoService = App::make('FirstPrintInfoService');
+        $this->firstPrintInfoRepository = App::make('FirstPrintInfoRepository');
         $this->bookService = App::make('BookService');
         $this->jsonMappingService = App::make('JsonMappingService');
+    }
+
+    public function getAllFirstPrintInfos(){
+        return array_map(function($item){
+            $adapter = new FirstPrintToJsonAdapter($item);
+            return $adapter->mapToJson();
+        }, $this->firstPrintInfoRepository->all()->all());
     }
 
     public function getFirstPrintInfoByBook($bookId){

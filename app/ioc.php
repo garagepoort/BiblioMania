@@ -108,6 +108,10 @@ App::singleton('FirstPrintInfoService', function () {
     return new FirstPrintInfoService;
 });
 
+App::singleton('FirstPrintInfoRepository', function () {
+    return new FirstPrintInfoRepository();
+});
+
 App::singleton('PersonalBookInfoService', function () {
     return new PersonalBookInfoService;
 });

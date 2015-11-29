@@ -58,12 +58,7 @@
         </nav>
 
         <div class="contentContainer">
-            <div class="title-panel">
-                {{ title }}
-                <div class="float-right vertical-align title-panel-buttons">
-                    <!--set buttons on scope and loop over them-->
-                </div>
-            </div>
+            <title-panel></title-panel>
             <div class="contentPanel" ng-view>
                 <!--use ng-view to insert content-->
             </div>
