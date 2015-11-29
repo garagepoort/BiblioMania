@@ -10,6 +10,30 @@ class PersonalBookInfoService
         $this->readingDateService = App::make('ReadingDateService');;
     }
 
+    public function find($id){
+        return PersonalBookInfo::join('book', 'book_id', '=', 'book.id')
+            ->where('user_id', '=', Auth::user()->id)
+            ->where('personal_book_info.id', '=', $id)
+            ->first();
+    }
+
+    public function addReadingDate($personalBookInfoId, DateRequest $date){
+        $personalBookInfo = $this->find($personalBookInfoId);
+        Ensure::objectNotNull('personal book info', $personalBookInfoId);
+
+        $readingDate = $this->readingDateService->create($date);
+        $personalBookInfo->reading_dates()->attach($readingDate->id);
+    }
+
+    public function deleteReadingDate($personalBookInfoId, DeleteReadingDateRequest $deleteReadingDateRequest){
+        $personalBookInfo = $this->find($personalBookInfoId);
+        Ensure::objectNotNull('personal book info', $personalBookInfoId);
+
+        $readingDate = $this->readingDateService->find($deleteReadingDateRequest->getReadingDateId());
+        Ensure::objectNotNull('reading date', $readingDate);
+
+        $personalBookInfo->reading_dates()->detach($deleteReadingDateRequest->getReadingDateId());
+    }
 
     public function findOrCreate(PersonalBookInfoParameters $personalBookInfoParameters, Book $book){
         $personalBookInfo = PersonalBookInfo::where('book_id', '=', $book->id)->first();

@@ -26,6 +26,10 @@ class DateToJsonAdapter
         }
     }
 
+    public static function fromDate($date){
+        return new DateToJsonAdapter(DateFormatter::getDateFromSqlDate($date));
+    }
+
     public function mapToJson()
     {
         return array(

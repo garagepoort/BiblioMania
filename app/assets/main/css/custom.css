@@ -704,6 +704,10 @@ table.book-detail-info-table td {
   float: right;
   margin-top: -25px;
 }
+.form-subtitle-label {
+  float: right;
+  margin-top: -20px;
+}
 .filterDialog {
   background-color: #ffffff;
 }
@@ -878,9 +882,6 @@ a.navbar-brand {
   background-color: #2d6ca2;
   font-family: "baron";
 }
-div.container-fluid {
-  background-color: #2d6ca2;
-}
 /*AUTOCOMPLETE*/
 .autocomplete-suggestions {
   border: 1px solid #999;
@@ -947,6 +948,7 @@ div.container-fluid {
   padding: 10px;
   background-color: #ffffff;
   width: 100%;
+  font-weight: normal;
 }
 .card-row {
   width: 100%;
