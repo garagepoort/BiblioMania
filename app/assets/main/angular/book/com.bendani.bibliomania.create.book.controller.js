@@ -10,6 +10,7 @@ angular.module('com.bendani.bibliomania.create.book.controller', ['ngTagsInput',
     'com.bendani.bibliomania.country.model',
     'com.bendani.bibliomania.publisher.model',
     'com.bendani.bibliomania.book.model',
+    'com.bendani.bibliomania.image.selection.controller',
     'com.bendani.bibliomania.language.model'])
     .controller('CreateBookController', ['$scope', 'Genre', 'Tag', 'Country', 'Publisher', 'Language', 'Book',
                 'ErrorContainer', '$uibModal', '$location',
@@ -39,6 +40,29 @@ angular.module('com.bendani.bibliomania.create.book.controller', ['ngTagsInput',
                 if ($scope.model !== undefined) {
                     $scope.bookImageQuery = $scope.model.title + " " + $scope.model.isbn;
                 }
+            };
+
+            $scope.openSelectImageDialog = function(){
+                if ($scope.model !== undefined) {
+                    $scope.imageSelectModal = {};
+                    var searchQuery = '';
+
+                    if($scope.model.title){ searchQuery = searchQuery + ' ' + $scope.model.title; }
+                    if($scope.model.isbn){ searchQuery = searchQuery + ' ' + $scope.model.isbn; }
+                    if($scope.data.selectedAuthor){ searchQuery = searchQuery + ' ' + $scope.data.selectedAuthor.name.lastname; }
+
+                    $scope.imageSelectModal.searchQuery = searchQuery;
+                }
+
+                var modalInstance = $uibModal.open({
+                    templateUrl: '../BiblioMania/views/partials/select-image-modal.html',
+                    scope: $scope,
+                    windowClass: 'select-image-modal'
+                });
+
+                modalInstance.result.then(function (image) {
+                    $scope.model.imageUrl = image;
+                });
             };
 
             $scope.showSelectAuthorDialog = function () {
