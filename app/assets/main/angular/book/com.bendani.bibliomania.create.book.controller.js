@@ -7,16 +7,18 @@ angular.module('com.bendani.bibliomania.create.book.controller', ['ngTagsInput',
     'com.bendani.bibliomania.error.container',
     'com.bendani.bibliomania.genre.model',
     'com.bendani.bibliomania.tag.model',
+    'com.bendani.bibliomania.title.panel',
     'com.bendani.bibliomania.country.model',
     'com.bendani.bibliomania.publisher.model',
     'com.bendani.bibliomania.book.model',
     'com.bendani.bibliomania.image.selection.controller',
     'com.bendani.bibliomania.language.model'])
     .controller('CreateBookController', ['$scope', 'Genre', 'Tag', 'Country', 'Publisher', 'Language', 'Book',
-                'ErrorContainer', '$uibModal', '$location',
-        function ($scope, Genre, Tag, Country, Publisher, Language, Book, ErrorContainer, $uibModal, $location) {
+                'ErrorContainer', '$uibModal', '$location', 'TitlePanelService',
+        function ($scope, Genre, Tag, Country, Publisher, Language, Book, ErrorContainer, $uibModal, $location, TitlePanelService) {
             $scope.model = {};
-            $scope.$parent.title = 'Boek aanmaken';
+            TitlePanelService.setTitle('Boek aanmaken');
+            
             $scope.data = {};
             $scope.genreTree = {};
 
