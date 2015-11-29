@@ -14,6 +14,8 @@ class AuthorToJsonAdapter
     private $dateOfDeath;
     /** @var  string */
     private $image;
+    /** @var  boolean */
+    private $preferred;
 
     /**
      * AuthorToJsonAdapter constructor.
@@ -22,6 +24,7 @@ class AuthorToJsonAdapter
     public function __construct(Author $author)
     {
         $this->id = $author->id;
+        $this->preferred = $author->preferred;
         $this->name = new NameToJsonAdapter($author->firstname, $author->name, $author->infix);
         if($author->date_of_birth  != null){
             $this->dateOfBirth = new DateToJsonAdapter($author->date_of_birth);
@@ -35,7 +38,8 @@ class AuthorToJsonAdapter
     public function mapToJson(){
         $result = array(
             "id" => $this->id,
-            "name" => $this->name->mapToJson()
+            "name" => $this->name->mapToJson(),
+            "preferred" => $this->preferred
         );
         if($this->dateOfBirth != null){
             $result['dateOfBirth'] = $this->dateOfBirth->mapToJson();

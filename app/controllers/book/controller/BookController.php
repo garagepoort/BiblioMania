@@ -37,8 +37,6 @@ class BookController extends BaseController
     private $currencyService;
     /** @var  BookFilterManager */
     private $bookFilterHandler;
-    /** @var  BookJsonMapper */
-    private $bookJsonMapper;
     /** @var  JsonMappingService */
     private $jsonMappingService;
 
@@ -95,10 +93,9 @@ class BookController extends BaseController
     public function getFullBook($book_id)
     {
         $fullBook = $this->bookService->getFullBook($book_id);
-        if ($fullBook == null) {
-            throw new ServiceException("No book found with id " . $book_id);
-        }
-        return $this->bookJsonMapper->mapToJson($fullBook);
+        Ensure::objectNotNull('book', $fullBook);
+        $fullBookToJsonAdapter = new FullBookToJsonAdapter($fullBook);
+        return $fullBookToJsonAdapter->mapToJson();
     }
 
     public function filterBooks()

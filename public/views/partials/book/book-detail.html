@@ -1,33 +1,147 @@
-<div class="create-book-div" ng-controller="CreateBookController">
+<div class="create-book-div">
     <errorcontainer></errorcontainer>
-    <div class="col-md-6">
-        <div class="form-subtitle">Boek informatie</div>
-        <div class="form-content detail-panel">
-            <dl class="dl-horizontal">
-                <dt>Titel</dt>
-                <dd>{{book.title}}</dd>
-                <dt>Ondertitel</dt>
-                <dd>{{book.subtitle}}</dd>
-                <dt>isbn</dt>
-                <dd>{{book.isbn}}</dd>
-            </dl>
+    <div class="container-fluid">
+        <div class="col-md-6">
+            <div class="form-subtitle">
+                <div>Boek informatie</div>
+                <label class="label label-warning form-subtitle-label">{{book.genre}}</label>
+            </div>
+            <div class="form-content detail-panel">
+                <dl class="dl-horizontal">
+                    <dt>Titel</dt>
+                    <dd>{{book.title}}</dd>
+                    <dt>Ondertitel</dt>
+                    <dd>{{book.subtitle}}</dd>
+                    <dt>isbn</dt>
+                    <dd>{{book.isbn}}</dd>
+                    <dt>uitgever</dt>
+                    <dd>{{book.publisher}}</dd>
+                    <dt>taal</dt>
+                    <dd>{{book.language}}</dd>
+                    <dt>land</dt>
+                    <dd>{{book.country}}</dd>
+                </dl>
+            </div>
+        </div>
+        <div class="col-md-6" ng-show="book.firstPrintInfo">
+            <div class="form-subtitle">
+                <div>Eerste druk informatie</div>
+                <button class="btn btn-sm form-subtitle-button btn-default round-corners"><i class="fa fa-pencil"> Wijzig</i>
+                </button>
+            </div>
+            <div class="form-content detail-panel">
+                <dl class="dl-horizontal">
+                    <dt>Titel</dt>
+                    <dd>{{book.firstPrintInfo.title}}</dd>
+                    <dt>Ondertitel</dt>
+                    <dd>{{book.firstPrintInfo.subtitle}}</dd>
+                    <dt>isbn</dt>
+                    <dd>{{book.firstPrintInfo.isbn}}</dd>
+                    <dt>uitgever</dt>
+                    <dd>{{book.firstPrintInfo.publisher}}</dd>
+                    <dt>taal</dt>
+                    <dd>{{book.firstPrintInfo.language}}</dd>
+                    <dt>land</dt>
+                    <dd>{{book.firstPrintInfo.country}}</dd>
+                </dl>
+            </div>
         </div>
     </div>
-    <div class="col-md-6">
-        <div class="form-subtitle">
-            <div>Eerste druk informatie</div>
-            <button class="btn btn-sm form-subtitle-button btn-default round-corners"><i class="fa fa-pencil"> Wijzig</i>
-            </button>
+
+    <div class="container-fluid">
+        <div class="col-md-6" ng-show="book.personalBookInfo">
+            <div class="form-subtitle">
+                <div>Persoonlijke informatie</div>
+                <button class="btn btn-sm form-subtitle-button btn-default round-corners"><i class="fa fa-pencil"> Wijzig</i>
+                </button>
+            </div>
+            <div class="form-content detail-panel">
+                <dl class="dl-horizontal">
+                    <dt>review</dt>
+                    <dd>{{book.personalBookInfo.review}}</dd>
+                </dl>
+            </div>
         </div>
-        <div class="form-content detail-panel">
-            <dl class="dl-horizontal">
-                <dt>Titel</dt>
-                <dd>{{book.title}}</dd>
-                <dt>Ondertitel</dt>
-                <dd>{{book.subtitle}}</dd>
-                <dt>isbn</dt>
-                <dd>{{book.isbn}}</dd>
-            </dl>
+
+        <div class="col-md-6" ng-show="book.personalBookInfo && book.personalBookInfo.buyInfo">
+            <div class="form-subtitle">
+                <div>Koop informatie</div>
+                <button class="btn btn-sm form-subtitle-button btn-default round-corners"><i class="fa fa-pencil"> Wijzig</i></button>
+            </div>
+            <div class="form-content detail-panel">
+                <dl class="dl-horizontal">
+                    <dt>review</dt>
+                    <dd>{{book.personalBookInfo.review}}</dd>
+                </dl>
+            </div>
+        </div>
+        <div class="col-md-6" ng-show="book.personalBookInfo && book.personalBookInfo.giftInfo">
+            <div class="form-subtitle">
+                <div>Gift informatie</div>
+                <button class="btn btn-sm form-subtitle-button btn-default round-corners"><i class="fa fa-pencil"> Wijzig</i></button>
+            </div>
+            <div class="form-content detail-panel">
+                <dl class="dl-horizontal">
+                    <dt>Gekregen van</dt>
+                    <dd>{{book.personalBookInfo.giftInfo.from}}</dd>
+                    <dt>Gelegenheid</dt>
+                    <dd>{{book.personalBookInfo.giftInfo.occasion}}</dd>
+                    <dt>reden</dt>
+                    <dd>{{book.personalBookInfo.giftInfo.reason}}</dd>
+                    <dt ng-show="book.personalBookInfo.giftInfo.date">datum</dt>
+                    <dd>{{convertDate(book.personalBookInfo.giftInfo.reason)}}</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="col-md-6" ng-show="book.personalBookInfo">
+            <div class="form-subtitle">
+                <div>Lees data</div>
+                <button type="button" class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="openAddReadingDateModal()"><i class="fa fa-plus"> Leesdatum toevoegen</i></button>
+            </div>
+            <div class="form-content detail-panel">
+                <table class="table table-hover table-striped">
+                    <thead>
+                    <tr style="cursor: pointer">
+                        <th>datum</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="date in book.personalBookInfo.readingDates" style="cursor: pointer">
+                        <td>{{ convertDate(date.date) }}</td>
+                        <td><i class="clickable fa fa-times-circle" ng-click="removeReadingDate(date)"></i></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-subtitle">
+                <div>Auteurs</div>
+                <button class="btn btn-sm form-subtitle-button btn-default round-corners"><i class="fa fa-plus"> Auteur toevoegen</i></button>
+            </div>
+            <div class="form-content detail-panel">
+                <table class="table table-hover table-striped">
+                    <thead>
+                    <tr style="cursor: pointer">
+                        <th>Voornaam</th>
+                        <th>Naam</th>
+                        <th>Hoofd Auteur</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="author in book.authors" style="cursor: pointer">
+                        <td>{{ author.name.firstname }}</td>
+                        <td>{{ author.name.lastname }}</td>
+                        <td style="text-align: center"><img class='icon' ng-src="/BiblioMania/images/check-circle-success.png" /></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

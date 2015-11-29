@@ -10,7 +10,8 @@
 
         <div class="book-detail-main-info">
             <div class="material-card" style="float: left; margin:0px;">
-                <div class="material-card-content" id="book-detail-coverimage" style="{{ imageStyle }}">
+                <div class="material-card-content" id="book-detail-coverimage">
+                    <img actual-src="{{ book.image }}" fallback-src="/BiblioMania/images/questionCover.png"/>
                 </div>
             </div>
 
@@ -28,40 +29,40 @@
                                 <div id="star-detail" class="col-md-6"></div>
                                 <table width="100%">
                                     <tr ng-show="book.author">
-                                        <td><label>Auteur:</label></td>
-                                        <td><label>{{ book.author }}</label></td>
+                                        <td>Auteur:</td>
+                                        <td>{{ book.author }}</td>
                                     </tr>
                                     <tr ng-show="book.isbn">
-                                        <td><label>ISBN:</label></td>
-                                        <td><label>{{ book.isbn }}</label></td>
+                                        <td>ISBN:</td>
+                                        <td>{{ book.isbn }}</td>
                                     </tr>
                                     <tr ng-show="book.publisher">
-                                        <td><label>Uitgever</label></td>
-                                        <td><label>{{book.publisher}}</label></td>
+                                        <td>Uitgever</td>
+                                        <td>{{book.publisher}}</td>
                                     </tr>
                                     <tr ng-show="book.country">
-                                        <td><label>Land</label></td>
-                                        <td><label>{{book.country}}</label></td>
+                                        <td>Land</td>
+                                        <td>{{book.country}}</td>
                                     </tr>
                                     <tr ng-show="book.language">
-                                        <td><label>Taal</label></td>
-                                        <td><label>{{book.language}}</label></td>
+                                        <td>Taal</td>
+                                        <td>{{book.language}}</td>
                                     </tr>
                                     <tr ng-show="book.publicationDate">
-                                        <td><label>Publicatiedatum:</label></td>
-                                        <td><label>{{helpers.dateToString(book.publicationDate)}}</label></td>
+                                        <td>Publicatiedatum:</td>
+                                        <td>{{convertDate(book.publicationDate)}}</td>
                                     </tr>
                                     <tr ng-show="book.genre">
-                                        <td><label>Genre:</label></td>
-                                        <td><label>{{book.genre}}</label></td>
+                                        <td>Genre:</td>
+                                        <td>{{book.genre}}</td>
                                     </tr>
                                     <tr ng-show="book.serie">
-                                        <td><label>Boekenreeks:</label></td>
-                                        <td><label>{{book.serie}}</label></td>
+                                        <td>Boekenreeks:</td>
+                                        <td>{{book.serie}}</td>
                                     </tr>
                                     <tr ng-show="book.publisherSerie">
-                                        <td><label>Uitgeverreeks:</label></td>
-                                        <td><label>{{book.publisherSerie}}</label></td>
+                                        <td>Uitgeverreeks:</td>
+                                        <td>{{book.publisherSerie}}</td>
                                     </tr>
                                 </table>
                             </td>
@@ -89,20 +90,20 @@
                 <div class="material-card-content">
                     <table width="100%" class="left-right-align">
                         <tr ng-show="book.retailPrice">
-                            <td><label>Cover prijs:</label></td>
-                            <td><label id='book-detail-retail-price'>{{ currencies[book.currency] + ' ' + book.retailPrice}}</label></td>
+                            <td>Cover prijs:</td>
+                            <td>{{ currencies[book.currency] + ' ' + book.retailPrice}}</td>
                         </tr>
                         <tr ng-show="book.pages">
-                            <td><label>Pagina's:</label></td>
-                            <td><label id='book-detail-number-of-pages'>{{book.pages}}</label></td>
+                            <td>Pagina's:</td>
+                            <td>{{book.pages}}</td>
                         </tr>
                         <tr ng-show="book.print">
-                            <td><label>Druk:</label></td>
-                            <td><label id='book-detail-print'>{{book.print}}</label></td>
+                            <td>Druk:</td>
+                            <td>{{book.print}}</td>
                         </tr>
                         <tr ng-show="book.translator">
-                            <td><label>Vertaler:</label></td>
-                            <td><label id='book-translator'>{{book.translator}}</label></td>
+                            <td>Vertaler:</td>
+                            <td>{{book.translator}}</td>
                         </tr>
                     </table>
                 </div>
@@ -113,55 +114,55 @@
                 <div class="material-card-content">
                     <table width="100%" class="left-right-align">
                         <tr ng-show="book.owned">
-                            <td><label>In collectie:</label></td>
+                            <td>In collectie:</td>
                             <td><span id='book-detail-owned'></span></td>
                         </tr>
                         <tr>
-                            <td><label>Gelezen:</label></td>
+                            <td>Gelezen:</td>
                             <td ng-show="!book.personalBookInfo.read"><img class='icon' ng-src="/BiblioMania/images/cross_error.png" /></td>
-                            <td ng-show="book.personalBookInfo.read"><span class="font-weight-700">{{helpers.dateToString(book.personalBookInfo.readingDate)}}</span></td>
+                            <td ng-show="book.personalBookInfo.read">{{convertDate(book.personalBookInfo.readingDates[0])}}</td>
                         </tr>
                         <tr class="buy-info-tr" ng-show="book.personalBookInfo.buyInfo">
-                            <td><label>Aanschafdatum:</label></td>
-                            <td><label>{{helpers.dateToString(book.personalBookInfo.buyInfo.date)}}</label></td>
+                            <td>Aanschafdatum:</td>
+                            <td>{{convertDate(book.personalBookInfo.buyInfo.date)}}</td>
                         </tr>
                         <tr class="buy-info-tr" ng-show="book.personalBookInfo.buyInfo">
-                            <td><label>Aankoopprijs:</label></td>
-                            <td><label>{{currencies[book.personalBookInfo.buyInfo.currency] + ' ' + book.personalBookInfo.buyInfo.price}}</label></td>
+                            <td>Aankoopprijs:</td>
+                            <td ng-show="book.personalBookInfo.buyInfo.price">{{currencies[book.personalBookInfo.buyInfo.currency] + ' ' + book.personalBookInfo.buyInfo.price}}</td>
                         </tr>
                         <tr class="buy-info-tr" ng-show="book.personalBookInfo.buyInfo">
-                            <td><label>Winkel:</label></td>
-                            <td><label>{{book.personalBookInfo.buyInfo.shop}}</label></td>
+                            <td>Winkel:</td>
+                            <td>{{book.personalBookInfo.buyInfo.shop}}</td>
                         </tr>
                         <tr class="buy-info-tr" ng-show="book.personalBookInfo.buyInfo">
-                            <td><label>Stad winkel:</label></td>
-                            <td><label>{{book.personalBookInfo.buyInfo.city}}</label></td>
+                            <td>Stad winkel:</td>
+                            <td>{{book.personalBookInfo.buyInfo.city}}</td>
                         </tr>
                         <tr class="buy-info-tr" ng-show="book.personalBookInfo.buyInfo">
-                            <td><label>Reden:</label></td>
-                            <td><label>{{book.personalBookInfo.buyInfo.reason}}</label></td>
+                            <td>Reden:</td>
+                            <td>{{book.personalBookInfo.buyInfo.reason}}</td>
                         </tr>
                         <tr class="buy-info-tr" ng-show="book.personalBookInfo.buyInfo">
-                            <td><label>Land gekocht:</label></td>
-                            <td><label>{{book.personalBookInfo.buyInfo.country}}</label></td>
+                            <td>Land gekocht:</td>
+                            <td>{{book.personalBookInfo.buyInfo.country}}</td>
                         </tr>
 
                         <!--GIFT-->
                         <tr class="gift-info-tr" ng-show="book.personalBookInfo.giftInfo">
-                            <td><label>Ontvangstdatum:</label></td>
-                            <td><label>{{helpers.dateToString(book.personalBookInfo.giftInfo.date)}}</label></td>
+                            <td>Ontvangstdatum:</td>
+                            <td>{{convertDate(book.personalBookInfo.giftInfo.date)}}</td>
                         </tr>
                         <tr class="gift-info-tr" ng-show="book.personalBookInfo.giftInfo">
-                            <td><label>Gekregen van:</label></td>
-                            <td><label>{{book.personalBookInfo.giftInfo.from}}</label></td>
+                            <td>Gekregen van:</td>
+                            <td>{{book.personalBookInfo.giftInfo.from}}</td>
                         </tr>
                         <tr class="gift-info-tr" ng-show="book.personalBookInfo.giftInfo">
-                            <td><label>Gelegenheid:</label></td>
-                            <td><label>{{book.personalBookInfo.giftInfo.occasion}}</label></td>
+                            <td>Gelegenheid:</td>
+                            <td>{{book.personalBookInfo.giftInfo.occasion}}</td>
                         </tr>
                         <tr class="gift-info-tr" ng-show="book.personalBookInfo.giftInfo">
-                            <td><label>Reden:</label></td>
-                            <td><label>{{book.personalBookInfo.giftInfo.reason}}</label></td>
+                            <td>Reden:</td>
+                            <td>{{book.personalBookInfo.giftInfo.reason}}</td>
                         </tr>
                     </table>
                 </div>
@@ -169,45 +170,45 @@
 
         </div>
 
-        <div class="card-row" ng-show="book.firstPrintInfo">
+        <div class="card-row">
 
             <div class="book-detail-small-info-panel material-card card-column-left">
                 <div class="material-card-title">Eerste druk</div>
                 <div class="material-card-content">
                     <table width="100%" class="left-right-align">
                         <tr class="first-print-info-tr">
-                            <td><label>Titel:</label></td>
-                            <td><label id='book-detail-first-print-title'></label></td>
+                            <td>Titel:</td>
+                            <td>{{book.firstPrintInfo.title }}</td>
                         </tr>
                         <tr class="first-print-info-tr" ng-show="book.firstPrintInfo.subtitle">
-                            <td><label>Ondertitel:</label></td>
-                            <td><label>{{book.firstPrintInfo.subtitle}}</label></td>
+                            <td>Ondertitel:</td>
+                            <td>{{book.firstPrintInfo.subtitle}}</td>
                         </tr>
                         <tr class="first-print-info-tr" ng-show="book.firstPrintInfo.isbn">
-                            <td><label>ISBN:</label></td>
-                            <td><label>{{book.firstPrintInfo.isbn}}</label></td>
+                            <td>ISBN:</td>
+                            <td>{{book.firstPrintInfo.isbn}}</td>
                         </tr>
                         <tr class="first-print-info-tr" ng-show="book.firstPrintInfo.country">
-                            <td><label>Land:</label></td>
-                            <td><label>{{book.firstPrintInfo.country}}</label></td>
+                            <td>Land:</td>
+                            <td>{{book.firstPrintInfo.country}}</td>
                         </tr>
                         <tr class="first-print-info-tr" ng-show="book.firstPrintInfo.language">
-                            <td><label>Taal:</label></td>
-                            <td><label>{{book.firstPrintInfo.language}}</label></td>
+                            <td>Taal:</td>
+                            <td>{{book.firstPrintInfo.language}}</td>
                         </tr>
                         <tr class="first-print-info-tr" ng-show="book.firstPrintInfo.publisher">
-                            <td><label>Uitgever:</label></td>
-                            <td><label>{{book.firstPrintInfo.publisher}}</label></td>
+                            <td>Uitgever:</td>
+                            <td>{{book.firstPrintInfo.publisher}}</td>
                         </tr>
                         <tr class="first-print-info-tr" ng-show="book.firstPrintInfo.publicationDate">
-                            <td><label>Publicatie datum:</label></td>
-                            <td><label>{{helpers.dateToString(book.firstPrintInfo.publicationDate)}}</label></td>
+                            <td>Publicatie datum:</td>
+                            <td>{{convertDate(book.firstPrintInfo.publicationDate)}}</td>
                         </tr>
                     </table>
                 </div>
             </div>
 
-            <div ng-show="book.personBookInfo.review" class="book-detail-small-info-panel material-card card-column-right">
+            <div ng-show="book.personalBookInfo.review" class="book-detail-small-info-panel material-card card-column-right">
                 <div class="material-card-title">Review</div>
                 <div class="material-card-content">
                     <p id="book-detail-review">{{book.personalBookInfo.review}}</p>

@@ -7,7 +7,7 @@ function BorderSlidingPanel(div, position, offset){
 
 BorderSlidingPanel.prototype.getHtmlElement = function(){
     return this.div;
-}
+};
 
 BorderSlidingPanel.prototype.close = function(onCompleteDo){
     this.animationBusy = true;
