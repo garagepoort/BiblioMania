@@ -1,25 +1,3 @@
-// Declare app level module which depends on filters, and services
-var BiblioManiaUtilities = BiblioManiaUtilities || {};
-
-BiblioManiaUtilities.helpers = {
-    dateToString: function(date) {
-        if (date !== null) {
-            var result = "";
-            if (date.day !== "0" && date.day !== null) {
-                result = date.day + "-";
-            }
-            if (date.month !== "0" && date.month !== null) {
-                result = result + date.month + "-";
-            }
-            if (date.year !== "0" && date.year !== null) {
-                result = result + date.year;
-            }
-            return result;
-        }
-        return "";
-    }
-};
-
 angular.module('BiblioMania', ['ngRoute',
     'ui.bootstrap',
     'ui.bootstrap.tpls',
@@ -46,7 +24,8 @@ angular.module('BiblioMania', ['ngRoute',
     'com.bendani.bibliomania.edit.oeuvre.ui',
     'com.bendani.bibliomania.author.selection.controller',
     'com.bendani.bibliomania.book.details.ui',
-    'com.bendani.bibliomania.author.creation.modal.controller'])
+    'com.bendani.bibliomania.author.creation.modal.controller',
+    'com.bendani.bibliomania.title.panel'])
     .config(['$routeProvider', 'growlProvider', function ($routeProvider, growlProvider) {
         $routeProvider
             .when('/books', {

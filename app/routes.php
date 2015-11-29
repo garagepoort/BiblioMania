@@ -18,13 +18,14 @@ Route::group(array('before' => 'auth'), function () {
     Route::post('books', 'BookController@createBook');
     Route::post('books/search', 'BookController@search');
     Route::get('books/{id}', 'BookController@getFullBook');
+    Route::put('books/{id}/authors', 'BookController@linkAuthorToBook');
 
     Route::get('bookFilters', 'BookController@getFilters');
     Route::get('tags', 'TagController@getTags');
     Route::get('countries', 'CountryController@getCountries');
     Route::get('languages', 'LanguageController@getLanguages');
 
-    Route::get('firstprints/by-book/{id}', 'FirstPrintController@getFirstPrintInfoByBook');
+    Route::get('firstprints', 'FirstPrintController@getAllFirstPrintInfos');
 
     Route::get('oeuvre/by-book/{id}', 'OeuvreController@getOeuvreByBook');
     Route::post('oeuvre/create-items', 'OeuvreController@saveOeuvreItemsToAuthor');

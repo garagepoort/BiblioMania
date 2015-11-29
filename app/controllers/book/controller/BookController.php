@@ -76,6 +76,12 @@ class BookController extends BaseController
         }, $this->bookService->getBooksByAuthor($authorId)->all());
     }
 
+    public function linkAuthorToBook($bookId){
+        $linkAuthorRequest = $this->jsonMappingService->mapInputToJson(Input::get(), new LinkAuthorToBookFromJsonAdapter());
+        $this->bookService->linkAuthorToBook($bookId, $linkAuthorRequest);
+    }
+
+
     public function createBook(){
         return $this->bookService->create($this->jsonMappingService->mapInputToJson(Input::get(), new CreateBookFromJsonAdapter()));
     }
