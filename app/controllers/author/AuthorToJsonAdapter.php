@@ -24,7 +24,10 @@ class AuthorToJsonAdapter
     public function __construct(Author $author)
     {
         $this->id = $author->id;
-        $this->preferred = $author->preferred;
+        if($author->pivot != null){
+            $this->preferred = $author->pivot->preferred == 1 ? true : false;
+        }
+
         $this->name = new NameToJsonAdapter($author->firstname, $author->name, $author->infix);
         if($author->date_of_birth  != null){
             $this->dateOfBirth = new DateToJsonAdapter($author->date_of_birth);

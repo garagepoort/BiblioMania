@@ -91,7 +91,6 @@ class BookService
         $book->publisher_country_id = $country->id;
         $book->user_id = Auth::user()->id;
 
-
         if(!StringUtils::isEmpty($createBookRequest->getImageUrl())){
             $book->coverImage = $this->imageService->saveBookImageFromUrl($createBookRequest->getImageUrl(), $book);
         }
@@ -99,11 +98,26 @@ class BookService
         $this->bookRepository->save($book);
         $book->tags()->sync($tags);
         $this->authorService->syncAuthors($author, [], $book);
+
+        $personBookInfo = new PersonalBookInfo();
+        $personBookInfo->book_id = $book->id;
+        $personBookInfo->save();
+
         return $book;
     }
 
     public function getBooksByAuthor($authorId){
         return $this->bookRepository->booksFromAuthor($authorId);
+    }
+
+    public function linkAuthorToBook($bookId, LinkAuthorToBookRequest $authorToBookRequest){
+        /** @var Book $book */
+        $book = $this->find($bookId);
+        Ensure::objectNotNull('book', $book);
+        $author = $this->authorService->find($authorToBookRequest->getAuthorId());
+        Ensure::objectNotNull('author', $author);
+
+        $book->authors()->attach($authorToBookRequest->getAuthorId(), ['preferred'=>false]);
     }
 
     public function getValueOfLibrary()

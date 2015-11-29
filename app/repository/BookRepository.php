@@ -1,6 +1,6 @@
 <?php
 
-class BookRepository implements iRepository{
+class BookRepository implements Repository{
 
     public function find($id, $with = array())
     {

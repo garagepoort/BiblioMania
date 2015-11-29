@@ -6,7 +6,7 @@
  * Time: 09:50
  */
 
-class PublisherRepository implements iRepository{
+class PublisherRepository implements Repository{
 
     public function find($id, $with = array())
     {

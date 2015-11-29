@@ -4,7 +4,7 @@
     </div>
     <div class="modal-body" ng-controller="AuthorSelectionController" style="overflow: auto; max-height: 400px;">
         <div class="input-group" style="width: 200px; float: right">
-            <input id="searchAuthorsInput" ng-model="searchAuthorsQuery" type="text"
+            <input id="searchAuthorsInput" ng-model="authorSelectionModal.searchAuthorsQuery" type="text"
                    class="form-control half-round-corners-left" placeholder="Search" name="criteria"
                    aria-describedby="basic-addon1">
             <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon1"></span>
@@ -15,20 +15,20 @@
                 <tr style="cursor: pointer">
                     <th ng-click="order('name.firstname')">
                         Voornaam
-                        <i class="fa" ng-show="predicate === 'name.firstname'" ng-class="reverse ? 'fa-caret-up' : 'fa-caret-down'"></i>
+                        <i class="fa" ng-show="authorSelectionModal.predicate === 'name.firstname'" ng-class="authorSelectionModal.reverse ? 'fa-caret-up' : 'fa-caret-down'"></i>
                     </th>
                     <th ng-click="order('name.infix')">
                         Tussen
-                        <i class="fa" ng-show="predicate === 'name.infix'" ng-class="reverse ? 'fa-caret-up' : 'fa-caret-down'"></i>
+                        <i class="fa" ng-show="authorSelectionModal.predicate === 'name.infix'" ng-class="authorSelectionModal.reverse ? 'fa-caret-up' : 'fa-caret-down'"></i>
                     </th>
                     <th ng-click="order('name.lastname')">
                         Naam
-                        <i class="fa" ng-show="predicate === 'name.lastname'" ng-class="reverse ? 'fa-caret-up' : 'fa-caret-down'"></i>
+                        <i class="fa" ng-show="authorSelectionModal.predicate === 'name.lastname'" ng-class="authorSelectionModal.reverse ? 'fa-caret-up' : 'fa-caret-down'"></i>
                     </th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="author in data.authors | filter: search | orderBy:predicate:reverse" ng-click="selectAuthor(author)" style="cursor: pointer">
+                <tr ng-repeat="author in authorSelectionModal.data.authors | filter: search | orderBy:authorSelectionModal.predicate:authorSelectionModal.reverse" ng-click="selectAuthor(author)" style="cursor: pointer">
                     <td>{{ author.name.firstname }}</td>
                     <td>{{ author.name.infix }}</td>
                     <td>{{ author.name.lastname }}</td>

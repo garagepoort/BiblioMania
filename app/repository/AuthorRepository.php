@@ -1,6 +1,6 @@
 <?php
 
-class AuthorRepository implements iRepository{
+class AuthorRepository implements Repository{
 
     public function find($id, $with = array())
     {
