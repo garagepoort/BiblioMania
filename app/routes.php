@@ -43,6 +43,10 @@ Route::group(array('before' => 'auth'), function () {
     Route::get('authors/{id}/books', 'BookController@getBooksByAuthor');
     Route::get('authors/{id}/oeuvre', 'OeuvreController@getOeuvreFromAuthor');
 
+    Route::get('personalbookinfos/{id}/readingdates', 'PersonalBookInfoController@getReadingDates');
+    Route::post('personalbookinfos/{id}/readingdates', 'PersonalBookInfoController@addReadingDate');
+    Route::put('personalbookinfos/{id}/delete-reading-date', 'PersonalBookInfoController@deleteReadingDate');
+
     Route::get('publishers', 'PublisherController@getPublishers');
     Route::get('publishers/{id}/series', 'PublisherController@getPublisherSeries');
 

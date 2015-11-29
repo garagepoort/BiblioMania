@@ -1,6 +1,6 @@
 angular
-    .module('com.bendani.bibliomania.book.detail.directive', ['com.bendani.bibliomania.book.model'])
-    .directive('bookDetail', [ 'Book', function (Book){
+    .module('com.bendani.bibliomania.book.detail.directive', ['com.bendani.bibliomania.book.model', 'com.bendani.bibliomania.error.container', 'com.bendani.bibliomania.date.service'])
+    .directive('bookDetail', [ 'Book', 'ErrorContainer', 'DateService', function (Book, ErrorContainer, DateService){
         return {
             scope: {
                 bookDetailPanelOpen : "="
@@ -23,11 +23,8 @@ angular
 
                 function retrieveFullBook(newValue) {
                     $scope.book = Book.get({id: newValue}, function (data) {
-                        $scope.imageStyle = getImageStyle($scope.book.imageHeight, $scope.book.imageWidth, $scope.book.coverImage, $scope.book.spritePointer);
                         $scope.openBookDetail();
-                    }, function (error) {
-                        alert(error);
-                    });
+                    }, ErrorContainer.handleRestError);
                 }
 
                 $scope.$parent.$watch('bookModel.selectedBookId', function(newValue) {
@@ -49,11 +46,20 @@ angular
                     $scope.bookSlidingPanel.close(function () {
                         $(element).removeClass('visible');
                     });
-                }
+                };
+
+                $scope.convertDate = function(date){
+                    return DateService.dateToString(date);
+                };
 
                 $scope.openBookDetail = function() {
+                    var rating = 0;
+                    if($scope.book.personalBookInfo !== undefined){
+                        rating = $scope.book.personalBookInfo.rating;
+                    }
+
                     $('#star-detail').raty({
-                        score: $scope.book.personalBookInfo.rating,
+                        score: rating,
                         number: 10,
                         readOnly: true,
                         path: '/BiblioMania/assets/lib/raty-2.7.0/lib/images'
@@ -61,7 +67,7 @@ angular
                     $scope.bookSlidingPanel.open(function(){
                         $(element).addClass('visible');
                     });
-                }
+                };
             }
         };
     }]);
