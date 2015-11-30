@@ -1,4 +1,4 @@
-angular.module('com.bendani.bibliomania.author.selection.controller', [])
+angular.module('com.bendani.bibliomania.author.selection.controller', ['com.bendani.bibliomania.author.model', 'com.bendani.bibliomania.error.container'])
     .controller('AuthorSelectionController', ['$scope', 'Author', 'ErrorContainer', function($scope, Author, ErrorContainer){
 
         function init(){

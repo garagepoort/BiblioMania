@@ -18,7 +18,7 @@ angular.module('com.bendani.bibliomania.create.book.controller', ['ngTagsInput',
         function ($scope, Genre, Tag, Country, Publisher, Language, Book, ErrorContainer, $uibModal, $location, TitlePanelService) {
             $scope.model = {};
             TitlePanelService.setTitle('Boek aanmaken');
-            
+
             $scope.data = {};
             $scope.genreTree = {};
 

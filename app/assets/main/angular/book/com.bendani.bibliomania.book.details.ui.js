@@ -4,6 +4,8 @@ angular.module('com.bendani.bibliomania.book.details.ui', ['com.bendani.biblioma
     'com.bendani.bibliomania.date.service',
     'com.bendani.bibliomania.date.selection.controller',
     'com.bendani.bibliomania.personal.book.info.model',
+    'com.bendani.bibliomania.first.print.info.model',
+    'com.bendani.bibliomania.first.print.selection.controller',
     'angular-growl'])
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider
@@ -12,11 +14,12 @@ angular.module('com.bendani.bibliomania.book.details.ui', ['com.bendani.biblioma
                 controller: 'BookDetailsController'
             });
     }])
-    .controller('BookDetailsController', ['$scope', '$routeParams', 'Book', 'PersonalBookInfo', 'ErrorContainer','DateService', 'TitlePanelService', '$uibModal', 'growl', '$compile',
-        function($scope, $routeParams, Book, PersonalBookInfo, ErrorContainer, DateService, TitlePanelService, $uibModal, growl, $compile){
+    .controller('BookDetailsController', ['$scope', '$routeParams', 'Book', 'PersonalBookInfo', 'ErrorContainer','DateService', 'TitlePanelService', '$uibModal', 'growl', '$compile', '$location', 'FirstPrintInfo',
+        function($scope, $routeParams, Book, PersonalBookInfo, ErrorContainer, DateService, TitlePanelService, $uibModal, growl, $compile, $location, FirstPrintInfo){
 
             function init(){
                 TitlePanelService.setTitle("Boek detail");
+                TitlePanelService.setPreviousUrl("/books");
 
                 $scope.book = Book.get({id: $routeParams.id}, function(book){
                     TitlePanelService.setTitle(book.title);
@@ -87,6 +90,20 @@ angular.module('com.bendani.bibliomania.book.details.ui', ['com.bendani.biblioma
                 });
             };
 
+            $scope.showSelectFirstPrintDialog = function () {
+                var modalInstance = $uibModal.open({
+                    templateUrl: '../BiblioMania/views/partials/firstprint/select-first-print-modal.html',
+                    scope: $scope
+                });
+
+                modalInstance.result.then(function (firstPrint) {
+                    FirstPrintInfo.linkBook({id: firstPrint.id}, {bookId: $scope.book.id}, function(){
+                        $scope.book.firstPrintInfo = FirstPrintInfo.get({id: firstPrint.id}, function(){}, ErrorContainer.handleRestError);
+                        growl.addSuccessMessage('Eerste druk gewijzigd');
+                    }, ErrorContainer.handleRestError);
+                });
+            };
+
             $scope.showCreateAuthorDialog = function () {
                 var modalInstance = $uibModal.open({
                     templateUrl: '../BiblioMania/views/partials/author/create-author-modal.html',
@@ -98,6 +115,13 @@ angular.module('com.bendani.bibliomania.book.details.ui', ['com.bendani.biblioma
                 });
             };
 
+            $scope.createFirstPrintInfo = function(){
+                $location.path('/create-first-print-and-link-to-book/'+ $scope.book.id);
+            };
+
+            $scope.editFirstPrintInfo = function(){
+                $location.path('/edit-first-print/'+ $scope.book.firstPrintInfo.id);
+            };
 
             $scope.convertDate = function(date){
                 return DateService.dateToString(date);

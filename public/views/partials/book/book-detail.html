@@ -1,4 +1,4 @@
-<div class="create-book-div">
+<div class="inner-content-container">
     <errorcontainer></errorcontainer>
     <div class="container-fluid">
         <div class="col-md-6">
@@ -23,17 +23,29 @@
                 </dl>
             </div>
         </div>
-        <div class="col-md-6">
+
+        <div class="col-md-6" ng-show="book.firstPrintInfo === undefined">
             <div class="form-subtitle">
                 <div>Eerste druk informatie</div>
-                <button class="btn btn-sm form-subtitle-button btn-default round-corners"><i class="fa fa-pencil"> Wijzig</i>
+                <button class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="showSelectFirstPrintDialog()"><i class="fa fa-search"> Selecteer</i>
+                </button>
+                <button class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="createFirstPrintInfo()"><i class="fa fa-plus"> Maak aan</i>
                 </button>
             </div>
-            <div class="form-content detail-panel" ng-show="book.firstPrintInfo === undefined">
+            <div class="form-content detail-panel">
                 <div class="alert alert-warning">Er is nog geen eerste druk informatie voor dit boek.</div>
             </div>
+        </div>
 
-            <div class="form-content detail-panel" ng-show="book.firstPrintInfo">
+        <div class="col-md-6" ng-show="book.firstPrintInfo">
+            <div class="form-subtitle">
+                <div>Eerste druk informatie</div>
+                <button class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="showSelectFirstPrintDialog()"><i class="fa fa-search"> Selecteer</i>
+                </button>
+                <button class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="editFirstPrintInfo()"><i class="fa fa-pencil"> Editeer</i>
+                </button>
+            </div>
+            <div class="form-content detail-panel">
                 <dl class="dl-horizontal">
                     <dt>Titel</dt>
                     <dd>{{book.firstPrintInfo.title}}</dd>
@@ -52,8 +64,22 @@
         </div>
     </div>
 
-    <div class="container-fluid">
-        <div class="col-md-6" ng-show="book.personalBookInfo">
+    <div class="container-fluid" ng-show="book.personalBookInfo === undefined">
+        <div class="col-md-6">
+            <div class="form-subtitle">
+                <div>Persoonlijke informatie</div>
+                <button class="btn btn-sm form-subtitle-button btn-default round-corners"><i class="fa fa-pencil"> Persoonlijke info aanmaken</i>
+                </button>
+            </div>
+            <div class="form-content detail-panel">
+                <div class="alert alert-warning">Je hebt nog geen persoonlijke informatie voor dit boek.</div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container-fluid" ng-show="book.personalBookInfo">
+        <div class="col-md-6">
             <div class="form-subtitle">
                 <div>Persoonlijke informatie</div>
                 <button class="btn btn-sm form-subtitle-button btn-default round-corners"><i class="fa fa-pencil"> Wijzig</i>
@@ -71,7 +97,7 @@
             </div>
         </div>
 
-        <div class="col-md-6" ng-show="book.personalBookInfo && book.personalBookInfo.buyInfo">
+        <div class="col-md-6" ng-show="book.personalBookInfo.buyInfo">
             <div class="form-subtitle">
                 <div>Koop informatie</div>
                 <button class="btn btn-sm form-subtitle-button btn-default round-corners"><i class="fa fa-pencil"> Wijzig</i></button>
@@ -91,7 +117,7 @@
                 </dl>
             </div>
         </div>
-        <div class="col-md-6" ng-show="book.personalBookInfo && book.personalBookInfo.giftInfo">
+        <div class="col-md-6" ng-show="book.personalBookInfo.giftInfo">
             <div class="form-subtitle">
                 <div>Gift informatie</div>
                 <button class="btn btn-sm form-subtitle-button btn-default round-corners"><i class="fa fa-pencil"> Wijzig</i></button>
@@ -112,7 +138,7 @@
     </div>
 
     <div class="container-fluid">
-        <div class="col-md-6">
+        <div class="col-md-6" ng-show="book.personalBookInfo">
             <div class="form-subtitle">
                 <div>Lees data</div>
                 <button type="button" class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="openAddReadingDateModal()"><i class="fa fa-plus"> Leesdatum toevoegen</i></button>
