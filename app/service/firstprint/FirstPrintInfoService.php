@@ -11,12 +11,52 @@ class FirstPrintInfoService
     private $countryService;
     /** @var  LanguageService */
     private $languageService;
+    /** @var  FirstPrintInfoRepository */
+    private $firstPrintInfoRepository;
+    /** @var  BookRepository */
+    private $bookRepository;
 
     function __construct()
     {
         $this->publisherService = App::make('PublisherService');
         $this->countryService = App::make('CountryService');
         $this->languageService = App::make('LanguageService');
+        $this->firstPrintInfoRepository = App::make('FirstPrintInfoRepository');
+        $this->bookRepository = App::make('BookRepository');
+    }
+
+    public function createFirstPrintInfo(CreateFirstPrintInfoRequest $firstPrintInfoRequest){
+        $firstPrint = new FirstPrintInfo();
+        $firstPrintInfo = $this->saveFirstPrintInfo($firstPrintInfoRequest, $firstPrint);
+
+        if($firstPrintInfoRequest->getBookIdToLink() !== null){
+            /** @var Book $book */
+            $book = $this->bookRepository->find($firstPrintInfoRequest->getBookIdToLink());
+            Ensure::objectNotNull('book to link', $book);
+            $book->first_print_info_id = $firstPrintInfo->id;
+            $book->save();
+        }
+
+        return $firstPrintInfo->id;
+    }
+
+    public function updateFirstPrintInfo(UpdateFirstPrintInfoRequest $firstPrintInfoRequest){
+        /** @var FirstPrintInfo $firstPrintInfo */
+        $firstPrintInfo = $this->firstPrintInfoRepository->find($firstPrintInfoRequest->getId());
+        Ensure::objectNotNull('first print info to update', $firstPrintInfo);
+        $updatedFirstPrintInfo = $this->saveFirstPrintInfo($firstPrintInfoRequest, $firstPrintInfo);
+        return $updatedFirstPrintInfo->id;
+    }
+
+    public function linkBook($id, LinkBookToFirstPrintInfoRequest $linkBookToFirstPrintInfoRequest){
+        $firstPrintInfo = $this->firstPrintInfoRepository->find($id);
+        Ensure::objectNotNull('first print info to link', $firstPrintInfo);
+        /** @var Book $book */
+        $book = $this->bookRepository->find($linkBookToFirstPrintInfoRequest->getBookId());
+        Ensure::objectNotNull('book to link', $book);
+
+        $book->first_print_info_id = $id;
+        $book->save();
     }
 
     public function findOrCreate(FirstPrintInfoParameters $firstPrintInfoParameters)
@@ -89,4 +129,48 @@ class FirstPrintInfoService
         return $firstPrintInfo;
     }
 
+    /**
+     * @param BaseFirstPrintInfoRequest $updateFirstPrint
+     * @return Date
+     */
+    private function createPublicationDate(BaseFirstPrintInfoRequest $updateFirstPrint)
+    {
+        $date = new Date();
+        $date->day = $updateFirstPrint->getPublicationDate()->getDay();
+        $date->month = $updateFirstPrint->getPublicationDate()->getDay();
+        $date->year = $updateFirstPrint->getPublicationDate()->getYear();
+        $date->save();
+        return $date;
+    }
+
+    /**
+     * @param BaseFirstPrintInfoRequest $firstPrintInfoRequest
+     * @param $firstPrintInfo
+     * @throws ServiceException
+     */
+    private function saveFirstPrintInfo(BaseFirstPrintInfoRequest $firstPrintInfoRequest, FirstPrintInfo $firstPrintInfo)
+    {
+        Ensure::objectNotNull("PublicationDate", $firstPrintInfoRequest->getPublicationDate());
+        Ensure::stringNotBlank("Language", $firstPrintInfoRequest->getLanguage());
+        Ensure::stringNotBlank("Title", $firstPrintInfoRequest->getTitle());
+        Ensure::stringNotBlank("Publisher", $firstPrintInfoRequest->getPublisher());
+        Ensure::stringNotBlank("Country", $firstPrintInfoRequest->getCountry());
+
+        $publisher = $this->publisherService->findOrCreate($firstPrintInfoRequest->getPublisher());
+        $country = $this->countryService->findOrCreate($firstPrintInfoRequest->getCountry());
+        $language = $this->languageService->findOrSave($firstPrintInfoRequest->getLanguage());
+        $date = $this->createPublicationDate($firstPrintInfoRequest);
+
+        $firstPrintInfo->language()->associate($language);
+        $firstPrintInfo->country()->associate($country);
+        $firstPrintInfo->publisher()->associate($publisher);
+        $firstPrintInfo->publication_date()->associate($date);
+
+        $firstPrintInfo->title = $firstPrintInfoRequest->getTitle();
+        $firstPrintInfo->subtitle = $firstPrintInfoRequest->getSubtitle();
+        $firstPrintInfo->ISBN = $firstPrintInfoRequest->getIsbn();
+
+        $firstPrintInfo->save();
+        return $firstPrintInfo;
+    }
 }

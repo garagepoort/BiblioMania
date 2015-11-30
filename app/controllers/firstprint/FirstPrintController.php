@@ -19,11 +19,35 @@ class FirstPrintController extends BaseController
         $this->jsonMappingService = App::make('JsonMappingService');
     }
 
+    public function getFirstPrintInfo($id){
+        $firstPrint = $this->firstPrintInfoRepository->find($id);
+        Ensure::objectNotNull('first print info', $firstPrint);
+        $adapter = new FirstPrintToJsonAdapter($firstPrint);
+        return $adapter->mapToJson();
+    }
+
     public function getAllFirstPrintInfos(){
         return array_map(function($item){
             $adapter = new FirstPrintToJsonAdapter($item);
             return $adapter->mapToJson();
         }, $this->firstPrintInfoRepository->all()->all());
+    }
+
+    public function createFirstPrintInfo(){
+        $createFirstPrint = $this->jsonMappingService->mapInputToJson(Input::get(), new CreateFirstPrintFromJsonAdapter());
+        $id = $this->firstPrintInfoService->createFirstPrintInfo($createFirstPrint);
+        return Response::json(array('success' => true, 'id' => $id), 200);
+    }
+
+    public function linkBookToFirstPrintInfo($id){
+        $linkBookRequest = $this->jsonMappingService->mapInputToJson(Input::get(), new LinkBookToFirstPrintFromJsonAdapter());
+        $this->firstPrintInfoService->linkBook($id, $linkBookRequest);
+    }
+
+    public function updateFirstPrintInfo(){
+        $updateFirstPrint = $this->jsonMappingService->mapInputToJson(Input::get(), new UpdateFirstPrintFromJsonAdapter());
+        $id =  $this->firstPrintInfoService->updateFirstPrintInfo($updateFirstPrint);
+        return Response::json(array('success' => true, 'id' => $id), 200);
     }
 
     public function getFirstPrintInfoByBook($bookId){
@@ -35,19 +59,4 @@ class FirstPrintController extends BaseController
         $firstPrintToJsonAdapter = new FirstPrintToJsonAdapter($fullBook->first_print_info);
         return $firstPrintToJsonAdapter->mapToJson();
     }
-
-    public function updateBookBasics(){
-        $updateBookBasicsRequest = $this->jsonMappingService->mapInputToJson(Input::get(), new UpdateBookBasicsFromJsonAdapter());
-
-        $book = $this->bookBasicsService->updateBookBasics($updateBookBasicsRequest);
-        return $book->id;
-    }
-
-    public function createBookBasics(){
-        $createBookBasicsRequest = $this->jsonMappingService->mapInputToJson(Input::get(), new CreateBookBasicsFromJsonAdapter());
-
-        $book = $this->bookBasicsService->createBookBasics($createBookBasicsRequest);
-        return $book->id;
-    }
-
 }

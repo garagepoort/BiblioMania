@@ -3,6 +3,8 @@
 
 class FirstPrintToJsonAdapter
 {
+    /** @var  int */
+    private $id;
     /** @var  string */
     private $title;
     /** @var  string */
@@ -20,9 +22,11 @@ class FirstPrintToJsonAdapter
 
     /**
      * BookBasicsToJsonAdapter constructor.
+     * @param FirstPrintInfo $firstPrint
      */
     public function __construct(FirstPrintInfo $firstPrint)
     {
+        $this->id = $firstPrint->id;
         $this->title = $firstPrint->title;
         $this->subtitle = $firstPrint->subtitle;
         $this->isbn = $firstPrint->ISBN;
@@ -43,6 +47,7 @@ class FirstPrintToJsonAdapter
 
     public function mapToJson(){
         $result = array(
+            "id"=>$this->id,
             "title"=>$this->title,
             "subtitle"=>$this->subtitle,
             "isbn"=>$this->isbn,
