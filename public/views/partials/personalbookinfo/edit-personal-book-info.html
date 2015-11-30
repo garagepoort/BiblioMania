@@ -1,0 +1,28 @@
+<div class="create-book-div">
+    <errorcontainer></errorcontainer>
+    <form ng-submit="submitForm(model)" id="personalBookInfoForm" name="personalBookInfoForm" novalidate class="form-horizontal">
+        <fieldset>
+
+            <div class="form-container">
+                <div class="form-subtitle">
+                    <div>Persoonlijke informatie</div>
+                </div>
+                <div class="form-content col-md-12">
+
+                    <!-- TITLE -->
+                    <div class="form-group required col-md-12" ng-class="{'has-error has-feedback' : personalBookInfoForm.title.$invalid && personalBookInfoForm.title.$dirty}">
+                        <label class="control-label ">Titel </label>
+                        <input name="title" type="text" class="form-control input-width-md" placeholder="titel" required="true" ng-model="model.title"/>
+                        <span ng-show="personalBookInfoForm.title.$invalid && personalBookInfoForm.title.$dirty" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Titel is verplicht</span>
+                    </div>
+                </div>
+
+                <div class="form-subtitle">Uitgave informatie</div>
+                <div class="form-content">
+                </div>
+            </div>
+            <button class="btn btn-primary" ng-disabled="personalBookInfoForm.$invalid">Save</button>
+
+        </fieldset>
+    </form>
+</div>
