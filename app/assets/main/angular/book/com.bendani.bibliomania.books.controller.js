@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.bibliomania.book.model', 'com.bendani.bibliomania.error.container'])
-    .controller('BookController', ['$scope', 'Book', 'ErrorContainer', '$http',function ($scope, Book, ErrorContainer, $http) {
+angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.bibliomania.book.model', 'com.bendani.bibliomania.error.container', 'com.bendani.bibliomania.title.panel'])
+    .controller('BookController', ['$scope', 'Book', 'ErrorContainer', '$http', 'TitlePanelService',function ($scope, Book, ErrorContainer, $http, TitlePanelService) {
 
         function retrieveAllBooks() {
             $scope.loading=true;
@@ -12,7 +12,7 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
         }
 
         function init(){
-            $scope.$parent.title = 'Boeken';
+            TitlePanelService.setTitle('Boeken');
             $scope.searchBooksQuery = "";
             $scope.loading=true;
             $scope.predicate="author";

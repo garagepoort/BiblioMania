@@ -1,0 +1,33 @@
+<div>
+    <div class="modal-header">
+        <h3 class="modal-title">Eerste druk selectie</h3>
+    </div>
+    <div class="modal-body" ng-controller="FirstPrintSelectionController" style="overflow: auto; max-height: 400px;">
+        <div class="input-group" style="width: 200px; float: right">
+            <input id="searchAuthorsInput" ng-model="firstPrintSelectionModal.searchFirstPrintQuery" type="text"
+                   class="form-control half-round-corners-left" placeholder="Search" name="criteria"
+                   aria-describedby="basic-addon1">
+            <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon1"></span>
+        </div>
+        <div>
+            <table class="table table-hover">
+                <thead>
+                <tr style="cursor: pointer">
+                    <th ng-click="order('name.firstname')">
+                        Titel
+                        <i class="fa" ng-show="firstPrintSelectionModal.predicate === 'title'" ng-class="firstPrintSelectionModal.reverse ? 'fa-caret-up' : 'fa-caret-down'"></i>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="firstPrint in firstPrintSelectionModal.data.firstPrints | filter: search | orderBy:firstPrintSelectionModal.predicate:firstPrintSelectionModal.reverse" ng-click="selectFirstPrint(firstPrint)" style="cursor: pointer">
+                    <td>{{ firstPrint.title }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-danger" type="button" ng-click="$dismiss()">Annuleer</button>
+    </div>
+</div>

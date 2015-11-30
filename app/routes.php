@@ -26,12 +26,16 @@ Route::group(array('before' => 'auth'), function () {
     Route::get('languages', 'LanguageController@getLanguages');
 
     Route::get('firstprints', 'FirstPrintController@getAllFirstPrintInfos');
+    Route::put('firstprints', 'FirstPrintController@updateFirstPrintInfo');
+    Route::post('firstprints', 'FirstPrintController@createFirstPrintInfo');
+    Route::get('firstprints/{id}', 'FirstPrintController@getFirstPrintInfo');
+    Route::post('firstprints/{id}/books', 'FirstPrintController@linkBookToFirstPrintInfo');
 
+    Route::put('oeuvre', 'OeuvreController@updateOeuvreItem');
+    Route::get('oeuvre/{id}', 'OeuvreController@getOeuvreItem');
+    Route::delete('oeuvre/{id}', 'OeuvreController@deleteOeuvreItem');
     Route::get('oeuvre/by-book/{id}', 'OeuvreController@getOeuvreByBook');
     Route::post('oeuvre/create-items', 'OeuvreController@saveOeuvreItemsToAuthor');
-    Route::put('oeuvre', 'OeuvreController@updateOeuvreItem');
-    Route::delete('oeuvre/{id}', 'OeuvreController@deleteOeuvreItem');
-    Route::get('oeuvre/{id}', 'OeuvreController@getOeuvreItem');
     Route::get('oeuvre/{id}/books', 'OeuvreController@getOeuvreItemLinkedBooks');
     Route::post('oeuvre/{id}/books', 'OeuvreController@linkBookToOeuvreItem');
     Route::put('oeuvre/{id}/unlink-book', 'OeuvreController@deleteBookFromOeuvreItem');
@@ -62,41 +66,9 @@ Route::group(array('before' => 'auth'), function () {
     Route::get('filterBooks', 'BookController@filterBooks');
     Route::post('deleteBook', 'BookController@deleteBook');
 
-    //WIZARD
-    Route::get('bookwizard/basics/{id}', 'BookBasicsWizardStepResource@getBookBasics');
-    Route::put('bookwizard/basics', 'BookBasicsWizardStepResource@updateBookBasics');
-    Route::post('bookwizard/basics', 'BookBasicsWizardStepResource@createBookBasics');
-
-    Route::get('bookwizard/extras/{id}', 'BookExtrasWizardStepResource@getBookExtras');
-    Route::put('bookwizard/extras', 'BookExtrasWizardStepResource@updateBookExtras');
-
-    Route::get('bookwizard/author/{id}', 'BookAuthorWizardStepResource@getBookAuthor');
-    Route::put('bookwizard/author', 'BookAuthorWizardStepResource@updateBookAuthor');
-
-    Route::get('bookwizard/oeuvre/{id}', 'OeuvreWizardStepResource@getOeuvre');
-
-
 
     Route::get('logOut', 'DefaultLoginController@logOut');
     Route::get('importLanguageFirstPrintInfo', 'BookImportController@importLanguageFirstPrintInfo');
-
-//STATISTICS
-    Route::get('goToStatistics', 'StatisticsController@goToStatistics');
-    Route::get('getBooksPerMonth/{year}', 'StatisticsController@getBooksPerMonth');
-    Route::get('getOverviewChart', 'StatisticsController@getOverviewChart');
-    Route::get('getBooksPerGenreChart', 'StatisticsController@getBooksPerGenreChart');
-    Route::get('getBooksAddedPerYearChart', 'StatisticsController@getBooksAddedPerYearChart');
-    Route::get('getBooksReadPerYearChart', 'StatisticsController@getBooksReadPerYearChart');
-    Route::get('getBooksAndPublicationDate', 'StatisticsController@getBooksAndPublicationDate');
-
-//  BOOK FROM AUTHOR
-    Route::post('deleteBookFromAuthor', 'AuthorController@deleteBookFromAuthor');
-    Route::post('editBookFromAuthor', 'AuthorController@editBookFromAuthor');
-    Route::post('updateBookFromAuthorTitle', 'AuthorController@updateBookFromAuthorTitle');
-    Route::post('saveBookFromAuthors', 'OeuvreController@saveBookFromAuthors');
-    Route::post('linkBookToBookFromAuthor', 'OeuvreController@linkBookToBookFromAuthor');
-    Route::post('updateBookFromAuthorPublicationYear', 'OeuvreController@updateBookFromAuthorPublicationYear');
-    Route::post('editBookFromAuthors', 'OeuvreController@editBookFromAuthors');
 
 //    COUNTRY
     Route::get('getCountryList', 'CountryController@getCountryList');

@@ -5,7 +5,7 @@ class FirstPrintInfoRepository implements Repository
 
     public function find($id, $with = array())
     {
-        // TODO: Implement find() method.
+        return FirstPrintInfo::find($id);
     }
 
     public function all()
