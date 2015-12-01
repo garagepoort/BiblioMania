@@ -240,7 +240,7 @@ class BookFormFiller
             $result['first_print_subtitle'] = $book->first_print_info->subtitle;
             $result['first_print_isbn'] = $book->first_print_info->ISBN;
             if ($book->first_print_info->language != null) {
-                $result['first_print_language'] = $book->first_print_info->language;
+                $result['first_print_language'] = $book->first_print_info->language->language;
             }
 
             if ($book->first_print_info->country != null) {
