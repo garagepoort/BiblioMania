@@ -5,9 +5,22 @@ class PersonalBookInfoService
     /** @var  ReadingDateService */
     private $readingDateService;
 
+    /** @var  BookRepository */
+    private $bookRepository;
+    /** @var  PersonalBookInfoRepository */
+    private $personalBookInfoRepository;
+    /** @var  BuyInfoService */
+    private $buyInfoService;
+    /** @var  GiftInfoService */
+    private $giftInfoService;
+
     function __construct()
     {
-        $this->readingDateService = App::make('ReadingDateService');;
+        $this->readingDateService = App::make('ReadingDateService');
+        $this->bookRepository = App::make('BookRepository');
+        $this->personalBookInfoRepository = App::make('PersonalBookInfoRepository');
+        $this->giftInfoService = App::make('GiftInfoService');
+        $this->buyInfoService = App::make('BuyInfoService');
     }
 
     public function find($id){
@@ -15,6 +28,41 @@ class PersonalBookInfoService
             ->where('user_id', '=', Auth::user()->id)
             ->where('personal_book_info.id', '=', $id)
             ->first();
+    }
+
+    public function createPersonalBookInfo(CreatePersonalBookInfoRequest $createRequest){
+        $book = $this->bookRepository->find($createRequest->getBookId());
+        Ensure::objectNotNull('book', $book);
+        $personalBookInfo = $this->personalBookInfoRepository->findByBook($createRequest->getBookId());
+        Ensure::objectNull('personBookInformation', $personalBookInfo, 'The book given already has a personal book information. Cannot create a new one.');
+
+        if($createRequest->getBuyInfo() == null && $createRequest->getGiftInfo() == null){
+            throw new ServiceException('No buy or gift information given');
+        }
+        if($createRequest->getBuyInfo() != null && $createRequest->getGiftInfo() != null){
+            throw new ServiceException('Both buy and gift information are given. Only one can be chosen');
+        }
+
+        $personalBookInfo = new PersonalBookInfo();
+        $personalBookInfo->book_id = $createRequest->getBookId();
+        $personalBookInfo->review = $createRequest->getReview();
+        $personalBookInfo->rating = $createRequest->getRating();
+
+        $personalBookInfo->set_owned($createRequest->isInCollection());
+        if(!$createRequest->isInCollection()){
+            $personalBookInfo->reason_not_owned = $createRequest->getReasonNotInCollection();
+        }
+
+        $personalBookInfo->save();
+
+        if($createRequest->getBuyInfo() != null){
+            $this->buyInfoService->create($personalBookInfo->id, $createRequest->getBuyInfo());
+        }
+        else{
+            $this->giftInfoService->create($personalBookInfo->id, $createRequest->getGiftInfo());
+        }
+
+        return $personalBookInfo->id;
     }
 
     public function addReadingDate($personalBookInfoId, DateRequest $date){
