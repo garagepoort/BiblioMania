@@ -46,11 +46,10 @@ class PersonalBookInfo extends Eloquent {
 
     public function get_read(){
         $read = $this->attributes['read'];
-    if($read == 0){
+        if($read == 0){
             return false;
         }else{
             return true;
         }
     }
-
 }

@@ -16,6 +16,12 @@ class PersonalBookInfoController extends BaseController
         $this->jsonMappingService = App::make('JsonMappingService');
     }
 
+    public function create(){
+        $adapter = $this->jsonMappingService->mapInputToJson(Input::get(), new CreatePersonalBookInfoFromJsonAdapter());
+        $id = $this->personalBookInfoService->createPersonalBookInfo($adapter);
+        return Response::json(array('success' => true, 'id' => $id), 200);
+    }
+
     public function addReadingDate($personalBookInfoId){
         $date = $this->jsonMappingService->mapInputToJson(Input::get(), new DateFromJsonAdapter());
         $this->personalBookInfoService->addReadingDate($personalBookInfoId, $date);

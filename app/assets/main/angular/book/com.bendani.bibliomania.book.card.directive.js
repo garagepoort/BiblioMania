@@ -1,11 +1,15 @@
 angular
-    .module('com.bendani.bibliomania.book.card.directive', [])
+    .module('com.bendani.bibliomania.book.card.directive', ['com.bendani.bibliomania.info.container'])
     .directive('bookCard', function (){
         return {
             scope: true,
             restrict: "E",
             templateUrl: "../BiblioMania/views/partials/book/book-card-directive.html",
-            controller: [function() {
+            controller: ['$scope', '$location', function($scope, $location) {
+
+                $scope.goToBookDetails = function(){
+                    $location.path('/book-details/' + $scope.book.id);
+                };
             }],
             link: function ($scope, element) {
                 if($scope.book.image === undefined){

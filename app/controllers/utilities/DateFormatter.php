@@ -1,13 +1,6 @@
 <?php
 use Bendani\PhpCommon\Utils\Model\StringUtils;
 
-/**
- * Created by PhpStorm.
- * User: david
- * Date: 08/07/15
- * Time: 22:29
- */
-
 class DateFormatter {
 
 
@@ -19,6 +12,10 @@ class DateFormatter {
         $dateTime = DateTime::createFromFormat("Y-m-d", $date);
         $timestamp = $dateTime->getTimestamp();
         return StringUtils::isEmpty(date('Y', $timestamp)) ? "unknown" : date('Y', $timestamp);
+    }
+    
+    public static function dateRequestToDateTime(DateRequest $dateRequest){
+        return date_create($dateRequest->getYear() . "-" . $dateRequest->getMonth() . "-" . $dateRequest->getDay());
     }
 
     public static function getDateFromSqlDate($date){
