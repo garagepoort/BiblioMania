@@ -109,10 +109,6 @@ angular.module('com.bendani.bibliomania.create.book.controller', ['ngTagsInput',
                     ErrorContainer.setErrorCode('Niet alle velden zijn correct ingevuld.');
                     valid = false;
                 }
-                if($scope.bookImageQuery === undefined){
-                    ErrorContainer.setErrorCode('Geen cover geselecteerd');
-                    valid = false;
-                }
                 if($scope.model.preferredAuthorId === undefined){
                     ErrorContainer.setErrorCode('Geen auteur geselecteerd');
                     valid = false;

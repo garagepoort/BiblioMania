@@ -5,6 +5,22 @@ use Bendani\PhpCommon\Utils\Model\StringUtils;
 class GiftInfoService
 {
 
+    public function create($personalBookInfoId, CreateGiftInfoRequest $createRequest)
+    {
+        $giftInfo = GiftInfo::where('personal_book_info_id', '=', $personalBookInfoId)->first();
+        Ensure::objectNull('giftInformation', $giftInfo, 'Gift information for this book already exists. No new one can be created.');
+
+        $giftInfo = new GiftInfo();
+        $giftInfo->receipt_date = DateFormatter::dateRequestToDateTime($createRequest->getGiftDate());
+        $giftInfo->occasion = $createRequest->getOccasion();
+        $giftInfo->reason = $createRequest->getReason();
+        $giftInfo->from = $createRequest->getFrom();
+        $giftInfo->personal_book_info_id = $personalBookInfoId;
+
+        $giftInfo->save();
+        return $giftInfo->id;
+    }
+
     public function findOrCreate(GiftInfoParameters $giftInfoParameters, PersonalBookInfo $personalBookInfo){
         $giftInfo = GiftInfo::where('personal_book_info_id', '=', $personalBookInfo->id)->first();
         if ($giftInfo == null) {

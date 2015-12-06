@@ -58,21 +58,31 @@ angular.module('com.bendani.bibliomania.edit.first.print.ui', ['com.bendani.bibl
                             $location.path('/book-details/' + $route.current.params.bookId);
                         }, ErrorContainer.handleRestError);
                     };
+                }],
+                init: ['InfoContainer', 'Book', 'ErrorContainer', '$route', function(InfoContainer, Book, ErrorContainer, $route){
+                    return function(){
+                        Book.get({id: $route.current.params.bookId}, function(book){
+                            InfoContainer.setInfoCode('Deze eerste druk zal gelinked worden met het boek: ' + book.title);
+                        }, ErrorContainer.handleRestError);
+                    };
                 }]
             }
         });
     }])
-    .controller('FirstPrintController', ['$scope', 'ErrorContainer', 'Country', 'Language', 'Publisher', 'TitlePanelService', 'firstPrintInfoModel', 'onSave', function ($scope, ErrorContainer, Country, Language, Publisher, TitlePanelService, firstPrintInfoModel, onSave) {
-        TitlePanelService.setTitle('Eerste druk');
+    .controller('FirstPrintController', ['$scope', 'ErrorContainer', 'Country', 'Language', 'Publisher', 'TitlePanelService', 'firstPrintInfoModel', 'onSave', 'init', function ($scope, ErrorContainer, Country, Language, Publisher, TitlePanelService, firstPrintInfoModel, onSave, init) {
 
-        $scope.model = firstPrintInfoModel;
+        function initController(){
+            TitlePanelService.setTitle('Eerste druk');
+            $scope.model = firstPrintInfoModel;
 
-        $scope.data = {};
+            $scope.data = {};
+            $scope.data.countries = Country.query(function(){}, ErrorContainer.handleRestError);
+            $scope.data.publishers = Publisher.query(function(){}, ErrorContainer.handleRestError);
+            $scope.data.languages = Language.query(function(){}, ErrorContainer.handleRestError);
 
-        $scope.data.countries = Country.query(function(){}, ErrorContainer.handleRestError);
-        $scope.data.publishers = Publisher.query(function(){}, ErrorContainer.handleRestError);
-        $scope.data.languages = Language.query(function(){}, ErrorContainer.handleRestError);
+            $scope.submitForm = onSave;
+        }
 
-        $scope.submitForm = onSave;
-
+        init();
+        initController();
     }]);
