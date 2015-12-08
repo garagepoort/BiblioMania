@@ -19,6 +19,7 @@ Route::group(array('before' => 'auth'), function () {
     Route::post('books/search', 'BookController@search');
     Route::get('books/{id}', 'BookController@getFullBook');
     Route::put('books/{id}/authors', 'BookController@linkAuthorToBook');
+    Route::put('books/{id}/unlink-author', 'BookController@unlinkAuthorFromBook');
 
     Route::get('bookFilters', 'BookController@getFilters');
     Route::get('tags', 'TagController@getTags');
