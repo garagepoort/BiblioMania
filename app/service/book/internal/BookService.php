@@ -120,6 +120,20 @@ class BookService
         $book->authors()->attach($authorToBookRequest->getAuthorId(), ['preferred'=>false]);
     }
 
+    public function unlinkAuthorFromBook($bookId, UnlinkAuthorToBookRequest $authorToBookRequest){
+        /** @var Book $book */
+        $book = $this->find($bookId);
+        Ensure::objectNotNull('book', $book);
+        $author = $book->authors->find($authorToBookRequest->getAuthorId());
+        Ensure::objectNotNull('author', $author);
+
+        if($author->pivot->preferred){
+            throw new ServiceException('Preferred author cannot be unlinked from book.');
+        }
+
+        $book->authors()->detach($authorToBookRequest->getAuthorId());
+    }
+
     public function getValueOfLibrary()
     {
         $this->bookRepository->getValueOfLibrary();

@@ -1,6 +1,10 @@
 <div class="inner-content-container">
     <errorcontainer></errorcontainer>
     <div class="container-fluid">
+        <div class="col-md-6 detail-panel form-content">
+            <img class="center-block" actual-src="{{ book.image }}" fallback-src="/BiblioMania/images/questionCover.png">
+        </div>
+
         <div class="col-md-6">
             <div class="form-subtitle">
                 <div>Boek informatie</div>
@@ -23,7 +27,9 @@
                 </dl>
             </div>
         </div>
+    </div>
 
+    <div class="container-fluid" ng-show="book.personalBookInfo === undefined">
         <div class="col-md-6" ng-show="book.firstPrintInfo === undefined">
             <div class="form-subtitle">
                 <div>Eerste druk informatie</div>
@@ -62,9 +68,7 @@
                 </dl>
             </div>
         </div>
-    </div>
 
-    <div class="container-fluid" ng-show="book.personalBookInfo === undefined">
         <div class="col-md-6">
             <div class="form-subtitle">
                 <div>Persoonlijke informatie</div>
@@ -181,7 +185,7 @@
                         <td>{{ author.name.firstname }}</td>
                         <td>{{ author.name.lastname }}</td>
                         <td style="text-align: center"><span style="top: 3px;" ng-show="author.preferred" class="glyphicon glyphicon-ok-sign"></span></td>
-                        <td><button type="button" class="btn btn-default round-corners"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></td>
+                        <td><button ng-hide="author.preferred" ng-click="unlinkAuthorFromBook(author)" type="button" class="btn btn-default round-corners"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></td>
                     </tr>
                     </tbody>
                 </table>
