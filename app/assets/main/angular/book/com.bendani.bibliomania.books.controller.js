@@ -13,6 +13,7 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
 
         function init(){
             TitlePanelService.setTitle('Boeken');
+            TitlePanelService.setShowPreviousButton(false);
             $scope.searchBooksQuery = "";
             $scope.loading=true;
             $scope.predicate="author";

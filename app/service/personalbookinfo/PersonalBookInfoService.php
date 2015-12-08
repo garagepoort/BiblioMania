@@ -24,7 +24,8 @@ class PersonalBookInfoService
     }
 
     public function find($id){
-        return PersonalBookInfo::join('book', 'book_id', '=', 'book.id')
+        return PersonalBookInfo::select('personal_book_info.*')
+            ->join('book', 'book_id', '=', 'book.id')
             ->where('user_id', '=', Auth::user()->id)
             ->where('personal_book_info.id', '=', $id)
             ->first();
@@ -45,21 +46,41 @@ class PersonalBookInfoService
 
         $personalBookInfo = new PersonalBookInfo();
         $personalBookInfo->book_id = $createRequest->getBookId();
-        $personalBookInfo->review = $createRequest->getReview();
-        $personalBookInfo->rating = $createRequest->getRating();
+        return $this->updatePersonalBookInfo($personalBookInfo, $createRequest);
+    }
 
-        $personalBookInfo->set_owned($createRequest->isInCollection());
-        if(!$createRequest->isInCollection()){
-            $personalBookInfo->reason_not_owned = $createRequest->getReasonNotInCollection();
+    public function update(UpdatePersonalBookInfoRequest $updateRequest){
+        $personalBookInfo = $this->personalBookInfoRepository->find($updateRequest->getId());
+        Ensure::objectNotNull('personalBookInfo', $personalBookInfo);
+
+        if($updateRequest->getBuyInfo() == null && $updateRequest->getGiftInfo() == null){
+            throw new ServiceException('No buy or gift information given');
+        }
+        if($updateRequest->getBuyInfo() != null && $updateRequest->getGiftInfo() != null){
+            throw new ServiceException('Both buy and gift information are given. Only one can be chosen');
+        }
+
+        return $this->updatePersonalBookInfo($personalBookInfo, $updateRequest);
+    }
+
+    private function updatePersonalBookInfo(PersonalBookInfo $personalBookInfo, BasePersonalBookInfoRequest $request){
+        $personalBookInfo->review = $request->getReview();
+        $personalBookInfo->rating = $request->getRating();
+
+        $personalBookInfo->set_owned($request->isInCollection());
+        if(!$request->isInCollection()){
+            $personalBookInfo->reason_not_owned = $request->getReasonNotInCollection();
         }
 
         $personalBookInfo->save();
 
-        if($createRequest->getBuyInfo() != null){
-            $this->buyInfoService->create($personalBookInfo->id, $createRequest->getBuyInfo());
+        if($request->getBuyInfo() != null){
+            $this->giftInfoService->delete($personalBookInfo->id);
+            $this->buyInfoService->createOrUpdate($personalBookInfo->id, $request->getBuyInfo());
         }
         else{
-            $this->giftInfoService->create($personalBookInfo->id, $createRequest->getGiftInfo());
+            $this->buyInfoService->delete($personalBookInfo->id);
+            $this->giftInfoService->createOrUpdate($personalBookInfo->id, $request->getGiftInfo());
         }
 
         return $personalBookInfo->id;

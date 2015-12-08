@@ -5,10 +5,13 @@ angular.module("com.bendani.bibliomania.title.panel", [])
             var _title;
             var _rightPanel;
             var _previousUrl;
+            var _showPreviousButton = true;
 
             var _resetPanel = function(){
+                _title = undefined;
                 angular.element('#titlePanelRightPanel').empty();
                 _previousUrl = undefined;
+                _showPreviousButton = true;
             };
 
             var _getTitle = function(){
@@ -24,11 +27,23 @@ angular.module("com.bendani.bibliomania.title.panel", [])
             };
 
             var _goToPreviousUrl = function(){
-                $location.path(_previousUrl);
+                if(_previousUrl !== undefined){
+                    $location.path(_previousUrl);
+                }else{
+                    $rootScope.back();
+                }
             };
 
             var _setPreviousUrl = function(url){
                 _previousUrl = url;
+            };
+
+            var _shouldShowPreviousButton = function(){
+                return _showPreviousButton;
+            };
+
+            var _setShowPreviousButton = function(show){
+              _showPreviousButton = show;
             };
 
             var _setRightPanel = function(rightPanel){
@@ -49,7 +64,9 @@ angular.module("com.bendani.bibliomania.title.panel", [])
                 resetPanel: _resetPanel,
                 getPreviousUrl: _getPreviousUrl,
                 setPreviousUrl: _setPreviousUrl,
-                goToPreviousUrl: _goToPreviousUrl
+                goToPreviousUrl: _goToPreviousUrl,
+                shouldShowPreviousButton: _shouldShowPreviousButton,
+                setShowPreviousButton: _setShowPreviousButton
             };
 
             $rootScope.$on('$routeChangeSuccess', service.resetPanel);

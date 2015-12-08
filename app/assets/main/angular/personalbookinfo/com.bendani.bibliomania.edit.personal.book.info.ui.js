@@ -5,25 +5,32 @@ angular.module('com.bendani.bibliomania.edit.personal.book.info.ui', [
     'angular-growl',
     'com.bendani.bibliomania.personal.book.info.model',
     'com.bendani.bibliomania.country.model',
-    'com.bendani.bibliomania.date.service',
-    'com.bendani.bibliomania.title.panel'
+    'com.bendani.bibliomania.book.model',
+    'com.bendani.bibliomania.date.formatter',
+    'com.bendani.bibliomania.title.panel',
+    'com.bendani.bibliomania.price.formatter'
 ])
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/edit-personal-book-info/:id', {
             templateUrl: '../BiblioMania/views/partials/personalbookinfo/edit-personal-book-info.html',
             controller: 'PersonalBookInfoController',
             resolve: {
-                personalBookInfoModel: ['PersonalBookInfo', '$route', 'ErrorContainer', function (PersonalBookInfo, $route, ErrorContainer) {
-                    return PersonalBookInfo.get({id: $route.current.params.id}, function () {
+                personalBookInfoModel: ['PersonalBookInfo', '$route', 'ErrorContainer', 'Book', 'InfoContainer', function (PersonalBookInfo, $route, ErrorContainer, Book, InfoContainer) {
+                    return PersonalBookInfo.get({id: $route.current.params.id}, function (personalInfo) {
+                        Book.get({id: personalInfo.bookId}, function(book){
+                            InfoContainer.setInfoCode('Deze persoonlijke informatie is voor het boek: ' + book.title);
+                        }, ErrorContainer.handleRestError);
                     }, ErrorContainer.handleRestError);
                 }],
-                onSave: ['PersonalBookInfo', '$route', 'ErrorContainer', 'growl', function (PersonalBookInfo, $route, ErrorContainer, growl) {
+                onSave: ['PersonalBookInfo', '$route', 'ErrorContainer', 'growl', '$location', function (PersonalBookInfo, $route, ErrorContainer, growl, $location) {
                     return function (model) {
                         PersonalBookInfo.update(model, function () {
-                            growl.addSuccessMessage('Eerste druk opgeslagen');
+                            $location.path('/book-details/' + model.bookId);
+                            growl.addSuccessMessage('Persoonlijke informatie opgeslagen');
                         }, ErrorContainer.handleRestError);
                     };
-                }]
+                }],
+                initFunction: function(){ return function(){}; }
             }
         });
         $routeProvider.when('/create-personal-book-info/:bookId', {
@@ -45,28 +52,24 @@ angular.module('com.bendani.bibliomania.edit.personal.book.info.ui', [
                             growl.addSuccessMessage('Eerste druk opgeslagen');
                         }, ErrorContainer.handleRestError);
                     };
+                }],
+                initFunction: ['Book', 'InfoContainer', '$route', 'ErrorContainer', function(Book, InfoContainer, $route, ErrorContainer){
+                    return function(){
+                        Book.get({id: $route.current.params.bookId}, function(book){
+                            InfoContainer.setInfoCode('Deze persoonlijke informatie is voor het boek: ' + book.title);
+                        }, ErrorContainer.handleRestError);
+                    };
                 }]
             }
         });
     }])
-    .controller('PersonalBookInfoController', ['$scope', 'ErrorContainer', 'TitlePanelService', 'personalBookInfoModel', 'onSave', 'Country', 'DateService', function ($scope, ErrorContainer, TitlePanelService, personalBookInfoModel, onSave, Country, DateService) {
+    .controller('PersonalBookInfoController', ['$scope', 'ErrorContainer', 'TitlePanelService', 'personalBookInfoModel', 'onSave', 'Country', 'initFunction', function ($scope, ErrorContainer, TitlePanelService, personalBookInfoModel, onSave, Country, initFunction) {
         function init() {
-            $('#star').raty(
-                {
-                    score: function () {
-                        return $('#star-rating-input').val();
-                    },
-                    number: 10,
-                    path: '../BiblioMania/assets/lib/raty-2.7.0/lib/images',
-                    click: function (score) {
-                        $('#star-rating-input').val(score);
-                    }
-                }
-            );
-
             TitlePanelService.setTitle('Persoonlijke informatie');
+
             $scope.model = personalBookInfoModel;
             $scope.data = {};
+
             $scope.data.countries = Country.query(function(){}, ErrorContainer.handleRestError);
             $scope.data.currencies = [
                 {
@@ -85,18 +88,14 @@ angular.module('com.bendani.bibliomania.edit.personal.book.info.ui', [
 
             $scope.submitForm = function(model){
                 if(model.acquirement === 'BUY'){
-                    if(model.buyInfo.buyDate){
-                        model.buyInfo.buyDate = DateService.dateToJsonDate(model.buyInfo.buyDate);
-                    }
                     model.giftInfo = undefined;
                 }else{
-                    if(model.giftInfo.giftDate){
-                        model.giftInfo.giftDate = DateService.dateToJsonDate(model.giftInfo.giftDate);
-                    }
                     model.buyInfo = undefined;
                 }
+
                 onSave(model);
             };
+
             $scope.datepicker = {
                 opened: false
             };
@@ -106,5 +105,6 @@ angular.module('com.bendani.bibliomania.edit.personal.book.info.ui', [
             $scope.datepicker.opened = true;
         };
 
+        initFunction();
         init();
     }]);

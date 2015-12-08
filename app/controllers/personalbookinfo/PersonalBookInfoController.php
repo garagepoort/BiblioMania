@@ -16,9 +16,23 @@ class PersonalBookInfoController extends BaseController
         $this->jsonMappingService = App::make('JsonMappingService');
     }
 
+    public function get($id){
+        $personalBookInfo = $this->personalBookInfoService->find($id);
+        Ensure::objectNotNull('personalBookInfo', $personalBookInfo);
+
+        $personalBookInfoToJsonAdapter = new PersonalBookInfoToJsonAdapter($personalBookInfo);
+        return $personalBookInfoToJsonAdapter->mapToJson();
+    }
+
     public function create(){
         $adapter = $this->jsonMappingService->mapInputToJson(Input::get(), new CreatePersonalBookInfoFromJsonAdapter());
         $id = $this->personalBookInfoService->createPersonalBookInfo($adapter);
+        return Response::json(array('success' => true, 'id' => $id), 200);
+    }
+
+    public function update(){
+        $adapter = $this->jsonMappingService->mapInputToJson(Input::get(), new UpdatePersonalBookInfoFromJsonAdapter());
+        $id = $this->personalBookInfoService->update($adapter);
         return Response::json(array('success' => true, 'id' => $id), 200);
     }
 

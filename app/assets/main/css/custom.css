@@ -51,6 +51,9 @@ input.no-spinner {
   -moz-border-radius: 0 !important;
   border-radius: 0 !important;
 }
+div.growl {
+  z-index: 99999;
+}
 .round-corners {
   -webkit-border-radius: 4px !important;
   -moz-border-radius: 4px !important;
@@ -185,11 +188,17 @@ a:hover {
 .title-panel-buttons {
   margin-right: 10px;
 }
+.book-rating {
+  color: #ec971f;
+}
 div.editBookPanel {
   cursor: pointer;
 }
 legend {
   color: #2d6ca2;
+}
+.table > tbody > tr > td {
+  vertical-align: middle;
 }
 .text-align-right {
   text-align: right;

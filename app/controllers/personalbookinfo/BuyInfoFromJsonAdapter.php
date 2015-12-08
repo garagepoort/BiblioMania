@@ -1,6 +1,6 @@
 <?php
 
-class CreateBuyInfoFromJsonAdapter implements CreateBuyInfoRequest
+class BuyInfoFromJsonAdapter implements BuyInfoRequest
 {
     /** @var  DateFromJsonAdapter */
     private $buyDate;
