@@ -22,23 +22,9 @@ angular.module('com.bendani.bibliomania.book.details.ui', ['com.bendani.biblioma
                 TitlePanelService.setPreviousUrl("/books");
 
                 $scope.book = Book.get({id: $routeParams.id}, function(book){
+
                     TitlePanelService.setTitle(book.title);
-
-                    var titlePanelRight = angular.element('<div class="book-detail-title-panel"><label style="float: right" class="label label-warning">{{ book.genre }}</label><div style="clear: both" class="star-detail"></div></div>');
-                    $compile(titlePanelRight)($scope);
-                    TitlePanelService.setRightPanel(titlePanelRight);
-
-                    var rating = 0;
-                    if(book.personalBookInfo !== undefined){
-                        rating = book.personalBookInfo.rating;
-                    }
-
-                    $('.star-detail').raty({
-                        score: rating,
-                        number: 10,
-                        readOnly: true,
-                        path: '/BiblioMania/assets/lib/raty-2.7.0/lib/images'
-                    });
+                    setRightTitlePanel();
 
                 }, ErrorContainer.handleRestError);
             }
@@ -51,10 +37,8 @@ angular.module('com.bendani.bibliomania.book.details.ui', ['com.bendani.biblioma
                 modalInstance.result.then(function (date) {
                     var readingDateToAdd = DateService.dateToJsonDate(date);
                     PersonalBookInfo.addReadingDate({id: $scope.book.personalBookInfo.id}, readingDateToAdd, function(){
-
                         $scope.book.personalBookInfo.readingDates = PersonalBookInfo.readingDates({id: $scope.book.personalBookInfo.id}, function(){}, ErrorContainer.handleRestError);
                         growl.addSuccessMessage('LeesDatum toegevoegd');
-
                     }, ErrorContainer.handleRestError);
                 });
             };
@@ -76,7 +60,6 @@ angular.module('com.bendani.bibliomania.book.details.ui', ['com.bendani.biblioma
                 });
             };
 
-
             $scope.showSelectAuthorDialog = function () {
                 var modalInstance = $uibModal.open({
                     templateUrl: '../BiblioMania/views/partials/author/select-author-modal.html',
@@ -84,9 +67,7 @@ angular.module('com.bendani.bibliomania.book.details.ui', ['com.bendani.biblioma
                 });
 
                 modalInstance.result.then(function (author) {
-                    Book.linkAuthor({id: $scope.book.id}, {authorId: author.id}, function(){
-                        growl.addSuccessMessage('Auteur toegevoegd');
-                    }, ErrorContainer.handleRestError);
+                    linkAuthorToBook(author);
                 });
             };
 
@@ -112,6 +93,7 @@ angular.module('com.bendani.bibliomania.book.details.ui', ['com.bendani.biblioma
                 });
 
                 modalInstance.result.then(function (author) {
+                    linkAuthorToBook(author);
                 });
             };
 
@@ -126,6 +108,27 @@ angular.module('com.bendani.bibliomania.book.details.ui', ['com.bendani.biblioma
             $scope.convertDate = function(date){
                 return DateService.dateToString(date);
             };
+
+            $scope.editPersonalBookInfo = function(){
+                $location.path('/edit-personal-book-info/'+ $scope.book.personalBookInfo.id);
+            };
+
+            $scope.createPersonalBookInfo = function(){
+                $location.path('/create-personal-book-info/'+ $scope.book.id);
+            };
+
+            function linkAuthorToBook(author) {
+                Book.linkAuthor({id: $scope.book.id}, {authorId: author.id}, function () {
+                    $scope.book.authors.push(author);
+                    growl.addSuccessMessage('Auteur toegevoegd');
+                }, ErrorContainer.handleRestError);
+            }
+
+            function setRightTitlePanel(){
+                var titlePanelRight = angular.element('<div class="book-detail-title-panel"><label style="float: right" class="label label-warning">{{ book.genre }}</label><div style="clear: both"><uib-rating ng-model="book.personalBookInfo.rating" max="10" readonly="true" class="book-rating"></uib-rating></div></div>');
+                $compile(titlePanelRight)($scope);
+                TitlePanelService.setRightPanel(titlePanelRight);
+            }
 
             init();
     }]);

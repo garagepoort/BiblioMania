@@ -8,6 +8,8 @@
                 <p class="input-group input-width-sm" style="margin-bottom: 0">
                     <input type="text" class="form-control" is-open="datepicker.opened"
                            show-button-bar="false"
+                           date-formatter
+                           ng-model-options="{ allowInvalid: true }"
                            uib-datepicker-popup="dd-MM-yyyy" ng-model="model.giftInfo.giftDate" is-open="false"
                            ng-required="true" close-text="Sluiten"/>
                     <span class="input-group-btn">

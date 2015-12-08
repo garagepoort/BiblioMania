@@ -1,5 +1,6 @@
 <div class="create-book-div">
     <errorcontainer></errorcontainer>
+    <infocontainer></infocontainer>
     <form ng-submit="submitForm(model)" id="personalBookInfoForm" name="personalBookInfoForm" novalidate class="form-horizontal">
         <fieldset>
 
@@ -12,10 +13,10 @@
 
                         <!-- RATING -->
                         <div class="form-group">
-                            <label class="control-label">Rating</label>
-
-                            <div id="star"></div>
-                            <input type="text" id="star-rating-input" name="rating" hidden ng-model="model.rating">
+                            <label id="default-rating" class="control-label">Rating</label>
+                            <div>
+                                <uib-rating ng-model="model.rating" max="10" aria-labelledby="default-rating"></uib-rating>
+                            </div>
                         </div>
 
                         <div class="form-group">

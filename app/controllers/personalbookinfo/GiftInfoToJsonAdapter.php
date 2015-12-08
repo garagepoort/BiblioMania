@@ -8,7 +8,7 @@ class GiftInfoToJsonAdapter
     private $reason;
 
     /** @var  DateToJsonAdapter $date */
-    private $date;
+    private $giftDate;
 
     public function __construct(GiftInfo $giftInfo)
     {
@@ -16,8 +16,8 @@ class GiftInfoToJsonAdapter
         $this->from = $giftInfo->from;
         $this->occasion = $giftInfo->occasion;
         $this->reason = $giftInfo->reason;
-        if($giftInfo->gift_date != null){
-            $this->date = DateToJsonAdapter::fromDate($giftInfo->gift_date);
+        if($giftInfo->receipt_date != null){
+            $this->giftDate = DateToJsonAdapter::fromDate($giftInfo->receipt_date);
         }
     }
 
@@ -28,8 +28,8 @@ class GiftInfoToJsonAdapter
             "occasion" => $this->occasion,
             "reason" => $this->reason,
         );
-        if($this->date != null){
-            $result['date'] = $this->date->mapToJson();
+        if($this->giftDate != null){
+            $result['giftDate'] = $this->giftDate->mapToJson();
         }
         return $result;
     }

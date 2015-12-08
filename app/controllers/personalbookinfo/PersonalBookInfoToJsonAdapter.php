@@ -3,9 +3,14 @@
 class PersonalBookInfoToJsonAdapter
 {
     private $id;
+    private $bookId;
     private $read;
+    private $inCollection;
+    private $reasonNotInCollection;
     private $review;
     private $rating;
+    private $acquirement;
+
     /** @var  ReadingDateToJsonAdapter[] */
     private $readingDates;
     /** @var  BuyInfoToJsonAdapter */
@@ -16,18 +21,23 @@ class PersonalBookInfoToJsonAdapter
     public function __construct(PersonalBookInfo $personalBookInfo)
     {
         $this->id = $personalBookInfo->id;
-        $this->read = $personalBookInfo->read;
+        $this->bookId = $personalBookInfo->book_id;
+        $this->read = count($personalBookInfo->reading_dates->all()) > 0;
         $this->review = $personalBookInfo->review;
         $this->rating = $personalBookInfo->rating;
+        $this->inCollection = $personalBookInfo->get_owned();
+        $this->reasonNotInCollection = $personalBookInfo->reason_not_owned;
 
         $this->readingDates = array_map(function ($date) {
             return new ReadingDateToJsonAdapter($date);
         }, $personalBookInfo->reading_dates->all());
 
         if ($personalBookInfo->buy_info != null) {
+            $this->acquirement = 'BUY';
             $this->buyInfo = new BuyInfoToJsonAdapter($personalBookInfo->buy_info);
         } else {
             if ($personalBookInfo->gift_info != null) {
+                $this->acquirement = 'GIFT';
                 $this->giftInfo = new GiftInfoToJsonAdapter($personalBookInfo->gift_info);
             }
         }
@@ -37,9 +47,13 @@ class PersonalBookInfoToJsonAdapter
     {
         $result = array(
             "id" => $this->id,
+            "bookId" => $this->bookId,
             "read" => $this->read ? true : false,
             "review" => $this->review,
             "rating" => $this->rating,
+            "acquirement" => $this->acquirement,
+            "inCollection" => $this->inCollection,
+            "reasonNotInCollection" => $this->reasonNotInCollection,
             "readingDates" => array_map(function ($date) {
                 return $date->mapToJson();
             }, $this->readingDates),

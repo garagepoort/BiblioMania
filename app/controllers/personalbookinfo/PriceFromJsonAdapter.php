@@ -2,7 +2,7 @@
 
 class PriceFromJsonAdapter implements PriceRequest
 {
-    /** @var  Integer */
+    /** @var  float */
     /** @required */
     private $amount;
     /** @var  string */

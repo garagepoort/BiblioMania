@@ -8,6 +8,8 @@
                 <p class="input-group input-width-sm" style="margin-bottom: 0">
                     <input type="text" class="form-control" is-open="datepicker.opened"
                            show-button-bar="false"
+                           date-formatter
+                           ng-model-options="{ allowInvalid: true }"
                            uib-datepicker-popup="dd-MM-yyyy" ng-model="model.buyInfo.buyDate" is-open="false"
                            ng-required="true" close-text="Sluiten"/>
                     <span class="input-group-btn">
@@ -20,7 +22,7 @@
                 <label class="control-label">Aankoop prijs </label>
                 <div>
                     <select style="margin-right: 10px;" class="form-control col-md-2 input-width-xsm" ng-model="model.buyInfo.buyPrice.currency" ng-options="currency.value as currency.name for currency in data.currencies"></select>
-                    <input type="text" name="buyPrice" class="form-control col-md-4 input-width-sm" ng-model="model.buyInfo.buyPrice.amount" ng-pattern="/^\d+(\,\d{1,2})?$/"/>
+                    <input type="text" name="buyPrice" price-formatter class="form-control col-md-4 input-width-sm" ng-model="model.buyInfo.buyPrice.amount" ng-pattern="/^\d+(\,\d{1,2})?$/"/>
                     <span ng-show="personalBookInfoForm.buyPrice.$error.pattern && personalBookInfoForm.buyPrice.$dirty" class="form-error-message help-inline vertical-align"><i class="fa fa-exclamation-circle"> Prijs is niet het juiste formaat.</i></span>
                 </div>
             </div>
@@ -44,7 +46,7 @@
             <div class="form-group">
                 <div style="padding-left: 0">
                     <label class="control-label ">Stad winkel </label>
-                    <input name="city" ng-model="model.buyInfo.city" type="text" placeholder="stad" class="form-control input-width-sm"
+                    <input name="city" ng-model="model.buyInfo.cityShop" type="text" placeholder="stad" class="form-control input-width-sm"
                            uib-typeahead="city.name as city.name for city in data.cities | filter:$viewValue | limitTo:8" class="form-control">
                 </div>
             </div>
@@ -53,7 +55,7 @@
                 <div style="padding-left: 0">
                     <label class="control-label">Land winkel </label>
 
-                    <input name="country" ng-model="model.country" type="text" placeholder="land" class="form-control input-width-sm"
+                    <input name="country" ng-model="model.buyInfo.countryShop" type="text" placeholder="land" class="form-control input-width-sm"
                            uib-typeahead="country.name as country.name for country in data.countries | filter:$viewValue | limitTo:8" class="form-control">
                 </div>
             </div>

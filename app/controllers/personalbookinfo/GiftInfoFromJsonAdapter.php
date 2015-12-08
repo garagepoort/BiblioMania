@@ -1,6 +1,6 @@
 <?php
 
-class CreateGiftInfoFromJsonAdapter implements CreateGiftInfoRequest
+class GiftInfoFromJsonAdapter implements GiftInfoRequest
 {
 
     /** @var  DateFromJsonAdapter */
