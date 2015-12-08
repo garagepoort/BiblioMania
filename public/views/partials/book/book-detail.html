@@ -68,7 +68,7 @@
         <div class="col-md-6">
             <div class="form-subtitle">
                 <div>Persoonlijke informatie</div>
-                <button class="btn btn-sm form-subtitle-button btn-default round-corners"><i class="fa fa-pencil"> Persoonlijke info aanmaken</i>
+                <button class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="createPersonalBookInfo()"><i class="fa fa-pencil"> Persoonlijke info aanmaken</i>
                 </button>
             </div>
             <div class="form-content detail-panel">
@@ -82,15 +82,15 @@
         <div class="col-md-6">
             <div class="form-subtitle">
                 <div>Persoonlijke informatie</div>
-                <button class="btn btn-sm form-subtitle-button btn-default round-corners"><i class="fa fa-pencil"> Wijzig</i>
+                <button class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="editPersonalBookInfo()"><i class="fa fa-pencil"> Editeer</i>
                 </button>
             </div>
             <div class="form-content detail-panel">
                 <dl class="dl-horizontal">
                     <dt>gelezen</dt>
-                    <dd><img ng-show="book.personalBookInfo.read" class='icon' ng-src="/BiblioMania/images/check-circle-success.png" /></dd>
+                    <dd><span ng-show="book.personalBookInfo.read" class="glyphicon glyphicon-ok-sign"></span></dd>
                     <dt>rating</dt>
-                    <dd><div class="star-detail"></div></dd>
+                    <dd><uib-rating ng-model="book.personalBookInfo.rating" max="10" readonly="true" class="book-rating"></uib-rating></dd>
                     <dt>review</dt>
                     <dd>{{book.personalBookInfo.review}}</dd>
                 </dl>
@@ -100,38 +100,38 @@
         <div class="col-md-6" ng-show="book.personalBookInfo.buyInfo">
             <div class="form-subtitle">
                 <div>Koop informatie</div>
-                <button class="btn btn-sm form-subtitle-button btn-default round-corners"><i class="fa fa-pencil"> Wijzig</i></button>
+                <button class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="editPersonalBookInfo()"><i class="fa fa-pencil"> Editeer</i></button>
             </div>
             <div class="form-content detail-panel">
                 <dl class="dl-horizontal">
-                    <dt ng-show="book.personalBookInfo.buyInfo.price !== null">prijs</dt>
-                    <dd ng-show="book.personalBookInfo.buyInfo.price !== null">{{book.personalBookInfo.buyInfo.price + ' ' + book.personalBookInfo.buyInfo.currency}}</dd>
+                    <dt ng-show="book.personalBookInfo.buyInfo.buyPrice !== null">prijs</dt>
+                    <dd ng-show="book.personalBookInfo.buyInfo.buyPrice !== null">{{book.personalBookInfo.buyInfo.buyPrice.currency + ' ' + book.personalBookInfo.buyInfo.buyPrice.amount}}</dd>
                     <dt>winkel</dt>
                     <dd>{{book.personalBookInfo.buyInfo.shop}}</dd>
                     <dt>reden</dt>
                     <dd>{{book.personalBookInfo.buyInfo.reason}}</dd>
                     <dt>stad</dt>
-                    <dd>{{book.personalBookInfo.buyInfo.city}}</dd>
+                    <dd>{{book.personalBookInfo.buyInfo.cityShop}}</dd>
                     <dt>land</dt>
-                    <dd>{{book.personalBookInfo.buyInfo.country}}</dd>
+                    <dd>{{book.personalBookInfo.buyInfo.countryShop}}</dd>
                 </dl>
             </div>
         </div>
         <div class="col-md-6" ng-show="book.personalBookInfo.giftInfo">
             <div class="form-subtitle">
                 <div>Gift informatie</div>
-                <button class="btn btn-sm form-subtitle-button btn-default round-corners"><i class="fa fa-pencil"> Wijzig</i></button>
+                <button class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="editPersonalBookInfo()"><i class="fa fa-pencil"> Wijzig</i></button>
             </div>
             <div class="form-content detail-panel">
                 <dl class="dl-horizontal">
-                    <dt>Gekregen van</dt>
+                    <dt>gekregen van</dt>
                     <dd>{{book.personalBookInfo.giftInfo.from}}</dd>
-                    <dt>Gelegenheid</dt>
+                    <dt>gelegenheid</dt>
                     <dd>{{book.personalBookInfo.giftInfo.occasion}}</dd>
                     <dt>reden</dt>
                     <dd>{{book.personalBookInfo.giftInfo.reason}}</dd>
                     <dt>datum</dt>
-                    <dd ng-show="book.personalBookInfo.giftInfo.date">{{convertDate(book.personalBookInfo.giftInfo.date)}}</dd>
+                    <dd ng-show="book.personalBookInfo.giftInfo.giftDate">{{convertDate(book.personalBookInfo.giftInfo.giftDate)}}</dd>
                 </dl>
             </div>
         </div>
@@ -154,7 +154,7 @@
                     <tbody>
                     <tr ng-repeat="date in book.personalBookInfo.readingDates" style="cursor: pointer">
                         <td>{{ convertDate(date.date) }}</td>
-                        <td><i class="clickable fa fa-times-circle" ng-click="removeReadingDate(date)"></i></td>
+                        <td><button ng-click="removeReadingDate(date)" type="button" class="btn btn-default round-corners"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></td>
                     </tr>
                     </tbody>
                 </table>
@@ -180,8 +180,8 @@
                     <tr ng-repeat="author in book.authors" style="cursor: pointer">
                         <td>{{ author.name.firstname }}</td>
                         <td>{{ author.name.lastname }}</td>
-                        <td style="text-align: center"><img ng-show="author.preferred" class='icon' ng-src="/BiblioMania/images/check-circle-success.png" /></td>
-                        <td><i class="clickable fa fa-times-circle"></i></td>
+                        <td style="text-align: center"><span style="top: 3px;" ng-show="author.preferred" class="glyphicon glyphicon-ok-sign"></span></td>
+                        <td><button type="button" class="btn btn-default round-corners"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></td>
                     </tr>
                     </tbody>
                 </table>

@@ -16,12 +16,12 @@ class BuyInfoService
     }
 
 
-    public function create($personBookInfoId, CreateBuyInfoRequest $createRequest)
+    public function createOrUpdate($personBookInfoId, BuyInfoRequest $createRequest)
     {
         $buyInfo = BuyInfo::where('personal_book_info_id', '=', $personBookInfoId)->first();
-        Ensure::objectNull('buyInformation', $buyInfo, 'Buy information for this book already exists. No new one can be created.');
-
-        $buyInfo = new BuyInfo();
+        if($buyInfo == null){
+            $buyInfo = new BuyInfo();
+        }
 
         if(!StringUtils::isEmpty($createRequest->getCountryShop())){
             $country = $this->countryService->findOrCreate($createRequest->getCountryShop());
@@ -38,7 +38,7 @@ class BuyInfoService
             $buyInfo->currency = $createRequest->getBuyPrice()->getCurrency();
         }
 
-        $buyInfo->buy_date = DateFormatter::dateRequestToDateTime($createRequest->getBuyDate());
+        $buyInfo->buy_date = $createRequest->getBuyDate() == null ? null : DateFormatter::dateRequestToDateTime($createRequest->getBuyDate());
         $buyInfo->reason = $createRequest->getReason();
         $buyInfo->shop = $createRequest->getShop();
         $buyInfo->personal_book_info_id = $personBookInfoId;

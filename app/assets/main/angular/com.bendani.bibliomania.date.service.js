@@ -32,6 +32,13 @@ angular.module('com.bendani.bibliomania.date.service', [])
                         };
                     }
                     return {};
+                },
+
+                jsonDateToDate: function(jsonDate) {
+                    if (jsonDate !== undefined && jsonDate !== null) {
+                       return new Date(jsonDate.year, jsonDate.month-1, jsonDate.day);
+                    }
+                    return new Date();
                 }
             };
             return service;

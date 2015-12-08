@@ -14,8 +14,7 @@ angular.module('com.bendani.bibliomania.edit.first.print.ui', ['com.bendani.bibl
             controller: 'FirstPrintController',
             resolve: {
                 firstPrintInfoModel: ['FirstPrintInfo', '$route', 'ErrorContainer', function(FirstPrintInfo, $route, ErrorContainer){
-                    return FirstPrintInfo.get({id: $route.current.params.id }, function(){
-                    }, ErrorContainer.handleRestError);
+                    return FirstPrintInfo.get({id: $route.current.params.id }, function(){}, ErrorContainer.handleRestError);
                 }],
                 onSave:  ['FirstPrintInfo', '$route', 'ErrorContainer', 'growl', function(FirstPrintInfo, $route, ErrorContainer, growl){
                     return function(model){
@@ -23,24 +22,10 @@ angular.module('com.bendani.bibliomania.edit.first.print.ui', ['com.bendani.bibl
                             growl.addSuccessMessage('Eerste druk opgeslagen');
                         }, ErrorContainer.handleRestError);
                     };
-                }]
-            }
-        });
-        $routeProvider.when('/create-first-print', {
-            templateUrl: '../BiblioMania/views/partials/firstprint/edit-first-print.html',
-            controller: 'FirstPrintController',
-            resolve: {
-                firstPrintInfoModel: function(){
-                    return {};
-                },
-                onSave:  ['FirstPrintInfo', '$route', 'ErrorContainer', 'growl', '$location',function(FirstPrintInfo, $route, ErrorContainer, growl, $location){
-                    return function(model){
-                        FirstPrintInfo.save(model, function(response){
-                            $location.path('/edit-first-print/' + response.id);
-                            growl.addSuccessMessage('Eerste druk opgeslagen');
-                        }, ErrorContainer.handleRestError);
-                    };
-                }]
+                }],
+                init: function(){
+                    return function(){};
+                }
             }
         });
         $routeProvider.when('/create-first-print-and-link-to-book/:bookId', {

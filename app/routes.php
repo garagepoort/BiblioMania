@@ -49,6 +49,8 @@ Route::group(array('before' => 'auth'), function () {
     Route::get('authors/{id}/oeuvre', 'OeuvreController@getOeuvreFromAuthor');
 
     Route::post('personalbookinfos', 'PersonalBookInfoController@create');
+    Route::put('personalbookinfos', 'PersonalBookInfoController@update');
+    Route::get('personalbookinfos/{id}', 'PersonalBookInfoController@get');
     Route::get('personalbookinfos/{id}/readingdates', 'PersonalBookInfoController@getReadingDates');
     Route::post('personalbookinfos/{id}/readingdates', 'PersonalBookInfoController@addReadingDate');
     Route::put('personalbookinfos/{id}/delete-reading-date', 'PersonalBookInfoController@deleteReadingDate');

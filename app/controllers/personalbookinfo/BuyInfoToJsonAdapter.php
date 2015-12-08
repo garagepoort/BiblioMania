@@ -3,12 +3,12 @@
 class BuyInfoToJsonAdapter
 {
     private $id;
-    private $price;
-    private $currency;
-    private $shop;
     private $reason;
-    private $city;
-    private $country;
+    private $shop;
+    private $cityShop;
+    private $countryShop;
+    /** @var  PriceToJsonAdapter */
+    private $buyPrice;
 
     /** @var  DateToJsonAdapter $date */
     private $date;
@@ -16,8 +16,7 @@ class BuyInfoToJsonAdapter
     public function __construct(BuyInfo $buyInfo)
     {
         $this->id = $buyInfo->id;
-        $this->price = $buyInfo->price;
-        $this->currency = $buyInfo->currency;
+        $this->buyPrice = new PriceToJsonAdapter($buyInfo->price_payed, $buyInfo->currency);
         $this->shop = $buyInfo->shop;
         $this->reason = $buyInfo->reason;
         if($buyInfo->buy_date != null){
@@ -25,9 +24,9 @@ class BuyInfoToJsonAdapter
         }
 
         if($buyInfo->city != null){
-            $this->city = $buyInfo->city->name;
+            $this->cityShop = $buyInfo->city->name;
             if($buyInfo->city->country != null){
-                $this->country = $buyInfo->city->country;
+                $this->countryShop = $buyInfo->city->country->name;
             }
         }
     }
@@ -35,15 +34,14 @@ class BuyInfoToJsonAdapter
     public function mapToJson(){
         $result = array(
             "id" => $this->id,
-            "price" => $this->price,
-            "currency" => $this->currency,
+            "buyPrice" => $this->buyPrice->mapToJson(),
             "shop" => $this->shop,
             "reason" => $this->reason,
-            "city" => $this->city,
-            "country" => $this->country
+            "cityShop" => $this->cityShop,
+            "countryShop" => $this->countryShop
         );
         if($this->date != null){
-            $result['date'] = $this->date->mapToJson();
+            $result['buyDate'] = $this->date->mapToJson();
         }
         return $result;
     }
