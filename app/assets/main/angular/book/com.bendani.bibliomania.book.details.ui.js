@@ -117,6 +117,14 @@ angular.module('com.bendani.bibliomania.book.details.ui', ['com.bendani.biblioma
                 $location.path('/create-personal-book-info/'+ $scope.book.id);
             };
 
+            $scope.unlinkAuthorFromBook = function(author) {
+                Book.unlinkAuthor({id: $scope.book.id}, {authorId: author.id}, function () {
+                    var index = $scope.book.authors.indexOf(author);
+                    $scope.book.authors.splice(index, 1);
+                    growl.addSuccessMessage('Auteur verwijderd');
+                }, ErrorContainer.handleRestError);
+            };
+
             function linkAuthorToBook(author) {
                 Book.linkAuthor({id: $scope.book.id}, {authorId: author.id}, function () {
                     $scope.book.authors.push(author);
