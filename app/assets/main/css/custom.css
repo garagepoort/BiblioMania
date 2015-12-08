@@ -34,6 +34,9 @@ input.no-spinner {
 .input-width-lg {
   width: 410px;
 }
+.overflow-auto {
+  overflow: auto;
+}
 .form-group.form-group-small {
   width: 95px;
   min-width: inherit;
