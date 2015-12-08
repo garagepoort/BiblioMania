@@ -2,14 +2,14 @@
     <div class="modal-header">
         <h3 class="modal-title">Eerste druk selectie</h3>
     </div>
-    <div class="modal-body" ng-controller="FirstPrintSelectionController" style="overflow: auto; max-height: 400px;">
+    <div class="modal-body" ng-controller="FirstPrintSelectionController">
         <div class="input-group" style="width: 200px; float: right">
             <input id="searchAuthorsInput" ng-model="firstPrintSelectionModal.searchFirstPrintQuery" type="text"
                    class="form-control half-round-corners-left" placeholder="Search" name="criteria"
                    aria-describedby="basic-addon1">
             <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon1"></span>
         </div>
-        <div>
+        <div class="overflow-auto" style="max-height: 400px; width: 100%;">
             <table class="table table-hover">
                 <thead>
                 <tr style="cursor: pointer">
@@ -25,7 +25,7 @@
                 </tr>
                 </tbody>
             </table>
-        </div>
+        </>
     </div>
     <div class="modal-footer">
         <button class="btn btn-danger" type="button" ng-click="$dismiss()">Annuleer</button>

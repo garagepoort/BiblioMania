@@ -16,9 +16,10 @@ angular.module('com.bendani.bibliomania.edit.first.print.ui', ['com.bendani.bibl
                 firstPrintInfoModel: ['FirstPrintInfo', '$route', 'ErrorContainer', function(FirstPrintInfo, $route, ErrorContainer){
                     return FirstPrintInfo.get({id: $route.current.params.id }, function(){}, ErrorContainer.handleRestError);
                 }],
-                onSave:  ['FirstPrintInfo', '$route', 'ErrorContainer', 'growl', function(FirstPrintInfo, $route, ErrorContainer, growl){
+                onSave:  ['FirstPrintInfo', '$route', 'ErrorContainer', 'growl', 'TitlePanelService', function(FirstPrintInfo, $route, ErrorContainer, growl, TitlePanelService){
                     return function(model){
                         FirstPrintInfo.update(model, function(){
+                            TitlePanelService.goToPreviousUrl();
                             growl.addSuccessMessage('Eerste druk opgeslagen');
                         }, ErrorContainer.handleRestError);
                     };
