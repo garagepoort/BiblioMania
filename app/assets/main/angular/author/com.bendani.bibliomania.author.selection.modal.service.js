@@ -1,4 +1,23 @@
-angular.module('com.bendani.bibliomania.author.selection.controller', ['com.bendani.bibliomania.author.model', 'com.bendani.bibliomania.error.container'])
+angular.module('com.bendani.bibliomania.author.selection.modal.service', ['com.bendani.bibliomania.author.model', 'com.bendani.bibliomania.error.container'])
+    .provider('AuthorSelectionModalService', function AuthorSelectionModalServiceProvider(){
+        function AuthorSelectionModalService($uibModal) {
+            var service = {
+                show: function(onResultFunction) {
+
+                    var modalInstance = $uibModal.open({
+                        templateUrl: '../BiblioMania/views/partials/author/select-author-modal.html'
+                    });
+
+                    modalInstance.result.then(onResultFunction);
+                }
+            };
+            return service;
+        }
+
+        this.$get = ['$uibModal', function ($uibModal) {
+            return new AuthorSelectionModalService($uibModal);
+        }];
+    })
     .controller('AuthorSelectionController', ['$scope', 'Author', 'ErrorContainer', function($scope, Author, ErrorContainer){
 
         function init(){
