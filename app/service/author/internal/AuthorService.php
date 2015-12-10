@@ -136,57 +136,6 @@ class AuthorService
         $this->authorRepository->save($author);
     }
 
-
-    /**
-     * @param AuthorInfoParameters $authorInfoParameters
-     * @return Author
-     */
-    public function createOrUpdate(AuthorInfoParameters $authorInfoParameters)
-    {
-        $author_model = $this->authorRepository->getAuthorByFullName($authorInfoParameters->getName(),
-            $authorInfoParameters->getFirstname(),
-            $authorInfoParameters->getInfix());
-
-        if (is_null($author_model)) {
-            $author_model = new Author();
-            $author_model->name = $authorInfoParameters->getName();
-            $author_model->firstname = $authorInfoParameters->getFirstname();
-            $author_model->infix = $authorInfoParameters->getInfix();
-            $authorInfoParameters->getDateOfBirth()->save();
-            $authorInfoParameters->getDateOfDeath()->save();
-            $author_model->date_of_birth_id = $authorInfoParameters->getDateOfBirth()->id;
-            $author_model->date_of_death_id = $authorInfoParameters->getDateOfDeath()->id;
-        }else{
-            $this->dateService->copyDateValues($author_model->date_of_birth, $authorInfoParameters->getDateOfBirth());
-            $this->dateService->copyDateValues($author_model->date_of_death, $authorInfoParameters->getDateOfDeath());
-        }
-
-        $this->saveImage($authorInfoParameters->getImage(), $authorInfoParameters->getImageSaveType(), $author_model);
-
-        $this->authorRepository->save($author_model);
-        return $author_model;
-    }
-
-    public function deleteDateOfBirth($author)
-    {
-        if ($author->date_of_birth != null) {
-            $date_of_birth = $author->date_of_birth;
-            $author->date_of_birth_id = null;
-            $author->save();
-            $date_of_birth->delete();
-        }
-    }
-
-    public function deleteDateOfDeath($author)
-    {
-        if ($author->date_of_death != null) {
-            $date_of_death = $author->date_of_death;
-            $author->date_of_death_id = null;
-            $author->save();
-            $date_of_death->delete();
-        }
-    }
-
     public function getFilteredAuthors($query, $operator, $type, $orderBy)
     {
         $with = array('date_of_birth', 'date_of_death');
@@ -250,22 +199,6 @@ class AuthorService
             }
             $author_model->useSpriteImage = false;
         }
-    }
-
-    public function authorToString(Author $author){
-        $firstname = $author->firstname;
-        $infix = $author->infix;
-        $name = $author->name;
-        if(!StringUtils::isEmpty($name) && !StringUtils::isEmpty($infix) && !StringUtils::isEmpty($firstname)){
-            return $name . ", " . $infix . ", " . $firstname;
-        }else if (!StringUtils::isEmpty($name) && !StringUtils::isEmpty($firstname)){
-            return $name . ", " . $firstname;
-        }
-        return $name;
-    }
-
-    public function createOrGetAuthor($lastName, $infix, $firstName)
-    {
     }
 
     public function getAllAuthors()

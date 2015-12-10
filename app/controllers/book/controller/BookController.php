@@ -4,37 +4,8 @@ use Bendani\PhpCommon\Utils\Model\StringUtils;
 
 class BookController extends BaseController
 {
-    /** @var string $bookFolder */
-    private $bookFolder = "book/";
-
     /** @var  BookService */
     private $bookService;
-    /** @var  BookFormValidator */
-    private $bookFormValidator;
-    /** @var  BookCreationService */
-    private $bookCreationService;
-    /** @var  AuthorInfoParameterMapper */
-    private $authorInfoParameterMapper;
-    /** @var  ExtraBookInfoParameterMapper */
-    private $extraBookInfoParameterMapper;
-    /** @var  BookInfoParameterMapper */
-    private $bookInfoParameterMapper;
-    /** @var  BuyInfoParameterMapper */
-    private $buyInfoParameterMapper;
-    /** @var  GiftInfoParameterMapper */
-    private $giftInfoParameterMapper;
-    /** @var  CoverInfoParameterMapper */
-    private $coverInfoParameterMapper;
-    /** @var  FirstPrintInfoParameterMapper */
-    private $firstPrintInfoParameterMapper;
-    /** @var  PersonalBookInfoParameterMapper */
-    private $personalBookInfoParameterMapper;
-    /** @var  CountryService */
-    private $countryService;
-    /** @var  LanguageService */
-    private $languageService;
-    /** @var  CurrencyService */
-    private $currencyService;
     /** @var  BookFilterManager */
     private $bookFilterHandler;
     /** @var  JsonMappingService */
@@ -44,21 +15,7 @@ class BookController extends BaseController
     public function __construct()
     {
         $this->bookService = App::make('BookService');
-        $this->currencyService = App::make('CurrencyService');
-        $this->bookFormValidator = App::make('BookFormValidator');
-        $this->bookCreationService = App::make('BookCreationService');
-        $this->authorInfoParameterMapper = App::make('AuthorInfoParameterMapper');
-        $this->extraBookInfoParameterMapper = App::make('ExtraBookInfoParameterMapper');
-        $this->bookInfoParameterMapper = App::make('BookInfoParameterMapper');
-        $this->buyInfoParameterMapper = App::make('BuyInfoParameterMapper');
-        $this->giftInfoParameterMapper = App::make('GiftInfoParameterMapper');
-        $this->coverInfoParameterMapper = App::make('CoverInfoParameterMapper');
-        $this->firstPrintInfoParameterMapper = App::make('FirstPrintInfoParameterMapper');
-        $this->personalBookInfoParameterMapper = App::make('PersonalBookInfoParameterMapper');
-        $this->countryService = App::make('CountryService');
-        $this->languageService = App::make('LanguageService');
         $this->bookFilterHandler = App::make('BookFilterManager');
-        $this->bookJsonMapper = App::make('BookJsonMapper');
         $this->jsonMappingService = App::make('JsonMappingService');
     }
 
@@ -149,24 +106,6 @@ class BookController extends BaseController
         /** @var FilteredBooksResult $filteredBooksResult */
         $filteredBooksResult = $this->bookService->searchBooks($book_id, $searchValues, $orderBy);
         return $this->mapBooksToJson($filteredBooksResult);
-    }
-
-    public function getBooksList()
-    {
-        $books = $this->bookService->getCompletedBooksForList();
-        return View::make($this->bookFolder . 'booksList')->with(array(
-            'title' => 'Boeken',
-            'books' => $books
-        ));
-    }
-
-    public function getDraftBooksList()
-    {
-        $books = $this->bookService->getDraftBooksForList();
-        return View::make($this->bookFolder . 'draftBooksList')->with(array(
-            'title' => 'Boeken',
-            'books' => $books
-        ));
     }
 
     /**
