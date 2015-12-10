@@ -1,4 +1,5 @@
 <div class="create-book-div">
+    <errorcontainer></errorcontainer>
     <form ng-submit="submitForm()" id="createAuthorForm" name="createAuthorForm" novalidate class="form-horizontal createBookForm">
         <fieldset>
             <legend>{{ model.name.firstname + " " + model.name.lastname }}</legend>
@@ -33,7 +34,7 @@
                             {{ oeuvreItem.publicationYear }}
                         </td>
                         <td style="text-align: center">
-                            <span aria-hidden="true" style="margin-left:10px" ng-click="deleteOeuvreItem(oeuvreItem)" class="fa fa-times-circle oeuvre-author-cross clickable" width="10px"/>
+                            <button ng-click="deleteOeuvreItem(oeuvreItem)" type="button" class="btn btn-default round-corners"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
                         </td>
                         <td>
                             <label class="label" ng-class="linkLabel(oeuvreItem)">{{ linkText(oeuvreItem) }}</label>

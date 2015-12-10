@@ -1,4 +1,23 @@
-angular.module('com.bendani.bibliomania.first.print.selection.controller', ['com.bendani.bibliomania.first.print.info.model'])
+angular.module('com.bendani.bibliomania.first.print.selection.modal.service', ['com.bendani.bibliomania.first.print.info.model'])
+    .provider('FirstPrintSelectionModalService', function FirstPrintSelectionModalServiceProvider(){
+        function FirstPrintSelectionModalService($uibModal) {
+            var service = {
+                show: function(onResultFunction) {
+
+                    var modalInstance = $uibModal.open({
+                        templateUrl: '../BiblioMania/views/partials/firstprint/select-first-print-modal.html'
+                    });
+
+                    modalInstance.result.then(onResultFunction);
+                }
+            };
+            return service;
+        }
+
+        this.$get = ['$uibModal', function ($uibModal) {
+            return new FirstPrintSelectionModalService($uibModal);
+        }];
+    })
     .controller('FirstPrintSelectionController', ['$scope', 'FirstPrintInfo', 'ErrorContainer', function($scope, FirstPrintInfo, ErrorContainer){
 
         function init(){

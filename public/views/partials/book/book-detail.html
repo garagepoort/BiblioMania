@@ -1,75 +1,81 @@
 <div class="inner-content-container">
     <errorcontainer></errorcontainer>
-    <div class="container-fluid">
+    <div class="container-fluid row">
         <div class="col-md-6 detail-panel form-content">
             <img class="center-block" actual-src="{{ book.image }}" fallback-src="/BiblioMania/images/questionCover.png">
         </div>
 
         <div class="col-md-6">
-            <div class="form-subtitle">
-                <div>Boek informatie</div>
-                <!--<label class="label label-warning form-subtitle-label">{{book.genre}}</label>-->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-subtitle">
+                        <div>Boek informatie</div>
+                        <!--<label class="label label-warning form-subtitle-label">{{book.genre}}</label>-->
+                    </div>
+                    <div class="form-content detail-panel">
+                        <dl class="dl-horizontal">
+                            <dt>Titel</dt>
+                            <dd>{{book.title}}</dd>
+                            <dt ng-show="book.subtitle">Ondertitel</dt>
+                            <dd ng-show="book.subtitle">{{book.subtitle}}</dd>
+                            <dt>isbn</dt>
+                            <dd>{{book.isbn}}</dd>
+                            <dt>uitgever</dt>
+                            <dd>{{book.publisher}}</dd>
+                            <dt>taal</dt>
+                            <dd>{{book.language}}</dd>
+                            <dt>land</dt>
+                            <dd>{{book.country}}</dd>
+                        </dl>
+                    </div>
+                </div>
             </div>
-            <div class="form-content detail-panel">
-                <dl class="dl-horizontal">
-                    <dt>Titel</dt>
-                    <dd>{{book.title}}</dd>
-                    <dt>Ondertitel</dt>
-                    <dd>{{book.subtitle}}</dd>
-                    <dt>isbn</dt>
-                    <dd>{{book.isbn}}</dd>
-                    <dt>uitgever</dt>
-                    <dd>{{book.publisher}}</dd>
-                    <dt>taal</dt>
-                    <dd>{{book.language}}</dd>
-                    <dt>land</dt>
-                    <dd>{{book.country}}</dd>
-                </dl>
+            <div class="row">
+                <div class="col-md-12" ng-show="book.firstPrintInfo === undefined">
+                    <div class="form-subtitle">
+                        <div>Eerste druk informatie</div>
+                        <button class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="showSelectFirstPrintDialog()"><i class="fa fa-search"> Selecteer</i>
+                        </button>
+                        <button class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="createFirstPrintInfo()"><i class="fa fa-plus"> Maak aan</i>
+                        </button>
+                    </div>
+                    <div class="form-content detail-panel">
+                        <div class="alert alert-warning">Er is nog geen eerste druk informatie voor dit boek.</div>
+                    </div>
+                </div>
+
+                <div class="col-md-12" ng-show="book.firstPrintInfo">
+                    <div class="form-subtitle">
+                        <div>Eerste druk informatie</div>
+                        <button class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="showSelectFirstPrintDialog()"><i class="fa fa-search"> Selecteer</i>
+                        </button>
+                        <button class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="editFirstPrintInfo()"><i class="fa fa-pencil"> Editeer</i>
+                        </button>
+                    </div>
+                    <div class="form-content detail-panel">
+                        <dl class="dl-horizontal">
+                            <dt>Titel</dt>
+                            <dd>{{book.firstPrintInfo.title}}</dd>
+                            <dt ng-show="book.firstPrintInfo.subtitle">Ondertitel</dt>
+                            <dd ng-show="book.firstPrintInfo.subtitle">{{book.firstPrintInfo.subtitle}}</dd>
+                            <dt>isbn</dt>
+                            <dd>{{book.firstPrintInfo.isbn}}</dd>
+                            <dt>uitgever</dt>
+                            <dd>{{book.firstPrintInfo.publisher}}</dd>
+                            <dt>taal</dt>
+                            <dd>{{book.firstPrintInfo.language}}</dd>
+                            <dt>land</dt>
+                            <dd>{{book.firstPrintInfo.country}}</dd>
+                        </dl>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="container-fluid" ng-show="book.personalBookInfo === undefined">
-        <div class="col-md-6" ng-show="book.firstPrintInfo === undefined">
-            <div class="form-subtitle">
-                <div>Eerste druk informatie</div>
-                <button class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="showSelectFirstPrintDialog()"><i class="fa fa-search"> Selecteer</i>
-                </button>
-                <button class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="createFirstPrintInfo()"><i class="fa fa-plus"> Maak aan</i>
-                </button>
-            </div>
-            <div class="form-content detail-panel">
-                <div class="alert alert-warning">Er is nog geen eerste druk informatie voor dit boek.</div>
-            </div>
-        </div>
+    <div class="container-fluid row" ng-show="book.personalBookInfo === undefined">
 
-        <div class="col-md-6" ng-show="book.firstPrintInfo">
-            <div class="form-subtitle">
-                <div>Eerste druk informatie</div>
-                <button class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="showSelectFirstPrintDialog()"><i class="fa fa-search"> Selecteer</i>
-                </button>
-                <button class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="editFirstPrintInfo()"><i class="fa fa-pencil"> Editeer</i>
-                </button>
-            </div>
-            <div class="form-content detail-panel">
-                <dl class="dl-horizontal">
-                    <dt>Titel</dt>
-                    <dd>{{book.firstPrintInfo.title}}</dd>
-                    <dt>Ondertitel</dt>
-                    <dd>{{book.firstPrintInfo.subtitle}}</dd>
-                    <dt>isbn</dt>
-                    <dd>{{book.firstPrintInfo.isbn}}</dd>
-                    <dt>uitgever</dt>
-                    <dd>{{book.firstPrintInfo.publisher}}</dd>
-                    <dt>taal</dt>
-                    <dd>{{book.firstPrintInfo.language}}</dd>
-                    <dt>land</dt>
-                    <dd>{{book.firstPrintInfo.country}}</dd>
-                </dl>
-            </div>
-        </div>
-
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="form-subtitle">
                 <div>Persoonlijke informatie</div>
                 <button class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="createPersonalBookInfo()"><i class="fa fa-pencil"> Persoonlijke info aanmaken</i>
@@ -79,10 +85,10 @@
                 <div class="alert alert-warning">Je hebt nog geen persoonlijke informatie voor dit boek.</div>
             </div>
         </div>
+
     </div>
 
-
-    <div class="container-fluid" ng-show="book.personalBookInfo">
+    <div class="container-fluid row" ng-show="book.personalBookInfo">
         <div class="col-md-6">
             <div class="form-subtitle">
                 <div>Persoonlijke informatie</div>
@@ -141,7 +147,7 @@
         </div>
     </div>
 
-    <div class="container-fluid">
+    <div class="container-fluid row">
         <div class="col-md-6" ng-show="book.personalBookInfo">
             <div class="form-subtitle">
                 <div>Lees data</div>
@@ -181,11 +187,11 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="author in book.authors" style="cursor: pointer">
+                    <tr ng-repeat="author in book.authors" style="cursor: pointer" ng-click="goToEditAuthor(author)">
                         <td>{{ author.name.firstname }}</td>
                         <td>{{ author.name.lastname }}</td>
                         <td style="text-align: center"><span style="top: 3px;" ng-show="author.preferred" class="glyphicon glyphicon-ok-sign"></span></td>
-                        <td><button ng-hide="author.preferred" ng-click="unlinkAuthorFromBook(author)" type="button" class="btn btn-default round-corners"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></td>
+                        <td><button ng-hide="author.preferred" ng-click="unlinkAuthorFromBook(author); $event.stopPropagation();" type="button" class="btn btn-default round-corners"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></td>
                     </tr>
                     </tbody>
                 </table>
