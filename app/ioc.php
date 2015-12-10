@@ -24,24 +24,8 @@ App::singleton('BookBasicsService', function () {
     return new BookBasicsService();
 });
 
-App::singleton('GenreJsonMapper', function () {
-    return new GenreJsonMapper();
-});
-
-App::singleton('TagJsonMapper', function () {
-    return new TagJsonMapper();
-});
-
 App::singleton('BookExtrasService', function () {
     return new BookExtrasService();
-});
-
-App::singleton('CountryJsonMapper', function () {
-    return new CountryJsonMapper();
-});
-
-App::singleton('PublisherJsonMapper', function () {
-    return new PublisherJsonMapper();
 });
 
 App::singleton('CurrencyService', function () {
@@ -158,28 +142,12 @@ App::singleton('AuthorFormValidator', function () {
     return new AuthorFormValidator();
 });
 
-App::singleton('AuthorInfoParameterMapper', function () {
-    return new AuthorInfoParameterMapper();
-});
-
-App::singleton('ExtraBookInfoParameterMapper', function () {
-    return new ExtraBookInfoParameterMapper();
-});
-
-App::singleton('BookInfoParameterMapper', function () {
-    return new BookInfoParameterMapper();
-});
-
 App::singleton('ImageUploader', function () {
     return new ImageUploader();
 });
 
 App::singleton('BookCreationService', function () {
     return new BookCreationService();
-});
-
-App::singleton('OeuvreToParameterMapper', function () {
-    return new OeuvreToParameterMapper();
 });
 
 App::singleton('FileToAuthorParametersMapper', function () {

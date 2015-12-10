@@ -1,5 +1,7 @@
 <?php
 
+use Bendani\PhpCommon\Utils\Model\BasicEnum;
+
 class AuthorFilterType extends BasicEnum{
     const ALL = "all";
     const AUTHOR_NAME = "author.name";

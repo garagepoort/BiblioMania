@@ -13,13 +13,10 @@ class PublisherController extends BaseController
 
     /** @var  PublisherService */
     private $publisherService;
-    /** @var  PublisherJsonMapper */
-    private $publisherJsonMapper;
 
     function __construct()
     {
         $this->publisherService = App::make('PublisherService');
-        $this->publisherJsonMapper = App::make('PublisherJsonMapper');
     }
 
     public function getPublishers()
