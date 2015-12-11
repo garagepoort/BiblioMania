@@ -10,6 +10,7 @@ class PersonalBookInfo extends Eloquent {
     	'retail_price',
         'review',
         'book_id',
+        'user_id',
         'reason_not_owned'
 	);
 

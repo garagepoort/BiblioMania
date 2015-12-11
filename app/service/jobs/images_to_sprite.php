@@ -17,9 +17,7 @@ class images_to_sprite {
         /** @var Image $image */
         foreach($images as $image) {
             $logger->info("Found file: " . $image->getFile());
-            $book = Book::where('coverImage', '=', $image->getFile())
-                ->where('user_id', "=", $user->id)
-                ->first();
+            $book = Book::where('coverImage', '=', $image->getFile())->first();
             if($book != null){
                 $book->spritePointer = $imageYPointer;
                 $book->imageHeight = $image->getHeight();

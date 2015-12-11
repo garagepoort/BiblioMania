@@ -65,32 +65,8 @@ class GiftInfoService
     public function getAllGifters(){
         return GiftInfo::select(DB::raw("gift_info.from"))
             ->join("personal_book_info", "gift_info.personal_book_info_id", '=',"personal_book_info.id")
-            ->join("book", "personal_book_info.book_id", '=', "book.id")
-            ->where('book.user_id', '=', Auth::user()->id)
-            ->where('wizard_step', '=', 'COMPLETE')
+            ->where('user_id', '=', Auth::user()->id)
             ->groupBy("gift_info.from")
             ->get();
-    }
-
-    public function getAllGiftersInJson(){
-        $giftInfos = GiftInfo::select(DB::raw("gift_info.from"))
-            ->join("personal_book_info", "gift_info.personal_book_info_id", '=',"personal_book_info.id")
-            ->join("book", "personal_book_info.book_id", '=', "book.id")
-            ->where('book.user_id', '=', Auth::user()->id)
-            ->where('wizard_step', '=', 'COMPLETE')
-            ->groupBy("gift_info.from")
-            ->get();
-
-        $result = array();
-        $result["Geen waarde"] = "";
-        foreach($giftInfos as $gifter){
-            if(!StringUtils::isEmpty($gifter->from)){
-                $result[$gifter->from] = $gifter->from;
-            }else{
-                $result["Geen waarde"] = $gifter->from;
-            }
-        }
-
-        return $result;
     }
 }
