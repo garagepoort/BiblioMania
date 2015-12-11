@@ -13,26 +13,34 @@
         <errorcontainer></errorcontainer>
 
         <div class="top-book-panel">
-            <div id="orderByDropdown" class="dropdown" style="float: left">
-                <label>Sorteer op:  </label>
-                <button class="btn btn-default dropdown-toggle" type="button" id="orderByDropDownButton"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    <span id="orderByDropdownButtonLabel">{{ predicate }}</span>
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="orderByDropDownButton">
-                    <li ng-repeat="orderBy in orderValues"><a href="#/books" ng-click="order(orderBy.value)">{{orderBy.key}}</a></li>
-                </ul>
+            <div class="checkbox" style="float: right">
+                <label>
+                    <input type="checkbox" ng-model="showAllBooks" ng-change="doFilterBooks()"> Toon alle boeken
+                </label>
             </div>
 
-            <div class="btn-group" role="group" aria-label="..." style="margin-left: 20px">
-                <button ng-class="reverseOrder ? 'btn-grey' : 'btn-primary'" type="button" ng-click="setReverse(false)" class="btn half-round-corners-left"><span class="glyphicon glyphicon-sort-by-attributes gi-1_5x"></span></button>
-                <button ng-class="reverseOrder ? 'btn-primary' : 'btn-grey'" type="button" ng-click="setReverse(true)" class="btn half-round-corners-right"><span class="glyphicon glyphicon-sort-by-attributes-alt gi-1_5x"></span></button>
-            </div>
+            <div style="clear: both">
+                <div id="orderByDropdown" class="dropdown" style="float: left">
+                    <label>Sorteer op:  </label>
+                    <button class="btn btn-default dropdown-toggle" type="button" id="orderByDropDownButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        <span id="orderByDropdownButtonLabel">{{ predicate }}</span>
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="orderByDropDownButton">
+                        <li ng-repeat="orderBy in orderValues"><a href="#/books" ng-click="order(orderBy.value)">{{orderBy.key}}</a></li>
+                    </ul>
+                </div>
 
-            <div class="input-group" style="width: 200px; float: right">
-                <input id="searchBooksInput" ng-model="searchBooksQuery" type="text" class="form-control half-round-corners-left" placeholder="Search" name="criteria" aria-describedby="basic-addon1">
-                <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon1"></span>
+                <div class="btn-group" role="group" aria-label="..." style="margin-left: 20px">
+                    <button ng-class="reverseOrder ? 'btn-grey' : 'btn-primary'" type="button" ng-click="setReverse(false)" class="btn half-round-corners-left"><span class="glyphicon glyphicon-sort-by-attributes gi-1_5x"></span></button>
+                    <button ng-class="reverseOrder ? 'btn-primary' : 'btn-grey'" type="button" ng-click="setReverse(true)" class="btn half-round-corners-right"><span class="glyphicon glyphicon-sort-by-attributes-alt gi-1_5x"></span></button>
+                </div>
+
+                <div class="input-group" style="width: 200px; float: right">
+                    <input id="searchBooksInput" ng-model="searchBooksQuery" type="text" class="form-control half-round-corners-left" placeholder="Search" name="criteria" aria-describedby="basic-addon1">
+                    <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon1"></span>
+                </div>
             </div>
         </div>
 

@@ -2,13 +2,14 @@ angular
     .module('com.bendani.bibliomania.book.filter.sliding.panel.directive', ['com.bendani.bibliomania.error.container', 'com.bendani.bibliomania.book.filter.model', 'com.bendani.php.common.filterservice'])
     .directive('bookFilterSlidingPanel', function (){
         return {
-            scope: true,
+            scope: false,
             restrict: "E",
             templateUrl: "../BiblioMania/views/partials/book/book-filter-sliding-panel.html",
             controller: ['$scope', '$compile', 'ErrorContainer', 'BookFilter', '$uibModal', function($scope, $compile, ErrorContainer, BookFilter, $uibModal) {
                 var filterPanelOpen  = false;
 
                 function init(){
+
                     $scope.filters = {
                         selected: [],
                         all: []
@@ -39,12 +40,12 @@ angular
                 };
 
                 $scope.doFilterBooks = function() {
-                    $scope.$parent.filterBooks(convertFiltersToJson());
+                    $scope.filterBooks(convertFiltersToJson());
                 };
 
                 $scope.resetBookFilter = function(){
                     $scope.filters.selected = [];
-                    $scope.$parent.resetBooks();
+                    $scope.resetBooks();
                 };
 
                 function convertFiltersToJson(){
@@ -57,6 +58,7 @@ angular
                             operator: filterObject.selectedOperator
                         });
                     }
+
                     return filters;
                 }
 
@@ -67,6 +69,9 @@ angular
                             filter.selectedOperator = filter.supportedOperators[0].value;
                             filter.value = "";
                         }
+                        filters = filters.filter(function( obj ) {
+                            return obj.id !== 'isPersonal';
+                        });
                         $scope.filters.all = filters;
                     }, ErrorContainer.handleRestError);
                 }

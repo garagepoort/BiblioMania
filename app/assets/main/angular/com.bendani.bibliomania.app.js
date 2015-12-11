@@ -8,7 +8,6 @@ angular.module('BiblioMania', ['ngRoute',
     'com.bendani.bibliomania.info.container',
     'com.bendani.bibliomania.info.container.directive',
     'com.bendani.bibliomania.book.controller',
-    'com.bendani.bibliomania.book.wizard.controller',
     'com.bendani.bibliomania.login.controller',
     'com.bendani.bibliomania.main.controller',
     'com.bendani.bibliomania.book.card.directive',
@@ -17,10 +16,6 @@ angular.module('BiblioMania', ['ngRoute',
     'com.bendani.php.common.loginservice.authentication.model',
     'com.bendani.bibliomania.book.filter.sliding.panel.directive',
     'com.bendani.bibliomania.library.information.sliding.panel.directive',
-    'com.bendani.php.common.wizardservice.wizard.directive',
-    'com.bendani.bibliomania.book.basics.controller',
-    'com.bendani.bibliomania.book.extras.controller',
-    'com.bendani.bibliomania.book.author.controller',
     'com.bendani.bibliomania.create.book.controller',
     'com.bendani.bibliomania.edit.author.ui',
     'com.bendani.bibliomania.edit.oeuvre.ui',
@@ -37,10 +32,6 @@ angular.module('BiblioMania', ['ngRoute',
             .when('/login', {
                 templateUrl: '../BiblioMania/views/partials/login.html',
                 controller: 'LoginController'
-            })
-            .when('/editBook/:step/:modelId?', {
-                templateUrl: '../BiblioMania/views/partials/book/wizard/book-wizard.html',
-                controller: 'BookWizardController'
             })
             .when('/create-book', {
                 templateUrl: '../BiblioMania/views/partials/book/create-book.html',
