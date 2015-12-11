@@ -19,6 +19,7 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
             $scope.predicate="author";
             $scope.reverseOrder=false;
             $scope.libraryInformation= {};
+            $scope.showAllBooks = false;
 
             $scope.bookModel = {
                 selectedBookId:null,
@@ -81,10 +82,18 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
 
         $scope.filterBooks = function(filters){
             $scope.loading = true;
-            $http.post("../BiblioMania/books/search", filters).then(function(response){
-                $scope.books = response.data.data;
+
+            if(!$scope.showAllBooks){
+                filters.push({
+                    id: 'isPersonal',
+                    value: true,
+                    operator: '='
+                });
+            }
+
+            Book.search(filters, function(books){
+                $scope.books = books;
                 $scope.loading = false;
-                $scope.libraryInformation = response.data.library_information;
             }, ErrorContainer.handleRestError);
         };
 
