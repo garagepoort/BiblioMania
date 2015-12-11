@@ -62,7 +62,6 @@ Route::group(array('before' => 'auth'), function () {
     Route::get('genres', 'GenreController@getGenres');
 
 //  BOOKS
-    Route::get('getBooks', 'BookController@getBooks');
     Route::get('getBooksList', 'BookController@getBooksList');
     Route::get('getDraftBooksList', 'BookController@getDraftBooksList');
     Route::get('getFullBook', 'BookController@getFullBook');
