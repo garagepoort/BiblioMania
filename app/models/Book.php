@@ -26,8 +26,7 @@ class Book extends Eloquent {
         'retail_price',
         'summary',
         'book_from_author_id',
-		'language_id',
-		'wizard_step'
+		'language_id'
     	);
 
 
