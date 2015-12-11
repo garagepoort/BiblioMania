@@ -82,7 +82,7 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
         $scope.filterBooks = function(filters){
             $scope.loading = true;
             $http.post("../BiblioMania/books/search", filters).then(function(response){
-                $scope.books = response.data.data
+                $scope.books = response.data.data;
                 $scope.loading = false;
                 $scope.libraryInformation = response.data.library_information;
             }, ErrorContainer.handleRestError);
