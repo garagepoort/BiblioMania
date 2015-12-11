@@ -1,20 +1,21 @@
 <ng-form name="nameForm">
     <div class="form-container">
         <div class="form-group required">
-            <label class="control-label col-md-2" style="padding-left: 0px;">Naam </label>
-
-            <div class="col-md-3">
-                <input name="firstname" class="form-control" placeholder="voornaam" ng-model="nameModel.firstname" type="text" required/>
-                <span ng-show="nameForm.firstname.$error.required && nameForm.firstname.$dirty"
-                      class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Voornaam is verplicht</span>
+            <div>
+                <label class="control-label">Naam </label>
             </div>
-            <div class="col-md-2">
-                <input name="infix" class="form-control" placeholder="" ng-model="nameModel.infix" type="text"/>
-            </div>
-            <div class="col-md-3">
-                <input name="lastname" class="form-control" placeholder="achternaam" ng-model="nameModel.lastname" type="text" required/>
-                <span ng-show="nameForm.lastname.$error.required && nameForm.lastname.$dirty"
-                      class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Achternaam is verplicht</span>
+            <div class="row">
+                <div class="col-md-3 form-group" ng-class="{'has-error has-feedback' : nameForm.firstname.$error.required && nameForm.firstname.$dirty}">
+                    <input name="firstname" class="form-control" placeholder="voornaam" ng-model="nameModel.firstname" type="text" required/>
+                </div>
+                <div class="col-md-2">
+                    <input name="infix" class="form-control" placeholder="" ng-model="nameModel.infix" type="text"/>
+                </div>
+                <div class="col-md-3 form-group" ng-class="{'has-error has-feedback' : nameForm.lastname.$error.required && nameForm.lastname.$dirty}">
+                    <input name="lastname" class="form-control" placeholder="achternaam" ng-model="nameModel.lastname" type="text" required/>
+                </div>
+                <span ng-show="nameForm.firstname.$error.required && nameForm.firstname.$dirty"class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Voornaam verplicht</span>
+                <span ng-show="nameForm.lastname.$error.required && nameForm.lastname.$dirty" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Achternaam verplicht</span>
             </div>
         </div>
     </div>

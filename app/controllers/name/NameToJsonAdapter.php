@@ -4,8 +4,10 @@ class NameToJsonAdapter
 {
 
     /** @var  string */
+    /** @required */
     private $firstname;
     /** @var  string */
+    /** @required */
     private $lastname;
     /** @var  string */
     private $infix;

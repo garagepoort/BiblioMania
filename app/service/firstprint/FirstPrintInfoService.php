@@ -26,18 +26,20 @@ class FirstPrintInfoService
     }
 
     public function createFirstPrintInfo(CreateFirstPrintInfoRequest $firstPrintInfoRequest){
-        $firstPrint = new FirstPrintInfo();
-        $firstPrintInfo = $this->saveFirstPrintInfo($firstPrintInfoRequest, $firstPrint);
+        return DB::transaction(function() use ($firstPrintInfoRequest){
+            $firstPrint = new FirstPrintInfo();
+            $firstPrintInfo = $this->saveFirstPrintInfo($firstPrintInfoRequest, $firstPrint);
 
-        if($firstPrintInfoRequest->getBookIdToLink() !== null){
-            /** @var Book $book */
-            $book = $this->bookRepository->find($firstPrintInfoRequest->getBookIdToLink());
-            Ensure::objectNotNull('book to link', $book);
-            $book->first_print_info_id = $firstPrintInfo->id;
-            $book->save();
-        }
+            if($firstPrintInfoRequest->getBookIdToLink() !== null){
+                /** @var Book $book */
+                $book = $this->bookRepository->find($firstPrintInfoRequest->getBookIdToLink());
+                Ensure::objectNotNull('book to link', $book);
+                $book->first_print_info_id = $firstPrintInfo->id;
+                $book->save();
+            }
 
-        return $firstPrintInfo->id;
+            return $firstPrintInfo->id;
+        });
     }
 
     public function updateFirstPrintInfo(UpdateFirstPrintInfoRequest $firstPrintInfoRequest){
@@ -147,6 +149,7 @@ class FirstPrintInfoService
      * @param BaseFirstPrintInfoRequest $firstPrintInfoRequest
      * @param $firstPrintInfo
      * @throws ServiceException
+     * @return FirstPrintInfo
      */
     private function saveFirstPrintInfo(BaseFirstPrintInfoRequest $firstPrintInfoRequest, FirstPrintInfo $firstPrintInfo)
     {
