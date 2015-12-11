@@ -4,12 +4,12 @@ class NameFromJsonAdapter implements NameRequest
 {
 
     /** @var  string */
-    /** @var  required */
+    /** @required */
     private $firstname;
     /** @var  string */
     private $infix;
     /** @var  string */
-    /** @var  required */
+    /** @required */
     private $lastname;
 
     public function getFirstname()
