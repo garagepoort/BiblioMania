@@ -3,14 +3,6 @@
 angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.bibliomania.book.model', 'com.bendani.bibliomania.error.container', 'com.bendani.bibliomania.title.panel'])
     .controller('BookController', ['$scope', 'Book', 'ErrorContainer', '$http', 'TitlePanelService',function ($scope, Book, ErrorContainer, $http, TitlePanelService) {
 
-        function retrieveAllBooks() {
-            $scope.loading=true;
-            Book.query(function (books) {
-                $scope.books = books;
-                $scope.loading = false;
-            }, ErrorContainer.handleRestError);
-        }
-
         function init(){
             TitlePanelService.setTitle('Boeken');
             TitlePanelService.setShowPreviousButton(false);
@@ -26,7 +18,7 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
                 bookDetailPanelOpen:false
             };
 
-            retrieveAllBooks();
+            $scope.filterBooks([]);
 
             $scope.orderValues = [
                 { key: 'Auteur', value:'author'},
@@ -77,7 +69,7 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
         };
 
         $scope.resetBooks = function(){
-            retrieveAllBooks();
+            $scope.filterBooks([]);
         };
 
         $scope.filterBooks = function(filters){
