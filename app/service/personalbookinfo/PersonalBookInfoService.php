@@ -24,9 +24,7 @@ class PersonalBookInfoService
     }
 
     public function find($id){
-        return PersonalBookInfo::select('personal_book_info.*')
-            ->join('book', 'book_id', '=', 'book.id')
-            ->where('user_id', '=', Auth::user()->id)
+        return PersonalBookInfo::where('user_id', '=', Auth::user()->id)
             ->where('personal_book_info.id', '=', $id)
             ->first();
     }
@@ -46,6 +44,7 @@ class PersonalBookInfoService
 
         $personalBookInfo = new PersonalBookInfo();
         $personalBookInfo->book_id = $createRequest->getBookId();
+        $personalBookInfo->user_id = Auth::user()->id;
         return $this->updatePersonalBookInfo($personalBookInfo, $createRequest);
     }
 

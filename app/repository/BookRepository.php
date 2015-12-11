@@ -6,7 +6,6 @@ class BookRepository implements Repository{
     {
         return Book::with($with)
             ->where('id', '=', $id)
-            ->where('user_id', '=', Auth::user()->id)
             ->first();
     }
 
@@ -18,7 +17,6 @@ class BookRepository implements Repository{
     {
         return Book::with($with)
             ->where('id', '=', $id)
-            ->where('user_id', '=', Auth::user()->id)
             ->where('wizard_step', '=', 'COMPLETE')
             ->first();
     }
@@ -27,7 +25,6 @@ class BookRepository implements Repository{
     {
         return Book::with($with)
             ->where('id', '=', $id)
-            ->where('user_id', '=', Auth::user()->id)
             ->where('wizard_step', '!=', 'COMPLETE')
             ->first();
     }
@@ -36,7 +33,6 @@ class BookRepository implements Repository{
     {
         return Book::with($with)
             ->where('id', '=', $id)
-            ->where('user_id', '=', Auth::user()->id)
             ->where('wizard_step', '=', 'COMPLETE')
             ->paginate($pages);
     }
@@ -45,7 +41,6 @@ class BookRepository implements Repository{
     {
         return Book::with($with)
             ->where('id', '=', $id)
-            ->where('user_id', '=', Auth::user()->id)
             ->where('wizard_step', '!=', 'COMPLETE')
             ->paginate($pages);
     }
@@ -58,7 +53,6 @@ class BookRepository implements Repository{
     public function allCompleted($with = array())
     {
         return Book::with($with)
-            ->where('user_id', '=', Auth::user()->id)
             ->where('wizard_step', '=', 'COMPLETE')
             ->get();
     }
@@ -66,7 +60,6 @@ class BookRepository implements Repository{
     public function allDrafts($with = array())
     {
         return Book::with($with)
-            ->where('user_id', '=', Auth::user()->id)
             ->where('wizard_step', '!=', 'COMPLETE')
             ->get();
     }
@@ -129,7 +122,6 @@ class BookRepository implements Repository{
 
     public function getTotalAmountOfBooksOwned(){
         return Book::join('personal_book_info', 'book_id', '=', 'book.id')
-            ->where('user_id', '=', Auth::user()->id)
             ->where('wizard_step', '=', 'COMPLETE')
             ->where('personal_book_info.owned', '=', 1)
             ->count();
@@ -137,14 +129,12 @@ class BookRepository implements Repository{
 
     public function getTotalAmountOfBooksInLibrary(){
         return DB::table('book')
-            ->where('user_id', '=', Auth::user()->id)
             ->where('wizard_step', '=', 'COMPLETE')
             ->count();
     }
 
     public function getValueOfLibrary(){
         return DB::table('book')
-            ->where('user_id', '=', Auth::user()->id)
             ->where('wizard_step', '=', 'COMPLETE')
             ->sum('retail_price');
     }
@@ -159,7 +149,6 @@ class BookRepository implements Repository{
     public function getTotalAmountOfBooksRead()
     {
         return Book::join('personal_book_info', 'book_id', '=', 'book.id')
-            ->where('user_id', '=', Auth::user()->id)
             ->where('wizard_step', '=', 'COMPLETE')
             ->where('personal_book_info.read', '=', 1)
             ->count();
@@ -169,7 +158,6 @@ class BookRepository implements Repository{
     {
         return Book::join('personal_book_info', 'book_id', '=', 'book.id')
             ->join('buy_info', 'personal_book_info.id', '=', 'buy_info.personal_book_info_id')
-            ->where('user_id', '=', Auth::user()->id)
             ->where('wizard_step', '=', 'COMPLETE')
             ->count();
     }
@@ -177,7 +165,6 @@ class BookRepository implements Repository{
     public function booksFromAuthor($authorId)
     {
         return Book::join('book_author', 'book_author.book_id', '=', 'book.id')
-            ->where('user_id', '=', Auth::user()->id)
             ->where('book_author.author_id', '=', $authorId)
             ->get();
     }

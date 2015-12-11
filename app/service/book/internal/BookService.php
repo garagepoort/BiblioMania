@@ -90,7 +90,6 @@ class BookService
             $book->genre_id = $genre->id;
             $book->publisher_id = $bookPublisher->id;
             $book->publisher_country_id = $country->id;
-            $book->user_id = Auth::user()->id;
 
             if(!StringUtils::isEmpty($createBookRequest->getImageUrl())){
                 $book->coverImage = $this->imageService->saveBookImageFromUrl($createBookRequest->getImageUrl(), $book);
@@ -212,7 +211,7 @@ class BookService
             ->leftJoin("reading_date", "personal_book_info_reading_date.reading_date_id", "=", "reading_date.id")
             ->with('personal_book_info')
             ->where('book_author.preferred', '=', 1)
-            ->where('book.user_id', '=', Auth::user()->id)
+            ->where('personal_book_info.user_id', '=', Auth::user()->id)
             ->where('wizard_step', '=', 'COMPLETE');
 
         foreach($filters as $filter){
