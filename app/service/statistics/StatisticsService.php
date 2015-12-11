@@ -30,7 +30,6 @@ class StatisticsService
         $result = array();
         foreach ($genres as $genre) {
             $result[$genre->name] = Book::where('genre_id', '=', $genre->id)
-                ->where('user_id', '=', Auth::user()->id)
                 ->where('wizard_step', '=', 'COMPLETE')
                 ->count();
         }
