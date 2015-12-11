@@ -13,57 +13,16 @@ class BookRepository implements Repository{
         $this->find($id)->delete();
     }
 
-    public function findCompleted($id, $with = array())
-    {
-        return Book::with($with)
-            ->where('id', '=', $id)
-            ->where('wizard_step', '=', 'COMPLETE')
-            ->first();
-    }
-
-    public function findDraft($id, $with = array())
-    {
-        return Book::with($with)
-            ->where('id', '=', $id)
-            ->where('wizard_step', '!=', 'COMPLETE')
-            ->first();
-    }
-
-    public function allCompletedPaginated($id, $pages, $with = array())
-    {
-        return Book::with($with)
-            ->where('id', '=', $id)
-            ->where('wizard_step', '=', 'COMPLETE')
-            ->paginate($pages);
-    }
-
-    public function allDraftsPaginated($id, $pages, $with = array())
-    {
-        return Book::with($with)
-            ->where('id', '=', $id)
-            ->where('wizard_step', '!=', 'COMPLETE')
-            ->paginate($pages);
-    }
 
     public function all()
     {
         return Book::all();
     }
 
-    public function allCompleted($with = array())
+    public function allWith($with = array())
     {
-        return Book::with($with)
-            ->where('wizard_step', '=', 'COMPLETE')
-            ->get();
+        return Book::with($with)->get();
     }
-
-    public function allDrafts($with = array())
-    {
-        return Book::with($with)
-            ->where('wizard_step', '!=', 'COMPLETE')
-            ->get();
-    }
-
 
     public function save($entity)
     {
@@ -122,20 +81,17 @@ class BookRepository implements Repository{
 
     public function getTotalAmountOfBooksOwned(){
         return Book::join('personal_book_info', 'book_id', '=', 'book.id')
-            ->where('wizard_step', '=', 'COMPLETE')
             ->where('personal_book_info.owned', '=', 1)
             ->count();
     }
 
     public function getTotalAmountOfBooksInLibrary(){
         return DB::table('book')
-            ->where('wizard_step', '=', 'COMPLETE')
             ->count();
     }
 
     public function getValueOfLibrary(){
         return DB::table('book')
-            ->where('wizard_step', '=', 'COMPLETE')
             ->sum('retail_price');
     }
 
@@ -149,7 +105,6 @@ class BookRepository implements Repository{
     public function getTotalAmountOfBooksRead()
     {
         return Book::join('personal_book_info', 'book_id', '=', 'book.id')
-            ->where('wizard_step', '=', 'COMPLETE')
             ->where('personal_book_info.read', '=', 1)
             ->count();
     }
@@ -158,7 +113,6 @@ class BookRepository implements Repository{
     {
         return Book::join('personal_book_info', 'book_id', '=', 'book.id')
             ->join('buy_info', 'personal_book_info.id', '=', 'buy_info.personal_book_info_id')
-            ->where('wizard_step', '=', 'COMPLETE')
             ->count();
     }
 

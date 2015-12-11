@@ -55,7 +55,7 @@ class BookService
     }
 
     public function allBooks(){
-        return $this->bookRepository->allCompleted(array('personal_book_info', 'authors'));
+        return $this->bookRepository->allWith(array('personal_book_info', 'authors'));
     }
 
     public function create(CreateBookRequest $createBookRequest){
@@ -152,17 +152,12 @@ class BookService
 
     public function getCompletedBooksForList()
     {
-        return $this->bookRepository->allCompleted(array('publisher', 'authors'));
-    }
-
-    public function getDraftBooksForList()
-    {
-        return $this->bookRepository->allDrafts(array('publisher', 'authors'));
+        return $this->bookRepository->allWith(array('publisher', 'authors'));
     }
 
     public function getCompletedBooksWithPersonalBookInfo()
     {
-        return $this->bookRepository->allCompleted(array('personal_book_info'));
+        return $this->bookRepository->allWith(array('personal_book_info'));
     }
 
     public function getFullBook($book_id)
@@ -195,7 +190,7 @@ class BookService
             'publisher_serie',
             'serie');
 
-        return $this->bookRepository->allCompleted($with);
+        return $this->bookRepository->allWith($with);
     }
 
     public function filterBooks($filters){
@@ -211,8 +206,7 @@ class BookService
             ->leftJoin("reading_date", "personal_book_info_reading_date.reading_date_id", "=", "reading_date.id")
             ->with('personal_book_info')
             ->where('book_author.preferred', '=', 1)
-            ->where('personal_book_info.user_id', '=', Auth::user()->id)
-            ->where('wizard_step', '=', 'COMPLETE');
+            ->where('personal_book_info.user_id', '=', Auth::user()->id);
 
         foreach($filters as $filter){
             $books = $this->bookFilterManager->handle($filter['id'], $books, $filter['value'], $filter['operator']);
@@ -237,8 +231,7 @@ class BookService
                 ->leftJoin('personal_book_info', 'personal_book_info.book_id', '=', 'book.id')
                 ->with('personal_book_info')
                 ->where('user_id', '=', Auth::user()->id)
-                ->where('book.id', '=', $book_id)
-                ->where('wizard_step', '=', 'COMPLETE');
+                ->where('book.id', '=', $book_id);
 
             list($totalValue, $totalAmountOfBooks, $totalAmountOfBooksOwned) = $this->getCollectionInformation(clone $books);
 
@@ -257,8 +250,7 @@ class BookService
             ->leftJoin('date', 'date.id', '=', 'first_print_info.publication_date_id')
             ->with('personal_book_info')
             ->where('book_author.preferred', '=', 1)
-            ->where('user_id', '=', Auth::user()->id)
-            ->where('wizard_step', '=', 'COMPLETE');
+            ->where('user_id', '=', Auth::user()->id);
 
         //FILTERS
         if ($bookFilterValues->getRead() == BookSearchValues::YES) {
