@@ -36,36 +36,38 @@ class AuthorService
     }
 
     private function saveAuthor($author, BaseAuthorRequest $baseAuthorRequest){
-        $author->name = $baseAuthorRequest->getName()->getLastname();
-        $author->firstname = $baseAuthorRequest->getName()->getFirstname();
-        $author->infix = $baseAuthorRequest->getName()->getInfix();
+        return DB::transaction(function() use ($author, $baseAuthorRequest){
+            $author->name = $baseAuthorRequest->getName()->getLastname();
+            $author->firstname = $baseAuthorRequest->getName()->getFirstname();
+            $author->infix = $baseAuthorRequest->getName()->getInfix();
 
-        if($baseAuthorRequest->getDateOfBirth() != null){
-            $date_of_birth = $author->date_of_birth();
-            if($date_of_birth != null){
-                $date_of_birth->dissociate();
-                $this->authorRepository->save($author);
-                $date_of_birth->delete();
+            if($baseAuthorRequest->getDateOfBirth() != null){
+                $date_of_birth = $author->date_of_birth();
+                if($date_of_birth != null){
+                    $date_of_birth->dissociate();
+                    $this->authorRepository->save($author);
+                    $date_of_birth->delete();
+                }
+                $author->date_of_birth_id = $this->dateService->create($baseAuthorRequest->getDateOfBirth())->id;
             }
-            $author->date_of_birth_id = $this->dateService->create($baseAuthorRequest->getDateOfBirth())->id;
-        }
 
-        if($baseAuthorRequest->getDateOfDeath() != null){
-            $date_of_death = $author->date_of_death();
-            if($date_of_death != null){
-                $date_of_death->dissociate();
-                $this->authorRepository->save($author);
-                $date_of_death->delete();
+            if($baseAuthorRequest->getDateOfDeath() != null){
+                $date_of_death = $author->date_of_death();
+                if($date_of_death != null){
+                    $date_of_death->dissociate();
+                    $this->authorRepository->save($author);
+                    $date_of_death->delete();
+                }
+                $author->date_of_death_id = $this->dateService->create($baseAuthorRequest->getDateOfDeath())->id;
             }
-            $author->date_of_death_id = $this->dateService->create($baseAuthorRequest->getDateOfDeath())->id;
-        }
 
-        if(!StringUtils::isEmpty($baseAuthorRequest->getImageUrl())){
-            $author->image = $this->imageService->saveAuthorImageFromUrl($baseAuthorRequest->getImageUrl(), $author);
-        }
+            if(!StringUtils::isEmpty($baseAuthorRequest->getImageUrl())){
+                $author->image = $this->imageService->saveAuthorImageFromUrl($baseAuthorRequest->getImageUrl(), $author);
+            }
 
-        $this->authorRepository->save($author);
-        return $author;
+            $this->authorRepository->save($author);
+            return $author;
+        });
     }
     
     public function createOrFindAuthor(CreateAuthorRequest $createAuthorRequest){
