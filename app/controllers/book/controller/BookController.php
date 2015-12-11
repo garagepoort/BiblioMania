@@ -25,6 +25,12 @@ class BookController extends BaseController
             return $bookToJsonAdapter->mapToJson();
         }, $this->bookService->allBooks()->all());
     }
+    public function getBooksFromUser(){
+        return array_map(function($item){
+            $bookToJsonAdapter = new BookToJsonAdapter($item);
+            return $bookToJsonAdapter->mapToJson();
+        }, $this->bookService->allBooksFromUser(Auth::user()->id)->all());
+    }
 
     public function getBooksByAuthor($authorId){
         return array_map(function($item){
@@ -73,9 +79,12 @@ class BookController extends BaseController
             $filters = array();
         }
         Session::put('book.filters', $filters);
-        $filteredBooksResult = $this->bookService->filterBooks($filters);
+        $books = $this->bookService->filterBooks($filters);
 
-        return $this->mapBooksToJson($filteredBooksResult);
+        return array_map(function($item){
+            $bookToJsonAdapter = new BookToJsonAdapter($item);
+            return $bookToJsonAdapter->mapToJson();
+        }, $books->all());
     }
 
     public function search()
@@ -86,67 +95,12 @@ class BookController extends BaseController
         }
         Session::put('book.filters', $filters);
 
-        $filteredBooksResult = $this->bookService->filterBooks($filters);
+        $books = $this->bookService->filterBooks($filters);
 
-        return $this->mapBooksToJson($filteredBooksResult);
-    }
-
-    public function searchBooks()
-    {
-        $query = Input::get('query');
-        $operator = Input::get('operator');
-        $type = Input::get('type');
-        $read = Input::get('read');
-        $owned = Input::get('owned');
-
-        $book_id = Input::get('book_id');
-        $orderBy = Input::get('order_by');
-
-        $searchValues = new BookSearchValues($query, $operator, $type, $read, $owned);
-        /** @var FilteredBooksResult $filteredBooksResult */
-        $filteredBooksResult = $this->bookService->searchBooks($book_id, $searchValues, $orderBy);
-        return $this->mapBooksToJson($filteredBooksResult);
-    }
-
-    /**
-     * @param $filteredBooksResult
-     * @return array
-     */
-    public function mapBooksToJson($filteredBooksResult)
-    {
-        $jsonItems = array_map(function ($item) {
-
-            list($imageHeight, $imageWidth, $bookImage) = $this->bookJsonMapper->getCoverImageFromBook($item);
-
-            /** @var Book $item */
-            return array(
-                "id" => $item->id,
-                "title" => $item->title,
-                "subtitle" => $item->subtitle,
-                "rating" => $item->personal_book_info->rating,
-                "author" => $item->preferredAuthor()->name . " " . $item->preferredAuthor()->firstname,
-                "imageHeight" => $imageHeight,
-                "imageWidth" => $imageWidth,
-                "spritePointer" => $item->spritePointer,
-                "coverImage" => $bookImage,
-                "useSpriteImage" => $item->useSpriteImage,
-                "warnings" => $this->createBookWarnings($item),
-                "read" => $item->personal_book_info->read
-            );
-        }, $filteredBooksResult->getPaginatedItems()->getItems());
-
-        $result = array(
-            "total" => $filteredBooksResult->getPaginatedItems()->getTotal(),
-            "last_page" => $filteredBooksResult->getPaginatedItems()->getLastPage(),
-            "current_page" => $filteredBooksResult->getPaginatedItems()->getCurrentPage(),
-            "data" => $jsonItems,
-            "library_information" => array(
-                "total_amount_books" => $filteredBooksResult->getTotalAmountOfBooks(),
-                "total_amount_books_owned" => $filteredBooksResult->getTotalAmountOfBooksOwned(),
-                "total_value" => $filteredBooksResult->getTotalValue(),
-            )
-        );
-        return $result;
+        return array_map(function($item){
+            $bookToJsonAdapter = new BookToJsonAdapter($item);
+            return $bookToJsonAdapter->mapToJson();
+        }, $books->all());
     }
 
     private function createBookWarnings($book)

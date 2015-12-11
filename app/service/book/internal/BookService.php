@@ -32,9 +32,12 @@ class BookService
     private $bookFilterManager;
     /** @var GenreService */
     private $genreService;
+    /** @var LoggingService */
+    private $loggingService;
 
     function __construct()
     {
+        $this->loggingService = App::make('LoggingService');
         $this->bookRepository = App::make('BookRepository');
         $this->publisherSerieService = App::make('PublisherSerieService');
         $this->bookSerieService = App::make('BookSerieService');
@@ -56,6 +59,10 @@ class BookService
 
     public function allBooks(){
         return $this->bookRepository->allWith(array('personal_book_info', 'authors'));
+    }
+
+    public function allBooksFromUser($userId){
+        return $this->bookRepository->allFromUser($userId, array('personal_book_info', 'authors'));
     }
 
     public function create(CreateBookRequest $createBookRequest){
@@ -150,11 +157,6 @@ class BookService
         return $this->bookRepository->getTotalAmountOfBooksOwned();
     }
 
-    public function getCompletedBooksForList()
-    {
-        return $this->bookRepository->allWith(array('publisher', 'authors'));
-    }
-
     public function getCompletedBooksWithPersonalBookInfo()
     {
         return $this->bookRepository->allWith(array('personal_book_info'));
@@ -204,123 +206,22 @@ class BookService
             ->leftJoin('date', 'date.id', '=', 'first_print_info.publication_date_id')
             ->leftJoin("personal_book_info_reading_date", "personal_book_info.id", "=","personal_book_info_reading_date.personal_book_info_id")
             ->leftJoin("reading_date", "personal_book_info_reading_date.reading_date_id", "=", "reading_date.id")
-            ->with('personal_book_info')
-            ->where('book_author.preferred', '=', 1)
-            ->where('personal_book_info.user_id', '=', Auth::user()->id);
+            ->with('personal_book_info');
 
         foreach($filters as $filter){
             $books = $this->bookFilterManager->handle($filter['id'], $books, $filter['value'], $filter['operator']);
         }
 
+        $books = $books->groupBy('book.id');
         $books = $books->orderBy('author.name');
         $books = $books->orderBy('author.firstname');
         $books = $books->orderBy('date.year', 'ASC');
         $books = $books->orderBy('date.month', 'ASC');
         $books = $books->orderBy('date.day', 'ASC');
 
-        list($totalValue, $totalAmountOfBooks, $totalAmountOfBooksOwned) = $this->getCollectionInformation(clone $books);
+        $this->loggingService->logInfo($books->toSql());
 
-        return new FilteredBooksResult($totalAmountOfBooks, $totalAmountOfBooksOwned, $totalValue, $books->paginate(self::PAGES));
-    }
-
-
-    public function searchBooks($book_id, BookSearchValues $bookFilterValues, $orderBy)
-    {
-        if ($book_id != null) {
-            $books = Book::select(DB::raw('book.*'))
-                ->leftJoin('personal_book_info', 'personal_book_info.book_id', '=', 'book.id')
-                ->with('personal_book_info')
-                ->where('user_id', '=', Auth::user()->id)
-                ->where('book.id', '=', $book_id);
-
-            list($totalValue, $totalAmountOfBooks, $totalAmountOfBooksOwned) = $this->getCollectionInformation(clone $books);
-
-            return new FilteredBooksResult($totalAmountOfBooks, $totalAmountOfBooksOwned, $totalValue, $books->paginate(self::PAGES));
-        }
-
-        $books = Book::select(DB::raw('book.*'))
-            ->leftJoin('serie', 'book.serie_id', '=', 'serie.id')
-            ->leftJoin('publisher_serie', 'book.publisher_serie_id', '=', 'publisher_serie.id')
-            ->leftJoin('book_author', 'book_author.book_id', '=', 'book.id')
-            ->leftJoin('genre', 'genre.id', '=', 'book.genre_id')
-            ->leftJoin('genre as genre_parent', 'genre.parent_id', '=', 'genre_parent.id')
-            ->leftJoin('author', 'book_author.author_id', '=', 'author.id')
-            ->leftJoin('personal_book_info', 'personal_book_info.book_id', '=', 'book.id')
-            ->leftJoin('first_print_info', 'first_print_info.id', '=', 'book.first_print_info_id')
-            ->leftJoin('date', 'date.id', '=', 'first_print_info.publication_date_id')
-            ->with('personal_book_info')
-            ->where('book_author.preferred', '=', 1)
-            ->where('user_id', '=', Auth::user()->id);
-
-        //FILTERS
-        if ($bookFilterValues->getRead() == BookSearchValues::YES) {
-            $books = $books->where("personal_book_info.read", '=', true);
-        } else if ($bookFilterValues->getRead() == BookSearchValues::NO) {
-            $books = $books->where("personal_book_info.read", '=', false);
-        }
-
-        if ($bookFilterValues->getOwns() == BookSearchValues::YES) {
-            $books = $books->where("personal_book_info.owned", '=', true);
-        } else if ($bookFilterValues->getOwns() == BookSearchValues::NO) {
-            $books = $books->where("personal_book_info.owned", '=', false);
-        }
-
-
-        $operatorString = "=";
-        $queryString = $bookFilterValues->getQuery();
-        if (!StringUtils::isEmpty($queryString)) {
-            if ($bookFilterValues->getOperator() == FilterOperator::BEGINS_WITH || $bookFilterValues->getOperator() == FilterOperator::CONTAINS || $bookFilterValues->getOperator() == FilterOperator::ENDS_WITH) {
-                $operatorString = "LIKE";
-                if ($bookFilterValues->getOperator() == FilterOperator::BEGINS_WITH) {
-                    $queryString = $queryString . '%';
-                }
-                if ($bookFilterValues->getOperator() == FilterOperator::ENDS_WITH) {
-                    $queryString = '%' . $queryString;
-                }
-                if ($bookFilterValues->getOperator() == FilterOperator::CONTAINS) {
-                    $queryString = '%' . $queryString . '%';
-                }
-            }
-
-            //SEARCH
-            if ($bookFilterValues->getType() != BookSearchType::ALL) {
-                $books = $books->where($bookFilterValues->getType(), $operatorString, $queryString);
-            } else {
-                $books = $books->where(function ($query) use ($operatorString, $queryString) {
-                    $query->Where(BookSearchType::AUTHOR_NAME, $operatorString, $queryString)
-                        ->orWhere(BookSearchType::AUTHOR_FIRSTNAME, $operatorString, $queryString)
-                        ->orWhere(BookSearchType::PUBLISHER_SERIE, $operatorString, $queryString)
-                        ->orWhere(BookSearchType::BOOK_SERIE, $operatorString, $queryString)
-                        ->orWhere(BookSearchType::BOOK_GENRE, $operatorString, $queryString)
-                        ->orWhere(BookSearchType::BOOK_TITLE, $operatorString, $queryString);
-                });
-            }
-        }
-
-        //ORDER BY
-        if ($orderBy == 'title') {
-            $books = $books->orderBy('title');
-        }
-        if ($orderBy == 'author') {
-            $books = $books->orderBy('author.name');
-        }
-        if ($orderBy == 'subtitle') {
-            $books = $books->orderBy('book.subtitle');
-        }
-        if ($orderBy == 'rating') {
-            $books = $books->orderBy('personal_book_info.rating', 'DESC');
-        }
-
-        $books = $books->orderBy('author.name');
-        $books = $books->orderBy('author.firstname');
-        $books = $books->orderBy('date.year', 'ASC');
-        $books = $books->orderBy('date.month', 'ASC');
-        $books = $books->orderBy('date.day', 'ASC');
-
-
-        list($totalValue, $totalAmountOfBooks, $totalAmountOfBooksOwned) = $this->getCollectionInformation($books);
-
-        return new FilteredBooksResult($totalAmountOfBooks, $totalAmountOfBooksOwned, $totalValue, $books->paginate(self::PAGES));
+        return $books->get();
     }
 
     public function getTotalAmountOfBooksRead()

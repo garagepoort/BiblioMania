@@ -20,6 +20,10 @@ App::singleton('JsonMappingService', function () {
     return new JsonMappingService();
 });
 
+App::singleton('LoggingService', function () {
+    return new LoggingService();
+});
+
 App::singleton('BookBasicsService', function () {
     return new BookBasicsService();
 });

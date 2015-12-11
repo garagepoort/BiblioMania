@@ -20,7 +20,9 @@ class BookFilterManager extends FilterManager
             new BookReadingMonthFilterHandler(),
             new BookBuyPriceFilterHandler(),
             new BookGiftFromFilterHandler(),
+            new BookIsPersonalFilterHandler()
         );
         parent::__construct($filters);
     }
+
 }

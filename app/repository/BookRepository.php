@@ -24,6 +24,14 @@ class BookRepository implements Repository{
         return Book::with($with)->get();
     }
 
+    public function allFromUser($userId, $with = array())
+    {
+        return Book::with($with)
+            ->join('personal_book_info', 'book_id', '=', 'book.id')
+            ->where('user_id', '=', $userId)
+            ->get();
+    }
+
     public function save($entity)
     {
         $entity->save();
