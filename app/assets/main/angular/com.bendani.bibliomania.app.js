@@ -16,7 +16,7 @@ angular.module('BiblioMania', ['ngRoute',
     'com.bendani.php.common.loginservice.authentication.model',
     'com.bendani.bibliomania.book.filter.sliding.panel.directive',
     'com.bendani.bibliomania.library.information.sliding.panel.directive',
-    'com.bendani.bibliomania.create.book.controller',
+    'com.bendani.bibliomania.edit.book.ui',
     'com.bendani.bibliomania.edit.author.ui',
     'com.bendani.bibliomania.edit.oeuvre.ui',
     'com.bendani.bibliomania.book.details.ui',
@@ -32,10 +32,6 @@ angular.module('BiblioMania', ['ngRoute',
             .when('/login', {
                 templateUrl: '../BiblioMania/views/partials/login.html',
                 controller: 'LoginController'
-            })
-            .when('/create-book', {
-                templateUrl: '../BiblioMania/views/partials/book/create-book.html',
-                controller: 'CreateBookController'
             })
             .otherwise({
                 redirectTo: '/books'

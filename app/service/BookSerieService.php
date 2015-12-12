@@ -16,4 +16,9 @@ class BookSerieService
         return $serie;
     }
 
+    public function getSeries()
+    {
+        return Serie::all();
+    }
+
 }

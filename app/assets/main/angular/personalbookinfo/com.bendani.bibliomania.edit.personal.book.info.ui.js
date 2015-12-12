@@ -50,7 +50,7 @@ angular.module('com.bendani.bibliomania.edit.personal.book.info.ui', [
                         model.bookId=$route.current.params.bookId;
                         PersonalBookInfo.save(model, function () {
                             $location.path('/book-details/' + $route.current.params.bookId);
-                            growl.addSuccessMessage('Eerste druk opgeslagen');
+                            growl.addSuccessMessage('Persoonlijke informatie opgeslagen');
                         }, ErrorContainer.handleRestError);
                     };
                 }],
