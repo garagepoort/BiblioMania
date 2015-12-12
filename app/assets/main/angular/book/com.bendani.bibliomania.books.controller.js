@@ -1,11 +1,12 @@
 'use strict';
 
 angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.bibliomania.book.model', 'com.bendani.bibliomania.error.container', 'com.bendani.bibliomania.title.panel'])
-    .controller('BookController', ['$scope', 'Book', 'ErrorContainer', '$http', 'TitlePanelService',function ($scope, Book, ErrorContainer, $http, TitlePanelService) {
+    .controller('BookController', ['$scope', 'Book', 'ErrorContainer', '$http', 'TitlePanelService', '$location', '$compile', function ($scope, Book, ErrorContainer, $http, TitlePanelService, $location, $compile) {
 
         function init(){
             TitlePanelService.setTitle('Boeken');
             TitlePanelService.setShowPreviousButton(false);
+            setRightTitlePanel();
             $scope.searchBooksQuery = "";
             $scope.loading=true;
             $scope.predicate="author";
@@ -88,6 +89,16 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
                 $scope.loading = false;
             }, ErrorContainer.handleRestError);
         };
+
+        $scope.goToCreateBook = function(){
+            $location.path('/create-book');
+        };
+
+        function setRightTitlePanel(){
+            var titlePanelRight = angular.element('<button class="btn btn-default round-corners" ng-click="goToCreateBook()">Nieuw boek</button>');
+            $compile(titlePanelRight)($scope);
+            TitlePanelService.setRightPanel(titlePanelRight);
+        }
 
         init();
     }]);

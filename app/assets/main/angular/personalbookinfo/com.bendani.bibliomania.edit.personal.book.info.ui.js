@@ -41,6 +41,7 @@ angular.module('com.bendani.bibliomania.edit.personal.book.info.ui', [
                     return {
                         acquirement: 'BUY',
                         inCollection: true,
+                        buyInfo: {},
                         reasonNotInCollection: 'BORROWED'
                     };
                 },
