@@ -16,7 +16,6 @@ angular.module('com.bendani.bibliomania.edit.book.ui', ['ngTagsInput',
     'com.bendani.bibliomania.author.model',
     'com.bendani.bibliomania.image.selection.controller',
     'com.bendani.bibliomania.language.model'])
-
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/edit-book/:id', {
             templateUrl: '../BiblioMania/views/partials/book/create-book.html',
