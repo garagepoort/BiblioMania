@@ -1,25 +1,29 @@
 angular.module('com.bendani.bibliomania.image.fallback', [])
-    .directive('actualSrc', function () {
+    .directive('srcWithFallback', function () {
     return{
         link: function postLink(scope, element, attrs) {
-            attrs.$observe('actualSrc', function(newVal, oldVal){
-                if(newVal !== undefined){
-                    var img = new Image();
-                    img.src = attrs.actualSrc;
+            var fallback = '/BiblioMania/images/questionCover.png';
+
+            attrs.$observe('srcWithFallback', function(newVal, oldVal){
+                var img = new Image();
+
+                if(newVal !== undefined && newVal !== ''){
+                    img.src = attrs.srcWithFallback;
                     angular.element(img).bind('load', function () {
-                        element.attr("src", attrs.actualSrc);
+                        element.attr("src", attrs.srcWithFallback);
+                    });
+                }else{
+                    img.src = fallback;
+                    angular.element(img).bind('load', function () {
+                        element.attr("src", fallback);
                     });
                 }
             });
 
-        }
-    };
-}).directive('fallbackSrc', function () {
-    return{
-        link: function postLink(scope, element, attrs) {
             element.bind('error', function () {
-                angular.element(this).attr("src", attrs.fallbackSrc);
+                angular.element(this).attr("src", fallback);
             });
+
         }
     };
 });
