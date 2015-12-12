@@ -203,8 +203,7 @@ class BookService
             ->leftJoin('first_print_info', 'first_print_info.id', '=', 'book.first_print_info_id')
             ->leftJoin('date', 'date.id', '=', 'first_print_info.publication_date_id')
             ->leftJoin("personal_book_info_reading_date", "personal_book_info.id", "=","personal_book_info_reading_date.personal_book_info_id")
-            ->leftJoin("reading_date", "personal_book_info_reading_date.reading_date_id", "=", "reading_date.id")
-            ->with('personal_book_info');
+            ->leftJoin("reading_date", "personal_book_info_reading_date.reading_date_id", "=", "reading_date.id");
 
         foreach($filters as $filter){
             $books = $this->bookFilterManager->handle($filter['id'], $books, $filter['value'], $filter['operator']);
