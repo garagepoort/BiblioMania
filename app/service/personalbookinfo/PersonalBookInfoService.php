@@ -30,36 +30,40 @@ class PersonalBookInfoService
     }
 
     public function createPersonalBookInfo(CreatePersonalBookInfoRequest $createRequest){
-        $book = $this->bookRepository->find($createRequest->getBookId());
-        Ensure::objectNotNull('book', $book);
-        $personalBookInfo = $this->personalBookInfoRepository->findByBook($createRequest->getBookId());
-        Ensure::objectNull('personBookInformation', $personalBookInfo, 'The book given already has a personal book information. Cannot create a new one.');
+        return DB::transaction(function() use ($createRequest){
+            $book = $this->bookRepository->find($createRequest->getBookId());
+            Ensure::objectNotNull('book', $book);
+            $personalBookInfo = $this->personalBookInfoRepository->findByBook($createRequest->getBookId());
+            Ensure::objectNull('personBookInformation', $personalBookInfo, 'The book given already has a personal book information. Cannot create a new one.');
 
-        if($createRequest->getBuyInfo() == null && $createRequest->getGiftInfo() == null){
-            throw new ServiceException('No buy or gift information given');
-        }
-        if($createRequest->getBuyInfo() != null && $createRequest->getGiftInfo() != null){
-            throw new ServiceException('Both buy and gift information are given. Only one can be chosen');
-        }
+            if($createRequest->getBuyInfo() == null && $createRequest->getGiftInfo() == null){
+                throw new ServiceException('No buy or gift information given');
+            }
+            if($createRequest->getBuyInfo() != null && $createRequest->getGiftInfo() != null){
+                throw new ServiceException('Both buy and gift information are given. Only one can be chosen');
+            }
 
-        $personalBookInfo = new PersonalBookInfo();
-        $personalBookInfo->book_id = $createRequest->getBookId();
-        $personalBookInfo->user_id = Auth::user()->id;
-        return $this->updatePersonalBookInfo($personalBookInfo, $createRequest);
+            $personalBookInfo = new PersonalBookInfo();
+            $personalBookInfo->book_id = $createRequest->getBookId();
+            $personalBookInfo->user_id = Auth::user()->id;
+            return $this->updatePersonalBookInfo($personalBookInfo, $createRequest);
+        });
     }
 
     public function update(UpdatePersonalBookInfoRequest $updateRequest){
-        $personalBookInfo = $this->personalBookInfoRepository->find($updateRequest->getId());
-        Ensure::objectNotNull('personalBookInfo', $personalBookInfo);
+        return DB::transaction(function() use ($updateRequest){
+            $personalBookInfo = $this->personalBookInfoRepository->find($updateRequest->getId());
+            Ensure::objectNotNull('personalBookInfo', $personalBookInfo);
 
-        if($updateRequest->getBuyInfo() == null && $updateRequest->getGiftInfo() == null){
-            throw new ServiceException('No buy or gift information given');
-        }
-        if($updateRequest->getBuyInfo() != null && $updateRequest->getGiftInfo() != null){
-            throw new ServiceException('Both buy and gift information are given. Only one can be chosen');
-        }
+            if($updateRequest->getBuyInfo() == null && $updateRequest->getGiftInfo() == null){
+                throw new ServiceException('No buy or gift information given');
+            }
+            if($updateRequest->getBuyInfo() != null && $updateRequest->getGiftInfo() != null){
+                throw new ServiceException('Both buy and gift information are given. Only one can be chosen');
+            }
 
-        return $this->updatePersonalBookInfo($personalBookInfo, $updateRequest);
+            return $this->updatePersonalBookInfo($personalBookInfo, $updateRequest);
+        });
     }
 
     private function updatePersonalBookInfo(PersonalBookInfo $personalBookInfo, BasePersonalBookInfoRequest $request){
