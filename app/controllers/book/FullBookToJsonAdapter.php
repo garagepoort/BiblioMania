@@ -4,6 +4,8 @@ use Bendani\PhpCommon\Utils\Model\StringUtils;
 
 class FullBookToJsonAdapter
 {
+    /** @var  PersonalBookInfoRepository */
+    private $personalBookInfoRepository;
 
     private $id;
     private $title;
@@ -34,6 +36,8 @@ class FullBookToJsonAdapter
 
     public function __construct(Book $book)
     {
+        $this->personalBookInfoRepository = App::make('PersonalBookInfoRepository');
+
         $username = Auth::user()->username;
         $baseUrl = URL::to('/');
 
@@ -65,9 +69,12 @@ class FullBookToJsonAdapter
         if($book->publication_date != null){
             $this->publicationDate = new DateToJsonAdapter($book->publication_date);
         }
-        if($book->personal_book_info != null){
-            $this->personalBookInfo = new PersonalBookInfoToJsonAdapter($book->personal_book_info);
+
+        $personal_book_info = $this->personalBookInfoRepository->findByBook($book->id);
+        if($personal_book_info != null){
+            $this->personalBookInfo = new PersonalBookInfoToJsonAdapter($personal_book_info);
         }
+
         if($book->first_print_info != null){
             $this->firstPrintInfo = new FirstPrintToJsonAdapter($book->first_print_info);
         }
