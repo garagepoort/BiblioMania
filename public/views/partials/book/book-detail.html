@@ -20,20 +20,22 @@
                     <dd>{{book.isbn}}</dd>
                     <dt>uitgever</dt>
                     <dd>{{book.publisher}}</dd>
-                    <dt>taal</dt>
-                    <dd>{{book.language}}</dd>
-                    <dt>land</dt>
-                    <dd>{{book.country}}</dd>
-                    <dt>Pagina's</dt>
-                    <dd>{{book.pages}}</dd>
-                    <dt>Druk</dt>
-                    <dd>{{book.print}}</dd>
-                    <dt>Boeken reeks</dt>
-                    <dd>{{book.serie}}</dd>
-                    <dt>Uitgever reeks</dt>
-                    <dd>{{book.publisherSerie}}</dd>
-                    <dt>Vertaler</dt>
-                    <dd>{{book.translator}}</dd>
+                    <dt ng-show="book.publicationDate">Uitgave datum</dt>
+                    <dd ng-show="book.publicationDate">{{ convertDate(book.publicationDate) }}</dd>
+                    <dt ng-show="book.language">taal</dt>
+                    <dd ng-show="book.language">{{book.language}}</dd>
+                    <dt ng-show="book.country">land</dt>
+                    <dd ng-show="book.country">{{book.country}}</dd>
+                    <dt ng-show="book.pages">Pagina's</dt>
+                    <dd ng-show="book.pages">{{book.pages}}</dd>
+                    <dt ng-show="book.print">Druk</dt>
+                    <dd ng-show="book.print">{{book.print}}</dd>
+                    <dt ng-show="book.serie">Boeken reeks</dt>
+                    <dd ng-show="book.serie" ng-show="book.serie">{{book.serie}}</dd>
+                    <dt ng-show="book.publisherSerie">Uitgever reeks</dt>
+                    <dd ng-show="book.publisherSerie">{{book.publisherSerie}}</dd>
+                    <dt ng-show="book.translator">Vertaler</dt>
+                    <dd ng-show="book.translator">{{book.translator}}</dd>
                 </dl>
             </div>
         </div>
@@ -86,14 +88,14 @@
                     <dd>{{book.firstPrintInfo.title}}</dd>
                     <dt ng-show="book.firstPrintInfo.subtitle">Ondertitel</dt>
                     <dd ng-show="book.firstPrintInfo.subtitle">{{book.firstPrintInfo.subtitle}}</dd>
-                    <dt>isbn</dt>
-                    <dd>{{book.firstPrintInfo.isbn}}</dd>
-                    <dt>uitgever</dt>
-                    <dd>{{book.firstPrintInfo.publisher}}</dd>
-                    <dt>taal</dt>
-                    <dd>{{book.firstPrintInfo.language}}</dd>
-                    <dt>land</dt>
-                    <dd>{{book.firstPrintInfo.country}}</dd>
+                    <dt ng-show="book.firstPrintInfo.isbn">isbn</dt>
+                    <dd ng-show="book.firstPrintInfo.isbn">{{book.firstPrintInfo.isbn}}</dd>
+                    <dt ng-show="book.firstPrintInfo.publisher">uitgever</dt>
+                    <dd ng-show="book.firstPrintInfo.publisher">{{book.firstPrintInfo.publisher}}</dd>
+                    <dt ng-show="book.firstPrintInfo.language">taal</dt>
+                    <dd ng-show="book.firstPrintInfo.language">{{book.firstPrintInfo.language}}</dd>
+                    <dt ng-show="book.firstPrintInfo.country">land</dt>
+                    <dd ng-show="book.firstPrintInfo.country">{{book.firstPrintInfo.country}}</dd>
                 </dl>
             </div>
         </div>
@@ -142,14 +144,14 @@
                 <dl class="dl-horizontal">
                     <dt ng-show="book.personalBookInfo.buyInfo.buyPrice !== null">prijs</dt>
                     <dd ng-show="book.personalBookInfo.buyInfo.buyPrice !== null">{{book.personalBookInfo.buyInfo.buyPrice.currency + ' ' + book.personalBookInfo.buyInfo.buyPrice.amount}}</dd>
-                    <dt>winkel</dt>
-                    <dd>{{book.personalBookInfo.buyInfo.shop}}</dd>
-                    <dt>reden</dt>
-                    <dd>{{book.personalBookInfo.buyInfo.reason}}</dd>
-                    <dt>stad</dt>
-                    <dd>{{book.personalBookInfo.buyInfo.cityShop}}</dd>
-                    <dt>land</dt>
-                    <dd>{{book.personalBookInfo.buyInfo.countryShop}}</dd>
+                    <dt ng-show="book.personalBookInfo.buyInfo.shop">winkel</dt>
+                    <dd ng-show="book.personalBookInfo.buyInfo.shop">{{book.personalBookInfo.buyInfo.shop}}</dd>
+                    <dt ng-show="book.personalBookInfo.buyInfo.reason">reden</dt>
+                    <dd ng-show="book.personalBookInfo.buyInfo.reason">{{book.personalBookInfo.buyInfo.reason}}</dd>
+                    <dt ng-show="book.personalBookInfo.buyInfo.cityShop">stad</dt>
+                    <dd ng-show="book.personalBookInfo.buyInfo.cityShop">{{book.personalBookInfo.buyInfo.cityShop}}</dd>
+                    <dt ng-show="book.personalBookInfo.buyInfo.countryShop">land</dt>
+                    <dd ng-show="book.personalBookInfo.buyInfo.countryShop">{{book.personalBookInfo.buyInfo.countryShop}}</dd>
                 </dl>
             </div>
         </div>
