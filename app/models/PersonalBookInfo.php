@@ -24,6 +24,10 @@ class PersonalBookInfo extends Eloquent {
     	return $this->hasOne('GiftInfo');
 	}
 
+	public function book(){
+    	return $this->hasOne('Book');
+	}
+
     public function reading_dates()
     {
         return $this->belongsToMany('ReadingDate', 'personal_book_info_reading_date');

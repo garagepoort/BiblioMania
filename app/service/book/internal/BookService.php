@@ -62,7 +62,7 @@ class BookService
     }
 
     public function allBooksFromUser($userId){
-        return $this->bookRepository->allFromUser($userId, array('personal_book_info', 'authors'));
+        return $this->bookRepository->allFromUser($userId, array('authors'));
     }
 
     public function create(CreateBookRequest $createBookRequest){
@@ -169,7 +169,6 @@ class BookService
             'tags',
             'publisher',
             'genre',
-            'personal_book_info',
             'first_print_info',
             'publication_date',
             'country',
@@ -185,7 +184,6 @@ class BookService
             'authors',
             'publisher',
             'genre',
-            'personal_book_info',
             'first_print_info',
             'publication_date',
             'country',
