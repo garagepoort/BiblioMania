@@ -4,13 +4,15 @@
         <fieldset>
 
             <div class="form-container">
+                <div ng-show="model.imageUrl === undefined" class="alert alert-warning">Geen cover gekozen</div>
                 <div class="form-subtitle">
                     <div>Boek informatie</div>
                     <button type="button" class="btn btn-sm round-corners btn-default form-subtitle-button" ng-click="openSelectImageDialog()">Selecteer cover</button>
                 </div>
                 <div class="form-content col-md-12">
 
-                    <img actual-src="{{ model.imageUrl }}" fallback-src="/BiblioMania/images/questionCover.png"/>
+
+                    <img src-with-fallback="{{ model.imageUrl }}" />
 
                     <!-- TITLE -->
                     <div class="form-group required col-md-12" ng-class="{'has-error has-feedback' : createBookForm.title.$invalid && createBookForm.title.$dirty}">
@@ -110,7 +112,7 @@
                 </div>
                 <div class="form-content">
                     <h2>{{ data.selectedAuthor.name.firstname + " " + data.selectedAuthor.name.lastname}}</h2>
-                    <img actual-src="{{ data.selectedAuthorImage }}" fallback-src="/BiblioMania/images/questionCover.png" style="margin-bottom: 20px;"/>
+                    <img src-with-fallback="{{ data.selectedAuthorImage }}" style="margin-bottom: 20px;"/>
                 </div>
 
             </div>

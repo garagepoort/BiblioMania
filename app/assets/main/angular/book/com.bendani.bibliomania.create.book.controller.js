@@ -97,8 +97,8 @@ angular.module('com.bendani.bibliomania.create.book.controller', ['ngTagsInput',
 
             $scope.submitForm = function(formValid){
                 if(isFormValid(formValid)){
-                    Book.save($scope.model, function(){
-                        $location.path('books');
+                    Book.save($scope.model, function(response){
+                        $location.path('/book-details/' + response.id);
                     }, ErrorContainer.handleRestError);
                 }
             };
