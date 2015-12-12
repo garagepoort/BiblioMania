@@ -13,18 +13,24 @@ class BookToJsonAdapter
     private $author;
     /** @var  ImageToJsonAdapter */
     private $imageInformation;
+    /** @var  PersonalBookInfoRepository */
+    private $personalBookInfoRepository;
 
     /**
      * BookToJsonAdapter constructor.
      */
     public function __construct(Book $book)
     {
+        $this->personalBookInfoRepository = App::make('PersonalBookInfoRepository');
+
         $this->id = $book->id;
         $this->title = $book->title;
         $this->subtitle = $book->subtitle;
         $this->isbn = $book->ISBN;
-        if($book->personal_book_info != null){
-            $this->rating = $book->personal_book_info->rating;
+
+        $personal_book_info = $this->personalBookInfoRepository->findByBook($book->id);
+        if($personal_book_info != null){
+            $this->rating = $personal_book_info->rating;
         }
         if($book->preferredAuthor() != null){
             $this->author = $book->preferredAuthor()->name . " " . $book->preferredAuthor()->firstname;

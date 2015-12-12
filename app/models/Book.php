@@ -85,8 +85,8 @@ class Book extends Eloquent {
         return $this->belongsTo('PublisherSerie');
     }
 
-	public function personal_book_info(){
-    	return $this->hasOne('PersonalBookInfo', 'book_id');
+	public function personal_book_infos(){
+    	return $this->hasMany('PersonalBookInfo', 'book_id');
 	}
 
     public function first_print_info(){
