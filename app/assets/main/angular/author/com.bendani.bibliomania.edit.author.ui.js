@@ -28,22 +28,6 @@ angular.module('com.bendani.bibliomania.edit.author.ui',
             return $scope.model.image;
         };
 
-        $scope.submitForm = function(){
-            if($scope.model.dateOfBirth !== undefined){
-                if($scope.model.dateOfBirth.year === null || $scope.model.dateOfBirth.year === undefined){
-                    $scope.model.dateOfBirth = undefined;
-                }
-            }
-            if($scope.model.dateOfDeath !== undefined){
-                if($scope.model.dateOfDeath.year === null || $scope.model.dateOfDeath.year === undefined){
-                    $scope.model.dateOfDeath = undefined;
-                }
-            }
-            Author.update($scope.model, function(){
-                growl.addSuccessMessage("Auteur aangepast");
-            }, ErrorContainer.handleRestError);
-        };
-
         $scope.linkLabel = function(oeuvreItem){
             if(oeuvreItem.linkedBooks.length > 0){
                 return 'label-success';
@@ -76,19 +60,4 @@ angular.module('com.bendani.bibliomania.edit.author.ui',
                 $scope.oeuvre = Author.oeuvre({ id: $routeParams.id });
             });
         };
-
-        function unlinkAllBooks(bookId){
-            for(var i =0; i< $scope.data.oeuvre.length; i++){
-                var item = $scope.data.oeuvre[i];
-                var index = item.linkedBooks.indexOf(bookId);
-                if(index > -1){
-                    item.linkedBooks.splice(index, 1);
-                }
-            }
-        }
-
-        function isBookLinkedToOeuvreItem(oeuvreItem){
-            var bookId = parseInt($routeParams.id);
-            return oeuvreItem.linkedBooks.indexOf(bookId) > -1;
-        }
     }]);

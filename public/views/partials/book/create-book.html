@@ -1,17 +1,15 @@
 <div class="create-book-div">
-    <errorcontainer></errorcontainer>
     <form autocomplete="off" ng-submit="submitForm(createBookForm.$valid)" id="createBookForm" name="createBookForm" novalidate class="form-horizontal createBookForm">
         <fieldset>
-
             <div class="form-container">
+                <errorcontainer></errorcontainer>
                 <div ng-show="model.imageUrl === undefined" class="alert alert-warning">Geen cover gekozen</div>
                 <div class="form-subtitle">
                     <div>Boek informatie</div>
                     <button type="button" class="btn btn-sm round-corners btn-default form-subtitle-button" ng-click="openSelectImageDialog()">Selecteer cover</button>
                 </div>
+
                 <div class="form-content col-md-12">
-
-
                     <img style="margin-bottom: 20px;" src-with-fallback="{{ model.imageUrl }}" />
 
                     <!-- TITLE -->
@@ -40,7 +38,7 @@
                     <div class="form-group col-md-12">
                         <label class="control-label">Tags</label>
 
-                        <tags-input ng-model="model.tags" class="input-width-lg no-round-corners">
+                        <tags-input name="tags" ng-model="model.tags" class="input-width-lg no-round-corners">
                             <auto-complete source="searchTags($query)"></auto-complete>
                         </tags-input>
                     </div>

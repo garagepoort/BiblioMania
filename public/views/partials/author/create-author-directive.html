@@ -1,17 +1,17 @@
 <div class="create-book-div">
-    <form ng-submit="submitForm()" id="createAuthorForm" name="createAuthorForm" novalidate>
+    <ng-form id="authorForm" name="authorForm" novalidate>
         <fieldset style="text-align: left;width: 900px;">
             <name ng-model="model.name"></name>
             <date label="Geboorte jaar" ng-model="model.dateOfBirth"></date>
             <date label="Sterfte jaar" ng-model="model.dateOfDeath"></date>
 
-            <button type="button" ng-disabled="createAuthorForm.$invalid" style="margin-bottom: 10px;" class="btn-default btn round-corners"
+            <button type="button" ng-disabled="authorForm.$invalid" style="margin-bottom: 10px;" class="btn-default btn round-corners"
                     ng-click="searchAuthorImage()">Zoek auteur afbeelding
             </button>
 
             <google-image-search ng-model="model.imageUrl" query="authorImageQuery"></google-image-search>
 
-            <button class="btn btn-primary" ng-disabled="createAuthorForm.$invalid">Save</button>
+            <button class="btn btn-primary" ng-click="submitForm()" ng-disabled="authorForm.$invalid">Save</button>
         </fieldset>
-    </form>
+    </ng-form>
 </div>

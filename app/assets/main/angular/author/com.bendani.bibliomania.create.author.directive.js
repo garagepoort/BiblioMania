@@ -5,14 +5,17 @@ angular.module('com.bendani.bibliomania.create.author.directive',
     .directive('createAuthor', function (){
         return {
             scope: {
-                onSave: "&"
+                onSave: "&",
+                model: '=authorModel'
             },
             restrict: "E",
             templateUrl: "../BiblioMania/views/partials/author/create-author-directive.html",
             controller: ['$scope', 'Author', 'ErrorContainer', 'growl', function ($scope, Author, ErrorContainer, growl) {
 
                 $scope.$parent.title = "Auteur";
-                $scope.model = {};
+                if(!$scope.model){
+                    $scope.model = {};
+                }
 
                 $scope.searchAuthorImage = function () {
                     if ($scope.model !== undefined) {
@@ -38,10 +41,17 @@ angular.module('com.bendani.bibliomania.create.author.directive',
                             $scope.model.dateOfDeath = undefined;
                         }
                     }
-                    Author.save($scope.model, function(response){
-                        growl.addSuccessMessage("Auteur opgeslagen");
-                        $scope.onSave({authorId: response.id});
-                    }, ErrorContainer.handleRestError);
+                    if($scope.model.id){
+                        Author.update($scope.model, function(response){
+                            growl.addSuccessMessage("Auteur opgeslagen");
+                            $scope.onSave({authorId: response.id});
+                        }, ErrorContainer.handleRestError);
+                    }else{
+                        Author.save($scope.model, function(response){
+                            growl.addSuccessMessage("Auteur opgeslagen");
+                            $scope.onSave({authorId: response.id});
+                        }, ErrorContainer.handleRestError);
+                    }
                 };
 
             }]
