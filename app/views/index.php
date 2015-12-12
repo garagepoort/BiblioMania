@@ -22,6 +22,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-resource.js"></script>
 
         <!--BiblioMania-->
+        <script type="text/javascript" src="assets/js/underscore.js"></script>
         <script type="text/javascript" src="assets/main.min.js"></script>
         <script type="text/javascript" src="packages/bendani/php-common/filter-service/filters.min.js"></script>
         <script type="text/javascript" src="packages/bendani/php-common/login-service/com.bendani.php.common.loginservice.authentication.model.js"></script>

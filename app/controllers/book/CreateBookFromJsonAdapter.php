@@ -1,6 +1,6 @@
 <?php
 
-class CreateBookFromJsonAdapter implements CreateBookRequest
+class CreateBookFromJsonAdapter implements BaseBookRequest
 {
 
     /**
@@ -8,13 +8,9 @@ class CreateBookFromJsonAdapter implements CreateBookRequest
      * @required
      */
     private $title;
-    /**
-     * @var string
-     */
+    /** @var string */
     private $subtitle;
-    /**
-     * @var string
-     */
+    /** @var string */
     private $isbn;
     /**
      * @var string
@@ -42,15 +38,25 @@ class CreateBookFromJsonAdapter implements CreateBookRequest
     private $language;
     /** @var string */
     private $imageUrl;
-
     /**
      * @var DateFromJsonAdapter
      * @required
      */
     private $publicationDate;
-
     /** @var  int */
     private $preferredAuthorId;
+
+    /** @var  int */
+    private $pages;
+    /** @var  int */
+    private $print;
+    /** @var string */
+    private $serie;
+    /** @var string */
+    private $publisherSerie;
+    /** @var string */
+    private $translator;
+
 
     /**
      * @param string $title
@@ -227,5 +233,86 @@ class CreateBookFromJsonAdapter implements CreateBookRequest
     {
         $this->imageUrl = $imageUrl;
     }
+
+    /**
+     * @return int
+     */
+    public function getPages()
+    {
+        return $this->pages;
+    }
+
+    /**
+     * @param int $pages
+     */
+    public function setPages($pages)
+    {
+        $this->pages = $pages;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPrint()
+    {
+        return $this->print;
+    }
+
+    /**
+     * @param int $print
+     */
+    public function setPrint($print)
+    {
+        $this->print = $print;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSerie()
+    {
+        return $this->serie;
+    }
+
+    /**
+     * @param string $serie
+     */
+    public function setSerie($serie)
+    {
+        $this->serie = $serie;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPublisherSerie()
+    {
+        return $this->publisherSerie;
+    }
+
+    /**
+     * @param string $publisherSerie
+     */
+    public function setPublisherSerie($publisherSerie)
+    {
+        $this->publisherSerie = $publisherSerie;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTranslator()
+    {
+        return $this->translator;
+    }
+
+    /**
+     * @param string $translator
+     */
+    public function setTranslator($translator)
+    {
+        $this->translator = $translator;
+    }
+
 
 }

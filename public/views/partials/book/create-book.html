@@ -1,6 +1,6 @@
-<div class="create-book-div" ng-controller="CreateBookController">
+<div class="create-book-div">
     <errorcontainer></errorcontainer>
-    <form ng-submit="submitForm(createBookForm.$valid)" id="createBookForm" name="createBookForm" novalidate class="form-horizontal createBookForm">
+    <form autocomplete="off" ng-submit="submitForm(createBookForm.$valid)" id="createBookForm" name="createBookForm" novalidate class="form-horizontal createBookForm">
         <fieldset>
 
             <div class="form-container">
@@ -12,7 +12,7 @@
                 <div class="form-content col-md-12">
 
 
-                    <img src-with-fallback="{{ model.imageUrl }}" />
+                    <img style="margin-bottom: 20px;" src-with-fallback="{{ model.imageUrl }}" />
 
                     <!-- TITLE -->
                     <div class="form-group required col-md-12" ng-class="{'has-error has-feedback' : createBookForm.title.$invalid && createBookForm.title.$dirty}">
@@ -28,13 +28,12 @@
                     </div>
 
                     <!-- ISBN -->
-                    <div class="form-group required col-md-12">
+                    <div class="form-group required col-md-12" ng-class="{'has-error has-feedback' : createBookForm.isbn.$invalid && createBookForm.isbn.$dirty}">
                         <label class="control-label" >ISBN </label>
 
-                            <input name="isbn" type="text" class="form-control input-width-sm" placeholder="isbn" ng-model="model.isbn" required="true" ng-pattern="/^[0-9]{13}$/"
-                                   ng-class="{'has-error has-feedback' : createBookForm.isbn.$invalid && createBookForm.isbn.$dirty}"/>
-                            <span ng-show="createBookForm.isbn.$error.required && createBookForm.isbn.$dirty" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Isbn is verplicht</span>
-                            <span ng-show="createBookForm.isbn.$error.pattern && createBookForm.isbn.$dirty" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Isbn moet exact 13 nummers zijn</span>
+                        <input name="isbn" type="text" class="form-control input-width-sm" placeholder="isbn" ng-model="model.isbn" required="true" ng-pattern="/^[0-9]{13}$/"/>
+                        <span ng-show="createBookForm.isbn.$error.required && createBookForm.isbn.$dirty" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Isbn is verplicht</span>
+                        <span ng-show="createBookForm.isbn.$error.pattern && createBookForm.isbn.$dirty" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Isbn moet exact 13 nummers zijn</span>
                     </div>
 
                     <!-- Tags -->
@@ -44,6 +43,40 @@
                         <tags-input ng-model="model.tags" class="input-width-lg no-round-corners">
                             <auto-complete source="searchTags($query)"></auto-complete>
                         </tags-input>
+                    </div>
+                </div>
+
+                <div class="form-subtitle">Extra informatie</div>
+                <div class="form-content col-md-12">
+                    <div class="form-group col-md-6">
+                        <label class="control-label" >Druk </label>
+                        <input name="print" type="number" class="form-control input-width-sm" placeholder="druk" ng-model="model.print"/>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label class="control-label" >pagina's </label>
+                        <input name="pages" type="number" class="form-control input-width-sm" placeholder="pagina's" ng-model="model.pages"/>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label class="control-label" >Vertaler </label>
+                        <input name="translator" type="text" class="form-control input-width-sm" placeholder="vertaler" ng-model="model.translator"/>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label class="control-label" >Boeken reeks </label>
+                        <input name="serie" ng-model="model.serie" type="text" placeholder="reeks" class="form-control input-width-sm"
+                               uib-typeahead="serie.name as serie.name for serie in data.series | filter:$viewValue | limitTo:8"
+                               ng-class="{'has-error has-feedback' : createBookForm.serie.$invalid && createBookForm.serie.$dirty}"
+                               class="form-control">
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label class="control-label" >Uitgever reeks </label>
+                        <input name="publisherSerie" ng-model="model.publisherSerie" type="text" placeholder="reeks" class="form-control input-width-sm"
+                               uib-typeahead="publisherSerie.name as publisherSerie.name for publisherSerie in data.publisherSeries | filter:$viewValue | limitTo:8"
+                               ng-class="{'has-error has-feedback' : createBookForm.publisherSerie.$invalid && createBookForm.publisherSerie.$dirty}"
+                               class="form-control">
                     </div>
                 </div>
 
