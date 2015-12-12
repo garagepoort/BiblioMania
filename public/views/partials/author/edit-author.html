@@ -1,66 +1,66 @@
 <div class="create-book-div">
     <errorcontainer></errorcontainer>
-    <form ng-submit="submitForm()" id="createAuthorForm" name="createAuthorForm" novalidate class="form-horizontal createBookForm">
-        <fieldset>
-            <legend>{{ model.name.firstname + " " + model.name.lastname }}</legend>
-            <img ng-src="{{ getAuthorImage() }}" style="margin-bottom: 20px;">
-            <name class="col-md-11" ng-model="model.name"></name>
-            <date label="Geboorte jaar" ng-model="model.dateOfBirth"></date>
-            <date label="Sterfte jaar" ng-model="model.dateOfDeath"></date>
 
-            <button type="button" style="margin-bottom: 10px;" class="btn-default btn round-corners" ng-click="searchAuthorImage()">Zoek auteur afbeelding</button>
-            <google-image-search ng-model="model.imageUrl" query="authorImageQuery"></google-image-search>
+    <div class="form-subtitle">
+        <div>{{ model.name.firstname + " " + model.name.lastname }}</div>
+    </div>
+    <div class="form-content">
+        <create-author author-model="model"></create-author>
+    </div>
 
-            <button class="btn btn-primary">Wijzig</button>
 
-            <legend style="margin-top: 20px;">Oeuvre</legend>
-            <button type="button" style="margin-bottom: 10px;" class="btn-default btn round-corners" ng-click="showAddOeuvreItemsDialog()">Voeg oeuvre items toe</button>
-            <div style="margin-top: 20px;">
-                <table id="author-oeuvre-table" class="table table-hover">
-                    <thead>
-                    <tr>
-                        <th>Titel</th>
-                        <th>Publicatiejaar</th>
-                        <th>Verwijderen</th>
-                        <th>Status</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="oeuvreItem in oeuvre" style="cursor: pointer;">
-                        <td>
-                            {{ oeuvreItem.title }}
-                        </td>
-                        <td>
-                            {{ oeuvreItem.publicationYear }}
-                        </td>
-                        <td style="text-align: center">
-                            <button ng-click="deleteOeuvreItem(oeuvreItem)" type="button" class="btn btn-default round-corners"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
-                        </td>
-                        <td>
-                            <label class="label" ng-class="linkLabel(oeuvreItem)">{{ linkText(oeuvreItem) }}</label>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+    <div class="form-subtitle">
+        <div>Oeuvre</div>
+        <button type="button" class="btn-default btn btn-sm round-corners form-subtitle-button"
+                ng-click="showAddOeuvreItemsDialog()"><span class="glyphicon glyphicon-plus"></span> Voeg items toe
+        </button>
+    </div>
+    <div class="form-content">
+        <table id="author-oeuvre-table" class="table table-hover">
+            <thead>
+            <tr>
+                <th>Titel</th>
+                <th>Publicatiejaar</th>
+                <th>Verwijderen</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="oeuvreItem in oeuvre" style="cursor: pointer;">
+                <td>
+                    {{ oeuvreItem.title }}
+                </td>
+                <td>
+                    {{ oeuvreItem.publicationYear }}
+                </td>
+                <td style="text-align: center">
+                    <button ng-click="deleteOeuvreItem(oeuvreItem)" type="button"
+                            class="btn btn-sm btn-default round-corners"><span class="glyphicon glyphicon-trash"
+                                                                               aria-hidden="true"></span></button>
+                </td>
+                <td>
+                    <label class="label" ng-class="linkLabel(oeuvreItem)">{{ linkText(oeuvreItem) }}</label>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
-            <legend style="margin-top: 20px;">Boeken</legend>
-            <div style="margin-top: 20px;">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Titel</th>
-                            <th>isbn</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="book in books">
-                            <td>{{ book.title }}</td>
-                            <td>{{ book.isbn }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </fieldset>
-    </form>
+    <div class="form-subtitle">Boeken</div>
+    <div class="form-content">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Titel</th>
+                <th>isbn</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="book in books">
+                <td>{{ book.title }}</td>
+                <td>{{ book.isbn }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

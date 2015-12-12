@@ -66,6 +66,10 @@ angular.module('com.bendani.bibliomania.edit.book.ui', ['ngTagsInput',
 
                 if($scope.model.$promise){
                     $scope.model.$promise.then(function(){
+                        if(!$scope.model.publicationDate){
+                            $scope.model.publicationDate = {};
+                        }
+
                         var preferredAuthor = _.findWhere($scope.model.authors, {preferred: true});
                         if(preferredAuthor){
                             Author.get({id: preferredAuthor.id}, function(author){
