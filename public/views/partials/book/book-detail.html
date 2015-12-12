@@ -7,6 +7,7 @@
         <div class="col-md-6">
             <div class="form-subtitle">
                 <div>Boek informatie</div>
+                <button class="btn btn-sm btn-default round-corners form-subtitle-button" ng-click="editBookInformation()"><i class="fa fa-pencil"> Editeer</i></button>
                 <!--<label class="label label-warning form-subtitle-label">{{book.genre}}</label>-->
             </div>
             <div class="form-content detail-panel">
@@ -23,6 +24,16 @@
                     <dd>{{book.language}}</dd>
                     <dt>land</dt>
                     <dd>{{book.country}}</dd>
+                    <dt>Pagina's</dt>
+                    <dd>{{book.pages}}</dd>
+                    <dt>Druk</dt>
+                    <dd>{{book.print}}</dd>
+                    <dt>Boeken reeks</dt>
+                    <dd>{{book.serie}}</dd>
+                    <dt>Uitgever reeks</dt>
+                    <dd>{{book.publisherSerie}}</dd>
+                    <dt>Vertaler</dt>
+                    <dd>{{book.translator}}</dd>
                 </dl>
             </div>
         </div>
@@ -37,18 +48,9 @@
             </div>
             <div class="form-content detail-panel">
                 <table class="table table-hover table-striped">
-                    <thead>
-                    <tr style="cursor: pointer">
-                        <th>Voornaam</th>
-                        <th>Naam</th>
-                        <th>Hoofd Auteur</th>
-                        <th></th>
-                    </tr>
-                    </thead>
                     <tbody>
                     <tr ng-repeat="author in book.authors" style="cursor: pointer" ng-click="goToEditAuthor(author)">
-                        <td>{{ author.name.firstname }}</td>
-                        <td>{{ author.name.lastname }}</td>
+                        <td>{{ author.name.firstname + " " + author.name.lastname }}</td>
                         <td style="text-align: center"><span style="top: 3px;" ng-show="author.preferred" class="glyphicon glyphicon-ok-sign"></span></td>
                         <td><button ng-hide="author.preferred" ng-click="unlinkAuthorFromBook(author); $event.stopPropagation();" type="button" class="btn btn-default round-corners"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></td>
                     </tr>
@@ -176,6 +178,7 @@
             <div class="form-subtitle">
                 <div>Lees data</div>
                 <button type="button" class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="openAddReadingDateModal()"><i class="fa fa-plus"> Leesdatum toevoegen</i></button>
+                <button type="button" class="btn btn-sm form-subtitle-button btn-primary round-corners" ng-click="addTodayAsReadingDate()">Vandaag uitgelezen</button>
             </div>
             <div class="form-content detail-panel">
                 <table class="table table-hover table-striped">

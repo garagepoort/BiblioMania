@@ -32,13 +32,13 @@ angular.module('com.bendani.bibliomania.book.details.ui', ['com.bendani.biblioma
                 }, ErrorContainer.handleRestError);
             }
 
+            $scope.addTodayAsReadingDate = function(){
+                addReadingDate(new Date());
+            };
+
             $scope.openAddReadingDateModal = function(){
                 DateSelectionModalService.show(function(date){
-                    var readingDateToAdd = DateService.dateToJsonDate(date);
-                    PersonalBookInfo.addReadingDate({id: $scope.book.personalBookInfo.id}, readingDateToAdd, function(){
-                        $scope.book.personalBookInfo.readingDates = PersonalBookInfo.readingDates({id: $scope.book.personalBookInfo.id}, function(){}, ErrorContainer.handleRestError);
-                        growl.addSuccessMessage('LeesDatum toegevoegd');
-                    }, ErrorContainer.handleRestError);
+                    addReadingDate(date);
                 });
             };
 
@@ -90,6 +90,10 @@ angular.module('com.bendani.bibliomania.book.details.ui', ['com.bendani.biblioma
                 $location.path('/edit-personal-book-info/'+ $scope.book.personalBookInfo.id);
             };
 
+            $scope.editBookInformation = function(){
+                $location.path('/edit-book/'+ $scope.book.id);
+            };
+
             $scope.createPersonalBookInfo = function(){
                 $location.path('/create-personal-book-info/'+ $scope.book.id);
             };
@@ -121,6 +125,14 @@ angular.module('com.bendani.bibliomania.book.details.ui', ['com.bendani.biblioma
                 var titlePanelRight = angular.element('<div class="book-detail-title-panel"><label style="float: right" class="label label-warning">{{ book.genre }}</label><div style="clear: both"><uib-rating ng-model="book.personalBookInfo.rating" max="10" readonly="true" class="book-rating"></uib-rating></div></div>');
                 $compile(titlePanelRight)($scope);
                 TitlePanelService.setRightPanel(titlePanelRight);
+            }
+
+            function addReadingDate(date){
+                var readingDateToAdd = DateService.dateToJsonDate(date);
+                PersonalBookInfo.addReadingDate({id: $scope.book.personalBookInfo.id}, readingDateToAdd, function(){
+                    $scope.book.personalBookInfo.readingDates = PersonalBookInfo.readingDates({id: $scope.book.personalBookInfo.id}, function(){}, ErrorContainer.handleRestError);
+                    growl.addSuccessMessage('LeesDatum toegevoegd');
+                }, ErrorContainer.handleRestError);
             }
 
             init();

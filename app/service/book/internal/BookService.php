@@ -65,53 +65,16 @@ class BookService
         return $this->bookRepository->allFromUser($userId, array('authors'));
     }
 
-    public function create(CreateBookRequest $createBookRequest){
-        return DB::transaction(function() use ($createBookRequest){
-            $book = new Book();
-            $genre = $this->genreService->getGenreByName($createBookRequest->getGenre());
-            $author = $this->authorService->find($createBookRequest->getPreferredAuthorId());
+    public function create(BaseBookRequest $createBookRequest){
+        $book = new Book();
+        return $this->saveBook($createBookRequest, $book);
+    }
 
-            Ensure::objectNotNull("Book", $book);
-            Ensure::objectNotNull("Author", $author);
-            Ensure::objectNotNull("Genre", $genre);
-            Ensure::objectNotNull("PublicationDate", $createBookRequest->getPublicationDate());
-            Ensure::stringNotBlank("Language", $createBookRequest->getLanguage());
-            Ensure::stringNotBlank("Title", $createBookRequest->getTitle());
-            Ensure::stringNotBlank("Isbn", $createBookRequest->getIsbn());
-            Ensure::stringNotBlank("Publisher", $createBookRequest->getPublisher());
-            Ensure::stringNotBlank("Country", $createBookRequest->getCountry());
+    public function update(UpdateBookRequest $updateBookRequest){
+        $book = $this->bookRepository->find($updateBookRequest->getId());
+        Ensure::objectNotNull('book', $book);
 
-            $bookPublisher = $this->publisherService->findOrCreate($createBookRequest->getPublisher());
-            $country = $this->countryService->findOrCreate($createBookRequest->getCountry());
-            $book->language()->associate($this->languageService->findOrSave($createBookRequest->getLanguage()));
-
-            $tagsAsStrings = $this->mapTags($createBookRequest);
-            $tags = $this->tagService->createTags($tagsAsStrings);
-
-            $date = $this->createPublicationDate($createBookRequest);
-            $book->publication_date()->associate($date);
-
-            $book->title = $createBookRequest->getTitle();
-            $book->subtitle = $createBookRequest->getSubtitle();
-            $book->ISBN = $createBookRequest->getIsbn();
-            $book->genre_id = $genre->id;
-            $book->publisher_id = $bookPublisher->id;
-            $book->publisher_country_id = $country->id;
-
-            if(!StringUtils::isEmpty($createBookRequest->getImageUrl())){
-                $book->coverImage = $this->imageService->saveBookImageFromUrl($createBookRequest->getImageUrl(), $book);
-            }
-
-            $this->bookRepository->save($book);
-            $book->tags()->sync($tags);
-            $this->authorService->syncAuthors($author, [], $book);
-
-            $personBookInfo = new PersonalBookInfo();
-            $personBookInfo->book_id = $book->id;
-            $personBookInfo->save();
-
-            return $book;
-        });
+        return $this->saveBook($updateBookRequest, $book);
     }
 
     public function getBooksByAuthor($authorId){
@@ -259,10 +222,10 @@ class BookService
     }
 
     /**
-     * @param CreateBookRequest $createRequest
+     * @param BaseBookRequest $createRequest
      * @return array
      */
-    private function mapTags(CreateBookRequest $createRequest)
+    private function mapTags(BaseBookRequest $createRequest)
     {
         if($createRequest->getTags() == null){
             return array();
@@ -274,10 +237,10 @@ class BookService
     }
 
     /**
-     * @param CreateBookRequest $createBook
+     * @param BaseBookRequest $createBook
      * @return Date
      */
-    private function createPublicationDate(CreateBookRequest $createBook)
+    private function createPublicationDate(BaseBookRequest $createBook)
     {
         $date = new Date();
         $date->day = $createBook->getPublicationDate()->getDay();
@@ -286,4 +249,76 @@ class BookService
         $date->save();
         return $date;
     }
+
+    /**
+     * @param BaseBookRequest $createBookRequest
+     * @param $book
+     * @return mixed
+     */
+    private function saveBook(BaseBookRequest $createBookRequest, $book)
+    {
+        return DB::transaction(function () use ($book, $createBookRequest) {
+            $genre = $this->genreService->getGenreByName($createBookRequest->getGenre());
+            $author = $this->authorService->find($createBookRequest->getPreferredAuthorId());
+
+            Ensure::objectNotNull("Book", $book);
+            Ensure::objectNotNull("Author", $author);
+            Ensure::objectNotNull("Genre", $genre);
+            Ensure::objectNotNull("PublicationDate", $createBookRequest->getPublicationDate());
+            Ensure::stringNotBlank("Language", $createBookRequest->getLanguage());
+            Ensure::stringNotBlank("Title", $createBookRequest->getTitle());
+            Ensure::stringNotBlank("Isbn", $createBookRequest->getIsbn());
+            Ensure::stringNotBlank("Publisher", $createBookRequest->getPublisher());
+            Ensure::stringNotBlank("Country", $createBookRequest->getCountry());
+
+            $bookPublisher = $this->publisherService->findOrCreate($createBookRequest->getPublisher());
+            $country = $this->countryService->findOrCreate($createBookRequest->getCountry());
+
+            $book->serie_id = null;
+            $book->publisher_serie_id = null;
+
+            if (!StringUtils::isEmpty($createBookRequest->getSerie())) {
+                $bookSerie = $this->bookSerieService->findOrSave($createBookRequest->getSerie());
+                $book->serie_id = $bookSerie->id;
+            }
+
+            if (!StringUtils::isEmpty($createBookRequest->getPublisherSerie())) {
+                $bookSerie = $this->publisherSerieService->findOrSave($createBookRequest->getPublisherSerie(), $bookPublisher->id);
+                $book->publisher_serie_id = $bookSerie->id;
+            }
+
+            $book->language()->associate($this->languageService->findOrSave($createBookRequest->getLanguage()));
+
+            $tagsAsStrings = $this->mapTags($createBookRequest);
+            $tags = $this->tagService->createTags($tagsAsStrings);
+
+            $date = $this->createPublicationDate($createBookRequest);
+            $book->publication_date()->associate($date);
+
+            $book->title = $createBookRequest->getTitle();
+            $book->subtitle = $createBookRequest->getSubtitle();
+            $book->ISBN = $createBookRequest->getIsbn();
+            $book->genre_id = $genre->id;
+            $book->publisher_id = $bookPublisher->id;
+            $book->publisher_country_id = $country->id;
+            $book->translator = $createBookRequest->getTranslator();
+            $book->print = $createBookRequest->getPrint();
+            $book->number_of_pages = $createBookRequest->getPages();
+
+            if (!StringUtils::isEmpty($createBookRequest->getImageUrl())) {
+                $book->coverImage = $this->imageService->saveBookImageFromUrl($createBookRequest->getImageUrl(), $book);
+            }
+
+            $this->bookRepository->save($book);
+            $book->tags()->sync($tags);
+            $this->authorService->syncAuthors($author, [], $book);
+
+            $personBookInfo = new PersonalBookInfo();
+            $personBookInfo->book_id = $book->id;
+            $personBookInfo->save();
+
+            return $book;
+        });
+    }
+
 }

@@ -16,6 +16,7 @@ Route::group(array('before' => 'auth'), function () {
 
     Route::get('books', 'BookController@getBooks');
     Route::post('books', 'BookController@createBook');
+    Route::put('books', 'BookController@updateBook');
     Route::post('books/search', 'BookController@search');
     Route::get('books/{id}', 'BookController@getFullBook');
     Route::put('books/{id}/authors', 'BookController@linkAuthorToBook');
@@ -25,6 +26,8 @@ Route::group(array('before' => 'auth'), function () {
     Route::get('tags', 'TagController@getTags');
     Route::get('countries', 'CountryController@getCountries');
     Route::get('languages', 'LanguageController@getLanguages');
+    Route::get('series', 'SerieController@getSeries');
+    Route::get('publisher-series', 'PublisherSerieController@getPublisherSeries');
 
     Route::get('firstprints', 'FirstPrintController@getAllFirstPrintInfos');
     Route::put('firstprints', 'FirstPrintController@updateFirstPrintInfo');

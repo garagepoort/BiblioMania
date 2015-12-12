@@ -25,6 +25,9 @@ class FullBookToJsonAdapter
     private $genre;
     private $image;
 
+    /** @var  TagToJsonAdapter[] */
+    private $tags;
+
     /** @var  FirstPrintInfoToJsonAdapter */
     private $firstPrintInfo;
     /** @var  DateToJsonAdapter */
@@ -61,6 +64,7 @@ class FullBookToJsonAdapter
         $this->publisherSerie = $book->publisher_serie == null ? null : $book->publisher_serie->name;
         $this->serie = $book->serie == null ? null : $book->serie->name;
         $this->authors = array_map(function($author){ return new AuthorToJsonAdapter($author); }, $book->authors->all());
+        $this->tags = array_map(function ($item) { return new TagToJsonAdapter($item); }, $book->tags->all());
 
         if(!StringUtils::isEmpty($book->coverImage)){
             $this->image = $baseUrl . "/bookImages/" . $username . "/" . $book->coverImage;
@@ -86,6 +90,7 @@ class FullBookToJsonAdapter
             "title" => $this->title,
             "isbn" => $this->isbn,
             "authors" => array_map(function($author){ return $author->mapToJson(); }, $this->authors),
+            "tags" => array_map(function($tag){ return $tag->mapToJson(); }, $this->tags),
             "subtitle" => $this->subtitle,
             "publisher" => $this->publisher,
             "summary" => $this->summary,

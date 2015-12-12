@@ -1,7 +1,7 @@
 <?php
 
 
-interface CreateBookRequest
+interface BaseBookRequest
 {
     function getTitle();
 
@@ -25,4 +25,14 @@ interface CreateBookRequest
     function getPreferredAuthorId();
 
     function getImageUrl();
+
+    function getPages();
+
+    function getPrint();
+
+    function getSerie();
+
+    function getPublisherSerie();
+    
+    function getTranslator();
 }
