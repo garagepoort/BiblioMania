@@ -45,18 +45,36 @@
         <!--ABN TREE-->
         <link href="assets/lib/abntree/abn-tree.css" rel="stylesheet">
         <script type="text/javascript" src="assets/lib/abntree/abn-tree-directive.js"></script>
+
+        <script type="text/javascript">
+            $('.collapse').on('shown.bs.collapse', function (e) {
+                $('.collapse').not(this).removeClass('in');
+            });
+
+            $('[data-toggle=collapse]').click(function (e) {
+                $('[data-toggle=collapse]').parent('li').removeClass('active');
+                $(this).parent('li').toggleClass('active');
+            });
+        </script>
     </head>
     <body ng-controller="MainController">
 
         <div growl></div>
-        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="#">Bibliomania</a>
-                </div>
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"></div>
-            </div>
-        </nav>
+        <div class="container">
+            <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="#">Bibliomania</a>
+                    </div>
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown" style="background-color: #ec971f">
+                            <a href="#/books" data-toggle="collapse" data-target="#one">Boeken</a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" data-toggle="collapse" data-target="#two">Auteurs</a>
+                        </li>
+                    </ul>
+            </nav>
+        </div>
 
         <div class="contentContainer">
             <title-panel></title-panel>

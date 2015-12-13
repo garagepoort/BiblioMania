@@ -8,7 +8,6 @@
                     <div>Boek informatie</div>
                     <button type="button" class="btn btn-sm round-corners btn-default form-subtitle-button" ng-click="openSelectImageDialog()">Selecteer cover</button>
                 </div>
-
                 <div class="form-content col-md-12">
                     <img style="margin-bottom: 20px;" src-with-fallback="{{ model.imageUrl }}" />
 
@@ -33,49 +32,16 @@
                         <span ng-show="createBookForm.isbn.$error.required && createBookForm.isbn.$dirty" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Isbn is verplicht</span>
                         <span ng-show="createBookForm.isbn.$error.pattern && createBookForm.isbn.$dirty" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Isbn moet exact 13 nummers zijn</span>
                     </div>
-
-                    <!-- Tags -->
-                    <div class="form-group col-md-12">
-                        <label class="control-label">Tags</label>
-
-                        <tags-input name="tags" ng-model="model.tags" class="input-width-lg no-round-corners">
-                            <auto-complete source="searchTags($query)"></auto-complete>
-                        </tags-input>
-                    </div>
                 </div>
 
-                <div class="form-subtitle">Extra informatie</div>
-                <div class="form-content col-md-12">
-                    <div class="form-group col-md-6">
-                        <label class="control-label" >Druk </label>
-                        <input name="print" type="number" class="form-control input-width-sm" placeholder="druk" ng-model="model.print"/>
-                    </div>
-
-                    <div class="form-group col-md-6">
-                        <label class="control-label" >pagina's </label>
-                        <input name="pages" type="number" class="form-control input-width-sm" placeholder="pagina's" ng-model="model.pages"/>
-                    </div>
-
-                    <div class="form-group col-md-6">
-                        <label class="control-label" >Vertaler </label>
-                        <input name="translator" type="text" class="form-control input-width-sm" placeholder="vertaler" ng-model="model.translator"/>
-                    </div>
-
-                    <div class="form-group col-md-6">
-                        <label class="control-label" >Boeken reeks </label>
-                        <input name="serie" ng-model="model.serie" type="text" placeholder="reeks" class="form-control input-width-sm"
-                               uib-typeahead="serie.name as serie.name for serie in data.series | filter:$viewValue | limitTo:8"
-                               ng-class="{'has-error has-feedback' : createBookForm.serie.$invalid && createBookForm.serie.$dirty}"
-                               class="form-control">
-                    </div>
-
-                    <div class="form-group col-md-6">
-                        <label class="control-label" >Uitgever reeks </label>
-                        <input name="publisherSerie" ng-model="model.publisherSerie" type="text" placeholder="reeks" class="form-control input-width-sm"
-                               uib-typeahead="publisherSerie.name as publisherSerie.name for publisherSerie in data.publisherSeries | filter:$viewValue | limitTo:8"
-                               ng-class="{'has-error has-feedback' : createBookForm.publisherSerie.$invalid && createBookForm.publisherSerie.$dirty}"
-                               class="form-control">
-                    </div>
+                <div class="form-subtitle">
+                    <div>Auteur</div>
+                    <button type="button" class="btn-default btn btn-sm form-subtitle-button round-corners" ng-click="showSelectAuthorDialog()">Auteur selecteren</button>
+                    <button type="button" class="btn-default btn btn-sm form-subtitle-button round-corners" ng-click="showCreateAuthorDialog()">Auteur aanmaken</button>
+                </div>
+                <div class="form-content">
+                    <h2>{{ data.selectedAuthor.name.firstname + " " + data.selectedAuthor.name.lastname}}</h2>
+                    <img src-with-fallback="{{ data.selectedAuthorImage }}" style="margin-bottom: 20px;"/>
                 </div>
 
                 <div class="form-subtitle">Uitgave informatie</div>
@@ -117,6 +83,40 @@
                     </div>
                 </div>
 
+                <div class="form-subtitle">Extra informatie</div>
+                <div class="form-content col-md-12">
+                    <div class="form-group col-md-6">
+                        <label class="control-label" >Druk </label>
+                        <input name="print" type="number" class="form-control input-width-sm" placeholder="druk" ng-model="model.print"/>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label class="control-label" >pagina's </label>
+                        <input name="pages" type="number" class="form-control input-width-sm" placeholder="pagina's" ng-model="model.pages"/>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label class="control-label" >Vertaler </label>
+                        <input name="translator" type="text" class="form-control input-width-sm" placeholder="vertaler" ng-model="model.translator"/>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label class="control-label" >Boeken reeks </label>
+                        <input name="serie" ng-model="model.serie" type="text" placeholder="reeks" class="form-control input-width-sm"
+                               uib-typeahead="serie.name as serie.name for serie in data.series | filter:$viewValue | limitTo:8"
+                               ng-class="{'has-error has-feedback' : createBookForm.serie.$invalid && createBookForm.serie.$dirty}"
+                               class="form-control">
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label class="control-label" >Uitgever reeks </label>
+                        <input name="publisherSerie" ng-model="model.publisherSerie" type="text" placeholder="reeks" class="form-control input-width-sm"
+                               uib-typeahead="publisherSerie.name as publisherSerie.name for publisherSerie in data.publisherSeries | filter:$viewValue | limitTo:8"
+                               ng-class="{'has-error has-feedback' : createBookForm.publisherSerie.$invalid && createBookForm.publisherSerie.$dirty}"
+                               class="form-control">
+                    </div>
+                </div>
+
                 <div class="form-subtitle">Genre</div>
                 <div class="form-content col-md-12">
                     <input id="book_genre_input" type="text" name="genre" hidden required
@@ -134,16 +134,15 @@
                         <button type="button" ng-click="genreTree.collapse_all();" class="btn btn-default" style="margin-bottom: 20px">Alles toe</button>
                         <div ng-show="model.genre" class="alert alert-success">Selectie: <b>{{ model.genre}}</b></div>
                     </div>
-                </div>
 
-                <div class="form-subtitle">
-                    <div>Auteur</div>
-                    <button type="button" class="btn-default btn btn-sm form-subtitle-button round-corners" ng-click="showSelectAuthorDialog()">Auteur selecteren</button>
-                    <button type="button" class="btn-default btn btn-sm form-subtitle-button round-corners" ng-click="showCreateAuthorDialog()">Auteur aanmaken</button>
-                </div>
-                <div class="form-content">
-                    <h2>{{ data.selectedAuthor.name.firstname + " " + data.selectedAuthor.name.lastname}}</h2>
-                    <img src-with-fallback="{{ data.selectedAuthorImage }}" style="margin-bottom: 20px;"/>
+                    <!-- Tags -->
+                    <div class="form-group col-md-12">
+                        <label class="control-label">Tags</label>
+
+                        <tags-input name="tags" ng-model="model.tags" class="input-width-lg no-round-corners">
+                            <auto-complete source="searchTags($query)"></auto-complete>
+                        </tags-input>
+                    </div>
                 </div>
 
             </div>
