@@ -151,6 +151,13 @@ select {
   min-height: 800px;
   overflow: auto;
 }
+.select-oeuvre-item-dialog .modal-dialog {
+  width: 60%;
+  height: 50%;
+  min-width: 400px;
+  min-height: 800px;
+  overflow: auto;
+}
 .select-image-modal .modal-dialog {
   width: 70%;
   height: 90%;
