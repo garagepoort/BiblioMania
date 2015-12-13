@@ -5,44 +5,64 @@
             <img class="center-block" src-with-fallback="{{ book.image }}">
         </div>
         <div class="col-md-6">
-            <div class="form-subtitle">
-                <div>Boek informatie</div>
-                <button class="btn btn-sm btn-default round-corners form-subtitle-button" ng-click="editBookInformation()"><i class="fa fa-pencil"> Editeer</i></button>
-                <!--<label class="label label-warning form-subtitle-label">{{book.genre}}</label>-->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-subtitle">
+                        <div>Boek informatie</div>
+                        <button class="btn btn-sm btn-default round-corners form-subtitle-button" ng-click="editBookInformation()"><i class="fa fa-pencil"> Editeer</i></button>
+                        <!--<label class="label label-warning form-subtitle-label">{{book.genre}}</label>-->
+                    </div>
+                    <div class="form-content detail-panel">
+                        <dl class="dl-horizontal">
+                            <dt>Titel</dt>
+                            <dd>{{book.title}}</dd>
+                            <dt ng-show="book.subtitle">Ondertitel</dt>
+                            <dd ng-show="book.subtitle">{{book.subtitle}}</dd>
+                            <dt>isbn</dt>
+                            <dd>{{book.isbn}}</dd>
+                            <dt>uitgever</dt>
+                            <dd>{{book.publisher}}</dd>
+                            <dt ng-show="book.publicationDate">Uitgave datum</dt>
+                            <dd ng-show="book.publicationDate">{{ convertDate(book.publicationDate) }}</dd>
+                            <dt ng-show="book.language">taal</dt>
+                            <dd ng-show="book.language">{{book.language}}</dd>
+                            <dt ng-show="book.country">land</dt>
+                            <dd ng-show="book.country">{{book.country}}</dd>
+                            <dt ng-show="book.pages">Pagina's</dt>
+                            <dd ng-show="book.pages">{{book.pages}}</dd>
+                            <dt ng-show="book.print">Druk</dt>
+                            <dd ng-show="book.print">{{book.print}}</dd>
+                            <dt ng-show="book.serie">Boeken reeks</dt>
+                            <dd ng-show="book.serie" ng-show="book.serie">{{book.serie}}</dd>
+                            <dt ng-show="book.publisherSerie">Uitgever reeks</dt>
+                            <dd ng-show="book.publisherSerie">{{book.publisherSerie}}</dd>
+                            <dt ng-show="book.translator">Vertaler</dt>
+                            <dd ng-show="book.translator">{{book.translator}}</dd>
+                        </dl>
+                    </div>
+                </div>
             </div>
-            <div class="form-content detail-panel">
-                <dl class="dl-horizontal">
-                    <dt>Titel</dt>
-                    <dd>{{book.title}}</dd>
-                    <dt ng-show="book.subtitle">Ondertitel</dt>
-                    <dd ng-show="book.subtitle">{{book.subtitle}}</dd>
-                    <dt>isbn</dt>
-                    <dd>{{book.isbn}}</dd>
-                    <dt>uitgever</dt>
-                    <dd>{{book.publisher}}</dd>
-                    <dt ng-show="book.publicationDate">Uitgave datum</dt>
-                    <dd ng-show="book.publicationDate">{{ convertDate(book.publicationDate) }}</dd>
-                    <dt ng-show="book.language">taal</dt>
-                    <dd ng-show="book.language">{{book.language}}</dd>
-                    <dt ng-show="book.country">land</dt>
-                    <dd ng-show="book.country">{{book.country}}</dd>
-                    <dt ng-show="book.pages">Pagina's</dt>
-                    <dd ng-show="book.pages">{{book.pages}}</dd>
-                    <dt ng-show="book.print">Druk</dt>
-                    <dd ng-show="book.print">{{book.print}}</dd>
-                    <dt ng-show="book.serie">Boeken reeks</dt>
-                    <dd ng-show="book.serie" ng-show="book.serie">{{book.serie}}</dd>
-                    <dt ng-show="book.publisherSerie">Uitgever reeks</dt>
-                    <dd ng-show="book.publisherSerie">{{book.publisherSerie}}</dd>
-                    <dt ng-show="book.translator">Vertaler</dt>
-                    <dd ng-show="book.translator">{{book.translator}}</dd>
-                </dl>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-subtitle">
+                        <div>Oeuvre item</div>
+                        <button type="button" class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="openSelectOeuvreItemDialog()"><i class="fa fa-search"> Selecteren</i></button>
+                        <button type="button" class="btn btn-sm form-subtitle-button btn-default round-corners"><i class="fa fa-plus"> Maak aan</i></button>
+                    </div>
+                    <div class="form-content detail-panel">
+                        <div class="alert alert-success" ng-show="book.oeuvreItem">
+                            <a ng-href="#/edit-oeuvre-item/{{book.oeuvreItem.id}}" class="alert-link">{{ book.oeuvreItem.title }}</a>
+                        </div>
+                        <div class="alert alert-warning" ng-show="!book.oeuvreItem">
+                            Dit boek is nog niet gelinked aan een oeuvre item.
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <div class="container-fluid row">
-
         <div class="col-md-6">
             <div class="form-subtitle">
                 <div>Auteurs</div>
@@ -191,22 +211,6 @@
                     </tr>
                     </tbody>
                 </table>
-            </div>
-        </div>
-
-        <div class="col-md-6">
-            <div class="form-subtitle">
-                <div>Oeuvre item</div>
-                <button type="button" class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="openSelectOeuvreItemDialog()"><i class="fa fa-search"> Selecteren</i></button>
-                <button type="button" class="btn btn-sm form-subtitle-button btn-default round-corners"><i class="fa fa-plus"> Maak aan</i></button>
-            </div>
-            <div class="form-content detail-panel">
-                <div class="alert alert-success" ng-show="book.oeuvreItem">
-                    <a ng-href="#/edit-oeuvre-item/{{book.oeuvreItem.id}}" class="alert-link">{{ book.oeuvreItem.title }}</a>
-                </div>
-                <div class="alert alert-warning" ng-show="!book.oeuvreItem">
-                    Dit boek is nog niet gelinked aan een oeuvre item.
-                </div>
             </div>
         </div>
     </div>
