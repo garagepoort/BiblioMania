@@ -25,6 +25,9 @@ class FullBookToJsonAdapter
     private $genre;
     private $image;
 
+    /** @var  OeuvreItemToJsonAdapter */
+    private $oeuvreItem;
+
     /** @var  TagToJsonAdapter[] */
     private $tags;
 
@@ -82,6 +85,10 @@ class FullBookToJsonAdapter
         if($book->first_print_info != null){
             $this->firstPrintInfo = new FirstPrintToJsonAdapter($book->first_print_info);
         }
+
+        if($book->book_from_author != null){
+            $this->oeuvreItem = new OeuvreItemToJsonAdapter($book->book_from_author);
+        }
     }
 
     public function mapToJson(){
@@ -107,14 +114,18 @@ class FullBookToJsonAdapter
             "image" => $this->image
         );
 
+        if($this->publicationDate != null){
+            $result['publicationDate'] = $this->publicationDate->mapToJson();
+        }
+
         if($this->firstPrintInfo != null){
             $result['firstPrintInfo'] = $this->firstPrintInfo->mapToJson();
         }
         if($this->personalBookInfo != null){
             $result['personalBookInfo'] = $this->personalBookInfo->mapToJson();
         }
-        if($this->publicationDate != null){
-            $result['publicationDate'] = $this->publicationDate->mapToJson();
+        if($this->oeuvreItem != null){
+            $result['oeuvreItem'] = $this->oeuvreItem->mapToJson();
         }
 
         return $result;

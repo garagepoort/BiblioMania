@@ -134,6 +134,7 @@ class BookService
             'genre',
             'first_print_info',
             'publication_date',
+            'book_from_author',
             'country',
             'publisher_serie',
             'serie');

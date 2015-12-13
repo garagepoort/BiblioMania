@@ -7,8 +7,10 @@ angular.module('com.bendani.bibliomania.book.details.ui', ['com.bendani.biblioma
     'com.bendani.bibliomania.date.selection.modal.service',
     'com.bendani.bibliomania.personal.book.info.model',
     'com.bendani.bibliomania.first.print.info.model',
+    'com.bendani.bibliomania.oeuvre.model',
     'com.bendani.bibliomania.first.print.selection.modal.service',
     'com.bendani.bibliomania.confirmation.modal.service',
+    'com.bendani.bibliomania.oeuvre.item.selection.modal.service',
     'angular-growl'])
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider
@@ -17,8 +19,9 @@ angular.module('com.bendani.bibliomania.book.details.ui', ['com.bendani.biblioma
                 controller: 'BookDetailsController'
             });
     }])
-    .controller('BookDetailsController', ['$scope', '$routeParams', 'Book', 'PersonalBookInfo', 'ErrorContainer','DateService', 'AuthorSelectionModalService', 'AuthorCreationModalService', 'FirstPrintSelectionModalService', 'DateSelectionModalService','TitlePanelService', 'ConfirmationModalService', 'growl', '$compile', '$location', 'FirstPrintInfo',
-        function($scope, $routeParams, Book, PersonalBookInfo, ErrorContainer, DateService, AuthorSelectionModalService, AuthorCreationModalService, FirstPrintSelectionModalService, DateSelectionModalService, TitlePanelService, ConfirmationModalService, growl, $compile, $location, FirstPrintInfo){
+    .controller('BookDetailsController', ['$scope', '$routeParams', 'Book', 'PersonalBookInfo', 'ErrorContainer','DateService', 'AuthorSelectionModalService', 'AuthorCreationModalService', 'FirstPrintSelectionModalService', 'DateSelectionModalService','TitlePanelService',
+        'ConfirmationModalService', 'growl', '$compile', '$location', 'FirstPrintInfo', 'OeuvreItemSelectionModalService', 'Oeuvre',
+        function($scope, $routeParams, Book, PersonalBookInfo, ErrorContainer, DateService, AuthorSelectionModalService, AuthorCreationModalService, FirstPrintSelectionModalService, DateSelectionModalService, TitlePanelService, ConfirmationModalService, growl, $compile, $location, FirstPrintInfo, OeuvreItemSelectionModalService, Oeuvre){
 
             function init(){
                 TitlePanelService.setTitle("Boek detail");
@@ -112,6 +115,15 @@ angular.module('com.bendani.bibliomania.book.details.ui', ['com.bendani.biblioma
 
             $scope.goToEditAuthor = function(author){
                 $location.path('/edit-author/' + author.id);
+            };
+
+            $scope.openSelectOeuvreItemDialog = function(){
+                OeuvreItemSelectionModalService.show($scope.book.authors, function(oeuvreItem){
+                    Oeuvre.linkBook({id: oeuvreItem.id}, {bookId: $scope.book.id}, function () {
+                        $scope.book.oeuvreItem = oeuvreItem;
+                        growl.addSuccessMessage("Oeuvre gewijzigd");
+                    }, ErrorContainer.handleRestError);
+                });
             };
 
             function linkAuthorToBook(author) {
