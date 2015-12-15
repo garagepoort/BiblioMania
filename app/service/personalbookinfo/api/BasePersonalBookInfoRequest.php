@@ -3,10 +3,6 @@
 interface BasePersonalBookInfoRequest
 {
 
-    function getRating();
-
-    function getReview();
-
     function isInCollection();
 
     function getReasonNotInCollection();

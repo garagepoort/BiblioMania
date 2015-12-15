@@ -42,23 +42,23 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-subtitle">
-                        <div>Oeuvre item</div>
-                        <button type="button" class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="openSelectOeuvreItemDialog()"><i class="fa fa-search"> Selecteren</i></button>
-                        <button type="button" class="btn btn-sm form-subtitle-button btn-default round-corners"><i class="fa fa-plus"> Maak aan</i></button>
-                    </div>
-                    <div class="form-content detail-panel">
-                        <div class="alert alert-success" ng-show="book.oeuvreItem">
-                            <a ng-href="#/edit-oeuvre-item/{{book.oeuvreItem.id}}" class="alert-link">{{ book.oeuvreItem.title }}</a>
-                        </div>
-                        <div class="alert alert-warning" ng-show="!book.oeuvreItem">
-                            Dit boek is nog niet gelinked aan een oeuvre item.
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <!--<div class="row">-->
+                <!--<div class="col-md-12">-->
+                    <!--<div class="form-subtitle">-->
+                        <!--<div>Oeuvre item</div>-->
+                        <!--<button type="button" class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="openSelectOeuvreItemDialog()"><i class="fa fa-search"> Selecteren</i></button>-->
+                        <!--<button type="button" class="btn btn-sm form-subtitle-button btn-default round-corners"><i class="fa fa-plus"> Maak aan</i></button>-->
+                    <!--</div>-->
+                    <!--<div class="form-content detail-panel">-->
+                        <!--<div class="alert alert-success" ng-show="book.oeuvreItem">-->
+                            <!--<a ng-href="#/edit-oeuvre-item/{{book.oeuvreItem.id}}" class="alert-link">{{ book.oeuvreItem.title }}</a>-->
+                        <!--</div>-->
+                        <!--<div class="alert alert-warning" ng-show="!book.oeuvreItem">-->
+                            <!--Dit boek is nog niet gelinked aan een oeuvre item.-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
         </div>
     </div>
 
@@ -137,23 +137,6 @@
     </div>
 
     <div class="container-fluid row" ng-show="book.personalBookInfo">
-        <div class="col-md-6">
-            <div class="form-subtitle">
-                <div>Persoonlijke informatie</div>
-                <button class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="editPersonalBookInfo()"><i class="fa fa-pencil"> Editeer</i>
-                </button>
-            </div>
-            <div class="form-content detail-panel">
-                <dl class="dl-horizontal">
-                    <dt>gelezen</dt>
-                    <dd><span class="glyphicon" ng-class="book.personalBookInfo.read ? 'glyphicon-ok-sign' : 'glyphicon-remove-sign'"></span></dd>
-                    <dt>rating</dt>
-                    <dd><uib-rating ng-model="book.personalBookInfo.rating" max="10" readonly="true" class="book-rating"></uib-rating></dd>
-                    <dt>review</dt>
-                    <dd>{{book.personalBookInfo.review}}</dd>
-                </dl>
-            </div>
-        </div>
 
         <div class="col-md-6" ng-show="book.personalBookInfo.buyInfo">
             <div class="form-subtitle">
@@ -193,24 +176,28 @@
                 </dl>
             </div>
         </div>
-    </div>
-
-    <div class="container-fluid row">
         <div class="col-md-6" ng-show="book.personalBookInfo">
             <div class="form-subtitle">
                 <div>Lees data</div>
-                <button type="button" class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="openAddReadingDateModal()"><i class="fa fa-plus"> Leesdatum toevoegen</i></button>
+                <button type="button" class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="openEditReadingDateModal()"><i class="fa fa-plus"> Leesdatum toevoegen</i></button>
                 <button type="button" class="btn btn-sm form-subtitle-button btn-primary round-corners" ng-click="addTodayAsReadingDate()">Vandaag uitgelezen</button>
             </div>
             <div class="form-content detail-panel">
-                <table class="table table-hover table-striped">
-                    <tbody>
-                    <tr ng-repeat="date in book.personalBookInfo.readingDates" style="cursor: pointer">
-                        <td>{{ convertDate(date.date) }}</td>
-                        <td><button ng-click="removeReadingDate(date)" type="button" class="btn btn-sm btn-default round-corners"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></td>
-                    </tr>
-                    </tbody>
-                </table>
+                <uib-accordion ng-repeat="date in book.personalBookInfo.readingDates">
+                    <uib-accordion-group  is-open="true" is-disabled="false">
+                        <uib-accordion-heading>
+                            {{ convertDate(date.date) }}
+                            <span ng-click="removeReadingDate(date)" class="glyphicon glyphicon-trash pull-right" aria-hidden="true" style="margin-left: 10px"></span>
+                            <span ng-click="openEditReadingDateModal(date)" class="glyphicon glyphicon-pencil pull-right" aria-hidden="true"></span>
+                        </uib-accordion-heading>
+                        <dl class="dl-horizontal">
+                            <dt>rating</dt>
+                            <dd><uib-rating ng-model="date.rating" max="10" readonly="true" class="book-rating"></uib-rating></dd>
+                            <dt>review</dt>
+                            <dd>{{date.review}}</dd>
+                        </dl>
+                    </uib-accordion-group>
+                </uib-accordion>
             </div>
         </div>
     </div>

@@ -4,6 +4,10 @@ App::singleton('UserService', function () {
     return new UserService;
 });
 
+App::singleton('ReadingDateService', function () {
+    return new ReadingDateService();
+});
+
 App::singleton('CountryService', function () {
     return new CountryService(App::make('CountryRepository'));
 });
@@ -22,14 +26,6 @@ App::singleton('JsonMappingService', function () {
 
 App::singleton('LoggingService', function () {
     return new LoggingService();
-});
-
-App::singleton('BookBasicsService', function () {
-    return new BookBasicsService();
-});
-
-App::singleton('BookExtrasService', function () {
-    return new BookExtrasService();
 });
 
 App::singleton('CurrencyService', function () {
@@ -112,10 +108,6 @@ App::singleton('LanguageService', function () {
     return new LanguageService;
 });
 
-App::singleton('BookImportService', function () {
-    return new BookImportService();
-});
-
 App::singleton('StatisticsService', function () {
     return new StatisticsService();
 });
@@ -144,14 +136,6 @@ App::singleton('BookFormValidator', function () {
 
 App::singleton('AuthorFormValidator', function () {
     return new AuthorFormValidator();
-});
-
-App::singleton('ImageUploader', function () {
-    return new ImageUploader();
-});
-
-App::singleton('BookCreationService', function () {
-    return new BookCreationService();
 });
 
 App::singleton('FileToAuthorParametersMapper', function () {
@@ -195,6 +179,9 @@ App::singleton('FileToOeuvreParametersMapper', function () {
 
 App::singleton('BookRepository', function () {
     return new BookRepository();
+});
+App::singleton('ReadingDateRepository', function () {
+    return new ReadingDateRepository();
 });
 
 App::singleton('PersonalBookInfoRepository', function () {

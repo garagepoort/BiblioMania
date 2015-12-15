@@ -36,15 +36,6 @@ class PersonalBookInfoController extends BaseController
         return Response::json(array('success' => true, 'id' => $id), 200);
     }
 
-    public function addReadingDate($personalBookInfoId){
-        $date = $this->jsonMappingService->mapInputToJson(Input::get(), new DateFromJsonAdapter());
-        $this->personalBookInfoService->addReadingDate($personalBookInfoId, $date);
-    }
-    public function deleteReadingDate($personalBookInfoId){
-        $deleteDateRequest = $this->jsonMappingService->mapInputToJson(Input::get(), new DeleteReadingDateFromJsonAdapter());
-        $this->personalBookInfoService->deleteReadingDate($personalBookInfoId, $deleteDateRequest);
-    }
-
     public function getReadingDates($personalBookInfoId){
         /** @var PersonalBookInfo $personalBookInfo */
         $personalBookInfo = $this->personalBookInfoService->find($personalBookInfoId);

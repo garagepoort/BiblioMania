@@ -58,7 +58,7 @@ class BookService
     }
 
     public function allBooks(){
-        return $this->bookRepository->allWith(array('personal_book_info', 'authors'));
+        return $this->bookRepository->allWith(array('personal_book_infos', 'authors'));
     }
 
     public function allBooksFromUser($userId){
@@ -122,7 +122,7 @@ class BookService
 
     public function getCompletedBooksWithPersonalBookInfo()
     {
-        return $this->bookRepository->allWith(array('personal_book_info'));
+        return $this->bookRepository->allWith(array('personal_book_infos'));
     }
 
     public function getFullBook($book_id)
@@ -166,8 +166,7 @@ class BookService
             ->leftJoin('personal_book_info', 'personal_book_info.book_id', '=', 'book.id')
             ->leftJoin('first_print_info', 'first_print_info.id', '=', 'book.first_print_info_id')
             ->leftJoin('date', 'date.id', '=', 'first_print_info.publication_date_id')
-            ->leftJoin("personal_book_info_reading_date", "personal_book_info.id", "=","personal_book_info_reading_date.personal_book_info_id")
-            ->leftJoin("reading_date", "personal_book_info_reading_date.reading_date_id", "=", "reading_date.id");
+            ->leftJoin("reading_date", "reading_date.personal_book_info_id", "=", "personal_book_info.id");
 
         foreach($filters as $filter){
             $books = $this->bookFilterManager->handle($filter['id'], $books, $filter['value'], $filter['operator']);
