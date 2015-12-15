@@ -1,0 +1,11 @@
+<div>
+    <div class="modal-header">
+        <h3 class="modal-title">Lees datum</h3>
+    </div>
+    <div class="modal-body">
+        <edit-reading-date reading-date-model="data.readingDateModel" personal-book-info-id="{{data.personalBookInfoId}}" on-save="data.onSaveReadingDate(readingDate)"></edit-reading-date>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-danger" type="button" ng-click="$dismiss()">Annuleer</button>
+    </div>
+</div>

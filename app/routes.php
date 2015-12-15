@@ -44,6 +44,10 @@ Route::group(array('before' => 'auth'), function () {
     Route::post('oeuvre/{id}/books', 'OeuvreController@linkBookToOeuvreItem');
     Route::put('oeuvre/{id}/unlink-book', 'OeuvreController@deleteBookFromOeuvreItem');
 
+    Route::post('reading-dates', 'ReadingDateController@createReadingDate');
+    Route::put('reading-dates', 'ReadingDateController@updateReadingDate');
+    Route::delete('reading-dates/{id}', 'ReadingDateController@deleteReadingDate');
+
     Route::get('authors/by-book/{id}', 'AuthorController@getAuthorByBook');
     Route::get('authors', 'AuthorController@getAllAuthors');
     Route::get('authors/{id}', 'AuthorController@getAuthor');
@@ -56,8 +60,6 @@ Route::group(array('before' => 'auth'), function () {
     Route::put('personalbookinfos', 'PersonalBookInfoController@update');
     Route::get('personalbookinfos/{id}', 'PersonalBookInfoController@get');
     Route::get('personalbookinfos/{id}/readingdates', 'PersonalBookInfoController@getReadingDates');
-    Route::post('personalbookinfos/{id}/readingdates', 'PersonalBookInfoController@addReadingDate');
-    Route::put('personalbookinfos/{id}/delete-reading-date', 'PersonalBookInfoController@deleteReadingDate');
 
     Route::get('publishers', 'PublisherController@getPublishers');
     Route::get('publishers/{id}/series', 'PublisherController@getPublisherSeries');

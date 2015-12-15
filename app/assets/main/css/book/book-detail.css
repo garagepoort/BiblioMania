@@ -1,6 +1,7 @@
 .form-content dl.dl-horizontal dt {
-  width: 150px;
+  width: 120px;
 }
 .form-content dl.dl-horizontal dd {
-  margin-left: 170px;
+  margin-left: 140px;
+  word-break: break-all;
 }

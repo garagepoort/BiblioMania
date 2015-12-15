@@ -7,8 +7,6 @@ class PersonalBookInfoToJsonAdapter
     private $read;
     private $inCollection;
     private $reasonNotInCollection;
-    private $review;
-    private $rating;
     private $acquirement;
 
     /** @var  ReadingDateToJsonAdapter[] */
@@ -23,8 +21,6 @@ class PersonalBookInfoToJsonAdapter
         $this->id = $personalBookInfo->id;
         $this->bookId = $personalBookInfo->book_id;
         $this->read = count($personalBookInfo->reading_dates->all()) > 0;
-        $this->review = $personalBookInfo->review;
-        $this->rating = $personalBookInfo->rating;
         $this->inCollection = $personalBookInfo->get_owned();
         $this->reasonNotInCollection = $personalBookInfo->reason_not_owned;
 
@@ -49,8 +45,6 @@ class PersonalBookInfoToJsonAdapter
             "id" => $this->id,
             "bookId" => $this->bookId,
             "read" => $this->read ? true : false,
-            "review" => $this->review,
-            "rating" => $this->rating,
             "acquirement" => $this->acquirement,
             "inCollection" => $this->inCollection,
             "reasonNotInCollection" => $this->reasonNotInCollection,
