@@ -1,7 +1,12 @@
-<div class="form-group filter-container">
-    <label class='control-label col-md-10'>{{filter.field}}</label>
-    <div class="col-md-10 filter-input">
-        <select ng-show="shouldShowOperators()" class="input-sm form-control operator-select" ng-model="filter.selectedOperator" ng-options="operator.value as operator.key for operator in filter.supportedOperators"></select>
-        <input ng-class="shouldShowOperators() ?  'operator-input' : ''" class="filterinput operator-input" ng-model="filter.value" type="text"/>
+<div class="input-group" style="width: 200px;">
+    <div class="input-group-btn" ng-show="shouldShowOperators()">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{filter.selectedOperator.key}} <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+            <li ng-repeat="operator in filter.supportedOperators" ng-click="setSelectedOperator(operator)"><a>{{operator.key}}</a></li>
+        </ul>
     </div>
+    <input type="text" class="form-control" ng-model="filter.value">
+    <span class="input-group-btn">
+        <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-remove"></span></button>
+    </span>
 </div>
