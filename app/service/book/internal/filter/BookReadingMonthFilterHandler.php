@@ -1,15 +1,22 @@
 <?php
 
+use Bendani\PhpCommon\FilterService\Model\Filter;
 use Bendani\PhpCommon\FilterService\Model\FilterOperator;
 use Bendani\PhpCommon\FilterService\Model\OptionsFilterHandler;
 
 class BookReadingMonthFilterHandler implements OptionsFilterHandler
 {
 
-    public function handleFilter($queryBuilder, $value, $operator)
+    public function handleFilter($queryBuilder, Filter $filter)
     {
+        Ensure::objectNotNull('selected options', $filter->getValue());
+
+        $options = array_map(function($item){
+            return $item->value;
+        }, (array) $filter->getValue());
+
         return $queryBuilder
-            ->whereIn(DB::raw("MONTH(reading_date.date)"), $value);
+            ->whereIn(DB::raw("MONTH(reading_date.date)"), $options);
     }
 
     public function getFilterId()

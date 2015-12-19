@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.bibliomania.book.model', 'com.bendani.bibliomania.error.container', 'com.bendani.bibliomania.title.panel'])
-    .controller('BookController', ['$scope', 'Book', 'ErrorContainer', '$http', 'TitlePanelService', '$location', '$compile', function ($scope, Book, ErrorContainer, $http, TitlePanelService, $location, $compile) {
+angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.bibliomania.book.model', 'com.bendani.bibliomania.error.container', 'com.bendani.bibliomania.title.panel', 'com.bendani.bibliomania.book.filter.model'])
+    .controller('BookController', ['$scope', 'Book', 'BookFilter', 'ErrorContainer', '$http', 'TitlePanelService', '$location', '$compile', function ($scope, Book, BookFilter, ErrorContainer, $http, TitlePanelService, $location, $compile) {
 
         function init(){
             TitlePanelService.setTitle('Boeken');
@@ -13,6 +13,13 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
             $scope.reverseOrder=false;
             $scope.libraryInformation= {};
             $scope.showAllBooks = false;
+
+            $scope.filters = {
+                selected: [],
+                all: []
+            };
+
+            getFilters();
 
             $scope.bookModel = {
                 selectedBookId:null,
@@ -98,6 +105,20 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
             var titlePanelRight = angular.element('<button class="btn btn-default round-corners" ng-click="goToCreateBook()">Nieuw boek</button>');
             $compile(titlePanelRight)($scope);
             TitlePanelService.setRightPanel(titlePanelRight);
+        }
+
+        function getFilters() {
+            BookFilter.query(function(filters){
+                for(var i = 0; i< filters.length; i++){
+                    var filter = filters[i];
+                    filter.selectedOperator = filter.supportedOperators[0].value;
+                    filter.value = "";
+                }
+                filters = filters.filter(function( obj ) {
+                    return obj.id !== 'isPersonal';
+                });
+                $scope.filters.all = filters;
+            }, ErrorContainer.handleRestError);
         }
 
         init();

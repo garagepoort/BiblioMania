@@ -49,28 +49,29 @@
         </script>
     </head>
     <body ng-controller="MainController">
+        <div popover-close exclude-class="exclude">
+            <div growl></div>
+            <div class="container">
+                <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+                        <div class="navbar-header">
+                            <a class="navbar-brand" href="#">Bibliomania</a>
+                        </div>
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown" style="background-color: #ec971f">
+                                <a href="#/books" data-toggle="collapse" data-target="#one">Boeken</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" data-toggle="collapse" data-target="#two">Auteurs</a>
+                            </li>
+                        </ul>
+                </nav>
+            </div>
 
-        <div growl></div>
-        <div class="container">
-            <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-                    <div class="navbar-header">
-                        <a class="navbar-brand" href="#">Bibliomania</a>
-                    </div>
-                    <ul class="nav navbar-nav">
-                        <li class="dropdown" style="background-color: #ec971f">
-                            <a href="#/books" data-toggle="collapse" data-target="#one">Boeken</a>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" data-toggle="collapse" data-target="#two">Auteurs</a>
-                        </li>
-                    </ul>
-            </nav>
-        </div>
-
-        <div class="contentContainer">
-            <title-panel></title-panel>
-            <div class="contentPanel" ng-view>
-                <!--use ng-view to insert content-->
+            <div class="contentContainer">
+                <title-panel></title-panel>
+                <div class="contentPanel" ng-view>
+                    <!--use ng-view to insert content-->
+                </div>
             </div>
         </div>
     </body>

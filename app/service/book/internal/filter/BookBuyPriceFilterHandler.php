@@ -1,14 +1,16 @@
 <?php
 
+use Bendani\PhpCommon\FilterService\Model\Filter;
 use Bendani\PhpCommon\FilterService\Model\FilterHandler;
 use Bendani\PhpCommon\FilterService\Model\FilterOperator;
 
 class BookBuyPriceFilterHandler implements FilterHandler
 {
-    public function handleFilter($queryBuilder, $value, $operator)
+    public function handleFilter($queryBuilder, Filter $filter)
     {
+        Ensure::stringNotBlank('buy.price.filter.operator.not.null',$filter->getOperator());
         return $queryBuilder
-            ->where("buy_info.price_payed", FilterOperator::getDatabaseOperator($operator), $value);
+            ->where("buy_info.price_payed", FilterOperator::getDatabaseOperator($filter->getOperator()), $filter->getValue());
     }
 
     public function getFilterId()
