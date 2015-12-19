@@ -29,10 +29,10 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
             $scope.filterBooks([]);
 
             $scope.orderValues = [
-                { key: 'Auteur', value:'author'},
-                { key: 'Titel', value:'title'},
-                { key: 'Ondertitel', value:'subtitle'},
-                { key: 'Waardering', value:'rating'}
+                { key: 'Titel', predicate:'title'},
+                { key: 'Ondertitel', predicate:'subtitle'},
+                { key: 'Auteur', predicate:'author'},
+                { key: 'Waardering', predicate:'rating'}
             ];
         }
 
@@ -53,14 +53,6 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
         $scope.setSelectedBookId = function(selectBookId){
             $scope.bookModel.selectedBookId = selectBookId;
             $scope.$apply();
-        };
-
-        $scope.order = function(ordering){
-            $scope.predicate = ordering;
-        };
-
-        $scope.setReverse = function(reverse){
-            $scope.reverseOrder = reverse;
         };
 
         $scope.search = function(item){
