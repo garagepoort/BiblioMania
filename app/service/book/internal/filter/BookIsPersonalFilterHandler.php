@@ -1,14 +1,14 @@
 <?php
 
+use Bendani\PhpCommon\FilterService\Model\Filter;
 use Bendani\PhpCommon\FilterService\Model\FilterHandler;
 use Bendani\PhpCommon\FilterService\Model\FilterOperator;
-use Bendani\PhpCommon\Utils\Model\StringUtils;
 
 class BookIsPersonalFilterHandler implements FilterHandler
 {
-    public function handleFilter($queryBuilder, $value, $operator)
+    public function handleFilter($queryBuilder, Filter $filter)
     {
-        if($value){
+        if($filter->getValue()){
             return $queryBuilder->whereIn("book.id", function($q){
                 $q->select('book_id')
                     ->from('personal_book_info')

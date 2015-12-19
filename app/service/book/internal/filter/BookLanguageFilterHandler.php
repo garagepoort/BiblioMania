@@ -1,5 +1,6 @@
 <?php
 
+use Bendani\PhpCommon\FilterService\Model\Filter;
 use Bendani\PhpCommon\FilterService\Model\FilterOperator;
 use Bendani\PhpCommon\FilterService\Model\OptionsFilterHandler;
 use Bendani\PhpCommon\Utils\Model\StringUtils;
@@ -16,10 +17,16 @@ class BookLanguageFilterHandler implements OptionsFilterHandler
         $this->languageService = App::make('LanguageService');
     }
 
-    public function handleFilter($queryBuilder, $value, $operator)
+    public function handleFilter($queryBuilder, Filter $filter)
     {
+        Ensure::objectNotNull('selected options', $filter->getValue());
+
+        $options = array_map(function($item){
+            return $item->value;
+        }, (array) $filter->getValue());
+
         return $queryBuilder->leftJoin('language as book_language', 'book.language_id', '=', 'book_language.id')
-            ->whereIn("book_language.language", $value);
+            ->whereIn("book_language.language", $options);
     }
 
     public function getFilterId()

@@ -1,13 +1,14 @@
 <?php
 
+use Bendani\PhpCommon\FilterService\Model\Filter;
 use Bendani\PhpCommon\FilterService\Model\FilterHandler;
 use Bendani\PhpCommon\FilterService\Model\FilterOperator;
 
 class BookTitleFilterHandler implements FilterHandler
 {
-    public function handleFilter($queryBuilder, $value, $operator)
+    public function handleFilter($queryBuilder, Filter $filter)
     {
-        return $queryBuilder->where("book.title", "LIKE", '%'.$value.'%');
+        return $queryBuilder->where("book.title", "LIKE", '%' . $filter->getValue() . '%');
     }
 
     public function getFilterId()

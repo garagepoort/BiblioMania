@@ -1,6 +1,7 @@
 <?php
 
-use Bendani\PhpCommon\FilterService\Model\FilterOperator;
+use Bendani\PhpCommon\FilterService\Model\Filter;
+use Bendani\PhpCommon\FilterService\Model\FilterRequest;
 use Bendani\PhpCommon\Utils\Model\StringUtils;
 
 class BookService
@@ -168,8 +169,10 @@ class BookService
             ->leftJoin('date', 'date.id', '=', 'first_print_info.publication_date_id')
             ->leftJoin("reading_date", "reading_date.personal_book_info_id", "=", "personal_book_info.id");
 
+
         foreach($filters as $filter){
-            $books = $this->bookFilterManager->handle($filter['id'], $books, $filter['value'], $filter['operator']);
+            /** @var Filter $filter */
+            $books = $this->bookFilterManager->handle($books, $filter);
         }
 
         $books = $books->groupBy('book.id');
