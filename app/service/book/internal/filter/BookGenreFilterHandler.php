@@ -22,8 +22,8 @@ class BookGenreFilterHandler implements OptionsFilterHandler
         Ensure::objectNotNull('selected options', $filter->getValue());
 
         $options = array_map(function($item){
-            return $item->getValue();
-        }, $filter->getValue());
+            return $item->value;
+        }, (array) $filter->getValue());
 
         return $queryBuilder
             ->leftJoin('genre', 'genre.id', '=', 'book.genre_id')
