@@ -12,8 +12,10 @@
 
         <errorcontainer></errorcontainer>
 
+
         <div class="top-book-panel">
-            <div class="checkbox" style="float: right">
+            <filters-directive all-filters="filters.all" selected-filters="filters.selected" on-filter="filterBooks(selectedFilters)"></filters-directive>
+            <div class="checkbox" style="float: right; clear: both">
                 <label>
                     <input type="checkbox" ng-model="showAllBooks" ng-change="doFilterBooks()"> Toon alle boeken
                 </label>

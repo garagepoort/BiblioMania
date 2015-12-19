@@ -1,5 +1,6 @@
 <?php
 
+use Bendani\PhpCommon\FilterService\Model\Filter;
 use Bendani\PhpCommon\FilterService\Model\FilterOperator;
 use Bendani\PhpCommon\FilterService\Model\OptionsFilterHandler;
 use Bendani\PhpCommon\Utils\Model\StringUtils;
@@ -16,11 +17,17 @@ class BookCountryFilterHandler implements OptionsFilterHandler
         $this->countryService = App::make('CountryService');
     }
 
-    public function handleFilter($queryBuilder, $value, $operator)
+    public function handleFilter($queryBuilder, Filter $filter)
     {
+        Ensure::objectNotNull('selected options', $filter->getValue());
+
+        $options = array_map(function($item){
+            return $item->value;
+        }, (array) $filter->getValue());
+
         return $queryBuilder
             ->leftJoin('country as book_country', 'book.publisher_country_id', '=', 'book_country.id')
-            ->whereIn("book_country.name", $value);
+            ->whereIn("book_country.name", $options);
     }
 
     public function getFilterId()

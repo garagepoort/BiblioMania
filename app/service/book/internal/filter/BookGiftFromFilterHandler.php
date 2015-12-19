@@ -1,5 +1,6 @@
 <?php
 
+use Bendani\PhpCommon\FilterService\Model\Filter;
 use Bendani\PhpCommon\FilterService\Model\FilterOperator;
 use Bendani\PhpCommon\FilterService\Model\OptionsFilterHandler;
 use Bendani\PhpCommon\Utils\Model\StringUtils;
@@ -7,11 +8,17 @@ use Bendani\PhpCommon\Utils\Model\StringUtils;
 class BookGiftFromFilterHandler implements OptionsFilterHandler
 {
 
-    public function handleFilter($queryBuilder, $value, $operator)
+    public function handleFilter($queryBuilder, Filter $filter)
     {
+        Ensure::objectNotNull('selected options', $filter->getValue());
+
+        $options = array_map(function($item){
+            return $item->value;
+        }, (array) $filter->getValue());
+
         return $queryBuilder
             ->leftJoin("gift_info", "gift_info.personal_book_info_id", "=", "personal_book_info.id")
-            ->whereIn("gift_info.from", $value);
+            ->whereIn("gift_info.from", $options);
     }
 
     public function getFilterId()

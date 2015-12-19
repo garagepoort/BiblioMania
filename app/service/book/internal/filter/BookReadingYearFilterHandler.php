@@ -1,15 +1,17 @@
 <?php
 
+use Bendani\PhpCommon\FilterService\Model\Filter;
 use Bendani\PhpCommon\FilterService\Model\FilterHandler;
 use Bendani\PhpCommon\FilterService\Model\FilterOperator;
 
 class BookReadingYearFilterHandler implements FilterHandler
 {
 
-    public function handleFilter($queryBuilder, $value, $operator)
+    public function handleFilter($queryBuilder, Filter $filter)
     {
+        Ensure::stringNotBlank('reading.year', $filter->getOperator());
         return $queryBuilder
-            ->whereYear("reading_date.date", FilterOperator::getDatabaseOperator($operator), $value);
+            ->whereYear("reading_date.date", FilterOperator::getDatabaseOperator($filter->getOperator()), $filter->getValue());
     }
 
     public function getFilterId()

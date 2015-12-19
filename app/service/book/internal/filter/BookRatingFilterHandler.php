@@ -1,13 +1,20 @@
 <?php
 
+use Bendani\PhpCommon\FilterService\Model\Filter;
 use Bendani\PhpCommon\FilterService\Model\FilterOperator;
 use Bendani\PhpCommon\FilterService\Model\OptionsFilterHandler;
 
 class BookRatingFilterHandler implements OptionsFilterHandler
 {
-    public function handleFilter($queryBuilder, $value, $operator)
+    public function handleFilter($queryBuilder, Filter $filter)
     {
-        return $queryBuilder->whereIn("personal_book_info.rating", $value);
+        Ensure::objectNotNull('selected options', $filter->getValue());
+
+        $options = array_map(function($item){
+            return $item->value;
+        }, (array) $filter->getValue());
+
+        return $queryBuilder->whereIn("personal_book_info.rating", $options);
     }
 
     public function getFilterId()
