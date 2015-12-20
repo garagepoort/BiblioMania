@@ -10,6 +10,15 @@ angular
                 $scope.goToBookDetails = function(){
                     $location.path('/book-details/' + $scope.book.id);
                 };
+
+                $scope.openDetails = function(){
+                    var selectedBook = $scope.$parent.getSelectedBook();
+                    if($scope.$parent.isBookDetailPanelOpen() && selectedBook.id === $scope.book.id){
+                        $scope.$parent.closeBookDetailPanel();
+                    }else{
+                        $scope.$parent.setSelectedBook($scope.book.id);
+                    }
+                };
             }],
             link: function ($scope, element) {
                 if($scope.book.image === undefined){
@@ -25,14 +34,6 @@ angular
 
                 $(element).find('[data-toggle="tooltip"]').tooltip();
 
-                $(element).click(function () {
-                    if($scope.$parent.isBookDetailPanelOpen() && $scope.$parent.getSelectedBookId() === $scope.book.id){
-                        $scope.$parent.closeBookDetailPanel();
-                    }else{
-                        $scope.$parent.setSelectedBookId($scope.book.id);
-                        $scope.$parent.openBookDetailPanel();
-                    }
-                });
             }
         };
     });

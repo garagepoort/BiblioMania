@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.bibliomania.book.model', 'com.bendani.bibliomania.error.container', 'com.bendani.bibliomania.title.panel', 'com.bendani.bibliomania.book.filter.model'])
+angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.bibliomania.book.model', 'com.bendani.bibliomania.error.container', 'com.bendani.bibliomania.title.panel', 'com.bendani.bibliomania.book.filter.model', 'pageslide-directive'])
     .controller('BookController', ['$scope', 'Book', 'BookFilter', 'ErrorContainer', '$http', 'TitlePanelService', '$location', '$compile', function ($scope, Book, BookFilter, ErrorContainer, $http, TitlePanelService, $location, $compile) {
 
         function init(){
@@ -13,6 +13,7 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
             $scope.reverseOrder=false;
             $scope.libraryInformation= {};
             $scope.showAllBooks = false;
+            $scope.bookDetailPanelOpen = false;
 
             $scope.filters = {
                 selected: [],
@@ -20,12 +21,6 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
             };
 
             getFilters();
-
-            $scope.bookModel = {
-                selectedBookId:null,
-                bookDetailPanelOpen:false
-            };
-
             $scope.filterBooks([]);
 
             $scope.orderValues = [
@@ -37,22 +32,20 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
         }
 
         $scope.closeBookDetailPanel = function(){
-            $scope.bookModel.bookDetailPanelOpen = false;
-            $scope.$apply();
+            $scope.bookDetailPanelOpen = false;
         };
 
         $scope.openBookDetailPanel = function(){
-            $scope.bookModel.bookDetailPanelOpen = true;
-            $scope.$apply();
+            $scope.bookDetailPanelOpen = true;
         };
 
         $scope.isBookDetailPanelOpen = function(){
-            return $scope.bookModel.bookDetailPanelOpen;
+            return $scope.bookDetailPanelOpen;
         };
 
-        $scope.setSelectedBookId = function(selectBookId){
-            $scope.bookModel.selectedBookId = selectBookId;
-            $scope.$apply();
+        $scope.setSelectedBook = function(selectBookId){
+            $scope.selectedBook = Book.get({id: selectBookId}, function(){}, ErrorContainer.handleRestError);
+            $scope.openBookDetailPanel();
         };
 
         $scope.search = function(item){
@@ -64,8 +57,8 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
             return false;
         };
 
-        $scope.getSelectedBookId = function(){
-            return $scope.bookModel.selectedBookId;
+        $scope.getSelectedBook = function(){
+            return $scope.selectedBook;
         };
 
         $scope.resetBooks = function(){

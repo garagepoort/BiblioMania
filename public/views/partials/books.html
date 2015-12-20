@@ -37,7 +37,9 @@
 
     </div>
 
-    <book-detail book-detail-panel-open="bookModel.bookDetailPanelOpen"></book-detail>
+    <!--<book-detail book-detail-panel-open="bookModel.bookDetailPanelOpen"></book-detail>-->
+    <div ng-include="'../BiblioMania/views/partials/book/book-detail-directive.html'"></div>
+
     <library-information-sliding-panel information="libraryInformation"></library-information-sliding-panel>
     <book-filter-sliding-panel></book-filter-sliding-panel>
 </div>

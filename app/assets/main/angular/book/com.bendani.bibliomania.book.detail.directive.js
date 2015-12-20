@@ -53,17 +53,6 @@ angular
                 };
 
                 $scope.openBookDetail = function() {
-                    var rating = 0;
-                    if($scope.book.personalBookInfo !== undefined){
-                        rating = $scope.book.personalBookInfo.rating;
-                    }
-
-                    $('#star-detail').raty({
-                        score: rating,
-                        number: 10,
-                        readOnly: true,
-                        path: '/BiblioMania/assets/lib/raty-2.7.0/lib/images'
-                    });
                     $scope.bookSlidingPanel.open(function(){
                         $(element).addClass('visible');
                     });
