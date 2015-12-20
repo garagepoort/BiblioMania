@@ -1,5 +1,3 @@
-@import "mixins.less";
-
 @font-face {
   font-family: "vincent";
   src: url("/BiblioMania/assets/fonts/Vincent-Regular.otf") format("opentype");
@@ -446,6 +444,13 @@ button.searchButton {
   font-size: 20px;
 }
 
+.book-detail-pageslide {
+  background-color: white;
+  margin-top: 50px;
+  padding-bottom: 20px;
+  border-left: 7px solid #2d6ca2;
+}
+
 div.books-container {
   width: 100%;
   margin-left: auto;
@@ -531,20 +536,6 @@ table.book-detail-info-table td {
   width: 90%;
   margin-left: auto;
   margin-right: auto;
-}
-
-.book-detail-div {
-  /*left: 0;*/
-  top: 0;
-  background-color: @accent-color;
-  border: 10px solid @primary-color;
-  right: -700px;
-  width: 700px;
-  height: 95%;
-  margin-top: 50px;
-  box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.26);
-
-  /*border: solid 1px @secondary-color;*/
 }
 
 .libraryInformationSlidingPanel.sliding-panel {
@@ -649,23 +640,30 @@ table.book-detail-info-table td {
 
 .book-detail-close {
   position: fixed;
-  width: 700px;
+  width: 720px;
   color: @accent-color;
   font-family: @title-panel-font;
   background-color: @primary-color;
+  padding-left: 20px;
+  text-align: left;
+  z-index: 999;
 }
 
-.book-sliding-panel-title {
-  margin-top: 0px;
-  margin-left: 40px;
+.book-sliding-panel-image {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  margin-top: 10px;
 }
 
 .book-detail-container {
   width: 90%;
   margin-left: auto;
   margin-right: auto;
-  height: 300px;
+  overflow-y: auto;
+  height: 95%;
 }
+
 
 .pagination {
   padding-top: 40px;
