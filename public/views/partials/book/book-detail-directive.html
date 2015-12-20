@@ -1,219 +1,220 @@
-<div id="slide" class="book-detail-div sliding-panel">
-    <div id="book-detail-close-div" class="book-detail-close">
-        <span ng-click="closeBookDetail()" id="close-book-detail-icon" class="glyphicon glyphicon-arrow-right" aria-hidden="true" style="float: left;"></span>
-
-        <h1 class="book-sliding-panel-title" id="book-detail-title"> {{book.title}}</h1>
-        <h4 ng-show="book.subtitle" class="book-sliding-panel-title" id="book-detail-subtitle">{{book.subtitle}}</h4>
-    </div>
-
-    <div class="book-detail-container" id="book-detail-container">
-
-        <div class="book-detail-main-info">
-            <div class="material-card" style="float: left; margin:0px;">
-                <div class="material-card-content" id="book-detail-coverimage">
-                    <img src-with-fallback="{{ book.image }}"/>
-                </div>
+<pageslide ps-open="bookDetailPanelOpen" ps-class="book-detail-pageslide" ps-size="720px"
+           ps-push="true" ps-key-listener="true" ps-auto-close="true">
+    <div click-anywhere-but-here="closeBookDetailPanel()">
+        <div>
+            <div class="book-detail-close">
+                <h3 class="book-sliding-panel-title"> {{selectedBook.title}}</h3>
+                <h4 ng-show="selectedBook.subtitle" class="book-sliding-panel-title" id="book-detail-subtitle">{{selectedBook.subtitle}}</h4>
             </div>
+        </div>
 
-            <div class="material-card book-details-info-container">
-                <div class="material-card-title">Info boek</div>
-                <div class="material-card-content">
-                    <table width="100%">
-                        <tr>
-                            <td>
-                                <div id="star-detail"></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div id="star-detail" class="col-md-6"></div>
+        <div class="book-detail-container">
+            <div class="row" style="margin-top: 80px;">
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <img class="book-sliding-panel-image" src-with-fallback="{{ selectedBook.image }}"/>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="material-card">
+                            <div class="material-card-title">Info boek</div>
+                            <div class="material-card-content" style="text-align: left">
                                 <table width="100%">
-                                    <tr ng-show="book.author">
-                                        <td>Auteur:</td>
-                                        <td>{{ book.author }}</td>
+                                    <tr>
+                                        <td>
+                                            <uib-rating ng-model="selectedBook.personalBookInfo.rating" max="10" readonly="true"
+                                                        class="book-rating"></uib-rating>
+                                        </td>
                                     </tr>
-                                    <tr ng-show="book.isbn">
-                                        <td>ISBN:</td>
-                                        <td>{{ book.isbn }}</td>
-                                    </tr>
-                                    <tr ng-show="book.publisher">
-                                        <td>Uitgever</td>
-                                        <td>{{book.publisher}}</td>
-                                    </tr>
-                                    <tr ng-show="book.country">
-                                        <td>Land</td>
-                                        <td>{{book.country}}</td>
-                                    </tr>
-                                    <tr ng-show="book.language">
-                                        <td>Taal</td>
-                                        <td>{{book.language}}</td>
-                                    </tr>
-                                    <tr ng-show="book.publicationDate">
-                                        <td>Publicatiedatum:</td>
-                                        <td>{{convertDate(book.publicationDate)}}</td>
-                                    </tr>
-                                    <tr ng-show="book.genre">
-                                        <td>Genre:</td>
-                                        <td>{{book.genre}}</td>
-                                    </tr>
-                                    <tr ng-show="book.serie">
-                                        <td>Boekenreeks:</td>
-                                        <td>{{book.serie}}</td>
-                                    </tr>
-                                    <tr ng-show="book.publisherSerie">
-                                        <td>Uitgeverreeks:</td>
-                                        <td>{{book.publisherSerie}}</td>
+                                    <tr>
+                                        <td>
+                                            <div id="star-detail" class="col-md-6"></div>
+                                            <table width="100%">
+                                                <tr ng-show="selectedBook.author">
+                                                    <td>Auteur:</td>
+                                                    <td>{{ selectedBook.author }}</td>
+                                                </tr>
+                                                <tr ng-show="selectedBook.isbn">
+                                                    <td>ISBN:</td>
+                                                    <td>{{ selectedBook.isbn }}</td>
+                                                </tr>
+                                                <tr ng-show="selectedBook.publisher">
+                                                    <td>Uitgever</td>
+                                                    <td>{{selectedBook.publisher}}</td>
+                                                </tr>
+                                                <tr ng-show="selectedBook.country">
+                                                    <td>Land</td>
+                                                    <td>{{selectedBook.country}}</td>
+                                                </tr>
+                                                <tr ng-show="selectedBook.language">
+                                                    <td>Taal</td>
+                                                    <td>{{selectedBook.language}}</td>
+                                                </tr>
+                                                <tr ng-show="selectedBook.publicationDate">
+                                                    <td>Publicatiedatum:</td>
+                                                    <td>{{convertDate(selectedBook.publicationDate)}}</td>
+                                                </tr>
+                                                <tr ng-show="selectedBook.genre">
+                                                    <td>Genre:</td>
+                                                    <td>{{selectedBook.genre}}</td>
+                                                </tr>
+                                                <tr ng-show="selectedBook.serie">
+                                                    <td>Boekenreeks:</td>
+                                                    <td>{{selectedBook.serie}}</td>
+                                                </tr>
+                                                <tr ng-show="selectedBook.publisherSerie">
+                                                    <td>Uitgeverreeks:</td>
+                                                    <td>{{selectedBook.publisherSerie}}</td>
+                                                </tr>
+                                                <tr ng-show="selectedBook.retailPrice">
+                                                    <td>Cover prijs:</td>
+                                                    <td>{{ currencies[selectedBook.currency] + ' ' + selectedBook.retailPrice}}</td>
+                                                </tr>
+                                                <tr ng-show="selectedBook.pages">
+                                                    <td>Pagina's:</td>
+                                                    <td>{{selectedBook.pages}}</td>
+                                                </tr>
+                                                <tr ng-show="selectedBook.print">
+                                                    <td>Druk:</td>
+                                                    <td>{{selectedBook.print}}</td>
+                                                </tr>
+                                                <tr ng-show="selectedBook.translator">
+                                                    <td>Vertaler:</td>
+                                                    <td>{{selectedBook.translator}}</td>
+                                                </tr>
+                                            </table>
+                                        </td>
                                     </tr>
                                 </table>
-                            </td>
-                        </tr>
-                    </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
+            <div class="row" ng-show="selectedBook.personalBookInfo" style="margin-top: 20px">
+                <div class="col-md-12">
+                    <div class="col-md-6">
+                        <div class="material-card">
+                            <div class="material-card-title">Persoonlijk</div>
+                            <div class="material-card-content">
+                                <table width="100%" class="left-right-align">
+                                    <tbody ng-show="selectedBook.personalBookInfo.buyInfo">
+                                    <tr class="buy-info-tr" ng-show="selectedBook.personalBookInfo.buyInfo.date">
+                                        <td>Aanschafdatum:</td>
+                                        <td>{{convertDate(selectedBook.personalBookInfo.buyInfo.date)}}</td>
+                                    </tr>
+                                    <tr class="buy-info-tr" ng-show="selectedBook.personalBookInfo.buyInfo.buyPrice.amount">
+                                        <td>Aankoopprijs:</td>
+                                        <td>
+                                            {{ currencies[selectedBook.personalBookInfo.buyInfo.buyPrice.currency] + ' ' + selectedBook.personalBookInfo.buyInfo.buyPrice.amount }}
+                                        </td>
+                                    </tr>
+                                    <tr class="buy-info-tr" ng-show="selectedBook.personalBookInfo.buyInfo.shop">
+                                        <td>Winkel:</td>
+                                        <td>{{selectedBook.personalBookInfo.buyInfo.shop}}</td>
+                                    </tr>
+                                    <tr class="buy-info-tr" ng-show="selectedBook.personalBookInfo.buyInfo.cityShop">
+                                        <td>Stad winkel:</td>
+                                        <td>{{selectedBook.personalBookInfo.buyInfo.cityShop}}</td>
+                                    </tr>
+                                    <tr class="buy-info-tr" ng-show="selectedBook.personalBookInfo.buyInfo.reason">
+                                        <td>Reden:</td>
+                                        <td>{{selectedBook.personalBookInfo.buyInfo.reason}}</td>
+                                    </tr>
+                                    <tr class="buy-info-tr" ng-show="selectedBook.personalBookInfo.buyInfo.countryShop">
+                                        <td>Land gekocht:</td>
+                                        <td>{{selectedBook.personalBookInfo.buyInfo.countryShop}}</td>
+                                    </tr>
+                                    </tbody>
+
+                                    <!--GIFT-->
+                                    <tbody ng-show="selectedBook.personalBookInfo.giftInfo">
+                                    <tr class="gift-info-tr" ng-show="selectedBook.personalBookInfo.giftInfo.date">
+                                        <td>Ontvangstdatum:</td>
+                                        <td>{{convertDate(selectedBook.personalBookInfo.giftInfo.date)}}</td>
+                                    </tr>
+                                    <tr class="gift-info-tr" ng-show="selectedBook.personalBookInfo.giftInfo.from">
+                                        <td>Gekregen van:</td>
+                                        <td>{{selectedBook.personalBookInfo.giftInfo.from}}</td>
+                                    </tr>
+                                    <tr class="gift-info-tr" ng-show="selectedBook.personalBookInfo.giftInfo.occasion">
+                                        <td>Gelegenheid:</td>
+                                        <td>{{selectedBook.personalBookInfo.giftInfo.occasion}}</td>
+                                    </tr>
+                                    <tr class="gift-info-tr" ng-show="selectedBook.personalBookInfo.giftInfo.reason">
+                                        <td>Reden:</td>
+                                        <td>{{selectedBook.personalBookInfo.giftInfo.reason}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6" ng-show="selectedBook.firstPrintInfo">
+                        <div class="material-card">
+                            <div class="material-card-title">Eerste druk</div>
+                            <div class="material-card-content">
+                                <table width="100%" class="left-right-align">
+                                    <tr class="first-print-info-tr" ng-show="selectedBook.firstPrintInfo.title">
+                                        <td>Titel:</td>
+                                        <td>{{selectedBook.firstPrintInfo.title }}</td>
+                                    </tr>
+                                    <tr class="first-print-info-tr" ng-show="selectedBook.firstPrintInfo.subtitle">
+                                        <td>Ondertitel:</td>
+                                        <td>{{selectedBook.firstPrintInfo.subtitle}}</td>
+                                    </tr>
+                                    <tr class="first-print-info-tr" ng-show="selectedBook.firstPrintInfo.isbn">
+                                        <td>ISBN:</td>
+                                        <td>{{selectedBook.firstPrintInfo.isbn}}</td>
+                                    </tr>
+                                    <tr class="first-print-info-tr" ng-show="selectedBook.firstPrintInfo.country">
+                                        <td>Land:</td>
+                                        <td>{{selectedBook.firstPrintInfo.country}}</td>
+                                    </tr>
+                                    <tr class="first-print-info-tr" ng-show="selectedBook.firstPrintInfo.language">
+                                        <td>Taal:</td>
+                                        <td>{{selectedBook.firstPrintInfo.language}}</td>
+                                    </tr>
+                                    <tr class="first-print-info-tr" ng-show="selectedBook.firstPrintInfo.publisher">
+                                        <td>Uitgever:</td>
+                                        <td>{{selectedBook.firstPrintInfo.publisher}}</td>
+                                    </tr>
+                                    <tr class="first-print-info-tr" ng-show="selectedBook.firstPrintInfo.publicationDate">
+                                        <td>Publicatie datum:</td>
+                                        <td>{{convertDate(selectedBook.firstPrintInfo.publicationDate)}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-6">
+                        <div class="material-card">
+                            <div class="material-card-title">Auteurs</div>
+                            <div class="material-card-content">
+                                <table class="table" width="100%">
+                                    <!--<thead>-->
+                                    <!--<tr>-->
+                                    <!--<th>Naam</th>-->
+                                    <!--<th>Voornaam</th>-->
+                                    <!--</tr>-->
+                                    <!--</thead>-->
+                                    <tbody>
+                                    <tr ng-repeat="author in selectedBook.authors">
+                                        <td style="border: none">{{ author.name.lastname }}</td>
+                                        <td style="border: none">{{ author.name.firstname }}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <div ng-show="book.summary" class="card-row" style="margin-top: 250px; clear: both">
-            <div class="book-detail-summary material-card">
-                <div class="material-card-title">Samenvatting</div>
-                <div class="material-card-content">
-                    <p id="book-detail-summary">
-                        {{book.summary}}
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <div class="card-row">
-            <div class="book-detail-small-info-panel material-card card-column-left">
-                <div class="material-card-title">Details</div>
-                <div class="material-card-content">
-                    <table width="100%" class="left-right-align">
-                        <tr ng-show="book.retailPrice">
-                            <td>Cover prijs:</td>
-                            <td>{{ currencies[book.currency] + ' ' + book.retailPrice}}</td>
-                        </tr>
-                        <tr ng-show="book.pages">
-                            <td>Pagina's:</td>
-                            <td>{{book.pages}}</td>
-                        </tr>
-                        <tr ng-show="book.print">
-                            <td>Druk:</td>
-                            <td>{{book.print}}</td>
-                        </tr>
-                        <tr ng-show="book.translator">
-                            <td>Vertaler:</td>
-                            <td>{{book.translator}}</td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-
-            <div class="book-detail-small-info-panel material-card card-column-right">
-                <div class="material-card-title">Persoonlijk</div>
-                <div class="material-card-content">
-                    <table width="100%" class="left-right-align">
-                        <tr ng-show="book.owned">
-                            <td>In collectie:</td>
-                            <td><span id='book-detail-owned'></span></td>
-                        </tr>
-                        <tr>
-                            <td>Gelezen:</td>
-                            <td ng-show="!book.personalBookInfo.read"><img class='icon' ng-src="/BiblioMania/images/cross_error.png" /></td>
-                            <td ng-show="book.personalBookInfo.read">{{convertDate(book.personalBookInfo.readingDates[0])}}</td>
-                        </tr>
-                        <tr class="buy-info-tr" ng-show="book.personalBookInfo.buyInfo">
-                            <td>Aanschafdatum:</td>
-                            <td>{{convertDate(book.personalBookInfo.buyInfo.date)}}</td>
-                        </tr>
-                        <tr class="buy-info-tr" ng-show="book.personalBookInfo.buyInfo">
-                            <td>Aankoopprijs:</td>
-                            <td ng-show="book.personalBookInfo.buyInfo.price">{{currencies[book.personalBookInfo.buyInfo.currency] + ' ' + book.personalBookInfo.buyInfo.price}}</td>
-                        </tr>
-                        <tr class="buy-info-tr" ng-show="book.personalBookInfo.buyInfo">
-                            <td>Winkel:</td>
-                            <td>{{book.personalBookInfo.buyInfo.shop}}</td>
-                        </tr>
-                        <tr class="buy-info-tr" ng-show="book.personalBookInfo.buyInfo">
-                            <td>Stad winkel:</td>
-                            <td>{{book.personalBookInfo.buyInfo.city}}</td>
-                        </tr>
-                        <tr class="buy-info-tr" ng-show="book.personalBookInfo.buyInfo">
-                            <td>Reden:</td>
-                            <td>{{book.personalBookInfo.buyInfo.reason}}</td>
-                        </tr>
-                        <tr class="buy-info-tr" ng-show="book.personalBookInfo.buyInfo">
-                            <td>Land gekocht:</td>
-                            <td>{{book.personalBookInfo.buyInfo.country}}</td>
-                        </tr>
-
-                        <!--GIFT-->
-                        <tr class="gift-info-tr" ng-show="book.personalBookInfo.giftInfo">
-                            <td>Ontvangstdatum:</td>
-                            <td>{{convertDate(book.personalBookInfo.giftInfo.date)}}</td>
-                        </tr>
-                        <tr class="gift-info-tr" ng-show="book.personalBookInfo.giftInfo">
-                            <td>Gekregen van:</td>
-                            <td>{{book.personalBookInfo.giftInfo.from}}</td>
-                        </tr>
-                        <tr class="gift-info-tr" ng-show="book.personalBookInfo.giftInfo">
-                            <td>Gelegenheid:</td>
-                            <td>{{book.personalBookInfo.giftInfo.occasion}}</td>
-                        </tr>
-                        <tr class="gift-info-tr" ng-show="book.personalBookInfo.giftInfo">
-                            <td>Reden:</td>
-                            <td>{{book.personalBookInfo.giftInfo.reason}}</td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="card-row">
-
-            <div class="book-detail-small-info-panel material-card card-column-left">
-                <div class="material-card-title">Eerste druk</div>
-                <div class="material-card-content">
-                    <table width="100%" class="left-right-align">
-                        <tr class="first-print-info-tr">
-                            <td>Titel:</td>
-                            <td>{{book.firstPrintInfo.title }}</td>
-                        </tr>
-                        <tr class="first-print-info-tr" ng-show="book.firstPrintInfo.subtitle">
-                            <td>Ondertitel:</td>
-                            <td>{{book.firstPrintInfo.subtitle}}</td>
-                        </tr>
-                        <tr class="first-print-info-tr" ng-show="book.firstPrintInfo.isbn">
-                            <td>ISBN:</td>
-                            <td>{{book.firstPrintInfo.isbn}}</td>
-                        </tr>
-                        <tr class="first-print-info-tr" ng-show="book.firstPrintInfo.country">
-                            <td>Land:</td>
-                            <td>{{book.firstPrintInfo.country}}</td>
-                        </tr>
-                        <tr class="first-print-info-tr" ng-show="book.firstPrintInfo.language">
-                            <td>Taal:</td>
-                            <td>{{book.firstPrintInfo.language}}</td>
-                        </tr>
-                        <tr class="first-print-info-tr" ng-show="book.firstPrintInfo.publisher">
-                            <td>Uitgever:</td>
-                            <td>{{book.firstPrintInfo.publisher}}</td>
-                        </tr>
-                        <tr class="first-print-info-tr" ng-show="book.firstPrintInfo.publicationDate">
-                            <td>Publicatie datum:</td>
-                            <td>{{convertDate(book.firstPrintInfo.publicationDate)}}</td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-
-            <div ng-show="book.personalBookInfo.review" class="book-detail-small-info-panel material-card card-column-right">
-                <div class="material-card-title">Review</div>
-                <div class="material-card-content">
-                    <p id="book-detail-review">{{book.personalBookInfo.review}}</p>
-                </div>
-            </div>
     </div>
-</div>
-</div>
+</pageslide>

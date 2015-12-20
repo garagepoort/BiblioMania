@@ -1,6 +1,6 @@
 <div class="book-card-wrapper">
     <div class="material-card imageLinkWrapper ic_container" style="width: {{ book.width }}">
-        <div class="material-card-content" style="{{ bookImageStyle }}">
+        <div class="material-card-content" ng-click="openDetails(); $event.stopPropagation();" style="{{ bookImageStyle }}">
             <img data-toggle="tooltip" data-placement="top" title="{{ warning.message }}"
                  ng-repeat="warning in book.warnings" ng-src="{{ warning.icon }}" class="warning-icon clickableImage"
                  href="{{warning.goToLink}}" style="top: {{ $index * 25 + 5}}px;">
