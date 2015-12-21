@@ -1,5 +1,5 @@
 angular
-    .module('com.bendani.bibliomania.book.detail.directive', ['com.bendani.bibliomania.book.model', 'com.bendani.bibliomania.error.container', 'com.bendani.bibliomania.date.service'])
+    .module('com.bendani.bibliomania.book.detail.directive', ['com.bendani.bibliomania.book.model', 'com.bendani.bibliomania.error.container'])
     .directive('bookDetail', [ 'Book', 'ErrorContainer', 'DateService', function (Book, ErrorContainer, DateService){
         return {
             scope: {

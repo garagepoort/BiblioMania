@@ -1,6 +1,11 @@
 'use strict';
 
-angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.bibliomania.book.model', 'com.bendani.bibliomania.error.container', 'com.bendani.bibliomania.title.panel', 'com.bendani.bibliomania.book.filter.model', 'pageslide-directive'])
+angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.bibliomania.book.model',
+    'com.bendani.bibliomania.error.container',
+    'com.bendani.bibliomania.title.panel',
+    'com.bendani.bibliomania.book.filter.model',
+    'com.bendani.php.common.filterservice',
+    'pageslide-directive'])
     .controller('BookController', ['$scope', 'Book', 'BookFilter', 'ErrorContainer', '$http', 'TitlePanelService', '$location', '$compile', function ($scope, Book, BookFilter, ErrorContainer, $http, TitlePanelService, $location, $compile) {
 
         function init(){
