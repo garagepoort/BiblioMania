@@ -14,7 +14,7 @@ class BookRatingFilterHandler implements OptionsFilterHandler
             return $item->value;
         }, (array) $filter->getValue());
 
-        return $queryBuilder->whereIn("personal_book_info.rating", $options);
+        return $queryBuilder->whereIn("reading_date.rating", $options);
     }
 
     public function getFilterId()
