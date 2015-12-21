@@ -3,7 +3,7 @@
     <div click-anywhere-but-here="closeBookDetailPanel()">
         <div>
             <div class="book-detail-close">
-                <h3 class="book-sliding-panel-title"> {{selectedBook.title}}</h3>
+                <h3 class="book-sliding-panel-title">{{selectedBook.title}} <span class="glyphicon glyphicon-remove-sign pull-right clickable" style="margin-right: 20px;" ng-click="closeBookDetailPanel()"></span></h3>
                 <h4 ng-show="selectedBook.subtitle" class="book-sliding-panel-title" id="book-detail-subtitle">{{selectedBook.subtitle}}</h4>
             </div>
         </div>

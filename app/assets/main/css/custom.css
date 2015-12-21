@@ -746,20 +746,11 @@ table.book-detail-info-table td {
   background-color: #ffffff;
   color: #2d6ca2;
 }
-ul.nav li a {
-  color: #2d6ca2;
-}
 .drawer-icon {
   float: left;
   width: 40px;
   margin-right: 10px;
 }
-.nav-tabs {
-  font-family: "vincent";
-  margin-bottom: 0;
-  border-bottom: none;
-}
-/*END TABS*/
 /*GENRES*/
 .genres-container {
   background: whitesmoke;
@@ -787,70 +778,6 @@ ul.nav li a {
 #reading-dates-table tbody tr {
   margin: 10px;
 }
-/*NAVBAR*/
-.search-box-table {
-  margin-top: 7px;
-  margin-right: 20px;
-}
-.navbar-default {
-  background-color: #2d6ca2;
-  border-color: #2d6ca2;
-  box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.26);
-}
-.navbar-inner {
-  background-color: #2d6ca2;
-}
-.navbar-default .navbar-brand {
-  color: #ffffff;
-}
-.navbar-default .navbar-brand:hover,
-.navbar-default .navbar-brand:focus {
-  color: #ffffff;
-}
-.navbar-default .navbar-text {
-  color: #ffffff;
-}
-.navbar-default .navbar-nav > li > a {
-  color: #ffffff;
-  background-color: #2d6ca2;
-}
-.navbar-default .navbar-nav > li > a:hover,
-.navbar-default .navbar-nav > li > a:focus {
-  color: #2d6ca2;
-  background-color: #ffffff;
-}
-.navbar-default .navbar-nav > .active > a,
-.navbar-default .navbar-nav > .active > a:hover,
-.navbar-default .navbar-nav > .active > a:focus {
-  color: #ffffff;
-  background-color: #2d6ca2;
-}
-.navbar-default .navbar-nav > .open > a,
-.navbar-default .navbar-nav > .open > a:hover,
-.navbar-default .navbar-nav > .open > a:focus {
-  color: #ffffff;
-  background-color: #2d6ca2;
-}
-.navbar-default .navbar-toggle {
-  border-color: #2d6ca2;
-}
-.navbar-default .navbar-toggle:hover,
-.navbar-default .navbar-toggle:focus {
-  background-color: #2d6ca2;
-}
-.navbar-default .navbar-toggle .icon-bar {
-  background-color: #2d6ca2;
-}
-.navbar-default .navbar-collapse,
-.navbar-default .navbar-form {
-  border-color: #2d6ca2;
-}
-.navbar-default .navbar-link {
-  color: #ffffff;
-}
-.navbar-default .navbar-link:hover {
-  color: #ffffff;
-}
 .open .dropdown-menu > li > a {
   color: #2d6ca2;
   background-color: #ffffff;
@@ -869,36 +796,6 @@ ul.nav li a {
 }
 .dropdown-menu {
   background: #ffffff;
-}
-.open .dropdown-menu.navigation-dropdown-menu > li > a {
-  color: #ffffff;
-  background-color: #2d6ca2;
-}
-.open .dropdown-menu.navigation-dropdown-menu > li > a:hover {
-  background-color: #ffffff;
-  color: #2d6ca2;
-  background-image: none;
-}
-.dropdown-menu.navigation-dropdown-menu > li > a:hover,
-.dropdown-menu.navigation-dropdown-menu > li > a:focus {
-  background-color: #ffffff;
-  color: #2d6ca2;
-  background-image: none;
-}
-.nav-tabs > li.active > a,
-.nav-tabs > li.active > a:focus,
-ul.nav li a:hover {
-  border: none;
-}
-.dropdown-menu.navigation-dropdown-menu {
-  background: #2d6ca2;
-}
-div.navbar-collapse {
-  background-color: #2d6ca2;
-}
-a.navbar-brand {
-  background-color: #2d6ca2;
-  font-family: "baron";
 }
 /*AUTOCOMPLETE*/
 .autocomplete-suggestions {

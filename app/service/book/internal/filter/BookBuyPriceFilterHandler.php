@@ -44,6 +44,6 @@ class BookBuyPriceFilterHandler implements FilterHandler
 
     public function joinQuery($queryBuilder)
     {
-        return $queryBuilder->leftJoin("buy_info", "buy_info.personal_book_info_id", "=", "personal_book_info.id");
+        return $queryBuilder->join("buy_info", "buy_info.personal_book_info_id", "=", "personal_book_info.id");
     }
 }

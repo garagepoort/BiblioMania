@@ -19,6 +19,7 @@ class BookFilterManager extends FilterManager
             new BookReadingYearFilterHandler(),
             new BookReadingMonthFilterHandler(),
             new BookBuyPriceFilterHandler(),
+            new BookBuyDateFilterHandler(),
             new BookGiftFromFilterHandler(),
             new BookIsPersonalFilterHandler()
         );

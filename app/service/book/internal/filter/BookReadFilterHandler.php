@@ -26,12 +26,7 @@ class BookReadFilterHandler implements FilterHandler
         return "Gelezen";
     }
 
-    public function getSupportedOperators()
-    {
-        return array(
-            array("key"=>"=", "value"=>FilterOperator::EQUALS)
-        );
-    }
+    public function getSupportedOperators(){return null;}
 
     public function getGroup()
     {

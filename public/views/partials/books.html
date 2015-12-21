@@ -26,6 +26,7 @@
                     <input id="searchBooksInput" ng-model="searchBooksQuery" type="text" class="form-control half-round-corners-left" placeholder="Search" name="criteria" aria-describedby="basic-addon1">
                     <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon1"></span>
                 </div>
+                <button popover-elem popover-placement="bottom" uib-popover-template="libraryInformationTemplate" popover-title="Bibliotheek informatie" type="button" class="btn margin-right-10 btn-default exclude pull-right"><span class="glyphicon glyphicon-info-sign popover-elem"></span></button>
             </div>
         </div>
 
@@ -39,7 +40,4 @@
 
     <!--<book-detail book-detail-panel-open="bookModel.bookDetailPanelOpen"></book-detail>-->
     <div ng-include="'../BiblioMania/views/partials/book/book-detail-directive.html'"></div>
-
-    <library-information-sliding-panel information="libraryInformation"></library-information-sliding-panel>
-    <book-filter-sliding-panel></book-filter-sliding-panel>
 </div>

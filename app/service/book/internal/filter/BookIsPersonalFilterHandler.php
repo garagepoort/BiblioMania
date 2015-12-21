@@ -38,12 +38,7 @@ class BookIsPersonalFilterHandler implements FilterHandler
         return "Heeft persoonlijke informatie";
     }
 
-    public function getSupportedOperators()
-    {
-        return array(
-            array("key"=>"=", "value"=>FilterOperator::EQUALS)
-        );
-    }
+    public function getSupportedOperators(){return null;}
 
     public function getGroup()
     {
