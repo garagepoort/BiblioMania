@@ -62,9 +62,7 @@ class BookCountryFilterHandler implements OptionsFilterHandler
 
     public function getSupportedOperators()
     {
-        return array(
-            array("key"=>"in", "value"=>FilterOperator::IN)
-        );
+        return null;
     }
 
     public function getGroup()

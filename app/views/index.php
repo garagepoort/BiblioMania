@@ -51,21 +51,19 @@
     <body ng-controller="MainController">
         <div popover-close exclude-class="exclude">
             <div growl></div>
-            <div class="container">
-                <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-                        <div class="navbar-header">
-                            <a class="navbar-brand" href="#">Bibliomania</a>
-                        </div>
-                        <ul class="nav navbar-nav">
-                            <li class="dropdown" style="background-color: #ec971f">
-                                <a href="#/books" data-toggle="collapse" data-target="#one">Boeken</a>
-                            </li>
-                            <li class="dropdown">
-                                <a href="#" data-toggle="collapse" data-target="#two">Auteurs</a>
-                            </li>
-                        </ul>
-                </nav>
-            </div>
+
+            <nav class="navbar navbar-default customNavbar navbar-fixed-top" role="navigation">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#/books">Bibliomania</a>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#/books">Boeken <span class="sr-only">(current)</span></a></li>
+                        <li><a href="#">Auteurs</a></li>
+                    </ul>
+                </div>
+            </nav>
 
             <div class="contentContainer">
                 <title-panel></title-panel>

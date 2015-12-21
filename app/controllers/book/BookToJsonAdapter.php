@@ -11,6 +11,9 @@ class BookToJsonAdapter
     private $isbn;
     private $rating;
     private $author;
+    private $owned = false;
+    /** @var  PriceToJsonAdapter */
+    private $retailPrice;
     /** @var  ImageToJsonAdapter */
     private $imageInformation;
     /** @var  PersonalBookInfoRepository */
@@ -27,10 +30,14 @@ class BookToJsonAdapter
         $this->title = $book->title;
         $this->subtitle = $book->subtitle;
         $this->isbn = $book->ISBN;
+        if($book->retail_price){
+            $this->retailPrice = new PriceToJsonAdapter($book->retail_price, $book->currency);
+        }
 
         $personal_book_info = $this->personalBookInfoRepository->findByBook($book->id);
         if($personal_book_info != null){
             $this->rating = $personal_book_info->rating;
+            $this->owned = true;
         }
         if($book->preferredAuthor() != null){
             $this->author = $book->preferredAuthor()->name . " " . $book->preferredAuthor()->firstname;
@@ -47,10 +54,14 @@ class BookToJsonAdapter
             "subtitle" => $this->subtitle == null ? "" : $this->subtitle,
             "isbn" => $this->isbn,
             "rating" => $this->rating,
+            "owned" => $this->owned,
             "author" => $this->author == null ? "" : $this->author
         );
         if($this->imageInformation != null){
             $result['image'] = $this->imageInformation->mapToJson();
+        }
+        if($this->retailPrice != null){
+            $result['retailPrice'] = $this->retailPrice->mapToJson();
         }
         return $result;
     }

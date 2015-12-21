@@ -14,10 +14,16 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
             $scope.libraryInformation= {};
             $scope.showAllBooks = false;
             $scope.bookDetailPanelOpen = false;
+            $scope.libraryInformationTemplate = '../BiblioMania/views/partials/book/library-information-template.html';
 
             $scope.filters = {
                 selected: [],
                 all: []
+            };
+
+            $scope.libraryInformation = {
+                value: 0,
+                amountOfBooks: 0
             };
 
             getFilters();
@@ -79,6 +85,18 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
             Book.search(filters, function(books){
                 $scope.books = books;
                 $scope.loading = false;
+
+                $scope.libraryInformation.amountOfBooks = books.length;
+                $scope.libraryInformation.value = 0;
+
+
+                _.each(books, function(book){
+                    if(book.retailPrice){
+                        $scope.libraryInformation.value = $scope.libraryInformation.value + book.retailPrice.amount;
+                    }
+                    $scope.libraryInformation.value = +$scope.libraryInformation.value.toFixed(2);
+                });
+
             }, ErrorContainer.handleRestError);
         };
 
@@ -87,7 +105,7 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
         };
 
         function setRightTitlePanel(){
-            var titlePanelRight = angular.element('<button class="btn btn-default round-corners" ng-click="goToCreateBook()">Nieuw boek</button>');
+            var titlePanelRight = angular.element('<button class="btn btn-success no-round-corners" ng-click="goToCreateBook()">Nieuw boek</button>');
             $compile(titlePanelRight)($scope);
             TitlePanelService.setRightPanel(titlePanelRight);
         }
@@ -96,7 +114,9 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
             BookFilter.query(function(filters){
                 for(var i = 0; i< filters.length; i++){
                     var filter = filters[i];
-                    filter.selectedOperator = filter.supportedOperators[0].value;
+                    if(filter.supportedOperators){
+                        filter.selectedOperator = filter.supportedOperators[0].value;
+                    }
                     filter.value = "";
                 }
                 filters = filters.filter(function( obj ) {
