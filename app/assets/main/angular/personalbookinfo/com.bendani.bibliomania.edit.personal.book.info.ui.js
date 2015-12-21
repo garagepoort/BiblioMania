@@ -6,7 +6,6 @@ angular.module('com.bendani.bibliomania.edit.personal.book.info.ui', [
     'com.bendani.bibliomania.personal.book.info.model',
     'com.bendani.bibliomania.country.model',
     'com.bendani.bibliomania.book.model',
-    'com.bendani.bibliomania.date.formatter',
     'com.bendani.bibliomania.title.panel',
     'com.bendani.bibliomania.price.formatter'
 ])

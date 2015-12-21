@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('com.bendani.bibliomania.edit.reading.date.directive',['com.bendani.bibliomania.date.formatter', 'com.bendani.bibliomania.reading.date.model'])
+angular.module('com.bendani.bibliomania.edit.reading.date.directive',['com.bendani.bibliomania.reading.date.model'])
     .directive('editReadingDate', function (){
         return {
             scope: {
