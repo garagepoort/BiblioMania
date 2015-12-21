@@ -27,12 +27,7 @@ class BookOwnedFilterHandler implements FilterHandler
         return "In bezit";
     }
 
-    public function getSupportedOperators()
-    {
-        return array(
-            array("key"=>"=", "value"=>FilterOperator::EQUALS)
-        );
-    }
+    public function getSupportedOperators(){return null;}
 
     public function getGroup()
     {

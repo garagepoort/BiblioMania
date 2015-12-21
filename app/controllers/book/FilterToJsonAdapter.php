@@ -33,8 +33,11 @@ class FilterToJsonAdapter
             'key' => $this->key,
             'group' => $this->group,
             'type' => $this->type,
-            'supportedOperators' => $this->supportedOperators,
         );
+
+        if($this->supportedOperators !== null){
+            $result['supportedOperators'] = $this->supportedOperators;
+        }
 
         if($this->options !== null){
             $result['options'] = $this->options;

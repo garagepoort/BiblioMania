@@ -54,12 +54,7 @@ class BookPublisherFilterHandler implements OptionsFilterHandler
         return $options;
     }
 
-    public function getSupportedOperators()
-    {
-        return array(
-            array("key"=>"in", "value"=>FilterOperator::IN)
-        );
-    }
+    public function getSupportedOperators(){return null;}
 
     public function getGroup()
     {
