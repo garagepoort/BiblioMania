@@ -67,7 +67,7 @@
                                                 </tr>
                                                 <tr ng-show="selectedBook.retailPrice">
                                                     <td>Cover prijs:</td>
-                                                    <td>{{ currencies[selectedBook.currency] + ' ' + selectedBook.retailPrice}}</td>
+                                                    <td>{{ getCurrencyViewValue(selectedBook.currency) + ' ' + selectedBook.retailPrice}}</td>
                                                 </tr>
                                                 <tr ng-show="selectedBook.pages">
                                                     <td>Pagina's:</td>
@@ -106,7 +106,7 @@
                                     <tr class="buy-info-tr" ng-show="selectedBook.personalBookInfo.buyInfo.buyPrice.amount">
                                         <td>Aankoopprijs:</td>
                                         <td>
-                                            {{ currencies[selectedBook.personalBookInfo.buyInfo.buyPrice.currency] + ' ' + selectedBook.personalBookInfo.buyInfo.buyPrice.amount }}
+                                            {{ getCurrencyViewValue(selectedBook.personalBookInfo.buyInfo.buyPrice.currency) + ' ' + selectedBook.personalBookInfo.buyInfo.buyPrice.amount }}
                                         </td>
                                     </tr>
                                     <tr class="buy-info-tr" ng-show="selectedBook.personalBookInfo.buyInfo.shop">

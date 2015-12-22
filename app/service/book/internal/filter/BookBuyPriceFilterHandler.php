@@ -10,7 +10,7 @@ class BookBuyPriceFilterHandler implements FilterHandler
     {
         Ensure::stringNotBlank('buy.price.filter.operator.not.null',$filter->getOperator());
         return $queryBuilder
-            ->where("buy_info.price_payed", FilterOperator::getDatabaseOperator($filter->getOperator()), $filter->getValue());
+            ->where("buy_info_price_join.price_payed", FilterOperator::getDatabaseOperator($filter->getOperator()), $filter->getValue());
     }
 
     public function getFilterId()
@@ -44,6 +44,6 @@ class BookBuyPriceFilterHandler implements FilterHandler
 
     public function joinQuery($queryBuilder)
     {
-        return $queryBuilder->join("buy_info", "buy_info.personal_book_info_id", "=", "personal_book_info.id");
+        return $queryBuilder->join("buy_info as buy_info_price_join", "buy_info_price_join.personal_book_info_id", "=", "personal_book_info.id");
     }
 }

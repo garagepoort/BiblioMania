@@ -24,12 +24,12 @@ class BookBuyDateFilterHandler implements FilterHandler
 
         $dateFrom = $this->dateFormatter->dateRequestToDateTime($filterDateRequest->getFrom());
 
-        $queryBuilder =  $queryBuilder->where("buy_info.buy_date", '>=', $dateFrom);
+        $queryBuilder =  $queryBuilder->where("buy_info_date_join.buy_date", '>=', $dateFrom);
 
         if($filterDateRequest->getTo() !== null){
             Ensure::objectIsInstanceOf('date to', $filterDateRequest->getTo(), 'DateRequest');
             $dateTo = $this->dateFormatter->dateRequestToDateTime($filterDateRequest->getTo());
-            $queryBuilder->where("buy_info.buy_date", '<=', $dateTo);
+            $queryBuilder->where("buy_info_date_join.buy_date", '<=', $dateTo);
         }
 
         return $queryBuilder;
@@ -61,6 +61,6 @@ class BookBuyDateFilterHandler implements FilterHandler
 
     public function joinQuery($queryBuilder)
     {
-        return $queryBuilder->join("buy_info", "buy_info.personal_book_info_id", "=", "personal_book_info.id");
+        return $queryBuilder->join("buy_info as buy_info_date_join", "buy_info_date_join.personal_book_info_id", "=", "personal_book_info.id");
     }
 }

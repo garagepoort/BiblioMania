@@ -94,42 +94,4 @@ class BookController extends BaseController
         }
         return $result;
     }
-
-    private function createBookWarnings($book)
-    {
-        $warnings = array();
-        $baseUrl = URL::to('/');
-        if ($book->read) {
-            array_push($warnings, array(
-                "id" => "bookread",
-                "message" => "Dit boek is gelezen",
-                "icon" => $baseUrl . "/images/check-circle-success.png",
-                "goToLink" => "/createOrEditBook/step/6/"
-            ));
-        } else {
-            array_push($warnings, array(
-                "id" => "bookread",
-                "message" => "Dit boek is niet gelezen",
-                "icon" => $baseUrl . "/images/check-circle-fail.png",
-                "goToLink" => "/createOrEditBook/step/6/"
-            ));
-        }
-        if (!StringUtils::isEmpty($book->old_tags)) {
-            array_push($warnings, array(
-                "id" => " bookHasOldTags",
-                "message" => "Dit boek heeft oude tags",
-                "icon" => $baseUrl . "/images/exclamation_mark.png",
-                "goToLink" => "/createOrEditBook/step/2/"
-            ));
-        }
-        if ($book->book_from_author_id == null) {
-            array_push($warnings, array(
-                "id" => "bookIsNotLinkedToOeuvre",
-                "message" => "Dit boek is niet gelinked aan een oeuvre",
-                "icon" => $baseUrl . "/images/linked_warning.png",
-                "goToLink" => "/createOrEditBook/step/4/"
-            ));
-        }
-        return $warnings;
-    }
 }
