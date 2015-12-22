@@ -1,9 +1,9 @@
-<td ng-click="openDetails()">{{ book.title }}</td>
-<td ng-click="openDetails()">{{ book.subtitle }}</td>
-<td ng-click="openDetails()">{{ book.author }}</td>
-<td ng-click="openDetails()">
+<td ng-click="openDetails(); $event.stopPropagation();">{{ book.title }}</td>
+<td ng-click="openDetails(); $event.stopPropagation();">{{ book.author }}</td>
+<td ng-click="openDetails(); $event.stopPropagation();">
     <img data-toggle="tooltip" data-placement="top" title="{{ warning.message }}"
           ng-repeat="warning in warnings" ng-click="warning.handle()" ng-src="{{ warning.icon }}" class="warning-icon-row clickableImage pull-left">
 </td>
+<td style="width: 60px;" ng-click="openDetails(); $event.stopPropagation();"><button class="btn btn-sm btn-default round-corners" ng-click="goToBookDetails()"><i class="fa fa-pencil"></i></button></td>
 
 
