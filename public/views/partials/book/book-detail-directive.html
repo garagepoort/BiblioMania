@@ -3,7 +3,7 @@
     <div click-anywhere-but-here="closeBookDetailPanel()">
         <div>
             <div class="book-detail-close">
-                <h3 class="book-sliding-panel-title">{{selectedBook.title}} <span class="glyphicon glyphicon-remove-sign pull-right clickable" style="margin-right: 20px;" ng-click="closeBookDetailPanel()"></span></h3>
+                <h3 class="book-sliding-panel-title">{{selectedBook.title}} <span class="glyphicon glyphicon-remove-sign pull-left clickable" style="margin-right: 20px;" ng-click="closeBookDetailPanel()"></span></h3>
                 <h4 ng-show="selectedBook.subtitle" class="book-sliding-panel-title" id="book-detail-subtitle">{{selectedBook.subtitle}}</h4>
             </div>
         </div>
@@ -51,7 +51,7 @@
                                                 </tr>
                                                 <tr ng-show="selectedBook.publicationDate">
                                                     <td>Publicatiedatum:</td>
-                                                    <td>{{convertDate(selectedBook.publicationDate)}}</td>
+                                                    <td>{{dateToString(selectedBook.publicationDate)}}</td>
                                                 </tr>
                                                 <tr ng-show="selectedBook.genre">
                                                     <td>Genre:</td>
@@ -101,7 +101,7 @@
                                     <tbody ng-show="selectedBook.personalBookInfo.buyInfo">
                                     <tr class="buy-info-tr" ng-show="selectedBook.personalBookInfo.buyInfo.date">
                                         <td>Aanschafdatum:</td>
-                                        <td>{{convertDate(selectedBook.personalBookInfo.buyInfo.date)}}</td>
+                                        <td>{{dateToString(selectedBook.personalBookInfo.buyInfo.date)}}</td>
                                     </tr>
                                     <tr class="buy-info-tr" ng-show="selectedBook.personalBookInfo.buyInfo.buyPrice.amount">
                                         <td>Aankoopprijs:</td>
@@ -131,7 +131,7 @@
                                     <tbody ng-show="selectedBook.personalBookInfo.giftInfo">
                                     <tr class="gift-info-tr" ng-show="selectedBook.personalBookInfo.giftInfo.date">
                                         <td>Ontvangstdatum:</td>
-                                        <td>{{convertDate(selectedBook.personalBookInfo.giftInfo.date)}}</td>
+                                        <td>{{dateToString(selectedBook.personalBookInfo.giftInfo.date)}}</td>
                                     </tr>
                                     <tr class="gift-info-tr" ng-show="selectedBook.personalBookInfo.giftInfo.from">
                                         <td>Gekregen van:</td>
@@ -181,7 +181,7 @@
                                     </tr>
                                     <tr class="first-print-info-tr" ng-show="selectedBook.firstPrintInfo.publicationDate">
                                         <td>Publicatie datum:</td>
-                                        <td>{{convertDate(selectedBook.firstPrintInfo.publicationDate)}}</td>
+                                        <td>{{dateToString(selectedBook.firstPrintInfo.publicationDate)}}</td>
                                     </tr>
                                 </table>
                             </div>
@@ -197,13 +197,7 @@
                             <div class="material-card-title">Auteurs</div>
                             <div class="material-card-content">
                                 <table class="table" width="100%">
-                                    <!--<thead>-->
-                                    <!--<tr>-->
-                                    <!--<th>Naam</th>-->
-                                    <!--<th>Voornaam</th>-->
-                                    <!--</tr>-->
-                                    <!--</thead>-->
-                                    <tbody>
+                                    <tbody style="text-align: left">
                                     <tr ng-repeat="author in selectedBook.authors">
                                         <td style="border: none">{{ author.name.lastname }}</td>
                                         <td style="border: none">{{ author.name.firstname }}</td>
