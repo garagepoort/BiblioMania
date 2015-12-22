@@ -120,7 +120,7 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
                 for(var i = 0; i< filters.length; i++){
                     var filter = filters[i];
                     if(filter.supportedOperators){
-                        filter.selectedOperator = filter.supportedOperators[0].value;
+                        filter.selectedOperator = filter.supportedOperators[0];
                     }
                     filter.value = "";
                 }
