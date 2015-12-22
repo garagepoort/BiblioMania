@@ -1,11 +1,12 @@
 angular
-    .module('com.bendani.bibliomania.book.card.directive', ['com.bendani.bibliomania.info.container'])
+    .module('com.bendani.bibliomania.book.card.directive', ['com.bendani.bibliomania.info.container', 'com.bendani.bibliomania.reading.date.modal.service'])
     .directive('bookCard', function (){
         return {
             scope: true,
             restrict: "E",
             templateUrl: "../BiblioMania/views/partials/book/book-card-directive.html",
-            controller: ['$scope', '$location', function($scope, $location) {
+            controller: ['$scope', '$location', 'ReadingDateModalService', 'growl', 'DateService', function($scope, $location, ReadingDateModalService, growl, DateService) {
+                addWarnings();
 
                 $scope.goToBookDetails = function(){
                     $location.path('/book-details/' + $scope.book.id);
@@ -19,6 +20,43 @@ angular
                         $scope.$parent.setSelectedBook($scope.book.id);
                     }
                 };
+
+                function addWarnings(){
+                    $scope.warnings = [];
+                    if($scope.book.personalBookInfoId){
+                        if($scope.book.read){
+                            $scope.warnings.push({
+                                id: "bookread",
+                                message: "Dit boek is gelezen",
+                                icon: "images/check-circle-success.png",
+                                handle: function(){
+                                    openEditReadingDateModal(new Date());
+                                }
+                            });
+                        }else{
+                            $scope.warnings.push({
+                                id: "bookread",
+                                message: "Dit boek is niet gelezen",
+                                icon: "images/check-circle-fail.png",
+                                handle: function(){
+                                    openEditReadingDateModal();
+                                }
+                            });
+                        }
+                    }
+                }
+
+                function openEditReadingDateModal(){
+                    var date = {
+                        date: DateService.dateToJsonDate(new Date())
+                    };
+                    ReadingDateModalService.show($scope.book.personalBookInfoId, function(){
+                        $scope.book.read = true;
+                        addWarnings();
+                        growl.addSuccessMessage('Leesdatum opgeslagen');
+                    }, date);
+
+                }
             }],
             link: function ($scope, element) {
                 if($scope.book.image === undefined){
@@ -33,7 +71,6 @@ angular
                 });
 
                 $(element).find('[data-toggle="tooltip"]').tooltip();
-
             }
         };
     });

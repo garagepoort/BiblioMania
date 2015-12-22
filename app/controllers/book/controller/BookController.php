@@ -87,10 +87,12 @@ class BookController extends BaseController
 
         $books = $this->bookService->filterBooks($allFiltersFromJsonAdapter->getFilters());
 
-        return array_map(function($item){
-            $bookToJsonAdapter = new BookToJsonAdapter($item);
-            return $bookToJsonAdapter->mapToJson();
-        }, $books->all());
+        $result = array();
+        foreach($books->all() as $book){
+            $bookToJsonAdapter = new BookToJsonAdapter($book);
+            array_push($result, $bookToJsonAdapter->mapToJson());
+        }
+        return $result;
     }
 
     private function createBookWarnings($book)
