@@ -15,13 +15,13 @@
 
         <div class="top-book-panel">
             <filters-directive all-filters="filters.all" selected-filters="filters.selected" on-filter="filterBooks(selectedFilters)"></filters-directive>
-            <div class="checkbox" style="float: right; clear: both">
-                <label>
-                    <input type="checkbox" ng-model="showAllBooks" ng-change="doFilterBooks()"> Toon alle boeken
-                </label>
-            </div>
-
             <div style="clear: both">
+                <div class="checkbox pull-left">
+                    <label>
+                        <input type="checkbox" ng-model="showAllBooks" ng-change="doFilterBooks()"> Toon alle boeken
+                    </label>
+                </div>
+
                 <div class="input-group" style="width: 200px; float: right">
                     <input id="searchBooksInput" ng-model="searchBooksQuery" type="text" class="form-control half-round-corners-left" placeholder="Search" name="criteria" aria-describedby="basic-addon1">
                     <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon1"></span>
