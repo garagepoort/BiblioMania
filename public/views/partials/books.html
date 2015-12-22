@@ -31,14 +31,17 @@
             </div>
         </div>
 
-        <sort-header sort-options="orderValues" current-predicate="predicate" reverse-order="reverseOrder"></sort-header>
         <div class="book-panel">
             <img src="/BiblioMania/images/ajax-loader.gif" ng-show="loading">
             <div ng-show="!loading && !listView">
+                <table class="table table-striped" style="table-layout: fixed">
+                    <thead sort-header sort-options="orderValues" current-predicate="predicate" reverse-order="reverseOrder"></thead>
+                </table>
                 <book-card ng-repeat="book in books | filter: search | orderBy:predicate:reverseOrder" book="book"></book-card>
             </div>
 
             <table ng-show="!loading && listView" class="table table-striped" style="table-layout: fixed">
+                <thead sort-header sort-options="orderValues" current-predicate="predicate" reverse-order="reverseOrder"></thead>
                 <tbody style="text-align: left">
                     <tr style="cursor: pointer" book-row ng-repeat="book in books | filter: search | orderBy:predicate:reverseOrder" book="book"></tr>
                 </tbody>
