@@ -7,6 +7,7 @@ angular.module('com.bendani.bibliomania.book.details.ui', ['com.bendani.biblioma
     'com.bendani.bibliomania.personal.book.info.model',
     'com.bendani.bibliomania.reading.date.model',
     'com.bendani.bibliomania.first.print.info.model',
+    'com.bendani.bibliomania.currency.service',
     'com.bendani.bibliomania.oeuvre.model',
     'com.bendani.bibliomania.first.print.selection.modal.service',
     'com.bendani.bibliomania.confirmation.modal.service',
@@ -21,12 +22,13 @@ angular.module('com.bendani.bibliomania.book.details.ui', ['com.bendani.biblioma
             });
     }])
     .controller('BookDetailsController', ['$scope', '$routeParams', 'Book', 'PersonalBookInfo', 'ReadingDate', 'ErrorContainer','DateService', 'AuthorSelectionModalService', 'AuthorCreationModalService', 'FirstPrintSelectionModalService', 'DateSelectionModalService','TitlePanelService',
-        'ConfirmationModalService', 'growl', '$compile', '$location', 'FirstPrintInfo', 'OeuvreItemSelectionModalService', 'Oeuvre', 'ReadingDateModalService',
-        function($scope, $routeParams, Book, PersonalBookInfo, ReadingDate, ErrorContainer, DateService, AuthorSelectionModalService, AuthorCreationModalService, FirstPrintSelectionModalService, DateSelectionModalService, TitlePanelService, ConfirmationModalService, growl, $compile, $location, FirstPrintInfo, OeuvreItemSelectionModalService, Oeuvre, ReadingDateModalService){
+        'ConfirmationModalService', 'growl', '$compile', '$location', 'FirstPrintInfo', 'OeuvreItemSelectionModalService', 'Oeuvre', 'ReadingDateModalService', 'CurrencyService',
+        function($scope, $routeParams, Book, PersonalBookInfo, ReadingDate, ErrorContainer, DateService, AuthorSelectionModalService, AuthorCreationModalService, FirstPrintSelectionModalService, DateSelectionModalService, TitlePanelService, ConfirmationModalService, growl, $compile, $location, FirstPrintInfo, OeuvreItemSelectionModalService, Oeuvre, ReadingDateModalService, CurrencyService){
 
             function init(){
                 TitlePanelService.setTitle("Boek detail");
                 TitlePanelService.setPreviousUrl("/books");
+                $scope.getCurrencyViewValue = CurrencyService.getCurrencyViewValue;
 
                 $scope.book = Book.get({id: $routeParams.id}, function(book){
 

@@ -577,6 +577,11 @@ table.book-detail-info-table td {
   width: 20px;
   height: 20px;
 }
+.warning-icon-row {
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+}
 .imageLinkWrapper:hover {
   box-shadow: 0 25px 50px 0 rgba(0, 0, 0, 0.26);
   transform: scale(1.05, 1.05) translate3d(0, 0, 0);

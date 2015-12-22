@@ -16,11 +16,12 @@
         <div class="top-book-panel">
             <filters-directive all-filters="filters.all" selected-filters="filters.selected" on-filter="filterBooks(selectedFilters)"></filters-directive>
             <div style="clear: both">
-                <div class="checkbox pull-left">
-                    <label>
-                        <input type="checkbox" ng-model="showAllBooks" ng-change="doFilterBooks()"> Toon alle boeken
-                    </label>
+                <div class="btn-group pull-left" role="group" style="margin-left: 20px">
+                    <button ng-class="listView ? 'btn-grey' : 'btn-primary'" type="button" ng-click="setListView(false)" class="btn btn-sm half-round-corners-left"><span class="glyphicon glyphicon-th"></span></button>
+                    <button ng-class="listView ? 'btn-primary' : 'btn-grey'" type="button" ng-click="setListView(true)" class="btn btn-sm half-round-corners-right"><span class="glyphicon glyphicon-th-list"></span></button>
                 </div>
+
+                <button popover-elem popover-placement="bottom" uib-popover-template="filterViewableBooksTemplate" popover-title="Toon boeken" type="button" class="btn btn-sm margin-left-10 btn-default exclude">Toon {{ viewableFilters.selected.key }}</button>
 
                 <div class="input-group" style="width: 200px; float: right">
                     <input id="searchBooksInput" ng-model="searchBooksQuery" type="text" class="form-control half-round-corners-left" placeholder="Search" name="criteria" aria-describedby="basic-addon1">
@@ -33,7 +34,15 @@
         <sort-header sort-options="orderValues" current-predicate="predicate" reverse-order="reverseOrder"></sort-header>
         <div class="book-panel">
             <img src="/BiblioMania/images/ajax-loader.gif" ng-show="loading">
-            <book-card ng-show="!loading" ng-repeat="book in books | filter: search | orderBy:predicate:reverseOrder" book="book"></book-card>
+            <div ng-show="!loading && !listView">
+                <book-card ng-repeat="book in books | filter: search | orderBy:predicate:reverseOrder" book="book"></book-card>
+            </div>
+
+            <table ng-show="!loading && listView" class="table table-striped" style="table-layout: fixed">
+                <tbody style="text-align: left">
+                    <tr style="cursor: pointer" book-row ng-repeat="book in books | filter: search | orderBy:predicate:reverseOrder" book="book"></tr>
+                </tbody>
+            </table>
         </div>
 
     </div>
