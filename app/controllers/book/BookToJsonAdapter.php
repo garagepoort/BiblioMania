@@ -11,6 +11,7 @@ class BookToJsonAdapter
     private $isbn;
     private $author;
     private $personalBookInfoId;
+    private $oeuvreItemId;
     private $read = false;
     /** @var  PriceToJsonAdapter */
     private $retailPrice;
@@ -45,8 +46,13 @@ class BookToJsonAdapter
         if($book->preferredAuthor() != null){
             $this->author = $book->preferredAuthor()->name . " " . $book->preferredAuthor()->firstname;
         }
+
         if(!StringUtils::isEmpty($book->coverImage)){
             $this->imageInformation = new ImageToJsonAdapter($book);
+        }
+
+        if($book->book_from_author_id !== null){
+            $this->oeuvreItemId = $book->book_from_author_id;
         }
     }
 
@@ -62,6 +68,9 @@ class BookToJsonAdapter
 
         if($this->personalBookInfoId != null){
             $result['personalBookInfoId'] = $this->personalBookInfoId;
+        }
+        if($this->oeuvreItemId != null){
+            $result['oeuvreItemId'] = $this->oeuvreItemId;
         }
 
         if($this->imageInformation != null){

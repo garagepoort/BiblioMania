@@ -5,61 +5,74 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
     'com.bendani.bibliomania.title.panel',
     'com.bendani.bibliomania.book.filter.model',
     'com.bendani.php.common.filterservice',
+    'com.bendani.bibliomania.book.overview.service',
+    'com.bendani.bibliomania.book.card.directive',
+    'com.bendani.bibliomania.book.row.directive',
+    'com.bendani.bibliomania.currency.service',
     'pageslide-directive'])
-    .controller('BookController', ['$scope', 'Book', 'BookFilter', 'ErrorContainer', '$http', 'TitlePanelService', '$location', '$compile', function ($scope, Book, BookFilter, ErrorContainer, $http, TitlePanelService, $location, $compile) {
+    .controller('BookController', ['$scope', 'Book', 'BookFilter', 'ErrorContainer', '$http', 'TitlePanelService', '$location', '$compile', 'BookOverviewService', 'CurrencyService', function ($scope, Book, BookFilter, ErrorContainer, $http, TitlePanelService, $location, $compile, BookOverviewService, CurrencyService) {
+
+        var selectBookHandler = function (book) {
+            if($scope.bookDetailPanelOpen && $scope.selectedBook.id === book.id){
+                $scope.bookDetailPanelOpen = false;
+            }else{
+                $scope.selectedBook = Book.get({id: book.id}, function(){}, ErrorContainer.handleRestError);
+                $scope.bookDetailPanelOpen = true;
+            }
+        };
+
+        var personalBooks = {key: 'Mijn boeken', value: 'personalBooks'};
+        var allBooks = {key: 'Alle boeken', value: 'all'};
+        var otherBooks = {key: 'Andere boeken', value: 'otherBooks'};
 
         function init(){
             TitlePanelService.setTitle('Boeken');
             TitlePanelService.setShowPreviousButton(false);
             setRightTitlePanel();
+
+            $scope.getCurrencyViewValue = CurrencyService.getCurrencyViewValue;
+
             $scope.searchBooksQuery = "";
             $scope.loading=true;
+
             $scope.predicate="author";
             $scope.reverseOrder=false;
-            $scope.libraryInformation= {};
-            $scope.showAllBooks = false;
-            $scope.bookDetailPanelOpen = false;
             $scope.libraryInformationTemplate = '../BiblioMania/views/partials/book/library-information-template.html';
+            $scope.filterViewableBooksTemplate = '../BiblioMania/views/partials/book/filter-viewable-books-template.html';
 
-            $scope.filters = {
-                selected: [],
-                all: []
+            $scope.bookDetailPanelOpen = false;
+
+            $scope.filters = {selected: [],all: []};
+
+            $scope.viewableFilters = {
+                selected: personalBooks,
+                all: [allBooks,otherBooks,personalBooks]
             };
 
-            $scope.libraryInformation = {
-                value: 0,
-                amountOfBooks: 0
-            };
+            $scope.libraryInformation = {value: 0, amountOfBooks: 0 };
 
+            $scope.setListView(false);
             getFilters();
             $scope.filterBooks([]);
 
-            $scope.orderValues = [
-                { key: 'Titel', predicate:'title'},
-                { key: 'Ondertitel', predicate:'subtitle'},
-                { key: 'Auteur', predicate:'author'},
-                { key: 'Waardering', predicate:'rating'}
-            ];
+            BookOverviewService.registerHandler(selectBookHandler);
+            $scope.$on('$destroy', function() {
+                BookOverviewService.deregisterHandler(selectBookHandler);
+            });
         }
 
         $scope.closeBookDetailPanel = function(){
             $scope.bookDetailPanelOpen = false;
         };
 
-        $scope.openBookDetailPanel = function(){
-            $scope.bookDetailPanelOpen = true;
-        };
-
-        $scope.isBookDetailPanelOpen = function(){
-            return $scope.bookDetailPanelOpen;
-        };
-
-        $scope.setSelectedBook = function(selectBookId){
-            $scope.selectedBook = Book.get({id: selectBookId}, function(){}, ErrorContainer.handleRestError);
-            $scope.openBookDetailPanel();
-        };
-
         $scope.search = function(item){
+            if($scope.viewableFilters.selected === personalBooks && !item.personalBookInfoId){
+                return false;
+            }
+            if($scope.viewableFilters.selected === otherBooks && item.personalBookInfoId){
+                return false;
+            }
+
             if ( (item.title.toLowerCase().indexOf($scope.searchBooksQuery) !== -1)
                 || (item.subtitle.toLowerCase().indexOf($scope.searchBooksQuery) !== -1)
                 || (item.author.toLowerCase().indexOf($scope.searchBooksQuery) !== -1) ){
@@ -68,24 +81,31 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
             return false;
         };
 
-        $scope.getSelectedBook = function(){
-            return $scope.selectedBook;
-        };
-
         $scope.resetBooks = function(){
             $scope.filterBooks([]);
         };
 
+        $scope.setListView = function(value){
+            $scope.listView = value;
+
+            if($scope.listView){
+                $scope.orderValues = [
+                    { key: 'Titel', predicate:'title'},
+                    { key: 'Ondertitel', predicate:'subtitle'},
+                    { key: 'Auteur', predicate:'author'},
+                    { key: 'Gelezen', predicate:'read'}
+                ];
+            }else{
+                $scope.orderValues = [
+                    { key: 'Titel', predicate:'title'},
+                    { key: 'Ondertitel', predicate:'subtitle'},
+                    { key: 'Auteur', predicate:'author'}
+                ];
+            }
+        };
+
         $scope.filterBooks = function(filters){
             $scope.loading = true;
-
-            if(!$scope.showAllBooks){
-                filters.push({
-                    id: 'isPersonal',
-                    value: true,
-                    operator: '='
-                });
-            }
 
             Book.search(filters, function(books){
                 $scope.books = books;

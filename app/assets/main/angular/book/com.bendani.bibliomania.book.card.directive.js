@@ -1,62 +1,23 @@
 angular
-    .module('com.bendani.bibliomania.book.card.directive', ['com.bendani.bibliomania.info.container', 'com.bendani.bibliomania.reading.date.modal.service'])
+    .module('com.bendani.bibliomania.book.card.directive', ['com.bendani.bibliomania.info.container','com.bendani.bibliomania.book.overview.service'])
     .directive('bookCard', function (){
         return {
-            scope: true,
+            scope: {
+                book: '='
+            },
             restrict: "E",
             templateUrl: "../BiblioMania/views/partials/book/book-card-directive.html",
-            controller: ['$scope', '$location', 'ReadingDateModalService', 'growl', 'DateService', function($scope, $location, ReadingDateModalService, growl, DateService) {
-                addWarnings();
+            controller: ['$scope', '$location', 'BookOverviewService', function($scope, $location, BookOverviewService) {
+                $scope.warnings = BookOverviewService.getBookWarnings($scope.book);
 
                 $scope.goToBookDetails = function(){
                     $location.path('/book-details/' + $scope.book.id);
                 };
 
                 $scope.openDetails = function(){
-                    var selectedBook = $scope.$parent.getSelectedBook();
-                    if($scope.$parent.isBookDetailPanelOpen() && selectedBook.id === $scope.book.id){
-                        $scope.$parent.closeBookDetailPanel();
-                    }else{
-                        $scope.$parent.setSelectedBook($scope.book.id);
-                    }
+                    BookOverviewService.selectBook($scope.book);
                 };
 
-                function addWarnings(){
-                    $scope.warnings = [];
-                    if($scope.book.personalBookInfoId){
-                        if($scope.book.read){
-                            $scope.warnings.push({
-                                id: "bookread",
-                                message: "Dit boek is gelezen",
-                                icon: "images/check-circle-success.png",
-                                handle: function(){
-                                    openEditReadingDateModal(new Date());
-                                }
-                            });
-                        }else{
-                            $scope.warnings.push({
-                                id: "bookread",
-                                message: "Dit boek is niet gelezen",
-                                icon: "images/check-circle-fail.png",
-                                handle: function(){
-                                    openEditReadingDateModal();
-                                }
-                            });
-                        }
-                    }
-                }
-
-                function openEditReadingDateModal(){
-                    var date = {
-                        date: DateService.dateToJsonDate(new Date())
-                    };
-                    ReadingDateModalService.show($scope.book.personalBookInfoId, function(){
-                        $scope.book.read = true;
-                        addWarnings();
-                        growl.addSuccessMessage('Leesdatum opgeslagen');
-                    }, date);
-
-                }
             }],
             link: function ($scope, element) {
                 if($scope.book.image === undefined){
