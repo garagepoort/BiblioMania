@@ -8,7 +8,7 @@ angular.module('com.bendani.bibliomania.edit.author.ui',
             controller: 'EditAuthorController'
         });
     }])
-    .controller('EditAuthorController', ['$scope', 'Author', 'Oeuvre', 'ErrorContainer', 'growl', '$routeParams', '$uibModal', function ($scope, Author, Oeuvre, ErrorContainer, growl, $routeParams, $uibModal) {
+    .controller('EditAuthorController', ['$scope', '$location', 'Author', 'Oeuvre', 'ErrorContainer', 'growl', '$routeParams', '$uibModal', function ($scope, $location, Author, Oeuvre, ErrorContainer, growl, $routeParams, $uibModal) {
 
         $scope.$parent.title = "Auteur";
         $scope.model = Author.get({ id: $routeParams.id }, function(){}, ErrorContainer.handleRestError);
@@ -21,18 +21,18 @@ angular.module('com.bendani.bibliomania.edit.author.ui',
             }
         };
 
-        $scope.getAuthorImage = function () {
-            if ($scope.model.image === undefined) {
-                return 'images/questionCover.png';
-            }
-            return $scope.model.image;
-        };
-
         $scope.linkLabel = function(oeuvreItem){
             if(oeuvreItem.linkedBooks.length > 0){
                 return 'label-success';
             }
             return 'label-danger';
+        };
+
+        $scope.goToOeuvreItem = function(item){
+            $location.path('/edit-oeuvre-item/'+item.id);
+        };
+        $scope.goToBook = function(book){
+            $location.path('/book-details/'+book.id);
         };
 
         $scope.linkText = function(oeuvreItem){

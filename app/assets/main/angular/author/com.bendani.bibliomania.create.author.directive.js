@@ -10,7 +10,7 @@ angular.module('com.bendani.bibliomania.create.author.directive',
             },
             restrict: "E",
             templateUrl: "../BiblioMania/views/partials/author/create-author-directive.html",
-            controller: ['$scope', 'Author', 'ErrorContainer', 'growl', function ($scope, Author, ErrorContainer, growl) {
+            controller: ['$scope', 'Author', 'ErrorContainer', 'growl', '$uibModal', function ($scope, Author, ErrorContainer, growl, $uibModal) {
 
                 $scope.$parent.title = "Auteur";
                 if(!$scope.model){
@@ -23,11 +23,24 @@ angular.module('com.bendani.bibliomania.create.author.directive',
                     }
                 };
 
-                $scope.getAuthorImage = function () {
-                    if ($scope.model.image === undefined) {
-                        return 'images/questionCover.png';
-                    }
-                    return $scope.model.image;
+                $scope.openSelectImageDialog = function(){
+                    $scope.imageSelectModal = {};
+                    var searchQuery = '';
+
+                    if($scope.model.name){ searchQuery = $scope.model.name.firstname + ' ' + $scope.model.name.lastname; }
+
+                    $scope.imageSelectModal.searchQuery = searchQuery;
+
+                    var modalInstance = $uibModal.open({
+                        templateUrl: '../BiblioMania/views/partials/select-image-modal.html',
+                        scope: $scope,
+                        windowClass: 'select-image-modal'
+                    });
+
+                    modalInstance.result.then(function (image) {
+                        $scope.model.imageUrl = image;
+                        $scope.model.image = image;
+                    });
                 };
 
                 $scope.submitForm = function(){
