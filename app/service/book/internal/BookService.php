@@ -160,15 +160,12 @@ class BookService
 
     public function filterBooks($filters){
         $books = Book::select(DB::raw('book.*'))
-            ->leftJoin('serie', 'book.serie_id', '=', 'serie.id')
-            ->leftJoin('publisher_serie', 'book.publisher_serie_id', '=', 'publisher_serie.id')
             ->leftJoin('book_author', 'book_author.book_id', '=', 'book.id')
             ->leftJoin('author', 'book_author.author_id', '=', 'author.id')
             ->leftJoin('personal_book_info', 'personal_book_info.book_id', '=', 'book.id')
             ->leftJoin('first_print_info', 'first_print_info.id', '=', 'book.first_print_info_id')
             ->leftJoin('date', 'date.id', '=', 'first_print_info.publication_date_id')
             ->leftJoin("reading_date", "reading_date.personal_book_info_id", "=", "personal_book_info.id");
-
 
         foreach($filters as $filter){
             /** @var Filter $filter */

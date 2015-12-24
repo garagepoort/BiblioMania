@@ -55,4 +55,8 @@ class PersonalBookInfo extends Eloquent {
             return true;
         }
     }
+
+    public function scopeCurrentUser($query){
+        $query->where('user_id', '=', Auth::user()->id);
+    }
 }

@@ -21,6 +21,7 @@ class BookFilterManager extends FilterManager
             new BookBuyPriceFilterHandler(),
             new BookBuyDateFilterHandler(),
             new BookGiftFromFilterHandler(),
+            new BookAuthorFilterHandler(),
             new BookIsPersonalFilterHandler()
         );
         parent::__construct($filters);

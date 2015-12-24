@@ -27,7 +27,6 @@ angular.module('com.bendani.bibliomania.book.details.ui', ['com.bendani.biblioma
 
             function init(){
                 TitlePanelService.setTitle("Boek detail");
-                TitlePanelService.setPreviousUrl("/books");
                 $scope.getCurrencyViewValue = CurrencyService.getCurrencyViewValue;
 
                 $scope.book = Book.get({id: $routeParams.id}, function(book){
