@@ -107,7 +107,6 @@ class Book extends Eloquent {
     {
         return $this->hasMany('Film');
     }
-
 	public function language(){
 		return $this->belongsTo('Language');
 	}
