@@ -146,7 +146,7 @@
             <div class="form-content detail-panel">
                 <dl class="dl-horizontal">
                     <dt ng-show="book.personalBookInfo.buyInfo.buyPrice !== null">prijs</dt>
-                    <dd ng-show="book.personalBookInfo.buyInfo.buyPrice !== null">{{getCurrencyViewValue(book.personalBookInfo.buyInfo.buyPrice.currency) + ' ' + book.personalBookInfo.buyInfo.buyPrice.amount}}</dd>
+                    <dd ng-show="book.personalBookInfo.buyInfo.buyPrice !== null">{{getCurrencyViewValue(book.personalBookInfo.buyInfo.buyPrice.currency) }} {{ book.personalBookInfo.buyInfo.buyPrice.amount | numberFormatFilter}}</dd>
                     <dt ng-show="book.personalBookInfo.buyInfo.shop">winkel</dt>
                     <dd ng-show="book.personalBookInfo.buyInfo.shop">{{book.personalBookInfo.buyInfo.shop}}</dd>
                     <dt ng-show="book.personalBookInfo.buyInfo.reason">reden</dt>
