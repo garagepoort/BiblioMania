@@ -6,7 +6,7 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
     'com.bendani.bibliomania.book.filter.model',
     'com.bendani.php.common.filterservice',
     'com.bendani.bibliomania.book.overview.service',
-    'com.bendani.bibliomania.book.card.directive',
+    'com.bendani.bibliomania.image.card.directive',
     'com.bendani.bibliomania.book.row.directive',
     'com.bendani.bibliomania.currency.service',
     'pageslide-directive'])
@@ -114,12 +114,23 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
 
                 Book.search(filters, function (books) {
                     $scope.books = books;
+                    _.each($scope.books, function (book) {
+                        book.warnings = BookOverviewService.getBookWarnings(book);
+                    });
                     $scope.loading = false;
                 }, ErrorContainer.handleRestError);
             };
 
             $scope.goToCreateBook = function () {
                 $location.path('/create-book');
+            };
+
+            $scope.onImageClickBook = function(book){
+                BookOverviewService.selectBook(book);
+            };
+
+            $scope.onEditBook = function(book){
+                $location.path('/book-details/' + book.id);
             };
 
             function setRightTitlePanel() {
