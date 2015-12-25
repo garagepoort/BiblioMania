@@ -37,13 +37,13 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
 
                 $scope.searchBooksQuery = "";
                 $scope.loading = true;
-
                 $scope.predicate = "author";
                 $scope.reverseOrder = false;
+                $scope.bookDetailPanelOpen = false;
                 $scope.libraryInformationTemplate = '../BiblioMania/views/partials/book/library-information-template.html';
                 $scope.filterViewableBooksTemplate = '../BiblioMania/views/partials/book/filter-viewable-books-template.html';
+                $scope.setListView(false);
 
-                $scope.bookDetailPanelOpen = false;
 
                 $scope.filters = {selected: [], all: []};
 
@@ -52,9 +52,12 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
                     all: [allBooks, otherBooks, personalBooks]
                 };
 
-                $scope.libraryInformation = {value: 0, amountOfBooks: 0};
+                $scope.$watch('viewableBooks', function(){
+                    if($scope.viewableBooks){
+                        updateLibraryInformation($scope.viewableBooks);
+                    }
+                });
 
-                $scope.setListView(false);
                 getFilters();
                 $scope.filterBooks([]);
 
@@ -112,18 +115,6 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
                 Book.search(filters, function (books) {
                     $scope.books = books;
                     $scope.loading = false;
-
-                    $scope.libraryInformation.amountOfBooks = books.length;
-                    $scope.libraryInformation.value = 0;
-
-
-                    _.each(books, function (book) {
-                        if (book.retailPrice) {
-                            $scope.libraryInformation.value = $scope.libraryInformation.value + book.retailPrice.amount;
-                        }
-                        $scope.libraryInformation.value = +$scope.libraryInformation.value.toFixed(2);
-                    });
-
                 }, ErrorContainer.handleRestError);
             };
 
@@ -151,6 +142,23 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
                     });
                     $scope.filters.all = filters;
                 }, ErrorContainer.handleRestError);
+            }
+
+            function updateLibraryInformation(books){
+                $scope.libraryInformation = {
+                    value: calculateLibraryValue(books),
+                    amountOfBooks: books.length
+                };
+            }
+
+            function calculateLibraryValue(books) {
+                var result = 0;
+                _.each(books, function (book) {
+                    if (book.retailPrice) {
+                        result = result + book.retailPrice.amount;
+                    }
+                });
+                return result.toFixed(2);
             }
 
             init();
