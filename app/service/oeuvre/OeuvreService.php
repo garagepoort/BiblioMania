@@ -8,12 +8,15 @@ class OeuvreService
     private $bookRepository;
     /** @var  AuthorRepository */
     private $authorRepository;
+    /** @var  OeuvreItemLinkValidator */
+    private $oeuvreItemLinkValidator;
 
     function __construct()
     {
         $this->bookFromAuthorRepository = App::make("BookFromAuthorRepository");
         $this->bookRepository = App::make("BookRepository");
         $this->authorRepository = App::make("AuthorRepository");
+        $this->oeuvreItemLinkValidator = App::make("OeuvreItemLinkValidator");
     }
 
     public function linkNewOeuvreFromAuthor($author_id, $oeuvreText)
@@ -33,8 +36,10 @@ class OeuvreService
         /** @var BookFromAuthor $oeuvreItem */
         $oeuvreItem = $this->find($oeuvreId);
         Ensure::objectNotNull("oeuvre item", $oeuvreItem);
-        $book = $this->bookRepository->find($bookToOeuvreItemRequest->getBookId());
+        $book = $this->bookRepository->find($bookToOeuvreItemRequest->getBookId(), array('authors'));
         Ensure::objectNotNull("book", $book);
+
+        $this->oeuvreItemLinkValidator->validate($oeuvreItem, $book);
 
         $book->book_from_author_id = $oeuvreItem->id;
         $book->save();

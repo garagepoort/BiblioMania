@@ -1,15 +1,20 @@
 'use strict';
 
 angular.module('com.bendani.bibliomania.edit.oeuvre.ui',
-    ['com.bendani.bibliomania.oeuvre.model', 'com.bendani.bibliomania.author.model', 'com.bendani.bibliomania.error.container',
-        'com.bendani.bibliomania.book.selection.controller', 'angular-growl', 'com.bendani.bibliomania.image.fallback'])
+    ['com.bendani.bibliomania.oeuvre.model',
+        'com.bendani.bibliomania.author.model',
+        'com.bendani.bibliomania.error.container',
+        'com.bendani.bibliomania.book.selection.modal.service',
+        'com.bendani.bibliomania.confirmation.modal.service',
+        'angular-growl',
+        'com.bendani.bibliomania.image.fallback'])
     .config(['$routeProvider',function ($routeProvider) {
         $routeProvider.when('/edit-oeuvre-item/:id', {
             templateUrl: '../BiblioMania/views/partials/oeuvre/edit-oeuvre-item.html',
             controller: 'EditOeuvreItemController'
         });
     }])
-    .controller('EditOeuvreItemController', ['$scope', 'Oeuvre', 'Author', 'ErrorContainer', 'growl', '$routeParams', '$uibModal', function ($scope, Oeuvre, Author, ErrorContainer, growl, $routeParams, $uibModal) {
+    .controller('EditOeuvreItemController', ['$scope', 'Oeuvre', 'Author', 'ErrorContainer', 'growl', '$routeParams', 'BookSelectionModalService', 'ConfirmationModalService', function ($scope, Oeuvre, Author, ErrorContainer, growl, $routeParams, BookSelectionModalService, ConfirmationModalService) {
 
         $scope.$parent.title = "Oeuvre";
 
@@ -26,12 +31,9 @@ angular.module('com.bendani.bibliomania.edit.oeuvre.ui',
         };
 
         $scope.showSelectBookDialog = function () {
-            var modalInstance = $uibModal.open({
-                templateUrl: '../BiblioMania/views/partials/book/select-book-modal.html',
-                scope: $scope
-            });
-
-            modalInstance.result.then(function (book) {
+            BookSelectionModalService.show([
+                {id: "book-author", value: [{value: $scope.model.authorId}]}
+            ], function(book){
                 Oeuvre.linkBook({id: $routeParams.id}, {bookId: book.id}, function () {
                     $scope.books = Oeuvre.books({id: $routeParams.id }, function(){}, ErrorContainer.handleRestError);
                     growl.addSuccessMessage("Boek gelinked");
@@ -40,9 +42,11 @@ angular.module('com.bendani.bibliomania.edit.oeuvre.ui',
         };
 
         $scope.deleteBookFromOeuvreItem = function(book){
-            Oeuvre.unlinkBook({id: $routeParams.id}, {bookId: book.id}, function () {
-                $scope.books = Oeuvre.books({id: $routeParams.id }, function(){}, ErrorContainer.handleRestError);
-                growl.addSuccessMessage("Boek link verwijderd");
-            }, ErrorContainer.handleRestError);
+            ConfirmationModalService.show('Wilt u de link met het boek "' + book.title + '" verwijderen?', function(){
+                Oeuvre.unlinkBook({id: $routeParams.id}, {bookId: book.id}, function () {
+                    $scope.books = Oeuvre.books({id: $routeParams.id }, function(){}, ErrorContainer.handleRestError);
+                    growl.addSuccessMessage("Boek link verwijderd");
+                }, ErrorContainer.handleRestError);
+            });
         };
     }]);
