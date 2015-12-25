@@ -26,7 +26,7 @@ class BookRepository implements Repository{
 
     public function allFromUser($userId, $with = array())
     {
-        return Book::with($with)
+        return Book::select('book.*')->with($with)
             ->join('personal_book_info', 'book_id', '=', 'book.id')
             ->where('user_id', '=', $userId)
             ->get();
@@ -126,7 +126,8 @@ class BookRepository implements Repository{
 
     public function booksFromAuthor($authorId)
     {
-        return Book::join('book_author', 'book_author.book_id', '=', 'book.id')
+        return Book::select('book.*')
+            ->join('book_author', 'book_author.book_id', '=', 'book.id')
             ->where('book_author.author_id', '=', $authorId)
             ->get();
     }

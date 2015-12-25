@@ -125,6 +125,7 @@ angular.module('com.bendani.bibliomania.edit.book.ui', ['ngTagsInput',
 
                 modalInstance.result.then(function (image) {
                     $scope.model.imageUrl = image;
+                    $scope.model.image = image;
                 });
             };
 
