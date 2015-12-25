@@ -10,8 +10,8 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
     'com.bendani.bibliomania.book.row.directive',
     'com.bendani.bibliomania.currency.service',
     'pageslide-directive'])
-    .controller('BookController', ['$scope', 'Book', 'BookFilter', 'ErrorContainer', '$http', 'TitlePanelService', '$location', '$compile', 'BookOverviewService', 'CurrencyService', 'DateService',
-        function ($scope, Book, BookFilter, ErrorContainer, $http, TitlePanelService, $location, $compile, BookOverviewService, CurrencyService, DateService) {
+    .controller('BookController', ['$scope', 'Book', 'BookFilter', 'ErrorContainer', 'TitlePanelService', '$location', '$compile', 'BookOverviewService', 'CurrencyService', 'DateService',
+        function ($scope, Book, BookFilter, ErrorContainer, TitlePanelService, $location, $compile, BookOverviewService, CurrencyService, DateService) {
 
             var selectBookHandler = function (book) {
                 if ($scope.bookDetailPanelOpen && $scope.selectedBook.id === book.id) {

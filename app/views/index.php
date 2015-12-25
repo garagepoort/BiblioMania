@@ -57,10 +57,10 @@
                 <div class="navbar-header">
                     <a class="navbar-brand" href="#/books">Bibliomania</a>
                 </div>
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" ng-controller="HeaderController">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="#/books">Boeken <span class="sr-only">(current)</span></a></li>
-                        <li><a href="#">Auteurs</a></li>
+                        <li ng-class="{ active: isActive('/books')}"><a href="#/books">Boeken</a></li>
+                        <li ng-class="{ active: isActive('/authors')}"><a href="#/authors">Auteurs</a></li>
                     </ul>
                 </div>
             </nav>
