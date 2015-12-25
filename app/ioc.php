@@ -20,6 +20,10 @@ App::singleton('GenreService', function () {
     return new GenreService();
 });
 
+App::singleton('OeuvreItemLinkValidator', function () {
+    return new OeuvreItemLinkValidator();
+});
+
 App::singleton('JsonMappingService', function () {
     return new JsonMappingService();
 });
