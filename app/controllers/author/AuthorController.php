@@ -46,7 +46,7 @@ class AuthorController extends BaseController
 
     public function getAllAuthors(){
         return array_map(function($item){
-            $authorToJsonAdapter = new AuthorToJsonAdapter($item);
+            $authorToJsonAdapter = new AuthorForOverviewToJsonAdapter($item);
             return $authorToJsonAdapter->mapToJson();
         }, $this->authorService->getAllAuthors()->all());
     }

@@ -48,7 +48,9 @@ class BookToJsonAdapter
         }
 
         if(!StringUtils::isEmpty($book->coverImage)){
-            $this->imageInformation = new ImageToJsonAdapter($book);
+            $imageToJsonAdapter = new ImageToJsonAdapter();
+            $imageToJsonAdapter->fromBook($book);
+            $this->imageInformation = $imageToJsonAdapter;
         }
 
         if($book->book_from_author_id !== null){

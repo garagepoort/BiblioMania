@@ -9,11 +9,11 @@ class ImageToJsonAdapter
     private $imageHeight;
     private $imageWidth;
 
-    /**
-     * BookToJsonAdapter constructor.
-     */
-    public function __construct(Book $book)
+    public function __construct()
     {
+    }
+
+    public function fromBook(Book $book){
         $username = Auth::user()->username;
         $baseUrl = URL::to('/');
         $bookImage = $baseUrl . "/bookImages/" . $username . "/sprite.png";
@@ -27,6 +27,21 @@ class ImageToJsonAdapter
         $this->useSpriteImage = $book->useSpriteImage;
         $this->imageHeight = $book->imageHeight;
         $this->imageWidth = $book->imageWidth;
+    }
+
+    public function fromAuthor(Author $author){
+        $baseUrl = URL::to('/');
+        $authorImage = $baseUrl . "/authorImages/sprite.png";
+
+        if ($author->useSpriteImage == false) {
+            $authorImage = $baseUrl . "/authorImages/" . $author->image;
+        }
+
+        $this->image = $authorImage;
+        $this->spritePointer = $author->spritePointer;
+        $this->useSpriteImage = $author->useSpriteImage;
+        $this->imageHeight = $author->imageHeight;
+        $this->imageWidth = $author->imageWidth;
     }
 
     public function mapToJson(){

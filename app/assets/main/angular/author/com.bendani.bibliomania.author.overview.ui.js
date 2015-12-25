@@ -4,6 +4,7 @@ angular.module('com.bendani.bibliomania.author.overview.ui', [
     'com.bendani.bibliomania.author.model',
     'com.bendani.bibliomania.error.container',
     'com.bendani.bibliomania.author.creation.modal.service',
+    'com.bendani.bibliomania.image.card.directive',
     'com.bendani.bibliomania.title.panel'])
     .config(['$routeProvider',function ($routeProvider) {
         $routeProvider.when('/authors', {
@@ -49,6 +50,10 @@ angular.module('com.bendani.bibliomania.author.overview.ui', [
                 AuthorCreationModalService.show(function(){
                     loadAuthors();
                 });
+            };
+
+            $scope.setListView = function (value) {
+                $scope.listView = value;
             };
 
             function loadAuthors() {
