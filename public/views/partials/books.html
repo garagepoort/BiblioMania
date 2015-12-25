@@ -37,13 +37,13 @@
                 <table class="table table-striped" style="table-layout: fixed">
                     <thead sort-header sort-options="orderValues" current-predicate="predicate" reverse-order="reverseOrder"></thead>
                 </table>
-                <book-card ng-repeat="book in books | filter: search | orderBy:predicate:reverseOrder" book="book"></book-card>
+                <book-card ng-repeat="book in books | filter: search | orderBy:predicate:reverseOrder as viewableBooks" book="book"></book-card>
             </div>
 
             <table ng-show="!loading && listView" class="table table-striped" style="table-layout: fixed">
                 <thead sort-header sort-options="orderValues" current-predicate="predicate" reverse-order="reverseOrder"></thead>
                 <tbody style="text-align: left">
-                    <tr style="cursor: pointer" book-row ng-repeat="book in books | filter: search | orderBy:predicate:reverseOrder" book="book"></tr>
+                    <tr style="cursor: pointer" book-row ng-repeat="book in books | filter: search | orderBy:predicate:reverseOrder as viewableBooks" book="book"></tr>
                 </tbody>
             </table>
         </div>
