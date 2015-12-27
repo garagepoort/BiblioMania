@@ -35,6 +35,8 @@ class BookService
     private $genreService;
     /** @var LoggingService */
     private $loggingService;
+    /** @var FilterHistoryService */
+    private $filterHistoryService;
 
     function __construct()
     {
@@ -51,6 +53,7 @@ class BookService
         $this->countryService = App::make('CountryService');
         $this->bookFilterManager = App::make('BookFilterManager');
         $this->genreService = App::make('GenreService');
+        $this->filterHistoryService = App::make('FilterHistoryService');
     }
 
     public function find($id, $with = array())
@@ -167,6 +170,8 @@ class BookService
             ->leftJoin('date', 'date.id', '=', 'first_print_info.publication_date_id')
             ->leftJoin("reading_date", "reading_date.personal_book_info_id", "=", "personal_book_info.id");
 
+
+        $this->filterHistoryService->addFiltersToHistory($filters);
         foreach($filters as $filter){
             /** @var Filter $filter */
             $books = $this->bookFilterManager->handle($books, $filter);

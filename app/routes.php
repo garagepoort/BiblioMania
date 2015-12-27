@@ -23,6 +23,7 @@ Route::group(array('before' => 'auth'), function () {
     Route::put('books/{id}/unlink-author', 'BookController@unlinkAuthorFromBook');
 
     Route::get('bookFilters', 'BookController@getFilters');
+    Route::get('mostUsedBookFilters', 'BookController@getMostUsedFilters');
     Route::get('tags', 'TagController@getTags');
     Route::get('countries', 'CountryController@getCountries');
     Route::get('languages', 'LanguageController@getLanguages');

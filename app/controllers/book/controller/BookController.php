@@ -7,16 +7,19 @@ class BookController extends BaseController
     /** @var  BookService */
     private $bookService;
     /** @var  BookFilterManager */
-    private $bookFilterHandler;
+    private $bookFilterManager;
     /** @var  JsonMappingService */
     private $jsonMappingService;
+    /** @var  FilterHistoryService */
+    private $filterHistoryService;
 
 
     public function __construct()
     {
         $this->bookService = App::make('BookService');
-        $this->bookFilterHandler = App::make('BookFilterManager');
+        $this->bookFilterManager = App::make('BookFilterManager');
         $this->jsonMappingService = App::make('JsonMappingService');
+        $this->filterHistoryService = App::make('FilterHistoryService');
     }
 
     public function getBooks(){
@@ -67,7 +70,14 @@ class BookController extends BaseController
         return array_map(function($item){
             $adapter = new FilterToJsonAdapter($item);
             return $adapter->mapToJson();
-        }, $this->bookFilterHandler->getFilters());
+        }, $this->bookFilterManager->getFilters());
+    }
+
+    public function getMostUsedFilters(){
+        return array_map(function($item){
+            $adapter = new FilterToJsonAdapter($item);
+            return $adapter->mapToJson();
+        }, $this->bookFilterManager->getMostUsedFilters());
     }
 
     public function getFullBook($book_id)
