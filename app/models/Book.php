@@ -33,7 +33,7 @@ class Book extends Eloquent {
 
 	protected $dates = ['deleted_at'];
 
-	protected $with = array('publication_date', 'first_print_info', 'language');
+	protected $with = array('publication_date', 'first_print_info', 'language', 'personal_book_infos');
 
 	public function preferredAuthor(){
 		foreach($this->authors as $author){

@@ -58,7 +58,6 @@ class AuthorToJsonAdapter
 
     private function getImageFromAuthor(Author $author)
     {
-        $username = Auth::user()->username;
         $baseUrl = URL::to('/');
         if(!StringUtils::isEmpty($author->image)){
             $this->image = $baseUrl . "/authorImages/" . $author->image;

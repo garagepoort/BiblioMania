@@ -25,9 +25,9 @@ class ImageService
     {
         $filename = str_random(8) . '_' . $book->title . '.jpg';
         $filename = StringUtils::clean($filename);
-        $location = Config::get("properties.bookImagesLocation") . "/" . Auth::user()->username . "/" . $filename;
+        $location = Config::get("properties.bookImagesLocation") . "/" . $filename;
 
-        $image->move(Config::get("properties.bookImagesLocation") . "/" . Auth::user()->username, $filename);
+        $image->move(Config::get("properties.bookImagesLocation"), $filename);
         $image = imagecreatefromjpeg($location);
         list($width, $height) = $this->resizeAndSaveImage($location, $image);
         $book->imageWidth = $width;
@@ -52,7 +52,7 @@ class ImageService
     {
         $imageFilename = str_random(8) . '_' . $book->title . '.jpg';
         $imageFilename = StringUtils::clean($imageFilename);
-        $imageLocation = Config::get("properties.bookImagesLocation") . "/" . Auth::user()->username . '/' . $imageFilename;
+        $imageLocation = Config::get("properties.bookImagesLocation") . '/' . $imageFilename;
         list($width, $height) = $this->saveImageFromUrl($url, $imageLocation);
         $book->imageWidth = $width;
         $book->imageHeight = $height;
