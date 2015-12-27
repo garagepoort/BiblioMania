@@ -46,6 +46,9 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
 
 
                 $scope.filters = {selected: [], all: []};
+                BookFilter.mostUsed(function(filters){
+                    $scope.filters.selected = filters;
+                }, ErrorContainer.handleRestError);
 
                 $scope.viewableFilters = {
                     selected: personalBooks,
@@ -109,10 +112,10 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
                 }
             };
 
-            $scope.filterBooks = function (filters) {
+            $scope.filterBooks = function (selectedFilters) {
                 $scope.loading = true;
 
-                Book.search(filters, function (books) {
+                Book.search(selectedFilters, function (books) {
                     $scope.books = books;
                     _.each($scope.books, function (book) {
                         book.warnings = BookOverviewService.getBookWarnings(book);
@@ -148,9 +151,6 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
                         }
                         filter.value = "";
                     }
-                    filters = filters.filter(function (obj) {
-                        return obj.id !== 'isPersonal';
-                    });
                     $scope.filters.all = filters;
                 }, ErrorContainer.handleRestError);
             }

@@ -128,9 +128,12 @@ App::singleton('ImportFileMapper', function () {
     return new ImportFileMapper();
 });
 
-
 App::singleton('SpriteCreator', function () {
     return new SpriteCreator();
+});
+
+App::singleton('FilterHistoryService', function () {
+    return new FilterHistoryService();
 });
 
 
