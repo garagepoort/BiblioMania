@@ -14,12 +14,11 @@ class ImageToJsonAdapter
     }
 
     public function fromBook(Book $book){
-        $username = Auth::user()->username;
         $baseUrl = URL::to('/');
-        $bookImage = $baseUrl . "/bookImages/" . $username . "/sprite.png";
+        $bookImage = $baseUrl . "/bookImages/" . "sprite.png";
 
         if ($book->useSpriteImage == false) {
-            $bookImage = $baseUrl . "/bookImages/" . $username . "/" . $book->coverImage;
+            $bookImage = $baseUrl . "/bookImages/" . $book->coverImage;
         }
 
         $this->image = $bookImage;

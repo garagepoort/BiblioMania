@@ -70,7 +70,7 @@ class FullBookToJsonAdapter
         $this->tags = array_map(function ($item) { return new TagToJsonAdapter($item); }, $book->tags->all());
 
         if(!StringUtils::isEmpty($book->coverImage)){
-            $this->image = $baseUrl . "/bookImages/" . $username . "/" . $book->coverImage;
+            $this->image = $baseUrl . "/bookImages/" . $book->coverImage;
         }
 
         if($book->publication_date != null){

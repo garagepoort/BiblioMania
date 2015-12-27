@@ -129,6 +129,11 @@ App::singleton('ImportFileMapper', function () {
 });
 
 
+App::singleton('SpriteCreator', function () {
+    return new SpriteCreator();
+});
+
+
 //logger
 App::singleton('Logger', function () {
     return new Katzgrau\KLogger\Logger(app_path() . '/storage/logs');

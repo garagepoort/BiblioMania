@@ -35,14 +35,18 @@ class BookToJsonAdapter
             $this->retailPrice = new PriceToJsonAdapter($book->retail_price, $book->currency);
         }
 
-        $personal_book_info = $this->personalBookInfoRepository->findByBook($book->id);
-        if($personal_book_info != null){
-            $this->personalBookInfoId = $personal_book_info->id;
+//        $personal_book_info = $this->personalBookInfoRepository->findByBook($book->id);
+        foreach($book->personal_book_infos->all() as $personal_book_info){
+            if($personal_book_info->user_id == Auth::user()->id){
+                $this->personalBookInfoId = $personal_book_info->id;
 
-            if(count($personal_book_info->reading_dates) > 0){
-                $this->read = true;
+                if(count($personal_book_info->reading_dates) > 0){
+                    $this->read = true;
+                }
+                break;
             }
         }
+
         if($book->preferredAuthor() != null){
             $this->author = $book->preferredAuthor()->name . " " . $book->preferredAuthor()->firstname;
         }

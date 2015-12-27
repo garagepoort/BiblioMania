@@ -6,19 +6,14 @@
         <!--<link rel="icon" type="image/png" sizes="16x16" href="{{ URL::to('/') }}favicon/favicon-16x16.png">-->
 
         <script type="text/javascript" src="assets/js/jquery.js"></script>
-
-        <!--ANGULAR-->
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-route.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-resource.js"></script>
-
-        <!--BiblioMania-->
         <script type="text/javascript" src="assets/js/underscore.js"></script>
+        <script type="text/javascript" src="packages/bendani/php-common/uiframework/uiframework.min.js"></script>
+
         <script type="text/javascript" src="assets/main.min.js"></script>
         <script type="text/javascript" src="packages/bendani/php-common/filter-service/filters.min.js"></script>
         <script type="text/javascript" src="packages/bendani/php-common/login-service/com.bendani.php.common.loginservice.authentication.model.js"></script>
         <script type="text/javascript" src="packages/bendani/php-common/login-service/com.bendani.php.common.loginservice.login.directive.js"></script>
-        <script type="text/javascript" src="packages/bendani/php-common/uiframework/uiframework.min.js"></script>
+
 
         <link href="packages/bendani/php-common/filter-service/filters.min.css" rel="stylesheet"/>
         <link href="packages/bendani/php-common/uiframework/uiframework.min.css" rel="stylesheet"/>
@@ -29,9 +24,6 @@
         <!-- RATY -->
         <script type="text/javascript" src="assets/lib/raty-2.7.0/lib/jquery.raty.js"></script>
         <link href="assets/lib/raty-2.7.0/lib/jquery.raty.css">
-
-        <!--TWEENLITE-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js"></script>
 
         <!--ABN TREE-->
         <link href="assets/lib/abntree/abn-tree.css" rel="stylesheet">
