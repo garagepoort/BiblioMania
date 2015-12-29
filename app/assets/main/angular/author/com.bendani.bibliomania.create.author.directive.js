@@ -1,7 +1,11 @@
 'use strict';
 
 angular.module('com.bendani.bibliomania.create.author.directive',
-    ['com.bendani.bibliomania.author.model', 'com.bendani.bibliomania.name.directive', 'php.common.uiframework.date', 'php.common.uiframework.google.image.search', 'com.bendani.bibliomania.error.container', 'angular-growl'])
+    ['com.bendani.bibliomania.author.model', 'com.bendani.bibliomania.name.directive',
+        'php.common.uiframework.date', 'php.common.uiframework.google.image.search',
+        'com.bendani.bibliomania.error.container', 'angular-growl',
+        'com.bendani.bibliomania.title.panel', 'com.bendani.bibliomania.error.container.directive'
+    ])
     .directive('createAuthor', function (){
         return {
             scope: {
@@ -10,9 +14,11 @@ angular.module('com.bendani.bibliomania.create.author.directive',
             },
             restrict: "E",
             templateUrl: "../BiblioMania/views/partials/author/create-author-directive.html",
-            controller: ['$scope', 'Author', 'ErrorContainer', 'growl', '$uibModal', function ($scope, Author, ErrorContainer, growl, $uibModal) {
+            controller: ['$scope', 'Author', 'ErrorContainer', 'growl', '$uibModal', 'TitlePanelService', function ($scope, Author, ErrorContainer, growl, $uibModal, TitlePanelService) {
 
-                $scope.$parent.title = "Auteur";
+                TitlePanelService.setTitle('Auteur');
+                $scope.submitAttempted = false;
+
                 if(!$scope.model){
                     $scope.model = {};
                 }
@@ -43,28 +49,34 @@ angular.module('com.bendani.bibliomania.create.author.directive',
                     });
                 };
 
-                $scope.submitForm = function(){
-                    if($scope.model.dateOfBirth !== undefined){
-                        if($scope.model.dateOfBirth.year === null || $scope.model.dateOfBirth.year === undefined){
-                            $scope.model.dateOfBirth = undefined;
+                $scope.submitForm = function(formValid){
+                    $scope.submitAttempted = true;
+                    if(formValid){
+                        if($scope.model.dateOfBirth !== undefined){
+                            if($scope.model.dateOfBirth.year === null || $scope.model.dateOfBirth.year === undefined){
+                                $scope.model.dateOfBirth = undefined;
+                            }
                         }
-                    }
-                    if($scope.model.dateOfDeath !== undefined){
-                        if($scope.model.dateOfDeath.year === null || $scope.model.dateOfDeath.year === undefined){
-                            $scope.model.dateOfDeath = undefined;
+                        if($scope.model.dateOfDeath !== undefined){
+                            if($scope.model.dateOfDeath.year === null || $scope.model.dateOfDeath.year === undefined){
+                                $scope.model.dateOfDeath = undefined;
+                            }
                         }
-                    }
-                    if($scope.model.id){
-                        Author.update($scope.model, function(response){
-                            growl.addSuccessMessage("Auteur opgeslagen");
-                            $scope.onSave({authorId: response.id});
-                        }, ErrorContainer.handleRestError);
+                        if($scope.model.id){
+                            Author.update($scope.model, function(response){
+                                growl.addSuccessMessage("Auteur opgeslagen");
+                                $scope.onSave({authorId: response.id});
+                            }, ErrorContainer.handleRestError);
+                        }else{
+                            Author.save($scope.model, function(response){
+                                growl.addSuccessMessage("Auteur opgeslagen");
+                                $scope.onSave({authorId: response.id});
+                            }, ErrorContainer.handleRestError);
+                        }
                     }else{
-                        Author.save($scope.model, function(response){
-                            growl.addSuccessMessage("Auteur opgeslagen");
-                            $scope.onSave({authorId: response.id});
-                        }, ErrorContainer.handleRestError);
+                        ErrorContainer.setErrorCode('Niet alle velden zijn correct ingevuld');
                     }
+
                 };
 
             }]

@@ -3,7 +3,8 @@ angular
     .directive('name', function (){
         return {
             scope: {
-                nameModel: "=ngModel"
+                nameModel: "=ngModel",
+                submitAttempted: '='
             },
             restrict: "E",
             templateUrl: "../BiblioMania/views/partials/name-directive.html"
