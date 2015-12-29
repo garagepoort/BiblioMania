@@ -25,11 +25,9 @@ class Book extends Eloquent {
         'first_print_info_id',
         'retail_price',
         'summary',
-        'book_from_author_id',
 		'language_id',
 		'currency'
     	);
-
 
 	protected $dates = ['deleted_at'];
 
@@ -58,7 +56,11 @@ class Book extends Eloquent {
     	return $this->belongsToMany('Author', 'book_author')->withPivot('preferred');
 	}
 
-    public function tags(){
+	public function book_from_authors(){
+		return $this->belongsToMany('BookFromAuthor', 'book_book_from_author');
+	}
+
+	public function tags(){
     	return $this->belongsToMany('Tag', 'book_tag');
 	}
 
@@ -94,10 +96,6 @@ class Book extends Eloquent {
         return $this->belongsTo('FirstPrintInfo', 'first_print_info_id');
     }
 
-    public function book_from_author(){
-        return $this->belongsTo('BookFromAuthor', 'book_from_author_id');
-    }
-    
     public function awards()
     {
         return $this->belongsToMany('BookAward', 'book_book_award');

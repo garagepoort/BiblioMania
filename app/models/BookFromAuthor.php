@@ -9,10 +9,9 @@ class BookFromAuthor extends Eloquent {
     public function author(){
     	return $this->belongsTo('Author');
 	}
-    
+
     public function books()
     {
-        return $this->hasMany('Book');
+        return $this->belongsToMany('Book', 'book_book_from_author');
     }
-
 }

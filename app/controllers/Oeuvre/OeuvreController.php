@@ -120,11 +120,4 @@ class OeuvreController extends Controller
         $this->bookFromAuthorService->updateYear($id, $value);
     }
 
-    public function linkBookToBookFromAuthor()
-    {
-        $book_id = Input::get('book_id');
-        $book_from_author_id = Input::get('book_from_author_id');
-        $this->oeuvreService->linkBookToBookFromAuthor($book_id, $book_from_author_id);
-    }
-
 }

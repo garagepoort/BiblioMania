@@ -78,15 +78,6 @@ class BookRepository implements Repository{
         }
     }
 
-    public function setBookFromAuthor(Book $book, BookFromAuthor $bookFromAuthor = null){
-        if ($bookFromAuthor != null) {
-            $book->book_from_author()->associate($bookFromAuthor);
-        } else {
-            $book->book_from_author()->dissociate();
-        }
-        $book->save();
-    }
-
     public function getTotalAmountOfBooksOwned(){
         return Book::join('personal_book_info', 'book_id', '=', 'book.id')
             ->where('personal_book_info.owned', '=', 1)

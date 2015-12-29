@@ -26,7 +26,7 @@ class FullBookToJsonAdapter
     private $image;
 
     /** @var  OeuvreItemToJsonAdapter */
-    private $oeuvreItem;
+    private $oeuvreItems = [];
 
     /** @var  TagToJsonAdapter[] */
     private $tags;
@@ -67,6 +67,7 @@ class FullBookToJsonAdapter
         $this->publisherSerie = $book->publisher_serie == null ? null : $book->publisher_serie->name;
         $this->serie = $book->serie == null ? null : $book->serie->name;
         $this->authors = array_map(function($author){ return new AuthorToJsonAdapter($author); }, $book->authors->all());
+        $this->oeuvreItems = array_map(function ($item) { return new OeuvreItemToJsonAdapter($item); }, $book->book_from_authors->all());
         $this->tags = array_map(function ($item) { return new TagToJsonAdapter($item); }, $book->tags->all());
 
         if(!StringUtils::isEmpty($book->coverImage)){
@@ -85,10 +86,6 @@ class FullBookToJsonAdapter
         if($book->first_print_info != null){
             $this->firstPrintInfo = new FirstPrintToJsonAdapter($book->first_print_info);
         }
-
-        if($book->book_from_author != null){
-            $this->oeuvreItem = new OeuvreItemToJsonAdapter($book->book_from_author);
-        }
     }
 
     public function mapToJson(){
@@ -98,6 +95,7 @@ class FullBookToJsonAdapter
             "isbn" => $this->isbn,
             "authors" => array_map(function($author){ return $author->mapToJson(); }, $this->authors),
             "tags" => array_map(function($tag){ return $tag->mapToJson(); }, $this->tags),
+            "oeuvreItems" => array_map(function($item){ return $item->mapToJson(); }, $this->oeuvreItems),
             "subtitle" => $this->subtitle,
             "publisher" => $this->publisher,
             "summary" => $this->summary,
@@ -123,9 +121,6 @@ class FullBookToJsonAdapter
         }
         if($this->personalBookInfo != null){
             $result['personalBookInfo'] = $this->personalBookInfo->mapToJson();
-        }
-        if($this->oeuvreItem != null){
-            $result['oeuvreItem'] = $this->oeuvreItem->mapToJson();
         }
 
         return $result;

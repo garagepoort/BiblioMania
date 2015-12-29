@@ -11,7 +11,6 @@ class BookToJsonAdapter
     private $isbn;
     private $author;
     private $personalBookInfoId;
-    private $oeuvreItemId;
     private $read = false;
     /** @var  PriceToJsonAdapter */
     private $retailPrice;
@@ -35,7 +34,6 @@ class BookToJsonAdapter
             $this->retailPrice = new PriceToJsonAdapter($book->retail_price, $book->currency);
         }
 
-//        $personal_book_info = $this->personalBookInfoRepository->findByBook($book->id);
         foreach($book->personal_book_infos->all() as $personal_book_info){
             if($personal_book_info->user_id == Auth::user()->id){
                 $this->personalBookInfoId = $personal_book_info->id;
@@ -57,9 +55,7 @@ class BookToJsonAdapter
             $this->imageInformation = $imageToJsonAdapter;
         }
 
-        if($book->book_from_author_id !== null){
-            $this->oeuvreItemId = $book->book_from_author_id;
-        }
+//        $this->oeuvreItemIds = array_map(function ($item) { return $item->id; }, $book->book_from_authors->all());
     }
 
     public function mapToJson(){
@@ -74,9 +70,6 @@ class BookToJsonAdapter
 
         if($this->personalBookInfoId != null){
             $result['personalBookInfoId'] = $this->personalBookInfoId;
-        }
-        if($this->oeuvreItemId != null){
-            $result['oeuvreItemId'] = $this->oeuvreItemId;
         }
 
         if($this->imageInformation != null){
