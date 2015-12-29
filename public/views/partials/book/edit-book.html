@@ -12,10 +12,10 @@
                     <img style="margin-bottom: 20px;" src-with-fallback="{{ model.image }}" />
 
                     <!-- TITLE -->
-                    <div class="form-group required col-md-12" ng-class="{'has-error has-feedback' : createBookForm.title.$invalid && createBookForm.title.$dirty}">
+                    <div class="form-group required col-md-12" ng-class="{'has-error has-feedback' : createBookForm.title.$invalid && (createBookForm.title.$dirty || submitAttempted)}">
                         <label class="control-label ">Titel </label>
                         <input name="title" type="text" class="form-control input-width-md" placeholder="titel" required="true" ng-model="model.title"/>
-                        <span ng-show="createBookForm.title.$invalid && createBookForm.title.$dirty" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Titel is verplicht</span>
+                        <span ng-show="createBookForm.title.$invalid && (createBookForm.title.$dirty || submitAttempted)" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Titel is verplicht</span>
                     </div>
 
                     <!-- SUBTITLE -->
@@ -25,12 +25,12 @@
                     </div>
 
                     <!-- ISBN -->
-                    <div class="form-group required col-md-12" ng-class="{'has-error has-feedback' : createBookForm.isbn.$invalid && createBookForm.isbn.$dirty}">
+                    <div class="form-group required col-md-12" ng-class="{'has-error has-feedback' : createBookForm.isbn.$invalid && (createBookForm.isbn.$dirty || submitAttempted)}">
                         <label class="control-label" >ISBN </label>
 
                         <input name="isbn" type="text" class="form-control input-width-sm" placeholder="isbn" ng-model="model.isbn" required="true" ng-pattern="/^[0-9]{13}$/"/>
-                        <span ng-show="createBookForm.isbn.$error.required && createBookForm.isbn.$dirty" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Isbn is verplicht</span>
-                        <span ng-show="createBookForm.isbn.$error.pattern && createBookForm.isbn.$dirty" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Isbn moet exact 13 nummers zijn</span>
+                        <span ng-show="createBookForm.isbn.$error.required && (createBookForm.isbn.$dirty || submitAttempted)" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Isbn is verplicht</span>
+                        <span ng-show="createBookForm.isbn.$error.pattern && (createBookForm.isbn.$dirty || submitAttempted)" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Isbn moet exact 13 nummers zijn</span>
                     </div>
                 </div>
 
@@ -46,39 +46,36 @@
 
                 <div class="form-subtitle">Uitgave informatie</div>
                 <div class="form-content">
-                    <div class="form-group required col-md-12">
+                    <div class="form-group required col-md-12" ng-class="{'has-error has-feedback' : createBookForm.publisher.$invalid && (createBookForm.publisher.$dirty || submitAttempted)}">
                         <label class="control-label">Uitgever </label>
 
                         <input name="publisher" ng-model="model.publisher" type="text" placeholder="uitgever" class="form-control input-width-lg"
                                required="true"
                                uib-typeahead="publisher.name as publisher.name for publisher in data.publishers | filter:$viewValue | limitTo:8"
-                               ng-class="{'has-error has-feedback' : createBookForm.publisher.$invalid && createBookForm.publisher.$dirty}"
                                class="form-control">
-                        <span ng-show="createBookForm.publisher.$invalid && createBookForm.publisher.$dirty" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Uitgever is verplicht</span>
+                        <span ng-show="createBookForm.publisher.$invalid && (createBookForm.publisher.$dirty || submitAttempted)" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Uitgever is verplicht</span>
                     </div>
 
                     <div class="col-md-12">
-                        <date label="Publicatie " ng-model="model.publicationDate" required="true"></date>
+                        <date label="Publicatie " ng-model="model.publicationDate" required="true" submit-attempted="submitAttempted"></date>
                     </div>
 
                     <div class="form-group required">
                         <!-- COUNTRY -->
-                        <div class="col-md-4">
+                        <div class="col-md-4" ng-class="{'has-error has-feedback' : createBookForm.country.$invalid && (createBookForm.country.$dirty || submitAttempted)}">
                             <label class="control-label">Land </label>
 
                             <input name="country" ng-model="model.country" type="text" placeholder="land" class="form-control input-width-sm" required="true"
-                                   ng-class="{'has-error has-feedback' : createBookForm.country.$invalid && createBookForm.country.$dirty}"
                                    uib-typeahead="country.name as country.name for country in data.countries | filter:$viewValue | limitTo:8" class="form-control">
-                            <span ng-show="createBookForm.country.$invalid && createBookForm.country.$dirty" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Land is verplicht</span>
+                            <span ng-show="createBookForm.country.$invalid && (createBookForm.country.$dirty || submitAttempted)" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Land is verplicht</span>
                         </div>
                         <!-- LANGUAGE -->
-                        <div class="col-md-4">
+                        <div class="col-md-4" ng-class="{'has-error has-feedback' : createBookForm.language.$invalid && (createBookForm.language.$dirty || submitAttempted)}">
                             <label class="control-label">Taal </label>
 
                             <select name="language" class="input-sm form-control" ng-model="model.language"
-                                    ng-class="{'has-error has-feedback' : createBookForm.language.$invalid && createBookForm.language.$dirty}"
                                     ng-options="language.name as language.name for language in data.languages"></select>
-                            <span ng-show="createBookForm.language.$invalid && createBookForm.language.$dirty" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i>Taal is verplicht</span>
+                            <span ng-show="createBookForm.language.$invalid && (createBookForm.language.$dirty || submitAttempted)" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i>Taal is verplicht</span>
                         </div>
                     </div>
                 </div>
@@ -104,7 +101,7 @@
                         <label class="control-label" >Boeken reeks </label>
                         <input name="serie" ng-model="model.serie" type="text" placeholder="reeks" class="form-control input-width-sm"
                                uib-typeahead="serie.name as serie.name for serie in data.series | filter:$viewValue | limitTo:8"
-                               ng-class="{'has-error has-feedback' : createBookForm.serie.$invalid && createBookForm.serie.$dirty}"
+                               ng-class="{'has-error has-feedback' : createBookForm.serie.$invalid && (createBookForm.serie.$dirty || submitAttempted)}"
                                class="form-control">
                     </div>
 
@@ -112,7 +109,7 @@
                         <label class="control-label" >Uitgever reeks </label>
                         <input name="publisherSerie" ng-model="model.publisherSerie" type="text" placeholder="reeks" class="form-control input-width-sm"
                                uib-typeahead="publisherSerie.name as publisherSerie.name for publisherSerie in data.publisherSeries | filter:$viewValue | limitTo:8"
-                               ng-class="{'has-error has-feedback' : createBookForm.publisherSerie.$invalid && createBookForm.publisherSerie.$dirty}"
+                               ng-class="{'has-error has-feedback' : createBookForm.publisherSerie.$invalid && (createBookForm.publisherSerie.$dirty || submitAttempted)}"
                                class="form-control">
                     </div>
                 </div>
@@ -121,7 +118,7 @@
                 <div class="form-content col-md-12">
                     <input id="book_genre_input" type="text" name="genre" hidden required
                            ng-model="model.genre">
-                    <span ng-show="createBookForm.genre.$invalid && createBookForm.genre.$dirty" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Genre is verplicht</span>
+                    <span ng-show="createBookForm.genre.$invalid && (createBookForm.genre.$dirty || submitAttempted)" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Genre is verplicht</span>
 
                     <div class="col-md-6">
                         <div class="well genres-container">
