@@ -1,5 +1,6 @@
 <div class="create-book-div">
     <ng-form id="authorForm" name="authorForm" novalidate>
+        <errorcontainer></errorcontainer>
         <fieldset style="text-align: left;width: 900px;">
             <div class="row">
                 <div class="col-md-3">
@@ -7,13 +8,13 @@
                     <img src-with-fallback="{{ model.image }}"/>
                 </div>
                 <div class="col-md-9">
-                    <name ng-model="model.name"></name>
-                    <date label="Geboorte jaar" ng-model="model.dateOfBirth"></date>
-                    <date label="Sterfte jaar" ng-model="model.dateOfDeath"></date>
+                    <name ng-model="model.name" submit-attempted="submitAttempted"></name>
+                    <date label="Geboorte jaar" ng-model="model.dateOfBirth" submit-attempted="submitAttempted"></date>
+                    <date label="Sterfte jaar" ng-model="model.dateOfDeath" submit-attempted="submitAttempted"></date>
                 </div>
             </div>
             <div class="row col-md-12" style="margin-top: 30px">
-                    <button class="btn btn-primary" ng-click="submitForm()" ng-disabled="authorForm.$invalid">Save</button>
+                    <button class="btn btn-primary" ng-click="submitForm(authorForm.$valid)">Save</button>
             </div>
         </fieldset>
     </ng-form>
