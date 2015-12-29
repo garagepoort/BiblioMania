@@ -4,14 +4,19 @@ angular.module('com.bendani.bibliomania.error.container', [])
 
     .provider('ErrorContainer', function ErrorContainerProvider() {
 
-        function ErrorContainer($rootScope, $location) {
+        function ErrorContainer($rootScope, $location, $window) {
 
             var _currentErrorCode = "";
             var _skipResetOnNextRouteChange = false;
             var _expanded = false;
 
+            function scrollToErrorContainer() {
+                $window.scrollTo(0,0);
+            }
+
             var _setErrorCode = function (error) {
                 _currentErrorCode = error;
+                scrollToErrorContainer();
             };
 
             var _handleRestError = function (data) {
@@ -22,6 +27,7 @@ angular.module('com.bendani.bibliomania.error.container', [])
                 }else{
                     _currentErrorCode = "Er ging iets mis: " + data.data.message;
                 }
+                scrollToErrorContainer();
             };
 
             var _reset = function () {
@@ -92,7 +98,7 @@ angular.module('com.bendani.bibliomania.error.container', [])
 
         }
 
-        this.$get = ['$rootScope', '$location', function ($rootScope, $location) {
-            return new ErrorContainer($rootScope, $location);
+        this.$get = ['$rootScope', '$location', '$window', function ($rootScope, $location, $window) {
+            return new ErrorContainer($rootScope, $location, $window);
         }];
     });

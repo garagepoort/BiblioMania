@@ -40,7 +40,7 @@
             });
         </script>
     </head>
-    <body ng-controller="MainController">
+    <body ng-controller="MainController" scrolling-directive>
         <div popover-close exclude-class="exclude">
             <div growl></div>
 

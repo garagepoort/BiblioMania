@@ -10,8 +10,8 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
     'com.bendani.bibliomania.book.row.directive',
     'com.bendani.bibliomania.currency.service',
     'pageslide-directive'])
-    .controller('BookController', ['$scope', 'Book', 'BookFilter', 'ErrorContainer', 'TitlePanelService', '$location', '$compile', 'BookOverviewService', 'CurrencyService', 'DateService',
-        function ($scope, Book, BookFilter, ErrorContainer, TitlePanelService, $location, $compile, BookOverviewService, CurrencyService, DateService) {
+    .controller('BookController', ['$scope', 'Book', 'BookFilter', 'ErrorContainer', 'TitlePanelService', '$location', '$compile', 'BookOverviewService', 'CurrencyService', 'DateService', 'ScrollingService', '$timeout',
+        function ($scope, Book, BookFilter, ErrorContainer, TitlePanelService, $location, $compile, BookOverviewService, CurrencyService, DateService, ScrollingService, $timeout) {
 
             var selectBookHandler = function (book) {
                 if ($scope.bookDetailPanelOpen && $scope.selectedBook.id === book.id) {
@@ -30,6 +30,7 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
             function init() {
                 TitlePanelService.setTitle('Boeken');
                 TitlePanelService.setShowPreviousButton(false);
+
                 setRightTitlePanel();
 
                 $scope.getCurrencyViewValue = CurrencyService.getCurrencyViewValue;
@@ -46,9 +47,7 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
 
 
                 $scope.filters = {selected: [], all: []};
-                BookFilter.mostUsed(function(filters){
-                    $scope.filters.selected = filters;
-                }, ErrorContainer.handleRestError);
+                BookFilter.mostUsed(function(filters){ $scope.filters.selected = filters; }, ErrorContainer.handleRestError);
 
                 $scope.viewableFilters = {
                     selected: personalBooks,
@@ -120,6 +119,8 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
                     _.each($scope.books, function (book) {
                         book.warnings = BookOverviewService.getBookWarnings(book);
                     });
+
+                    scrollToLastPosition();
                     $scope.loading = false;
                 }, ErrorContainer.handleRestError);
             };
@@ -170,6 +171,12 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
                     }
                 });
                 return result.toFixed(2);
+            }
+
+            function scrollToLastPosition() {
+                $timeout(function () {
+                    ScrollingService.scrollToLastSavedPosition('/books');
+                }, 0);
             }
 
             init();
