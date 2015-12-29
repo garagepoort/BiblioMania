@@ -39,7 +39,7 @@ angular.module('BiblioMania', ['ngRoute',
 
         growlProvider.globalTimeToLive(5000);
     }])
-    .run(['$rootScope', '$location', function($rootScope, $location) {
+    .run(['$rootScope', '$location', 'ScrollingService', function($rootScope, $location, ScrollingService) {
         var history = [];
         $rootScope.baseUrl = "../BiblioMania/";
 
@@ -53,4 +53,6 @@ angular.module('BiblioMania', ['ngRoute',
         };
 
         $rootScope.partialsUrl = "../BiblioMania/views/partials/";
+
+        ScrollingService.registerPathForScrollPosition('/books');
     }]);
