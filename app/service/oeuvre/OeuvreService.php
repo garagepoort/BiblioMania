@@ -36,12 +36,14 @@ class OeuvreService
         /** @var BookFromAuthor $oeuvreItem */
         $oeuvreItem = $this->find($oeuvreId);
         Ensure::objectNotNull("oeuvre item", $oeuvreItem);
+
+        /** @var Book $book */
         $book = $this->bookRepository->find($bookToOeuvreItemRequest->getBookId(), array('authors'));
         Ensure::objectNotNull("book", $book);
 
         $this->oeuvreItemLinkValidator->validate($oeuvreItem, $book);
 
-        $book->book_from_author_id = $oeuvreItem->id;
+        $book->book_from_authors()->attach($oeuvreId);
         $book->save();
     }
 
@@ -52,7 +54,7 @@ class OeuvreService
         $book = $this->bookRepository->find($bookToOeuvreItemRequest->getBookId());
         Ensure::objectNotNull("book", $book);
 
-        $book->book_from_author_id = null;
+        $book->book_from_authors()->detach($oeuvreId);
         $book->save();
     }
 
@@ -84,23 +86,6 @@ class OeuvreService
                 $this->bookFromAuthorRepository->save($foundBookFromAuthor);
             }
         }
-    }
-
-    public function linkBookToBookFromAuthor($book_id, $book_from_author_id){
-        $book = $this->bookRepository->find($book_id, array("authors"));
-        $bookFromAuthor = $this->bookFromAuthorRepository->find($book_from_author_id, array("author"));
-
-        if($book == null){
-            throw new ServiceException("Book not found");
-        }
-        if($bookFromAuthor == null){
-            throw new ServiceException("BookFromAuthor not found");
-        }
-        if($book->preferredAuthor()->id != $bookFromAuthor->author->id){
-            throw new ServiceException("Author is not the same for book and oeuvreItem");
-        }
-
-        $this->bookRepository->setBookFromAuthor($book, $bookFromAuthor);
     }
 
     public function saveOeuvreItem(CreateOeuvreItemRequest $createRequest)

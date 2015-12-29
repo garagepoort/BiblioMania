@@ -138,27 +138,12 @@ class BookService
             'genre',
             'first_print_info',
             'publication_date',
-            'book_from_author',
+            'book_from_authors',
             'country',
             'publisher_serie',
             'serie');
 
         return $this->bookRepository->find($book_id, $with);
-    }
-
-    public function getAllCompletedFullBooks()
-    {
-        $with = array(
-            'authors',
-            'publisher',
-            'genre',
-            'first_print_info',
-            'publication_date',
-            'country',
-            'publisher_serie',
-            'serie');
-
-        return $this->bookRepository->allWith($with);
     }
 
     public function filterBooks($filters){
