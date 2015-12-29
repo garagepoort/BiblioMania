@@ -18,7 +18,7 @@ angular.module('com.bendani.bibliomania.edit.book.ui', ['ngTagsInput',
     'com.bendani.bibliomania.language.model'])
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/edit-book/:id', {
-            templateUrl: '../BiblioMania/views/partials/book/create-book.html',
+            templateUrl: '../BiblioMania/views/partials/book/edit-book.html',
             controller: 'CreateBookController',
             resolve: {
                 bookModel: ['Book', '$route', 'ErrorContainer', function (Book, $route, ErrorContainer) {
@@ -36,7 +36,7 @@ angular.module('com.bendani.bibliomania.edit.book.ui', ['ngTagsInput',
             }
         });
         $routeProvider.when('/create-book', {
-            templateUrl: '../BiblioMania/views/partials/book/create-book.html',
+            templateUrl: '../BiblioMania/views/partials/book/edit-book.html',
             controller: 'CreateBookController',
             resolve: {
                 bookModel: function () {
@@ -89,6 +89,8 @@ angular.module('com.bendani.bibliomania.edit.book.ui', ['ngTagsInput',
                 $scope.data.languages = Language.query(function(){}, ErrorContainer.handleRestError);
                 $scope.data.series = Serie.query(function(){}, ErrorContainer.handleRestError);
                 $scope.data.publisherSeries = PublisherSerie.query(function(){}, ErrorContainer.handleRestError);
+
+                $scope.submitAttempted = false;
             }
 
             $scope.selectGenre = function(branch){
@@ -156,6 +158,7 @@ angular.module('com.bendani.bibliomania.edit.book.ui', ['ngTagsInput',
             };
 
             $scope.submitForm = function(formValid){
+                $scope.submitAttempted = true;
                 if(isFormValid(formValid)){
                     onSave($scope.model);
                 }
