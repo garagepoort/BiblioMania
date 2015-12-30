@@ -69,13 +69,17 @@
                 <button class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="showSelectAuthorDialog()"><i class="fa fa-plus"> Auteur toevoegen</i></button>
             </div>
             <div class="form-content detail-panel">
-                <table class="table table-hover table-striped">
+                <table class="table table-striped">
                     <tbody>
-                    <tr ng-repeat="author in book.authors" style="cursor: pointer" ng-click="goToEditAuthor(author)">
-                        <td>{{ author.name.firstname + " " + author.name.lastname }}</td>
-                        <td style="text-align: center" ng-show="author.preferred"><span style="top: 3px;" class="glyphicon glyphicon-ok-sign"></span></td>
-                        <td style="text-align: center" ng-hide="author.preferred"><button ng-click="unlinkAuthorFromBook(author); $event.stopPropagation();" type="button" class="btn btn-sm btn-default round-corners"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></td>
-                    </tr>
+                        <tr ng-repeat="author in book.authors">
+                            <td>{{ author.name.firstname + " " + author.name.lastname }}</td>
+
+                            <td class="text-align-right">
+                                <span ng-show="author.preferred" style="top: 3px;" class="glyphicon glyphicon-ok-sign"></span>
+                                <button ng-click="goToEditAuthor(author);" type="button" class="btn btn-default btn-xs"><span class="fa fa-pencil"></span></button>
+                                <button ng-click="unlinkAuthorFromBook(author);" ng-hide="author.preferred" type="button" class="btn btn-sm btn-default btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -183,21 +187,30 @@
                 <button type="button" class="btn btn-sm form-subtitle-button btn-primary round-corners" ng-click="addTodayAsReadingDate()">Vandaag uitgelezen</button>
             </div>
             <div class="form-content detail-panel">
-                <uib-accordion ng-repeat="date in book.personalBookInfo.readingDates">
-                    <uib-accordion-group  is-open="true" is-disabled="false">
-                        <uib-accordion-heading>
-                            {{ convertDate(date.date) }}
-                            <span ng-click="removeReadingDate(date)" class="glyphicon glyphicon-trash pull-right" aria-hidden="true" style="margin-left: 10px"></span>
-                            <span ng-click="openEditReadingDateModal(date)" class="glyphicon glyphicon-pencil pull-right" aria-hidden="true"></span>
-                        </uib-accordion-heading>
-                        <dl class="dl-horizontal">
-                            <dt>rating</dt>
-                            <dd><uib-rating ng-model="date.rating" max="10" readonly="true" class="book-rating"></uib-rating></dd>
-                            <dt>review</dt>
-                            <dd>{{date.review}}</dd>
-                        </dl>
-                    </uib-accordion-group>
-                </uib-accordion>
+                <table class="table table-striped">
+                    <tbody>
+                        <tr ng-repeat-start="date in book.personalBookInfo.readingDates" class="cursor-pointer accordion-toggle" data-toggle="collapse" data-target="{{ '#' + date.id + '_readingDateInformationRow' }}">
+                            <td>{{ convertDate(date.date) }}</td>
+
+                            <td class="text-align-right">
+                                <button ng-click="openEditReadingDateModal(date);" type="button" class="btn btn-default btn-xs"><span class="fa fa-pencil"></span></button>
+                                <button ng-click="removeReadingDate(date);" type="button" class="btn btn-sm btn-default btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+                            </td>
+                        </tr>
+                        <tr ng-repeat-end>
+                            <td colspan="12">
+                                <div class="accordian-body collapse" id="{{ date.id + '_readingDateInformationRow' }}">
+                                    <dl class="dl-horizontal">
+                                        <dt>rating</dt>
+                                        <dd><uib-rating ng-model="date.rating" max="10" readonly="true" class="book-rating"></uib-rating></dd>
+                                        <dt>review</dt>
+                                        <dd>{{date.review}}</dd>
+                                    </dl>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
