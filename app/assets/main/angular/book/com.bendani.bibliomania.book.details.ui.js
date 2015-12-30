@@ -122,6 +122,10 @@ angular.module('com.bendani.bibliomania.book.details.ui', ['com.bendani.biblioma
                 $location.path('/edit-author/' + author.id);
             };
 
+            $scope.goToEditOeuvreItem = function(oeuvreItem){
+                $location.path('/edit-oeuvre-item/' + oeuvreItem.id);
+            };
+
             $scope.openSelectOeuvreItemDialog = function(){
                 OeuvreItemSelectionModalService.show($scope.book.authors, function(oeuvreItem){
                     Oeuvre.linkBook({id: oeuvreItem.id}, {bookId: $scope.book.id}, function () {
