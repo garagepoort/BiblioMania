@@ -6,14 +6,11 @@ class ReadingDateService
     private $personalBookInfoRepository;
     /** @var  ReadingDateRepository */
     private $readingDateRepository;
-    /** @var  LoggingService */
-    private $loggingService;
 
     public function __construct()
     {
         $this->personalBookInfoRepository = App::make('PersonalBookInfoRepository');
         $this->readingDateRepository = App::make('ReadingDateRepository');
-        $this->loggingService = App::make('LoggingService');
     }
 
     public function createReadingDate(BaseReadingDateRequest $updateReadingDateRequest){
