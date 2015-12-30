@@ -64,6 +64,7 @@ Route::group(array('before' => 'auth'), function () {
 
     Route::get('publishers', 'PublisherController@getPublishers');
     Route::get('publishers/{id}/series', 'PublisherController@getPublisherSeries');
+    Route::get('publishers/{id}/books', 'PublisherController@getPublisherBooks');
 
     Route::get('genres', 'GenreController@getGenres');
 
