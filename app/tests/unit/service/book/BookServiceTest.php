@@ -1,12 +1,18 @@
 <?php
 
 class BookServiceTest extends TestCase {
+
     /** @var  BookService */
     private $bookService;
     /** @var  BookRepository */
     private $bookRepository;
     /** @var  ImageService */
     private $imageService;
+    /** @var Book $book */
+    private $book;
+
+    private $WITH_ARRAY = array('bla', 'oim');
+    const BOOK_ID = 12;
 
     public function setUp(){
         parent::setUp();
@@ -14,96 +20,21 @@ class BookServiceTest extends TestCase {
         $this->bookRepository = $this->mock('BookRepository');
         $this->bookService = App::make('BookService');
         $user = new User(['name' => 'John', 'id' => 12]);
+        $this->book = $this->mockEloquent('Book');
 
         $this->be($user);
     }
 
-    public function test_createBook_whenCreateImageFromUrl_createImageFromUrl(){
-        $firstPrintInfoParameters = $this->mock("FirstPrintInfoParameters");
-        $firstPrintInfo = $this->mock("FirstPrintInfo");
-        $buyInfo = $this->mock("BuyInfoParameters");
-        $authorInfo = $this->mock("AuthorInfoParameters");
-        $extra = $this->mock("ExtraBookInfoParameters");
-        $bookInfoParameters = $this->mock("BookInfoParameters");
-        $personalBookinfo = $this->mock("PersonalBookInfoParameters");
-        $publisher = $this->mockEloquent('Publisher');
-        $country = $this->mockEloquent('Country');
-        $author = $this->mockEloquent('Author');
-
-        $coverInfo = new CoverInfoParameters('HARDCOVER', 'someImage', ImageSaveType::URL);
-        $bookCreationParameters = new BookCreationParameters($bookInfoParameters, $extra, array($authorInfo), $buyInfo, null, $coverInfo, $firstPrintInfoParameters, $personalBookinfo);
-
-        $this->imageService
-            ->shouldReceive('saveBookImageFromUrl')
-            ->once()
-            ->with('someImage', Mockery::any())
-            ->andReturn('imagePath');
-
-        $createdBook = $this->bookService->createBook($bookCreationParameters, $publisher, $country, $firstPrintInfo, $author);
-
-
-        $this->assertEquals('imagePath', $createdBook->coverImage);
-    }
-
-    public function test_createBookWhenShouldCreateImage_createsImageCorrect(){
-        $firstPrintInfoParameters = $this->mock("FirstPrintInfoParameters");
-        $firstPrintInfo = $this->mock("FirstPrintInfo");
-        $buyInfo = $this->mock("BuyInfoParameters");
-        $authorInfo = $this->mock("AuthorInfoParameters");
-        $extra = $this->mock("ExtraBookInfoParameters");
-        $bookInfoParameters = $this->mock("BookInfoParameters");
-        $personalBookinfo = $this->mock("PersonalBookInfoParameters");
-        $publisher = $this->mockEloquent('Publisher');
-        $country = $this->mockEloquent('Country');
-        $author = $this->mockEloquent('Author');
-
-        $coverInfo = new CoverInfoParameters('HARDCOVER', 'someImage', ImageSaveType::UPLOAD);
-        $bookCreationParameters = new BookCreationParameters($bookInfoParameters, $extra, array($authorInfo), $buyInfo, null, $coverInfo, $firstPrintInfoParameters, $personalBookinfo);
-
-        $this->imageService
-            ->shouldReceive('saveUploadImageForBook')
-            ->once()
-            ->with('someImage', Mockery::any())
-            ->andReturn('imagePath');
-
-        $createdBook = $this->bookService->createBook($bookCreationParameters, $publisher, $country, $firstPrintInfo, $author);
-
-        $this->assertEquals('imagePath', $createdBook->coverImage);
-    }
-
-    public function test_createBookWhenImageNull_andPreviousImageFilled_keepsPreviousImage(){
-        $previousImage = "some/previous/image.png";
-        $previousBook = new Book();
-        $previousBook->coverImage = $previousImage;
-
-        $firstPrintInfoParameters = $this->mock("FirstPrintInfoParameters");
-        $firstPrintInfo = $this->mock("FirstPrintInfo");
-        $buyInfo = $this->mock("BuyInfoParameters");
-        $authorInfo = $this->mock("AuthorInfoParameters");
-        $extra = $this->mock("ExtraBookInfoParameters");
-        $bookInfoParameters = $this->mock("BookInfoParameters");
-        $personalBookinfo = $this->mock("PersonalBookInfoParameters");
-        $publisher = $this->mockEloquent('Publisher');
-        $country = $this->mockEloquent('Country');
-        $author = $this->mockEloquent('Author');
-
-        $bookInfoParameters
-            ->shouldReceive('getBookId')
-            ->andReturn(1);
+    public function test_findBook_callsRepository(){
 
         $this->bookRepository
             ->shouldReceive('find')
-            ->andReturn($previousBook);
+            ->once()
+            ->with(BOOK_ID, $this->WITH_ARRAY)
+            ->andReturn($this->book);
 
-        $this->imageService
-            ->shouldReceive('saveUploadImage')
-            ->never();
+        $foundBook = $this->bookService->find(BOOK_ID, $this->WITH_ARRAY);
 
-        $coverInfo = new CoverInfoParameters('HARDCOVER', null, ImageSaveType::UPLOAD);
-        $bookCreationParameters = new BookCreationParameters($bookInfoParameters, $extra, array($authorInfo), $buyInfo, null, $coverInfo, $firstPrintInfoParameters, $personalBookinfo);
-
-        $createdBook = $this->bookService->createBook($bookCreationParameters, $publisher, $country, $firstPrintInfo, $author);
-
-        $this->assertEquals($previousImage, $createdBook->coverImage);
+        $this->assertEquals($this->book, $foundBook);
     }
 }
