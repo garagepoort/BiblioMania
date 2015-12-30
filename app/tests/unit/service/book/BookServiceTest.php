@@ -1,6 +1,7 @@
 <?php
 
 class BookServiceTest extends TestCase {
+    const BOOK_ID = 123;
 
     /** @var  BookService */
     private $bookService;
@@ -12,7 +13,6 @@ class BookServiceTest extends TestCase {
     private $book;
 
     private $WITH_ARRAY = array('bla', 'oim');
-    const BOOK_ID = 12;
 
     public function setUp(){
         parent::setUp();
@@ -30,10 +30,10 @@ class BookServiceTest extends TestCase {
         $this->bookRepository
             ->shouldReceive('find')
             ->once()
-            ->with(BOOK_ID, $this->WITH_ARRAY)
+            ->with(self::BOOK_ID, $this->WITH_ARRAY)
             ->andReturn($this->book);
 
-        $foundBook = $this->bookService->find(BOOK_ID, $this->WITH_ARRAY);
+        $foundBook = $this->bookService->find(self::BOOK_ID, $this->WITH_ARRAY);
 
         $this->assertEquals($this->book, $foundBook);
     }
