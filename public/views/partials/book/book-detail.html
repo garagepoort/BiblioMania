@@ -42,23 +42,23 @@
                     </div>
                 </div>
             </div>
-            <!--<div class="row">-->
-                <!--<div class="col-md-12">-->
-                    <!--<div class="form-subtitle">-->
-                        <!--<div>Oeuvre item</div>-->
-                        <!--<button type="button" class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="openSelectOeuvreItemDialog()"><i class="fa fa-search"> Selecteren</i></button>-->
-                        <!--<button type="button" class="btn btn-sm form-subtitle-button btn-default round-corners"><i class="fa fa-plus"> Maak aan</i></button>-->
-                    <!--</div>-->
-                    <!--<div class="form-content detail-panel">-->
-                        <!--<div class="alert alert-success" ng-show="book.oeuvreItem">-->
-                            <!--<a ng-href="#/edit-oeuvre-item/{{book.oeuvreItem.id}}" class="alert-link">{{ book.oeuvreItem.title }}</a>-->
-                        <!--</div>-->
-                        <!--<div class="alert alert-warning" ng-show="!book.oeuvreItem">-->
-                            <!--Dit boek is nog niet gelinked aan een oeuvre item.-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-subtitle">
+                        <div>Oeuvre items</div>
+                        <button type="button" class="btn btn-sm form-subtitle-button btn-default" ng-click="openSelectOeuvreItemDialog()"><i class="fa fa-search"> Selecteren</i></button>
+                    </div>
+                    <div class="form-content detail-panel">
+                        <div class="alert alert-success" ng-repeat="oeuvreItem in book.oeuvreItems">
+                            <a ng-href="#/edit-oeuvre-item/{{oeuvreItem.id}}" class="alert-link">{{ oeuvreItem.title }}</a>
+                            <button type="button" class="btn btn-xs btn-default float-right" ng-click="removeBookFromOeuvreItem(oeuvreItem)"><span class="glyphicon glyphicon-trash"></span></button>
+                        </div>
+                        <div class="alert alert-warning" ng-show="book.oeuvreItems.length === 0">
+                            Dit boek is nog niet gelinked aan een oeuvre item.
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
