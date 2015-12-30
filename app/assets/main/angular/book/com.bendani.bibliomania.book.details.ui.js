@@ -144,7 +144,7 @@ angular.module('com.bendani.bibliomania.book.details.ui', ['com.bendani.biblioma
             }
 
             function setRightTitlePanel(){
-                var titlePanelRight = angular.element('<div class="book-detail-title-panel"><label style="float: right" class="label label-warning">{{ book.genre }}</label><div style="clear: both"><uib-rating ng-model="book.personalBookInfo.rating" max="10" readonly="true" class="book-rating"></uib-rating></div></div>');
+                var titlePanelRight = angular.element('<div class="book-detail-title-panel"><label style="float: right" class="label label-warning">{{ book.genre }}</label></div>');
                 $compile(titlePanelRight)($scope);
                 TitlePanelService.setRightPanel(titlePanelRight);
             }
