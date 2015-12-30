@@ -124,18 +124,6 @@ class OeuvreService
         $oeuvreItem->author_id = $oeuvreItemRequest->getAuthorId();
         $oeuvreItem->publication_year = $oeuvreItemRequest->getPublicationYear();
 
-        foreach($oeuvreItem->books as $book){
-            $book->book_from_author_id = null;
-            $book->save();
-        }
-
-        foreach($oeuvreItemRequest->getLinkedBooks() as $bookId){
-            $book = $this->bookRepository->find($bookId);
-            Ensure::objectNotNull("Book", $book);
-            $book->book_from_author_id = $oeuvreItemRequest->getId();
-            $book->save();
-        }
-
         $oeuvreItem->save();
     }
 
