@@ -53,6 +53,7 @@
                     <ul class="nav navbar-nav">
                         <li ng-class="{ active: isActive('/books')}"><a href="#/books">Boeken</a></li>
                         <li ng-class="{ active: isActive('/authors')}"><a href="#/authors">Auteurs</a></li>
+                        <li ng-class="{ active: isActive('/publishers')}"><a href="#/publishers">Uitgevers</a></li>
                     </ul>
                 </div>
             </nav>

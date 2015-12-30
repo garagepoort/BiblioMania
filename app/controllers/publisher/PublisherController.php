@@ -37,6 +37,16 @@ class PublisherController extends BaseController
         return $result;
     }
 
+    public function getPublisherBooks($publisherId)
+    {
+        $result = array();
+        foreach($this->publisherService->getPublisherBooks($publisherId) as $book){
+            $bookToJson = new BookToJsonAdapter($book);
+            array_push($result, $bookToJson->mapToJson());
+        }
+        return $result;
+    }
+
     public function getPublisher($id)
     {
         $publisher = Publisher::with(array('books', 'first_print_infos'))->find($id);
