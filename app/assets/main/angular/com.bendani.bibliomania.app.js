@@ -21,6 +21,7 @@ angular.module('BiblioMania', ['ngRoute',
     'com.bendani.bibliomania.edit.first.print.ui',
     'com.bendani.bibliomania.edit.personal.book.info.ui',
     'com.bendani.bibliomania.author.overview.ui',
+    'com.bendani.bibliomania.publisher.overview.ui',
     'com.bendani.bibliomania.header.controller',
     'com.bendani.bibliomania.title.panel'])
     .config(['$routeProvider', 'growlProvider', function ($routeProvider, growlProvider) {
