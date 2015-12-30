@@ -33,14 +33,11 @@ class BookService
     private $bookFilterManager;
     /** @var GenreService */
     private $genreService;
-    /** @var LoggingService */
-    private $loggingService;
     /** @var FilterHistoryService */
     private $filterHistoryService;
 
     function __construct()
     {
-        $this->loggingService = App::make('LoggingService');
         $this->bookRepository = App::make('BookRepository');
         $this->publisherSerieService = App::make('PublisherSerieService');
         $this->bookSerieService = App::make('BookSerieService');
@@ -168,8 +165,6 @@ class BookService
         $books = $books->orderBy('date.year', 'ASC');
         $books = $books->orderBy('date.month', 'ASC');
         $books = $books->orderBy('date.day', 'ASC');
-
-        $this->loggingService->logInfo($books->toSql());
 
         return $books->get();
     }

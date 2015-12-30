@@ -28,10 +28,6 @@ App::singleton('JsonMappingService', function () {
     return new JsonMappingService();
 });
 
-App::singleton('LoggingService', function () {
-    return new LoggingService();
-});
-
 App::singleton('CurrencyService', function () {
     return new CurrencyService();
 });
