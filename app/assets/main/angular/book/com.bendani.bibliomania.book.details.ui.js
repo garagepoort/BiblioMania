@@ -29,12 +29,7 @@ angular.module('com.bendani.bibliomania.book.details.ui', ['com.bendani.biblioma
                 TitlePanelService.setTitle("Boek detail");
                 $scope.getCurrencyViewValue = CurrencyService.getCurrencyViewValue;
 
-                $scope.book = Book.get({id: $routeParams.id}, function(book){
-
-                    TitlePanelService.setTitle(book.title);
-                    setRightTitlePanel();
-
-                }, ErrorContainer.handleRestError);
+                loadBook();
             }
 
             $scope.addTodayAsReadingDate = function(){
@@ -130,11 +125,30 @@ angular.module('com.bendani.bibliomania.book.details.ui', ['com.bendani.biblioma
             $scope.openSelectOeuvreItemDialog = function(){
                 OeuvreItemSelectionModalService.show($scope.book.authors, function(oeuvreItem){
                     Oeuvre.linkBook({id: oeuvreItem.id}, {bookId: $scope.book.id}, function () {
-                        $scope.book.oeuvreItem = oeuvreItem;
+                        loadBook();
                         growl.addSuccessMessage("Oeuvre gewijzigd");
                     }, ErrorContainer.handleRestError);
                 });
             };
+
+            $scope.removeBookFromOeuvreItem = function(oeuvreItem){
+                var message = 'Zeker dat je deze link wilt verwijderen: ' + oeuvreItem.title;
+                ConfirmationModalService.show(message, function(){
+                    Oeuvre.unlinkBook({id: oeuvreItem.id}, {bookId: $scope.book.id}, function () {
+                        loadBook();
+                        growl.addSuccessMessage("Oeuvre gewijzigd");
+                    }, ErrorContainer.handleRestError);
+                });
+            };
+
+            function loadBook() {
+                $scope.book = Book.get({id: $routeParams.id}, function (book) {
+
+                    TitlePanelService.setTitle(book.title);
+                    setRightTitlePanel();
+
+                }, ErrorContainer.handleRestError);
+            }
 
             function linkAuthorToBook(author) {
                 Book.linkAuthor({id: $scope.book.id}, {authorId: author.id}, function () {
