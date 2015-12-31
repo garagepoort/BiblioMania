@@ -50,13 +50,4 @@ class AuthorController extends BaseController
             return $authorToJsonAdapter->mapToJson();
         }, $this->authorService->getAllAuthors()->all());
     }
-
-    public function getNextAuthors()
-    {
-        $query = Input::get('query');
-        $operator = Input::get('operator');
-        $type = Input::get('type');
-        $orderBy = Input::get('orderBy');
-        return $this->authorService->getFilteredAuthors($query, $operator, $type, $orderBy);
-    }
 }

@@ -1,6 +1,6 @@
 <?php
 
-class AuthorServiceTest extends TestCase {
+class AuthorServiceCreateTest extends TestCase {
     const DATE_OF_BIRTH_ID = 12;
     const DATE_OF_DEATH_ID = 13;
     const SAVED_IMAGE_FILE = 'savedImageFile';
