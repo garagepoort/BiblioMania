@@ -19,10 +19,10 @@
     "jenssegers/agent": "^2.1",
     "netresearch/jsonmapper": "^0.10.0",
     "webpatser/laravel-uuid": "2.*",
+    "doctrine/dbal": "~2.3",
 
     "bendani/php-common/login-service": "dev-feature/spike_for_angular",
     "bendani/php-common/google-image-service": "1.0.*",
-    "bendani/php-common/wizard-service": "dev-angular_spike",
     "bendani/php-common/filter-service": "dev-angular_spike",
     "bendani/php-common/uiframework": "dev-master",
     "bendani/php-common/utils": "1.0.*"
@@ -48,7 +48,6 @@
     "post-update-cmd": [
       "php artisan clear-compiled",
       "php artisan optimize",
-      "php artisan asset:publish bendani/php-common/wizard-service",
       "php artisan asset:publish bendani/php-common/filter-service",
       "php artisan asset:publish bendani/php-common/login-service",
       "php artisan asset:publish bendani/php-common/uiframework"
@@ -64,7 +63,7 @@
   "repositories": [
     {
       "type": "vcs",
-      "url": "/Users/davidmaes/Development/personal/php-common-loginservice"
+      "url": "https://github.com/garagepoort/php-common-loginservice.git"
     },
     {
       "type": "vcs",
@@ -72,11 +71,7 @@
     },
     {
       "type": "vcs",
-      "url": "/Users/davidmaes/Development/personal/php-common-wizardservice"
-    },
-    {
-      "type": "vcs",
-      "url": "/Users/davidmaes/Development/personal/php-common-filterservice"
+      "url": "https://github.com/garagepoort/php-common-filterservice.git"
     },
     {
       "type": "vcs",
