@@ -15,8 +15,6 @@ class BookService
     private $publisherSerieService;
     /** @var  BookSerieService */
     private $bookSerieService;
-    /** @var  BookFromAuthorService */
-    private $bookFromAuthorService;
     /** @var  ImageService */
     private $imageService;
     /** @var  TagService */
@@ -45,7 +43,6 @@ class BookService
         $this->bookRepository = App::make('BookRepository');
         $this->publisherSerieService = App::make('PublisherSerieService');
         $this->bookSerieService = App::make('BookSerieService');
-        $this->bookFromAuthorService = App::make('BookFromAuthorService');
         $this->imageService = App::make('ImageService');
         $this->tagService = App::make('TagService');
         $this->tagRepository = App::make('TagRepository');
