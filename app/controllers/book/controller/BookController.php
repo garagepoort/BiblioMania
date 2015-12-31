@@ -13,7 +13,6 @@ class BookController extends BaseController
     /** @var  FilterHistoryService */
     private $filterHistoryService;
 
-
     public function __construct()
     {
         $this->bookService = App::make('BookService');
