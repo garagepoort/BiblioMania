@@ -33,6 +33,8 @@ class BookService
     private $bookFilterManager;
     /** @var GenreService */
     private $genreService;
+    /** @var DateService */
+    private $dateService;
     /** @var FilterHistoryService */
     private $filterHistoryService;
 
@@ -51,6 +53,7 @@ class BookService
         $this->bookFilterManager = App::make('BookFilterManager');
         $this->genreService = App::make('GenreService');
         $this->filterHistoryService = App::make('FilterHistoryService');
+        $this->dateService = App::make('DateService');
     }
 
     public function find($id, $with = array())
@@ -60,10 +63,6 @@ class BookService
 
     public function allBooks(){
         return $this->bookRepository->allWith(array('personal_book_infos', 'authors'));
-    }
-
-    public function allBooksFromUser($userId){
-        return $this->bookRepository->allFromUser($userId, array('authors'));
     }
 
     public function create(BaseBookRequest $createBookRequest){
@@ -222,20 +221,6 @@ class BookService
     }
 
     /**
-     * @param BaseBookRequest $createBook
-     * @return Date
-     */
-    private function createPublicationDate(BaseBookRequest $createBook)
-    {
-        $date = new Date();
-        $date->day = $createBook->getPublicationDate()->getDay();
-        $date->month = $createBook->getPublicationDate()->getDay();
-        $date->year = $createBook->getPublicationDate()->getYear();
-        $date->save();
-        return $date;
-    }
-
-    /**
      * @param BaseBookRequest $createBookRequest
      * @param $book
      * @return mixed
@@ -250,6 +235,7 @@ class BookService
             Ensure::objectNotNull("Author", $author);
             Ensure::objectNotNull("Genre", $genre);
             Ensure::objectNotNull("PublicationDate", $createBookRequest->getPublicationDate());
+            Ensure::stringNotBlank("PublicationDate year", $createBookRequest->getPublicationDate()->getYear());
             Ensure::stringNotBlank("Language", $createBookRequest->getLanguage());
             Ensure::stringNotBlank("Title", $createBookRequest->getTitle());
             Ensure::stringNotBlank("Isbn", $createBookRequest->getIsbn());
@@ -272,12 +258,12 @@ class BookService
                 $book->publisher_serie_id = $bookSerie->id;
             }
 
-            $book->language()->associate($this->languageService->findOrSave($createBookRequest->getLanguage()));
+            $book->language()->associate($this->languageService->findOrCreate($createBookRequest->getLanguage()));
 
             $tagsAsStrings = $this->mapTags($createBookRequest);
             $tags = $this->tagService->createTags($tagsAsStrings);
 
-            $date = $this->createPublicationDate($createBookRequest);
+            $date = $this->dateService->create($createBookRequest->getPublicationDate());
             $book->publication_date()->associate($date);
 
             $book->title = $createBookRequest->getTitle();
@@ -297,10 +283,6 @@ class BookService
             $this->bookRepository->save($book);
             $book->tags()->sync($tags);
             $this->authorService->syncAuthors($author, [], $book);
-
-            $personBookInfo = new PersonalBookInfo();
-            $personBookInfo->book_id = $book->id;
-            $personBookInfo->save();
 
             return $book;
         });
