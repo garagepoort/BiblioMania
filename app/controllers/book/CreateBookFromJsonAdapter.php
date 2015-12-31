@@ -11,6 +11,7 @@ class CreateBookFromJsonAdapter implements BaseBookRequest
     /** @var string */
     private $subtitle;
     /** @var string */
+    /** @required */
     private $isbn;
     /**
      * @var string
@@ -44,6 +45,7 @@ class CreateBookFromJsonAdapter implements BaseBookRequest
      */
     private $publicationDate;
     /** @var  int */
+    /** @required */
     private $preferredAuthorId;
 
     /** @var  int */
