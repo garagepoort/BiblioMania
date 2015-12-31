@@ -40,6 +40,10 @@ App::singleton('ApiAuthenticationService', function () {
     return new ApiAuthenticationService();
 });
 
+App::singleton('TagRepository', function () {
+    return new TagRepository();
+});
+
 App::singleton('TagService', function () {
     return new TagService();
 });

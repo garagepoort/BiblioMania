@@ -3,7 +3,11 @@
 class BookServiceCreateTest extends TestCase
 {
     const BOOK_ID = 123;
-    const SAVED_IMAGE = 'savedImage';
+    const GENRE_ID = 5432;
+    const PUBLICATION_DATE_ID = 837;
+    const LANGUAGE_ID = 63826;
+    const COUNTRY_ID = 328947;
+    const PUBLISHER_ID = 374298;
 
     /** @var  BookService */
     private $bookService;
@@ -27,6 +31,8 @@ class BookServiceCreateTest extends TestCase
     private $dateService;
     /** @var ImageService $imageService */
     private $imageService;
+    /** @var TagRepository $tagRepository */
+    private $tagRepository;
 
     /** @var  Genre $genre */
     private $genre;
@@ -60,13 +66,23 @@ class BookServiceCreateTest extends TestCase
         $this->countryService = $this->mock('CountryService');
         $this->dateService = $this->mock('DateService');
         $this->imageService = $this->mock('ImageService');
+        $this->tagRepository = $this->mock('TagRepository');
 
         $this->genre = $this->mockEloquent('Genre');
+        $this->genre->shouldReceive('getAttribute')->with("id")->andReturn(self::GENRE_ID);
+
         $this->author = $this->mockEloquent('Author');
         $this->publisher = $this->mockEloquent('Publisher');
+        $this->publisher->shouldReceive('getAttribute')->with("id")->andReturn(self::PUBLISHER_ID);
+
         $this->country = $this->mockEloquent('Country');
+        $this->country->shouldReceive('getAttribute')->with("id")->andReturn(self::COUNTRY_ID);
+
         $this->language = $this->mockEloquent('Language');
+        $this->language->shouldReceive('getAttribute')->with("id")->andReturn(self::LANGUAGE_ID);
+
         $this->publicationDate = $this->mockEloquent('Date');
+        $this->publicationDate->shouldReceive('getAttribute')->with("id")->andReturn(self::PUBLICATION_DATE_ID);
 
         $this->genreService->shouldReceive('getGenreByName')->once()
             ->with($this->createBookRequestImpl->getGenre())
@@ -75,32 +91,115 @@ class BookServiceCreateTest extends TestCase
             ->with($this->createBookRequestImpl->getPreferredAuthorId())
             ->andReturn($this->author)->byDefault();
 
+        $this->publisherService->shouldReceive('findOrCreate')->with($this->createBookRequestImpl->getPublisher())->andReturn($this->publisher);
+        $this->countryService->shouldReceive('findOrCreate')->with($this->createBookRequestImpl->getCountry())->andReturn($this->country);
+        $this->languageService->shouldReceive('findOrCreate')->with($this->createBookRequestImpl->getLanguage())->andReturn($this->language);
+        $this->dateService->shouldReceive('create')->with($this->createBookRequestImpl->getPublicationDate())->andReturn($this->publicationDate);
+
         $this->bookService = App::make('BookService');
     }
 
-//    public function test_shouldSaveBookCorrectly(){
-//        $this->publisherService->shouldReceive('findOrCreate')->once()
-//            ->with($this->createBookRequestImpl->getPublisher())
-//            ->andReturn($this->publisher);
-//
-//        $this->countryService->shouldReceive('findOrCreate')->once()
-//            ->with($this->createBookRequestImpl->getCountry())
-//            ->andReturn($this->country);
-//
-//        $this->languageService->shouldReceive('findOrCreate')->once()
-//            ->with($this->createBookRequestImpl->getLanguage())
-//            ->andReturn($this->language);
-//
-//        $this->dateService->shouldReceive('create')->once()
-//            ->with($this->createBookRequestImpl->getPublicationDate())
-//            ->andReturn($this->publicationDate);
-//
-//        $this->imageService->shouldReceive('saveBookImageFromUrl')->once()
-//            ->with($this->createBookRequestImpl->getImageUrl(), Mockery::any())
-//            ->andReturn(self::SAVED_IMAGE);
-//
-//        $foundBook = $this->bookService->create($this->createBookRequestImpl);
-//    }
+    public function test_shouldSaveBookCorrectly(){
+        $this->createBookRequestImpl->setSerie(null);
+        $this->createBookRequestImpl->setPublisherSerie(null);
+        $this->createBookRequestImpl->setImageUrl(null);
+
+        $this->imageService->shouldReceive('saveBookImageFromUrl')->never();
+        $this->bookSerieService->shouldReceive('findOrSave')->never();
+        $this->publisherSerieService->shouldReceive('findOrSave')->never();
+
+        $this->bookRepository->shouldReceive('save')->once()->with(Mockery::any());
+
+        $createdBook = $this->bookService->create($this->createBookRequestImpl);
+
+        $this->assertEquals($createdBook->title, $this->createBookRequestImpl->getTitle());
+        $this->assertEquals($createdBook->subtitle, $this->createBookRequestImpl->getSubtitle());
+        $this->assertEquals($createdBook->ISBN, $this->createBookRequestImpl->getIsbn());
+        $this->assertEquals($createdBook->publication_date_id, self::PUBLICATION_DATE_ID);
+        $this->assertEquals($createdBook->publisher_id, self::PUBLISHER_ID);
+        $this->assertEquals($createdBook->publisher_country_id, self::COUNTRY_ID);
+        $this->assertEquals($createdBook->genre_id, self::GENRE_ID);
+        $this->assertEquals($createdBook->translator, $this->createBookRequestImpl->getTranslator());
+        $this->assertEquals($createdBook->print, $this->createBookRequestImpl->getPrint());
+        $this->assertEquals($createdBook->number_of_pages, $this->createBookRequestImpl->getPages());
+        $this->assertNull($createdBook->coverImage);
+        $this->assertNull($createdBook->serie_id);
+        $this->assertNull($createdBook->publisher_serie_id);
+    }
+
+    public function test_shouldSaveBookSerieWhenSerieFilledIn(){
+        $serieId = 9384;
+        $serieString = 'bookSerie';
+        $serie = $this->mockEloquent('Serie');
+        $serie->shouldReceive('getAttribute')->with("id")->andReturn($serieId);
+        $this->createBookRequestImpl->setSerie($serieString);
+        $this->bookSerieService->shouldReceive('findOrSave')->once()->with($serieString)->andReturn($serie);
+
+        $createdBook = $this->bookService->create($this->createBookRequestImpl);
+
+        $this->assertEquals($createdBook->serie_id, $serieId);
+    }
+
+    public function test_shouldNotSaveBookSerieWhenSerieBlank(){
+        $serieId = 9384;
+        $serieString = '  ';
+        $serie = $this->mockEloquent('Serie');
+        $serie->shouldReceive('getAttribute')->with("id")->andReturn($serieId);
+        $this->createBookRequestImpl->setSerie($serieString);
+        $this->bookSerieService->shouldReceive('findOrSave')->never();
+
+        $createdBook = $this->bookService->create($this->createBookRequestImpl);
+
+        $this->assertNull($createdBook->serie_id);
+    }
+
+
+    public function test_shouldSavePublisherSerieWhenSerieFilledIn(){
+        $serieId = 9384;
+        $serieString = 'publisherSerie';
+        $serie = $this->mockEloquent('PublisherSerie');
+        $serie->shouldReceive('getAttribute')->with("id")->andReturn($serieId);
+        $this->createBookRequestImpl->setPublisherSerie($serieString);
+        $this->publisherSerieService->shouldReceive('findOrSave')->once()->with($serieString, self::PUBLISHER_ID)->andReturn($serie);
+
+        $createdBook = $this->bookService->create($this->createBookRequestImpl);
+
+        $this->assertEquals($createdBook->publisher_serie_id, $serieId);
+    }
+
+    public function test_shouldNotSavePublisherSerieWhenSerieBlank(){
+        $serieId = 9384;
+        $serieString = '  ';
+        $serie = $this->mockEloquent('PublisherSerie');
+        $serie->shouldReceive('getAttribute')->with("id")->andReturn($serieId);
+        $this->createBookRequestImpl->setPublisherSerie($serieString);
+        $this->publisherSerieService->shouldReceive('findOrSave')->never();
+
+        $createdBook = $this->bookService->create($this->createBookRequestImpl);
+
+        $this->assertNull($createdBook->publisher_serie_id);
+    }
+
+    public function test_shouldSaveImageWhenImageUrlFilledIn(){
+        $imageUrl = 'imageurl';
+        $savedImage = 'saveImaged';
+        $this->createBookRequestImpl->setImageUrl($imageUrl);
+        $this->imageService->shouldReceive('saveBookImageFromUrl')->once()->with($imageUrl, Mockery::any())->andReturn($savedImage);
+
+        $createdBook = $this->bookService->create($this->createBookRequestImpl);
+
+        $this->assertEquals($createdBook->coverImage, $savedImage);
+    }
+
+    public function test_shouldNotSaveImageWhenImageUrlBlank(){
+        $imageUrl = '   ';
+        $this->createBookRequestImpl->setImageUrl($imageUrl);
+        $this->imageService->shouldReceive('saveBookImageFromUrl')->never();
+
+        $createdBook = $this->bookService->create($this->createBookRequestImpl);
+
+        $this->assertNull($createdBook->coverImage);
+    }
 
     /**
      * @expectedException ServiceException
