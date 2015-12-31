@@ -21,6 +21,8 @@ class BookService
     private $imageService;
     /** @var  TagService */
     private $tagService;
+    /** @var  TagRepository */
+    private $tagRepository;
     /** @var  LanguageService */
     private $languageService;
     /** @var  AuthorService */
@@ -46,6 +48,7 @@ class BookService
         $this->bookFromAuthorService = App::make('BookFromAuthorService');
         $this->imageService = App::make('ImageService');
         $this->tagService = App::make('TagService');
+        $this->tagRepository = App::make('TagRepository');
         $this->languageService = App::make('LanguageService');
         $this->authorService = App::make('AuthorService');
         $this->publisherService = App::make('PublisherService');
@@ -206,21 +209,6 @@ class BookService
     }
 
     /**
-     * @param BaseBookRequest $createRequest
-     * @return array
-     */
-    private function mapTags(BaseBookRequest $createRequest)
-    {
-        if($createRequest->getTags() == null){
-            return array();
-        }
-        $tagsAsStrings = array_map(function ($item) {
-            return $item->getText();
-        }, $createRequest->getTags());
-        return $tagsAsStrings;
-    }
-
-    /**
      * @param BaseBookRequest $createBookRequest
      * @param $book
      * @return mixed
@@ -258,17 +246,14 @@ class BookService
                 $book->publisher_serie_id = $bookSerie->id;
             }
 
-            $book->language()->associate($this->languageService->findOrCreate($createBookRequest->getLanguage()));
-
-            $tagsAsStrings = $this->mapTags($createBookRequest);
-            $tags = $this->tagService->createTags($tagsAsStrings);
-
-            $date = $this->dateService->create($createBookRequest->getPublicationDate());
-            $book->publication_date()->associate($date);
+            $language = $this->languageService->findOrCreate($createBookRequest->getLanguage());
+            $publicationDate = $this->dateService->create($createBookRequest->getPublicationDate());
 
             $book->title = $createBookRequest->getTitle();
             $book->subtitle = $createBookRequest->getSubtitle();
             $book->ISBN = $createBookRequest->getIsbn();
+            $book->publication_date_id = $publicationDate->id;
+            $book->language_id = $language->id;
             $book->genre_id = $genre->id;
             $book->publisher_id = $bookPublisher->id;
             $book->publisher_country_id = $country->id;
@@ -281,11 +266,39 @@ class BookService
             }
 
             $this->bookRepository->save($book);
-            $book->tags()->sync($tags);
+
+            $this->saveTags($createBookRequest, $book);
             $this->authorService->syncAuthors($author, [], $book);
 
             return $book;
         });
+    }
+
+    /**
+     * @param $createBookRequest
+     * @param $book
+     */
+    private function saveTags($createBookRequest, $book)
+    {
+        $tagsAsStrings = $this->mapTags($createBookRequest);
+        $createdTagIds = $this->tagService->createTags($tagsAsStrings);
+        $this->tagRepository->syncTagsWithBook($book, $createdTagIds);
+    }
+
+    /**
+     * @param BaseBookRequest $createRequest
+     * @return array
+     */
+    private function mapTags(BaseBookRequest $createRequest)
+    {
+        if($createRequest->getTags() == null){
+            return array();
+        }
+        $tagsAsStrings = array_map(function ($item) {
+            Ensure::stringNotBlank('tag', $item->getText());
+            return $item->getText();
+        }, $createRequest->getTags());
+        return $tagsAsStrings;
     }
 
 }

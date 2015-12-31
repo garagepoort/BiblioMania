@@ -60,7 +60,12 @@ class AuthorServiceCreateTest extends TestCase {
                 return true;
             }));
 
-        $this->authorService->create($this->createAuthorRequest);
+        $createdAuthor = $this->authorService->create($this->createAuthorRequest);
+
+        $this->assertEquals($createdAuthor->name, $this->createAuthorRequest->getName()->getLastname());
+        $this->assertEquals($createdAuthor->firstname, $this->createAuthorRequest->getName()->getFirstname());
+        $this->assertEquals($createdAuthor->infix, $this->createAuthorRequest->getName()->getInfix());
+        $this->assertEquals($createdAuthor->image, self::SAVED_IMAGE_FILE);
     }
 
     /**
