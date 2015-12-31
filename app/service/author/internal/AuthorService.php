@@ -37,28 +37,20 @@ class AuthorService
 
     private function saveAuthor($author, BaseAuthorRequest $baseAuthorRequest){
         return DB::transaction(function() use ($author, $baseAuthorRequest){
+            Ensure::objectNotNull('author create request name', $baseAuthorRequest->getName());
+
             $author->name = $baseAuthorRequest->getName()->getLastname();
             $author->firstname = $baseAuthorRequest->getName()->getFirstname();
             $author->infix = $baseAuthorRequest->getName()->getInfix();
 
             if($baseAuthorRequest->getDateOfBirth() != null){
-                $date_of_birth = $author->date_of_birth();
-                if($date_of_birth != null){
-                    $date_of_birth->dissociate();
-                    $this->authorRepository->save($author);
-                    $date_of_birth->delete();
-                }
-                $author->date_of_birth_id = $this->dateService->create($baseAuthorRequest->getDateOfBirth())->id;
+                $newDate = $this->dateService->create($baseAuthorRequest->getDateOfBirth());
+                $this->authorRepository->updateAuthorDateOfBirth($author, $newDate->id);
             }
 
             if($baseAuthorRequest->getDateOfDeath() != null){
-                $date_of_death = $author->date_of_death();
-                if($date_of_death != null){
-                    $date_of_death->dissociate();
-                    $this->authorRepository->save($author);
-                    $date_of_death->delete();
-                }
-                $author->date_of_death_id = $this->dateService->create($baseAuthorRequest->getDateOfDeath())->id;
+                $newDate = $this->dateService->create($baseAuthorRequest->getDateOfDeath());
+                $this->authorRepository->updateAuthorDateOfDeath($author, $newDate->id);
             }
 
             if(!StringUtils::isEmpty($baseAuthorRequest->getImageUrl())){
