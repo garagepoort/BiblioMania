@@ -7,8 +7,6 @@ class BookServiceTest extends TestCase {
     private $bookService;
     /** @var  BookRepository */
     private $bookRepository;
-    /** @var  ImageService */
-    private $imageService;
     /** @var Book $book */
     private $book;
 
@@ -16,7 +14,6 @@ class BookServiceTest extends TestCase {
 
     public function setUp(){
         parent::setUp();
-        $this->imageService = $this->mock('ImageService');
         $this->bookRepository = $this->mock('BookRepository');
         $this->bookService = App::make('BookService');
         $user = new User(['name' => 'John', 'id' => 12]);

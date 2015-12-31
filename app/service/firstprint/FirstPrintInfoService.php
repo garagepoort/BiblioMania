@@ -76,7 +76,7 @@ class FirstPrintInfoService
         $firstPrintInfo->subtitle = $firstPrintInfoParameters->getSubtitle();
         $firstPrintInfo->ISBN = $firstPrintInfoParameters->getIsbn();
         if (!StringUtils::isEmpty($firstPrintInfoParameters->getLanguage())) {
-            $language = $this->languageService->findOrSave($firstPrintInfoParameters->getLanguage());
+            $language = $this->languageService->findOrCreate($firstPrintInfoParameters->getLanguage());
             $firstPrintInfo->language()->associate($language);
         }
         if ($firstPrintInfoParameters->getPublicationDate() != null) {
@@ -161,7 +161,7 @@ class FirstPrintInfoService
 
         $publisher = $this->publisherService->findOrCreate($firstPrintInfoRequest->getPublisher());
         $country = $this->countryService->findOrCreate($firstPrintInfoRequest->getCountry());
-        $language = $this->languageService->findOrSave($firstPrintInfoRequest->getLanguage());
+        $language = $this->languageService->findOrCreate($firstPrintInfoRequest->getLanguage());
         $date = $this->createPublicationDate($firstPrintInfoRequest);
 
         $firstPrintInfo->language()->associate($language);
