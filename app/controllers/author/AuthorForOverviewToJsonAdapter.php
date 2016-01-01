@@ -9,7 +9,7 @@ class AuthorForOverviewToJsonAdapter
     /** @var  NameToJsonAdapter */
     private $name;
     /** @var  ImageToJsonAdapter */
-    private $imageInformation;
+    private $spriteImage;
 
     public function __construct(Author $author)
     {
@@ -19,7 +19,7 @@ class AuthorForOverviewToJsonAdapter
         if(!StringUtils::isEmpty($author->image)){
             $imageToJsonAdapter = new ImageToJsonAdapter();
             $imageToJsonAdapter->fromAuthor($author);
-            $this->imageInformation = $imageToJsonAdapter;
+            $this->spriteImage = $imageToJsonAdapter;
         }
     }
 
@@ -28,8 +28,8 @@ class AuthorForOverviewToJsonAdapter
             "id" => $this->id,
             "name" => $this->name->mapToJson()
         );
-        if($this->imageInformation != null){
-            $result['image'] = $this->imageInformation->mapToJson();
+        if($this->spriteImage != null){
+            $result['spriteImage'] = $this->spriteImage->mapToJson();
         }
         return $result;
     }

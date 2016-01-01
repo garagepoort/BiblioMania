@@ -1,62 +1,40 @@
 angular
-    .module('com.bendani.bibliomania.book.detail.directive', ['com.bendani.bibliomania.book.model', 'com.bendani.bibliomania.error.container'])
-    .directive('bookDetail', [ 'Book', 'ErrorContainer', 'DateService', function (Book, ErrorContainer, DateService){
+    .module('com.bendani.bibliomania.book.detail.directive', ['com.bendani.bibliomania.book.model',
+        'com.bendani.bibliomania.error.container',
+        'com.bendani.bibliomania.book.overview.service',
+        'com.bendani.bibliomania.currency.service'])
+    .directive('bookDetail', function (){
         return {
-            scope: {
-                bookDetailPanelOpen : "="
-            },
+            scope: {},
             restrict: "E",
-            replace: true,
             templateUrl: "../BiblioMania/views/partials/book/book-detail-directive.html",
-            link: function ($scope, element) {
-                $scope.bookSlidingPanel = new BorderSlidingPanel($(element), "right", 0);
-                $scope.imageStyle = "";
+            controller: ['$scope', 'BookOverviewService', 'DateService', 'Book', 'CurrencyService', 'ErrorContainer', function($scope, BookOverviewService, DateService, Book, CurrencyService, ErrorContainer){
 
-                $scope.currencies = [];
-                $scope.currencies['EUR'] = '€';
-                $scope.currencies['USD'] = '$';
-                $scope.currencies['PND'] = '£';
+                var selectBookHandler = function (book) {
+                    if ($scope.bookDetailPanelOpen && $scope.selectedBook.id === book.id) {
+                        $scope.bookDetailPanelOpen = false;
+                    } else {
+                        $scope.selectedBook = Book.get({id: book.id}, function () {
+                        }, ErrorContainer.handleRestError);
+                        $scope.bookDetailPanelOpen = true;
+                    }
+                };
 
-                $(element).on('click', function(event){
-                    event.stopPropagation();
-                });
+                function init(){
+                    BookOverviewService.registerHandler(selectBookHandler);
+                    $scope.$on('$destroy', function () {
+                        BookOverviewService.deregisterHandler(selectBookHandler);
+                    });
 
-                function retrieveFullBook(newValue) {
-                    $scope.book = Book.get({id: newValue}, function (data) {
-                        $scope.openBookDetail();
-                    }, ErrorContainer.handleRestError);
+                    $scope.getCurrencyViewValue = CurrencyService.getCurrencyViewValue;
+                    $scope.dateToString = DateService.dateToString;
                 }
 
-                $scope.$parent.$watch('bookModel.selectedBookId', function(newValue) {
-                    if(newValue){
-                        retrieveFullBook(newValue);
-                    }
-                }, true);
-
-
-                $scope.$watch('bookDetailPanelOpen', function(value){
-                    if(value){
-                        $scope.openBookDetail();
-                    }else{
-                        $scope.closeBookDetail();
-                    }
-                });
-
-                $scope.closeBookDetail = function() {
-                    $scope.bookSlidingPanel.close(function () {
-                        $(element).removeClass('visible');
-                    });
+                $scope.closeBookDetailPanel = function () {
+                    $scope.bookDetailPanelOpen = false;
                 };
 
-                $scope.convertDate = function(date){
-                    return DateService.dateToString(date);
-                };
-
-                $scope.openBookDetail = function() {
-                    $scope.bookSlidingPanel.open(function(){
-                        $(element).addClass('visible');
-                    });
-                };
-            }
+                init();
+            }]
         };
-    }]);
+    });

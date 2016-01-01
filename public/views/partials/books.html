@@ -32,7 +32,7 @@
                 <table class="table table-striped" style="table-layout: fixed">
                     <thead sort-header sort-options="orderValues" current-predicate="predicate" reverse-order="reverseOrder"></thead>
                 </table>
-                <image-card ng-repeat="book in books | filter: search | orderBy:predicate:reverseOrder as viewableBooks" model="book" warnings="book.warnings" on-edit-click="onEditBook(book)" on-image-click="onImageClickBook(book)" show-edit-button="true"></image-card>
+                <image-card ng-repeat="book in books | filter: search | orderBy:predicate:reverseOrder as viewableBooks" model="book" warnings="book.warnings" on-edit-click="onEditBook(book)" on-image-click="onImageClickBook(book)" show-edit-button="true" backup-text="{{ book.title }}"></image-card>
             </div>
 
             <table ng-show="!loading && listView" class="table table-striped" style="table-layout: fixed">
@@ -45,5 +45,5 @@
 
     </div>
 
-    <div ng-include="'../BiblioMania/views/partials/book/book-detail-directive.html'"></div>
+    <book-detail></book-detail>
 </div>
