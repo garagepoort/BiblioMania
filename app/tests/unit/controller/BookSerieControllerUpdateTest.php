@@ -11,7 +11,7 @@ class BookSerieControllerUpdateTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $this->bookSerieService = $this->mock('SerieService');
+        $this->bookSerieService = $this->mock('BookSerieService');
     }
 
     public function test_shouldCallJsonMappingAndService(){
