@@ -166,6 +166,10 @@ a:hover {
   top: 50%;
   transform: translateY(-50%);
 }
+.horizontal-align-center {
+  margin-left: auto;
+  margin-right: auto;
+}
 .title-panel {
   width: 100%;
   padding-left: 20px;
@@ -569,11 +573,19 @@ table.book-detail-info-table td {
   bottom: 0px;
   position: absolute;
 }
-.material-card-content.image-not-found-card {
+.material-card-content.image-not-found-card,
+.image-not-found-card {
   height: 214px;
   width: 142px;
   background-color: black;
   color: white;
+  font-family: baron;
+}
+.material-card-content.add-book-card {
+  height: 214px;
+  width: 142px;
+  background-color: grey;
+  color: black;
   font-family: baron;
 }
 .card-wrapper {

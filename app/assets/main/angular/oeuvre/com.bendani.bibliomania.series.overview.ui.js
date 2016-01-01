@@ -5,6 +5,7 @@ angular.module('com.bendani.bibliomania.series.overview.ui', [
     'com.bendani.bibliomania.book.model',
     'com.bendani.bibliomania.error.container',
     'com.bendani.bibliomania.book.overview.service',
+    'com.bendani.bibliomania.edit.book.serie.modal.service',
     'com.bendani.bibliomania.title.panel'])
     .config(['$routeProvider',function ($routeProvider) {
         $routeProvider.when('/series', {
@@ -12,8 +13,8 @@ angular.module('com.bendani.bibliomania.series.overview.ui', [
             controller: 'SeriesOverviewController'
         });
     }])
-    .controller('SeriesOverviewController', ['$scope', 'Serie', 'ErrorContainer', 'TitlePanelService', 'BookOverviewService', 'Book', '$location',
-        function ($scope, Serie, ErrorContainer, TitlePanelService, BookOverviewService, Book, $location) {
+    .controller('SeriesOverviewController', ['$scope', 'Serie', 'ErrorContainer', 'TitlePanelService', 'BookOverviewService', 'Book', '$location', 'EditBookSerieModalService',
+        function ($scope, Serie, ErrorContainer, TitlePanelService, BookOverviewService, Book, $location, EditBookSerieModalService) {
 
             var selectBookHandler = function (book) {
                 if ($scope.bookDetailPanelOpen && $scope.selectedBook.id === book.id) {
@@ -55,6 +56,12 @@ angular.module('com.bendani.bibliomania.series.overview.ui', [
 
             $scope.onImageClickBook = function(book){
                 BookOverviewService.selectBook(book);
+            };
+
+            $scope.editSerie = function(serie){
+                EditBookSerieModalService.show(serie, function(){
+
+                });
             };
 
             $scope.onEditBook = function(book){
