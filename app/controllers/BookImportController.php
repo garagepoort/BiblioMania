@@ -58,13 +58,13 @@ class BookImportController extends BaseController {
 				if($first_print_info != null){
 					$languageName = $firstPrintInfoParameters->getLanguage();
 					if(!StringUtils::isEmpty($languageName)){
-						$language = $this->languageService->findOrSave($languageName);
+						$language = $this->languageService->findOrCreate($languageName);
 						$first_print_info->language()->associate($language);
 						$first_print_info->save();
 					}
 				}
 				if(!StringUtils::isEmpty($bookInfoParameters->getLanguage())){
-					$language = $this->languageService->findOrSave($bookInfoParameters->getLanguage());
+					$language = $this->languageService->findOrCreate($bookInfoParameters->getLanguage());
 					$book->language()->associate($language);
 					$book->save();
 				}

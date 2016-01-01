@@ -190,7 +190,7 @@ class StatisticsController extends BaseController
                 $publicationDate = "Date(1,1,1900)";
             }
 
-            foreach($book->personal_book_info->reading_dates as $readingDate){
+            foreach($book->personal_book_infos->reading_dates as $readingDate){
                 $dateTime = DateTime::createFromFormat("Y-m-d", $readingDate->date);
                 $timestamp = $dateTime->getTimestamp();
                 $readYear = StringUtils::isEmpty(date('Y', $timestamp)) ? "1900" : date('Y', $timestamp);

@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: davidm
- * Date: 28/02/14
- * Time: 21:35
- */
 
 class Oauth2_Controller extends BaseController{
 

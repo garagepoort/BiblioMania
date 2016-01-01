@@ -1,0 +1,150 @@
+<div class="create-book-div">
+    <form autocomplete="off" ng-submit="submitForm(createBookForm.$valid)" id="createBookForm" name="createBookForm" novalidate class="form-horizontal createBookForm">
+        <fieldset>
+            <div class="form-container">
+                <errorcontainer></errorcontainer>
+                <div ng-show="model.imageUrl === undefined" class="alert alert-warning">Geen cover gekozen</div>
+                <div class="form-subtitle">
+                    <div>Boek informatie</div>
+                    <button type="button" class="btn btn-sm round-corners btn-default form-subtitle-button" ng-click="openSelectImageDialog()">Selecteer cover</button>
+                </div>
+                <div class="form-content col-md-12">
+                    <img style="margin-bottom: 20px;" src-with-fallback="{{ model.image }}" />
+
+                    <!-- TITLE -->
+                    <div class="form-group required col-md-12" ng-class="{'has-error has-feedback' : createBookForm.title.$invalid && (createBookForm.title.$dirty || submitAttempted)}">
+                        <label class="control-label ">Titel </label>
+                        <input name="title" type="text" class="form-control input-width-md" placeholder="titel" required="true" ng-model="model.title"/>
+                        <span ng-show="createBookForm.title.$invalid && (createBookForm.title.$dirty || submitAttempted)" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Titel is verplicht</span>
+                    </div>
+
+                    <!-- SUBTITLE -->
+                    <div class="form-group col-md-12">
+                        <label class="control-label">Ondertitel</label>
+                        <input name="subtitle" type="text" class="form-control input-width-md" placeholder="ondertitel" ng-model="model.subtitle"/>
+                    </div>
+
+                    <!-- ISBN -->
+                    <div class="form-group required col-md-12" ng-class="{'has-error has-feedback' : createBookForm.isbn.$invalid && (createBookForm.isbn.$dirty || submitAttempted)}">
+                        <label class="control-label" >ISBN </label>
+
+                        <input name="isbn" type="text" class="form-control input-width-sm" placeholder="isbn" ng-model="model.isbn" required="true" ng-pattern="/^[0-9]{13}$/"/>
+                        <span ng-show="createBookForm.isbn.$error.required && (createBookForm.isbn.$dirty || submitAttempted)" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Isbn is verplicht</span>
+                        <span ng-show="createBookForm.isbn.$error.pattern && (createBookForm.isbn.$dirty || submitAttempted)" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Isbn moet exact 13 nummers zijn</span>
+                    </div>
+                </div>
+
+                <div class="form-subtitle">
+                    <div>Auteur</div>
+                    <button type="button" class="btn-default btn btn-sm form-subtitle-button round-corners" ng-click="showSelectAuthorDialog()">Auteur selecteren</button>
+                    <button type="button" class="btn-default btn btn-sm form-subtitle-button round-corners" ng-click="showCreateAuthorDialog()">Auteur aanmaken</button>
+                </div>
+                <div class="form-content">
+                    <h2>{{ data.selectedAuthor.name.firstname + " " + data.selectedAuthor.name.lastname}}</h2>
+                    <img src-with-fallback="{{ data.selectedAuthorImage }}" style="margin-bottom: 20px;"/>
+                </div>
+
+                <div class="form-subtitle">Uitgave informatie</div>
+                <div class="form-content">
+                    <div class="form-group required col-md-12" ng-class="{'has-error has-feedback' : createBookForm.publisher.$invalid && (createBookForm.publisher.$dirty || submitAttempted)}">
+                        <label class="control-label">Uitgever </label>
+
+                        <input name="publisher" ng-model="model.publisher" type="text" placeholder="uitgever" class="form-control input-width-lg"
+                               required="true"
+                               uib-typeahead="publisher.name as publisher.name for publisher in data.publishers | filter:$viewValue | limitTo:8"
+                               class="form-control">
+                        <span ng-show="createBookForm.publisher.$invalid && (createBookForm.publisher.$dirty || submitAttempted)" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Uitgever is verplicht</span>
+                    </div>
+
+                    <div class="col-md-12">
+                        <date label="Publicatie " ng-model="model.publicationDate" required="true" submit-attempted="submitAttempted"></date>
+                    </div>
+
+                    <div class="form-group required">
+                        <!-- COUNTRY -->
+                        <div class="col-md-4" ng-class="{'has-error has-feedback' : createBookForm.country.$invalid && (createBookForm.country.$dirty || submitAttempted)}">
+                            <label class="control-label">Land </label>
+
+                            <input name="country" ng-model="model.country" type="text" placeholder="land" class="form-control input-width-sm" required="true"
+                                   uib-typeahead="country.name as country.name for country in data.countries | filter:$viewValue | limitTo:8" class="form-control">
+                            <span ng-show="createBookForm.country.$invalid && (createBookForm.country.$dirty || submitAttempted)" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Land is verplicht</span>
+                        </div>
+                        <!-- LANGUAGE -->
+                        <div class="col-md-4" ng-class="{'has-error has-feedback' : createBookForm.language.$invalid && (createBookForm.language.$dirty || submitAttempted)}">
+                            <label class="control-label">Taal </label>
+
+                            <select name="language" class="input-sm form-control" ng-model="model.language"
+                                    ng-options="language.name as language.name for language in data.languages"></select>
+                            <span ng-show="createBookForm.language.$invalid && (createBookForm.language.$dirty || submitAttempted)" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i>Taal is verplicht</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-subtitle">Extra informatie</div>
+                <div class="form-content col-md-12">
+                    <div class="form-group col-md-6">
+                        <label class="control-label" >Druk </label>
+                        <input name="print" type="number" class="form-control input-width-sm" placeholder="druk" ng-model="model.print"/>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label class="control-label" >pagina's </label>
+                        <input name="pages" type="number" class="form-control input-width-sm" placeholder="pagina's" ng-model="model.pages"/>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label class="control-label" >Vertaler </label>
+                        <input name="translator" type="text" class="form-control input-width-sm" placeholder="vertaler" ng-model="model.translator"/>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label class="control-label" >Boeken reeks </label>
+                        <input name="serie" ng-model="model.serie" type="text" placeholder="reeks" class="form-control input-width-sm"
+                               uib-typeahead="serie.name as serie.name for serie in data.series | filter:$viewValue | limitTo:8"
+                               ng-class="{'has-error has-feedback' : createBookForm.serie.$invalid && (createBookForm.serie.$dirty || submitAttempted)}"
+                               class="form-control">
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label class="control-label" >Uitgever reeks </label>
+                        <input name="publisherSerie" ng-model="model.publisherSerie" type="text" placeholder="reeks" class="form-control input-width-sm"
+                               uib-typeahead="publisherSerie.name as publisherSerie.name for publisherSerie in data.publisherSeries | filter:$viewValue | limitTo:8"
+                               ng-class="{'has-error has-feedback' : createBookForm.publisherSerie.$invalid && (createBookForm.publisherSerie.$dirty || submitAttempted)}"
+                               class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-subtitle">Genre</div>
+                <div class="form-content col-md-12">
+                    <input id="book_genre_input" type="text" name="genre" hidden required
+                           ng-model="model.genre">
+                    <span ng-show="createBookForm.genre.$invalid && (createBookForm.genre.$dirty || submitAttempted)" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Genre is verplicht</span>
+
+                    <div class="col-md-6">
+                        <div class="well genres-container">
+                            <abn-tree tree-control="genreTree" tree-data="data.genres"
+                                      on-select="selectGenre(branch)"></abn-tree>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <button type="button" ng-click="genreTree.expand_all();" class="btn btn-default" style="margin-bottom: 20px">Alles open</button>
+                        <button type="button" ng-click="genreTree.collapse_all();" class="btn btn-default" style="margin-bottom: 20px">Alles toe</button>
+                        <div ng-show="model.genre" class="alert alert-success">Selectie: <b>{{ model.genre}}</b></div>
+                    </div>
+
+                    <!-- Tags -->
+                    <div class="form-group col-md-12">
+                        <label class="control-label">Tags</label>
+
+                        <tags-input name="tags" ng-model="model.tags" class="input-width-lg no-round-corners">
+                            <auto-complete source="searchTags($query)"></auto-complete>
+                        </tags-input>
+                    </div>
+                </div>
+
+            </div>
+            <button class="btn btn-primary">Save</button>
+
+        </fieldset>
+    </form>
+</div>

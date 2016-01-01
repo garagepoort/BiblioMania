@@ -1,0 +1,79 @@
+<div class="create-book-div">
+    <errorcontainer></errorcontainer>
+    <infocontainer></infocontainer>
+    <form ng-submit="submitForm(model)" id="firstPrintForm" name="firstPrintForm" novalidate class="form-horizontal">
+        <fieldset>
+
+            <div class="form-container">
+                <div class="form-subtitle">
+                    <div>Boek informatie</div>
+                </div>
+                <div class="form-content col-md-12">
+
+                    <!-- TITLE -->
+                    <div class="form-group required col-md-12" ng-class="{'has-error has-feedback' : firstPrintForm.title.$invalid && firstPrintForm.title.$dirty}">
+                        <label class="control-label ">Titel </label>
+                        <input name="title" type="text" class="form-control input-width-md" placeholder="titel" required="true" ng-model="model.title"/>
+                        <span ng-show="firstPrintForm.title.$invalid && firstPrintForm.title.$dirty" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Titel is verplicht</span>
+                    </div>
+
+                    <!-- SUBTITLE -->
+                    <div class="form-group col-md-12">
+                        <label class="control-label">Ondertitel</label>
+                        <input name="subtitle" type="text" class="form-control input-width-md" placeholder="ondertitel" ng-model="model.subtitle"/>
+                    </div>
+                    <!-- ISBN -->
+                    <div class="form-group col-md-12">
+                        <label class="control-label" >ISBN </label>
+
+                        <input name="isbn" type="text" class="form-control input-width-sm" placeholder="isbn" ng-model="model.isbn" ng-pattern="/^[0-9]{13}$/"
+                               ng-class="{'has-error has-feedback' : firstPrintForm.isbn.$invalid && firstPrintForm.isbn.$dirty}"/>
+                        <span ng-show="firstPrintForm.isbn.$error.pattern && firstPrintForm.isbn.$dirty" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Isbn moet exact 13 nummers zijn</span>
+                    </div>
+                </div>
+
+                <div class="form-subtitle">Uitgave informatie</div>
+                <div class="form-content">
+                    <div class="form-group required col-md-12">
+                        <label class="control-label">Uitgever </label>
+
+                        <input name="publisher" ng-model="model.publisher" type="text" placeholder="uitgever" class="form-control input-width-lg"
+                               required="true"
+                               uib-typeahead="publisher.name as publisher.name for publisher in data.publishers | filter:$viewValue | limitTo:8"
+                               ng-class="{'has-error has-feedback' : firstPrintForm.publisher.$invalid && firstPrintForm.publisher.$dirty}"
+                               class="form-control">
+                        <span ng-show="firstPrintForm.publisher.$invalid && firstPrintForm.publisher.$dirty" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Uitgever is verplicht</span>
+                    </div>
+
+                    <div class="col-md-12">
+                        <date label="Publicatie " ng-model="model.publicationDate" required="true"></date>
+                    </div>
+
+                    <div class="form-group required">
+                        <!-- COUNTRY -->
+                        <div class="col-md-4">
+                            <label class="control-label">Land </label>
+
+                            <input name="country" ng-model="model.country" type="text" placeholder="land" class="form-control input-width-sm" required="true"
+                                   ng-class="{'has-error has-feedback' : firstPrintForm.country.$invalid && firstPrintForm.country.$dirty}"
+                                   uib-typeahead="country.name as country.name for country in data.countries | filter:$viewValue | limitTo:8" class="form-control">
+                            <span ng-show="firstPrintForm.country.$invalid && firstPrintForm.country.$dirty" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Land is verplicht</span>
+                        </div>
+                        <!-- LANGUAGE -->
+                        <div class="col-md-4">
+                            <label class="control-label">Taal </label>
+
+                            <select name="language" class="input-sm form-control" ng-model="model.language"
+                                    ng-class="{'has-error has-feedback' : firstPrintForm.language.$invalid && firstPrintForm.language.$dirty}"
+                                    ng-options="language.name as language.name for language in data.languages"></select>
+                            <span ng-show="firstPrintForm.language.$invalid && firstPrintForm.language.$dirty" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i>Taal is verplicht</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <button class="btn btn-primary" ng-disabled="firstPrintForm.$invalid">Save</button>
+
+        </fieldset>
+    </form>
+</div>
