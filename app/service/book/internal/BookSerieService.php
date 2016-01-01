@@ -5,6 +5,8 @@ class BookSerieService
 
     /** @var  BookSerieRepository */
     private $bookSerieRepository;
+    /** @var  BookRepository */
+    private $bookRepository;
 
     /**
      * BookSerieService constructor.
@@ -12,6 +14,7 @@ class BookSerieService
     public function __construct()
     {
         $this->bookSerieRepository = App::make('BookSerieRepository');
+        $this->bookRepository = App::make('BookRepository');
     }
 
     public function findOrSave($name)
@@ -43,6 +46,31 @@ class BookSerieService
 
         $serieToUpdate->name = $updateSerieRequest->getName();
         return $this->bookSerieRepository->save($serieToUpdate);
+    }
+
+    public function addBookToSerie($serieId, BookIdRequest $bookIdRequest)
+    {
+        $serieToUpdate = $this->bookSerieRepository->find($serieId);
+        Ensure::objectNotNull('Serie to update', $serieToUpdate, 'Serie does not exist');
+        $book = $this->bookRepository->find($bookIdRequest->getBookId());
+        Ensure::objectNotNull('Book to update', $book, 'Book does not exist');
+
+        $book->serie_id = $serieId;
+        $this->bookRepository->save($book);
+    }
+
+    public function removeBookFromSerie($serieId, BookIdRequest $bookIdRequest)
+    {
+        $serieToUpdate = $this->bookSerieRepository->find($serieId);
+        Ensure::objectNotNull('Serie to update', $serieToUpdate, 'Serie does not exist');
+        $book = $this->bookRepository->find($bookIdRequest->getBookId());
+        Ensure::objectNotNull('Book to update', $book, 'Book does not exist');
+        if($book->serie_id != $serieId){
+            throw new ServiceException('Trying to remove book from serie but book is not a part of the given serie');
+        }
+
+        $book->serie_id = null;
+        $this->bookRepository->save($book);
     }
 
 }
