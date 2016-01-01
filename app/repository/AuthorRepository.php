@@ -1,6 +1,6 @@
 <?php
 
-class AuthorRepository implements iRepository{
+class AuthorRepository implements Repository{
 
     public function find($id, $with = array())
     {
@@ -32,5 +32,33 @@ class AuthorRepository implements iRepository{
             ->where('firstname', '=', $firstName)
             ->where('infix', '=', $infix)
             ->first();
+    }
+
+    public function updateAuthorDateOfDeath(Author $author, $date_id){
+        Ensure::objectNotNull('Author', $author);
+
+        $date_of_death = $author->date_of_death();
+        if($date_of_death != null){
+            $date_of_death->dissociate();
+            $author->save();
+            $date_of_death->delete();
+        }
+
+        $author->date_of_death_id = $date_id;
+        $author->save();
+    }
+
+    public function updateAuthorDateOfBirth(Author $author, $date_id){
+        Ensure::objectNotNull('Author', $author);
+
+        $date_of_birth = $author->date_of_birth();
+        if($date_of_birth != null){
+            $date_of_birth->dissociate();
+            $author->save();
+            $date_of_birth->delete();
+        }
+
+        $author->date_of_birth_id = $date_id;
+        $author->save();
     }
 }

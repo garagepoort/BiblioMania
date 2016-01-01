@@ -1,0 +1,51 @@
+<div class="create-book-div">
+    <errorcontainer></errorcontainer>
+    <infocontainer></infocontainer>
+    <form ng-submit="submitForm(model)" autocomplete="off" id="personalBookInfoForm" name="personalBookInfoForm" novalidate class="form-horizontal">
+        <fieldset>
+
+            <div class="form-container">
+                <div class="col-md-12">
+                    <div class="form-subtitle">Aanschaf informatie</div>
+                    <div class="form-content">
+                        <!-- OWNED -->
+                        <div class="form-group required">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" ng-model="model.inCollection"> In collectie
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group required animated fadeIn" ng-show="!model.inCollection">
+                            <label class="control-label">Reden niet in collectie</label>
+
+                            <div class="btn-group" data-toggle="buttons" style="display: block">
+                                <label class="btn btn-default active" ng-model="model.reasonNotInCollection" uib-btn-radio="'BORROWED'">Geleend</label>
+                                <label class="btn btn-default active" ng-model="model.reasonNotInCollection" uib-btn-radio="'SOLD'">Verkocht</label>
+                                <label class="btn btn-default active" ng-model="model.reasonNotInCollection" uib-btn-radio="'LOST'">Verloren</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group required">
+                            <label class="control-label">Verkregen </label>
+
+                            <div class="btn-group" data-toggle="buttons" style="display: block">
+                                <label class="btn btn-default active" ng-model="model.acquirement" uib-btn-radio="'BUY'">Gekocht</label>
+                                <label class="btn btn-default active" ng-model="model.acquirement" uib-btn-radio="'GIFT'">Gekregen</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="animated fadeIn" ng-show="model.acquirement === 'BUY'" ng-include="'../BiblioMania/views/partials/personalbookinfo/buy-info.html'"></div>
+                <div class="animated fadeIn" ng-show="model.acquirement === 'GIFT'" ng-include="'../BiblioMania/views/partials/personalbookinfo/gift-info.html'"></div>
+
+                <div class="col-md-12">
+                    <button class="btn btn-primary">Save</button>
+                </div>
+            </div>
+
+        </fieldset>
+    </form>
+</div>

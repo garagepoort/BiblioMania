@@ -16,7 +16,7 @@ class LanguageService
         return Language::all();
     }
 
-    public function findOrSave($languageName)
+    public function findOrCreate($languageName)
     {
         $language = Language::where('language', '=', $languageName)
             ->first();

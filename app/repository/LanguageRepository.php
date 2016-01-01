@@ -1,6 +1,6 @@
 <?php
 
-class LanguageRepository implements iRepository{
+class LanguageRepository implements Repository{
 
     public function find($id, $with = array())
     {
