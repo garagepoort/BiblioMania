@@ -20,4 +20,9 @@ class PublisherSerieService
         return $serie;
     }
 
+    public function getPublisherSeries()
+    {
+        return PublisherSerie::all();
+    }
+
 }

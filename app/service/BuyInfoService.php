@@ -16,6 +16,38 @@ class BuyInfoService
     }
 
 
+    public function createOrUpdate($personBookInfoId, BuyInfoRequest $createRequest)
+    {
+        $buyInfo = BuyInfo::where('personal_book_info_id', '=', $personBookInfoId)->first();
+        if($buyInfo == null){
+            $buyInfo = new BuyInfo();
+        }
+
+        if(!StringUtils::isEmpty($createRequest->getCountryShop())){
+            $country = $this->countryService->findOrCreate($createRequest->getCountryShop());
+            $buyInfo->country_id = $country->id;
+
+            if(!StringUtils::isEmpty($createRequest->getCityShop())){
+                $city = $this->cityService->save($createRequest->getCityShop(), $country->id);
+                $buyInfo->city_id = $city->id;
+            }
+        }
+
+        if($createRequest->getBuyPrice() != null){
+            $buyInfo->price_payed = $createRequest->getBuyPrice()->getAmount();
+            $buyInfo->currency = $createRequest->getBuyPrice()->getCurrency();
+        }
+
+        $buyInfo->buy_date = $createRequest->getBuyDate() == null ? null : DateFormatter::dateRequestToDateTime($createRequest->getBuyDate());
+        $buyInfo->reason = $createRequest->getReason();
+        $buyInfo->shop = $createRequest->getShop();
+        $buyInfo->personal_book_info_id = $personBookInfoId;
+
+        $buyInfo->save();
+
+        return $buyInfo->id;
+    }
+
     public function findOrCreate(BuyInfoParameters $buyInfoParameters, PersonalBookInfo $personalBookInfo){
         $buyInfo = BuyInfo::where('personal_book_info_id', '=', $personalBookInfo->id)->first();
         if ($buyInfo == null) {

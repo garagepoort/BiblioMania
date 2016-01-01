@@ -6,10 +6,9 @@ class PersonalBookInfo extends Eloquent {
     protected $fillable = array(
         'owned',
     	'read',
-    	'rating',
     	'retail_price',
-        'review',
         'book_id',
+        'user_id',
         'reason_not_owned'
 	);
 
@@ -23,9 +22,13 @@ class PersonalBookInfo extends Eloquent {
     	return $this->hasOne('GiftInfo');
 	}
 
+	public function book(){
+    	return $this->hasOne('Book');
+	}
+
     public function reading_dates()
     {
-        return $this->belongsToMany('ReadingDate', 'personal_book_info_reading_date');
+        return $this->hasMany('ReadingDate', 'personal_book_info_id');
     }
 
     public function set_owned($owned){
@@ -46,11 +49,14 @@ class PersonalBookInfo extends Eloquent {
 
     public function get_read(){
         $read = $this->attributes['read'];
-    if($read == 0){
+        if($read == 0){
             return false;
         }else{
             return true;
         }
     }
 
+    public function scopeCurrentUser($query){
+        $query->where('user_id', '=', Auth::user()->id);
+    }
 }
