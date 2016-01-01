@@ -1,12 +1,11 @@
 <?php
 
-class BookRepository implements iRepository{
+class BookRepository implements Repository{
 
     public function find($id, $with = array())
     {
         return Book::with($with)
             ->where('id', '=', $id)
-            ->where('user_id', '=', Auth::user()->id)
             ->first();
     }
 
@@ -14,63 +13,24 @@ class BookRepository implements iRepository{
         $this->find($id)->delete();
     }
 
-    public function findCompleted($id, $with = array())
-    {
-        return Book::with($with)
-            ->where('id', '=', $id)
-            ->where('user_id', '=', Auth::user()->id)
-            ->where('wizard_step', '=', 'COMPLETE')
-            ->first();
-    }
-
-    public function findDraft($id, $with = array())
-    {
-        return Book::with($with)
-            ->where('id', '=', $id)
-            ->where('user_id', '=', Auth::user()->id)
-            ->where('wizard_step', '!=', 'COMPLETE')
-            ->first();
-    }
-
-    public function allCompletedPaginated($id, $pages, $with = array())
-    {
-        return Book::with($with)
-            ->where('id', '=', $id)
-            ->where('user_id', '=', Auth::user()->id)
-            ->where('wizard_step', '=', 'COMPLETE')
-            ->paginate($pages);
-    }
-
-    public function allDraftsPaginated($id, $pages, $with = array())
-    {
-        return Book::with($with)
-            ->where('id', '=', $id)
-            ->where('user_id', '=', Auth::user()->id)
-            ->where('wizard_step', '!=', 'COMPLETE')
-            ->paginate($pages);
-    }
 
     public function all()
     {
         return Book::all();
     }
 
-    public function allCompleted($with = array())
+    public function allWith($with = array())
     {
-        return Book::with($with)
-            ->where('user_id', '=', Auth::user()->id)
-            ->where('wizard_step', '=', 'COMPLETE')
-            ->get();
+        return Book::with($with)->get();
     }
 
-    public function allDrafts($with = array())
+    public function allFromUser($userId, $with = array())
     {
-        return Book::with($with)
-            ->where('user_id', '=', Auth::user()->id)
-            ->where('wizard_step', '!=', 'COMPLETE')
+        return Book::select('book.*')->with($with)
+            ->join('personal_book_info', 'book_id', '=', 'book.id')
+            ->where('user_id', '=', $userId)
             ->get();
     }
-
 
     public function save($entity)
     {
@@ -118,34 +78,19 @@ class BookRepository implements iRepository{
         }
     }
 
-    public function setBookFromAuthor(Book $book, BookFromAuthor $bookFromAuthor = null){
-        if ($bookFromAuthor != null) {
-            $book->book_from_author()->associate($bookFromAuthor);
-        } else {
-            $book->book_from_author()->dissociate();
-        }
-        $book->save();
-    }
-
     public function getTotalAmountOfBooksOwned(){
         return Book::join('personal_book_info', 'book_id', '=', 'book.id')
-            ->where('user_id', '=', Auth::user()->id)
-            ->where('wizard_step', '=', 'COMPLETE')
             ->where('personal_book_info.owned', '=', 1)
             ->count();
     }
 
     public function getTotalAmountOfBooksInLibrary(){
         return DB::table('book')
-            ->where('user_id', '=', Auth::user()->id)
-            ->where('wizard_step', '=', 'COMPLETE')
             ->count();
     }
 
     public function getValueOfLibrary(){
         return DB::table('book')
-            ->where('user_id', '=', Auth::user()->id)
-            ->where('wizard_step', '=', 'COMPLETE')
             ->sum('retail_price');
     }
 
@@ -159,8 +104,6 @@ class BookRepository implements iRepository{
     public function getTotalAmountOfBooksRead()
     {
         return Book::join('personal_book_info', 'book_id', '=', 'book.id')
-            ->where('user_id', '=', Auth::user()->id)
-            ->where('wizard_step', '=', 'COMPLETE')
             ->where('personal_book_info.read', '=', 1)
             ->count();
     }
@@ -169,8 +112,14 @@ class BookRepository implements iRepository{
     {
         return Book::join('personal_book_info', 'book_id', '=', 'book.id')
             ->join('buy_info', 'personal_book_info.id', '=', 'buy_info.personal_book_info_id')
-            ->where('user_id', '=', Auth::user()->id)
-            ->where('wizard_step', '=', 'COMPLETE')
             ->count();
+    }
+
+    public function booksFromAuthor($authorId)
+    {
+        return Book::select('book.*')
+            ->join('book_author', 'book_author.book_id', '=', 'book.id')
+            ->where('book_author.author_id', '=', $authorId)
+            ->get();
     }
 }

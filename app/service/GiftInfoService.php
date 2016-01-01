@@ -5,6 +5,23 @@ use Bendani\PhpCommon\Utils\Model\StringUtils;
 class GiftInfoService
 {
 
+    public function createOrUpdate($personalBookInfoId, GiftInfoRequest $createRequest)
+    {
+        $giftInfo = GiftInfo::where('personal_book_info_id', '=', $personalBookInfoId)->first();
+        if($giftInfo == null) {
+            $giftInfo = new GiftInfo();
+        }
+
+        $giftInfo->receipt_date = $createRequest->getGiftDate() == null ? null : DateFormatter::dateRequestToDateTime($createRequest->getGiftDate());
+        $giftInfo->occasion = $createRequest->getOccasion();
+        $giftInfo->reason = $createRequest->getReason();
+        $giftInfo->from = $createRequest->getFrom();
+        $giftInfo->personal_book_info_id = $personalBookInfoId;
+
+        $giftInfo->save();
+        return $giftInfo->id;
+    }
+
     public function findOrCreate(GiftInfoParameters $giftInfoParameters, PersonalBookInfo $personalBookInfo){
         $giftInfo = GiftInfo::where('personal_book_info_id', '=', $personalBookInfo->id)->first();
         if ($giftInfo == null) {
@@ -46,24 +63,10 @@ class GiftInfoService
     }
 
     public function getAllGifters(){
-        $giftInfos = GiftInfo::select(DB::raw("gift_info.from"))
+        return GiftInfo::select(DB::raw("gift_info.from"))
             ->join("personal_book_info", "gift_info.personal_book_info_id", '=',"personal_book_info.id")
-            ->join("book", "personal_book_info.book_id", '=', "book.id")
-            ->where('book.user_id', '=', Auth::user()->id)
-            ->where('wizard_step', '=', 'COMPLETE')
+            ->where('user_id', '=', Auth::user()->id)
             ->groupBy("gift_info.from")
             ->get();
-
-        $result = array();
-        $result["Geen waarde"] = "";
-        foreach($giftInfos as $gifter){
-            if(!StringUtils::isEmpty($gifter->from)){
-                $result[$gifter->from] = $gifter->from;
-            }else{
-                $result["Geen waarde"] = $gifter->from;
-            }
-        }
-
-        return $result;
     }
 }

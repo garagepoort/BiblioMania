@@ -1,0 +1,64 @@
+<div class="col-md-12">
+    <div class="col-md-6" style="padding-left: 0px">
+        <div class="form-subtitle">Koop informatie</div>
+        <div class="form-content">
+
+            <div class="form-group">
+                <label class="control-label">Aankoopdatum</label>
+                <p class="input-group input-width-sm" style="margin-bottom: 0">
+                    <input type="text" class="form-control" is-open="datepicker.opened"
+                           show-button-bar="false"
+                           date-formatter
+                           ng-model-options="{ allowInvalid: true }"
+                           uib-datepicker-popup="dd-MM-yyyy" ng-model="model.buyInfo.buyDate" is-open="false"
+                           ng-required="true" close-text="Sluiten"/>
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="openDatePicker()"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </p>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Aankoop prijs </label>
+                <div>
+                    <select style="margin-right: 10px;" class="form-control col-md-2 input-width-xsm" ng-model="model.buyInfo.buyPrice.currency" ng-options="currency.value as currency.name for currency in data.currencies"></select>
+                    <input type="text" name="buyPrice" price-formatter class="form-control col-md-4 input-width-sm" ng-model="model.buyInfo.buyPrice.amount" ng-pattern="/^\d+(\,\d{1,2})?$/"/>
+                    <span ng-show="personalBookInfoForm.buyPrice.$error.pattern && personalBookInfoForm.buyPrice.$dirty" class="form-error-message help-inline vertical-align"><i class="fa fa-exclamation-circle"> Prijs is niet het juiste formaat.</i></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label ">Reden gekocht </label>
+                <input name="reason" type="text" class="form-control input-width-md" placeholder="reden" ng-model="model.buyInfo.reason"/>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="form-subtitle">Winkel informatie</div>
+        <div class="form-content">
+            <div class="form-group">
+                <label class="control-label ">Winkel </label>
+                <input name="shop" ng-model="model.buyInfo.shop" type="text" placeholder="winkel" class="form-control input-width-sm"
+                       uib-typeahead="shop.name as shop.name for shop in data.shops | filter:$viewValue | limitTo:8" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <div style="padding-left: 0">
+                    <label class="control-label ">Stad winkel </label>
+                    <input name="city" ng-model="model.buyInfo.cityShop" type="text" placeholder="stad" class="form-control input-width-sm"
+                           uib-typeahead="city.name as city.name for city in data.cities | filter:$viewValue | limitTo:8" class="form-control">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div style="padding-left: 0">
+                    <label class="control-label">Land winkel </label>
+
+                    <input name="country" ng-model="model.buyInfo.countryShop" type="text" placeholder="land" class="form-control input-width-sm"
+                           uib-typeahead="country.name as country.name for country in data.countries | filter:$viewValue | limitTo:8" class="form-control">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

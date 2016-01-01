@@ -1,0 +1,22 @@
+<form novalidate class="form-horizontal">
+    <fieldset>
+        <div class="form-group">
+            <label class="controlLabel loginLabel col-md-3">Gebruiker:</label>
+            <div class="col-md-5">
+                <input type="text" class="form-control input-sm" placeholder="gebruiker" ng-model="user.username">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="controlLabel loginLabel col-md-3">Paswoord:</label>
+            <div class="col-md-5">
+                <input type="password" class="form-control input-sm" placeholder="paswoord" ng-model="user.password">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-3"></div>
+            <div class="col-md-3">
+                <input type="submit" ng-click="login(user)" value="Login" class="btn btn-block btn-success loginButton"/>
+            </div>
+        </div>
+    </fieldset>
+</form>

@@ -41,8 +41,6 @@
 }
 .wizard-steps {
   text-align: center;
-  margin-top: 30px;
   width: 840px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 30px auto;
 }

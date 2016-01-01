@@ -3,17 +3,21 @@
 class ImageController extends BaseController
 {
 
-    private $logger;
-
     /** @var ApiAuthenticationService */
     private $apiAuthenticationService;
     /** @var BookService */
     private $bookService;
+    /** @var  SpriteCreator $spriteCreator */
+    private $spriteCreator;
+    /** @var  \Katzgrau\KLogger\Logger */
+    private $logger;
 
     function __construct()
     {
         $this->apiAuthenticationService = App::make('ApiAuthenticationService');
         $this->bookService = App::make('BookService');
+        $this->spriteCreator = App::make('SpriteCreator');
+        $this->logger = App::make('Logger');
     }
 
     public function getBookImage($id)
@@ -23,44 +27,49 @@ class ImageController extends BaseController
             return $response;
         } else {
             $book = $this->bookService->find($id);
-            $username = Auth::user()->username;
-            $image = file_get_contents(public_path() . "/" . Config::get("properties.bookImagesLocation") . "/" . $username . "/" . $book->coverImage);
+            $image = file_get_contents(public_path() . "/" . Config::get("properties.bookImagesLocation") . "/" . $book->coverImage);
             return Response::make($image, 200, ['content-type' => 'image/jpg']);
         }
     }
 
     public function createSpriteForBooks()
     {
-        ini_set('max_execution_time', 1000);
-        ini_set('memory_limit', '-1');
-        $users = User::all();
-        $logger = new Katzgrau\KLogger\Logger(app_path() . '/storage/logs');
-        $logger->info("STARTING CREATE SPRITE FOR USERS");
-        foreach ($users as $user) {
-            $folder = public_path() . "/" . Config::get("properties.bookImagesLocation") . "/" . $user->username;
-            if (file_exists($folder)) {
-                $logger->info("Starting sprite creation for user $user->username");
-                images_to_sprite::create_sprite_for_book_images($folder, $user);
-                $logger->info("End sprite creation for user $user->username");
-            } else {
-                $logger->info("No image folder for user: $user->username");
+        $folder = public_path() . "/" . Config::get("properties.bookImagesLocation");
+        $this->createSprite($folder, function(Image $image, $imageYPointer){
+            $book = Book::where('coverImage', '=', $image->getFile())->first();
+            if($book != null) {
+                $book->spritePointer = $imageYPointer;
+                $book->imageHeight = $image->getHeight();
+                $book->imageWidth = $image->getWidth();
+                $book->useSpriteImage = true;
+                $book->save();
             }
-        }
-        $logger->info("END CREATE SPRITE FOR USERS");
-        ini_set('max_execution_time', 30);
-        ini_set('memory_limit', '128M');
+        });
     }
 
     public function createSpriteForAuthors()
     {
+        $folder = public_path() . "/" . Config::get("properties.authorImagesLocation");
+        $this->createSprite($folder, function($image, $imageYPointer){
+            $author = Author::where('image', '=', $image->getFile())->first();
+            if($author != null){
+                $author->spritePointer = $imageYPointer;
+                $author->imageHeight = $image->getHeight();
+                $author->imageWidth = $image->getWidth();
+                $author->useSpriteImage = true;
+                $author->save();
+            }
+        });
+    }
+
+    private function createSprite($folder, $onImageFound){
         ini_set('max_execution_time', 1000);
         ini_set('memory_limit', '-1');
-        $logger = new Katzgrau\KLogger\Logger(app_path() . '/storage/logs');
-        $folder = public_path() . "/" . Config::get("properties.authorImagesLocation");
-        $logger->info("STARTING CREATE SPRITE FOR AUTHOR IMAGES");
-        images_to_sprite::create_sprite_for_author_images($folder);
-        $logger->info("END CREATE SPRITE FOR AUTHOR IMAGES");
-
+        if (file_exists($folder)) {
+            $this->spriteCreator->createSpriteForImages($folder, $onImageFound);
+        } else {
+            $this->logger->info("No image folder found: " . $folder);
+        }
         ini_set('max_execution_time', 30);
         ini_set('memory_limit', '128M');
     }

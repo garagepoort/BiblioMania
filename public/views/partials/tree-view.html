@@ -1,0 +1,8 @@
+<ul class="nav nav-list nav-pills nav-stacked abn-tree">
+    <li ng-repeat="row in treeRows">
+        <a ng-click="clickBranch(row.branch)">
+            <i ng-class="row.tree_icon" ng-click="row.branch.expanded = !row.branch.expanded"></i>
+            <span>{{ row.label }} </span>
+        </a>
+    </li>
+</ul>
