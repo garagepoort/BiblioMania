@@ -1,0 +1,68 @@
+<errorcontainer></errorcontainer>
+<div class="create-book-div">
+    <form ng-submit="submitForm()" novalidate name="oeuvreForm">
+        <fieldset>
+            <div class="form-container">
+                <div class="col-md-8">
+                    <div class="form-subtitle">Oeuvre item</div>
+                    <div class="form-content">
+                        <div class="form-group required">
+                            <label class="control-label" for="title">Titel </label>
+                            <input id="title" name="title" class="form-control input-sm input-width-md"
+                                   placeholder="titel" ng-model="model.title" type="text" required
+                                   ng-class="{'has-error has-feedback' : oeuvreForm.title.$invalid && oeuvreForm.title  .$dirty}"/>
+                            <span ng-show="oeuvreForm.title.$error.required && oeuvreForm.title.$dirty"
+                                  class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Titel is verplicht</span>
+                        </div>
+                        <div class="form-group required">
+                            <label class="control-label" for="publicationYear">Publicatie jaar </label>
+
+                            <input id="publicationYear" name="publicationYear"
+                                   class="form-control input-sm input-width-sm" placeholder="publicatiejaar"
+                                   ng-model="model.publicationYear" type="text" required
+                                   ng-class="{'has-error has-feedback' : oeuvreForm.publicationYear.$invalid && oeuvreForm.publicationYear.$dirty}"
+                                    />
+                            <span ng-show="oeuvreForm.publicationYear.$error.required && oeuvreForm.publicationYear.$dirty"
+                                  class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Publicatie jaar is verplicht</span>
+                        </div>
+                        <button class="btn btn-primary">Opslaan</button>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-subtitle">Auteur</div>
+                    <div class="form-content">
+                        <div>{{ author.name.firstname + " " + author.name.lastname}}</div>
+                        <img src-with-fallback="{{ author.image }}" style="margin-bottom: 20px;">
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-subtitle">
+                        <div>Boeken</div>
+                        <button type="button" class=" btn btn-sm btn-default round-corners form-subtitle-button" ng-click="showSelectBookDialog()"><i
+                                class="fa fa-pencil"></i> Link boek aan oeuvre
+                        </button>
+                    </div>
+                    <div class="form-content">
+                        <table class="table table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Titel</th>
+                                    <th>isbn</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="book in books">
+                                    <td>{{ book.title }}</td>
+                                    <td>{{ book.isbn }}</td>
+                                    <td style="text-align: center"><i class="clickable fa fa-times-circle" ng-click="deleteBookFromOeuvreItem(book)"></i></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+
+</div>

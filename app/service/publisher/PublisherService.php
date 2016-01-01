@@ -26,13 +26,6 @@ class PublisherService
         }
         $publisher->save();
         return $publisher;
-
-    }
-
-    public function saveOrUpdate(Publisher $publisher)
-    {
-        $this->publisherRepository->save($publisher);
-        return $publisher;
     }
 
     public function updatePublisher($publisherId, $name){
@@ -65,6 +58,20 @@ class PublisherService
         return Publisher::with('first_print_infos', 'books')
             ->where('user_id', '=', Auth::user()->id)
             ->orderBy('name', 'asc')->get();
+    }
+
+    public function getPublisherSeries($publisherId){
+        /** @var Publisher $publisher */
+        $publisher = $this->publisherRepository->find($publisherId, array('series'));
+        Ensure::objectNotNull('publisher', $publisher);
+        return $publisher->series;
+    }
+
+    public function getPublisherBooks($publisherId){
+        /** @var Publisher $publisher */
+        $publisher = $this->publisherRepository->find($publisherId, array('books'));
+        Ensure::objectNotNull('publisher', $publisher);
+        return $publisher->books;
     }
 
     public function mergePublishers($publisher_id1, $publisher_id2){

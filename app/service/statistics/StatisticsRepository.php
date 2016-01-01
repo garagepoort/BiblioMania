@@ -6,8 +6,6 @@ class StatisticsRepository {
     {
         $userId = Auth::user()->id;
         return count(DB::select("select reading_date.date from book inner join personal_book_info on personal_book_info.book_id = book.id
-                    inner join personal_book_info_reading_date on personal_book_info_reading_date.personal_book_info_id = personal_book_info.id
-                    inner join reading_date on reading_date.id = personal_book_info_reading_date.reading_date_id
                     where month(reading_date.date) = $month AND YEAR(reading_date.date) = $year and user_id = $userId"));
     }
 

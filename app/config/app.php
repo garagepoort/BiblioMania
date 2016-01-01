@@ -125,7 +125,6 @@ return array(
 		'Jenssegers\Agent\AgentServiceProvider',
 		'Bendani\PhpCommon\LoginService\Providers\LoginServiceProvider',
 		'Bendani\PhpCommon\GoogleImageService\Providers\GoogleImageServiceProvider',
-		'Bendani\PhpCommon\WizardService\Providers\WizardServiceProvider',
 	),
 
 	/*
@@ -195,6 +194,7 @@ return array(
 		'JWTAuth'   => 'Tymon\JWTAuth\Facades\JWTAuth',
 		'JWTFactory' => 'Tymon\JWTAuth\Facades\JWTFactory',
 		'Agent' => 'Jenssegers\Agent\Facades\Agent',
+		'Uuid' => 'Webpatser\Uuid\Uuid',
 	),
 
 );

@@ -1,0 +1,6 @@
+<div class="title-panel">
+    <button ng-show="titlePanelService.shouldShowPreviousButton()" class="button btn btn-default round-corners" type="button" style="margin-right: 20px; padding: 12px; margin-left: -10px;" ng-click="titlePanelService.goToPreviousUrl()"><span class="glyphicon glyphicon-chevron-left"></span></button>
+    {{ titlePanelService.getTitle() }}
+    <div id="titlePanelRightPanel" class="float-right vertical-align title-panel-buttons">
+    </div>
+</div>
