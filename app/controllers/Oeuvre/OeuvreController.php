@@ -58,11 +58,11 @@ class OeuvreController extends Controller
     }
 
     public function linkBookToOeuvreItem($oeuvreId){
-        $mapInputToJson = $this->jsonMappingService->mapInputToJson(Input::get(), new LinkBookToOeuvreItemFromJsonAdapter());
+        $mapInputToJson = $this->jsonMappingService->mapInputToJson(Input::get(), new BookIdFromJsonAdapter());
         $this->oeuvreService->linkBookToOeuvreItem($oeuvreId, $mapInputToJson);
     }
     public function deleteBookFromOeuvreItem($oeuvreId){
-        $mapInputToJson = $this->jsonMappingService->mapInputToJson(Input::get(), new LinkBookToOeuvreItemFromJsonAdapter());
+        $mapInputToJson = $this->jsonMappingService->mapInputToJson(Input::get(), new BookIdFromJsonAdapter());
         $this->oeuvreService->deleteLinkedBookFromOeuvreItem($oeuvreId, $mapInputToJson);
     }
 

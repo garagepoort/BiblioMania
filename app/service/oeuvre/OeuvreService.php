@@ -32,7 +32,7 @@ class OeuvreService
         }
     }
 
-    public function linkBookToOeuvreItem($oeuvreId, LinkBookToOeuvreItemRequest $bookToOeuvreItemRequest){
+    public function linkBookToOeuvreItem($oeuvreId, BookIdRequest $bookToOeuvreItemRequest){
         /** @var BookFromAuthor $oeuvreItem */
         $oeuvreItem = $this->find($oeuvreId);
         Ensure::objectNotNull("oeuvre item", $oeuvreItem);
@@ -47,7 +47,7 @@ class OeuvreService
         $book->save();
     }
 
-    public function deleteLinkedBookFromOeuvreItem($oeuvreId, LinkBookToOeuvreItemRequest $bookToOeuvreItemRequest){
+    public function deleteLinkedBookFromOeuvreItem($oeuvreId, BookIdRequest $bookToOeuvreItemRequest){
         /** @var BookFromAuthor $oeuvreItem */
         $oeuvreItem = $this->find($oeuvreId);
         Ensure::objectNotNull("oeuvre item", $oeuvreItem);

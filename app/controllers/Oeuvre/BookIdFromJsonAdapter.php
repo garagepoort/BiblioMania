@@ -1,6 +1,6 @@
 <?php
 
-class LinkBookToOeuvreItemFromJsonAdapter implements LinkBookToOeuvreItemRequest
+class BookIdFromJsonAdapter implements BookIdRequest
 {
 
     /** @var  int */
