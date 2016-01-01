@@ -27,8 +27,10 @@ Route::group(array('before' => 'auth'), function () {
     Route::get('tags', 'TagController@getTags');
     Route::get('countries', 'CountryController@getCountries');
     Route::get('languages', 'LanguageController@getLanguages');
-    Route::get('series', 'SerieController@getSeries');
     Route::get('publisher-series', 'PublisherSerieController@getPublisherSeries');
+
+    Route::get('series', 'SerieController@getSeries');
+    Route::put('series', 'SerieController@updateSerie');
 
     Route::get('firstprints', 'FirstPrintController@getAllFirstPrintInfos');
     Route::put('firstprints', 'FirstPrintController@updateFirstPrintInfo');

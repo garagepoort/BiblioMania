@@ -20,6 +20,9 @@
                 <tbody style="text-align: left">
                     <tr class="cursor-pointer accordion-toggle" ng-repeat-start="serie in series | filter: search | orderBy:predicate:reverseOrder" data-toggle="collapse" data-target="{{ '#' + serie.id + '_booksRow' }}">
                         <td>{{ serie.name }}</td>
+                        <td class="text-align-right">
+                            <button type="button" class="btn btn-default btn-xs" ng-click="editSerie(serie)"><span class="fa fa-pencil"></span></button>
+                        </td>
                     </tr>
                     <tr ng-repeat-end>
                         <td colspan="12">

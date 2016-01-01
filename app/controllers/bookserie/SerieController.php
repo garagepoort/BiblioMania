@@ -11,10 +11,13 @@ class SerieController extends BaseController
 
     /** @var BookSerieService $bookSerieService */
     private $bookSerieService;
+    /** @var JsonMappingService $jsonMappingService */
+    private $jsonMappingService;
 
     function __construct()
     {
         $this->bookSerieService = App::make('BookSerieService');
+        $this->jsonMappingService = App::make('JsonMappingService');
     }
 
     public function getSeries(){
@@ -22,5 +25,9 @@ class SerieController extends BaseController
             $adapter = new SerieToJsonAdapter($item);
             return $adapter->mapToJson();
         }, $this->bookSerieService->getSeries()->all());
+    }
+
+    public function updateSerie(){
+        $this->bookSerieService->update($this->jsonMappingService->mapInputToJson(Input::get(), new UpdateSerieFromJsonAdapter()));
     }
 }
