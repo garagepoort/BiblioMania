@@ -1,6 +1,6 @@
 <?php
 
-class CountryRepository implements iRepository{
+class CountryRepository implements Repository{
 
     public function find($id, $with = array())
     {

@@ -1,6 +1,6 @@
 <?php
 
-class BookFromAuthorRepository implements iRepository{
+class BookFromAuthorRepository implements Repository{
 
     public function find($id,$with = array())
     {
@@ -32,5 +32,10 @@ class BookFromAuthorRepository implements iRepository{
     public function deleteById($id)
     {
         BookFromAuthor::find($id)->delete();
+    }
+
+    public function getFromAuthor($author_id)
+    {
+        return BookFromAuthor::with(array('books'))->where("author_id", "=", $author_id)->get();
     }
 }

@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: david
- * Date: 26/05/15
- * Time: 08:14
- */
+use Illuminate\Support\Facades\Response;
 
 class ResponseCreator {
 
@@ -13,5 +8,12 @@ class ResponseCreator {
             'code'      =>  412,
             'message'   =>  $e->getMessage()
         ), 412);
+    }
+
+    public static function createUnauthorizedResponse(){
+        return Response::json(array(
+            'code'      =>  401,
+            'message'   =>  "User is not logged in."
+        ), 401);
     }
 }

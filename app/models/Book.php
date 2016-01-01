@@ -22,19 +22,16 @@ class Book extends Eloquent {
     	'print',
     	'serie_id',
     	'publisher_serie_id',
-        'user_id',
         'first_print_info_id',
         'retail_price',
         'summary',
-        'book_from_author_id',
 		'language_id',
-		'wizard_step'
+		'currency'
     	);
-
 
 	protected $dates = ['deleted_at'];
 
-	protected $with = array('publication_date', 'first_print_info', 'language');
+	protected $with = array('publication_date', 'first_print_info', 'language', 'personal_book_infos');
 
 	public function preferredAuthor(){
 		foreach($this->authors as $author){
@@ -46,14 +43,24 @@ class Book extends Eloquent {
 	}
 
 	public function secondaryAuthors(){
-		$this->belongsToMany('Author', 'book_author')->withPivot('preferred')->where('preferred', '=', false);
+		$result = [];
+		foreach($this->authors as $author){
+			if($author->pivot->preferred == false){
+				array_push($result, $author);
+			}
+		}
+		return $result;
 	}
 
     public function authors(){
     	return $this->belongsToMany('Author', 'book_author')->withPivot('preferred');
 	}
 
-    public function tags(){
+	public function book_from_authors(){
+		return $this->belongsToMany('BookFromAuthor', 'book_book_from_author');
+	}
+
+	public function tags(){
     	return $this->belongsToMany('Tag', 'book_tag');
 	}
 
@@ -81,18 +88,14 @@ class Book extends Eloquent {
         return $this->belongsTo('PublisherSerie');
     }
 
-	public function personal_book_info(){
-    	return $this->hasOne('PersonalBookInfo', 'book_id');
+	public function personal_book_infos(){
+    	return $this->hasMany('PersonalBookInfo', 'book_id');
 	}
 
     public function first_print_info(){
         return $this->belongsTo('FirstPrintInfo', 'first_print_info_id');
     }
 
-    public function book_from_author(){
-        return $this->belongsTo('BookFromAuthor', 'book_from_author_id');
-    }
-    
     public function awards()
     {
         return $this->belongsToMany('BookAward', 'book_book_award');
@@ -102,7 +105,6 @@ class Book extends Eloquent {
     {
         return $this->hasMany('Film');
     }
-
 	public function language(){
 		return $this->belongsTo('Language');
 	}

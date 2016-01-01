@@ -4,6 +4,10 @@ App::singleton('UserService', function () {
     return new UserService;
 });
 
+App::singleton('ReadingDateService', function () {
+    return new ReadingDateService();
+});
+
 App::singleton('CountryService', function () {
     return new CountryService(App::make('CountryRepository'));
 });
@@ -16,6 +20,14 @@ App::singleton('GenreService', function () {
     return new GenreService();
 });
 
+App::singleton('OeuvreItemLinkValidator', function () {
+    return new OeuvreItemLinkValidator();
+});
+
+App::singleton('JsonMappingService', function () {
+    return new JsonMappingService();
+});
+
 App::singleton('CurrencyService', function () {
     return new CurrencyService();
 });
@@ -26,6 +38,10 @@ App::singleton('BookFilterManager', function () {
 
 App::singleton('ApiAuthenticationService', function () {
     return new ApiAuthenticationService();
+});
+
+App::singleton('TagRepository', function () {
+    return new TagRepository();
 });
 
 App::singleton('TagService', function () {
@@ -80,6 +96,10 @@ App::singleton('FirstPrintInfoService', function () {
     return new FirstPrintInfoService;
 });
 
+App::singleton('FirstPrintInfoRepository', function () {
+    return new FirstPrintInfoRepository();
+});
+
 App::singleton('PersonalBookInfoService', function () {
     return new PersonalBookInfoService;
 });
@@ -90,10 +110,6 @@ App::singleton('PublisherService', function () {
 
 App::singleton('LanguageService', function () {
     return new LanguageService;
-});
-
-App::singleton('BookImportService', function () {
-    return new BookImportService();
 });
 
 App::singleton('StatisticsService', function () {
@@ -112,6 +128,14 @@ App::singleton('ImportFileMapper', function () {
     return new ImportFileMapper();
 });
 
+App::singleton('SpriteCreator', function () {
+    return new SpriteCreator();
+});
+
+App::singleton('FilterHistoryService', function () {
+    return new FilterHistoryService();
+});
+
 
 //logger
 App::singleton('Logger', function () {
@@ -124,35 +148,6 @@ App::singleton('BookFormValidator', function () {
 
 App::singleton('AuthorFormValidator', function () {
     return new AuthorFormValidator();
-});
-
-App::singleton('BookDTOMapper', function () {
-    return new BookDTOMapper();
-});
-
-
-App::singleton('AuthorInfoParameterMapper', function () {
-    return new AuthorInfoParameterMapper();
-});
-
-App::singleton('ExtraBookInfoParameterMapper', function () {
-    return new ExtraBookInfoParameterMapper();
-});
-
-App::singleton('BookInfoParameterMapper', function () {
-    return new BookInfoParameterMapper();
-});
-
-App::singleton('ImageUploader', function () {
-    return new ImageUploader();
-});
-
-App::singleton('BookCreationService', function () {
-    return new BookCreationService();
-});
-
-App::singleton('OeuvreToParameterMapper', function () {
-    return new OeuvreToParameterMapper();
 });
 
 App::singleton('FileToAuthorParametersMapper', function () {
@@ -196,6 +191,9 @@ App::singleton('FileToOeuvreParametersMapper', function () {
 
 App::singleton('BookRepository', function () {
     return new BookRepository();
+});
+App::singleton('ReadingDateRepository', function () {
+    return new ReadingDateRepository();
 });
 
 App::singleton('PersonalBookInfoRepository', function () {

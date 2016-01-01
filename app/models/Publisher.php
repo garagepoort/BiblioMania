@@ -15,4 +15,9 @@ class Publisher extends Eloquent {
         return $this->hasMany('FirstPrintInfo', 'publisher_id');
     }
 
+	public function series()
+    {
+        return $this->hasMany('PublisherSerie', 'publisher_id');
+    }
+
 }
