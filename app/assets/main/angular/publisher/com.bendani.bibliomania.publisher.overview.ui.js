@@ -17,7 +17,7 @@ angular.module('com.bendani.bibliomania.publisher.overview.ui', [
                 TitlePanelService.setTitle('Uitgevers');
                 TitlePanelService.setShowPreviousButton(false);
 
-                $scope.searchPublisherQuery = "";
+                $scope.searchSeriesQuery = "";
                 $scope.predicate = "name";
                 $scope.reverseOrder = false;
 
@@ -30,7 +30,7 @@ angular.module('com.bendani.bibliomania.publisher.overview.ui', [
             }
 
             $scope.search = function (item) {
-                if ((item.name.toLowerCase().indexOf($scope.searchPublisherQuery) !== -1)) {
+                if ((item.name.toLowerCase().indexOf($scope.searchSeriesQuery) !== -1)) {
                     return true;
                 }
                 return false;
