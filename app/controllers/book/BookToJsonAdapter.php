@@ -10,12 +10,13 @@ class BookToJsonAdapter
     private $subtitle;
     private $isbn;
     private $author;
+    private $image;
     private $personalBookInfoId;
     private $read = false;
     /** @var  PriceToJsonAdapter */
     private $retailPrice;
     /** @var  ImageToJsonAdapter */
-    private $imageInformation;
+    private $spriteImage;
     /** @var  PersonalBookInfoRepository */
     private $personalBookInfoRepository;
 
@@ -52,7 +53,10 @@ class BookToJsonAdapter
         if(!StringUtils::isEmpty($book->coverImage)){
             $imageToJsonAdapter = new ImageToJsonAdapter();
             $imageToJsonAdapter->fromBook($book);
-            $this->imageInformation = $imageToJsonAdapter;
+            $this->spriteImage = $imageToJsonAdapter;
+
+            $baseUrl = URL::to('/');
+            $this->image = $baseUrl . "/bookImages/" . $book->coverImage;
         }
 
 //        $this->oeuvreItemIds = array_map(function ($item) { return $item->id; }, $book->book_from_authors->all());
@@ -65,6 +69,7 @@ class BookToJsonAdapter
             "subtitle" => $this->subtitle == null ? "" : $this->subtitle,
             "isbn" => $this->isbn,
             "read" => $this->read,
+            "image" => $this->image,
             "author" => $this->author == null ? "" : $this->author
         );
 
@@ -72,8 +77,8 @@ class BookToJsonAdapter
             $result['personalBookInfoId'] = $this->personalBookInfoId;
         }
 
-        if($this->imageInformation != null){
-            $result['image'] = $this->imageInformation->mapToJson();
+        if($this->spriteImage != null){
+            $result['spriteImage'] = $this->spriteImage->mapToJson();
         }
         if($this->retailPrice != null){
             $result['retailPrice'] = $this->retailPrice->mapToJson();

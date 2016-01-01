@@ -1,0 +1,38 @@
+<div class="books-container">
+    <div class="contentPanel">
+
+        <errorcontainer></errorcontainer>
+
+
+        <div class="top-book-panel">
+            <div style="clear: both">
+                <div class="input-group" style="width: 200px; float: right">
+                    <input id="searchSerieInput" ng-model="searchSeriesQuery" type="text" class="form-control half-round-corners-left" placeholder="Search" name="criteria" aria-describedby="basic-addon1">
+                    <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon1"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="book-panel">
+            <img src="/BiblioMania/images/ajax-loader.gif" ng-show="loading">
+            <table ng-show="!loading" class="table table-striped">
+                <thead sort-header sort-options="orderValues" current-predicate="predicate" reverse-order="reverseOrder"></thead>
+                <tbody style="text-align: left">
+                    <tr class="cursor-pointer accordion-toggle" ng-repeat-start="serie in series | filter: search | orderBy:predicate:reverseOrder" data-toggle="collapse" data-target="{{ '#' + serie.id + '_booksRow' }}">
+                        <td>{{ serie.name }}</td>
+                    </tr>
+                    <tr ng-repeat-end>
+                        <td colspan="12">
+                            <div class="accordian-body collapse" id="{{ serie.id + '_booksRow' }}">
+                                <!--<img ng-repeat="book in serie.books" src-with-fallback="{{ book.image }}" class="margin-10">-->
+                                <image-card ng-repeat="book in serie.books" model="book" warnings="book.warnings" on-image-click="onImageClickBook(book)" show-edit-button="false" backup-text="{{ book.title }}"></image-card>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+    <book-detail></book-detail>
+</div>
