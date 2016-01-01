@@ -31,6 +31,8 @@ Route::group(array('before' => 'auth'), function () {
 
     Route::get('series', 'SerieController@getSeries');
     Route::put('series', 'SerieController@updateSerie');
+    Route::post('serie/{id}/books', 'SerieController@addBookToSerie');
+    Route::put('serie/{id}/remove-book', 'SerieController@removeBookFromSerie');
 
     Route::get('firstprints', 'FirstPrintController@getAllFirstPrintInfos');
     Route::put('firstprints', 'FirstPrintController@updateFirstPrintInfo');

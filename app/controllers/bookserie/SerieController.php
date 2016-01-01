@@ -30,4 +30,14 @@ class SerieController extends BaseController
     public function updateSerie(){
         $this->bookSerieService->update($this->jsonMappingService->mapInputToJson(Input::get(), new UpdateSerieFromJsonAdapter()));
     }
+
+    public function addBookToSerie($serieId){
+        $mapInputToJson = $this->jsonMappingService->mapInputToJson(Input::get(), new BookIdFromJsonAdapter());
+        $this->bookSerieService->addBookToSerie($serieId, $mapInputToJson);
+    }
+    public function removeBookFromSerie($serieId){
+        $mapInputToJson = $this->jsonMappingService->mapInputToJson(Input::get(), new BookIdFromJsonAdapter());
+        $this->bookSerieService->removeBookFromSerie($serieId, $mapInputToJson);
+    }
+
 }
