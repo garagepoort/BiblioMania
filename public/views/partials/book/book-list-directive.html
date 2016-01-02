@@ -1,0 +1,22 @@
+<div class="text-align-left">
+    <div class="input-group" style="width: 200px; float: right">
+        <input ng-model="searchBooksQuery" type="text"
+               class="form-control half-round-corners-left" placeholder="Search" name="criteria"
+               aria-describedby="basic-addon1">
+        <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon1"></span>
+    </div>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Titel</th>
+            <th>isbn</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="book in books | filter: search" style="cursor: pointer" ng-click="goToBookDetails(book)">
+            <td style="width: 100%">{{ book.title }}</td>
+            <td style="width: 100%">{{ book.isbn }}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
