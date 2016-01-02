@@ -21,7 +21,7 @@
     "webpatser/laravel-uuid": "2.*",
     "doctrine/dbal": "~2.3",
 
-    "bendani/php-common/login-service": "2.0.*",
+    "bendani/php-common/login-service": "3.0.*",
     "bendani/php-common/google-image-service": "1.0.*",
     "bendani/php-common/filter-service": "2.0.*",
     "bendani/php-common/uiframework": "1.0.*",

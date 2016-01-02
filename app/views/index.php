@@ -11,8 +11,7 @@
 
         <script type="text/javascript" src="assets/main.min.js"></script>
         <script type="text/javascript" src="packages/bendani/php-common/filter-service/filters.min.js"></script>
-        <script type="text/javascript" src="packages/bendani/php-common/login-service/com.bendani.php.common.loginservice.authentication.model.js"></script>
-        <script type="text/javascript" src="packages/bendani/php-common/login-service/com.bendani.php.common.loginservice.login.directive.js"></script>
+        <script type="text/javascript" src="packages/bendani/php-common/login-service/loginservice.min.js"></script>
 
 
         <link href="packages/bendani/php-common/filter-service/filters.min.css" rel="stylesheet"/>
