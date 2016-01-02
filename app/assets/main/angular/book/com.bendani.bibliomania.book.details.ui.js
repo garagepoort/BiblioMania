@@ -128,10 +128,19 @@ angular.module('com.bendani.bibliomania.book.details.ui', ['com.bendani.biblioma
 
             $scope.openSelectOeuvreItemDialog = function(){
                 OeuvreItemSelectionModalService.show($scope.book.authors, function(oeuvreItem){
-                    Oeuvre.linkBook({id: oeuvreItem.id}, {bookId: $scope.book.id}, function () {
-                        loadBook();
-                        growl.addSuccessMessage("Oeuvre gewijzigd");
-                    }, ErrorContainer.handleRestError);
+                    var shouldAdd = true;
+                    for(var i = 0; i < $scope.book.oeuvreItems.length; i++){
+                        if($scope.book.oeuvreItems[i].id === oeuvreItem.id){
+                            shouldAdd = false;
+                        }
+                    }
+
+                    if(shouldAdd){
+                        Oeuvre.linkBook({id: oeuvreItem.id}, {bookId: $scope.book.id}, function () {
+                            loadBook();
+                            growl.addSuccessMessage("Oeuvre gewijzigd");
+                        }, ErrorContainer.handleRestError);
+                    }
                 });
             };
 
