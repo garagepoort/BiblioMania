@@ -47,7 +47,9 @@ class BookToJsonAdapter
             }
         }
 
-        $this->isLinkedToOeuvre = count($book->book_from_authors->all()) > 0;
+        if($book->book_from_authors !== null){
+            $this->isLinkedToOeuvre = count($book->book_from_authors->all()) > 0;
+        }
 
         if($book->preferredAuthor() != null){
             $this->author = $book->preferredAuthor()->name . " " . $book->preferredAuthor()->firstname;
