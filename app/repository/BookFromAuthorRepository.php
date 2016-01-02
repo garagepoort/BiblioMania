@@ -38,4 +38,9 @@ class BookFromAuthorRepository implements Repository{
     {
         return BookFromAuthor::with(array('books'))->where("author_id", "=", $author_id)->get();
     }
+
+    public function linkBookToOeuvreItem($oeuvreItemId, Book $book){
+        $book->book_from_authors()->attach($oeuvreItemId);
+        $book->save();
+    }
 }
