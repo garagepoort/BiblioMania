@@ -33,7 +33,7 @@ class OeuvreServiceLinkBookToOeuvreItemTest extends TestCase
         $this->book = $this->mockEloquent('Book');
 
         $this->bookFromAuthorRepository->shouldReceive('find')->with(self::OEUVRE_ID)->andReturn($this->oeuvreItem)->byDefault();
-        $this->bookRepository->shouldReceive('find')->with($this->bookIdRequest->getBookId(), array('authors'))->andReturn($this->book)->byDefault();
+        $this->bookRepository->shouldReceive('find')->with($this->bookIdRequest->getBookId(), array('authors', 'book_from_authors'))->andReturn($this->book)->byDefault();
 
         $this->oeuvreService = App::make('OeuvreService');
     }
@@ -61,7 +61,7 @@ class OeuvreServiceLinkBookToOeuvreItemTest extends TestCase
      * @expectedExceptionMessage Object book can not be null.
      */
     public function test_shouldThrowExceptionWhenBookNotFound(){
-        $this->bookRepository->shouldReceive('find')->with($this->bookIdRequest->getBookId(), array('authors'))->andReturn(null);
+        $this->bookRepository->shouldReceive('find')->with($this->bookIdRequest->getBookId(), array('authors', 'book_from_authors'))->andReturn(null);
 
         $this->oeuvreService->linkBookToOeuvreItem(self::OEUVRE_ID, $this->bookIdRequest);
     }
