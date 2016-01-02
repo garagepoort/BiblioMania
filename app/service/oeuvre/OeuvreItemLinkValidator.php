@@ -11,7 +11,13 @@ class OeuvreItemLinkValidator
             }
         }
         if(!$valid){
-            throw new ServiceException('Author from oevre item is not an author from the book. Canot link');
+            throw new ServiceException('Author from oeuvre item is not an author from the book. Cannot link');
+        }
+
+        foreach($book->book_from_authors as $bookFromAuthor){
+            if($bookFromAuthor->id === $oeuvreItem->id){
+                throw new ServiceException('Book is already linked to the given oeuvreItem');
+            }
         }
     }
 
