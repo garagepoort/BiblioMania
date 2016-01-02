@@ -49,7 +49,7 @@ angular.module('com.bendani.bibliomania.book.overview.service', ['com.bendani.bi
                 });
             }
 
-            if(!book.oeuvreItemId){
+            if(!book.isLinkedToOeuvre){
                 warnings.push({
                     id: "bookIsNotLinkedToOeuvre",
                     message: "Dit boek is niet gelinked aan een oeuvre",

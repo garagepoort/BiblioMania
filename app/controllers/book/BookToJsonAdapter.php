@@ -13,6 +13,7 @@ class BookToJsonAdapter
     private $image;
     private $personalBookInfoId;
     private $read = false;
+    private $isLinkedToOeuvre = false;
     /** @var  PriceToJsonAdapter */
     private $retailPrice;
     /** @var  ImageToJsonAdapter */
@@ -46,6 +47,8 @@ class BookToJsonAdapter
             }
         }
 
+        $this->isLinkedToOeuvre = count($book->book_from_authors->all()) > 0;
+
         if($book->preferredAuthor() != null){
             $this->author = $book->preferredAuthor()->name . " " . $book->preferredAuthor()->firstname;
         }
@@ -69,6 +72,7 @@ class BookToJsonAdapter
             "subtitle" => $this->subtitle == null ? "" : $this->subtitle,
             "isbn" => $this->isbn,
             "read" => $this->read,
+            "isLinkedToOeuvre" => $this->isLinkedToOeuvre,
             "image" => $this->image,
             "author" => $this->author == null ? "" : $this->author
         );
