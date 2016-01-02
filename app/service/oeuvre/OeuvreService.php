@@ -34,17 +34,16 @@ class OeuvreService
 
     public function linkBookToOeuvreItem($oeuvreId, BookIdRequest $bookToOeuvreItemRequest){
         /** @var BookFromAuthor $oeuvreItem */
-        $oeuvreItem = $this->find($oeuvreId);
+        $oeuvreItem = $this->bookFromAuthorRepository->find($oeuvreId);
         Ensure::objectNotNull("oeuvre item", $oeuvreItem);
 
         /** @var Book $book */
-        $book = $this->bookRepository->find($bookToOeuvreItemRequest->getBookId(), array('authors'));
+        $book = $this->bookRepository->find($bookToOeuvreItemRequest->getBookId(), array('authors', 'book_from_authors'));
         Ensure::objectNotNull("book", $book);
 
         $this->oeuvreItemLinkValidator->validate($oeuvreItem, $book);
 
-        $book->book_from_authors()->attach($oeuvreId);
-        $book->save();
+        $this->bookFromAuthorRepository->linkBookToOeuvreItem($oeuvreId, $book);
     }
 
     public function deleteLinkedBookFromOeuvreItem($oeuvreId, BookIdRequest $bookToOeuvreItemRequest){
