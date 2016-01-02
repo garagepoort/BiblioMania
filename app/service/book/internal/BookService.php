@@ -62,7 +62,7 @@ class BookService
     }
 
     public function allBooks(){
-        return $this->bookRepository->allWith(array('personal_book_infos', 'authors'));
+        return $this->bookRepository->allWith(array('personal_book_infos', 'authors', 'book_from_authors'));
     }
 
     public function create(BaseBookRequest $createBookRequest){
@@ -144,6 +144,7 @@ class BookService
 
     public function filterBooks($filters){
         $books = Book::select(DB::raw('book.*'))
+            ->with('book_from_authors', 'authors', 'personal_book_infos')
             ->leftJoin('book_author', 'book_author.book_id', '=', 'book.id')
             ->leftJoin('author', 'book_author.author_id', '=', 'author.id')
             ->leftJoin('personal_book_info', 'personal_book_info.book_id', '=', 'book.id')
