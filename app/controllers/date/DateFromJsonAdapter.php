@@ -8,7 +8,6 @@ class DateFromJsonAdapter implements DateRequest
     /** @var Integer */
     private $month;
     /** @var Integer */
-    /** @required */
     private $year;
 
     /**
