@@ -153,21 +153,33 @@ class FirstPrintInfoService
      */
     private function saveFirstPrintInfo(BaseFirstPrintInfoRequest $firstPrintInfoRequest, FirstPrintInfo $firstPrintInfo)
     {
-        Ensure::objectNotNull("PublicationDate", $firstPrintInfoRequest->getPublicationDate());
-        Ensure::stringNotBlank("Language", $firstPrintInfoRequest->getLanguage());
-        Ensure::stringNotBlank("Title", $firstPrintInfoRequest->getTitle());
-        Ensure::stringNotBlank("Publisher", $firstPrintInfoRequest->getPublisher());
-        Ensure::stringNotBlank("Country", $firstPrintInfoRequest->getCountry());
+        if(!StringUtils::isEmpty($firstPrintInfoRequest->getPublisher())){
+            $publisher = $this->publisherService->findOrCreate($firstPrintInfoRequest->getPublisher());
+            $firstPrintInfo->publisher_id = $publisher->id;
+        }else{
+            $firstPrintInfo->publisher_id = null;
+        }
 
-        $publisher = $this->publisherService->findOrCreate($firstPrintInfoRequest->getPublisher());
-        $country = $this->countryService->findOrCreate($firstPrintInfoRequest->getCountry());
-        $language = $this->languageService->findOrCreate($firstPrintInfoRequest->getLanguage());
-        $date = $this->createPublicationDate($firstPrintInfoRequest);
+        if(!StringUtils::isEmpty($firstPrintInfoRequest->getLanguage())){
+            $language = $this->languageService->findOrCreate($firstPrintInfoRequest->getLanguage());
+            $firstPrintInfo->language_id = $language->id;
+        }else{
+            $firstPrintInfo->language_id = null;
+        }
 
-        $firstPrintInfo->language()->associate($language);
-        $firstPrintInfo->country()->associate($country);
-        $firstPrintInfo->publisher()->associate($publisher);
-        $firstPrintInfo->publication_date()->associate($date);
+        if(!StringUtils::isEmpty($firstPrintInfoRequest->getCountry())){
+            $country = $this->countryService->findOrCreate($firstPrintInfoRequest->getCountry());
+            $firstPrintInfo->country_id = $country->id;
+        }else{
+            $firstPrintInfo->country_id = null;
+        }
+
+        if($firstPrintInfoRequest->getPublicationDate() != null && !StringUtils::isEmpty($firstPrintInfoRequest->getPublicationDate()->getYear())){
+            $date = $this->createPublicationDate($firstPrintInfoRequest);
+            $firstPrintInfo->publication_date_id = $date->id;
+        }else{
+            $firstPrintInfo->publication_date_id = null;
+        }
 
         $firstPrintInfo->title = $firstPrintInfoRequest->getTitle();
         $firstPrintInfo->subtitle = $firstPrintInfoRequest->getSubtitle();
