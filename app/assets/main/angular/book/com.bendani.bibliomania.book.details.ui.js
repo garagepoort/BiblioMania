@@ -13,6 +13,7 @@ angular.module('com.bendani.bibliomania.book.details.ui', ['com.bendani.biblioma
     'com.bendani.bibliomania.confirmation.modal.service',
     'com.bendani.bibliomania.reading.date.modal.service',
     'com.bendani.bibliomania.oeuvre.item.selection.modal.service',
+    'com.bendani.bibliomania.wishlist.model',
     'angular-growl'])
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider
@@ -21,9 +22,10 @@ angular.module('com.bendani.bibliomania.book.details.ui', ['com.bendani.biblioma
                 controller: 'BookDetailsController'
             });
     }])
-    .controller('BookDetailsController', ['$scope', '$routeParams', 'Book', 'PersonalBookInfo', 'ReadingDate', 'ErrorContainer','DateService', 'AuthorSelectionModalService', 'AuthorCreationModalService', 'FirstPrintSelectionModalService', 'DateSelectionModalService','TitlePanelService',
-        'ConfirmationModalService', 'growl', '$compile', '$location', 'FirstPrintInfo', 'OeuvreItemSelectionModalService', 'Oeuvre', 'ReadingDateModalService', 'CurrencyService',
-        function($scope, $routeParams, Book, PersonalBookInfo, ReadingDate, ErrorContainer, DateService, AuthorSelectionModalService, AuthorCreationModalService, FirstPrintSelectionModalService, DateSelectionModalService, TitlePanelService, ConfirmationModalService, growl, $compile, $location, FirstPrintInfo, OeuvreItemSelectionModalService, Oeuvre, ReadingDateModalService, CurrencyService){
+    .controller('BookDetailsController', ['$scope', '$rootScope', '$routeParams', 'Book', 'PersonalBookInfo', 'ReadingDate', 'ErrorContainer','DateService', 'AuthorSelectionModalService', 'AuthorCreationModalService', 'FirstPrintSelectionModalService', 'DateSelectionModalService','TitlePanelService',
+        'ConfirmationModalService', 'growl', '$compile', '$location', 'FirstPrintInfo', 'OeuvreItemSelectionModalService', 'Oeuvre', 'ReadingDateModalService', 'CurrencyService', 'Wishlist',
+        function($scope, $rootScope, $routeParams, Book, PersonalBookInfo, ReadingDate, ErrorContainer, DateService, AuthorSelectionModalService, AuthorCreationModalService, FirstPrintSelectionModalService,
+                 DateSelectionModalService, TitlePanelService, ConfirmationModalService, growl, $compile, $location, FirstPrintInfo, OeuvreItemSelectionModalService, Oeuvre, ReadingDateModalService, CurrencyService, Wishlist){
 
             function init(){
                 TitlePanelService.setTitle("Boek detail");
@@ -126,12 +128,36 @@ angular.module('com.bendani.bibliomania.book.details.ui', ['com.bendani.biblioma
                 $location.path('/edit-oeuvre-item/' + oeuvreItem.id);
             };
 
+            $scope.addToWishlist = function(){
+                Wishlist.addBook({id: $rootScope.loggedInUser.id}, {bookId: $scope.book.id}, function(){
+                    growl.addSuccessMessage('Toegevoegd aan wishlist');
+                    $scope.book.onWishlist = true;
+                }, ErrorContainer.handleRestError);
+            };
+
+            $scope.removeFromWishlist = function(){
+                Wishlist.removeBook({id: $rootScope.loggedInUser.id}, {bookId: $scope.book.id}, function(){
+                    growl.addSuccessMessage('Verwijderd van wishlist');
+                    $scope.book.onWishlist = false;
+                }, ErrorContainer.handleRestError);
+            };
+
+
             $scope.openSelectOeuvreItemDialog = function(){
                 OeuvreItemSelectionModalService.show($scope.book.authors, function(oeuvreItem){
-                    Oeuvre.linkBook({id: oeuvreItem.id}, {bookId: $scope.book.id}, function () {
-                        loadBook();
-                        growl.addSuccessMessage("Oeuvre gewijzigd");
-                    }, ErrorContainer.handleRestError);
+                    var shouldAdd = true;
+                    for(var i = 0; i < $scope.book.oeuvreItems.length; i++){
+                        if($scope.book.oeuvreItems[i].id === oeuvreItem.id){
+                            shouldAdd = false;
+                        }
+                    }
+
+                    if(shouldAdd){
+                        Oeuvre.linkBook({id: oeuvreItem.id}, {bookId: $scope.book.id}, function () {
+                            loadBook();
+                            growl.addSuccessMessage("Oeuvre gewijzigd");
+                        }, ErrorContainer.handleRestError);
+                    }
                 });
             };
 
@@ -162,7 +188,10 @@ angular.module('com.bendani.bibliomania.book.details.ui', ['com.bendani.biblioma
             }
 
             function setRightTitlePanel(){
-                var titlePanelRight = angular.element('<div class="book-detail-title-panel"><label style="float: right" class="label label-warning">{{ book.genre }}</label></div>');
+                var titlePanelRight = angular.element('<div class="book-detail-title-panel"><div class="float-right">' +
+                    '<i ng-show="book.onWishlist" class="fa fa-heart margin-right-10"></i>' +
+                    '<label class="label label-warning">{{ book.genre }}</label>' +
+                    '</div></div>');
                 $compile(titlePanelRight)($scope);
                 TitlePanelService.setRightPanel(titlePanelRight);
             }
