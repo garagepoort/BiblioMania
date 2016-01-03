@@ -12,6 +12,11 @@ class UserController extends BaseController{
         return View::make('createUser')->with(array('title' => 'Create user'));
     }
 
+    public function getLoggedInUser(){
+        $userToJsonAdapter = new UserToJsonAdapter(Auth::user());
+        return $userToJsonAdapter->mapToJson();
+    }
+
     public function createUser() {
         $userService = App::make('UserService');
 
