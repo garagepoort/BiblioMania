@@ -50,19 +50,6 @@
 
     <div class="form-subtitle">Boeken</div>
     <div class="form-content">
-        <table class="table table-hover">
-            <thead>
-            <tr>
-                <th>Titel</th>
-                <th>isbn</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="book in books" ng-click="goToBook(book)">
-                <td>{{ book.title }}</td>
-                <td>{{ book.isbn }}</td>
-            </tr>
-            </tbody>
-        </table>
+        <book-list books="books"></book-list>
     </div>
 </div>
