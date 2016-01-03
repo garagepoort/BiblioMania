@@ -20,6 +20,14 @@ App::singleton('GenreService', function () {
     return new GenreService();
 });
 
+App::singleton('WishlistRepository', function () {
+    return new WishlistRepository();
+});
+
+App::singleton('WishlistService', function () {
+    return new WishlistService();
+});
+
 App::singleton('OeuvreItemLinkValidator', function () {
     return new OeuvreItemLinkValidator();
 });

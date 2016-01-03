@@ -50,6 +50,14 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
 	  return Mockery::mock('Eloquent', $class)->shouldIgnoreMissing();
 	}
 
+	/**
+	 * @return \Mockery\Mock
+	 */
+	public function mockEloquentCollection()
+	{
+	  return $this->mockEloquent('Illuminate\Database\Eloquent\Collection');
+	}
+
 	public function createFakeBook(){
 		$pivot = new stdClass();
 		$pivot->preferred = true;

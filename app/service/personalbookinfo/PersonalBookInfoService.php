@@ -13,11 +13,14 @@ class PersonalBookInfoService
     private $buyInfoService;
     /** @var  GiftInfoService */
     private $giftInfoService;
+    /** @var  WishlistRepository */
+    private $wishlistRepository;
 
     function __construct()
     {
         $this->readingDateService = App::make('ReadingDateService');
         $this->bookRepository = App::make('BookRepository');
+        $this->wishlistRepository = App::make('WishlistRepository');
         $this->personalBookInfoRepository = App::make('PersonalBookInfoRepository');
         $this->giftInfoService = App::make('GiftInfoService');
         $this->buyInfoService = App::make('BuyInfoService');
@@ -29,8 +32,8 @@ class PersonalBookInfoService
             ->first();
     }
 
-    public function createPersonalBookInfo(CreatePersonalBookInfoRequest $createRequest){
-        return DB::transaction(function() use ($createRequest){
+    public function createPersonalBookInfo($user_id, CreatePersonalBookInfoRequest $createRequest){
+        return DB::transaction(function() use ($user_id, $createRequest){
             $book = $this->bookRepository->find($createRequest->getBookId());
             Ensure::objectNotNull('book', $book);
             $personalBookInfo = $this->personalBookInfoRepository->findByBook($createRequest->getBookId());
@@ -39,13 +42,19 @@ class PersonalBookInfoService
             if($createRequest->getBuyInfo() == null && $createRequest->getGiftInfo() == null){
                 throw new ServiceException('No buy or gift information given');
             }
+
             if($createRequest->getBuyInfo() != null && $createRequest->getGiftInfo() != null){
                 throw new ServiceException('Both buy and gift information are given. Only one can be chosen');
             }
 
+            $wishlistItem = $this->wishlistRepository->findByUserAndBook($user_id, $book->id);
+            if($wishlistItem !== null){
+                $this->wishlistRepository->delete($wishlistItem);
+            }
+
             $personalBookInfo = new PersonalBookInfo();
             $personalBookInfo->book_id = $createRequest->getBookId();
-            $personalBookInfo->user_id = Auth::user()->id;
+            $personalBookInfo->user_id = $user_id;
             return $this->updatePersonalBookInfo($personalBookInfo, $createRequest);
         });
     }
