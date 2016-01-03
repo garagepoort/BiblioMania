@@ -9,4 +9,12 @@ class UserRepository {
         return $user;   
     }
 
+    /**
+     * @param $user_id
+     * @return User
+     */
+    public function find($user_id){
+        return User::find($user_id);
+    }
+
 }

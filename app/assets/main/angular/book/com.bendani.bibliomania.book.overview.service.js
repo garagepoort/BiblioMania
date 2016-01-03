@@ -48,14 +48,21 @@ angular.module('com.bendani.bibliomania.book.overview.service', ['com.bendani.bi
                     }
                 });
             }
+        }
+        if(!book.isLinkedToOeuvre){
+            warnings.push({
+                id: "bookIsNotLinkedToOeuvre",
+                message: "Dit boek is niet gelinked aan een oeuvre",
+                icon: "images/linked_warning.png"
+            });
+        }
 
-            if(!book.isLinkedToOeuvre){
-                warnings.push({
-                    id: "bookIsNotLinkedToOeuvre",
-                    message: "Dit boek is niet gelinked aan een oeuvre",
-                    icon: "images/linked_warning.png"
-                });
-            }
+        if(book.onWishlist){
+            warnings.push({
+                id: "bookIsOnWishlist",
+                message: "Dit boek staat op je wishlist",
+                icon: "images/heart.png"
+            });
         }
         return warnings;
     };

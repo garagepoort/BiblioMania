@@ -6,6 +6,8 @@ class FullBookToJsonAdapter
 {
     /** @var  PersonalBookInfoRepository */
     private $personalBookInfoRepository;
+    /** @var WishlistService*/
+    private $wishlistService;
 
     private $id;
     private $title;
@@ -24,6 +26,7 @@ class FullBookToJsonAdapter
     private $serie;
     private $genre;
     private $image;
+    private $onWishlist;
 
     /** @var  OeuvreItemToJsonAdapter */
     private $oeuvreItems = [];
@@ -43,9 +46,8 @@ class FullBookToJsonAdapter
     public function __construct(Book $book)
     {
         $this->personalBookInfoRepository = App::make('PersonalBookInfoRepository');
+        $this->wishlistService = App::make('WishlistService');
 
-        $username = Auth::user()->username;
-        $baseUrl = URL::to('/');
 
         $publisher = $book->publisher != null ? $book->publisher->name : "";
         $language = $book->language != null ? $book->language->language : "";
@@ -71,7 +73,12 @@ class FullBookToJsonAdapter
         $this->tags = array_map(function ($item) { return new TagToJsonAdapter($item); }, $book->tags->all());
 
         if(!StringUtils::isEmpty($book->coverImage)){
+            $baseUrl = URL::to('/');
             $this->image = $baseUrl . "/bookImages/" . $book->coverImage;
+        }
+
+        if($this->wishlistService->isBookInWishlistOfUser(Auth::user()->id, $book->id)){
+            $this->onWishlist = true;
         }
 
         if($book->publication_date != null){
@@ -109,7 +116,8 @@ class FullBookToJsonAdapter
             "serie" => $this->serie,
             "genre" => $this->genre,
             "publisherSerie" => $this->publisherSerie,
-            "image" => $this->image
+            "image" => $this->image,
+            "onWishlist" => $this->onWishlist
         );
 
         if($this->publicationDate != null){

@@ -26,7 +26,7 @@ class PersonalBookInfoController extends BaseController
 
     public function create(){
         $adapter = $this->jsonMappingService->mapInputToJson(Input::get(), new CreatePersonalBookInfoFromJsonAdapter());
-        $id = $this->personalBookInfoService->createPersonalBookInfo($adapter);
+        $id = $this->personalBookInfoService->createPersonalBookInfo(Auth::user()->id, $adapter);
         return Response::json(array('success' => true, 'id' => $id), 200);
     }
 
