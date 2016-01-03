@@ -2,6 +2,12 @@
 
 class BookRepository implements Repository{
 
+
+    /**
+     * @param $id
+     * @param array $with
+     * @return Book
+     */
     public function find($id, $with = array())
     {
         return Book::with($with)

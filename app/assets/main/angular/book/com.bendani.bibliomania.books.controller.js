@@ -16,6 +16,7 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
             var personalBooks = {key: 'Mijn boeken', value: 'personalBooks'};
             var allBooks = {key: 'Alle boeken', value: 'all'};
             var otherBooks = {key: 'Andere boeken', value: 'otherBooks'};
+            var wishlist = {key: 'Wishlist', value: 'wishlist'};
 
             function init() {
                 TitlePanelService.setTitle('Boeken');
@@ -40,7 +41,7 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
 
                 $scope.viewableFilters = {
                     selected: personalBooks,
-                    all: [allBooks, otherBooks, personalBooks]
+                    all: [allBooks, otherBooks, personalBooks, wishlist]
                 };
 
                 $scope.$watch('viewableBooks', function(){
@@ -58,6 +59,9 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
                     return false;
                 }
                 if ($scope.viewableFilters.selected === otherBooks && item.personalBookInfoId) {
+                    return false;
+                }
+                if ($scope.viewableFilters.selected === wishlist && !item.onWishlist) {
                     return false;
                 }
 

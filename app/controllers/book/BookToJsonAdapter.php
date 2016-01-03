@@ -12,19 +12,26 @@ class BookToJsonAdapter
     private $author;
     private $image;
     private $personalBookInfoId;
-    private $read = false;
+    private $isLinkedToOeuvre = false;
     /** @var  PriceToJsonAdapter */
     private $retailPrice;
     /** @var  ImageToJsonAdapter */
     private $spriteImage;
     /** @var  PersonalBookInfoRepository */
     private $personalBookInfoRepository;
+    /** @var WishlistService*/
+    private $wishlistService;
+
+//    PERSONAL
+    private $read = false;
+    private $onWishlist = false;
 
     /**
      * BookToJsonAdapter constructor.
      */
     public function __construct(Book $book)
     {
+        $this->wishlistService = App::make('WishlistService');
         $this->personalBookInfoRepository = App::make('PersonalBookInfoRepository');
 
         $this->id = $book->id;
@@ -44,6 +51,14 @@ class BookToJsonAdapter
                 }
                 break;
             }
+        }
+
+        if($this->wishlistService->isBookInWishlistOfUser(Auth::user()->id, $book->id)){
+            $this->onWishlist = true;
+        }
+
+        if($book->book_from_authors !== null){
+            $this->isLinkedToOeuvre = count($book->book_from_authors->all()) > 0;
         }
 
         if($book->preferredAuthor() != null){
@@ -69,6 +84,8 @@ class BookToJsonAdapter
             "subtitle" => $this->subtitle == null ? "" : $this->subtitle,
             "isbn" => $this->isbn,
             "read" => $this->read,
+            "onWishlist" => $this->onWishlist,
+            "isLinkedToOeuvre" => $this->isLinkedToOeuvre,
             "image" => $this->image,
             "author" => $this->author == null ? "" : $this->author
         );
