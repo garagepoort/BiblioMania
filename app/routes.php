@@ -14,6 +14,11 @@
 //USER
 Route::group(array('before' => 'auth'), function () {
 
+    Route::get('loggedInUser', 'UserController@getLoggedInUser');
+    Route::get('users/{id}/wishlist', 'WishlistController@getWishListForUser');
+    Route::post('users/{id}/wishlist', 'WishlistController@addBookToWishlist');
+    Route::put('users/{id}/wishlist/remove-book', 'WishlistController@removeBookFromWishlist');
+
     Route::get('books', 'BookController@getBooks');
     Route::post('books', 'BookController@createBook');
     Route::put('books', 'BookController@updateBook');
@@ -80,13 +85,6 @@ Route::group(array('before' => 'auth'), function () {
 
 
     Route::get('logOut', 'DefaultLoginController@logOut');
-    Route::get('importLanguageFirstPrintInfo', 'BookImportController@importLanguageFirstPrintInfo');
-
-//    COUNTRY
-    Route::get('getCountryList', 'CountryController@getCountryList');
-    Route::post('editCountry', 'CountryController@editCountry');
-    Route::post('deleteCountry', 'CountryController@deleteCountry');
-    Route::post('mergeCountries', 'CountryController@mergeCountries');
 
     Route::get('scaleImages', 'ImageController@scaleImages');
 });
@@ -107,7 +105,6 @@ Route::group(array('before' => 'admin'), function () {
     Route::get('googleAuthentication', 'Oauth2_Controller@doGoogleAuthentication');
     Route::get('askForGoogleAuthentication', 'Oauth2_Controller@askForGoogleAuthentication');
     Route::get('uploadFile', 'Oauth2_Controller@uploadFile');
-    Route::get('admin', 'AdminController@goToAdminPagina');
 });
 
 //LOCAL

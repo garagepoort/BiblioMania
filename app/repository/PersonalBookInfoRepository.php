@@ -4,7 +4,10 @@ class PersonalBookInfoRepository implements Repository{
 
     public function find($id, $with = array())
     {
-        return PersonalBookInfo::with($with)->where('id', '=', $id)->first();
+        return PersonalBookInfo::with($with)
+            ->where('user_id', '=', Auth::user()->id)
+            ->where('id', '=', $id)
+            ->first();
     }
 
     public function findByBook($book_id){
