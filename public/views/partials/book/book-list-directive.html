@@ -9,12 +9,14 @@
         <thead>
         <tr>
             <th>Titel</th>
+            <th>Ondertitel</th>
             <th>isbn</th>
         </tr>
         </thead>
         <tbody>
         <tr ng-repeat="book in books | filter: search" style="cursor: pointer" ng-click="goToBookDetails(book)">
             <td style="width: 100%">{{ book.title }}</td>
+            <td style="width: 100%">{{ book.subtitle }}</td>
             <td style="width: 100%">{{ book.isbn }}</td>
         </tr>
         </tbody>

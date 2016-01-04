@@ -39,7 +39,8 @@ angular.module('com.bendani.bibliomania.book.selection.modal.service', ['com.ben
         };
 
         $scope.search = function(item){
-            if ((item.title.toLowerCase().indexOf($scope.searchBooksQuery) !== -1)){
+            if ((item.title.toLowerCase().indexOf($scope.searchBooksQuery) !== -1 ||
+                item.subtitle.toLowerCase().indexOf($scope.searchBooksQuery) !== -1)){
                 return true;
             }
             return false;
