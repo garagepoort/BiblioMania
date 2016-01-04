@@ -83,6 +83,7 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
                 if ($scope.listView) {
                     $scope.orderValues = [
                         {key: 'Titel', predicate: 'title', width: '30'},
+                        {key: 'Ondertitel', predicate: 'subtitle', width: '30'},
                         {key: 'Auteur', predicate: 'author', width: '30'},
                         {key: 'Gelezen', predicate: 'read', width: '30'},
                         {key: 'Editeer', predicate: '', width: '10'}

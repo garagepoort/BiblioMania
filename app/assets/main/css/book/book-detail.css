@@ -1,5 +1,6 @@
 .form-content dl.dl-horizontal dt {
   width: 120px;
+  text-align: left;
 }
 .form-content dl.dl-horizontal dd {
   margin-left: 140px;
