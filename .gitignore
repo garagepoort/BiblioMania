@@ -10,3 +10,4 @@ Thumbs.db
 .idea
 /node_modules
 /bower_components
+/config/deploy/production.rb
