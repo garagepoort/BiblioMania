@@ -6,15 +6,15 @@ use Bendani\PhpCommon\FilterService\Model\OptionsFilterHandler;
 
 class BookRatingFilterHandler implements OptionsFilterHandler
 {
-    public function handleFilter($queryBuilder, Filter $filter)
+    public function handleFilter(Filter $filter)
     {
-        Ensure::objectNotNull('selected options', $filter->getValue());
-
-        $options = array_map(function($item){
-            return $item->value;
-        }, (array) $filter->getValue());
-
-        return $queryBuilder->whereIn("reading_date.rating", $options);
+//        Ensure::objectNotNull('selected options', $filter->getValue());
+//
+//        $options = array_map(function($item){
+//            return $item->value;
+//        }, (array) $filter->getValue());
+//
+//        return $queryBuilder->whereIn("reading_date.rating", $options);
     }
 
     public function getFilterId()

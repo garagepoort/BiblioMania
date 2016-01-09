@@ -6,10 +6,10 @@ use Bendani\PhpCommon\FilterService\Model\FilterOperator;
 
 class BookRetailPriceFilterHandler implements FilterHandler
 {
-    public function handleFilter($queryBuilder, Filter $filter)
+    public function handleFilter(Filter $filter)
     {
-        Ensure::stringNotBlank('book.retail.price', $filter->getOperator());
-        return $queryBuilder->where("book.retail_price", FilterOperator::getDatabaseOperator($filter->getOperator()), $filter->getValue());
+//        Ensure::stringNotBlank('book.retail.price', $filter->getOperator());
+//        return $queryBuilder->where("book.retail_price", FilterOperator::getDatabaseOperator($filter->getOperator()), $filter->getValue());
     }
 
     public function getFilterId()

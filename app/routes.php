@@ -113,6 +113,8 @@ Route::group(array('before' => 'localCallOnly'), function () {
     Route::get('createSpriteForBooks', 'ImageController@createSpriteForBooks');
     Route::get('createSpriteForAuthors', 'ImageController@createSpriteForAuthors');
     Route::get('importBooks', 'BookImportController@importBooks');
+    Route::get('search/populate', 'ElasticSearchController@index');
+    Route::get('search/clear', 'ElasticSearchController@clear');
 });
 
 

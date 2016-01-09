@@ -88,13 +88,13 @@ class BookController extends BaseController
 
         $allFiltersFromJsonAdapter = new AllFiltersFromJsonAdapter($filtersInJson);
 
-        $books = $this->bookService->filterBooks($allFiltersFromJsonAdapter->getFilters());
+        return $this->bookService->filterBooks($allFiltersFromJsonAdapter->getFilters());
 
-        $result = array();
-        foreach($books->all() as $book){
-            $bookToJsonAdapter = new BookToJsonAdapter($book);
-            array_push($result, $bookToJsonAdapter->mapToJson());
-        }
-        return $result;
+//        $result = array();
+//        foreach($books->all() as $book){
+//            $bookToJsonAdapter = new BookToJsonAdapter($book);
+//            array_push($result, $bookToJsonAdapter->mapToJson());
+//        }
+//        return $result;
     }
 }

@@ -18,6 +18,10 @@ class DateFormatter {
         return date_create($dateRequest->getYear() . "-" . $dateRequest->getMonth() . "-" . $dateRequest->getDay());
     }
 
+    public static function dateRequestToFormattedDate(DateRequest $dateRequest){
+        return $dateRequest->getYear() . "-" . $dateRequest->getMonth() . "-" . $dateRequest->getDay();
+    }
+
     public static function getDateFromSqlDate($date){
         $dateTime = DateTime::createFromFormat("Y-m-d", $date);
         $timestamp = $dateTime->getTimestamp();

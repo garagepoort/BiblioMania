@@ -55,15 +55,15 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
             }
 
             $scope.search = function (item) {
-                if ($scope.viewableFilters.selected === personalBooks && !item.personalBookInfoId) {
-                    return false;
-                }
-                if ($scope.viewableFilters.selected === otherBooks && item.personalBookInfoId) {
-                    return false;
-                }
-                if ($scope.viewableFilters.selected === wishlist && !item.onWishlist) {
-                    return false;
-                }
+                //if ($scope.viewableFilters.selected === personalBooks && !item.personalBookInfoId) {
+                //    return false;
+                //}
+                //if ($scope.viewableFilters.selected === otherBooks && item.personalBookInfoId) {
+                //    return false;
+                //}
+                //if ($scope.viewableFilters.selected === wishlist && !item.onWishlist) {
+                //    return false;
+                //}
 
                 if ((item.title.toLowerCase().indexOf($scope.searchBooksQuery) !== -1)
                     || (item.subtitle.toLowerCase().indexOf($scope.searchBooksQuery) !== -1)

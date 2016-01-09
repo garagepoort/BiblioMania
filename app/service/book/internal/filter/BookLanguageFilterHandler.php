@@ -17,16 +17,16 @@ class BookLanguageFilterHandler implements OptionsFilterHandler
         $this->languageService = App::make('LanguageService');
     }
 
-    public function handleFilter($queryBuilder, Filter $filter)
+    public function handleFilter(Filter $filter)
     {
-        Ensure::objectNotNull('selected options', $filter->getValue());
-
-        $options = array_map(function($item){
-            return $item->value;
-        }, (array) $filter->getValue());
-
-        return $queryBuilder->leftJoin('language as book_language', 'book.language_id', '=', 'book_language.id')
-            ->whereIn("book_language.language", $options);
+//        Ensure::objectNotNull('selected options', $filter->getValue());
+//
+//        $options = array_map(function($item){
+//            return $item->value;
+//        }, (array) $filter->getValue());
+//
+//        return $queryBuilder->leftJoin('language as book_language', 'book.language_id', '=', 'book_language.id')
+//            ->whereIn("book_language.language", $options);
     }
 
     public function getFilterId()

@@ -6,9 +6,9 @@ use Bendani\PhpCommon\FilterService\Model\FilterOperator;
 
 class BookReadFilterHandler implements FilterHandler
 {
-    public function handleFilter($queryBuilder, Filter $filter)
+    public function handleFilter(Filter $filter)
     {
-        return $queryBuilder->where("personal_book_info.read", "=", $filter->getValue());
+//        return $queryBuilder->where("personal_book_info.read", "=", $filter->getValue());
     }
 
     public function getFilterId()

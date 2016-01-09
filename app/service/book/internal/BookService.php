@@ -37,6 +37,8 @@ class BookService
     private $dateService;
     /** @var FilterHistoryService */
     private $filterHistoryService;
+    /** @var BookElasticIndexer */
+    private $bookElasticIndexer;
 
     function __construct()
     {
@@ -54,6 +56,7 @@ class BookService
         $this->genreService = App::make('GenreService');
         $this->filterHistoryService = App::make('FilterHistoryService');
         $this->dateService = App::make('DateService');
+        $this->bookElasticIndexer = App::make('BookElasticIndexer');
     }
 
     public function find($id, $with = array())
@@ -143,30 +146,34 @@ class BookService
     }
 
     public function filterBooks($filters){
-        $books = Book::select(DB::raw('book.*'))
-            ->with('book_from_authors', 'authors', 'personal_book_infos')
-            ->leftJoin('book_author', 'book_author.book_id', '=', 'book.id')
-            ->leftJoin('author', 'book_author.author_id', '=', 'author.id')
-            ->leftJoin('personal_book_info', 'personal_book_info.book_id', '=', 'book.id')
-            ->leftJoin('first_print_info', 'first_print_info.id', '=', 'book.first_print_info_id')
-            ->leftJoin('date', 'date.id', '=', 'first_print_info.publication_date_id')
-            ->leftJoin("reading_date", "reading_date.personal_book_info_id", "=", "personal_book_info.id");
+//        $books = Book::select(DB::raw('book.*'))
+//            ->with('book_from_authors', 'authors', 'personal_book_infos')
+//            ->leftJoin('book_author', 'book_author.book_id', '=', 'book.id')
+//            ->leftJoin('author', 'book_author.author_id', '=', 'author.id')
+//            ->leftJoin('personal_book_info', 'personal_book_info.book_id', '=', 'book.id')
+//            ->leftJoin('first_print_info', 'first_print_info.id', '=', 'book.first_print_info_id')
+//            ->leftJoin('date', 'date.id', '=', 'first_print_info.publication_date_id')
+//            ->leftJoin("reading_date", "reading_date.personal_book_info_id", "=", "personal_book_info.id");
 
 
         $this->filterHistoryService->addFiltersToHistory($filters);
+
+        $filtersForSearch = [];
+
         foreach($filters as $filter){
             /** @var Filter $filter */
-            $books = $this->bookFilterManager->handle($books, $filter);
+            $filterReturn = $this->bookFilterManager->handle($filter);
+            array_push($filtersForSearch, $filterReturn);
         }
 
-        $books = $books->groupBy('book.id');
-        $books = $books->orderBy('author.name');
-        $books = $books->orderBy('author.firstname');
-        $books = $books->orderBy('date.year', 'ASC');
-        $books = $books->orderBy('date.month', 'ASC');
-        $books = $books->orderBy('date.day', 'ASC');
+//        $books = $books->groupBy('book.id');
+//        $books = $books->orderBy('author.name');
+//        $books = $books->orderBy('author.firstname');
+//        $books = $books->orderBy('date.year', 'ASC');
+//        $books = $books->orderBy('date.month', 'ASC');
+//        $books = $books->orderBy('date.day', 'ASC');
 
-        return $books->get();
+        return $this->bookElasticIndexer->search($filtersForSearch);
     }
 
     public function getTotalAmountOfBooksRead()
