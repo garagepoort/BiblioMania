@@ -18,7 +18,7 @@ class PersonalBookInfoRepository implements Repository{
 
     public function all()
     {
-        PersonalBookInfo::all();
+        return PersonalBookInfo::all();
     }
 
     public function save($entity)

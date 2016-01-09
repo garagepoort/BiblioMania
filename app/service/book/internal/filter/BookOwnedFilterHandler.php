@@ -7,9 +7,9 @@ use Bendani\PhpCommon\Utils\Model\StringUtils;
 
 class BookOwnedFilterHandler implements FilterHandler
 {
-    public function handleFilter($queryBuilder, Filter $filter)
+    public function handleFilter(Filter $filter)
     {
-        return $queryBuilder->where("personal_book_info.owned", "=", $filter->getValue());
+//        return $queryBuilder->where("personal_book_info.owned", "=", $filter->getValue());
     }
 
     public function getFilterId()

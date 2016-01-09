@@ -1,6 +1,7 @@
 <?php
 
 use Bendani\PhpCommon\FilterService\Model\Filter;
+use Bendani\PhpCommon\FilterService\Model\FilterBuilder;
 use Bendani\PhpCommon\FilterService\Model\FilterOperator;
 use Bendani\PhpCommon\FilterService\Model\OptionsFilterHandler;
 use Bendani\PhpCommon\Utils\Model\StringUtils;
@@ -17,17 +18,13 @@ class BookGenreFilterHandler implements OptionsFilterHandler
         $this->genreService = App::make('GenreService');
     }
 
-    public function handleFilter($queryBuilder, Filter $filter)
+    public function handleFilter(Filter $filter)
     {
         Ensure::objectNotNull('selected options', $filter->getValue());
 
-        $options = array_map(function($item){
-            return $item->value;
-        }, (array) $filter->getValue());
+        $options = array_map(function($item){ return $item->value; }, (array) $filter->getValue());
 
-        return $queryBuilder
-            ->leftJoin('genre', 'genre.id', '=', 'book.genre_id')
-            ->whereIn("genre.name", $options);
+        return FilterBuilder::terms('genre', $options);
     }
 
     public function getFilterId()
@@ -52,9 +49,9 @@ class BookGenreFilterHandler implements OptionsFilterHandler
         array_push($options, $noValueOption);
         foreach($this->genreService->getAllGenres() as $genre){
             if(!StringUtils::isEmpty($genre->name)){
-                array_push($options, array("key"=>$genre->name, "value"=>$genre->name));
+                array_push($options, array("key"=>$genre->name, "value"=>$genre->id));
             }else{
-                $noValueOption["value"] = $genre->name;
+                $noValueOption["value"] = $genre->id;
             }
         }
         return $options;
@@ -65,10 +62,5 @@ class BookGenreFilterHandler implements OptionsFilterHandler
     public function getGroup()
     {
         return "book";
-    }
-
-    public function joinQuery($queryBuilder)
-    {
-        return $queryBuilder;
     }
 }
