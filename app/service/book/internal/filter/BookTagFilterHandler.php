@@ -10,11 +10,11 @@ class BookTagFilterHandler implements OptionsFilterHandler
 
     public function handleFilter(Filter $filter)
     {
-//        Ensure::objectNotNull('selected options', $filter->getValue());
-//
-//        $options = array_map(function($item){ return $item->value; }, (array) $filter->getValue());
-//
-//        return $queryBuilder->whereIn("book_tag.tag_id", $options);
+        Ensure::objectNotNull('selected options', $filter->getValue());
+
+        $options = array_map(function($item){ return $item->value; }, (array) $filter->getValue());
+
+        return \Bendani\PhpCommon\FilterService\Model\FilterBuilder::terms('tags.id', $options);
     }
 
     public function getFilterId()

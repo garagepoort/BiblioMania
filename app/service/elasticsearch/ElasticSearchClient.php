@@ -72,10 +72,6 @@ class ElasticSearchClient
                                 "analyzer" => "analyzer_keyword",
                                 "type" => "string"
                             ],
-                            'country' => [
-                                "analyzer" => "analyzer_keyword",
-                                "type" => "string"
-                            ],
                             'authors' => [
                                 "properties" => [
                                     'firstname' => ['type'=>'string', 'analyzer'=>'analyzer_keyword'],
@@ -92,6 +88,12 @@ class ElasticSearchClient
                                     'buyInfo' => [
                                         'properties' => [
                                             'buy_date' => ['type'=>'date', 'format'=>'yyyy-MM-dd']
+                                        ]
+                                    ],
+                                    'readingDates' => [
+                                        'properties' => [
+                                            'rating' => [ 'type' => 'integer' ],
+                                            'date' => ['type'=>'date', 'format'=>'yyyy-MM-dd']
                                         ]
                                     ]
                                 ]

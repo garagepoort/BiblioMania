@@ -61,8 +61,8 @@ class BookToJsonAdapter
             $this->isLinkedToOeuvre = count($book->book_from_authors->all()) > 0;
         }
 
-        if($book->preferredAuthor() != null){
-            $this->author = $book->preferredAuthor()->name . " " . $book->preferredAuthor()->firstname;
+        if($book->mainAuthor() != null){
+            $this->author = $book->mainAuthor()->name . " " . $book->mainAuthor()->firstname;
         }
 
         if(!StringUtils::isEmpty($book->coverImage)){

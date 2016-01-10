@@ -2,6 +2,7 @@
 
 
 use Bendani\PhpCommon\FilterService\Model\FilterReturnType;
+use Bendani\PhpCommon\Utils\Model\StringUtils;
 
 class BookElasticIndexer
 {
@@ -23,19 +24,13 @@ class BookElasticIndexer
 
     public function indexBooks()
     {
-        $books = $this->bookRepository->allWith(array('personal_book_infos'));
+        $books = $this->bookRepository->allWith(array('personal_book_infos', 'book_from_authors'));
 
         /** @var Book $book */
         foreach ($books as $book) {
-            $authors = array_map(function($author){
-                return [
-                    'id'=> $author->id,
-                    'firstname'=> $author->firstname,
-                    'lastname' => $author->lastname
-                ];
-            }, $book->authors->all());
-
+            $authors = $this->indexAuthors($book);
             $personalBookInfos = $this->indexPersonalBookInfos($book);
+            $tags = $this->indexTags($book);
 
             $bookArray = [
                 'id' => $book->id,
@@ -44,9 +39,31 @@ class BookElasticIndexer
                 'isbn' => $book->ISBN,
                 'authors' => $authors,
                 'country' => $book->publisher_country_id,
+                'language' => $book->language_id,
+                'publisher' => $book->publisher_id,
                 'genre' => $book->genre_id,
-                'personalBookInfos' => $personalBookInfos
+                'retail_price' => $book->retail_price,
+                'personalBookInfos' => $personalBookInfos,
+                'tags' => $tags
             ];
+
+            if(!StringUtils::isEmpty($book->coverImage)){
+                $imageToJsonAdapter = new ImageToJsonAdapter();
+                $imageToJsonAdapter->fromBook($book);
+                $bookArray['spriteImage'] = $imageToJsonAdapter->mapToJson();
+
+                $baseUrl = URL::to('/');
+                $bookArray['image'] = $baseUrl . "/bookImages/" . $book->coverImage;
+            }
+
+            if($book->book_from_authors !== null){
+                $bookArray['isLinkedToOeuvre'] = count($book->book_from_authors->all()) > 0;
+            }
+
+            if($book->mainAuthor() != null){
+                $bookArray['mainAuthor'] = $book->mainAuthor()->name . " " . $book->mainAuthor()->firstname;
+            }
+
 
             $params = [
                 'index' => $this->elasticSearchClient->getIndexName(),
@@ -71,14 +88,13 @@ class BookElasticIndexer
             'type' => self::BOOK,
             'size' => 10000,
             'body' => [
-//                'fields' => ['id', 'title', 'subtitle'],
-                '_source' => ['id', 'title', 'subtitle', 'personalBookInfos', 'authors'],
+                '_source' => ['id', 'title', 'subtitle', 'mainAuthor', 'authors', 'image', 'spriteImage', 'isLinkedToOeuvre'],
                 'query' => [
                     'filtered' => [
                         'query' => [
                             'match_all' => new \stdClass()
                         ],
-                        'filter' => $filters
+                        'filter' => ['bool' => ['must' => $filters]]
                     ]
                 ]
             ]
@@ -113,16 +129,53 @@ class BookElasticIndexer
                 $buyInfo['price'] = $personalBookInfo->buy_info->price_payed;
                 $buyInfo['buy_date'] = $personalBookInfo->buy_info->buy_date;
             }
+
+            /** @var ReadingDate $date */
+            $readingDates = array_map(function($date){
+                return [
+                    'date' => $date->date,
+                    'rating' => $date->rating
+                ];
+            }, $personalBookInfo->reading_dates->all());
             return [
                 'id' => $personalBookInfo->id,
                 'userId' => $personalBookInfo->user_id,
                 'inCollection' => $personalBookInfo->get_owned(),
                 'reasonNotInCollection' => $personalBookInfo->reasonNotInCollection,
                 'giftInfo' => $giftInfo,
-                'buyInfo' => $buyInfo
+                'buyInfo' => $buyInfo,
+                'readingDates' => $readingDates
             ];
         }, $book->personal_book_infos->all());
         return $personalBookInfos;
+    }
+
+    /**
+     * @param $book
+     * @return array
+     */
+    private function indexTags($book)
+    {
+        $tags = array_map(function ($tag) {
+            return ['id' => $tag->id, 'name' => $tag->name];
+        }, $book->tags->all());
+        return $tags;
+    }
+
+    /**
+     * @param $book
+     * @return array
+     */
+    private function indexAuthors($book)
+    {
+        $authors = array_map(function ($author) {
+            return [
+                'id' => $author->id,
+                'firstname' => $author->firstname,
+                'lastname' => $author->lastname
+            ];
+        }, $book->authors->all());
+        return $authors;
     }
 
 

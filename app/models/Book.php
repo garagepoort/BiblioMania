@@ -33,7 +33,7 @@ class Book extends Eloquent {
 
 	protected $with = array('publication_date', 'first_print_info', 'language', 'personal_book_infos');
 
-	public function preferredAuthor(){
+	public function mainAuthor(){
 		foreach($this->authors as $author){
 			if($author->pivot->preferred == true){
 				return $author;
