@@ -2,24 +2,41 @@
 
 use Bendani\PhpCommon\FilterService\Model\Filter;
 use Bendani\PhpCommon\FilterService\Model\FilterBuilder;
+use Bendani\PhpCommon\FilterService\Model\FilterDateRequest;
 use Bendani\PhpCommon\FilterService\Model\FilterHandler;
 use Bendani\PhpCommon\FilterService\Model\FilterOperator;
+use Bendani\PhpCommon\Utils\Model\StringUtils;
 
-class BookReadingYearFilterHandler implements FilterHandler
+class BookReadingDateFilterHandler implements FilterHandler
 {
 
     public function handleFilter(Filter $filter)
     {
         Ensure::stringNotBlank('reading.year', $filter->getOperator());
 
-        $beginDate = $filter->getValue() . '-01-01';
-        $endDate = $filter->getValue() . '-12-31';
+        /** @var DateRequest $dateRequest */
+        $dateRequest = $filter->getValue();
+
+        Ensure::objectIsInstanceOf('date', $dateRequest, 'DateRequest');
+        Ensure::stringNotBlank('year of date',$dateRequest->getYear());
+
+        if(StringUtils::isEmpty($dateRequest->getMonth())){
+            $beginDate = $dateRequest->getYear() . '-01-01';
+            $endDate = $dateRequest->getYear() . '-12-31';
+        }else if(StringUtils::isEmpty($dateRequest->getDay())){
+            $beginDate = $dateRequest->getYear() . '-' . $dateRequest->getMonth() . '-01';
+            $endDate = $dateRequest->getYear() . '-' . $dateRequest->getMonth() . '-31';
+        }else{
+            $beginDate = DateFormatter::dateRequestToFormattedDate($dateRequest);
+            $endDate = DateFormatter::dateRequestToFormattedDate($dateRequest);
+        }
+
 
         if($filter->getOperator() == FilterOperator::EQUALS){
             return FilterBuilder::range('personalBookInfos.readingDates.date', $beginDate, $endDate);
         }
         if($filter->getOperator() == FilterOperator::GREATER_THAN){
-            return FilterBuilder::greaterThan('personalBookInfos.readingDates.date', $endDate);
+            return FilterBuilder::greaterThan('personalBookInfos.readingDates.date', $beginDate);
         }
         if($filter->getOperator() == FilterOperator::LESS_THAN){
             return FilterBuilder::lessThan('personalBookInfos.readingDates.date', $beginDate);
@@ -31,17 +48,17 @@ class BookReadingYearFilterHandler implements FilterHandler
 
     public function getFilterId()
     {
-        return "personal-readingyear";
+        return "personal-readingdate";
     }
 
     public function getType()
     {
-        return "number";
+        return "partial-date";
     }
 
     public function getField()
     {
-        return "Leesjaar";
+        return "Leesdatum";
     }
 
     public function getSupportedOperators()
@@ -58,8 +75,4 @@ class BookReadingYearFilterHandler implements FilterHandler
         return "personal";
     }
 
-    public function joinQuery($queryBuilder)
-    {
-        return $queryBuilder;
-    }
 }
