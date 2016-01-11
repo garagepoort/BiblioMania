@@ -28,7 +28,7 @@ angular.module('com.bendani.bibliomania.book.selection.modal.service', ['com.ben
 
         function init(){
             $scope.data = {};
-            Book.search(filters, function (books) {
+            Book.searchAllBooks(filters, function (books) {
                 $scope.data.books = books;
             }, ErrorContainer.handleRestError);
             $scope.searchBooksQuery = '';

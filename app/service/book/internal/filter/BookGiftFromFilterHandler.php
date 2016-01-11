@@ -55,6 +55,6 @@ class BookGiftFromFilterHandler implements OptionsFilterHandler
 
     public function getGroup()
     {
-        return "buy-gift";
+        return "personal";
     }
 }

@@ -55,19 +55,13 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
             }
 
             $scope.search = function (item) {
-                //if ($scope.viewableFilters.selected === personalBooks && !item.personalBookInfoId) {
-                //    return false;
-                //}
-                //if ($scope.viewableFilters.selected === otherBooks && item.personalBookInfoId) {
-                //    return false;
-                //}
-                //if ($scope.viewableFilters.selected === wishlist && !item.onWishlist) {
-                //    return false;
-                //}
+                if(item.subtitle === undefined || item.subtitle === null){
+                    item.subtitle = "";
+                }
 
                 if ((item.title.toLowerCase().indexOf($scope.searchBooksQuery) !== -1)
                     || (item.subtitle.toLowerCase().indexOf($scope.searchBooksQuery) !== -1)
-                    || (item.author.toLowerCase().indexOf($scope.searchBooksQuery) !== -1)) {
+                    || (item.mainAuthor.toLowerCase().indexOf($scope.searchBooksQuery) !== -1)) {
                     return true;
                 }
                 return false;
@@ -99,15 +93,16 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
             $scope.filterBooks = function (selectedFilters) {
                 $scope.loading = true;
 
-                Book.search(selectedFilters, function (books) {
-                    $scope.books = books;
-                    _.each($scope.books, function (book) {
-                        book.warnings = BookOverviewService.getBookWarnings(book);
-                    });
-
-                    scrollToLastPosition();
-                    $scope.loading = false;
-                }, ErrorContainer.handleRestError);
+                if($scope.viewableFilters.selected == allBooks){
+                    Book.searchAllBooks(selectedFilters, function (books) {
+                        onBooksSearched(books);
+                    }, ErrorContainer.handleRestError);
+                }
+                else if($scope.viewableFilters.selected == personalBooks){
+                    Book.searchMyBooks(selectedFilters, function (books) {
+                        onBooksSearched(books);
+                    }, ErrorContainer.handleRestError);
+                }
             };
 
             $scope.goToCreateBook = function () {
@@ -139,6 +134,15 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
                     }
                     $scope.filters.all = filters;
                 }, ErrorContainer.handleRestError);
+            }
+
+            function onBooksSearched(books) {
+                $scope.books = books;
+                _.each($scope.books, function (book) {
+                    book.warnings = BookOverviewService.getBookWarnings(book);
+                });
+                scrollToLastPosition();
+                $scope.loading = false;
             }
 
             function updateLibraryInformation(books){

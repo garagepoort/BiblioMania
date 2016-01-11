@@ -22,7 +22,8 @@ Route::group(array('before' => 'auth'), function () {
     Route::get('books', 'BookController@getBooks');
     Route::post('books', 'BookController@createBook');
     Route::put('books', 'BookController@updateBook');
-    Route::post('books/search', 'BookController@search');
+    Route::post('books/search-all-books', 'BookController@searchAllBooks');
+    Route::post('books/search-my-books', 'BookController@searchMyBooks');
     Route::get('books/{id}', 'BookController@getFullBook');
     Route::put('books/{id}/authors', 'BookController@linkAuthorToBook');
     Route::put('books/{id}/unlink-author', 'BookController@unlinkAuthorFromBook');

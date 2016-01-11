@@ -37,9 +37,4 @@ class BookIsPersonalFilterHandler implements FilterHandler
     {
         return "personal";
     }
-
-    public function joinQuery($queryBuilder)
-    {
-        return $queryBuilder;
-    }
 }

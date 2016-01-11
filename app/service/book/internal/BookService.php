@@ -1,6 +1,8 @@
 <?php
 
 use Bendani\PhpCommon\FilterService\Model\Filter;
+use Bendani\PhpCommon\FilterService\Model\FilterBuilder;
+use Bendani\PhpCommon\FilterService\Model\FilterHandler;
 use Bendani\PhpCommon\FilterService\Model\FilterRequest;
 use Bendani\PhpCommon\Utils\Model\StringUtils;
 
@@ -145,35 +147,52 @@ class BookService
         return $this->bookRepository->find($book_id, $with);
     }
 
-    public function filterBooks($filters){
-//        $books = Book::select(DB::raw('book.*'))
-//            ->with('book_from_authors', 'authors', 'personal_book_infos')
-//            ->leftJoin('book_author', 'book_author.book_id', '=', 'book.id')
-//            ->leftJoin('author', 'book_author.author_id', '=', 'author.id')
-//            ->leftJoin('personal_book_info', 'personal_book_info.book_id', '=', 'book.id')
-//            ->leftJoin('first_print_info', 'first_print_info.id', '=', 'book.first_print_info_id')
-//            ->leftJoin('date', 'date.id', '=', 'first_print_info.publication_date_id')
-//            ->leftJoin("reading_date", "reading_date.personal_book_info_id", "=", "personal_book_info.id");
-
-
+    public function searchAllBooks($filters){
         $this->filterHistoryService->addFiltersToHistory($filters);
 
+        $personalFiltersForSearch = [];
         $filtersForSearch = [];
 
+        /** @var Filter $filter */
         foreach($filters as $filter){
-            /** @var Filter $filter */
-            $filterReturn = $this->bookFilterManager->handle($filter);
-            array_push($filtersForSearch, $filterReturn);
+            /** @var FilterHandler $filterHandler */
+            $filterHandler = $this->bookFilterManager->getFilter($filter->getId());
+
+            if($filterHandler->getGroup() === 'personal'){
+                array_push($personalFiltersForSearch, $this->bookFilterManager->handle($filter));
+            }else{
+                array_push($filtersForSearch, $this->bookFilterManager->handle($filter));
+            }
         }
 
-//        $books = $books->groupBy('book.id');
-//        $books = $books->orderBy('author.name');
-//        $books = $books->orderBy('author.firstname');
-//        $books = $books->orderBy('date.year', 'ASC');
-//        $books = $books->orderBy('date.month', 'ASC');
-//        $books = $books->orderBy('date.day', 'ASC');
+        if(count($personalFiltersForSearch) > 0){
+            array_push($personalFiltersForSearch, FilterBuilder::match('personalBookInfos.userId', Auth::user()->id));
+        }
 
-        return $this->bookElasticIndexer->search($filtersForSearch);
+        return $this->bookElasticIndexer->search($filtersForSearch, $personalFiltersForSearch);
+    }
+
+    public function searchMyBooks($filters){
+        $this->filterHistoryService->addFiltersToHistory($filters);
+
+        $personalFiltersForSearch = [];
+        $filtersForSearch = [];
+
+        /** @var Filter $filter */
+        foreach($filters as $filter){
+            /** @var FilterHandler $filterHandler */
+            $filterHandler = $this->bookFilterManager->getFilter($filter->getId());
+
+            if($filterHandler->getGroup() === 'personal'){
+                array_push($personalFiltersForSearch, $this->bookFilterManager->handle($filter));
+            }else{
+                array_push($filtersForSearch, $this->bookFilterManager->handle($filter));
+            }
+        }
+
+        array_push($personalFiltersForSearch, FilterBuilder::match('personalBookInfos.userId', Auth::user()->id));
+
+        return $this->bookElasticIndexer->search($filtersForSearch, $personalFiltersForSearch);
     }
 
     public function getTotalAmountOfBooksRead()
