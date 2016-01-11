@@ -36,12 +36,18 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
                 $scope.setListView(false);
 
 
+                $scope.filterControl = {};
+
                 $scope.filters = {selected: [], all: []};
                 BookFilter.mostUsed(function(filters){ $scope.filters.selected = filters; }, ErrorContainer.handleRestError);
 
                 $scope.viewableFilters = {
                     selected: personalBooks,
                     all: [allBooks, otherBooks, personalBooks, wishlist]
+                };
+
+                $scope.selectViewableFilter = function(item){
+                    $scope.filterControl.filter();
                 };
 
                 $scope.$watch('viewableBooks', function(){
@@ -65,10 +71,6 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
                     return true;
                 }
                 return false;
-            };
-
-            $scope.resetBooks = function () {
-                $scope.filterBooks([]);
             };
 
             $scope.setListView = function (value) {
