@@ -45,14 +45,8 @@ class BookLanguageFilterHandler implements OptionsFilterHandler
     public function getOptions()
     {
         $options= array();
-        $noValueOption = array("key" => "Geen waarde", "value" => "");
-        array_push($options, $noValueOption);
         foreach($this->languageService->getLanguages() as $language){
-            if(!StringUtils::isEmpty($language->language)){
-                array_push($options, array("key"=>$language->language, "value"=>$language->id));
-            }else{
-                $noValueOption["value"] = $language->id;
-            }
+            array_push($options, array("key"=>$language->language, "value"=>$language->id));
         }
         return $options;
     }

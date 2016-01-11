@@ -42,7 +42,7 @@ class BookElasticIndexer
                 'language' => $book->language_id,
                 'publisher' => $book->publisher_id,
                 'genre' => $book->genre_id,
-                'retail_price' => $book->retail_price,
+                'retailPrice' => ['amount' => $book->retail_price, 'currency' => $book->currency],
                 'personalBookInfos' => $personalBookInfos,
                 'tags' => $tags
             ];
@@ -76,19 +76,32 @@ class BookElasticIndexer
         }
     }
 
-    public function search($bookFilters)
+    public function search($bookFilters, $personalFilters)
     {
+
         /** @var FilterReturnType $item */
         $filters = array_map(function($item){
             return $item->getValue();
         }, $bookFilters);
+
+        /** @var FilterReturnType $item */
+        $personalFilters = array_map(function($item){
+            return $item->getValue();
+        }, $personalFilters);
+
+        if(count($personalFilters) > 0){
+            array_push($filters, ['nested' => [
+                'path'=>'personalBookInfos',
+                'filter' => ['bool' => ['must' => $personalFilters]]
+            ]]);
+        }
 
         $params = [
             'index' => $this->elasticSearchClient->getIndexName(),
             'type' => self::BOOK,
             'size' => 10000,
             'body' => [
-                '_source' => ['id', 'title', 'subtitle', 'mainAuthor', 'authors', 'image', 'spriteImage', 'isLinkedToOeuvre'],
+                '_source' => ['id', 'title', 'subtitle', 'mainAuthor', 'authors', 'image', 'spriteImage', 'isLinkedToOeuvre', 'retailPrice'],
                 'query' => [
                     'filtered' => [
                         'query' => [
@@ -114,9 +127,11 @@ class BookElasticIndexer
         $personalBookInfos = array_map(function ($personalBookInfo) {
             $giftInfo = null;
             $buyInfo = null;
+
             if ($personalBookInfo->gift_info) {
                 $giftInfo = ['from' => $personalBookInfo->gift_info->from];
             }
+
             if ($personalBookInfo->buy_info) {
                 $buyInfo = [];
 
@@ -137,6 +152,7 @@ class BookElasticIndexer
                     'rating' => $date->rating
                 ];
             }, $personalBookInfo->reading_dates->all());
+
             return [
                 'id' => $personalBookInfo->id,
                 'userId' => $personalBookInfo->user_id,

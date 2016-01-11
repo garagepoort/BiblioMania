@@ -11,13 +11,13 @@ class BookRetailPriceFilterHandler implements FilterHandler
     {
         Ensure::stringNotBlank('book.retail.price', $filter->getOperator());
         if($filter->getOperator() == FilterOperator::EQUALS){
-            return FilterBuilder::range('retail_price', $filter->getValue(), $filter->getValue());
+            return FilterBuilder::range('retailPrice.amount', $filter->getValue(), $filter->getValue());
         }
         if($filter->getOperator() == FilterOperator::GREATER_THAN){
-            return FilterBuilder::greaterThan('retail_price', $filter->getValue());
+            return FilterBuilder::greaterThan('retailPrice.amount', $filter->getValue());
         }
         if($filter->getOperator() == FilterOperator::LESS_THAN){
-            return FilterBuilder::lessThan('retail_price', $filter->getValue());
+            return FilterBuilder::lessThan('retailPrice.amount', $filter->getValue());
         }
 
         throw new ServiceException('FilterOperator not supported');

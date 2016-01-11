@@ -79,6 +79,7 @@ class ElasticSearchClient
                                 ]
                             ],
                             'personalBookInfos' => [
+                                'type'=> 'nested',
                                 "properties" => [
                                     'giftInfo' => [
                                         'properties' => [
