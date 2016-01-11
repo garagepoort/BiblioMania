@@ -150,23 +150,10 @@ class BookService
     public function searchAllBooks($filters){
         $this->filterHistoryService->addFiltersToHistory($filters);
 
-        $personalFiltersForSearch = [];
-        $filtersForSearch = [];
-
-        /** @var Filter $filter */
-        foreach($filters as $filter){
-            /** @var FilterHandler $filterHandler */
-            $filterHandler = $this->bookFilterManager->getFilter($filter->getId());
-
-            if($filterHandler->getGroup() === 'personal'){
-                array_push($personalFiltersForSearch, $this->bookFilterManager->handle($filter));
-            }else{
-                array_push($filtersForSearch, $this->bookFilterManager->handle($filter));
-            }
-        }
+        list($personalFiltersForSearch, $filtersForSearch) = $this->filtersToFilterHandlers($filters);
 
         if(count($personalFiltersForSearch) > 0){
-            array_push($personalFiltersForSearch, FilterBuilder::match('personalBookInfos.userId', Auth::user()->id));
+            array_push($filtersForSearch, FilterBuilder::terms('personalBookInfoUsers', [Auth::user()->id]));
         }
 
         return $this->bookElasticIndexer->search($filtersForSearch, $personalFiltersForSearch);
@@ -175,22 +162,19 @@ class BookService
     public function searchMyBooks($filters){
         $this->filterHistoryService->addFiltersToHistory($filters);
 
-        $personalFiltersForSearch = [];
-        $filtersForSearch = [];
+        list($personalFiltersForSearch, $filtersForSearch) = $this->filtersToFilterHandlers($filters);
 
-        /** @var Filter $filter */
-        foreach($filters as $filter){
-            /** @var FilterHandler $filterHandler */
-            $filterHandler = $this->bookFilterManager->getFilter($filter->getId());
+        array_push($filtersForSearch, FilterBuilder::terms('personalBookInfoUsers', [Auth::user()->id]));
 
-            if($filterHandler->getGroup() === 'personal'){
-                array_push($personalFiltersForSearch, $this->bookFilterManager->handle($filter));
-            }else{
-                array_push($filtersForSearch, $this->bookFilterManager->handle($filter));
-            }
-        }
+        return $this->bookElasticIndexer->search($filtersForSearch, $personalFiltersForSearch);
+    }
 
-        array_push($personalFiltersForSearch, FilterBuilder::match('personalBookInfos.userId', Auth::user()->id));
+    public function searchWishlist($filters){
+        $this->filterHistoryService->addFiltersToHistory($filters);
+
+        list($personalFiltersForSearch, $filtersForSearch) = $this->filtersToFilterHandlers($filters);
+
+        array_push($filtersForSearch, FilterBuilder::terms('wishlistUsers', [Auth::user()->id]));
 
         return $this->bookElasticIndexer->search($filtersForSearch, $personalFiltersForSearch);
     }
@@ -324,6 +308,29 @@ class BookService
             return $item->getText();
         }, $createRequest->getTags());
         return $tagsAsStrings;
+    }
+
+    /**
+     * @param $filters
+     * @return array
+     */
+    private function filtersToFilterHandlers($filters)
+    {
+
+        $personalFiltersForSearch = [];
+        $filtersForSearch = [];
+        /** @var Filter $filter */
+        foreach ($filters as $filter) {
+            /** @var FilterHandler $filterHandler */
+            $filterHandler = $this->bookFilterManager->getFilter($filter->getId());
+
+            if ($filterHandler->getGroup() === 'personal') {
+                array_push($personalFiltersForSearch, $this->bookFilterManager->handle($filter));
+            } else {
+                array_push($filtersForSearch, $this->bookFilterManager->handle($filter));
+            }
+        }
+        return array($personalFiltersForSearch, $filtersForSearch);
     }
 
 }

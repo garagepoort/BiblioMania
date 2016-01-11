@@ -103,6 +103,11 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
                         onBooksSearched(books);
                     }, ErrorContainer.handleRestError);
                 }
+                else if($scope.viewableFilters.selected == wishlist){
+                    Book.searchWishlist(selectedFilters, function (books) {
+                        onBooksSearched(books);
+                    }, ErrorContainer.handleRestError);
+                }
             };
 
             $scope.goToCreateBook = function () {

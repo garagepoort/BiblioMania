@@ -100,4 +100,14 @@ class BookController extends BaseController
 
         return $this->bookService->searchMyBooks($allFiltersFromJsonAdapter->getFilters());
     }
+
+    public function searchWishlist()
+    {
+        $filtersInJson = Input::get();
+        Ensure::objectIsArray('filters', $filtersInJson);
+
+        $allFiltersFromJsonAdapter = new AllFiltersFromJsonAdapter($filtersInJson);
+
+        return $this->bookService->searchWishlist($allFiltersFromJsonAdapter->getFilters());
+    }
 }
