@@ -56,6 +56,10 @@ class Book extends Eloquent {
     	return $this->belongsToMany('Author', 'book_author')->withPivot('preferred');
 	}
 
+    public function wishlists(){
+    	return $this->hasMany('WishlistItem', 'book_id');
+	}
+
 	public function book_from_authors(){
 		return $this->belongsToMany('BookFromAuthor', 'book_book_from_author');
 	}

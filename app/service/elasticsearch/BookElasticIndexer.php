@@ -41,6 +41,8 @@ class BookElasticIndexer
         $personalBookInfos = $this->indexPersonalBookInfos($book);
         $tags = $this->indexTags($book);
 
+        $book->load('wishlists');
+
         $bookArray = [
             'id' => $book->id,
             'title' => $book->title,
@@ -52,6 +54,8 @@ class BookElasticIndexer
             'publisher' => $book->publisher_id,
             'genre' => $book->genre_id,
             'retailPrice' => ['amount' => $book->retail_price, 'currency' => $book->currency],
+            'wishlistUsers' => array_map(function($item){ return $item->user_id; }, $book->wishlists->all()),
+            'personalBookInfoUsers' => array_map(function($item){ return $item->user_id; }, $book->personal_book_infos->all()),
             'personalBookInfos' => $personalBookInfos,
             'tags' => $tags
         ];
@@ -132,6 +136,7 @@ class BookElasticIndexer
      */
     private function indexPersonalBookInfos($book)
     {
+        $book->load('personal_book_infos');
         /** @var PersonalBookInfo $personalBookInfos */
         $personalBookInfos = array_map(function ($personalBookInfo) {
             $giftInfo = null;
