@@ -294,6 +294,7 @@ class BookService
             $this->saveTags($createBookRequest, $book);
             $this->authorService->syncAuthors($author, [], $book);
 
+            $this->bookElasticIndexer->indexBook($book);
             return $book;
         });
     }

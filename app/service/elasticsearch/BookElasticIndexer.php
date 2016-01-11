@@ -28,53 +28,62 @@ class BookElasticIndexer
 
         /** @var Book $book */
         foreach ($books as $book) {
-            $authors = $this->indexAuthors($book);
-            $personalBookInfos = $this->indexPersonalBookInfos($book);
-            $tags = $this->indexTags($book);
-
-            $bookArray = [
-                'id' => $book->id,
-                'title' => $book->title,
-                'subtitle' => $book->subtitle,
-                'isbn' => $book->ISBN,
-                'authors' => $authors,
-                'country' => $book->publisher_country_id,
-                'language' => $book->language_id,
-                'publisher' => $book->publisher_id,
-                'genre' => $book->genre_id,
-                'retailPrice' => ['amount' => $book->retail_price, 'currency' => $book->currency],
-                'personalBookInfos' => $personalBookInfos,
-                'tags' => $tags
-            ];
-
-            if(!StringUtils::isEmpty($book->coverImage)){
-                $imageToJsonAdapter = new ImageToJsonAdapter();
-                $imageToJsonAdapter->fromBook($book);
-                $bookArray['spriteImage'] = $imageToJsonAdapter->mapToJson();
-
-                $baseUrl = URL::to('/');
-                $bookArray['image'] = $baseUrl . "/bookImages/" . $book->coverImage;
-            }
-
-            if($book->book_from_authors !== null){
-                $bookArray['isLinkedToOeuvre'] = count($book->book_from_authors->all()) > 0;
-            }
-
-            if($book->mainAuthor() != null){
-                $bookArray['mainAuthor'] = $book->mainAuthor()->name . " " . $book->mainAuthor()->firstname;
-            }
-
-
-            $params = [
-                'index' => $this->elasticSearchClient->getIndexName(),
-                'type' => self::BOOK,
-                'id' => $book->id,
-                'body' => $bookArray
-            ];
-
-            $responses = $this->elasticSearchClient->getClient()->index($params);
+            $this->indexBook($book);
         }
     }
+
+    /**
+     * @param $book
+     */
+    public function indexBook($book)
+    {
+        $authors = $this->indexAuthors($book);
+        $personalBookInfos = $this->indexPersonalBookInfos($book);
+        $tags = $this->indexTags($book);
+
+        $bookArray = [
+            'id' => $book->id,
+            'title' => $book->title,
+            'subtitle' => $book->subtitle,
+            'isbn' => $book->ISBN,
+            'authors' => $authors,
+            'country' => $book->publisher_country_id,
+            'language' => $book->language_id,
+            'publisher' => $book->publisher_id,
+            'genre' => $book->genre_id,
+            'retailPrice' => ['amount' => $book->retail_price, 'currency' => $book->currency],
+            'personalBookInfos' => $personalBookInfos,
+            'tags' => $tags
+        ];
+
+        if (!StringUtils::isEmpty($book->coverImage)) {
+            $imageToJsonAdapter = new ImageToJsonAdapter();
+            $imageToJsonAdapter->fromBook($book);
+            $bookArray['spriteImage'] = $imageToJsonAdapter->mapToJson();
+
+            $baseUrl = URL::to('/');
+            $bookArray['image'] = $baseUrl . "/bookImages/" . $book->coverImage;
+        }
+
+        if ($book->book_from_authors !== null) {
+            $bookArray['isLinkedToOeuvre'] = count($book->book_from_authors->all()) > 0;
+        }
+
+        if ($book->mainAuthor() != null) {
+            $bookArray['mainAuthor'] = $book->mainAuthor()->name . " " . $book->mainAuthor()->firstname;
+        }
+
+
+        $params = [
+            'index' => $this->elasticSearchClient->getIndexName(),
+            'type' => self::BOOK,
+            'id' => $book->id,
+            'body' => $bookArray
+        ];
+
+        $responses = $this->elasticSearchClient->getClient()->index($params);
+    }
+
 
     public function search($bookFilters, $personalFilters)
     {
@@ -193,6 +202,5 @@ class BookElasticIndexer
         }, $book->authors->all());
         return $authors;
     }
-
 
 }
