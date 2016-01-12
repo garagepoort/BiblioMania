@@ -21,6 +21,8 @@ class WishlistServiceRemoveBookFromWishlistTest extends TestCase
     private $book;
     /** @var  BookIdRequestTestImpl */
     private $bookIdRequest;
+    /** @var  BookElasticIndexer */
+    private $bookElasticIndexer;
 
     public function setUp()
     {
@@ -29,6 +31,7 @@ class WishlistServiceRemoveBookFromWishlistTest extends TestCase
         $this->userRepository = $this->mock('UserRepository');
         $this->bookRepository = $this->mock('BookRepository');
         $this->wishlistRepository = $this->mock('WishlistRepository');
+        $this->bookElasticIndexer = $this->mock('BookElasticIndexer');
         $this->wishlistItem = $this->mockEloquent('WishlistItem');
         $this->user = $this->mockEloquent('User');
         $this->book = $this->mockEloquent('Book');
@@ -42,6 +45,7 @@ class WishlistServiceRemoveBookFromWishlistTest extends TestCase
 
     public function test_shouldRemoveCorrectly(){
         $this->wishlistRepository->shouldReceive('delete')->once()->with($this->wishlistItem);
+        $this->bookElasticIndexer->shouldReceive('indexBook')->once();
 
         $this->wishlistService->removeBookFromWishlist(self::USER_ID, $this->bookIdRequest);
     }

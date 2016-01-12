@@ -12,6 +12,9 @@ class WishlistServiceAddBookToWishlistTest extends TestCase
     private $userRepository;
     /** @var  BookRepository */
     private $bookRepository;
+    /** @var  BookElasticIndexer */
+    private $bookElasticIndexer;
+
 
     /** @var  WishlistItem */
     private $wishlistItem;
@@ -28,10 +31,13 @@ class WishlistServiceAddBookToWishlistTest extends TestCase
         $this->bookIdRequest = new BookIdRequestTestImpl();
         $this->userRepository = $this->mock('UserRepository');
         $this->bookRepository = $this->mock('BookRepository');
+        $this->bookElasticIndexer = $this->mock('BookElasticIndexer');
         $this->wishlistRepository = $this->mock('WishlistRepository');
+
         $this->wishlistItem = $this->mockEloquent('WishlistItem');
         $this->user = $this->mockEloquent('User');
         $this->book = $this->mockEloquent('Book');
+
 
         $this->userRepository->shouldReceive('find')->with(self::USER_ID)->andReturn($this->user)->byDefault();
         $this->bookRepository->shouldReceive('find')->with($this->bookIdRequest->getBookId())->andReturn($this->book)->byDefault();
@@ -41,6 +47,7 @@ class WishlistServiceAddBookToWishlistTest extends TestCase
     }
 
     public function test_shouldAddCorrectly(){
+        $this->bookElasticIndexer->shouldReceive('indexBook')->once()->with(Mockery::any());
         $this->wishlistRepository->shouldReceive('save')->with(Mockery::on(function($wishlistItem){
             $this->assertEquals(self::USER_ID, $wishlistItem->user_id);
             $this->assertEquals($this->bookIdRequest->getBookId(), $wishlistItem->book_id);
