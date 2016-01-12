@@ -46,7 +46,7 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
                     all: [allBooks, otherBooks, personalBooks, wishlist]
                 };
 
-                $scope.selectViewableFilter = function(item){
+                $scope.selectViewableFilter = function(){
                     $scope.filterControl.filter();
                 };
 
@@ -95,22 +95,22 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
             $scope.filterBooks = function (selectedFilters) {
                 $scope.loading = true;
 
-                if($scope.viewableFilters.selected == allBooks){
+                if($scope.viewableFilters.selected === allBooks){
                     Book.searchAllBooks(selectedFilters, function (books) {
                         onBooksSearched(books);
                     }, ErrorContainer.handleRestError);
                 }
-                else if($scope.viewableFilters.selected == otherBooks){
+                else if($scope.viewableFilters.selected === otherBooks){
                     Book.searchOtherBooks(selectedFilters, function (books) {
                         onBooksSearched(books);
                     }, ErrorContainer.handleRestError);
                 }
-                else if($scope.viewableFilters.selected == personalBooks){
+                else if($scope.viewableFilters.selected === personalBooks){
                     Book.searchMyBooks(selectedFilters, function (books) {
                         onBooksSearched(books);
                     }, ErrorContainer.handleRestError);
                 }
-                else if($scope.viewableFilters.selected == wishlist){
+                else if($scope.viewableFilters.selected === wishlist){
                     Book.searchWishlist(selectedFilters, function (books) {
                         onBooksSearched(books);
                     }, ErrorContainer.handleRestError);

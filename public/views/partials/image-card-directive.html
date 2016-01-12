@@ -7,7 +7,7 @@
                  title="{{ ::warning.message }}"
                  ng-src="{{ ::warning.icon }}" class="warning-icon clickableImage" style="top: {{ $index * 25 + 5}}px;">
         </div>
-        <div ng-show="model.spriteImage" class="material-card-content" ng-click="onImageClick(model); $event.stopPropagation();" style="{{ imageStyle }}">
+        <div ng-show="::model.spriteImage" class="material-card-content" ng-click="onImageClick(model); $event.stopPropagation();" style="{{ imageStyle }}">
             <img data-toggle="tooltip" data-placement="top"
                  ng-repeat="warning in warnings" ng-click="warning.handle()"
                  title="{{ ::warning.message }}"
