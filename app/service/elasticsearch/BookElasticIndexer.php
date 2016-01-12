@@ -43,6 +43,14 @@ class BookElasticIndexer
 
         $book->load('wishlists');
 
+        $readUsers = [];
+        /** @var PersonalBookInfo $personalBookInfo */
+        foreach($book->personal_book_infos as $personalBookInfo){
+            if(count($personalBookInfo->reading_dates) > 0){
+                array_push($readUsers, $personalBookInfo->user_id);
+            }
+        }
+
         $bookArray = [
             'id' => $book->id,
             'title' => $book->title,
@@ -56,6 +64,7 @@ class BookElasticIndexer
             'retailPrice' => ['amount' => $book->retail_price, 'currency' => $book->currency],
             'wishlistUsers' => array_map(function($item){ return $item->user_id; }, $book->wishlists->all()),
             'personalBookInfoUsers' => array_map(function($item){ return $item->user_id; }, $book->personal_book_infos->all()),
+            'readUsers' => $readUsers,
             'personalBookInfos' => $personalBookInfos,
             'tags' => $tags
         ];
@@ -89,7 +98,7 @@ class BookElasticIndexer
     }
 
 
-    public function search($bookFilters, $personalFilters)
+    public function search($userId, $bookFilters, $personalFilters)
     {
 
         /** @var FilterReturnType $item */
@@ -122,6 +131,20 @@ class BookElasticIndexer
                         ],
                         'filter' => ['bool' => ['must' => $filters]]
                     ]
+                ],
+                'script_fields' => [
+                    'isPersonal' => [
+                        'script' => "_source.personalBookInfoUsers.contains($userId)"
+                    ],
+                    'personalBookInfoId' => [
+                        'script' => "_source.personalBookInfos.find{ it.userId == $userId } == null ? null : _source.personalBookInfos.find{ it.userId == $userId }.id"
+                    ],
+                    'onWishlist' => [
+                        'script' => "_source.wishlistUsers.contains($userId)"
+                    ],
+                    'read' => [
+                        'script' => "_source.readUsers.contains($userId)"
+                    ],
                 ]
             ]
         ];

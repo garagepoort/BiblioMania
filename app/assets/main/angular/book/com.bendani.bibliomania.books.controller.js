@@ -29,7 +29,7 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
 
                 $scope.searchBooksQuery = "";
                 $scope.loading = true;
-                $scope.predicate = "author";
+                $scope.predicate = "mainAuthor";
                 $scope.reverseOrder = false;
                 $scope.libraryInformationTemplate = '../BiblioMania/views/partials/book/library-information-template.html';
                 $scope.filterViewableBooksTemplate = '../BiblioMania/views/partials/book/filter-viewable-books-template.html';
@@ -80,14 +80,14 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
                     $scope.orderValues = [
                         {key: 'Titel', predicate: 'title', width: '30'},
                         {key: 'Ondertitel', predicate: 'subtitle', width: '30'},
-                        {key: 'Auteur', predicate: 'author', width: '30'},
+                        {key: 'Auteur', predicate: 'mainAuthor', width: '30'},
                         {key: 'Gelezen', predicate: 'read', width: '30'},
                         {key: 'Editeer', predicate: '', width: '10'}
                     ];
                 } else {
                     $scope.orderValues = [
                         {key: 'Titel', predicate: 'title', width: '50'},
-                        {key: 'Auteur', predicate: 'author', width: '50'}
+                        {key: 'Auteur', predicate: 'mainAuthor', width: '50'}
                     ];
                 }
             };
@@ -97,6 +97,11 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
 
                 if($scope.viewableFilters.selected == allBooks){
                     Book.searchAllBooks(selectedFilters, function (books) {
+                        onBooksSearched(books);
+                    }, ErrorContainer.handleRestError);
+                }
+                else if($scope.viewableFilters.selected == otherBooks){
+                    Book.searchOtherBooks(selectedFilters, function (books) {
                         onBooksSearched(books);
                     }, ErrorContainer.handleRestError);
                 }

@@ -39,9 +39,19 @@ class ElasticSearchClient
         $resultSources = array();
         $results = $this->client->search($params);
         foreach($results['hits']['hits'] as $result){
+            $source = [];
+
             if($result['_source']){
-                array_push($resultSources, $result['_source']);
+                $source = $result['_source'];
             }
+
+            if($result['fields']){
+                foreach($result['fields'] as $field => $value){
+                    $source[$field] = $value[0];
+                }
+            }
+
+            array_push($resultSources, $source);
         }
         return $resultSources;
     }
