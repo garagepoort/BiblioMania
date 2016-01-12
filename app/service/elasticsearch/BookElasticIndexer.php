@@ -32,6 +32,14 @@ class BookElasticIndexer
         }
     }
 
+    public function indexBookById($book_id)
+    {
+        $book = $this->bookRepository->find($book_id, array('personal_book_infos', 'book_from_authors'));
+        Ensure::objectNotNull('book to index', $book);
+
+        $this->indexBook($book);
+    }
+
     /**
      * @param $book
      */
@@ -77,6 +85,8 @@ class BookElasticIndexer
             $baseUrl = URL::to('/');
             $bookArray['image'] = $baseUrl . "/bookImages/" . $book->coverImage;
         }
+
+        $book->load('book_from_authors');
 
         if ($book->book_from_authors !== null) {
             $bookArray['isLinkedToOeuvre'] = count($book->book_from_authors->all()) > 0;
