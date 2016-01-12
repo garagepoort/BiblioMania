@@ -34,7 +34,7 @@ class WishlistServiceAddBookToWishlistTest extends TestCase
         $this->bookElasticIndexer = $this->mock('BookElasticIndexer');
         $this->wishlistRepository = $this->mock('WishlistRepository');
 
-        $this->wishlistItem = $this->mockEloquent('WishlistItem');
+            $this->wishlistItem = $this->mockEloquent('WishlistItem');
         $this->user = $this->mockEloquent('User');
         $this->book = $this->mockEloquent('Book');
 
