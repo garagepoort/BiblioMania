@@ -43,7 +43,7 @@ class WishlistService
         $wishlistItem->user_id = $user_id;
         $wishlistItem->book_id = $bookIdRequest->getBookId();
         $this->wishlistRepository->save($wishlistItem);
-        $this->bookElasticIndexer->indexBook($wishlistItem->book);
+        $this->bookElasticIndexer->indexBook($book);
     }
 
     public function removeBookFromWishlist($user_id, BookIdRequest $bookIdRequest)
