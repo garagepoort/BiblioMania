@@ -5,6 +5,8 @@ use Bendani\PhpCommon\FilterService\Model\FilterBuilder;
 use Bendani\PhpCommon\FilterService\Model\FilterHandler;
 use Bendani\PhpCommon\FilterService\Model\FilterRequest;
 use Bendani\PhpCommon\Utils\Model\StringUtils;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 
 class BookService
 {
@@ -156,7 +158,17 @@ class BookService
             array_push($filtersForSearch, FilterBuilder::terms('personalBookInfoUsers', [Auth::user()->id]));
         }
 
-        return $this->bookElasticIndexer->search($filtersForSearch, $personalFiltersForSearch);
+        return $this->bookElasticIndexer->search(Auth::user()->id, $filtersForSearch, $personalFiltersForSearch);
+    }
+
+    public function searchOtherBooks($filters){
+        $this->filterHistoryService->addFiltersToHistory($filters);
+
+        list($personalFiltersForSearch, $filtersForSearch) = $this->filtersToFilterHandlers($filters);
+
+        array_push($filtersForSearch, FilterBuilder::notTerms('personalBookInfoUsers', [Auth::user()->id]));
+
+        return $this->bookElasticIndexer->search(Auth::user()->id, $filtersForSearch, $personalFiltersForSearch);
     }
 
     public function searchMyBooks($filters){
@@ -166,7 +178,7 @@ class BookService
 
         array_push($filtersForSearch, FilterBuilder::terms('personalBookInfoUsers', [Auth::user()->id]));
 
-        return $this->bookElasticIndexer->search($filtersForSearch, $personalFiltersForSearch);
+        return $this->bookElasticIndexer->search(Auth::user()->id, $filtersForSearch, $personalFiltersForSearch);
     }
 
     public function searchWishlist($filters){
@@ -176,7 +188,7 @@ class BookService
 
         array_push($filtersForSearch, FilterBuilder::terms('wishlistUsers', [Auth::user()->id]));
 
-        return $this->bookElasticIndexer->search($filtersForSearch, $personalFiltersForSearch);
+        return $this->bookElasticIndexer->search(Auth::user()->id, $filtersForSearch, $personalFiltersForSearch);
     }
 
     public function getTotalAmountOfBooksRead()

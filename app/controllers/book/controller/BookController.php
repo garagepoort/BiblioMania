@@ -83,31 +83,35 @@ class BookController extends BaseController
 
     public function searchAllBooks()
     {
-        $filtersInJson = Input::get();
-        Ensure::objectIsArray('filters', $filtersInJson);
+        return $this->bookService->searchAllBooks($this->jsonToFilters());
+    }
 
-        $allFiltersFromJsonAdapter = new AllFiltersFromJsonAdapter($filtersInJson);
-
-        return $this->bookService->searchAllBooks($allFiltersFromJsonAdapter->getFilters());
+    public function searchOtherBooks()
+    {
+        return $this->bookService->searchOtherBooks($this->jsonToFilters());
     }
 
     public function searchMyBooks()
     {
-        $filtersInJson = Input::get();
-        Ensure::objectIsArray('filters', $filtersInJson);
-
-        $allFiltersFromJsonAdapter = new AllFiltersFromJsonAdapter($filtersInJson);
-
-        return $this->bookService->searchMyBooks($allFiltersFromJsonAdapter->getFilters());
+        return $this->bookService->searchMyBooks($this->jsonToFilters());
     }
 
     public function searchWishlist()
+    {
+        return $this->bookService->searchWishlist($this->jsonToFilters());
+    }
+
+    /**
+     * @return array
+     * @throws ServiceException
+     */
+    private function jsonToFilters()
     {
         $filtersInJson = Input::get();
         Ensure::objectIsArray('filters', $filtersInJson);
 
         $allFiltersFromJsonAdapter = new AllFiltersFromJsonAdapter($filtersInJson);
-
-        return $this->bookService->searchWishlist($allFiltersFromJsonAdapter->getFilters());
+        $allFilters = $allFiltersFromJsonAdapter->getFilters();
+        return $allFilters;
     }
 }
