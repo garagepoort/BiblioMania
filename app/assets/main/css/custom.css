@@ -109,10 +109,10 @@ small.help-block {
   color: #2d6ca2;
 }
 select {
-  color: #ffffff;
+  color: #FFFFFF;
 }
 .modal-body {
-  color: #ffffff;
+  color: #FFFFFF;
 }
 .clickable {
   -moz-user-select: none;
@@ -167,7 +167,7 @@ a:hover {
   background-color: #def;
 }
 .datepicker .multidatepicker {
-  color: #ffffff;
+  color: #FFFFFF;
 }
 .float-right {
   float: right;
@@ -188,7 +188,7 @@ a:hover {
   width: 100%;
   padding-left: 20px;
   background-color: #2d6ca2;
-  color: #ffffff;
+  color: #FFFFFF;
   font-family: "vincent";
   font-size: 36px;
   height: 58px;
@@ -223,22 +223,22 @@ table.left-right-align td:nth-child(1) {
 /*PLACEHOLDERS*/
 .form-control::-webkit-input-placeholder {
   /* WebKit browsers */
-  color: #ffffff;
+  color: #FFFFFF;
   opacity: 1;
 }
 .form-control:-moz-placeholder {
   /* Mozilla Firefox 4 to 18 */
-  color: #ffffff;
+  color: #FFFFFF;
   opacity: 1;
 }
 .form-control::-moz-placeholder {
   /* Mozilla Firefox 19+ */
-  color: #ffffff;
+  color: #FFFFFF;
   opacity: 1;
 }
 .form-control:-ms-input-placeholder {
   /* Internet Explorer 10+ */
-  color: #ffffff;
+  color: #FFFFFF;
 }
 /*END PLACEHOLDERS*/
 .contentContainer {
@@ -246,7 +246,7 @@ table.left-right-align td:nth-child(1) {
   display: inline-block;
   margin-top: 100px;
   width: 1200px;
-  background-color: #ffffff;
+  background-color: #fff;
   border: 5px solid #2d6ca2;
   box-shadow: 0 25px 50px 0 rgba(0, 0, 0, 0.26);
 }
@@ -308,7 +308,7 @@ legend.sub-border {
   border: 8px solid deepskyblue;
 }
 .green-linked-div {
-  color: #ffffff;
+  color: #FFFFFF;
   background-color: green;
   padding: 3px 10px;
   border-radius: 3px !important;
@@ -402,7 +402,7 @@ table.book-detail-info-table > tbody > tr > td {
 }
 .book-detail-small-info-panel {
   width: 290px;
-  background-color: #ffffff;
+  background-color: #FFFFFF;
 }
 .book-detail-small-info-panel.card-column-left {
   float: left;
@@ -452,14 +452,14 @@ table.book-detail-info-table td {
   width: 400px;
   top: 100px;
   overflow: inherit;
-  background-color: #ffffff;
+  background-color: #FFFFFF;
 }
 .libraryFilterSlidingPanel.sliding-panel {
   left: -510px;
   width: 500px;
   top: 141px;
   overflow: inherit;
-  background-color: #ffffff;
+  background-color: #FFFFFF;
   z-index: 998;
 }
 .filter-input {
@@ -531,7 +531,7 @@ table.book-detail-info-table td {
 .book-detail-close {
   position: fixed;
   width: 720px;
-  color: #ffffff;
+  color: #FFFFFF;
   font-family: "vincent";
   background-color: #2d6ca2;
   padding-left: 20px;
@@ -686,7 +686,7 @@ table.book-detail-info-table td {
   background-color: #eb9316;
   width: 100%;
   border-radius: 5px !important;
-  color: #ffffff;
+  color: #FFFFFF;
   padding-bottom: 10px;
   box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.26);
 }
@@ -768,7 +768,7 @@ table.book-detail-info-table td {
   margin-top: -20px;
 }
 .filterDialog {
-  background-color: #ffffff;
+  background-color: #FFFFFF;
 }
 .label-gray {
   color: #aaa;
@@ -784,7 +784,7 @@ table.book-detail-info-table td {
 }
 .tab-content {
   padding: 10px;
-  background-color: #ffffff;
+  background-color: #FFFFFF;
   color: #2d6ca2;
 }
 .drawer-icon {
@@ -821,27 +821,27 @@ table.book-detail-info-table td {
 }
 .open .dropdown-menu > li > a {
   color: #2d6ca2;
-  background-color: #ffffff;
+  background-color: #FFFFFF;
 }
 .open .dropdown-menu > li > a:hover {
   background-color: #2d6ca2;
-  color: #ffffff;
+  color: #FFFFFF;
   background-image: none;
   border: none;
 }
 .dropdown-menu > li > a:hover,
 .dropdown-menu > li > a:focus {
   background-color: #2d6ca2;
-  color: #ffffff;
+  color: #FFFFFF;
   background-image: none;
 }
 .dropdown-menu {
-  background: #ffffff;
+  background: #FFFFFF;
 }
 /*AUTOCOMPLETE*/
 .autocomplete-suggestions {
   border: 1px solid #999;
-  background: #ffffff;
+  background: #FFFFFF;
   overflow: auto;
 }
 .autocomplete-suggestion {
@@ -877,7 +877,7 @@ table.book-detail-info-table td {
   text-align: center;
 }
 .isloading-overlay .isloading-wrapper {
-  background: #ffffff;
+  background: #FFFFFF;
   -webkit-border-radius: 7px !important;
   -webkit-background-clip: padding-box !important;
   -moz-border-radius: 7px !important;
@@ -897,12 +897,12 @@ table.book-detail-info-table td {
   font-family: "vincent";
   width: 100%;
   padding-left: 10px;
-  color: #ffffff;
+  color: #FFFFFF;
   background-color: #2d6ca2;
 }
 .material-card-content {
   padding: 10px;
-  background-color: #ffffff;
+  background-color: #FFFFFF;
   width: 100%;
   font-weight: normal;
 }
