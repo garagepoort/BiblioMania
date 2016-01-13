@@ -40,6 +40,8 @@ class ImageController extends BaseController
 
     public function createSpriteForBooks()
     {
+        ini_set('max_execution_time', 1000);
+        ini_set('memory_limit', '-1');
         foreach($this->bookService->allBooks() as $book){
             $book->useSpriteImage = false;
             $book->save();
@@ -56,11 +58,15 @@ class ImageController extends BaseController
             }
         });
         $this->bookElasticIndexer->indexBooks();
+
+        ini_set('max_execution_time', 30);
+        ini_set('memory_limit', '128M');
     }
 
     public function createSpriteForAuthors()
     {
-
+        ini_set('max_execution_time', 1000);
+        ini_set('memory_limit', '-1');
         foreach($this->authorService->getAllAuthors() as $author){
             $author->useSpriteImage = false;
             $author->save();
@@ -76,17 +82,16 @@ class ImageController extends BaseController
                 $author->save();
             }
         });
+
+        ini_set('max_execution_time', 30);
+        ini_set('memory_limit', '128M');
     }
 
     private function createSprite($folder, $onImageFound){
-        ini_set('max_execution_time', 1000);
-        ini_set('memory_limit', '-1');
         if (file_exists($folder)) {
             $this->spriteCreator->createSpriteForImages($folder, $onImageFound);
         } else {
             $this->logger->info("No image folder found: " . $folder);
         }
-        ini_set('max_execution_time', 30);
-        ini_set('memory_limit', '128M');
     }
 }
