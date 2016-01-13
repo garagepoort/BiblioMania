@@ -22,7 +22,10 @@ Route::group(array('before' => 'auth'), function () {
     Route::get('books', 'BookController@getBooks');
     Route::post('books', 'BookController@createBook');
     Route::put('books', 'BookController@updateBook');
-    Route::post('books/search', 'BookController@search');
+    Route::post('books/search-all-books', 'BookController@searchAllBooks');
+    Route::post('books/search-other-books', 'BookController@searchOtherBooks');
+    Route::post('books/search-my-books', 'BookController@searchMyBooks');
+    Route::post('books/search-wishlist', 'BookController@searchWishlist');
     Route::get('books/{id}', 'BookController@getFullBook');
     Route::put('books/{id}/authors', 'BookController@linkAuthorToBook');
     Route::put('books/{id}/unlink-author', 'BookController@unlinkAuthorFromBook');
@@ -113,6 +116,8 @@ Route::group(array('before' => 'localCallOnly'), function () {
     Route::get('createSpriteForBooks', 'ImageController@createSpriteForBooks');
     Route::get('createSpriteForAuthors', 'ImageController@createSpriteForAuthors');
     Route::get('importBooks', 'BookImportController@importBooks');
+    Route::get('search/populate', 'ElasticSearchController@index');
+    Route::get('search/clear', 'ElasticSearchController@clear');
 });
 
 

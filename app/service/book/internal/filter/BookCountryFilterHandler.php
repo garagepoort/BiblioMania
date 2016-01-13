@@ -1,6 +1,7 @@
 <?php
 
 use Bendani\PhpCommon\FilterService\Model\Filter;
+use Bendani\PhpCommon\FilterService\Model\FilterBuilder;
 use Bendani\PhpCommon\FilterService\Model\FilterOperator;
 use Bendani\PhpCommon\FilterService\Model\OptionsFilterHandler;
 use Bendani\PhpCommon\Utils\Model\StringUtils;
@@ -17,17 +18,13 @@ class BookCountryFilterHandler implements OptionsFilterHandler
         $this->countryService = App::make('CountryService');
     }
 
-    public function handleFilter($queryBuilder, Filter $filter)
+    public function handleFilter(Filter $filter)
     {
         Ensure::objectNotNull('selected options', $filter->getValue());
 
-        $options = array_map(function($item){
-            return $item->value;
-        }, (array) $filter->getValue());
+        $options = array_map(function($item){ return StringUtils::toLowerCase($item->value); }, (array) $filter->getValue());
 
-        return $queryBuilder
-            ->leftJoin('country as book_country', 'book.publisher_country_id', '=', 'book_country.id')
-            ->whereIn("book_country.name", $options);
+        return FilterBuilder::terms('country', $options);
     }
 
     public function getFilterId()
@@ -52,9 +49,9 @@ class BookCountryFilterHandler implements OptionsFilterHandler
         array_push($options, $noValueOption);
         foreach($this->countryService->getCountries() as $country){
             if(!StringUtils::isEmpty($country->name)){
-                array_push($options, array("key"=>$country->name, "value"=>$country->name));
+                array_push($options, array("key"=>$country->name, "value"=>$country->id));
             }else{
-                $noValueOption["value"] = $country->name;
+                $noValueOption["value"] = $country->id;
             }
         }
         return $options;
@@ -68,10 +65,5 @@ class BookCountryFilterHandler implements OptionsFilterHandler
     public function getGroup()
     {
         return "book";
-    }
-
-    public function joinQuery($queryBuilder)
-    {
-        return $queryBuilder;
     }
 }

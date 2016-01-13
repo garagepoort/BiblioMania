@@ -33,6 +33,8 @@ class BookServiceCreateTest extends TestCase
     private $imageService;
     /** @var TagRepository $tagRepository */
     private $tagRepository;
+    /** @var BookElasticIndexer $bookElasticIndexer */
+    private $bookElasticIndexer;
 
     /** @var  Genre $genre */
     private $genre;
@@ -67,6 +69,7 @@ class BookServiceCreateTest extends TestCase
         $this->dateService = $this->mock('DateService');
         $this->imageService = $this->mock('ImageService');
         $this->tagRepository = $this->mock('TagRepository');
+        $this->bookElasticIndexer = $this->mock('BookElasticIndexer');
 
         $this->genre = $this->mockEloquent('Genre');
         $this->genre->shouldReceive('getAttribute')->with("id")->andReturn(self::GENRE_ID);
@@ -109,8 +112,10 @@ class BookServiceCreateTest extends TestCase
         $this->publisherSerieService->shouldReceive('findOrSave')->never();
 
         $this->bookRepository->shouldReceive('save')->once()->with(Mockery::any());
+        $this->bookElasticIndexer->shouldReceive('indexBook')->once()->with(Mockery::any());
 
         $createdBook = $this->bookService->create($this->createBookRequestImpl);
+
 
         $this->assertEquals($createdBook->title, $this->createBookRequestImpl->getTitle());
         $this->assertEquals($createdBook->subtitle, $this->createBookRequestImpl->getSubtitle());

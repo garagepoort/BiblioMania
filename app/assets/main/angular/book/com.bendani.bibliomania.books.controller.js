@@ -11,8 +11,8 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
     'com.bendani.bibliomania.currency.service',
     'com.bendani.bibliomania.book.detail.directive',
     'pageslide-directive'])
-    .controller('BookController', ['$scope', 'Book', 'BookFilter', 'ErrorContainer', 'TitlePanelService', '$location', '$compile', 'BookOverviewService', 'CurrencyService', 'DateService', 'ScrollingService', '$timeout',
-        function ($scope, Book, BookFilter, ErrorContainer, TitlePanelService, $location, $compile, BookOverviewService, CurrencyService, DateService, ScrollingService, $timeout) {
+    .controller('BookController', ['$scope', 'Book', 'BookFilter', 'ErrorContainer', 'TitlePanelService', '$location', '$compile', 'BookOverviewService', 'CurrencyService', 'DateService', 'ScrollingService', '$timeout', 'FilterService',
+        function ($scope, Book, BookFilter, ErrorContainer, TitlePanelService, $location, $compile, BookOverviewService, CurrencyService, DateService, ScrollingService, $timeout, FilterService) {
             var personalBooks = {key: 'Mijn boeken', value: 'personalBooks'};
             var allBooks = {key: 'Alle boeken', value: 'all'};
             var otherBooks = {key: 'Andere boeken', value: 'otherBooks'};
@@ -21,27 +21,24 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
             function init() {
                 TitlePanelService.setTitle('Boeken');
                 TitlePanelService.setShowPreviousButton(false);
-
                 setRightTitlePanel();
 
                 $scope.getCurrencyViewValue = CurrencyService.getCurrencyViewValue;
                 $scope.dateToString = DateService.dateToString;
 
-                $scope.searchBooksQuery = "";
-                $scope.loading = true;
-                $scope.predicate = "author";
-                $scope.reverseOrder = false;
                 $scope.libraryInformationTemplate = '../BiblioMania/views/partials/book/library-information-template.html';
                 $scope.filterViewableBooksTemplate = '../BiblioMania/views/partials/book/filter-viewable-books-template.html';
+
+                $scope.loading = true;
+                $scope.searchBooksQuery = "";
+                $scope.predicate = "mainAuthor";
+                $scope.reverseOrder = false;
                 $scope.setListView(false);
 
+                $scope.viewableFilters = { selected: personalBooks, all: [allBooks, otherBooks, personalBooks, wishlist] };
 
-                $scope.filters = {selected: [], all: []};
-                BookFilter.mostUsed(function(filters){ $scope.filters.selected = filters; }, ErrorContainer.handleRestError);
-
-                $scope.viewableFilters = {
-                    selected: personalBooks,
-                    all: [allBooks, otherBooks, personalBooks, wishlist]
+                $scope.selectViewableFilter = function(){
+                    FilterService.filter($scope.filterBooks);
                 };
 
                 $scope.$watch('viewableBooks', function(){
@@ -51,30 +48,20 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
                 });
 
                 getFilters();
-                $scope.filterBooks([]);
+                FilterService.filter($scope.filterBooks);
             }
 
             $scope.search = function (item) {
-                if ($scope.viewableFilters.selected === personalBooks && !item.personalBookInfoId) {
-                    return false;
-                }
-                if ($scope.viewableFilters.selected === otherBooks && item.personalBookInfoId) {
-                    return false;
-                }
-                if ($scope.viewableFilters.selected === wishlist && !item.onWishlist) {
-                    return false;
+                if(item.subtitle === undefined || item.subtitle === null){
+                    item.subtitle = "";
                 }
 
                 if ((item.title.toLowerCase().indexOf($scope.searchBooksQuery) !== -1)
                     || (item.subtitle.toLowerCase().indexOf($scope.searchBooksQuery) !== -1)
-                    || (item.author.toLowerCase().indexOf($scope.searchBooksQuery) !== -1)) {
+                    || (item.mainAuthor.toLowerCase().indexOf($scope.searchBooksQuery) !== -1)) {
                     return true;
                 }
                 return false;
-            };
-
-            $scope.resetBooks = function () {
-                $scope.filterBooks([]);
             };
 
             $scope.setListView = function (value) {
@@ -83,14 +70,15 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
                 if ($scope.listView) {
                     $scope.orderValues = [
                         {key: 'Titel', predicate: 'title', width: '30'},
-                        {key: 'Auteur', predicate: 'author', width: '30'},
+                        {key: 'Ondertitel', predicate: 'subtitle', width: '30'},
+                        {key: 'Auteur', predicate: 'mainAuthor', width: '30'},
                         {key: 'Gelezen', predicate: 'read', width: '30'},
                         {key: 'Editeer', predicate: '', width: '10'}
                     ];
                 } else {
                     $scope.orderValues = [
                         {key: 'Titel', predicate: 'title', width: '50'},
-                        {key: 'Auteur', predicate: 'author', width: '50'}
+                        {key: 'Auteur', predicate: 'mainAuthor', width: '50'}
                     ];
                 }
             };
@@ -98,15 +86,26 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
             $scope.filterBooks = function (selectedFilters) {
                 $scope.loading = true;
 
-                Book.search(selectedFilters, function (books) {
-                    $scope.books = books;
-                    _.each($scope.books, function (book) {
-                        book.warnings = BookOverviewService.getBookWarnings(book);
-                    });
-
-                    scrollToLastPosition();
-                    $scope.loading = false;
-                }, ErrorContainer.handleRestError);
+                if($scope.viewableFilters.selected === allBooks){
+                    Book.searchAllBooks(selectedFilters, function (books) {
+                        onBooksSearched(books);
+                    }, ErrorContainer.handleRestError);
+                }
+                else if($scope.viewableFilters.selected === otherBooks){
+                    Book.searchOtherBooks(selectedFilters, function (books) {
+                        onBooksSearched(books);
+                    }, ErrorContainer.handleRestError);
+                }
+                else if($scope.viewableFilters.selected === personalBooks){
+                    Book.searchMyBooks(selectedFilters, function (books) {
+                        onBooksSearched(books);
+                    }, ErrorContainer.handleRestError);
+                }
+                else if($scope.viewableFilters.selected === wishlist){
+                    Book.searchWishlist(selectedFilters, function (books) {
+                        onBooksSearched(books);
+                    }, ErrorContainer.handleRestError);
+                }
             };
 
             $scope.goToCreateBook = function () {
@@ -136,8 +135,17 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
                         }
                         filter.value = "";
                     }
-                    $scope.filters.all = filters;
+                    FilterService.setAllFilters(filters);
                 }, ErrorContainer.handleRestError);
+            }
+
+            function onBooksSearched(books) {
+                $scope.books = books;
+                _.each($scope.books, function (book) {
+                    book.warnings = BookOverviewService.getBookWarnings(book);
+                });
+                scrollToLastPosition();
+                $scope.loading = false;
             }
 
             function updateLibraryInformation(books){

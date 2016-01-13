@@ -1,6 +1,7 @@
 <?php
 
 use Bendani\PhpCommon\FilterService\Model\Filter;
+use Bendani\PhpCommon\FilterService\Model\FilterBuilder;
 use Bendani\PhpCommon\FilterService\Model\FilterDateRequest;
 use Bendani\PhpCommon\FilterService\Model\FilterHandler;
 
@@ -15,24 +16,21 @@ class BookBuyDateFilterHandler implements FilterHandler
         $this->dateFormatter = App::make('DateFormatter');
     }
 
-    public function handleFilter($queryBuilder, Filter $filter)
+    public function handleFilter(Filter $filter)
     {
         /** @var FilterDateRequest $filterDateRequest */
         $filterDateRequest = $filter->getValue();
         Ensure::objectIsInstanceOf('date', $filterDateRequest, 'Bendani\PhpCommon\FilterService\Model\FilterDateRequest');
         Ensure::objectIsInstanceOf('date from', $filterDateRequest->getFrom(), 'DateRequest');
 
-        $dateFrom = $this->dateFormatter->dateRequestToDateTime($filterDateRequest->getFrom());
-
-        $queryBuilder =  $queryBuilder->where("buy_info_date_join.buy_date", '>=', $dateFrom);
+        $dateFrom = $this->dateFormatter->dateRequestToFormattedDate($filterDateRequest->getFrom());
 
         if($filterDateRequest->getTo() !== null){
             Ensure::objectIsInstanceOf('date to', $filterDateRequest->getTo(), 'DateRequest');
-            $dateTo = $this->dateFormatter->dateRequestToDateTime($filterDateRequest->getTo());
-            $queryBuilder->where("buy_info_date_join.buy_date", '<=', $dateTo);
+            $dateTo = $this->dateFormatter->dateRequestToFormattedDate($filterDateRequest->getTo());
+            return FilterBuilder::range('personalBookInfos.buyInfo.buy_date', $dateFrom, $dateTo);
         }
-
-        return $queryBuilder;
+        return FilterBuilder::greaterThan('personalBookInfos.buyInfo.buy_date', $dateFrom);
     }
 
     public function getFilterId()
@@ -57,10 +55,5 @@ class BookBuyDateFilterHandler implements FilterHandler
     public function getGroup()
     {
         return "personal";
-    }
-
-    public function joinQuery($queryBuilder)
-    {
-        return $queryBuilder->join("buy_info as buy_info_date_join", "buy_info_date_join.personal_book_info_id", "=", "personal_book_info.id");
     }
 }

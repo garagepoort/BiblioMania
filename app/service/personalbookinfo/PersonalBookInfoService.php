@@ -15,6 +15,8 @@ class PersonalBookInfoService
     private $giftInfoService;
     /** @var  WishlistRepository */
     private $wishlistRepository;
+    /** @var  BookElasticIndexer */
+    private $bookElasticIndexer;
 
     function __construct()
     {
@@ -24,6 +26,7 @@ class PersonalBookInfoService
         $this->personalBookInfoRepository = App::make('PersonalBookInfoRepository');
         $this->giftInfoService = App::make('GiftInfoService');
         $this->buyInfoService = App::make('BuyInfoService');
+        $this->bookElasticIndexer = App::make('BookElasticIndexer');
     }
 
     public function find($id){
@@ -91,7 +94,7 @@ class PersonalBookInfoService
             $this->buyInfoService->delete($personalBookInfo->id);
             $this->giftInfoService->createOrUpdate($personalBookInfo->id, $request->getGiftInfo());
         }
-
+        $this->bookElasticIndexer->indexBook($personalBookInfo->book);
         return $personalBookInfo->id;
     }
 }
