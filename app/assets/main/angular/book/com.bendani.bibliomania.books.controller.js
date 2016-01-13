@@ -11,8 +11,8 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
     'com.bendani.bibliomania.currency.service',
     'com.bendani.bibliomania.book.detail.directive',
     'pageslide-directive'])
-    .controller('BookController', ['$scope', 'Book', 'BookFilter', 'ErrorContainer', 'TitlePanelService', '$location', '$compile', 'BookOverviewService', 'CurrencyService', 'DateService', 'ScrollingService', '$timeout',
-        function ($scope, Book, BookFilter, ErrorContainer, TitlePanelService, $location, $compile, BookOverviewService, CurrencyService, DateService, ScrollingService, $timeout) {
+    .controller('BookController', ['$scope', 'Book', 'BookFilter', 'ErrorContainer', 'TitlePanelService', '$location', '$compile', 'BookOverviewService', 'CurrencyService', 'DateService', 'ScrollingService', '$timeout', 'FilterService',
+        function ($scope, Book, BookFilter, ErrorContainer, TitlePanelService, $location, $compile, BookOverviewService, CurrencyService, DateService, ScrollingService, $timeout, FilterService) {
             var personalBooks = {key: 'Mijn boeken', value: 'personalBooks'};
             var allBooks = {key: 'Alle boeken', value: 'all'};
             var otherBooks = {key: 'Andere boeken', value: 'otherBooks'};
@@ -21,33 +21,24 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
             function init() {
                 TitlePanelService.setTitle('Boeken');
                 TitlePanelService.setShowPreviousButton(false);
-
                 setRightTitlePanel();
 
                 $scope.getCurrencyViewValue = CurrencyService.getCurrencyViewValue;
                 $scope.dateToString = DateService.dateToString;
 
-                $scope.searchBooksQuery = "";
-                $scope.loading = true;
-                $scope.predicate = "mainAuthor";
-                $scope.reverseOrder = false;
                 $scope.libraryInformationTemplate = '../BiblioMania/views/partials/book/library-information-template.html';
                 $scope.filterViewableBooksTemplate = '../BiblioMania/views/partials/book/filter-viewable-books-template.html';
+
+                $scope.loading = true;
+                $scope.searchBooksQuery = "";
+                $scope.predicate = "mainAuthor";
+                $scope.reverseOrder = false;
                 $scope.setListView(false);
 
-
-                $scope.filterControl = {};
-
-                $scope.filters = {selected: [], all: []};
-                BookFilter.mostUsed(function(filters){ $scope.filters.selected = filters; }, ErrorContainer.handleRestError);
-
-                $scope.viewableFilters = {
-                    selected: personalBooks,
-                    all: [allBooks, otherBooks, personalBooks, wishlist]
-                };
+                $scope.viewableFilters = { selected: personalBooks, all: [allBooks, otherBooks, personalBooks, wishlist] };
 
                 $scope.selectViewableFilter = function(){
-                    $scope.filterControl.filter();
+                    FilterService.filter($scope.filterBooks);
                 };
 
                 $scope.$watch('viewableBooks', function(){
@@ -57,7 +48,7 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
                 });
 
                 getFilters();
-                $scope.filterBooks([]);
+                FilterService.filter($scope.filterBooks);
             }
 
             $scope.search = function (item) {
@@ -144,7 +135,7 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
                         }
                         filter.value = "";
                     }
-                    $scope.filters.all = filters;
+                    FilterService.setAllFilters(filters);
                 }, ErrorContainer.handleRestError);
             }
 
