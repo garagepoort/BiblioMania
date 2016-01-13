@@ -25,8 +25,12 @@ class ElasticSearchController extends BaseController
 
 
     public function index(){
+        ini_set('max_execution_time', 1000);
+        ini_set('memory_limit', '-1');
         $this->elasticSearchClient->createIndex();
         $this->bookElasticIndexer->indexBooks();
+        ini_set('max_execution_time', 30);
+        ini_set('memory_limit', '128M');
     }
 
     public function clear(){
