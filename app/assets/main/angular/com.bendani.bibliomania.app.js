@@ -41,7 +41,7 @@ angular.module('BiblioMania', ['ngRoute',
 
         growlProvider.globalTimeToLive(5000);
     }])
-    .run(['$rootScope', '$location', 'ScrollingService', function($rootScope, $location, ScrollingService) {
+    .run(['$rootScope', '$location', 'ScrollingService', 'User', 'ErrorContainer', function($rootScope, $location, ScrollingService, User, ErrorContainer) {
         var history = [];
         $rootScope.baseUrl = "../BiblioMania/";
 
@@ -55,6 +55,10 @@ angular.module('BiblioMania', ['ngRoute',
         };
 
         $rootScope.partialsUrl = "../BiblioMania/views/partials/";
+
+        User.loggedInUser(function(user){
+            $rootScope.loggedInUser = user;
+        }, ErrorContainer.handleRestError);
 
         ScrollingService.registerPathForScrollPosition('/books');
     }]);

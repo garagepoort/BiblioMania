@@ -8,13 +8,13 @@ use Bendani\PhpCommon\Utils\Model\StringUtils;
 class BookTagFilterHandler implements OptionsFilterHandler
 {
 
-    public function handleFilter($queryBuilder, Filter $filter)
+    public function handleFilter(Filter $filter)
     {
         Ensure::objectNotNull('selected options', $filter->getValue());
 
         $options = array_map(function($item){ return $item->value; }, (array) $filter->getValue());
 
-        return $queryBuilder->whereIn("book_tag.tag_id", $options);
+        return \Bendani\PhpCommon\FilterService\Model\FilterBuilder::terms('tags.id', $options);
     }
 
     public function getFilterId()

@@ -81,20 +81,37 @@ class BookController extends BaseController
         return $fullBookToJsonAdapter->mapToJson();
     }
 
-    public function search()
+    public function searchAllBooks()
+    {
+        return $this->bookService->searchAllBooks($this->jsonToFilters());
+    }
+
+    public function searchOtherBooks()
+    {
+        return $this->bookService->searchOtherBooks($this->jsonToFilters());
+    }
+
+    public function searchMyBooks()
+    {
+        return $this->bookService->searchMyBooks($this->jsonToFilters());
+    }
+
+    public function searchWishlist()
+    {
+        return $this->bookService->searchWishlist($this->jsonToFilters());
+    }
+
+    /**
+     * @return array
+     * @throws ServiceException
+     */
+    private function jsonToFilters()
     {
         $filtersInJson = Input::get();
         Ensure::objectIsArray('filters', $filtersInJson);
 
         $allFiltersFromJsonAdapter = new AllFiltersFromJsonAdapter($filtersInJson);
-
-        $books = $this->bookService->filterBooks($allFiltersFromJsonAdapter->getFilters());
-
-        $result = array();
-        foreach($books->all() as $book){
-            $bookToJsonAdapter = new BookToJsonAdapter($book);
-            array_push($result, $bookToJsonAdapter->mapToJson());
-        }
-        return $result;
+        $allFilters = $allFiltersFromJsonAdapter->getFilters();
+        return $allFilters;
     }
 }

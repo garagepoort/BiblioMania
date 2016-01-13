@@ -14,6 +14,8 @@ class AllFiltersFromJsonAdapter
         foreach($filtersInJson as $filter){
             if($filter['id'] === "personal-buy_date"){
                 array_push($this->filters, $this->jsonMappingService->mapInputToJson($filter, new DateFilterFromJsonAdapter()));
+            }else if($filter['id'] === "personal-readingdate"){
+                array_push($this->filters, $this->jsonMappingService->mapInputToJson($filter, new PartialDateFilterFromJsonAdapter()));
             }else{
                 array_push($this->filters, $this->jsonMappingService->mapInputToJson($filter, new FilterFromJsonAdapter()));
             }

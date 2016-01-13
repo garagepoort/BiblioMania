@@ -38,9 +38,9 @@ class AuthorController extends BaseController
         $book = $this->bookService->find($id, array('authors'));
 
         Ensure::objectNotNull("book", $book);
-        Ensure::objectNotNull("book preferred author", $book->preferredAuthor());
+        Ensure::objectNotNull("book preferred author", $book->mainAuthor());
 
-        $authorToJsonAdapter = new AuthorToJsonAdapter($book->preferredAuthor());
+        $authorToJsonAdapter = new AuthorToJsonAdapter($book->mainAuthor());
         return $authorToJsonAdapter->mapToJson();
     }
 

@@ -9,12 +9,15 @@ class WishlistService
     private $userRepository;
     /** @var  BookRepository */
     private $bookRepository;
+    /** @var  BookElasticIndexer */
+    private $bookElasticIndexer;
 
     public function __construct()
     {
         $this->bookRepository = App::make('BookRepository');
         $this->userRepository = App::make('UserRepository');
         $this->wishlistRepository = App::make('WishlistRepository');
+        $this->bookElasticIndexer = App::make('BookElasticIndexer');
     }
 
     public function getWishlistForUser($user_id){
@@ -40,6 +43,7 @@ class WishlistService
         $wishlistItem->user_id = $user_id;
         $wishlistItem->book_id = $bookIdRequest->getBookId();
         $this->wishlistRepository->save($wishlistItem);
+        $this->bookElasticIndexer->indexBook($book);
     }
 
     public function removeBookFromWishlist($user_id, BookIdRequest $bookIdRequest)
@@ -53,5 +57,6 @@ class WishlistService
         Ensure::objectNotNull('wishlist item', $wishlistItem, 'This user does not have the given book on his wishlist. Can not remove book.');
 
         $this->wishlistRepository->delete($wishlistItem);
+        $this->bookElasticIndexer->indexBook($wishlistItem->book);
     }
 }

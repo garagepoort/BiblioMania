@@ -2,12 +2,12 @@
 
 set :application, 'BiblioMania'
 set :repo_url, 'git@github.com:garagepoort/BiblioMania.git'
-set :tmp_dir, "/home/garagepoort/tmp"
+set :tmp_dir, "/tmp"
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 
 # Default deploy_to directory is /var/www/my_app
-set :deploy_to, '/home/garagepoort/myApps/BiblioMania'
+set :deploy_to, '/home/myApps/BiblioMania'
 
 # Default value for :scm is :git
 # set :scm, :git
@@ -38,7 +38,7 @@ namespace :deploy do
   desc 'update composer'
   task :restart do
     on roles(:app) do
-      execute "cd ~/myApps/BiblioMania/current && php composer.phar update && cd public && rm -rf bookImages && ln -s /home/garagepoort/myApps/BiblioMania/bookImages && rm -rf authorImages && ln -s /home/garagepoort/myApps/BiblioMania/authorImages"
+      execute "cd /home/myApps/BiblioMania/current && php composer.phar update && cd public && rm -rf bookImages && ln -s /home/myApps/BiblioMania/bookImages && rm -rf authorImages && ln -s /home/myApps/BiblioMania/authorImages"
     end
       # Your restart mechanism here, for example:
       # execute :touch, release_path.join('tmp/restart.txt')

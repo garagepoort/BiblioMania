@@ -8,8 +8,6 @@ class WishlistItem extends Eloquent {
         'user_id',
 	);
 
-    protected $with = array('user', 'book');
-    
 	public function book(){
     	return $this->belongsTo('Book');
 	}
