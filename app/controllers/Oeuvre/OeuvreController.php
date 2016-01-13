@@ -86,7 +86,7 @@ class OeuvreController extends Controller
         if($book == null){
             throw new ServiceException('Book not found');
         }
-        return $this->getOeuvreFromAuthor($book->preferredAuthor()->id);
+        return $this->getOeuvreFromAuthor($book->mainAuthor()->id);
     }
 
     public function saveOeuvreItemsToAuthor(){

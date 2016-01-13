@@ -1,15 +1,16 @@
 <?php
 
 use Bendani\PhpCommon\FilterService\Model\Filter;
+use Bendani\PhpCommon\FilterService\Model\FilterBuilder;
 use Bendani\PhpCommon\FilterService\Model\FilterHandler;
 use Bendani\PhpCommon\FilterService\Model\FilterOperator;
 use Bendani\PhpCommon\Utils\Model\StringUtils;
 
 class BookOwnedFilterHandler implements FilterHandler
 {
-    public function handleFilter($queryBuilder, Filter $filter)
+    public function handleFilter(Filter $filter)
     {
-        return $queryBuilder->where("personal_book_info.owned", "=", $filter->getValue());
+        return FilterBuilder::match('personalBookInfos.inCollection', $filter->getValue());
     }
 
     public function getFilterId()

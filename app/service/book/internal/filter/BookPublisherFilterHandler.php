@@ -1,6 +1,7 @@
 <?php
 
 use Bendani\PhpCommon\FilterService\Model\Filter;
+use Bendani\PhpCommon\FilterService\Model\FilterBuilder;
 use Bendani\PhpCommon\FilterService\Model\FilterOperator;
 use Bendani\PhpCommon\FilterService\Model\OptionsFilterHandler;
 use Bendani\PhpCommon\Utils\Model\StringUtils;
@@ -8,7 +9,7 @@ use Bendani\PhpCommon\Utils\Model\StringUtils;
 class BookPublisherFilterHandler implements OptionsFilterHandler
 {
 
-    public function handleFilter($queryBuilder, Filter $filter)
+    public function handleFilter(Filter $filter)
     {
         Ensure::objectNotNull('selected options', $filter->getValue());
 
@@ -16,9 +17,7 @@ class BookPublisherFilterHandler implements OptionsFilterHandler
             return $item->value;
         }, (array) $filter->getValue());
 
-        return $queryBuilder
-            ->leftJoin("publisher", "book.publisher_id", "=", "publisher.id")
-            ->whereIn("publisher.id", $options);
+        return FilterBuilder::terms('publisher', $options);
     }
 
     public function getFilterId()

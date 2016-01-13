@@ -16,6 +16,8 @@ class OeuvreServiceLinkBookToOeuvreItemTest extends TestCase
     private $book;
     /** @var  BookIdRequestTestImpl */
     private $bookIdRequest;
+    /** @var  BookElasticIndexer */
+    private $bookElasticIndexer;
 
     /** @var  OeuvreService */
     private $oeuvreService;
@@ -28,6 +30,7 @@ class OeuvreServiceLinkBookToOeuvreItemTest extends TestCase
         $this->oeuvreItemLinkValidator = $this->mock('OeuvreItemLinkValidator');
         $this->bookFromAuthorRepository = $this->mock('BookFromAuthorRepository');
         $this->bookRepository = $this->mock('BookRepository');
+        $this->bookElasticIndexer = $this->mock('BookElasticIndexer');
 
         $this->oeuvreItem = $this->mockEloquent('BookFromAuthor');
         $this->book = $this->mockEloquent('Book');
@@ -41,6 +44,7 @@ class OeuvreServiceLinkBookToOeuvreItemTest extends TestCase
     public function test_shouldLinkCorrectly(){
         $this->oeuvreItemLinkValidator->shouldReceive('validate')->with($this->oeuvreItem, $this->book)->once();
         $this->bookFromAuthorRepository->shouldReceive('linkBookToOeuvreItem')->with(self::OEUVRE_ID, $this->book)->once();
+        $this->bookElasticIndexer->shouldReceive('indexBook')->once()->with($this->book);
 
         $this->oeuvreService->linkBookToOeuvreItem(self::OEUVRE_ID, $this->bookIdRequest);
     }

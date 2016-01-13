@@ -6,11 +6,13 @@ class ReadingDateService
     private $personalBookInfoRepository;
     /** @var  ReadingDateRepository */
     private $readingDateRepository;
-
+    /** @var  BookElasticIndexer */
+    private $bookElasticIndexer;
     public function __construct()
     {
         $this->personalBookInfoRepository = App::make('PersonalBookInfoRepository');
         $this->readingDateRepository = App::make('ReadingDateRepository');
+        $this->bookElasticIndexer = App::make('BookElasticIndexer');
     }
 
     public function createReadingDate(BaseReadingDateRequest $updateReadingDateRequest){
@@ -28,7 +30,10 @@ class ReadingDateService
         $readingDate = $this->readingDateRepository->find($id);
         Ensure::objectNotNull('reading date', $readingDate);
 
+        $book_id = $readingDate->personal_book_info->book_id;
+
         $this->readingDateRepository->deleteById($id);
+        $this->bookElasticIndexer->indexBookById($book_id);
     }
 
     /**
@@ -53,6 +58,7 @@ class ReadingDateService
         $readingDate->date = $datetime;
 
         $readingDate->save();
+        $this->bookElasticIndexer->indexBookById($personalBookInfo->book_id);
         return $readingDate->id;
     }
 }

@@ -10,6 +10,8 @@ class OeuvreService
     private $authorRepository;
     /** @var  OeuvreItemLinkValidator */
     private $oeuvreItemLinkValidator;
+    /** @var  BookElasticIndexer */
+    private $bookElasticIndexer;
 
     function __construct()
     {
@@ -17,6 +19,7 @@ class OeuvreService
         $this->bookRepository = App::make("BookRepository");
         $this->authorRepository = App::make("AuthorRepository");
         $this->oeuvreItemLinkValidator = App::make("OeuvreItemLinkValidator");
+        $this->bookElasticIndexer = App::make("BookElasticIndexer");
     }
 
     public function linkNewOeuvreFromAuthor($author_id, $oeuvreText)
@@ -44,6 +47,7 @@ class OeuvreService
         $this->oeuvreItemLinkValidator->validate($oeuvreItem, $book);
 
         $this->bookFromAuthorRepository->linkBookToOeuvreItem($oeuvreId, $book);
+        $this->bookElasticIndexer->indexBook($book);
     }
 
     public function deleteLinkedBookFromOeuvreItem($oeuvreId, BookIdRequest $bookToOeuvreItemRequest){
@@ -55,6 +59,7 @@ class OeuvreService
 
         $book->book_from_authors()->detach($oeuvreId);
         $book->save();
+        $this->bookElasticIndexer->indexBook($book);
     }
 
     public function saveBookFromAuthors($oeuvreList, $authorId){

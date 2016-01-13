@@ -7,6 +7,10 @@ class ImageController extends BaseController
     private $apiAuthenticationService;
     /** @var BookService */
     private $bookService;
+    /** @var BookElasticIndexer */
+    private $bookElasticIndexer;
+    /** @var  AuthorService */
+    private $authorService;
     /** @var  SpriteCreator $spriteCreator */
     private $spriteCreator;
     /** @var  \Katzgrau\KLogger\Logger */
@@ -18,6 +22,8 @@ class ImageController extends BaseController
         $this->bookService = App::make('BookService');
         $this->spriteCreator = App::make('SpriteCreator');
         $this->logger = App::make('Logger');
+        $this->authorService = App::make('AuthorService');
+        $this->bookElasticIndexer = App::make('BookElasticIndexer');
     }
 
     public function getBookImage($id)
@@ -34,6 +40,10 @@ class ImageController extends BaseController
 
     public function createSpriteForBooks()
     {
+        foreach($this->bookService->allBooks() as $book){
+            $book->useSpriteImage = false;
+            $book->save();
+        }
         $folder = public_path() . "/" . Config::get("properties.bookImagesLocation");
         $this->createSprite($folder, function(Image $image, $imageYPointer){
             $book = Book::where('coverImage', '=', $image->getFile())->first();
@@ -45,10 +55,16 @@ class ImageController extends BaseController
                 $book->save();
             }
         });
+        $this->bookElasticIndexer->indexBooks();
     }
 
     public function createSpriteForAuthors()
     {
+
+        foreach($this->authorService->getAllAuthors() as $author){
+            $author->useSpriteImage = false;
+            $author->save();
+        }
         $folder = public_path() . "/" . Config::get("properties.authorImagesLocation");
         $this->createSprite($folder, function($image, $imageYPointer){
             $author = Author::where('image', '=', $image->getFile())->first();

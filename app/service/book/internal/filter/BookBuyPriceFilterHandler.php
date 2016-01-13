@@ -1,16 +1,27 @@
 <?php
 
 use Bendani\PhpCommon\FilterService\Model\Filter;
+use Bendani\PhpCommon\FilterService\Model\FilterBuilder;
 use Bendani\PhpCommon\FilterService\Model\FilterHandler;
 use Bendani\PhpCommon\FilterService\Model\FilterOperator;
 
 class BookBuyPriceFilterHandler implements FilterHandler
 {
-    public function handleFilter($queryBuilder, Filter $filter)
+    public function handleFilter(Filter $filter)
     {
         Ensure::stringNotBlank('buy.price.filter.operator.not.null',$filter->getOperator());
-        return $queryBuilder
-            ->where("buy_info_price_join.price_payed", FilterOperator::getDatabaseOperator($filter->getOperator()), $filter->getValue());
+
+        if($filter->getOperator() == FilterOperator::EQUALS){
+            return FilterBuilder::range('personalBookInfos.buyInfo.price', $filter->getValue(), $filter->getValue());
+        }
+        if($filter->getOperator() == FilterOperator::GREATER_THAN){
+            return FilterBuilder::greaterThan('personalBookInfos.buyInfo.price', $filter->getValue());
+        }
+        if($filter->getOperator() == FilterOperator::LESS_THAN){
+            return FilterBuilder::lessThan('personalBookInfos.buyInfo.price', $filter->getValue());
+        }
+
+        throw new ServiceException('FilterOperator not supported');
     }
 
     public function getFilterId()
@@ -40,10 +51,5 @@ class BookBuyPriceFilterHandler implements FilterHandler
     public function getGroup()
     {
         return "personal";
-    }
-
-    public function joinQuery($queryBuilder)
-    {
-        return $queryBuilder->join("buy_info as buy_info_price_join", "buy_info_price_join.personal_book_info_id", "=", "personal_book_info.id");
     }
 }
