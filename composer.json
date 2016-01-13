@@ -26,7 +26,7 @@
     "bendani/php-common/login-service": "3.0.*",
     "bendani/php-common/google-image-service": "1.0.*",
     "bendani/php-common/filter-service": "2.0.*",
-    "bendani/php-common/uiframework": "1.0.*",
+    "bendani/php-common/uiframework": "1.1.*",
     "bendani/php-common/utils": "1.0.*"
   },
   "autoload": {
