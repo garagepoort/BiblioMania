@@ -33,7 +33,7 @@ class Book extends Eloquent {
 
 	protected $with = array('publication_date', 'first_print_info', 'language', 'personal_book_infos');
 
-	public function preferredAuthor(){
+	public function mainAuthor(){
 		foreach($this->authors as $author){
 			if($author->pivot->preferred == true){
 				return $author;
@@ -54,6 +54,10 @@ class Book extends Eloquent {
 
     public function authors(){
     	return $this->belongsToMany('Author', 'book_author')->withPivot('preferred');
+	}
+
+    public function wishlists(){
+    	return $this->hasMany('WishlistItem', 'book_id');
 	}
 
 	public function book_from_authors(){

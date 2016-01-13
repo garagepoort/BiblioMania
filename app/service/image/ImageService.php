@@ -45,6 +45,7 @@ class ImageService
         $author->imageWidth = $width;
         $author->imageHeight = $height;
         $author->spritePointer = 0;
+        $author->useSpriteImage = false;
         return $imageFilename;
     }
 
@@ -57,6 +58,7 @@ class ImageService
         $book->imageWidth = $width;
         $book->imageHeight = $height;
         $book->spritePointer = 0;
+        $book->useSpriteImage = false;
         return $imageFilename;
     }
 
