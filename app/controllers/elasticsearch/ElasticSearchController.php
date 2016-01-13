@@ -13,8 +13,6 @@ class ElasticSearchController extends BaseController
     private $elasticSearchClient;
     /** @var BookElasticIndexer */
     private $bookElasticIndexer;
-    /** @var PersonalBookInfoElasticIndexer */
-    private $personalBookInfoElasticIndexer;
 
     /**
      * ElasticSearchController constructor.
@@ -22,7 +20,6 @@ class ElasticSearchController extends BaseController
     public function __construct()
     {
         $this->bookElasticIndexer = App::make('BookElasticIndexer');
-        $this->personalBookInfoElasticIndexer = App::make('PersonalBookInfoElasticIndexer');
         $this->elasticSearchClient = App::make('ElasticSearchClient');
     }
 
