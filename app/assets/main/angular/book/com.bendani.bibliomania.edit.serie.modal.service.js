@@ -1,19 +1,22 @@
-angular.module('com.bendani.bibliomania.edit.book.serie.modal.service', [
+angular.module('com.bendani.bibliomania.edit.serie.modal.service', [
     'com.bendani.bibliomania.error.container',
     'com.bendani.bibliomania.serie.model',
     'com.bendani.bibliomania.book.model'
     ])
-    .provider('EditBookSerieModalService', function EditBookSerieModalServiceProvider(){
-        function EditBookSerieModalService($uibModal) {
+    .provider('EditSerieModalService', function EditSerieModalServiceProvider(){
+        function EditSerieModalService($uibModal) {
             var service = {
-                show: function(serie, onResultFunction) {
+                show: function(serie, type, onResultFunction) {
 
                     var modalInstance = $uibModal.open({
-                        templateUrl: '../BiblioMania/views/partials/book/edit-book-serie-modal.html',
-                        controller: 'EditBookSerieModalController',
+                        templateUrl: '../BiblioMania/views/partials/book/edit-serie-modal.html',
+                        controller: 'EditSerieModalController',
                         windowClass: 'edit-book-serie-dialog',
                         resolve: {
-                            serieModel: serie
+                            serieModel: serie,
+                            type: function(){
+                                return type;
+                            }
                         }
                     });
 
@@ -24,11 +27,11 @@ angular.module('com.bendani.bibliomania.edit.book.serie.modal.service', [
         }
 
         this.$get = ['$uibModal', function ($uibModal) {
-            return new EditBookSerieModalService($uibModal);
+            return new EditSerieModalService($uibModal);
         }];
     })
-    .controller('EditBookSerieModalController', ['$scope', 'Serie', 'ErrorContainer', 'serieModel', 'growl', 'Book', function($scope, Serie, ErrorContainer, serieModel, growl, Book){
-
+    .controller('EditSerieModalController', ['$scope', 'Serie', 'PublisherSerie', 'ErrorContainer', 'serieModel', 'growl', 'Book', 'type', function($scope, Serie, PublisherSerie, ErrorContainer, serieModel, growl, Book, type){
+        var client;
         function init(){
             $scope.model = serieModel;
             $scope.data = {};
@@ -36,12 +39,14 @@ angular.module('com.bendani.bibliomania.edit.book.serie.modal.service', [
             $scope.submitAttempted = false;
             $scope.searchAllBooksQuery = '';
             $scope.searchModelBooksQuery = '';
+
+            client = type === 'book_serie' ? Serie : PublisherSerie;
         }
 
         $scope.submit = function(valid){
             $scope.submitAttempted = true;
             if(valid){
-                Serie.update($scope.model, function(){
+                client.update($scope.model, function(){
                     growl.addSuccessMessage('Serie opgeslagen');
                 }, ErrorContainer.handleRestError);
             }
@@ -61,7 +66,7 @@ angular.module('com.bendani.bibliomania.edit.book.serie.modal.service', [
         };
 
         $scope.removeBookFromSerie = function(book){
-            Serie.removeBook({id: $scope.model.id}, {bookId: book.id}, function () {
+            client.removeBook({id: $scope.model.id}, {bookId: book.id}, function () {
                 growl.addSuccessMessage("Boek verwijderd");
                 var index = $scope.model.books.indexOf(book);
                 if(index > -1){
@@ -71,7 +76,7 @@ angular.module('com.bendani.bibliomania.edit.book.serie.modal.service', [
         };
 
         $scope.addBookToSerie = function(book){
-            Serie.addBook({id: $scope.model.id}, {bookId: book.id}, function () {
+            client.addBook({id: $scope.model.id}, {bookId: book.id}, function () {
                 growl.addSuccessMessage("Boek toegevoegd");
                 $scope.model.books.push(book);
             }, ErrorContainer.handleRestError);

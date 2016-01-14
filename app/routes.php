@@ -36,11 +36,14 @@ Route::group(array('before' => 'auth'), function () {
     Route::get('countries', 'CountryController@getCountries');
     Route::get('languages', 'LanguageController@getLanguages');
     Route::get('publisher-series', 'PublisherSerieController@getPublisherSeries');
+    Route::put('publisher-series', 'PublisherSerieController@updateSerie');
+    Route::post('publisher-series/{id}/books', 'PublisherSerieController@addBookToSerie');
+    Route::put('publisher-series/{id}/remove-book', 'PublisherSerieController@removeBookFromSerie');
 
     Route::get('series', 'SerieController@getSeries');
     Route::put('series', 'SerieController@updateSerie');
-    Route::post('serie/{id}/books', 'SerieController@addBookToSerie');
-    Route::put('serie/{id}/remove-book', 'SerieController@removeBookFromSerie');
+    Route::post('series/{id}/books', 'SerieController@addBookToSerie');
+    Route::put('series/{id}/remove-book', 'SerieController@removeBookFromSerie');
 
     Route::get('firstprints', 'FirstPrintController@getAllFirstPrintInfos');
     Route::put('firstprints', 'FirstPrintController@updateFirstPrintInfo');
