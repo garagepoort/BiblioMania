@@ -35,19 +35,27 @@
                                            aria-describedby="basic-addon1">
                                     <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon1"></span>
                                 </div>
-                                <table class="table table-striped">
+
+                                <table class="table table-striped scrollable-table-header">
                                     <thead>
                                     <tr>
-                                        <th style="width: 100%">Naam</th>
+                                        <th style="width: 45%;">Titel</th>
+                                        <th style="width: 45%;">Ondertitel</th>
+                                        <th style="width: 10%;"></th>
                                     </tr>
                                     </thead>
-                                    <tbody class="overflow-auto no-scrollbars" style="max-height: 200px; display: block">
-                                    <tr ng-repeat="book in data.books | filter: searchAllBooks" style="cursor: pointer">
-                                        <td style="width: 100%">{{ book.title }}</td>
-                                        <td><button class="btn btn-default btn-xs" ng-click="addBookToSerie(book)"><span class="glyphicon glyphicon-plus"></span></button></td>
-                                    </tr>
-                                    </tbody>
                                 </table>
+                                <div style="max-height: 200px;" class="overflow-auto">
+                                    <table class="table table-striped" style="table-layout: fixed">
+                                        <tbody>
+                                            <tr ng-repeat="book in data.books | filter: searchAllBooks" style="cursor: pointer">
+                                                <td style="width: 45%;">{{ book.title }}</td>
+                                                <td style="width: 45%;">{{ book.subtitle }}</td>
+                                                <td style="width: 10%;"><button class="btn btn-default btn-xs" ng-click="addBookToSerie(book)"><span class="glyphicon glyphicon-plus"></span></button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
 
                             <div class="col-md-5 text-align-left float-right">
@@ -58,19 +66,27 @@
                                            aria-describedby="basic-addon1">
                                     <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon1"></span>
                                 </div>
-                                <table class="table table-striped">
+
+                                <table class="table table-striped scrollable-table-header">
                                     <thead>
                                     <tr>
-                                        <th style="width: 100%">Naam</th>
+                                        <th style="width: 45%;">Titel</th>
+                                        <th style="width: 45%;">Ondertitel</th>
+                                        <th style="width: 10%;"></th>
                                     </tr>
                                     </thead>
-                                    <tbody class="overflow-auto no-scrollbars" style="max-height: 200px; display: block">
-                                    <tr ng-repeat="book in model.books | filter: searchModelBooks" style="cursor: pointer">
-                                        <td style="width: 100%">{{ book.title }}</td>
-                                        <td><button class="btn btn-default btn-xs" ng-click="removeBookFromSerie(book)"><span class="glyphicon glyphicon-minus"></span></button></td>
-                                    </tr>
-                                    </tbody>
                                 </table>
+                                <div style="max-height: 200px;" class="overflow-auto">
+                                    <table class="table table-striped" style="table-layout: fixed">
+                                        <tbody>
+                                        <tr ng-repeat="book in model.books | filter: searchModelBooks" style="cursor: pointer">
+                                            <td style="width: 45%">{{ book.title }}</td>
+                                            <td style="width: 45%">{{ book.subtitle }}</td>
+                                            <td style="width: 10%"><button class="btn btn-default btn-xs" ng-click="removeBookFromSerie(book)"><span class="glyphicon glyphicon-minus"></span></button></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-6"></div>
