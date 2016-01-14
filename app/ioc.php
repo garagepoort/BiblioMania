@@ -24,6 +24,10 @@ App::singleton('WishlistRepository', function () {
     return new WishlistRepository();
 });
 
+App::singleton('PublisherSerieRepository', function () {
+    return new PublisherSerieRepository();
+});
+
 App::singleton('BookElasticIndexer', function () {
     return new BookElasticIndexer();
 });
