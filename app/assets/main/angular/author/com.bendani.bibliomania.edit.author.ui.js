@@ -28,6 +28,18 @@ angular.module('com.bendani.bibliomania.edit.author.ui',
             }
         };
 
+
+        $scope.oeuvreConfig = {
+            orderValues: [
+                {key: 'Titel', predicate: 'title', width: '70'},
+                {key: 'Jaar', predicate: 'publicationYear', width: '10'},
+                {key: 'Status', predicate: 'state', width: '10'}
+                //{key: '', predicate: '', width: '10'}
+            ],
+            predicate: 'publicationYear',
+            reverseOrder: false
+        };
+
         $scope.linkLabel = function(oeuvreItem){
             if(oeuvreItem.linkedBooks.length > 0){
                 return 'label-success';
@@ -40,13 +52,6 @@ angular.module('com.bendani.bibliomania.edit.author.ui',
         };
         $scope.goToBook = function(book){
             $location.path('/book-details/'+book.id);
-        };
-
-        $scope.linkText = function(oeuvreItem){
-            if(oeuvreItem.linkedBooks.length > 0){
-                return 'LINKED';
-            }
-            return 'UNLINKED';
         };
 
         $scope.deleteOeuvreItem = function(oeuvreItem){
