@@ -35,11 +35,13 @@ angular.module('com.bendani.bibliomania.edit.serie.modal.service', [
         function init(){
             $scope.model = serieModel;
             $scope.data = {};
-            $scope.data.books = Book.query(function(){}, ErrorContainer.handleRestError);
             $scope.submitAttempted = false;
             $scope.searchAllBooksQuery = '';
             $scope.searchModelBooksQuery = '';
 
+            Book.query(function(books){
+                $scope.data.books = books;
+            }, ErrorContainer.handleRestError);
             client = type === 'book_serie' ? Serie : PublisherSerie;
         }
 
@@ -53,13 +55,24 @@ angular.module('com.bendani.bibliomania.edit.serie.modal.service', [
         };
 
         $scope.searchAllBooks = function(item){
-            if ((item.title.toLowerCase().indexOf($scope.searchAllBooksQuery) !== -1)){
+            if(item.subtitle === undefined || item.subtitle === null){
+                item.subtitle = "";
+            }
+
+            if ((item.title.toLowerCase().indexOf($scope.searchAllBooksQuery) !== -1)
+                || (item.subtitle.toLowerCase().indexOf($scope.searchAllBooksQuery) !== -1)
+                || (item.mainAuthor.toLowerCase().indexOf($scope.searchAllBooksQuery) !== -1)) {
                 return true;
             }
             return false;
         };
         $scope.searchModelBooks = function(item){
-            if ((item.title.toLowerCase().indexOf($scope.searchModelBooksQuery) !== -1)){
+            if(item.subtitle === undefined || item.subtitle === null){
+                item.subtitle = "";
+            }
+
+            if ((item.title.toLowerCase().indexOf($scope.searchModelBooksQuery) !== -1)
+                || (item.subtitle.toLowerCase().indexOf($scope.searchModelBooksQuery) !== -1)) {
                 return true;
             }
             return false;
