@@ -59,9 +59,10 @@ angular.module('com.bendani.bibliomania.edit.serie.modal.service', [
                 item.subtitle = "";
             }
 
-            if ((item.title.toLowerCase().indexOf($scope.searchAllBooksQuery) !== -1)
-                || (item.subtitle.toLowerCase().indexOf($scope.searchAllBooksQuery) !== -1)
-                || (item.mainAuthor.toLowerCase().indexOf($scope.searchAllBooksQuery) !== -1)) {
+            var searchString = $scope.searchAllBooksQuery.toLowerCase();
+            if ((item.title.toLowerCase().indexOf(searchString) !== -1)
+                || (item.subtitle.toLowerCase().indexOf(searchString) !== -1)
+                || (item.mainAuthor.toLowerCase().indexOf(searchString) !== -1)) {
                 return true;
             }
             return false;
@@ -71,8 +72,9 @@ angular.module('com.bendani.bibliomania.edit.serie.modal.service', [
                 item.subtitle = "";
             }
 
-            if ((item.title.toLowerCase().indexOf($scope.searchModelBooksQuery) !== -1)
-                || (item.subtitle.toLowerCase().indexOf($scope.searchModelBooksQuery) !== -1)) {
+            var searchString = $scope.searchModelBooksQuery.toLowerCase();
+            if ((item.title.toLowerCase().indexOf(searchString) !== -1)
+                || (item.subtitle.toLowerCase().indexOf(searchString) !== -1)) {
                 return true;
             }
             return false;

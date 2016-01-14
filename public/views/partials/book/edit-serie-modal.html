@@ -48,7 +48,7 @@
                                 <div style="max-height: 200px;" class="overflow-auto">
                                     <table class="table table-striped" style="table-layout: fixed">
                                         <tbody>
-                                            <tr ng-repeat="book in data.books | filter: searchAllBooks" style="cursor: pointer">
+                                            <tr ng-repeat="book in data.books | filter: searchAllBooks | orderBy:'mainAuthor':'title'" style="cursor: pointer">
                                                 <td style="width: 45%;">{{ book.title }}</td>
                                                 <td style="width: 45%;">{{ book.subtitle }}</td>
                                                 <td style="width: 10%;"><button class="btn btn-default btn-xs" ng-click="addBookToSerie(book)"><span class="glyphicon glyphicon-plus"></span></button></td>
@@ -79,7 +79,7 @@
                                 <div style="max-height: 200px;" class="overflow-auto">
                                     <table class="table table-striped" style="table-layout: fixed">
                                         <tbody>
-                                        <tr ng-repeat="book in model.books | filter: searchModelBooks" style="cursor: pointer">
+                                        <tr ng-repeat="book in model.books | filter: searchModelBooks | orderBy:'mainAuthor':'title'" style="cursor: pointer">
                                             <td style="width: 45%">{{ book.title }}</td>
                                             <td style="width: 45%">{{ book.subtitle }}</td>
                                             <td style="width: 10%"><button class="btn btn-default btn-xs" ng-click="removeBookFromSerie(book)"><span class="glyphicon glyphicon-minus"></span></button></td>
