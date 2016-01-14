@@ -88,6 +88,12 @@ class ElasticSearchClient
                                     'lastname' => ['type'=>'string', 'analyzer'=>'analyzer_keyword']
                                 ]
                             ],
+                            'retailPrice' => [
+                                'properties' => [
+                                    'amount' => [ 'type' => 'integer' ],
+                                    'currency' => ['type'=>'string']
+                                ]
+                            ],
                             'personalBookInfos' => [
                                 'type'=> 'nested',
                                 "properties" => [
