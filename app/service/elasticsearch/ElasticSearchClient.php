@@ -90,7 +90,7 @@ class ElasticSearchClient
                             ],
                             'retailPrice' => [
                                 'properties' => [
-                                    'amount' => [ 'type' => 'integer' ],
+                                    'amount' => [ 'type' => 'double' ],
                                     'currency' => ['type'=>'string']
                                 ]
                             ],
