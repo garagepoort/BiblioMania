@@ -22,10 +22,7 @@ class BookController extends BaseController
     }
 
     public function getBooks(){
-        return array_map(function($item){
-            $bookToJsonAdapter = new BookToJsonAdapter($item);
-            return $bookToJsonAdapter->mapToJson();
-        }, $this->bookService->allBooks()->all());
+        return $this->bookService->searchAllBooks(array());
     }
 
     public function getBooksByAuthor($authorId){

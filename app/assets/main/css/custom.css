@@ -1013,3 +1013,6 @@ a.editable-click:hover {
 .gi-5x {
   font-size: 5em;
 }
+.scrollable-table-header {
+  margin-bottom: 0;
+}

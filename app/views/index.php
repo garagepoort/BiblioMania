@@ -54,6 +54,7 @@
                         <li ng-class="{ active: isActive('/authors')}"><a href="#/authors">Auteurs</a></li>
                         <li ng-class="{ active: isActive('/publishers')}"><a href="#/publishers">Uitgevers</a></li>
                         <li ng-class="{ active: isActive('/series')}"><a href="#/series">Boeken reeksen</a></li>
+                        <li ng-class="{ active: isActive('/publisherseries')}"><a href="#/publisherseries">Uitgever reeksen</a></li>
                     </ul>
                 </div>
             </nav>
