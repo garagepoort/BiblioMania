@@ -38,6 +38,8 @@
                             <dd ng-show="book.publisherSerie">{{book.publisherSerie}}</dd>
                             <dt ng-show="book.translator">Vertaler</dt>
                             <dd ng-show="book.translator">{{book.translator}}</dd>
+                            <dt ng-show="book.tags">Tags</dt>
+                            <dd ng-show="book.tags"><label class="label label-success margin-right-10" ng-repeat="tag in book.tags">{{tag.text}}</label></dd>
                         </dl>
                     </div>
                 </div>
@@ -125,6 +127,8 @@
                     <dd ng-show="book.firstPrintInfo.isbn">{{book.firstPrintInfo.isbn}}</dd>
                     <dt ng-show="book.firstPrintInfo.publisher">uitgever</dt>
                     <dd ng-show="book.firstPrintInfo.publisher">{{book.firstPrintInfo.publisher}}</dd>
+                    <dt ng-show="book.firstPrintInfo.publicationDate">Uitgave datum</dt>
+                    <dd ng-show="book.firstPrintInfo.publicationDate">{{ convertDate(book.firstPrintInfo.publicationDate) }}</dd>
                     <dt ng-show="book.firstPrintInfo.language">taal</dt>
                     <dd ng-show="book.firstPrintInfo.language">{{book.firstPrintInfo.language}}</dd>
                     <dt ng-show="book.firstPrintInfo.country">land</dt>

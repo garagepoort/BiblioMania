@@ -13,13 +13,17 @@ angular
                     $location.path('/book-details/' + book.id);
                 };
 
+                $scope.orderValues = [
+                    {key: 'Titel', predicate: 'title', width: '30'},
+                    {key: 'Ondertitel', predicate: 'subtitle', width: '30'}
+                ];
+
+                $scope.predicate = "title";
+                $scope.reverseOrder = false;
+
                 $scope.search = function(item){
-                    if (item.title.toLowerCase().indexOf($scope.searchBooksQuery) !== -1 ||
-                        item.subtitle.toLowerCase().indexOf($scope.searchBooksQuery) !== -1
-                    ){
-                        return true;
-                    }
-                    return false;
+                    return item.title.toLowerCase().indexOf($scope.searchBooksQuery) !== -1 ||
+                        (item.subtitle && item.subtitle.toLowerCase().indexOf($scope.searchBooksQuery) !== -1);
                 };
             }]
         };
