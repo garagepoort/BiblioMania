@@ -158,8 +158,8 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
             function calculateLibraryValue(books) {
                 var result = 0;
                 _.each(books, function (book) {
-                    if (book.retailPrice) {
-                        result = result + book.retailPrice.amount;
+                    if (book.retailPrice && book.retailPrice.amount) {
+                        result = result + parseFloat(book.retailPrice.amount);
                     }
                 });
                 return result.toFixed(2);
