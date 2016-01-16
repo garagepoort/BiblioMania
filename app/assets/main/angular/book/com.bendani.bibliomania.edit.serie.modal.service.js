@@ -5,16 +5,18 @@ angular.module('com.bendani.bibliomania.edit.serie.modal.service', [
     .provider('EditSerieModalService', function EditSerieModalServiceProvider(){
         function EditSerieModalService($uibModal) {
             var service = {
-                show: function(serie, type, onResultFunction) {
+                show: function(serie, client, onResultFunction) {
 
                     var modalInstance = $uibModal.open({
                         templateUrl: '../BiblioMania/views/partials/book/edit-serie-modal.html',
                         controller: 'EditSerieModalController',
                         windowClass: 'edit-book-serie-dialog',
                         resolve: {
-                            serieModel: serie,
-                            type: function(){
-                                return type;
+                            serieModel: function(){
+                                return serie;
+                            },
+                            client: function(){
+                                return client;
                             }
                         }
                     });
@@ -29,8 +31,7 @@ angular.module('com.bendani.bibliomania.edit.serie.modal.service', [
             return new EditSerieModalService($uibModal);
         }];
     })
-    .controller('EditSerieModalController', ['$scope', 'Serie', 'PublisherSerie', 'ErrorContainer', 'serieModel', 'growl', 'Book', 'type', function($scope, Serie, PublisherSerie, ErrorContainer, serieModel, growl, Book, type){
-        var client;
+    .controller('EditSerieModalController', ['$scope', 'ErrorContainer', 'serieModel', 'growl', 'Book', 'client', function($scope, ErrorContainer, serieModel, growl, Book, client){
         function init(){
             $scope.model = serieModel;
             $scope.data = {};
@@ -41,7 +42,6 @@ angular.module('com.bendani.bibliomania.edit.serie.modal.service', [
             Book.query(function(books){
                 $scope.data.books = books;
             }, ErrorContainer.handleRestError);
-            client = type === 'book_serie' ? Serie : PublisherSerie;
         }
 
         $scope.submit = function(valid){
