@@ -1,5 +1,4 @@
 angular.module('com.bendani.bibliomania.book.details.ui', ['com.bendani.bibliomania.book.model',
-    'com.bendani.bibliomania.error.container',
     'com.bendani.bibliomania.title.panel',
     'com.bendani.bibliomania.author.selection.modal.service',
     'com.bendani.bibliomania.author.creation.modal.service',

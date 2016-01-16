@@ -1,7 +1,6 @@
 'use strict';
 
 angular.module('com.bendani.bibliomania.edit.personal.book.info.ui', [
-    'com.bendani.bibliomania.error.container',
     'angular-growl',
     'com.bendani.bibliomania.personal.book.info.model',
     'com.bendani.bibliomania.country.model',

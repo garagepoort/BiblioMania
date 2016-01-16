@@ -1,4 +1,4 @@
-angular.module('com.bendani.bibliomania.author.selection.modal.service', ['com.bendani.bibliomania.author.model', 'com.bendani.bibliomania.error.container'])
+angular.module('com.bendani.bibliomania.author.selection.modal.service', ['com.bendani.bibliomania.author.model'])
     .provider('AuthorSelectionModalService', function AuthorSelectionModalServiceProvider(){
         function AuthorSelectionModalService($uibModal) {
             var service = {

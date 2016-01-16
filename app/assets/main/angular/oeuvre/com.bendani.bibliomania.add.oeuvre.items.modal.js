@@ -1,4 +1,4 @@
-angular.module('com.bendani.bibliomania.add.oeuvre.items.modal', ['com.bendani.bibliomania.oeuvre.model', 'com.bendani.bibliomania.error.container', 'angular-growl'])
+angular.module('com.bendani.bibliomania.add.oeuvre.items.modal', ['com.bendani.bibliomania.oeuvre.model', 'angular-growl'])
     .controller('AddOeuvreItemsController', ['$scope', 'Oeuvre', 'ErrorContainer', 'growl', function($scope, Oeuvre, ErrorContainer, growl){
 
         $scope.addOeuvreItems = function(){

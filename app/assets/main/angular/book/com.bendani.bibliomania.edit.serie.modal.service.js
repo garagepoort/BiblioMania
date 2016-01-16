@@ -1,5 +1,4 @@
 angular.module('com.bendani.bibliomania.edit.serie.modal.service', [
-    'com.bendani.bibliomania.error.container',
     'com.bendani.bibliomania.serie.model',
     'com.bendani.bibliomania.book.model'
     ])

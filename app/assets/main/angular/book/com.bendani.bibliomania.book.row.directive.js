@@ -1,6 +1,7 @@
 angular
-    .module('com.bendani.bibliomania.book.row.directive', ['com.bendani.bibliomania.info.container',
-        'com.bendani.bibliomania.reading.date.modal.service', 'com.bendani.bibliomania.book.overview.service'])
+    .module('com.bendani.bibliomania.book.row.directive', [
+        'com.bendani.bibliomania.reading.date.modal.service',
+        'com.bendani.bibliomania.book.overview.service'])
     .directive('bookRow', function (){
         return {
             scope: {

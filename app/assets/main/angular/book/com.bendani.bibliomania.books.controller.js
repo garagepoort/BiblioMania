@@ -1,7 +1,6 @@
 'use strict';
 
 angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.bibliomania.book.model',
-    'com.bendani.bibliomania.error.container',
     'com.bendani.bibliomania.title.panel',
     'com.bendani.bibliomania.book.filter.model',
     'com.bendani.php.common.filterservice',

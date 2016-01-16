@@ -1,4 +1,4 @@
-angular.module('com.bendani.bibliomania.author.creation.modal.service', ['com.bendani.bibliomania.create.author.directive', 'com.bendani.bibliomania.error.container'])
+angular.module('com.bendani.bibliomania.author.creation.modal.service', ['com.bendani.bibliomania.create.author.directive'])
     .provider('AuthorCreationModalService', function AuthorCreationModalServiceProvider(){
         function AuthorCreationModalService($uibModal) {
             var service = {

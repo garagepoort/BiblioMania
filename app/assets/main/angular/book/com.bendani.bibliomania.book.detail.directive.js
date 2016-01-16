@@ -1,6 +1,5 @@
 angular
     .module('com.bendani.bibliomania.book.detail.directive', ['com.bendani.bibliomania.book.model',
-        'com.bendani.bibliomania.error.container',
         'com.bendani.bibliomania.book.overview.service',
         'com.bendani.bibliomania.currency.service'])
     .directive('bookDetail', function (){

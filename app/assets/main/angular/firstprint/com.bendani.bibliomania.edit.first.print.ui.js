@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('com.bendani.bibliomania.edit.first.print.ui', ['com.bendani.bibliomania.error.container',
+angular.module('com.bendani.bibliomania.edit.first.print.ui', [
     'angular-growl',
     'com.bendani.bibliomania.first.print.info.model',
     'com.bendani.bibliomania.country.model',
