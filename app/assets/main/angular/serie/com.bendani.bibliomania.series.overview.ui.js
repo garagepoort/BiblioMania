@@ -7,30 +7,34 @@ angular.module('com.bendani.bibliomania.series.overview.ui', [
     'com.bendani.bibliomania.book.overview.service',
     'com.bendani.bibliomania.edit.serie.modal.service',
     'com.bendani.bibliomania.title.panel'])
-    .config(['$routeProvider',function ($routeProvider) {
+    .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/series', {
             templateUrl: '../BiblioMania/views/partials/book/series-overview.html',
             controller: 'SeriesOverviewController',
             resolve: {
-                type: function(){
-                    return 'book_serie';
-                }
+                title: function(){
+                    return 'Boeken reeksen';
+                },
+                client: ['Serie', function(Serie){
+                    return Serie;
+                }]
             }
         });
         $routeProvider.when('/publisherseries', {
             templateUrl: '../BiblioMania/views/partials/book/series-overview.html',
             controller: 'SeriesOverviewController',
             resolve: {
-                type: function(){
-                    return 'publisher_serie';
-                }
+                title: function(){
+                    return 'Uitgever reeksen';
+                },
+                client: ['PublisherSerie', function(PublisherSerie){
+                    return PublisherSerie;
+                }]
             }
         });
     }])
-    .controller('SeriesOverviewController', ['$scope', 'Serie', 'PublisherSerie', 'ErrorContainer', 'TitlePanelService', 'BookOverviewService', 'Book', '$location', 'EditSerieModalService', 'type',
-        function ($scope, Serie, PublisherSerie, ErrorContainer, TitlePanelService, BookOverviewService, Book, $location, EditSerieModalService, type) {
-
-            var client = type === 'book_serie' ? Serie : PublisherSerie;
+    .controller('SeriesOverviewController', ['$scope', 'ErrorContainer', 'TitlePanelService', 'BookOverviewService', 'Book', '$location', 'EditSerieModalService', 'title', 'client',
+        function ($scope, ErrorContainer, TitlePanelService, BookOverviewService, Book, $location, EditSerieModalService, title, client) {
 
             var selectBookHandler = function (book) {
                 if ($scope.bookDetailPanelOpen && $scope.selectedBook.id === book.id) {
@@ -43,7 +47,7 @@ angular.module('com.bendani.bibliomania.series.overview.ui', [
             };
 
             function init() {
-                TitlePanelService.setTitle('Boeken reeksen');
+                TitlePanelService.setTitle(title);
                 TitlePanelService.setShowPreviousButton(false);
 
                 $scope.searchSeriesQuery = "";
@@ -75,7 +79,7 @@ angular.module('com.bendani.bibliomania.series.overview.ui', [
             };
 
             $scope.editSerie = function(serie){
-                EditSerieModalService.show(serie, type, function(){});
+                EditSerieModalService.show(serie, client, function(){});
             };
 
             $scope.onEditBook = function(book){
