@@ -4,7 +4,6 @@ angular.module('com.bendani.bibliomania.series.overview.ui', [
     'com.bendani.bibliomania.serie.model',
     'com.bendani.bibliomania.publisher.serie.model',
     'com.bendani.bibliomania.book.model',
-    'com.bendani.bibliomania.error.container',
     'com.bendani.bibliomania.book.overview.service',
     'com.bendani.bibliomania.edit.serie.modal.service',
     'com.bendani.bibliomania.title.panel'])

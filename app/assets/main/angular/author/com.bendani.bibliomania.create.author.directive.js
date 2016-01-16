@@ -1,10 +1,13 @@
 'use strict';
 
 angular.module('com.bendani.bibliomania.create.author.directive',
-    ['com.bendani.bibliomania.author.model', 'com.bendani.bibliomania.name.directive',
-        'php.common.uiframework.date', 'php.common.uiframework.google.image.search',
-        'com.bendani.bibliomania.error.container', 'angular-growl',
-        'com.bendani.bibliomania.title.panel', 'com.bendani.bibliomania.error.container.directive'
+    [
+        'com.bendani.bibliomania.author.model',
+        'com.bendani.bibliomania.name.directive',
+        'php.common.uiframework.date',
+        'php.common.uiframework.google.image.search',
+        'angular-growl',
+        'com.bendani.bibliomania.title.panel'
     ])
     .directive('createAuthor', function (){
         return {

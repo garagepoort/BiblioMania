@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('com.bendani.bibliomania.login.controller', ['com.bendani.bibliomania.error.container'])
+angular.module('com.bendani.bibliomania.login.controller', [])
     .controller('LoginController', ['$scope', '$rootScope','$location',function ($scope, $rootScope, $location) {
         function init(){
             $scope.$parent.title = 'Login';

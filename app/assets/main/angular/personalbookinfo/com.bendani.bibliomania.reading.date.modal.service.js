@@ -1,4 +1,4 @@
-angular.module('com.bendani.bibliomania.reading.date.modal.service', ['com.bendani.bibliomania.error.container', 'com.bendani.bibliomania.edit.reading.date.directive'])
+angular.module('com.bendani.bibliomania.reading.date.modal.service', ['com.bendani.bibliomania.edit.reading.date.directive'])
     .provider('ReadingDateModalService', function ReadingDateModalServiceProvider(){
         function ReadingDateModalService($uibModal) {
             var service = {

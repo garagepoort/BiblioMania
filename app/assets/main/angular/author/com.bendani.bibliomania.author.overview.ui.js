@@ -2,7 +2,6 @@
 
 angular.module('com.bendani.bibliomania.author.overview.ui', [
     'com.bendani.bibliomania.author.model',
-    'com.bendani.bibliomania.error.container',
     'com.bendani.bibliomania.author.creation.modal.service',
     'com.bendani.bibliomania.image.card.directive',
     'com.bendani.bibliomania.title.panel'])

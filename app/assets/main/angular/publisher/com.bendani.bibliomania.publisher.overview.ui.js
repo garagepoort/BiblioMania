@@ -2,7 +2,6 @@
 
 angular.module('com.bendani.bibliomania.publisher.overview.ui', [
     'com.bendani.bibliomania.publisher.model',
-    'com.bendani.bibliomania.error.container',
     'com.bendani.bibliomania.title.panel'])
     .config(['$routeProvider',function ($routeProvider) {
         $routeProvider.when('/publishers', {

@@ -3,7 +3,6 @@
 angular.module('com.bendani.bibliomania.edit.oeuvre.ui',
     ['com.bendani.bibliomania.oeuvre.model',
         'com.bendani.bibliomania.author.model',
-        'com.bendani.bibliomania.error.container',
         'com.bendani.bibliomania.book.selection.modal.service',
         'com.bendani.bibliomania.confirmation.modal.service',
         'com.bendani.bibliomania.title.panel',

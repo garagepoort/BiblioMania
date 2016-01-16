@@ -4,7 +4,7 @@ angular.module('com.bendani.bibliomania.edit.author.ui',
     ['com.bendani.bibliomania.author.model', 'com.bendani.bibliomania.oeuvre.model',
         'com.bendani.bibliomania.name.directive', 'php.common.uiframework.date',
         'php.common.uiframework.google.image.search',
-        'com.bendani.bibliomania.error.container', 'angular-growl',
+        'angular-growl',
         'com.bendani.bibliomania.add.oeuvre.items.modal',
         'com.bendani.bibliomania.confirmation.modal.service',
         'com.bendani.bibliomania.book.list.directive'

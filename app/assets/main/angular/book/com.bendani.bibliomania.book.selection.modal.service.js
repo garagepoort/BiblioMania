@@ -1,4 +1,4 @@
-angular.module('com.bendani.bibliomania.book.selection.modal.service', ['com.bendani.bibliomania.error.container'])
+angular.module('com.bendani.bibliomania.book.selection.modal.service', [])
     .provider('BookSelectionModalService', function BookSelectionModalServiceProvider(){
         function BookSelectionModalService($uibModal) {
             var service = {
