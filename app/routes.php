@@ -34,6 +34,7 @@ Route::group(array('before' => 'auth'), function () {
     Route::get('mostUsedBookFilters', 'BookController@getMostUsedFilters');
     Route::get('tags', 'TagController@getTags');
     Route::get('countries', 'CountryController@getCountries');
+    Route::get('shops', 'ShopController@getShops');
     Route::get('languages', 'LanguageController@getLanguages');
     Route::get('publisher-series', 'PublisherSerieController@getPublisherSeries');
     Route::put('publisher-series', 'PublisherSerieController@updateSerie');

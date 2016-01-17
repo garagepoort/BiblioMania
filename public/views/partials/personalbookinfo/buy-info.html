@@ -40,7 +40,7 @@
             <div class="form-group">
                 <label class="control-label ">Winkel </label>
                 <input name="shop" ng-model="model.buyInfo.shop" type="text" placeholder="winkel" class="form-control input-width-sm"
-                       uib-typeahead="shop.name as shop.name for shop in data.shops | filter:$viewValue | limitTo:8" class="form-control">
+                       uib-typeahead="shop as shop for shop in data.shops | filter:$viewValue | limitTo:8" class="form-control">
             </div>
 
             <div class="form-group">
