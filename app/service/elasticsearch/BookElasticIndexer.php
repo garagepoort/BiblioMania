@@ -55,12 +55,12 @@ class BookElasticIndexer
         /** @var PersonalBookInfo $personalBookInfo */
         foreach($book->personal_book_infos as $personalBookInfo){
             if(count($personalBookInfo->reading_dates) > 0){
-                array_push($readUsers, $personalBookInfo->user_id);
+                array_push($readUsers, intval($personalBookInfo->user_id));
             }
         }
 
         $bookArray = [
-            'id' => $book->id,
+            'id' => intval($book->id),
             'title' => $book->title,
             'subtitle' => $book->subtitle,
             'isbn' => $book->ISBN,
@@ -70,8 +70,8 @@ class BookElasticIndexer
             'publisher' => $book->publisher_id,
             'genre' => $book->genre_id,
             'retailPrice' => ['amount' => $book->retail_price, 'currency' => $book->currency],
-            'wishlistUsers' => array_map(function($item){ return $item->user_id; }, $book->wishlists->all()),
-            'personalBookInfoUsers' => array_map(function($item){ return $item->user_id; }, $book->personal_book_infos->all()),
+            'wishlistUsers' => array_map(function($item){ return intval($item->user_id); }, $book->wishlists->all()),
+            'personalBookInfoUsers' => array_map(function($item){ return intval($item->user_id); }, $book->personal_book_infos->all()),
             'readUsers' => $readUsers,
             'personalBookInfos' => $personalBookInfos,
             'tags' => $tags
@@ -100,7 +100,7 @@ class BookElasticIndexer
         $params = [
             'index' => $this->elasticSearchClient->getIndexName(),
             'type' => self::BOOK,
-            'id' => $book->id,
+            'id' => intval($book->id),
             'body' => $bookArray
         ];
 
@@ -184,7 +184,7 @@ class BookElasticIndexer
 
                 if($personalBookInfo->buy_info->city){
                     $buyInfo['city'] = [
-                            'id' => $personalBookInfo->buy_info->city->id,
+                            'id' => intval($personalBookInfo->buy_info->city->id),
                             'name' => $personalBookInfo->buy_info->city->name
                     ];
                 }
@@ -201,8 +201,8 @@ class BookElasticIndexer
             }, $personalBookInfo->reading_dates->all());
 
             return [
-                'id' => $personalBookInfo->id,
-                'userId' => $personalBookInfo->user_id,
+                'id' => intval($personalBookInfo->id),
+                'userId' => intval($personalBookInfo->user_id),
                 'inCollection' => $personalBookInfo->get_owned(),
                 'reasonNotInCollection' => $personalBookInfo->reasonNotInCollection,
                 'giftInfo' => $giftInfo,
@@ -220,7 +220,7 @@ class BookElasticIndexer
     private function indexTags($book)
     {
         $tags = array_map(function ($tag) {
-            return ['id' => $tag->id, 'name' => $tag->name];
+            return ['id' => intval($tag->id), 'name' => $tag->name];
         }, $book->tags->all());
         return $tags;
     }
@@ -233,7 +233,7 @@ class BookElasticIndexer
     {
         $authors = array_map(function ($author) {
             return [
-                'id' => $author->id,
+                'id' => intval($author->id),
                 'firstname' => $author->firstname,
                 'lastname' => $author->lastname
             ];
