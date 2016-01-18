@@ -8,6 +8,7 @@ angular.module('com.bendani.bibliomania.edit.book.ui', ['ngTagsInput',
     'com.bendani.bibliomania.tag.model',
     'com.bendani.bibliomania.title.panel',
     'com.bendani.bibliomania.country.model',
+    'com.bendani.bibliomania.google.api.book.model',
     'com.bendani.bibliomania.publisher.model',
     'com.bendani.bibliomania.serie.model',
     'com.bendani.bibliomania.publisher.serie.model',
@@ -54,8 +55,8 @@ angular.module('com.bendani.bibliomania.edit.book.ui', ['ngTagsInput',
         });
     }])
     .controller('CreateBookController', ['$scope', 'Genre', 'Tag', 'Country', 'Publisher', 'Language', 'Book', 'Author', 'Serie', 'PublisherSerie',
-                'ErrorContainer', '$uibModal', '$location', 'TitlePanelService', 'bookModel', 'onSave', 'initFunction',
-        function ($scope, Genre, Tag, Country, Publisher, Language, Book, Author, Serie, PublisherSerie, ErrorContainer, $uibModal, $location, TitlePanelService, bookModel, onSave, initFunction) {
+                'ErrorContainer', '$uibModal', '$location', 'TitlePanelService', 'bookModel', 'onSave', 'initFunction', 'GoogleApiBook',
+        function ($scope, Genre, Tag, Country, Publisher, Language, Book, Author, Serie, PublisherSerie, ErrorContainer, $uibModal, $location, TitlePanelService, bookModel, onSave, initFunction, GoogleApiBook) {
 
             function init(){
                 TitlePanelService.setTitle('Boek');
@@ -90,6 +91,9 @@ angular.module('com.bendani.bibliomania.edit.book.ui', ['ngTagsInput',
                 $scope.data.publisherSeries = PublisherSerie.query(function(){}, ErrorContainer.handleRestError);
 
                 $scope.submitAttempted = false;
+
+                $scope.$watch('model.isbn', searchGoogleBookByIsbnAndTitle);
+                $scope.$watch('model.title', searchGoogleBookByTitle);
             }
 
             $scope.selectGenre = function(branch){
@@ -163,6 +167,22 @@ angular.module('com.bendani.bibliomania.edit.book.ui', ['ngTagsInput',
                 }
             };
 
+            $scope.copyGoogleBookTitleToModel = function(){
+                $scope.model.title = $scope.googleBook.title;
+            };
+
+            $scope.copyGoogleBookSubtitleToModel = function(){
+                $scope.model.subtitle = $scope.googleBook.subtitle;
+            };
+
+            $scope.copyGoogleBookDescriptionToModel = function(){
+                $scope.model.summary = $scope.googleBook.description;
+            };
+
+            $scope.copyGoogleBookPagesToModel = function(){
+                $scope.model.pages = $scope.googleBook.pageCount;
+            };
+
             function isFormValid(formValid){
                 var valid = true;
                 if(!formValid){
@@ -180,6 +200,24 @@ angular.module('com.bendani.bibliomania.edit.book.ui', ['ngTagsInput',
                 $scope.data.selectedAuthor = author;
                 $scope.data.selectedAuthorImage = author.image;
                 $scope.model.preferredAuthorId = author.id;
+            }
+
+            function searchGoogleBookByIsbnAndTitle(){
+                return GoogleApiBook.get({ 'q': 'isbn:'+ $scope.model.isbn}, function(result){
+                    if(result && result.items && result.items.length > 0){
+                        $scope.googleBook = result.items[0].volumeInfo;
+                    }else{
+                        searchGoogleBookByTitle();
+                    }
+                }, ErrorContainer.handleRestError);
+            }
+
+            function searchGoogleBookByTitle(){
+                GoogleApiBook.get({ 'q': 'intitle:'+ $scope.model.title}, function(result){
+                    if(result && result.items && result.items.length > 0){
+                        $scope.googleBook = result.items[0].volumeInfo;
+                    }
+                }, ErrorContainer.handleRestError);
             }
 
             init();

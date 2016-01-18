@@ -58,6 +58,8 @@ class CreateBookFromJsonAdapter implements BaseBookRequest
     private $publisherSerie;
     /** @var string */
     private $translator;
+    /** @var string */
+    private $summary;
 
 
     /**
@@ -316,5 +318,20 @@ class CreateBookFromJsonAdapter implements BaseBookRequest
         $this->translator = $translator;
     }
 
+    /**
+     * @return string
+     */
+    public function getSummary()
+    {
+        return $this->summary;
+    }
+
+    /**
+     * @param string $summary
+     */
+    public function setSummary($summary)
+    {
+        $this->summary = $summary;
+    }
 
 }

@@ -35,4 +35,6 @@ interface BaseBookRequest
     function getPublisherSerie();
     
     function getTranslator();
+
+    function getSummary();
 }

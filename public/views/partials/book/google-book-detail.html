@@ -1,0 +1,30 @@
+<div class="well" ng-if="googleBook">
+    <h4>Google boek informatie</h4>
+    <table class="table">
+        <tr>
+            <td>Titel</td>
+            <td>{{googleBook.title}}</td>
+            <td><button ng-click="copyGoogleBookTitleToModel()" class="btn btn-default btn-xs float-right" type="button"><span class="glyphicon glyphicon-copy"></span></button></td>
+        </tr>
+        <tr>
+            <td>Ondertitel</td>
+            <td>{{googleBook.subtitle}}</td>
+            <td><button ng-click="copyGoogleBookSubtitleToModel()" class="btn btn-default btn-xs float-right" type="button"><span class="glyphicon glyphicon-copy"></span></button></td>
+        </tr>
+        <tr>
+            <td>Publicatie</td>
+            <td>{{googleBook.publishedDate}}</td>
+            <td><button class="btn btn-default btn-xs float-right" type="button"><span class="glyphicon glyphicon-copy"></span></button></td>
+        </tr>
+        <tr>
+            <td>Omschrijving</td>
+            <td>{{googleBook.description}}</td>
+            <td><button ng-click="copyGoogleBookDescriptionToModel()" class="btn btn-default btn-xs float-right" type="button"><span class="glyphicon glyphicon-copy"></span></button></td>
+        </tr>
+        <tr>
+            <td>Aantal pagina's</td>
+            <td>{{googleBook.pageCount}}</td>
+            <td><button ng-click="copyGoogleBookPagesToModel()" class="btn btn-default btn-xs float-right" type="button"><span class="glyphicon glyphicon-copy"></span></button></td>
+        </tr>
+    </table>
+</div>

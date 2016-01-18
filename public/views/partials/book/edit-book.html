@@ -9,29 +9,37 @@
                     <button type="button" class="btn btn-sm round-corners btn-default form-subtitle-button" ng-click="openSelectImageDialog()">Selecteer cover</button>
                 </div>
                 <div class="form-content col-md-12">
-                    <img style="margin-bottom: 20px;" src-with-fallback="{{ model.image }}" />
+                    <div class="col-md-6">
+                        <img style="margin-bottom: 20px;" src-with-fallback="{{ model.image }}" />
 
-                    <!-- TITLE -->
-                    <div class="form-group required col-md-12" ng-class="{'has-error has-feedback' : createBookForm.title.$invalid && (createBookForm.title.$dirty || submitAttempted)}">
-                        <label class="control-label ">Titel </label>
-                        <input name="title" type="text" class="form-control input-width-md" placeholder="titel" required="true" ng-model="model.title"/>
-                        <span ng-show="createBookForm.title.$invalid && (createBookForm.title.$dirty || submitAttempted)" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Titel is verplicht</span>
+                        <!-- TITLE -->
+                        <div class="form-group required col-md-12" ng-class="{'has-error has-feedback' : createBookForm.title.$invalid && (createBookForm.title.$dirty || submitAttempted)}">
+                            <label class="control-label ">Titel </label>
+                            <input name="title" type="text" class="form-control input-width-md" placeholder="titel" required="true" ng-model="model.title"/>
+                            <span ng-show="createBookForm.title.$invalid && (createBookForm.title.$dirty || submitAttempted)" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Titel is verplicht</span>
+                        </div>
+
+                        <!-- SUBTITLE -->
+                        <div class="form-group col-md-12">
+                            <label class="control-label">Ondertitel</label>
+                            <input name="subtitle" type="text" class="form-control input-width-md" placeholder="ondertitel" ng-model="model.subtitle"/>
+                        </div>
+
+                        <!-- ISBN -->
+                        <div class="form-group required col-md-12" ng-class="{'has-error has-feedback' : createBookForm.isbn.$invalid && (createBookForm.isbn.$dirty || submitAttempted)}">
+                            <label class="control-label" >ISBN </label>
+
+                            <input name="isbn" type="text" class="form-control input-width-sm" placeholder="isbn" ng-model="model.isbn" required="true" ng-pattern="/^[0-9]{13}$/"/>
+                            <span ng-show="createBookForm.isbn.$error.required && (createBookForm.isbn.$dirty || submitAttempted)" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Isbn is verplicht</span>
+                            <span ng-show="createBookForm.isbn.$error.pattern && (createBookForm.isbn.$dirty || submitAttempted)" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Isbn moet exact 13 nummers zijn</span>
+                        </div>
+                        <!-- ISBN -->
+                        <div class="form-group required col-md-12">
+                            <label class="control-label" >Omschrijving </label>
+                            <textarea class="form-control" rows="5" name="review" ng-model="model.summary"></textarea>
+                        </div>
                     </div>
-
-                    <!-- SUBTITLE -->edit
-                    <div class="form-group col-md-12">
-                        <label class="control-label">Ondertitel</label>
-                        <input name="subtitle" type="text" class="form-control input-width-md" placeholder="ondertitel" ng-model="model.subtitle"/>
-                    </div>
-
-                    <!-- ISBN -->
-                    <div class="form-group required col-md-12" ng-class="{'has-error has-feedback' : createBookForm.isbn.$invalid && (createBookForm.isbn.$dirty || submitAttempted)}">
-                        <label class="control-label" >ISBN </label>
-
-                        <input name="isbn" type="text" class="form-control input-width-sm" placeholder="isbn" ng-model="model.isbn" required="true" ng-pattern="/^[0-9]{13}$/"/>
-                        <span ng-show="createBookForm.isbn.$error.required && (createBookForm.isbn.$dirty || submitAttempted)" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Isbn is verplicht</span>
-                        <span ng-show="createBookForm.isbn.$error.pattern && (createBookForm.isbn.$dirty || submitAttempted)" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Isbn moet exact 13 nummers zijn</span>
-                    </div>
+                     <div class="col-md-6" ng-include="'../BiblioMania/views/partials/book/google-book-detail.html'"></div>
                 </div>
 
                 <div class="form-subtitle">

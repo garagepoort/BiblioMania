@@ -12,6 +12,7 @@ class BookControllerCreateTest extends TestCase
     const PUBLICATION_DATE_DAY = 31;
     const PUBLICATION_DATE_MONTH = 12;
     const PUBLICATION_DATE_YEAR = 2015;
+    const SUMMARY = 'my summary';
     const TRANSLATOR = 'translator';
     const _PRINT = 12;
     const PAGES = 1231;
@@ -43,6 +44,7 @@ class BookControllerCreateTest extends TestCase
             'language' => self::LANGUAGE,
             'translator' => self::TRANSLATOR,
             'print' => self::_PRINT,
+            'summary' => self::SUMMARY,
             'pages' => self::PAGES,
             'imagUrl' => self::IMAGE_URL,
             'serie' => self::SERIE,
@@ -60,6 +62,7 @@ class BookControllerCreateTest extends TestCase
             $this->assertEquals(self::TITLE, $baseBookRequest->getTitle());
             $this->assertEquals(self::ISBN, $baseBookRequest->getIsbn());
             $this->assertEquals(self::SUBTITLE, $baseBookRequest->getSubtitle());
+            $this->assertEquals(self::SUMMARY, $baseBookRequest->getSummary());
             $this->assertEquals(self::PREFERRED_AUTHOR_ID, $baseBookRequest->getPreferredAuthorId());
             $this->assertEquals(self::PUBLISHER, $baseBookRequest->getPublisher());
             $this->assertEquals(self::COUNTRY, $baseBookRequest->getCountry());
