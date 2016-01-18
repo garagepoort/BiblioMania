@@ -1016,3 +1016,6 @@ a.editable-click:hover {
 .scrollable-table-header {
   margin-bottom: 0;
 }
+.dl-text-align-left dt {
+  text-align: left;
+}
