@@ -92,8 +92,16 @@ angular.module('com.bendani.bibliomania.edit.book.ui', ['ngTagsInput',
 
                 $scope.submitAttempted = false;
 
-                $scope.$watch('model.title', searchGoogleBookByIsbnAndTitle);
-                $scope.$watch('model.isbn', searchGoogleBookByIsbnAndTitle);
+                $scope.$watch('model.title', function(oldValue, newValue){
+                    if(oldValue !== newValue){
+                        searchGoogleBookByIsbnAndTitle();
+                    }
+                });
+                $scope.$watch('model.isbn', function(oldValue, newValue){
+                    if(oldValue !== newValue){
+                        searchGoogleBookByIsbnAndTitle();
+                    }
+                });
             }
 
             $scope.selectGenre = function(branch){
