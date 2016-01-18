@@ -1,27 +1,32 @@
 <div class="well" ng-if="googleBook">
     <h4>Google boek informatie</h4>
     <table class="table">
-        <tr>
+        <tr ng-if="googleBook.title">
             <td>Titel</td>
             <td>{{googleBook.title}}</td>
             <td><button ng-click="copyGoogleBookTitleToModel()" class="btn btn-default btn-xs float-right" type="button"><span class="glyphicon glyphicon-copy"></span></button></td>
         </tr>
-        <tr>
+        <tr ng-if="googleBook.subtitle">
             <td>Ondertitel</td>
             <td>{{googleBook.subtitle}}</td>
             <td><button ng-click="copyGoogleBookSubtitleToModel()" class="btn btn-default btn-xs float-right" type="button"><span class="glyphicon glyphicon-copy"></span></button></td>
         </tr>
-        <tr>
+        <tr ng-if="getGoogleBookIsbn()">
+            <td>ISBN</td>
+            <td>{{ getGoogleBookIsbn() }}</td>
+            <td><button ng-click="copyGoogleBookIsbnToModel()" class="btn btn-default btn-xs float-right" type="button"><span class="glyphicon glyphicon-copy"></span></button></td>
+        </tr>
+        <tr ng-if="googleBook.publishedDate">
             <td>Publicatie</td>
             <td>{{googleBook.publishedDate}}</td>
-            <td><button class="btn btn-default btn-xs float-right" type="button"><span class="glyphicon glyphicon-copy"></span></button></td>
+            <td><button ng-click="copyGoogleBookPublicationDateToModel()" class="btn btn-default btn-xs float-right" type="button"><span class="glyphicon glyphicon-copy"></span></button></td>
         </tr>
-        <tr>
+        <tr ng-if="googleBook.description">
             <td>Omschrijving</td>
             <td>{{googleBook.description}}</td>
             <td><button ng-click="copyGoogleBookDescriptionToModel()" class="btn btn-default btn-xs float-right" type="button"><span class="glyphicon glyphicon-copy"></span></button></td>
         </tr>
-        <tr>
+        <tr ng-if="googleBook.pageCount">
             <td>Aantal pagina's</td>
             <td>{{googleBook.pageCount}}</td>
             <td><button ng-click="copyGoogleBookPagesToModel()" class="btn btn-default btn-xs float-right" type="button"><span class="glyphicon glyphicon-copy"></span></button></td>

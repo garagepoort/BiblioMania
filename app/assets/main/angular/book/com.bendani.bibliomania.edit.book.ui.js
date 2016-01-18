@@ -92,8 +92,8 @@ angular.module('com.bendani.bibliomania.edit.book.ui', ['ngTagsInput',
 
                 $scope.submitAttempted = false;
 
+                $scope.$watch('model.title', searchGoogleBookByIsbnAndTitle);
                 $scope.$watch('model.isbn', searchGoogleBookByIsbnAndTitle);
-                $scope.$watch('model.title', searchGoogleBookByTitle);
             }
 
             $scope.selectGenre = function(branch){
@@ -175,12 +175,50 @@ angular.module('com.bendani.bibliomania.edit.book.ui', ['ngTagsInput',
                 $scope.model.subtitle = $scope.googleBook.subtitle;
             };
 
+            $scope.copyGoogleBookIsbnToModel = function(){
+                if($scope.googleBook && $scope.googleBook.industryIdentifiers.length > 0){
+                    var isbn = $scope.getGoogleBookIsbn();
+                    if(isbn){
+                        $scope.model.isbn = isbn;
+                    }
+                }
+            };
+
+            $scope.getGoogleBookIsbn = function(){
+                if($scope.googleBook && $scope.googleBook.industryIdentifiers.length > 0){
+                    var result = $scope.googleBook.industryIdentifiers.filter(function( obj ) {
+                        return obj.type === "ISBN_13";
+                    });
+                    if(result.length > 0){
+                        return result[0].identifier;
+                    }
+                }
+            };
+
             $scope.copyGoogleBookDescriptionToModel = function(){
                 $scope.model.summary = $scope.googleBook.description;
             };
 
             $scope.copyGoogleBookPagesToModel = function(){
                 $scope.model.pages = $scope.googleBook.pageCount;
+            };
+
+            $scope.copyGoogleBookPublicationDateToModel = function(){
+                if($scope.googleBook.publishedDate){
+                    var splitDate = $scope.googleBook.publishedDate.split("-");
+                    $scope.model.publicationDate.year = undefined;
+                    $scope.model.publicationDate.month = undefined;
+                    $scope.model.publicationDate.day = undefined;
+                    if(splitDate.length >= 1){
+                        $scope.model.publicationDate.year = parseInt(splitDate[0]);
+                    }
+                    if(splitDate.length >= 3){
+                        $scope.model.publicationDate.month = parseInt(splitDate[1]);
+                    }
+                    if(splitDate.length >= 3){
+                        $scope.model.publicationDate.day = parseInt(splitDate[2]);
+                    }
+                }
             };
 
             function isFormValid(formValid){

@@ -34,9 +34,9 @@
                             <span ng-show="createBookForm.isbn.$error.pattern && (createBookForm.isbn.$dirty || submitAttempted)" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Isbn moet exact 13 nummers zijn</span>
                         </div>
                         <!-- ISBN -->
-                        <div class="form-group required col-md-12">
+                        <div class="form-group col-md-12">
                             <label class="control-label" >Omschrijving </label>
-                            <textarea class="form-control" rows="5" name="review" ng-model="model.summary"></textarea>
+                            <textarea class="form-control" rows="10" name="review" ng-model="model.summary"></textarea>
                         </div>
                     </div>
                      <div class="col-md-6" ng-include="'../BiblioMania/views/partials/book/google-book-detail.html'"></div>
