@@ -5,6 +5,7 @@ angular.module('com.bendani.bibliomania.edit.personal.book.info.ui', [
     'com.bendani.bibliomania.personal.book.info.model',
     'com.bendani.bibliomania.country.model',
     'com.bendani.bibliomania.book.model',
+    'com.bendani.bibliomania.shop.model',
     'com.bendani.bibliomania.title.panel',
     'com.bendani.bibliomania.price.formatter'
 ])
@@ -62,7 +63,7 @@ angular.module('com.bendani.bibliomania.edit.personal.book.info.ui', [
             }
         });
     }])
-    .controller('PersonalBookInfoController', ['$scope', 'ErrorContainer', 'TitlePanelService', 'personalBookInfoModel', 'onSave', 'Country', 'initFunction', function ($scope, ErrorContainer, TitlePanelService, personalBookInfoModel, onSave, Country, initFunction) {
+    .controller('PersonalBookInfoController', ['$scope', 'ErrorContainer', 'TitlePanelService', 'personalBookInfoModel', 'onSave', 'Country', 'Shop', 'initFunction', function ($scope, ErrorContainer, TitlePanelService, personalBookInfoModel, onSave, Country, Shop, initFunction) {
         function init() {
             TitlePanelService.setTitle('Persoonlijke informatie');
 
@@ -70,6 +71,7 @@ angular.module('com.bendani.bibliomania.edit.personal.book.info.ui', [
             $scope.data = {};
 
             $scope.data.countries = Country.query(function(){}, ErrorContainer.handleRestError);
+            $scope.data.shops = Shop.query(function(){}, ErrorContainer.handleRestError);
             $scope.data.currencies = [
                 {
                     name: "€",

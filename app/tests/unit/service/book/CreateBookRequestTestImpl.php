@@ -16,6 +16,7 @@ class CreateBookRequestTestImpl implements BaseBookRequest
     private $serie;
     private $publisherSerie;
     private $translator = 'translator';
+    private $summary = 'summary';
 
     private $publicationDate;
     private $tags;
@@ -224,6 +225,8 @@ class CreateBookRequestTestImpl implements BaseBookRequest
     }
 
 
-
-
+    function getSummary()
+    {
+        return $this->summary;
+    }
 }

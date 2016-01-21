@@ -64,6 +64,7 @@ class FullBookToJsonAdapter
         $this->pages = $book->number_of_pages;
         $this->print = $book->print;
         $this->currency = $book->currency;
+        $this->summary = $book->summary;
         $this->genre = $book->genre->name;
         $this->retailPrice = $book->retail_price;
         $this->publisherSerie = $book->publisher_serie == null ? null : $book->publisher_serie->name;

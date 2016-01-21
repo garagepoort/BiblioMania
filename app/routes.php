@@ -34,6 +34,7 @@ Route::group(array('before' => 'auth'), function () {
     Route::get('mostUsedBookFilters', 'BookController@getMostUsedFilters');
     Route::get('tags', 'TagController@getTags');
     Route::get('countries', 'CountryController@getCountries');
+    Route::get('shops', 'ShopController@getShops');
     Route::get('languages', 'LanguageController@getLanguages');
     Route::get('publisher-series', 'PublisherSerieController@getPublisherSeries');
     Route::put('publisher-series', 'PublisherSerieController@updateSerie');
@@ -107,10 +108,6 @@ Route::group(['prefix' => 'api'], function () {
 
 //ADMIN
 Route::group(array('before' => 'admin'), function () {
-    //google API
-    Route::get('googleAuthentication', 'Oauth2_Controller@doGoogleAuthentication');
-    Route::get('askForGoogleAuthentication', 'Oauth2_Controller@askForGoogleAuthentication');
-    Route::get('uploadFile', 'Oauth2_Controller@uploadFile');
 });
 
 //LOCAL
@@ -125,7 +122,6 @@ Route::group(array('before' => 'localCallOnly'), function () {
 
 
 //ALL
-Route::get('backupDatabase/{username?}/{password?}', 'AdminController@backupDatabase');
 Route::get('login', 'DefaultLoginController@getLoginPage');
 Route::post('login', 'DefaultLoginController@doLogin');
 Route::get('changeLanguage/{lang}', 'LanguageController@changeLanguage');

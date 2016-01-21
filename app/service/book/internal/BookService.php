@@ -280,6 +280,7 @@ class BookService
             $book->translator = $createBookRequest->getTranslator();
             $book->print = $createBookRequest->getPrint();
             $book->number_of_pages = $createBookRequest->getPages();
+            $book->summary = $createBookRequest->getSummary();
 
             if (!StringUtils::isEmpty($createBookRequest->getImageUrl())) {
                 $book->coverImage = $this->imageService->saveBookImageFromUrl($createBookRequest->getImageUrl(), $book);

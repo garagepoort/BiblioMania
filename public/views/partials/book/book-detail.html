@@ -13,7 +13,7 @@
                         <!--<label class="label label-warning form-subtitle-label">{{book.genre}}</label>-->
                     </div>
                     <div class="form-content detail-panel">
-                        <dl class="dl-horizontal">
+                        <dl class="dl-horizontal dl-text-align-left">
                             <dt>Titel</dt>
                             <dd>{{book.title}}</dd>
                             <dt ng-show="book.subtitle">Ondertitel</dt>
@@ -166,6 +166,8 @@
                 <dl class="dl-horizontal">
                     <dt ng-show="book.personalBookInfo.buyInfo.buyPrice !== null">prijs</dt>
                     <dd ng-show="book.personalBookInfo.buyInfo.buyPrice !== null">{{getCurrencyViewValue(book.personalBookInfo.buyInfo.buyPrice.currency) }} {{ book.personalBookInfo.buyInfo.buyPrice.amount | numberFormatFilter}}</dd>
+                    <dt ng-show="book.personalBookInfo.buyInfo.buyDate !== null">datum</dt>
+                    <dd ng-show="book.personalBookInfo.buyInfo.buyDate">{{convertDate(book.personalBookInfo.buyInfo.buyDate)}}</dd>
                     <dt ng-show="book.personalBookInfo.buyInfo.shop">winkel</dt>
                     <dd ng-show="book.personalBookInfo.buyInfo.shop">{{book.personalBookInfo.buyInfo.shop}}</dd>
                     <dt ng-show="book.personalBookInfo.buyInfo.reason">reden</dt>
