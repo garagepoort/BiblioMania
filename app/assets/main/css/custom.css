@@ -747,6 +747,7 @@ table.book-detail-info-table td {
 }
 .form-content {
   padding-left: 50px;
+  padding-right: 50px;
   margin-bottom: 60px;
 }
 .form-subtitle {
@@ -757,6 +758,7 @@ table.book-detail-info-table td {
 }
 .detail-panel {
   padding-left: 0px;
+  padding-right: 0px;
 }
 .form-subtitle-button {
   float: right;
