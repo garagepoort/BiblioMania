@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-md-3">
                     <button type="button" class="btn btn-sm round-corners btn-default margin-bottom-15" ng-click="openSelectImageDialog()">Selecteer afbeelding</button>
-                    <img src-with-fallback="{{ model.image }}"/>
+                    <img class="max-width-100 max-height-100" src-with-fallback="{{ model.image }}"/>
                 </div>
                 <div class="col-md-9">
                     <name ng-model="model.name" submit-attempted="submitAttempted"></name>
