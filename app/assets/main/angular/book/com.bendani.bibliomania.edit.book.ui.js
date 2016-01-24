@@ -220,7 +220,7 @@ angular.module('com.bendani.bibliomania.edit.book.ui', ['ngTagsInput',
                     if(splitDate.length >= 1){
                         $scope.model.publicationDate.year = parseInt(splitDate[0]);
                     }
-                    if(splitDate.length >= 3){
+                    if(splitDate.length >= 2){
                         $scope.model.publicationDate.month = parseInt(splitDate[1]);
                     }
                     if(splitDate.length >= 3){
