@@ -177,6 +177,7 @@ class BookService
         list($personalFiltersForSearch, $filtersForSearch) = $this->filtersToFilterHandlers($filters);
 
         array_push($filtersForSearch, FilterBuilder::terms('personalBookInfoUsers', [Auth::user()->id]));
+        array_push($personalFiltersForSearch, FilterBuilder::match('personalBookInfos.inCollection', true));
 
         return $this->bookElasticIndexer->search(Auth::user()->id, $filtersForSearch, $personalFiltersForSearch);
     }
