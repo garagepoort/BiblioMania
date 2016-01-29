@@ -60,7 +60,7 @@ class AuthorToJsonAdapter
     {
         $baseUrl = URL::to('/');
         if(!StringUtils::isEmpty($author->image)){
-            $this->image = $baseUrl . "/authorImages/" . $author->image;
+            $this->image = $baseUrl . "/" . Config::get("properties.authorImagesLocation") . "/" . $author->image;
         }
     }
 }
