@@ -23,17 +23,17 @@ class ImageToJsonAdapter
 
         $this->image = $bookImage;
         $this->spritePointer = $book->spritePointer;
-        $this->useSpriteImage = $book->useSpriteImage;
+        $this->useSpriteImage = $book->useSpriteImage == true;
         $this->imageHeight = $book->imageHeight;
         $this->imageWidth = $book->imageWidth;
     }
 
     public function fromAuthor(Author $author){
         $baseUrl = URL::to('/');
-        $authorImage = $baseUrl . "/authorImages/sprite.png";
+        $authorImage = $baseUrl . "/" . Config::get("properties.authorImagesLocation") . "/sprite.png";
 
         if ($author->useSpriteImage == false) {
-            $authorImage = $baseUrl . "/authorImages/" . $author->image;
+            $authorImage = $baseUrl . "/". Config::get("properties.authorImagesLocation") . "/" . $author->image;
         }
 
         $this->image = $authorImage;

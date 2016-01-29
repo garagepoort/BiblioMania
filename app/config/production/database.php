@@ -1,8 +1,6 @@
 <?php
 
 return array(
-
-	
 	'connections' => array(
 
 		'sqlite' => array(
@@ -14,35 +12,14 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'BiblioMania',
-			'username'  => 'david',
-			'password'  => 'emperor',
+			'database'  =>  $_ENV['DATABASE_NAME'],
+			'username'  => $_ENV['DATABASE_USERNAME'],
+			'password'  => $_ENV['DATABASE_PASSWORD'],
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
+			'unix_socket'   => '/tmp/mysql.sock',
 			'prefix'    => '',
-		),
-
-		'pgsql' => array(
-			'driver'   => 'pgsql',
-			'host'     => 'localhost',
-			'database' => 'database',
-			'username' => 'root',
-			'password' => '',
-			'charset'  => 'utf8',
-			'prefix'   => '',
-			'schema'   => 'public',
-		),
-
-		'sqlsrv' => array(
-			'driver'   => 'sqlsrv',
-			'host'     => 'localhost',
-			'database' => 'database',
-			'username' => 'root',
-			'password' => '',
-			'prefix'   => '',
-		),
-
-	),
-
-
+			'port'    => '3306',
+		)
+	)
 );

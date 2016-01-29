@@ -2,7 +2,6 @@
 
 return array(
 
-	
 	'connections' => array(
 
 		'sqlite' => array(
@@ -14,37 +13,14 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'bibliomania',
-			'username'  => 'root',
-			'password'  => 'root',
+			'database'  =>  $_ENV['DATABASE_NAME'],
+			'username'  => $_ENV['DATABASE_USERNAME'],
+			'password'  => $_ENV['DATABASE_PASSWORD'],
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
-			'unix_socket'   => '/var/run/mysqld/mysqld.sock',
+			'unix_socket'   => '/tmp/mysql.sock',
 			'prefix'    => '',
 			'port'    => '3306',
-		),
-
-		'pgsql' => array(
-			'driver'   => 'pgsql',
-			'host'     => 'localhost',
-			'database' => 'database',
-			'username' => 'root',
-			'password' => '',
-			'charset'  => 'utf8',
-			'prefix'   => '',
-			'schema'   => 'public',
-		),
-
-		'sqlsrv' => array(
-			'driver'   => 'sqlsrv',
-			'host'     => 'localhost',
-			'database' => 'database',
-			'username' => 'root',
-			'password' => '',
-			'prefix'   => '',
-		),
-
-	),
-
-
+		)
+	)
 );

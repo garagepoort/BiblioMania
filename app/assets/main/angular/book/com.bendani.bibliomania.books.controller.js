@@ -12,10 +12,11 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
     'pageslide-directive'])
     .controller('BookController', ['$scope', 'Book', 'BookFilter', 'ErrorContainer', 'TitlePanelService', '$location', '$compile', 'BookOverviewService', 'CurrencyService', 'DateService', 'ScrollingService', '$timeout', 'FilterService',
         function ($scope, Book, BookFilter, ErrorContainer, TitlePanelService, $location, $compile, BookOverviewService, CurrencyService, DateService, ScrollingService, $timeout, FilterService) {
-            var personalBooks = {key: 'Mijn boeken', value: 'personalBooks'};
-            var allBooks = {key: 'Alle boeken', value: 'all'};
-            var otherBooks = {key: 'Andere boeken', value: 'otherBooks'};
-            var wishlist = {key: 'Wishlist', value: 'wishlist'};
+            var personalBooks = {key: 'Mijn boeken in collectie', value: 'personalBooks', searchBooks: Book.searchMyBooks};
+            var personalBooksNotInCollection = {key: 'Mijn boeken niet in collectie', value: 'personalBooksNotInCollection', searchBooks: Book.searchMyBooks};
+            var allBooks = {key: 'Alle boeken', value: 'all', searchBooks: Book.searchAllBooks};
+            var otherBooks = {key: 'Andere boeken', value: 'otherBooks', searchBooks: Book.searchOtherBooks};
+            var wishlist = {key: 'Wishlist', value: 'wishlist', searchBooks: Book.searchWishlist};
 
             function init() {
                 TitlePanelService.setTitle('Boeken');
@@ -34,7 +35,7 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
                 $scope.reverseOrder = false;
                 $scope.setListView(false);
 
-                $scope.viewableFilters = { selected: personalBooks, all: [allBooks, otherBooks, personalBooks, wishlist] };
+                $scope.viewableFilters = { selected: personalBooks, all: [allBooks, otherBooks, personalBooks, personalBooksNotInCollection, wishlist] };
 
                 $scope.selectViewableFilter = function(){
                     FilterService.filter($scope.filterBooks);
@@ -58,6 +59,15 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
                 if ((item.title.toLowerCase().indexOf($scope.searchBooksQuery) !== -1)
                     || (item.subtitle.toLowerCase().indexOf($scope.searchBooksQuery) !== -1)
                     || (item.mainAuthor.toLowerCase().indexOf($scope.searchBooksQuery) !== -1)) {
+
+                    if($scope.viewableFilters.selected === personalBooks){
+                        return item.inCollection;
+                    }
+
+                    if($scope.viewableFilters.selected === personalBooksNotInCollection){
+                        return !item.inCollection;
+                    }
+
                     return true;
                 }
                 return false;
@@ -84,27 +94,9 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
 
             $scope.filterBooks = function (selectedFilters) {
                 $scope.loading = true;
-
-                if($scope.viewableFilters.selected === allBooks){
-                    Book.searchAllBooks(selectedFilters, function (books) {
-                        onBooksSearched(books);
-                    }, ErrorContainer.handleRestError);
-                }
-                else if($scope.viewableFilters.selected === otherBooks){
-                    Book.searchOtherBooks(selectedFilters, function (books) {
-                        onBooksSearched(books);
-                    }, ErrorContainer.handleRestError);
-                }
-                else if($scope.viewableFilters.selected === personalBooks){
-                    Book.searchMyBooks(selectedFilters, function (books) {
-                        onBooksSearched(books);
-                    }, ErrorContainer.handleRestError);
-                }
-                else if($scope.viewableFilters.selected === wishlist){
-                    Book.searchWishlist(selectedFilters, function (books) {
-                        onBooksSearched(books);
-                    }, ErrorContainer.handleRestError);
-                }
+                $scope.viewableFilters.selected.searchBooks(selectedFilters, function (books) {
+                    onBooksSearched(books);
+                }, ErrorContainer.handleRestError);
             };
 
             $scope.goToCreateBook = function () {

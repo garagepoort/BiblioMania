@@ -146,6 +146,9 @@ class BookElasticIndexer
                     'isPersonal' => [
                         'script' => "_source.personalBookInfoUsers.contains($userId)"
                     ],
+                    'inCollection' => [
+                        'script' => "_source.personalBookInfos.find{ it.userId != $userId } == null && _source.personalBookInfos.find{ it.userId == $userId }.inCollection"
+                    ],
                     'personalBookInfoId' => [
                         'script' => "_source.personalBookInfos.find{ it.userId == $userId } == null ? null : _source.personalBookInfos.find{ it.userId == $userId }.id"
                     ],

@@ -14,8 +14,8 @@ angular.module('com.bendani.bibliomania.edit.oeuvre.ui',
             controller: 'EditOeuvreItemController'
         });
     }])
-    .controller('EditOeuvreItemController', ['$scope', 'Oeuvre', 'Author', 'ErrorContainer', 'growl', '$routeParams', 'BookSelectionModalService', 'ConfirmationModalService', 'TitlePanelService',
-        function ($scope, Oeuvre, Author, ErrorContainer, growl, $routeParams, BookSelectionModalService, ConfirmationModalService, TitlePanelService) {
+    .controller('EditOeuvreItemController', ['$scope', 'Oeuvre', 'Author', 'ErrorContainer', 'growl', '$routeParams', 'BookSelectionModalService', 'ConfirmationModalService', 'TitlePanelService', '$location',
+        function ($scope, Oeuvre, Author, ErrorContainer, growl, $routeParams, BookSelectionModalService, ConfirmationModalService, TitlePanelService, $location) {
 
             TitlePanelService.setTitle("Oeuvre");
 
@@ -55,4 +55,9 @@ angular.module('com.bendani.bibliomania.edit.oeuvre.ui',
                     }, ErrorContainer.handleRestError);
                 });
             };
+
+            $scope.goToBookDetails = function(book){
+                $location.path('/book-details/' + book.id);
+            };
+
         }]);
