@@ -23,7 +23,7 @@ class ImageToJsonAdapter
 
         $this->image = $bookImage;
         $this->spritePointer = $book->spritePointer;
-        $this->useSpriteImage = $book->useSpriteImage;
+        $this->useSpriteImage = $book->useSpriteImage == true;
         $this->imageHeight = $book->imageHeight;
         $this->imageWidth = $book->imageWidth;
     }
