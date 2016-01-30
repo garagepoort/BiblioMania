@@ -17,7 +17,6 @@ return array(
 			'password'  => $_ENV['DATABASE_PASSWORD'],
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
-			'unix_socket'   => '/tmp/mysql.sock',
 			'prefix'    => '',
 			'port'    => '3306',
 		)
