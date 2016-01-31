@@ -26,9 +26,8 @@ $app = new Illuminate\Foundation\Application;
 
 $env = $app->detectEnvironment(array(
 
-	'local' => array('hi09416.cegekanv.corp.local'),
+	'local' => array('davidm_macbook_pro'),
 	'local_linux_mint' => array('david-desktop'),
-	'local_mac' => array('davidm_macbook_pro'),
 	'production' => array('37-97-143-236.colo.transip.net'),
 
 ));

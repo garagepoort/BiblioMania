@@ -33,6 +33,32 @@ set :pty, true
 # Default value for keep_releases is 5
 # set :keep_releases, 5
 
+desc "Prompt for branch or tag"
+task git_branch_or_tag: :'git:wrapper' do
+  on roles(:all) do |host|
+
+    tags = "<none>"
+    within repo_path do
+      with fetch(:git_environmental_variables) do
+        tags = capture(:git, :tag).split.join(', ')
+      end
+    end
+
+    run_locally do
+      tag_prompt = "Enter a branch or tag name to deploy, available tags include #{tags}"
+
+      ask(:branch_or_tag, tag_prompt)
+      tag_branch_target = fetch(:branch_or_tag)
+
+      execute "echo \"About to deploy branch or tag '#{tag_branch_target}'\""
+      set(:branch, tag_branch_target)
+    end
+
+  end
+end
+
+before 'deploy:starting', :git_branch_or_tag
+
 namespace :deploy do
 
   desc 'update composer'
