@@ -20,17 +20,16 @@ class BookReadingDateFilterHandler implements FilterHandler
         Ensure::objectIsInstanceOf('date', $dateRequest, 'DateRequest');
         Ensure::stringNotBlank('year of date',$dateRequest->getYear());
 
-        if(StringUtils::isEmpty($dateRequest->getMonth())){
+        if(StringUtils::isEmpty($dateRequest->getMonth()) || $dateRequest->getMonth() == 0){
             $beginDate = $dateRequest->getYear() . '-01-01';
             $endDate = $dateRequest->getYear() . '-12-31';
-        }else if(StringUtils::isEmpty($dateRequest->getDay())){
+        }else if(StringUtils::isEmpty($dateRequest->getDay()) || $dateRequest->getDay() == 0){
             $beginDate = $dateRequest->getYear() . '-' . $dateRequest->getMonth() . '-01';
             $endDate = $dateRequest->getYear() . '-' . $dateRequest->getMonth() . '-31';
         }else{
             $beginDate = DateFormatter::dateRequestToFormattedDate($dateRequest);
             $endDate = DateFormatter::dateRequestToFormattedDate($dateRequest);
         }
-
 
         if($filter->getOperator() == FilterOperator::EQUALS){
             return FilterBuilder::range('personalBookInfos.readingDates.date', $beginDate, $endDate);
