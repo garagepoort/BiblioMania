@@ -51,6 +51,17 @@
                 </div>
             </div>
 
+            <div class="row" ng-show="selectedBook.summary">
+                <div class="col-md-12">
+                    <div class="material-card">
+                        <div class="material-card-title">Samenvatting</div>
+                        <div class="material-card-content text-align-left">
+                            <p>{{ selectedBook.summary }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="row" style="margin-top: 20px">
                 <div class="col-md-4">
                     <div class="material-card">
@@ -96,7 +107,7 @@
                 </div>
             </div>
 
-            <div class="row" ng-show="selectedBook.personalBookInfo && selectedBook.personalBookInfo.readingDates.length > 0">
+            <div class="row" style="margin-bottom: 50px" ng-show="selectedBook.personalBookInfo && selectedBook.personalBookInfo.readingDates.length > 0">
                 <div class="col-md-12">
                     <div class="material-card">
                         <div class="material-card-title">Lees data</div>
