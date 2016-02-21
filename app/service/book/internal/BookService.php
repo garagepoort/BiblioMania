@@ -226,6 +226,7 @@ class BookService
         }
 
         $this->bookRepository->delete($book);
+        $this->bookElasticIndexer->deleteBook($book);
     }
 
     /**

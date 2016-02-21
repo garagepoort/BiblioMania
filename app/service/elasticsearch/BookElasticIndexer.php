@@ -40,6 +40,17 @@ class BookElasticIndexer
         $this->indexBook($book);
     }
 
+    public function deleteBook($book){
+            $params = [
+                'index' => 'bibliomania',
+                'type' => 'book',
+                'id' => $book->id
+            ];
+
+        $response = $this->elasticSearchClient->getClient()->delete($params);
+        return $response;
+    }
+
     /**
      * @param $book
      */

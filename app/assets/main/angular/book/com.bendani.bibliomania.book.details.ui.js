@@ -171,6 +171,16 @@ angular.module('com.bendani.bibliomania.book.details.ui', ['com.bendani.biblioma
                 });
             };
 
+            $scope.deleteBook = function(){
+                var message = 'Zeker dat je dit boek wilt verwijderen?';
+                ConfirmationModalService.show(message, function(){
+                    Book.delete({id: $scope.book.id}, function () {
+                        $location.path('/books');
+                        growl.addSuccessMessage("Boek verwijderd");
+                    }, ErrorContainer.handleRestError);
+                });
+            };
+
             function loadBook() {
                 $scope.book = Book.get({id: $routeParams.id}, function (book) {
 
@@ -191,6 +201,7 @@ angular.module('com.bendani.bibliomania.book.details.ui', ['com.bendani.biblioma
                 var titlePanelRight = angular.element('<div class="book-detail-title-panel"><div class="float-right">' +
                     '<i ng-show="book.onWishlist" class="fa fa-heart margin-right-10"></i>' +
                     '<label class="label label-warning">{{ book.genre }}</label>' +
+                    '<button ng-click="deleteBook()" class="margin-left-15 btn btn-danger btn-sm no-round-corners">DELETE</button>' +
                     '</div></div>');
                 $compile(titlePanelRight)($scope);
                 TitlePanelService.setRightPanel(titlePanelRight);

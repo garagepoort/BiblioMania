@@ -27,6 +27,7 @@ Route::group(array('before' => 'auth'), function () {
     Route::post('books/search-my-books', 'BookController@searchMyBooks');
     Route::post('books/search-wishlist', 'BookController@searchWishlist');
     Route::get('books/{id}', 'BookController@getFullBook');
+    Route::delete('books/{id}', 'BookController@deleteBook');
     Route::put('books/{id}/authors', 'BookController@linkAuthorToBook');
     Route::put('books/{id}/unlink-author', 'BookController@unlinkAuthorFromBook');
 
