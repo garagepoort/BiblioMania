@@ -73,6 +73,10 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
                 return false;
             };
 
+            $scope.clearSearch = function(){
+                $scope.searchBooksQuery = "";
+            };
+
             $scope.setListView = function (value) {
                 $scope.listView = value;
 
