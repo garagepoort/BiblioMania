@@ -28,14 +28,14 @@
 
         <div class="book-panel">
             <img src="/BiblioMania/images/ajax-loader.gif" ng-show="loading">
-            <div ng-if="!listView">
+            <div ng-show="!listView">
                 <table ng-show="!loading" class="table table-striped" style="table-layout: fixed">
                     <thead sort-header sort-options="orderValues" current-predicate="predicate" reverse-order="reverseOrder"></thead>
                 </table>
                 <image-card ng-show="!loading" ng-repeat="book in books | filter: search | orderBy:predicate:reverseOrder as viewableBooks track by book.id" model="book" warnings="book.warnings" on-edit-click="onEditBook(book)" on-image-click="onImageClickBook(book)" show-edit-button="true" backup-text="{{ ::book.title }}"></image-card>
             </div>
 
-            <div ng-if="listView">
+            <div ng-show="listView">
                 <table ng-show="!loading" class="table table-striped" style="table-layout: fixed">
                     <thead sort-header sort-options="orderValues" current-predicate="predicate" reverse-order="reverseOrder"></thead>
                     <tbody style="text-align: left">
