@@ -30,6 +30,7 @@ class ReadingDateService
         $readingDate = $this->readingDateRepository->find($id);
         Ensure::objectNotNull('reading date', $readingDate);
 
+        $readingDate->load('personal_book_info');
         $book_id = $readingDate->personal_book_info->book_id;
 
         $this->readingDateRepository->deleteById($id);
