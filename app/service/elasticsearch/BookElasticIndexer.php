@@ -40,6 +40,17 @@ class BookElasticIndexer
         $this->indexBook($book);
     }
 
+    public function deleteBook($book){
+            $params = [
+                'index' => 'bibliomania',
+                'type' => 'book',
+                'id' => $book->id
+            ];
+
+        $response = $this->elasticSearchClient->getClient()->delete($params);
+        return $response;
+    }
+
     /**
      * @param $book
      */
@@ -147,7 +158,7 @@ class BookElasticIndexer
                         'script' => "_source.personalBookInfoUsers.contains($userId)"
                     ],
                     'inCollection' => [
-                        'script' => "_source.personalBookInfos.find{ it.userId != $userId } == null && _source.personalBookInfos.find{ it.userId == $userId }.inCollection"
+                        'script' => "_source.personalBookInfos.find{ it.userId == $userId } != null && _source.personalBookInfos.find{ it.userId == $userId }.inCollection"
                     ],
                     'personalBookInfoId' => [
                         'script' => "_source.personalBookInfos.find{ it.userId == $userId } == null ? null : _source.personalBookInfos.find{ it.userId == $userId }.id"

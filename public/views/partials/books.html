@@ -19,8 +19,8 @@
                 <button popover-elem popover-placement="bottom" uib-popover-template="filterViewableBooksTemplate" popover-title="Toon boeken" type="button" class="btn btn-sm margin-left-10 btn-default exclude">Toon {{ viewableFilters.selected.key }}</button>
 
                 <div class="input-group" style="width: 200px; float: right">
-                    <input id="searchBooksInput" ng-model="searchBooksQuery" type="text" class="form-control half-round-corners-left" placeholder="Search" name="criteria" aria-describedby="basic-addon1">
-                    <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon1"></span>
+                    <input id="searchBooksInput" ng-model-options="{ debounce: 200 }" ng-model="searchBooksQuery" type="text" class="form-control half-round-corners-left" placeholder="Search" name="criteria" aria-describedby="basic-addon1">
+                    <span ng-click="clearSearch()" class="input-group-addon glyphicon glyphicon-remove cursor-pointer" id="basic-addon"></span>
                 </div>
                 <button popover-elem popover-placement="bottom" uib-popover-template="libraryInformationTemplate" popover-title="Bibliotheek informatie" type="button" class="btn margin-right-10 btn-default exclude pull-right"><span class="glyphicon glyphicon-info-sign popover-elem"></span></button>
             </div>
@@ -28,19 +28,21 @@
 
         <div class="book-panel">
             <img src="/BiblioMania/images/ajax-loader.gif" ng-show="loading">
-            <div ng-show="!loading && !listView">
-                <table class="table table-striped" style="table-layout: fixed">
+            <div ng-show="!listView">
+                <table ng-show="!loading" class="table table-striped" style="table-layout: fixed">
                     <thead sort-header sort-options="orderValues" current-predicate="predicate" reverse-order="reverseOrder"></thead>
                 </table>
-                <image-card ng-repeat="book in books | filter: search | orderBy:predicate:reverseOrder as viewableBooks track by book.id" model="book" warnings="book.warnings" on-edit-click="onEditBook(book)" on-image-click="onImageClickBook(book)" show-edit-button="true" backup-text="{{ ::book.title }}"></image-card>
+                <image-card ng-show="!loading" ng-repeat="book in books | filter: search | orderBy:predicate:reverseOrder as viewableBooks track by book.id" model="book" warnings="book.warnings" on-edit-click="onEditBook(book)" on-image-click="onImageClickBook(book)" show-edit-button="true" backup-text="{{ ::book.title }}"></image-card>
             </div>
 
-            <table ng-show="!loading && listView" class="table table-striped" style="table-layout: fixed">
-                <thead sort-header sort-options="orderValues" current-predicate="predicate" reverse-order="reverseOrder"></thead>
-                <tbody style="text-align: left">
-                    <tr style="cursor: pointer" book-row ng-repeat="book in books | filter: search | orderBy:predicate:reverseOrder as viewableBooks track by book.id" book="book"></tr>
-                </tbody>
-            </table>
+            <div ng-show="listView">
+                <table ng-show="!loading" class="table table-striped" style="table-layout: fixed">
+                    <thead sort-header sort-options="orderValues" current-predicate="predicate" reverse-order="reverseOrder"></thead>
+                    <tbody style="text-align: left">
+                        <tr style="cursor: pointer" book-row ng-repeat="book in books | filter: search | orderBy:predicate:reverseOrder as viewableBooks track by book.id" book="book"></tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
     </div>

@@ -50,9 +50,10 @@ class BookController extends BaseController
         return $this->bookService->update($this->jsonMappingService->mapInputToJson(Input::get(), new UpdateBookFromJsonAdapter()));
     }
 
-    public function deleteBook()
+    public function deleteBook($bookId)
     {
-        $this->bookService->deleteBook(Input::get("bookId"));
+        $this->bookService->deleteBook($bookId);
+        return "Book deleted";
     }
 
     public function getFilters()
