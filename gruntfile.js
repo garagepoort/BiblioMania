@@ -3,7 +3,7 @@ module.exports = function (grunt) {
 
         concat: {
             js: {
-                src: ['app/assets/main/**/*.js'],
+                src: ['app/assets/main/angular/angular-charts/Chart.min.js','app/assets/main/angular/angular-charts/angular-chart.min.js', 'app/assets/main/**/*.js'],
                 dest: 'app/assets/concatMain.js'
             }
         },
