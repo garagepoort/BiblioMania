@@ -2,6 +2,14 @@
     <div class="contentPanel">
 
         <errorcontainer></errorcontainer>
+        <div class="top-book-panel">
+            <button class="btn btn-default btn-sm" ng-click="openAddChartModal()">Add Chart</button>
+        </div>
+        <div>
+            {{ chartData }}
+        </div>
 
+        <canvas id="bar" class="chart chart-bar"
+                chart-data="chartData.data" chart-labels="chartData.labels" chart-series="chartData.series"/>
     </div>
 </div>

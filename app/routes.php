@@ -19,6 +19,9 @@ Route::group(array('before' => 'auth'), function () {
     Route::post('users/{id}/wishlist', 'WishlistController@addBookToWishlist');
     Route::put('users/{id}/wishlist/remove-book', 'WishlistController@removeBookFromWishlist');
 
+    Route::get('chart-configurations', 'ChartConfigurationController@getChartConfigurations');
+    Route::get('chart-data/{configurationId}', 'ChartConfigurationController@getChartData');
+
     Route::get('books', 'BookController@getBooks');
     Route::post('books', 'BookController@createBook');
     Route::put('books', 'BookController@updateBook');
@@ -85,7 +88,6 @@ Route::group(array('before' => 'auth'), function () {
 
     Route::get('genres', 'GenreController@getGenres');
 
-//  BOOKS
     Route::get('getBooksList', 'BookController@getBooksList');
     Route::get('getDraftBooksList', 'BookController@getDraftBooksList');
     Route::get('getFullBook', 'BookController@getFullBook');
