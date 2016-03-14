@@ -4,23 +4,23 @@ class ChartConfigurationToJsonAdapter
 {
     private $id;
     private $title;
-    private $xProperties;
+    private $xProperty;
 
     /** @var  DateToJsonAdapter $date */
     private $date;
 
     public function __construct(ChartConfiguration $chartConfiguration)
     {
-        $this->id = $chartConfiguration->getId();
-        $this->title = $chartConfiguration->getTitle();
-        $this->xProperties = $chartConfiguration->getXProperty();
+        $this->id = $chartConfiguration->id;
+        $this->title = $chartConfiguration->title;
+        $this->xProperty = $chartConfiguration->xProperty;
     }
 
     public function mapToJson(){
         $result = array(
             "id" => $this->id,
             "title" => $this->title,
-            "xProperties" => $this->xProperties
+            "xProperty" => $this->xProperty
         );
         return $result;
     }

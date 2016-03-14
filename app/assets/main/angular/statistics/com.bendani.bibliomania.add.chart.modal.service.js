@@ -22,9 +22,22 @@ angular.module('com.bendani.bibliomania.add.chart.modal.service', [])
             return new AddChartModalService($uibModal);
         }];
     })
-    .controller('AddChartModalController', ['$scope', 'ChartConfiguration', function($scope, ChartConfiguration){
+    .controller('AddChartModalController', ['$scope', 'ChartConfiguration', 'ErrorContainer', 'growl', function($scope, ChartConfiguration, ErrorContainer, growl){
 
-        $scope.createChart = function(){
-            ChartConfiguration.save();
+        $scope.submitAttempted = false;
+        $scope.model = {};
+        $scope.model.conditions = [];
+
+        $scope.data = {};
+        $scope.data.xproperties = ChartConfiguration.xproperties(function(){}, ErrorContainer.handleRestError);
+
+        $scope.createChart = function($formValid){
+            $scope.submitAttempted = true;
+            if($formValid){
+                ChartConfiguration.save($scope.model, function(){
+                    growl.addSuccessMessage('Configuratie opgeslagen');
+                    $scope.$close();
+                }, ErrorContainer.handleRestError);
+            }
         };
     }]);

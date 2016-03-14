@@ -7,7 +7,7 @@ class ChartConfigurationService
         return DB::transaction(function() use ($userId, $chartConfigurationRequest){
             $chart = new ChartConfiguration();
             $chart->user_id = $userId;
-            $chart->type = $chartConfigurationRequest->getType();
+            $chart->type = "BAR";
             $chart->title = $chartConfigurationRequest->getTitle();
             $chart->xProperty = $chartConfigurationRequest->getXProperty();
             $chart->save();

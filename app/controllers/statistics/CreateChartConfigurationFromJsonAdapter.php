@@ -31,4 +31,30 @@ class CreateChartConfigurationFromJsonAdapter implements CreateChartConfiguratio
     {
         return $this->conditions;
     }
+
+    /**
+     * @param string $title
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    }
+
+    /**
+     * @param mixed $xProperty
+     */
+    public function setXProperty($xProperty)
+    {
+        $this->xProperty = $xProperty;
+    }
+
+    /**
+     * @param mixed $conditions
+     */
+    public function setConditions($conditions)
+    {
+        $this->conditions = $conditions;
+    }
+
+
 }

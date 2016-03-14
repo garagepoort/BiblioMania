@@ -19,6 +19,7 @@ Route::group(array('before' => 'auth'), function () {
     Route::post('users/{id}/wishlist', 'WishlistController@addBookToWishlist');
     Route::put('users/{id}/wishlist/remove-book', 'WishlistController@removeBookFromWishlist');
 
+    Route::get('chart-configurations/xproperties', 'ChartConfigurationController@getXProperties');
     Route::get('chart-configurations', 'ChartConfigurationController@getChartConfigurations');
     Route::post('chart-configurations', 'ChartConfigurationController@createChartConfiguration');
     Route::get('chart-data/{configurationId}', 'ChartConfigurationController@getChartData');

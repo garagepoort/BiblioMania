@@ -4,10 +4,10 @@ class ChartDataService
 {
 
     public function getChartDataFromConfiguration($userId, ChartConfiguration $chartConfiguration){
-        if($chartConfiguration->getType() === 'BAR'){
+        if($chartConfiguration->type === 'BAR'){
             return $this->getBarChartDataFromConfiguration($userId, $chartConfiguration);
         }
-        if($chartConfiguration->getType() === 'SCATTER'){
+        if($chartConfiguration->type === 'SCATTER'){
             return $this->getScatterChartDataFromConfiguration($userId, $chartConfiguration);
         }
     }
@@ -16,13 +16,13 @@ class ChartDataService
         $labels = array();
         $data = array();
 
-        $builder = DB::table('book')->select($chartConfiguration->getXProperty() . ' as x', $chartConfiguration->getYProperty() . " as y");
+        $builder = DB::table('book')->select($chartConfiguration->xProperty . ' as x', $chartConfiguration->yProperty . " as y");
         $builder = $this->join($builder);
         $builder =  $builder->where('user_id', '=', $userId);
 
         /** @var ChartCondition $condition */
-        foreach($chartConfiguration->getConditions() as $condition){
-            $builder = $builder->where($condition->getName(), $condition->getOperator(), $condition->getValue());
+        foreach($chartConfiguration->conditions as $condition){
+            $builder = $builder->where($condition->name, $condition->operator, $condition->value);
         }
 
         $results = $builder->get();
@@ -37,7 +37,7 @@ class ChartDataService
         }
         array_push($data, $values);
 
-        $chartData = new ChartData($chartConfiguration->getTitle(), $chartConfiguration->getType(), $labels, $data);
+        $chartData = new ChartData($chartConfiguration->title, $chartConfiguration->type, $labels, $data);
         return $chartData;
     }
 
@@ -45,16 +45,16 @@ class ChartDataService
         $labels = array();
         $data = array();
 
-        $builder = DB::table('book')->select($chartConfiguration->getXProperty() . ' as xProperty', DB::raw("count(*) as total"));
+        $builder = DB::table('book')->select($chartConfiguration->xProperty . ' as xProperty', DB::raw("count(*) as total"));
         $builder = $this->join($builder);
         $builder =  $builder->where('user_id', '=', $userId);
 
         /** @var ChartCondition $condition */
-        foreach($chartConfiguration->getConditions() as $condition){
-            $builder = $builder->where($condition->getName(), $condition->getOperator(), $condition->getValue());
+        foreach($chartConfiguration->conditions as $condition){
+            $builder = $builder->where($condition->name, $condition->operator, $condition->value);
         }
 
-        $results = $builder->groupBy($chartConfiguration->getXProperty())->get();
+        $results = $builder->groupBy($chartConfiguration->xProperty)->get();
 
         $values = array();
         foreach($results as $result){
@@ -66,7 +66,7 @@ class ChartDataService
         }
         array_push($data, $values);
 
-        $chartData = new ChartData($chartConfiguration->getTitle(), $chartConfiguration->getType(), $labels, $data);
+        $chartData = new ChartData($chartConfiguration->title, $chartConfiguration->type, $labels, $data);
         return $chartData;
     }
 
