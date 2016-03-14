@@ -24,10 +24,9 @@ class ChartConfigurationController extends BaseController
     }
 
     public function getXProperties(){
-        $xPropertiesToJsonAdapter = new XPropertiesToJsonAdapter();
-        return $xPropertiesToJsonAdapter->mapToJson(array(
-            "genre" => "genre.name"
-        ));
+        return array(
+            XPropertiesToJsonAdapter::createXProperty("genre", "genre.name")
+        );
     }
 
     public function createChartConfiguration(){
