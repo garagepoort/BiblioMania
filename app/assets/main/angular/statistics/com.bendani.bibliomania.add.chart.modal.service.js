@@ -22,5 +22,9 @@ angular.module('com.bendani.bibliomania.add.chart.modal.service', [])
             return new AddChartModalService($uibModal);
         }];
     })
-    .controller('AddChartModalController', ['$scope', function($scope){
+    .controller('AddChartModalController', ['$scope', 'ChartConfiguration', function($scope, ChartConfiguration){
+
+        $scope.createChart = function(){
+            ChartConfiguration.save();
+        };
     }]);

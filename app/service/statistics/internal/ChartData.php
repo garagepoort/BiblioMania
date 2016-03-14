@@ -2,21 +2,33 @@
 
 class ChartData
 {
+    private $title;
+    private $type;
     private $labels;
     private $data;
-    private $series;
 
     /**
      * ChartData constructor.
+     * @param $title
+     * @param $type
      * @param $labels
      * @param $data
      * @param $series
      */
-    public function __construct($labels, $data, $series)
+    public function __construct($title, $type, $labels, $data)
     {
+        $this->title = $title;
         $this->labels = $labels;
         $this->data = $data;
-        $this->series = $series;
+        $this->type = $type;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTitle()
+    {
+        return $this->title;
     }
 
     /**
@@ -34,15 +46,6 @@ class ChartData
     {
         return $this->data;
     }
-
-    /**
-     * @return mixed
-     */
-    public function getSeries()
-    {
-        return $this->series;
-    }
-
 
 
 

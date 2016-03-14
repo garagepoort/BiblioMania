@@ -20,6 +20,7 @@ Route::group(array('before' => 'auth'), function () {
     Route::put('users/{id}/wishlist/remove-book', 'WishlistController@removeBookFromWishlist');
 
     Route::get('chart-configurations', 'ChartConfigurationController@getChartConfigurations');
+    Route::post('chart-configurations', 'ChartConfigurationController@createChartConfiguration');
     Route::get('chart-data/{configurationId}', 'ChartConfigurationController@getChartData');
 
     Route::get('books', 'BookController@getBooks');

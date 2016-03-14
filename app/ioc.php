@@ -16,6 +16,10 @@ App::singleton('ImageService', function () {
     return new ImageService;
 });
 
+App::singleton('ChartConfigurationService', function () {
+    return new ChartConfigurationService();
+});
+
 App::singleton('GenreService', function () {
     return new GenreService();
 });

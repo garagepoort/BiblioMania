@@ -3,7 +3,8 @@
 angular.module('com.bendani.bibliomania.statistics.ui', [
     'com.bendani.bibliomania.add.chart.modal.service',
     'com.bendani.bibliomania.title.panel',
-    'com.bendani.bibliomania.chart.data.model'])
+    'com.bendani.bibliomania.chart.directive',
+    'com.bendani.bibliomania.chart.configuration.model'])
     .config(['$routeProvider',function ($routeProvider) {
         $routeProvider.when('/statistics', {
             templateUrl: '../BiblioMania/views/partials/statistics/statistics.html',
@@ -15,7 +16,8 @@ angular.module('com.bendani.bibliomania.statistics.ui', [
         'TitlePanelService',
         'AddChartModalService',
         'ChartData',
-        function ($scope, ErrorContainer, TitlePanelService, AddChartModalService, ChartData) {
+        'ChartConfiguration',
+        function ($scope, ErrorContainer, TitlePanelService, AddChartModalService, ChartData, ChartConfiguration) {
 
             function init() {
                 TitlePanelService.setTitle('Statistieken');
@@ -29,7 +31,7 @@ angular.module('com.bendani.bibliomania.statistics.ui', [
                 });
             };
 
-            $scope.chartData = ChartData.get({ id: '12' }, function(){}, ErrorContainer.handleRestError);
+            $scope.chartConfigurations = ChartConfiguration.get(function(){}, ErrorContainer.handleRestError);
 
             init();
         }]);

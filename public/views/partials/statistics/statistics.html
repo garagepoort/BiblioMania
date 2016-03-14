@@ -5,11 +5,9 @@
         <div class="top-book-panel">
             <button class="btn btn-default btn-sm" ng-click="openAddChartModal()">Add Chart</button>
         </div>
-        <div>
-            {{ chartData }}
+        <div class="row col-md-12">
+            <chart ng-repeat="chartConfig in chartConfigurations" chart-configuration-id="chartConfig.id">
+            </chart>
         </div>
-
-        <canvas id="bar" class="chart chart-bar"
-                chart-data="chartData.data" chart-labels="chartData.labels" chart-series="chartData.series"/>
     </div>
 </div>

@@ -1,57 +1,26 @@
 <?php
 
-class ChartConfiguration
+class ChartConfiguration extends Eloquent
 {
 
-    private $id;
-    private $title;
-    private $xProperty;
-    private $series;
+    protected $table = 'chart_configuration';
 
-    /**
-     * ChartConfiguration constructor.
-     * @param $title
-     * @param $xProperty
-     * @param $series
-     */
-    public function __construct($title, $xProperty, $series)
-    {
-        $this->title = $title;
-        $this->xProperty = $xProperty;
-        $this->series = $series;
-    }
+    protected $fillable = array(
+        'title',
+        'user_id',
+        'type',
+        'xProperty',
+        'yProperty'
+    );
+
+    protected $with = array('conditions');
 
     /**
      * @return mixed
      */
-    public function getId()
+    public function conditions()
     {
-        return $this->id;
+        return $this->hasMany('ChartCondition', 'chart_configuration_id');
     }
-
-    /**
-     * @return mixed
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getXProperty()
-    {
-        return $this->xProperty;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSeries()
-    {
-        return $this->series;
-    }
-
 
 }
