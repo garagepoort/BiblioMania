@@ -1,0 +1,45 @@
+<div class="create-book-div">
+    <form autocomplete="off" id="chartCreationForm" name="chartCreationForm"
+          ng-submit="createChart(chartCreationForm.$valid)"
+          novalidate>
+        <fieldset style="text-align: left;">
+            <div class="form-container">
+
+                <div class="form-subtitle">Diagram toevoegen</div>
+                <div class="form-content col-md-12">
+                    <div class="col-md-6">
+                        <div class="form-group required"
+                             ng-class="{'has-error has-feedback' : chartCreationForm.title.$invalid && (chartCreationForm.title.$dirty || submitAttempted)}">
+                            <label id="title" class="control-label">Titel </label>
+                            <div>
+                                <input type="text" class="form-control" ng-model="model.title" name="title"
+                                       required="true"/>
+                                    <span ng-show="chartCreationForm.title.$invalid && (chartCreationForm.title.$dirty || submitAttempted)"
+                                          class="form-error-message help-inline"><i
+                                            class="fa fa-exclamation-circle"></i> Titel is verplicht</span>
+                            </div>
+                        </div>
+                        <div class="form-group"
+                             ng-class="{'has-error has-feedback' : chartCreationForm.xProperty.$invalid && (chartCreationForm.xProperty.$dirty || submitAttempted)}">
+                            <label class="control-label">X as</label>
+
+                            <select name="xProperty" class="input-sm form-control" ng-model="model.xProperty"
+                                    required="true"
+                                    ng-options="xproperty.key as xproperty.name for xproperty in data.xproperties"></select>
+                                <span ng-show="chartCreationForm.xProperty.$invalid && (chartCreationForm.xProperty.$dirty || submitAttempted)"
+                                      class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> X as is verplicht</span>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12"
+                         ng-class="{'has-error has-feedback' : chartCreationForm.xProperty.$invalid && (chartCreationForm.xProperty.$dirty || submitAttempted)}">
+                        <label class="control-label">Y as</label>
+
+                        <filters-directive filter-service-id="filterServiceId" on-filter="filterBooks(selectedFilters)" control="filterControl">
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" type="submit">Create</button>
+            </div>
+        </fieldset>
+    </form>
+</div>

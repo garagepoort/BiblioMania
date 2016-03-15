@@ -1,5 +1,7 @@
 <?php
 
+use Bendani\PhpCommon\FilterService\Model\ChartConfigurationXProperty;
+
 class ChartConfigurationController extends BaseController
 {
 
@@ -25,7 +27,8 @@ class ChartConfigurationController extends BaseController
 
     public function getXProperties(){
         return array(
-            XPropertiesToJsonAdapter::createXProperty("genre", "genre.name")
+            XPropertiesToJsonAdapter::createXProperty("genre", ChartConfigurationXProperty::GENRE),
+            XPropertiesToJsonAdapter::createXProperty("Leesjaar", ChartConfigurationXProperty::READING_DATE_YEAR)
         );
     }
 

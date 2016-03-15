@@ -1,7 +1,6 @@
 'use strict';
 
 angular.module('com.bendani.bibliomania.statistics.ui', [
-    'com.bendani.bibliomania.add.chart.modal.service',
     'com.bendani.bibliomania.title.panel',
     'com.bendani.bibliomania.chart.directive',
     'com.bendani.bibliomania.chart.configuration.model'])
@@ -14,21 +13,18 @@ angular.module('com.bendani.bibliomania.statistics.ui', [
     .controller('StatisticsController', ['$scope',
         'ErrorContainer',
         'TitlePanelService',
-        'AddChartModalService',
         'ChartData',
         'ChartConfiguration',
-        function ($scope, ErrorContainer, TitlePanelService, AddChartModalService, ChartData, ChartConfiguration) {
+        '$location',
+        function ($scope, ErrorContainer, TitlePanelService, ChartData, ChartConfiguration, $location) {
 
             function init() {
                 TitlePanelService.setTitle('Statistieken');
                 TitlePanelService.setShowPreviousButton(false);
-
             }
 
-            $scope.openAddChartModal = function(){
-                AddChartModalService.show(function(){
-
-                });
+            $scope.goToCreateChart = function(){
+                $location.path('/create-chart');
             };
 
             $scope.chartConfigurations = ChartConfiguration.get(function(){}, ErrorContainer.handleRestError);
