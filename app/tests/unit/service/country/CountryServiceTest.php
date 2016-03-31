@@ -1,5 +1,7 @@
 <?php
 
+use Bendani\PhpCommon\Utils\Exception\ServiceException;
+
 class CountryServiceTest extends TestCase {
     /** @var CountryRepository $countryRepositoryMock */
     private $countryRepositoryMock;
@@ -15,7 +17,7 @@ class CountryServiceTest extends TestCase {
     }
 
     /**
-     * @expectedException ServiceException
+     * @expectedException Bendani\PhpCommon\Utils\Exception\ServiceException
      */
     public function testEditCountryName_whenCountryDoesNotExist_throwError()
     {
@@ -28,7 +30,7 @@ class CountryServiceTest extends TestCase {
     }
 
     /**
-     * @expectedException ServiceException
+     * @expectedException Bendani\PhpCommon\Utils\Exception\ServiceException
      */
     public function testEditCountryName_whenEmptyName_throwError()
     {
@@ -62,7 +64,7 @@ class CountryServiceTest extends TestCase {
     }
 
     /**
-     * @expectedException ServiceException
+     * @expectedException Bendani\PhpCommon\Utils\Exception\ServiceException
      */
     public function testDeleteCountry_whenCountryDoesNotExist_throwError()
     {

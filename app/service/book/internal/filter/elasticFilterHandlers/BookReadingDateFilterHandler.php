@@ -1,16 +1,17 @@
 <?php
 
-use Bendani\PhpCommon\FilterService\Model\Filter;
 use Bendani\PhpCommon\FilterService\Model\FilterBuilder;
-use Bendani\PhpCommon\FilterService\Model\FilterDateRequest;
 use Bendani\PhpCommon\FilterService\Model\FilterHandler;
 use Bendani\PhpCommon\FilterService\Model\FilterOperator;
-use Bendani\PhpCommon\Utils\Model\StringUtils;
+use Bendani\PhpCommon\FilterService\Model\FilterValue;
+use Bendani\PhpCommon\Utils\Ensure;
+use Bendani\PhpCommon\Utils\Exception\ServiceException;
+use Bendani\PhpCommon\Utils\StringUtils;
 
 class BookReadingDateFilterHandler implements FilterHandler
 {
 
-    public function handleFilter(Filter $filter)
+    public function handleFilter(FilterValue $filter, $object = null)
     {
         Ensure::stringNotBlank('reading.year', $filter->getOperator());
 
@@ -43,35 +44,6 @@ class BookReadingDateFilterHandler implements FilterHandler
 
         throw new ServiceException('FilterOperator not supported');
 
-    }
-
-    public function getFilterId()
-    {
-        return "personal-readingdate";
-    }
-
-    public function getType()
-    {
-        return "partial-date";
-    }
-
-    public function getField()
-    {
-        return "Leesdatum";
-    }
-
-    public function getSupportedOperators()
-    {
-        return array(
-            array("key"=>"=", "value"=>FilterOperator::EQUALS),
-            array("key"=>">", "value"=>FilterOperator::GREATER_THAN),
-            array("key"=>"<", "value"=>FilterOperator::LESS_THAN)
-        );
-    }
-
-    public function getGroup()
-    {
-        return "personal";
     }
 
 }

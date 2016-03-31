@@ -1,12 +1,9 @@
 <?php
 
-use Bendani\PhpCommon\FilterService\Model\Filter;
-use Bendani\PhpCommon\FilterService\Model\FilterBuilder;
-use Bendani\PhpCommon\FilterService\Model\FilterOperator;
-use Bendani\PhpCommon\FilterService\Model\OptionsFilterHandler;
-use Bendani\PhpCommon\Utils\Model\StringUtils;
+use Bendani\PhpCommon\FilterService\Model\OptionsFilter;
+use Bendani\PhpCommon\Utils\StringUtils;
 
-class BookGenreFilterHandler implements OptionsFilterHandler
+class BookGenreFilter implements OptionsFilter
 {
     /** @var  GenreService $genreService */
     private $genreService;
@@ -18,18 +15,9 @@ class BookGenreFilterHandler implements OptionsFilterHandler
         $this->genreService = App::make('GenreService');
     }
 
-    public function handleFilter(Filter $filter)
-    {
-        Ensure::objectNotNull('selected options', $filter->getValue());
-
-        $options = array_map(function($item){ return $item->value; }, (array) $filter->getValue());
-
-        return FilterBuilder::terms('genre', $options);
-    }
-
     public function getFilterId()
     {
-        return "book-genre";
+        return FilterType::BOOK_GENRE;
     }
 
     public function getType()

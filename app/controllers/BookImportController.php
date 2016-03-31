@@ -1,7 +1,5 @@
 <?php
 
-use Bendani\PhpCommon\Utils\Model\StringUtils;
-
 class BookImportController extends BaseController {
 
 	private $logger;

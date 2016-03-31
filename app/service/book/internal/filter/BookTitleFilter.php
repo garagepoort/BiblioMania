@@ -5,16 +5,11 @@ use Bendani\PhpCommon\FilterService\Model\FilterBuilder;
 use Bendani\PhpCommon\FilterService\Model\FilterHandler;
 use Bendani\PhpCommon\FilterService\Model\FilterOperator;
 
-class BookTitleFilterHandler implements FilterHandler
+class BookTitleFilter implements Filter
 {
-    public function handleFilter(Filter $filter)
-    {
-        return FilterBuilder::wildcard('title', '*' . $filter->getValue() . '*');
-    }
-
     public function getFilterId()
     {
-        return "book-title";
+        return FilterType::BOOK_TITLE;
     }
 
     public function getType()
@@ -36,8 +31,4 @@ class BookTitleFilterHandler implements FilterHandler
         return "book";
     }
 
-    public function joinQuery($queryBuilder)
-    {
-        return $queryBuilder;
-    }
 }

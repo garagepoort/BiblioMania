@@ -11,6 +11,8 @@
 |
 */
 
+use Bendani\PhpCommon\Utils\Exception\JsonException;
+
 ClassLoader::addDirectories(array(
 
 	app_path().'/commands',

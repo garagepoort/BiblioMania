@@ -2,7 +2,8 @@
 
 
 use Bendani\PhpCommon\FilterService\Model\FilterReturnType;
-use Bendani\PhpCommon\Utils\Model\StringUtils;
+use Bendani\PhpCommon\Utils\Ensure;
+use Bendani\PhpCommon\Utils\StringUtils;
 
 class BookElasticIndexer
 {

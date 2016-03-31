@@ -1,26 +1,13 @@
 <?php
 
-use Bendani\PhpCommon\FilterService\Model\Filter;
-use Bendani\PhpCommon\FilterService\Model\FilterBuilder;
-use Bendani\PhpCommon\FilterService\Model\FilterOperator;
-use Bendani\PhpCommon\FilterService\Model\OptionsFilterHandler;
+use Bendani\PhpCommon\FilterService\Model\OptionsFilter;
 
-class BookRatingFilterHandler implements OptionsFilterHandler
+class BookRatingFilter implements OptionsFilter
 {
-    public function handleFilter(Filter $filter)
-    {
-        Ensure::objectNotNull('selected options', $filter->getValue());
-
-        $options = array_map(function($item){
-            return $item->value;
-        }, (array) $filter->getValue());
-
-        return FilterBuilder::terms('personalBookInfos.readingDates.rating', $options);
-    }
 
     public function getFilterId()
     {
-        return "personal-rating";
+        return FilterType::BOOK_RATING;
     }
 
     public function getType()
@@ -57,8 +44,4 @@ class BookRatingFilterHandler implements OptionsFilterHandler
         return "personal";
     }
 
-    public function joinQuery($queryBuilder)
-    {
-        return $queryBuilder;
-    }
 }

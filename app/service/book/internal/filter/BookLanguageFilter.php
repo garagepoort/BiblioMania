@@ -1,12 +1,8 @@
 <?php
 
-use Bendani\PhpCommon\FilterService\Model\Filter;
-use Bendani\PhpCommon\FilterService\Model\FilterBuilder;
-use Bendani\PhpCommon\FilterService\Model\FilterOperator;
-use Bendani\PhpCommon\FilterService\Model\OptionsFilterHandler;
-use Bendani\PhpCommon\Utils\Model\StringUtils;
+use Bendani\PhpCommon\FilterService\Model\OptionsFilter;
 
-class BookLanguageFilterHandler implements OptionsFilterHandler
+class BookLanguageFilter implements OptionsFilter
 {
     /** @var  LanguageService $languageService */
     private $languageService;
@@ -18,18 +14,9 @@ class BookLanguageFilterHandler implements OptionsFilterHandler
         $this->languageService = App::make('LanguageService');
     }
 
-    public function handleFilter(Filter $filter)
-    {
-        Ensure::objectNotNull('selected options', $filter->getValue());
-
-        $options = array_map(function($item){ return StringUtils::toLowerCase($item->value); }, (array) $filter->getValue());
-
-        return FilterBuilder::terms('language', $options);
-    }
-
     public function getFilterId()
     {
-        return "book-language";
+        return FilterType::BOOK_LANGUAGE;
     }
 
     public function getType()
@@ -58,8 +45,4 @@ class BookLanguageFilterHandler implements OptionsFilterHandler
         return "book";
     }
 
-    public function joinQuery($queryBuilder)
-    {
-        return $queryBuilder;
-    }
 }

@@ -1,13 +1,15 @@
 <?php
 
-use Bendani\PhpCommon\FilterService\Model\Filter;
 use Bendani\PhpCommon\FilterService\Model\FilterBuilder;
 use Bendani\PhpCommon\FilterService\Model\FilterHandler;
 use Bendani\PhpCommon\FilterService\Model\FilterOperator;
+use Bendani\PhpCommon\FilterService\Model\FilterValue;
+use Bendani\PhpCommon\Utils\Ensure;
+use Bendani\PhpCommon\Utils\Exception\ServiceException;
 
 class BookRetailPriceFilterHandler implements FilterHandler
 {
-    public function handleFilter(Filter $filter)
+    public function handleFilter(FilterValue $filter, $object = null)
     {
         Ensure::stringNotBlank('book.retail.price', $filter->getOperator());
         if($filter->getOperator() == FilterOperator::EQUALS){
@@ -21,39 +23,5 @@ class BookRetailPriceFilterHandler implements FilterHandler
         }
 
         throw new ServiceException('FilterOperator not supported');
-    }
-
-    public function getFilterId()
-    {
-        return "book-retail_price";
-    }
-
-    public function getType()
-    {
-        return "number";
-    }
-
-    public function getField()
-    {
-        return "Cover prijs";
-    }
-
-    public function getSupportedOperators()
-    {
-        return array(
-            array("key"=>"=", "value"=>FilterOperator::EQUALS),
-            array("key"=>">", "value"=>FilterOperator::GREATER_THAN),
-            array("key"=>"<", "value"=>FilterOperator::LESS_THAN)
-        );
-    }
-
-    public function getGroup()
-    {
-        return "book";
-    }
-
-    public function joinQuery($queryBuilder)
-    {
-        return $queryBuilder;
     }
 }

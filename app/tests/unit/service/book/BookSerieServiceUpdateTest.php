@@ -1,5 +1,7 @@
 <?php
 
+use Bendani\PhpCommon\Utils\Exception\ServiceException;
+
 class BookSerieServiceUpdateTest extends TestCase
 {
     /** @var  BookSerieService */
@@ -49,7 +51,7 @@ class BookSerieServiceUpdateTest extends TestCase
     }
 
     /**
-     * @expectedException ServiceException
+     * @expectedException Bendani\PhpCommon\Utils\Exception\ServiceException
      * @expectedExceptionMessage Serie to update does not exist
      */
     public function test_shouldThrowExceptionWhenSerieToUpdateDoesNotExists(){
@@ -60,7 +62,7 @@ class BookSerieServiceUpdateTest extends TestCase
 
 
     /**
-     * @expectedException ServiceException
+     * @expectedException Bendani\PhpCommon\Utils\Exception\ServiceException
      * @expectedExceptionMessage A serie with this name already exists
      */
     public function test_shouldThrowExceptionWhenOtherSerieWithSameNameAlreadyExists(){

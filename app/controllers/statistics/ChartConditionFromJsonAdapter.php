@@ -32,4 +32,30 @@ class ChartConditionFromJsonAdapter implements CreateChartConditionRequest
     {
         return $this->operator;
     }
+
+    /**
+     * @param string $property
+     */
+    public function setProperty($property)
+    {
+        $this->property = $property;
+    }
+
+    /**
+     * @param mixed $operator
+     */
+    public function setOperator($operator)
+    {
+        $this->operator = $operator;
+    }
+
+    /**
+     * @param mixed $value
+     */
+    public function setValue($value)
+    {
+        $this->value = $value;
+    }
+
+
 }

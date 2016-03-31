@@ -1,6 +1,7 @@
 <?php
 
 use Bendani\PhpCommon\FilterService\Model\FilterManager;
+use Bendani\PhpCommon\Utils\Ensure;
 
 class BookFilterManager extends FilterManager
 {
@@ -9,22 +10,22 @@ class BookFilterManager extends FilterManager
 
     public function __construct()
     {
-        $filters = array(new BookTitleFilterHandler(),
-            new BookCountryFilterHandler(),
-            new BookLanguageFilterHandler(),
-            new BookGenreFilterHandler(),
-            new BookRetailPriceFilterHandler(),
-            new BookPublisherFilterHandler(),
-            new BookOwnedFilterHandler(),
-            new BookReadFilterHandler(),
-            new BookRatingFilterHandler(),
-            new BookReadingDateFilterHandler(),
-            new BookBuyPriceFilterHandler(),
-            new BookBuyDateFilterHandler(),
-            new BookGiftFromFilterHandler(),
-            new BookAuthorFilterHandler(),
-            new BookIsPersonalFilterHandler(),
-            new BookTagFilterHandler()
+        $filters = array(new BookTitleFilter(),
+            new BookCountryFilter(),
+            new BookLanguageFilter(),
+            new BookGenreFilter(),
+            new BookRetailPriceFilter(),
+            new BookPublisherFilter(),
+            new BookOwnedFilter(),
+            new BookReadFilter(),
+            new BookRatingFilter(),
+            new BookReadingDateFilter(),
+            new BookBuyPriceFilter(),
+            new BookBuyDateFilter(),
+            new BookGiftFromFilter(),
+            new BookAuthorFilter(),
+            new BookIsPersonalFilter(),
+            new BookTagFilter()
         );
         parent::__construct($filters);
 

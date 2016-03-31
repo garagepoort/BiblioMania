@@ -1,6 +1,7 @@
 <?php
 
 use Bendani\PhpCommon\FilterService\Model\ChartConfigurationXProperty;
+use Bendani\PhpCommon\Utils\Ensure;
 
 class ChartConfigurationController extends BaseController
 {

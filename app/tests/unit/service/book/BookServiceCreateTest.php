@@ -1,5 +1,7 @@
 <?php
 
+use Bendani\PhpCommon\Utils\Exception\ServiceException;
+
 class BookServiceCreateTest extends TestCase
 {
     const BOOK_ID = 123;
@@ -207,7 +209,7 @@ class BookServiceCreateTest extends TestCase
     }
 
     /**
-     * @expectedException ServiceException
+     * @expectedException Bendani\PhpCommon\Utils\Exception\ServiceException
      * @expectedExceptionMessage Object Genre can not be null.
      */
     public function test_shouldThrowExceptionWhenGenreNotFound()
@@ -220,7 +222,7 @@ class BookServiceCreateTest extends TestCase
     }
 
     /**
-     * @expectedException ServiceException
+     * @expectedException Bendani\PhpCommon\Utils\Exception\ServiceException
      * @expectedExceptionMessage Object Author can not be null.
      */
     public function test_shouldThrowExceptionWhenPreferredAuthorNotFound()
@@ -233,7 +235,7 @@ class BookServiceCreateTest extends TestCase
     }
 
     /**
-     * @expectedException ServiceException
+     * @expectedException Bendani\PhpCommon\Utils\Exception\ServiceException
      * @expectedExceptionMessage Object PublicationDate can not be null.
      */
     public function test_shouldThrowExceptionWhenPublicationDateIsNull()
@@ -243,7 +245,7 @@ class BookServiceCreateTest extends TestCase
         $this->bookService->create($this->createBookRequestImpl);
     }
     /**
-     * @expectedException ServiceException
+     * @expectedException Bendani\PhpCommon\Utils\Exception\ServiceException
      * @expectedExceptionMessage Field PublicationDate year can not be empty.
      */
     public function test_shouldThrowExceptionWhenPublicationDateYearIsEmpty()
@@ -256,7 +258,7 @@ class BookServiceCreateTest extends TestCase
     }
 
     /**
-     * @expectedException ServiceException
+     * @expectedException Bendani\PhpCommon\Utils\Exception\ServiceException
      * @expectedExceptionMessage Field PublicationDate year can not be empty.
      */
     public function test_shouldThrowExceptionWhenPublicationDateYearIsNull()
@@ -269,7 +271,7 @@ class BookServiceCreateTest extends TestCase
     }
 
     /**
-     * @expectedException ServiceException
+     * @expectedException Bendani\PhpCommon\Utils\Exception\ServiceException
      * @expectedExceptionMessage Field Language can not be empty.
      */
     public function test_shouldThrowExceptionWhenLanguageIsNull()
@@ -280,7 +282,7 @@ class BookServiceCreateTest extends TestCase
     }
 
     /**
-     * @expectedException ServiceException
+     * @expectedException Bendani\PhpCommon\Utils\Exception\ServiceException
      * @expectedExceptionMessage Field Language can not be empty.
      */
     public function test_shouldThrowExceptionWhenLanguageIsEmpty()
@@ -291,7 +293,7 @@ class BookServiceCreateTest extends TestCase
     }
 
     /**
-     * @expectedException ServiceException
+     * @expectedException Bendani\PhpCommon\Utils\Exception\ServiceException
      * @expectedExceptionMessage Field Title can not be empty.
      */
     public function test_shouldThrowExceptionWhenTitleIsNull()
@@ -302,7 +304,7 @@ class BookServiceCreateTest extends TestCase
     }
 
     /**
-     * @expectedException ServiceException
+     * @expectedException Bendani\PhpCommon\Utils\Exception\ServiceException
      * @expectedExceptionMessage Field Title can not be empty.
      */
     public function test_shouldThrowExceptionWhenTitleIsEmpty()
@@ -313,7 +315,7 @@ class BookServiceCreateTest extends TestCase
     }
 
     /**
-     * @expectedException ServiceException
+     * @expectedException Bendani\PhpCommon\Utils\Exception\ServiceException
      * @expectedExceptionMessage Field Publisher can not be empty.
      */
     public function test_shouldThrowExceptionWhenPublisherIsNull()
@@ -324,7 +326,7 @@ class BookServiceCreateTest extends TestCase
     }
 
     /**
-     * @expectedException ServiceException
+     * @expectedException Bendani\PhpCommon\Utils\Exception\ServiceException
      * @expectedExceptionMessage Field Publisher can not be empty.
      */
     public function test_shouldThrowExceptionWhenPublisherIsEmpty()
@@ -335,7 +337,7 @@ class BookServiceCreateTest extends TestCase
     }
 
     /**
-     * @expectedException ServiceException
+     * @expectedException Bendani\PhpCommon\Utils\Exception\ServiceException
      * @expectedExceptionMessage Field Country can not be empty.
      */
     public function test_shouldThrowExceptionWhenCountryIsNull()
@@ -346,7 +348,7 @@ class BookServiceCreateTest extends TestCase
     }
 
     /**
-     * @expectedException ServiceException
+     * @expectedException Bendani\PhpCommon\Utils\Exception\ServiceException
      * @expectedExceptionMessage Field Country can not be empty.
      */
     public function test_shouldThrowExceptionWhenCountryIsEmpty()

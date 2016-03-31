@@ -1,9 +1,10 @@
 <?php
 
-use Bendani\PhpCommon\FilterService\Model\Filter;
 use Bendani\PhpCommon\FilterService\Model\FilterBuilder;
 use Bendani\PhpCommon\FilterService\Model\FilterDateRequest;
 use Bendani\PhpCommon\FilterService\Model\FilterHandler;
+use Bendani\PhpCommon\FilterService\Model\FilterValue;
+use Bendani\PhpCommon\Utils\Ensure;
 
 class BookBuyDateFilterHandler implements FilterHandler
 {
@@ -16,7 +17,7 @@ class BookBuyDateFilterHandler implements FilterHandler
         $this->dateFormatter = App::make('DateFormatter');
     }
 
-    public function handleFilter(Filter $filter)
+    public function handleFilter(FilterValue $filter, $object = null)
     {
         /** @var FilterDateRequest $filterDateRequest */
         $filterDateRequest = $filter->getValue();
@@ -31,29 +32,5 @@ class BookBuyDateFilterHandler implements FilterHandler
             return FilterBuilder::range('personalBookInfos.buyInfo.buy_date', $dateFrom, $dateTo);
         }
         return FilterBuilder::greaterThan('personalBookInfos.buyInfo.buy_date', $dateFrom);
-    }
-
-    public function getFilterId()
-    {
-        return "personal-buy_date";
-    }
-
-    public function getType()
-    {
-        return "date";
-    }
-
-    public function getField()
-    {
-        return "Aankoop datum";
-    }
-
-    public function getSupportedOperators(){
-        return null;
-    }
-
-    public function getGroup()
-    {
-        return "personal";
     }
 }

@@ -28,6 +28,7 @@ angular.module('com.bendani.bibliomania.create.chart.ui', [
         $scope.createChart = function($formValid){
             $scope.submitAttempted = true;
             if($formValid){
+                $scope.model.conditions = FilterService.convertFiltersToJson($scope.filterServiceId);
                 ChartConfiguration.save($scope.model, function(){
                     growl.addSuccessMessage('Configuratie opgeslagen');
                     $location.path("/statistics");

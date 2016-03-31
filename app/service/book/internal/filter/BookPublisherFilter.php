@@ -1,28 +1,14 @@
 <?php
 
-use Bendani\PhpCommon\FilterService\Model\Filter;
-use Bendani\PhpCommon\FilterService\Model\FilterBuilder;
-use Bendani\PhpCommon\FilterService\Model\FilterOperator;
-use Bendani\PhpCommon\FilterService\Model\OptionsFilterHandler;
-use Bendani\PhpCommon\Utils\Model\StringUtils;
+use Bendani\PhpCommon\FilterService\Model\OptionsFilter;
+use Bendani\PhpCommon\Utils\StringUtils;
 
-class BookPublisherFilterHandler implements OptionsFilterHandler
+class BookPublisherFilter implements OptionsFilter
 {
-
-    public function handleFilter(Filter $filter)
-    {
-        Ensure::objectNotNull('selected options', $filter->getValue());
-
-        $options = array_map(function($item){
-            return $item->value;
-        }, (array) $filter->getValue());
-
-        return FilterBuilder::terms('publisher', $options);
-    }
 
     public function getFilterId()
     {
-        return "book-publisher";
+        return FilterType::BOOK_PUBLISHER;
     }
 
     public function getType()

@@ -1,12 +1,9 @@
 <?php
 
-use Bendani\PhpCommon\FilterService\Model\Filter;
-use Bendani\PhpCommon\FilterService\Model\FilterBuilder;
-use Bendani\PhpCommon\FilterService\Model\FilterOperator;
-use Bendani\PhpCommon\FilterService\Model\OptionsFilterHandler;
-use Bendani\PhpCommon\Utils\Model\StringUtils;
+use Bendani\PhpCommon\FilterService\Model\OptionsFilter;
+use Bendani\PhpCommon\Utils\StringUtils;
 
-class BookCountryFilterHandler implements OptionsFilterHandler
+class BookCountryFilter implements OptionsFilter
 {
     /** @var  CountryService $countryService */
     private $countryService;
@@ -18,18 +15,9 @@ class BookCountryFilterHandler implements OptionsFilterHandler
         $this->countryService = App::make('CountryService');
     }
 
-    public function handleFilter(Filter $filter)
-    {
-        Ensure::objectNotNull('selected options', $filter->getValue());
-
-        $options = array_map(function($item){ return StringUtils::toLowerCase($item->value); }, (array) $filter->getValue());
-
-        return FilterBuilder::terms('country', $options);
-    }
-
     public function getFilterId()
     {
-        return "book-country";
+        return FilterType::BOOK_COUNTRY;
     }
 
     public function getType()

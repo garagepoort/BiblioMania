@@ -1,8 +1,8 @@
 <?php
 
-use Bendani\PhpCommon\FilterService\Model\Filter;
+use Bendani\PhpCommon\FilterService\Model\FilterValue;
 
-class DateFilterFromJsonAdapter implements Filter
+class DateFilterFromJsonAdapter implements FilterValue
 {
     /** @var  string */
     /** @required */

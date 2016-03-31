@@ -1,7 +1,7 @@
 <?php
 
-use Bendani\PhpCommon\FilterService\Model\FilterOperator;
-use Bendani\PhpCommon\Utils\Model\StringUtils;
+use Bendani\PhpCommon\Utils\Ensure;
+use Bendani\PhpCommon\Utils\StringUtils;
 
 class AuthorService
 {

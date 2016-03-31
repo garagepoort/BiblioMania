@@ -1,5 +1,7 @@
 <?php
 
+use Bendani\PhpCommon\Utils\Ensure;
+
 class AuthorRepository implements Repository{
 
     public function find($id, $with = array())

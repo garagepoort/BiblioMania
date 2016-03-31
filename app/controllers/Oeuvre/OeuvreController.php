@@ -1,4 +1,6 @@
 <?php
+use Bendani\PhpCommon\Utils\Ensure;
+use Bendani\PhpCommon\Utils\Exception\ServiceException;
 
 /**
  * Created by PhpStorm.

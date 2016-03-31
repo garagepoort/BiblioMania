@@ -1,26 +1,14 @@
 <?php
 
 use Bendani\PhpCommon\FilterService\Model\Filter;
-use Bendani\PhpCommon\FilterService\Model\FilterBuilder;
-use Bendani\PhpCommon\FilterService\Model\FilterOperator;
-use Bendani\PhpCommon\FilterService\Model\OptionsFilterHandler;
-use Bendani\PhpCommon\Utils\Model\StringUtils;
+use Bendani\PhpCommon\Utils\StringUtils;
 
-class BookGiftFromFilterHandler implements OptionsFilterHandler
+class BookGiftFromFilter implements Filter
 {
-
-    public function handleFilter(Filter $filter)
-    {
-        Ensure::objectNotNull('selected options', $filter->getValue());
-
-        $options = array_map(function($item){ return $item->value; }, (array) $filter->getValue());
-
-        return FilterBuilder::terms('personalBookInfos.giftInfo.from', $options);
-    }
 
     public function getFilterId()
     {
-        return "buy-gift-from";
+        return FilterType::BOOK_BUY_GIFT_FROM;
     }
 
     public function getType()

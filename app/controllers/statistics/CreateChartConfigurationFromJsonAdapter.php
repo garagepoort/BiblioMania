@@ -1,5 +1,7 @@
 <?php
 
+use Bendani\PhpCommon\Utils\Ensure;
+
 class CreateChartConfigurationFromJsonAdapter implements CreateChartConfigurationRequest
 {
 
@@ -13,7 +15,6 @@ class CreateChartConfigurationFromJsonAdapter implements CreateChartConfiguratio
     /** @required */
     private $xProperty;
 
-    /** @var ChartConditionFromJsonAdapter */
     /** @required */
     private $conditions;
 
@@ -29,7 +30,7 @@ class CreateChartConfigurationFromJsonAdapter implements CreateChartConfiguratio
 
     function getConditions()
     {
-        return $this->conditions;
+        return $this->jsonToFilters();
     }
 
     /**
@@ -54,6 +55,27 @@ class CreateChartConfigurationFromJsonAdapter implements CreateChartConfiguratio
     public function setConditions($conditions)
     {
         $this->conditions = $conditions;
+    }
+
+    private function jsonToFilters()
+    {
+        $filtersInJson = $this->conditions;
+        Ensure::objectIsArray('filters', $filtersInJson);
+
+        $allFiltersFromJsonAdapter = new AllFiltersFromJsonAdapter($filtersInJson);
+
+        $conditions = array();
+        /** @var \Bendani\PhpCommon\FilterService\Model\Filter $filter */
+        foreach($allFiltersFromJsonAdapter->getFilters() as $filter){
+            $chartConditionFromJsonAdapter = new ChartConditionFromJsonAdapter();
+            $chartConditionFromJsonAdapter->setOperator($filter->getOperator());
+            $chartConditionFromJsonAdapter->setProperty($filter->getId());
+            $chartConditionFromJsonAdapter->setValue($filter->getValue());
+            array_push($conditions, $chartConditionFromJsonAdapter);
+        }
+        $allFilters = $allFiltersFromJsonAdapter->getFilters();
+
+        return $allFilters;
     }
 
 
