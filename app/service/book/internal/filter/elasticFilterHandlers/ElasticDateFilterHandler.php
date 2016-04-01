@@ -6,15 +6,17 @@ use Bendani\PhpCommon\FilterService\Model\FilterHandler;
 use Bendani\PhpCommon\FilterService\Model\FilterValue;
 use Bendani\PhpCommon\Utils\Ensure;
 
-class BookBuyDateFilterHandler implements FilterHandler
+class ElasticDateFilterHandler implements FilterHandler
 {
+    private $field;
 
     /** @var  DateFormatter */
     private $dateFormatter;
 
-    public function __construct()
+    public function __construct($field)
     {
         $this->dateFormatter = App::make('DateFormatter');
+        $this->field = $field;
     }
 
     public function handleFilter(FilterValue $filter, $object = null)
@@ -29,8 +31,8 @@ class BookBuyDateFilterHandler implements FilterHandler
         if($filterDateRequest->getTo() !== null){
             Ensure::objectIsInstanceOf('date to', $filterDateRequest->getTo(), 'DateRequest');
             $dateTo = $this->dateFormatter->dateRequestToFormattedDate($filterDateRequest->getTo());
-            return FilterBuilder::range('personalBookInfos.buyInfo.buy_date', $dateFrom, $dateTo);
+            return FilterBuilder::range($this->field, $dateFrom, $dateTo);
         }
-        return FilterBuilder::greaterThan('personalBookInfos.buyInfo.buy_date', $dateFrom);
+        return FilterBuilder::greaterThan($this->field, $dateFrom);
     }
 }

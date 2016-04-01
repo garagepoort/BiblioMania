@@ -123,13 +123,13 @@ class BookElasticIndexer
     public function search($userId, $bookFilters, $personalFilters)
     {
 
-        /** @var FilterReturnType $item */
         $filters = array_map(function($item){
+            /** @var FilterReturnType $item */
             return $item->getValue();
         }, $bookFilters);
 
-        /** @var FilterReturnType $item */
         $personalFilters = array_map(function($item){
+            /** @var FilterReturnType $item */
             return $item->getValue();
         }, $personalFilters);
 

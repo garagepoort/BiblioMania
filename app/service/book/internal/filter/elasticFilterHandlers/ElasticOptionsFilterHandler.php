@@ -4,9 +4,22 @@ use Bendani\PhpCommon\FilterService\Model\FilterBuilder;
 use Bendani\PhpCommon\FilterService\Model\FilterHandler;
 use Bendani\PhpCommon\FilterService\Model\FilterValue;
 use Bendani\PhpCommon\Utils\Ensure;
+use Bendani\PhpCommon\Utils\StringUtils;
 
-class BookRatingFilterHandler implements FilterHandler
+class ElasticOptionsFilterHandler implements FilterHandler
 {
+
+    private $field;
+
+    /**
+     * ElasticOptionsFilterHandler constructor.
+     * @param $field
+     */
+    public function __construct($field)
+    {
+        $this->field = $field;
+    }
+
     public function handleFilter(FilterValue $filter, $object = null)
     {
         Ensure::objectNotNull('selected options', $filter->getValue());
@@ -15,6 +28,7 @@ class BookRatingFilterHandler implements FilterHandler
             return $item->value;
         }, (array) $filter->getValue());
 
-        return FilterBuilder::terms('personalBookInfos.readingDates.rating', $options);
+        return FilterBuilder::terms($this->field, $options);
     }
+
 }

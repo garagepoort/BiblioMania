@@ -54,22 +54,22 @@ App::singleton('CurrencyService', function () {
 
 App::singleton('BookFilterManager', function () {
     $elasticHandlers = array(
-        FilterType::BOOK_TITLE=>new BookTitleFilterHandler(),
-        FilterType::BOOK_TAG=>new BookTagFilterHandler(),
-        FilterType::BOOK_RETAIL_PRICE=>new BookRetailPriceFilterHandler(),
-        FilterType::BOOK_LANGUAGE=>new BookLanguageFilterHandler(),
-        FilterType::BOOK_RATING=>new BookRatingFilterHandler(),
+        FilterType::BOOK_TITLE=>new ElasticStringFilterHandler('title'),
+        FilterType::BOOK_TAG=>new ElasticOptionsFilterHandler('tags.id'),
+        FilterType::BOOK_RETAIL_PRICE=>new ElasticNumberFilterHandler('retailPrice.amount'),
+        FilterType::BOOK_LANGUAGE=>new ElasticOptionsFilterHandler('language'),
+        FilterType::BOOK_RATING=>new ElasticOptionsFilterHandler('personalBookInfos.readingDates.rating'),
         FilterType::BOOK_READ=>new BookReadFilterHandler(),
         FilterType::BOOK_READING_DATE=>new BookReadingDateFilterHandler(),
-        FilterType::BOOK_AUTHOR=>new BookAuthorFilterHandler(),
-        FilterType::BOOK_BUY_DATE=>new BookBuyDateFilterHandler(),
-        FilterType::BOOK_BUY_PRICE=>new BookBuyPriceFilterHandler(),
+        FilterType::BOOK_AUTHOR=>new ElasticOptionsFilterHandler('authors.id'),
+        FilterType::BOOK_BUY_DATE=>new ElasticDateFilterHandler('personalBookInfos.buyInfo.buy_date'),
+        FilterType::BOOK_BUY_PRICE=>new ElasticNumberFilterHandler('personalBookInfos.buyInfo.price'),
         FilterType::BOOK_IS_PERSONAL=>new BookIsPersonalFilterHandler(),
-        FilterType::BOOK_OWNED=>new BookOwnedFilterHandler(),
-        FilterType::BOOK_PUBLISHER=>new BookPublisherFilterHandler(),
-        FilterType::BOOK_COUNTRY=>new BookCountryFilterHandler(),
-        FilterType::BOOK_GENRE=>new BookGenreFilterHandler(),
-        FilterType::BOOK_BUY_GIFT_FROM=>new BookGiftFromFilterHandler(),
+        FilterType::BOOK_OWNED=>new ElasticBooleanFilterHandler('personalBookInfos.inCollection'),
+        FilterType::BOOK_PUBLISHER=>new ElasticOptionsFilterHandler('publisher'),
+        FilterType::BOOK_COUNTRY=>new ElasticOptionsFilterHandler('country'),
+        FilterType::BOOK_GENRE=>new ElasticOptionsFilterHandler('genre'),
+        FilterType::BOOK_BUY_GIFT_FROM=>new ElasticOptionsFilterHandler('personalBookInfos.giftInfo.from'),
     );
     $bookFilterManager = new BookFilterManager();
     $bookFilterManager->registerHandlers(FilterHandlerGroup::ELASTIC, $elasticHandlers);
