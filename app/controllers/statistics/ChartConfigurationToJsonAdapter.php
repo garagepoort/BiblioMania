@@ -5,14 +5,13 @@ class ChartConfigurationToJsonAdapter
     private $id;
     private $title;
     private $xProperty;
-
-    /** @var  DateToJsonAdapter $date */
-    private $date;
+    private $filters;
 
     public function __construct(ChartConfiguration $chartConfiguration)
     {
         $this->id = $chartConfiguration->id;
         $this->title = $chartConfiguration->title;
+        $this->filters = json_decode($chartConfiguration->filters, true);
         $this->xProperty = $chartConfiguration->xProperty;
     }
 
@@ -20,7 +19,8 @@ class ChartConfigurationToJsonAdapter
         $result = array(
             "id" => $this->id,
             "title" => $this->title,
-            "xProperty" => $this->xProperty
+            "xProperty" => $this->xProperty,
+            "filters" => $this->filters
         );
         return $result;
     }

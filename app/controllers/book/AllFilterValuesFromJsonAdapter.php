@@ -1,6 +1,6 @@
 <?php
 
-class AllFiltersFromJsonAdapter
+class AllFilterValuesFromJsonAdapter
 {
     /** @var  JsonMappingService */
     private $jsonMappingService;
@@ -13,11 +13,11 @@ class AllFiltersFromJsonAdapter
         $this->filters = array();
         foreach($filtersInJson as $filter){
             if($filter['id'] === "personal-buy_date"){
-                array_push($this->filters, $this->jsonMappingService->mapInputToJson($filter, new DateFilterFromJsonAdapter()));
+                array_push($this->filters, $this->jsonMappingService->mapInputToJson($filter, new DateFilterValueFromJsonAdapter()));
             }else if($filter['id'] === "personal-readingdate"){
-                array_push($this->filters, $this->jsonMappingService->mapInputToJson($filter, new PartialDateFilterFromJsonAdapter()));
+                array_push($this->filters, $this->jsonMappingService->mapInputToJson($filter, new PartialDateFilterValueFromJsonAdapter()));
             }else{
-                array_push($this->filters, $this->jsonMappingService->mapInputToJson($filter, new FilterFromJsonAdapter()));
+                array_push($this->filters, $this->jsonMappingService->mapInputToJson($filter, new FilterValueFromJsonAdapter()));
             }
         }
     }

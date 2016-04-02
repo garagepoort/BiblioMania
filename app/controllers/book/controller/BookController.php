@@ -109,7 +109,7 @@ class BookController extends BaseController
         $filtersInJson = Input::get();
         Ensure::objectIsArray('filters', $filtersInJson);
 
-        $allFiltersFromJsonAdapter = new AllFiltersFromJsonAdapter($filtersInJson);
+        $allFiltersFromJsonAdapter = new AllFilterValuesFromJsonAdapter($filtersInJson);
         $allFilters = $allFiltersFromJsonAdapter->getFilters();
         return $allFilters;
     }

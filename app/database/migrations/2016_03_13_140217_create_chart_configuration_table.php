@@ -20,21 +20,10 @@ class CreateChartConfigurationTable extends Migration {
 			$table->string('type');
 			$table->string('xProperty');
 			$table->string('yProperty');
+			$table->string('filters', 2000);
 			$table->date('created_at');
 			$table->date('updated_at');
 			$table->foreign('user_id')->references('id')->on('users');
-		});
-
-		Schema::create('chart_condition', function($table)
-		{
-			$table->increments('id');
-			$table->string('property');
-			$table->string('value');
-			$table->string('operator');
-			$table->unsignedInteger('chart_configuration_id');
-			$table->date('created_at');
-			$table->date('updated_at');
-			$table->foreign('chart_configuration_id')->references('id')->on('chart_configuration');
 		});
 	}
 
@@ -45,7 +34,6 @@ class CreateChartConfigurationTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('chart_condition');
 		Schema::drop('chart_configuration');
 	}
 

@@ -2,13 +2,13 @@
 
 use Bendani\PhpCommon\FilterService\Model\FilterValue;
 
-class PartialDateFilterFromJsonAdapter implements FilterValue
+class FilterValueFromJsonAdapter implements FilterValue
 {
     /** @var  string */
     /** @required */
     private $id;
 
-    /** @var  DateFromJsonAdapter */
+    /** @var  mixed */
     /** @required */
     private $value;
 
@@ -32,7 +32,7 @@ class PartialDateFilterFromJsonAdapter implements FilterValue
     }
 
     /**
-     * @return DateFromJsonAdapter
+     * @return mixed
      */
     public function getValue()
     {
@@ -40,14 +40,12 @@ class PartialDateFilterFromJsonAdapter implements FilterValue
     }
 
     /**
-     * @param DateFromJsonAdapter $value
+     * @param mixed $value
      */
     public function setValue($value)
     {
         $this->value = $value;
     }
-
-
 
     /**
      * @return string

@@ -1,26 +1,25 @@
 <?php
 
+/**
+ * @property integer id
+ * @property string filters
+ * @property integer xProperty
+ * @property string  type
+ * @property string title
+ */
 class ChartConfiguration extends Eloquent
 {
 
     protected $table = 'chart_configuration';
 
     protected $fillable = array(
+        'id',
         'title',
         'user_id',
         'type',
         'xProperty',
-        'yProperty'
+        'yProperty',
+        'filters'
     );
-
-    protected $with = array('conditions');
-
-    /**
-     * @return mixed
-     */
-    public function conditions()
-    {
-        return $this->hasMany('ChartCondition', 'chart_configuration_id');
-    }
 
 }

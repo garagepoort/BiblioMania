@@ -21,7 +21,9 @@ Route::group(array('before' => 'auth'), function () {
 
     Route::get('chart-configurations/xproperties', 'ChartConfigurationController@getXProperties');
     Route::get('chart-configurations', 'ChartConfigurationController@getChartConfigurations');
+    Route::get('chart-configurations/{id}', 'ChartConfigurationController@getChartConfiguration');
     Route::post('chart-configurations', 'ChartConfigurationController@createChartConfiguration');
+    Route::put('chart-configurations', 'ChartConfigurationController@updateChartConfiguration');
     Route::get('chart-data/{configurationId}', 'ChartConfigurationController@getChartData');
 
     Route::get('books', 'BookController@getBooks');

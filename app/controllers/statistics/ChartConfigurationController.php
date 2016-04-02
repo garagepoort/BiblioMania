@@ -38,6 +38,12 @@ class ChartConfigurationController extends BaseController
         $this->chartConfigurationService->createChartConfiguration(Auth::user()->id, $chartConfiguration);
     }
 
+    public function updateChartConfiguration(){
+        $chartConfiguration = $this->jsonMappingService->mapInputToJson(Input::get(), new UpdateChartConfigurationFromJsonAdapter());
+
+        $this->chartConfigurationService->updateChartConfiguration(Auth::user()->id, $chartConfiguration);
+    }
+
     public function getChartConfigurations(){
         $chartConfigurations = $this->chartConfigurationRepository->allFromUser(Auth::user()->id)->all();
 
@@ -47,10 +53,13 @@ class ChartConfigurationController extends BaseController
         }, $chartConfigurations);
     }
 
+    public function getChartConfiguration($id){
+        $chartConfiguration = $this->chartConfigurationService->getById($id);
+        $adapter = new ChartConfigurationToJsonAdapter($chartConfiguration);
+        return $adapter->mapToJson();
+    }
+
     public function getChartData($configurationId){
-//        $condition1 = new ChartCondition("personal_book_info.read", "=", true);
-//        $condition2 = new ChartCondition("reading_date.rating", ">", 0);
-//        $chartConfiguration = ChartConfiguration::constructBar("title", "genre.name", [$condition2, $condition1]);
         $chartConfiguration = $this->chartConfigurationRepository->find($configurationId);
         Ensure::objectNotNull("chartConfiguration", $chartConfiguration);
 

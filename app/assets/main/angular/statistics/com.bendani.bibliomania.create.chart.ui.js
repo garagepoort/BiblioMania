@@ -7,18 +7,49 @@ angular.module('com.bendani.bibliomania.create.chart.ui', [
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/create-chart', {
             templateUrl: '../BiblioMania/views/partials/statistics/create-chart.html',
-            controller: 'CreateChartController'
+            controller: 'CreateChartController',
+            resolve: {
+                chartModel: function () {
+                    return {};
+                },
+                onSave: ['ChartConfiguration', 'FilterService', '$route', 'ErrorContainer', 'growl', '$location', function (ChartConfiguration, FilterService, $route, ErrorContainer, growl, $location) {
+                    return function (model, filterServiceId) {
+                        model.filters = FilterService.convertFiltersToJson(filterServiceId);
+                        ChartConfiguration.save(model, function(){
+                            growl.addSuccessMessage('Configuratie opgeslagen');
+                            $location.path("/statistics");
+                        }, ErrorContainer.handleRestError);
+                    };
+                }]
+            }
+        });
+        $routeProvider.when('/edit-chart/:id', {
+            templateUrl: '../BiblioMania/views/partials/statistics/create-chart.html',
+            controller: 'CreateChartController',
+            resolve: {
+                chartModel: ['ChartConfiguration', '$route', 'ErrorContainer', function (ChartConfiguration, $route, ErrorContainer) {
+                    return ChartConfiguration.get({id: $route.current.params.id}, function () {}, ErrorContainer.handleRestError);
+                }],
+                onSave: ['ChartConfiguration', 'FilterService', '$route', 'ErrorContainer', 'growl', '$location', function (ChartConfiguration, FilterService, $route, ErrorContainer, growl, $location) {
+                    return function (model, filterServiceId) {
+                        model.filters = FilterService.convertFiltersToJson(filterServiceId);
+                        ChartConfiguration.update(model, function(){
+                            growl.addSuccessMessage('Configuratie opgeslagen');
+                            $location.path("/statistics");
+                        }, ErrorContainer.handleRestError);
+                    };
+                }]
+            }
         });
     }])
-    .controller('CreateChartController', ['$scope', '$location', 'ChartConfiguration', 'ErrorContainer', 'growl', 'FilterService', 'BookFilter',
-        function($scope, $location, ChartConfiguration, ErrorContainer, growl, FilterService, BookFilter){
+    .controller('CreateChartController', ['$scope', '$location', 'ChartConfiguration', 'ErrorContainer', 'growl', 'FilterService', 'BookFilter', 'onSave', 'chartModel',
+        function($scope, $location, ChartConfiguration, ErrorContainer, growl, FilterService, BookFilter, onSave, chartModel){
 
 
         $scope.filterServiceId = "chartFilters";
         FilterService.registerFilterService($scope.filterServiceId);
         $scope.submitAttempted = false;
-        $scope.model = {};
-        $scope.model.conditions = [];
+        $scope.model = chartModel;
 
         $scope.data = {};
         $scope.data.xproperties = ChartConfiguration.xproperties(function(){}, ErrorContainer.handleRestError);
@@ -28,11 +59,7 @@ angular.module('com.bendani.bibliomania.create.chart.ui', [
         $scope.createChart = function($formValid){
             $scope.submitAttempted = true;
             if($formValid){
-                $scope.model.conditions = FilterService.convertFiltersToJson($scope.filterServiceId);
-                ChartConfiguration.save($scope.model, function(){
-                    growl.addSuccessMessage('Configuratie opgeslagen');
-                    $location.path("/statistics");
-                }, ErrorContainer.handleRestError);
+                onSave($scope.model, $scope.filterServiceId);
             }
         };
 
@@ -46,6 +73,7 @@ angular.module('com.bendani.bibliomania.create.chart.ui', [
                     filter.value = "";
                 }
                 FilterService.setAllFilters($scope.filterServiceId, filters);
+                FilterService.setFilterValues($scope.filterServiceId, $scope.model.filters);
             }, ErrorContainer.handleRestError);
         }
     }]);

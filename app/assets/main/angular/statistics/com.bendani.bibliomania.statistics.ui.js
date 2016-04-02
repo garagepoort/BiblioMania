@@ -27,7 +27,7 @@ angular.module('com.bendani.bibliomania.statistics.ui', [
                 $location.path('/create-chart');
             };
 
-            $scope.chartConfigurations = ChartConfiguration.get(function(){}, ErrorContainer.handleRestError);
+            $scope.chartConfigurations = ChartConfiguration.query(function(){}, ErrorContainer.handleRestError);
 
             init();
         }]);

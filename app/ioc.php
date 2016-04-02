@@ -71,8 +71,14 @@ App::singleton('BookFilterManager', function () {
         FilterType::BOOK_GENRE=>new ElasticOptionsFilterHandler('genre'),
         FilterType::BOOK_BUY_GIFT_FROM=>new ElasticOptionsFilterHandler('personalBookInfos.giftInfo.from'),
     );
+    $sqlHandlers = array(
+        FilterType::BOOK_TITLE=>new SqlStringFilterHandler('book.title'),
+        FilterType::BOOK_COUNTRY=>new SqlOptionsFilterHandler('book.publisher_country_id'),
+        FilterType::BOOK_RATING=>new SqlOptionsFilterHandler('reading_date.rating'),
+    );
     $bookFilterManager = new BookFilterManager();
     $bookFilterManager->registerHandlers(FilterHandlerGroup::ELASTIC, $elasticHandlers);
+    $bookFilterManager->registerHandlers(FilterHandlerGroup::SQL, $sqlHandlers);
     return $bookFilterManager;
 });
 

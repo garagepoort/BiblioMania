@@ -6,6 +6,9 @@
             <div class="form-container">
 
                 <div class="form-subtitle">Diagram toevoegen</div>
+
+                <errorcontainer></errorcontainer>
+
                 <div class="form-content col-md-12">
                     <div class="col-md-6">
                         <div class="form-group required"
@@ -34,11 +37,11 @@
                          ng-class="{'has-error has-feedback' : chartCreationForm.xProperty.$invalid && (chartCreationForm.xProperty.$dirty || submitAttempted)}">
                         <label class="control-label">Y as</label>
 
-                        <filters-directive filter-service-id="filterServiceId" on-filter="filterBooks(selectedFilters)" control="filterControl">
+                        <filters-directive show-refresh="false" filter-service-id="filterServiceId" on-filter="filterBooks(selectedFilters)" control="filterControl">
                     </div>
                 </div>
 
-                <button class="btn btn-primary" type="submit">Create</button>
+                <button class="btn btn-primary" type="submit">Opslaan</button>
             </div>
         </fieldset>
     </form>
