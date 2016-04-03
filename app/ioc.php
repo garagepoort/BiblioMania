@@ -73,8 +73,12 @@ App::singleton('BookFilterManager', function () {
     );
     $sqlHandlers = array(
         FilterType::BOOK_TITLE=>new SqlStringFilterHandler('book.title'),
+        FilterType::BOOK_TAG=>new SqlOptionsFilterHandler('tag.id'),
         FilterType::BOOK_COUNTRY=>new SqlOptionsFilterHandler('book.publisher_country_id'),
+        FilterType::BOOK_LANGUAGE=>new SqlOptionsFilterHandler('book.language_id'),
         FilterType::BOOK_RATING=>new SqlOptionsFilterHandler('reading_date.rating'),
+        FilterType::BOOK_READ=>new SqlReadFilterHandler(),
+        FilterType::BOOK_GENRE=>new SqlOptionsFilterHandler('genre.id'),
     );
     $bookFilterManager = new BookFilterManager();
     $bookFilterManager->registerHandlers(FilterHandlerGroup::ELASTIC, $elasticHandlers);
