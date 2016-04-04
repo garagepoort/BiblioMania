@@ -13,9 +13,17 @@ angular
                     $scope.chartData = ChartData.get({ id: $scope.chartConfigurationId }, function(){}, ErrorContainer.handleRestError);
                 }
 
-                $scope. editChart = function(){
+                $scope.editChart = function(){
                     $location.path('/edit-chart/' + $scope.chartConfigurationId);
                 };
+
+                $scope.getColumnClass = function(){
+                    if($scope.chartData.labels.length <= 16){
+                        return 'col-md-6';
+                    }
+                    return 'col-md-12';
+                };
+
                 init();
             }]
         };

@@ -31,7 +31,10 @@ class ChartConfigurationController extends BaseController
             XPropertiesToJsonAdapter::createXProperty("genre", ChartConfigurationXProperty::GENRE),
             XPropertiesToJsonAdapter::createXProperty("tag", ChartConfigurationXProperty::TAG),
             XPropertiesToJsonAdapter::createXProperty("Leesjaar", ChartConfigurationXProperty::READING_DATE_YEAR),
-            XPropertiesToJsonAdapter::createXProperty("PublicatieJaar", ChartConfigurationXProperty::PUBLICATION_YEAR)
+            XPropertiesToJsonAdapter::createXProperty("PublicatieJaar", ChartConfigurationXProperty::PUBLICATION_YEAR),
+            XPropertiesToJsonAdapter::createXProperty("Gift jaar", ChartConfigurationXProperty::GIFT_YEAR),
+            XPropertiesToJsonAdapter::createXProperty("Aankoopjaar", ChartConfigurationXProperty::BUY_YEAR),
+            XPropertiesToJsonAdapter::createXProperty("Gekregen van", ChartConfigurationXProperty::GIFT_FROM)
         );
     }
 

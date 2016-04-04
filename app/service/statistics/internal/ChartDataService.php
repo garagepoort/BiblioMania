@@ -33,7 +33,7 @@ class ChartDataService
         /** @var \Illuminate\Database\Query\Builder $builder */
         $builder = DB::table('book')->select(DB::raw($chartConfiguration->xProperty . ' as xProperty'), DB::raw("count(*) as total"));
         $builder = $this->join($builder);
-        $builder =  $builder->where('user_id', '=', $userId);
+        $builder =  $builder->where('personal_book_info.user_id', '=', $userId);
         $builder =  $builder->whereNotNull(DB::raw($chartConfiguration->xProperty));
 //        $builder =  $builder->where(DB::raw($chartConfiguration->xProperty . " <> ''"));
 
@@ -53,9 +53,12 @@ class ChartDataService
     }
 
     private function join($builder){
-        return $builder->leftJoin('personal_book_info', 'book_id', '=', 'book.id')
+        return $builder->join('personal_book_info', 'book_id', '=', 'book.id')
+            ->leftJoin('buy_info', 'buy_info.personal_book_info_id', '=', 'personal_book_info.id')
+            ->leftJoin('gift_info', 'gift_info.personal_book_info_id', '=', 'personal_book_info.id')
             ->join('book_author', 'book_author.book_id', '=', 'book.id')
             ->join('author', 'book_author.author_id', '=', 'author.id')
+            ->join('publisher', 'book.publisher_id', '=', 'publisher.id')
             ->leftJoin('book_tag', 'book_tag.book_id', '=', 'book.id')
             ->leftJoin('date as publication_date', 'book.publication_date_id', '=', 'publication_date.id')
             ->leftJoin('tag', 'tag.id', '=', 'book_tag.tag_id')

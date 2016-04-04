@@ -75,11 +75,16 @@ App::singleton('BookFilterManager', function () {
         FilterType::BOOK_TITLE=>new SqlStringFilterHandler('book.title'),
         FilterType::BOOK_TAG=>new SqlOptionsFilterHandler('tag.id'),
         FilterType::BOOK_RETAIL_PRICE=>new SqlEqualsFilterHandler('book.retail_price'),
+        FilterType::BOOK_LANGUAGE=>new SqlOptionsFilterHandler('language.id'),
+        FilterType::BOOK_RATING=>new SqlOptionsFilterHandler('reading_date.rating'),
+        FilterType::BOOK_AUTHOR=>new SqlOptionsFilterHandler('author.id'),
+        FilterType::BOOK_BUY_PRICE=>new SqlEqualsFilterHandler('buy_info.price_payed'),
+        FilterType::BOOK_PUBLISHER=>new SqlOptionsFilterHandler('publisher.id'),
+        FilterType::BOOK_READ=>new SqlReadFilterHandler(),
         FilterType::BOOK_COUNTRY=>new SqlOptionsFilterHandler('book.publisher_country_id'),
         FilterType::BOOK_LANGUAGE=>new SqlOptionsFilterHandler('book.language_id'),
-        FilterType::BOOK_RATING=>new SqlOptionsFilterHandler('reading_date.rating'),
-        FilterType::BOOK_READ=>new SqlReadFilterHandler(),
         FilterType::BOOK_GENRE=>new SqlOptionsFilterHandler('genre.id'),
+        FilterType::BOOK_BUY_GIFT_FROM=>new SqlOptionsFilterHandler('gift_info.from'),
     );
     $bookFilterManager = new BookFilterManager();
     $bookFilterManager->registerHandlers(FilterHandlerGroup::ELASTIC, $elasticHandlers);
