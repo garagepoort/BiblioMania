@@ -73,7 +73,9 @@ angular.module('com.bendani.bibliomania.create.chart.ui', [
                     filter.value = "";
                 }
                 FilterService.setAllFilters($scope.filterServiceId, filters);
-                FilterService.setFilterValues($scope.filterServiceId, $scope.model.filters);
+                if($scope.model.filters){
+                    FilterService.setFilterValues($scope.filterServiceId, $scope.model.filters);
+                }
             }, ErrorContainer.handleRestError);
         }
     }]);

@@ -57,6 +57,7 @@ class ChartDataService
             ->join('book_author', 'book_author.book_id', '=', 'book.id')
             ->join('author', 'book_author.author_id', '=', 'author.id')
             ->leftJoin('book_tag', 'book_tag.book_id', '=', 'book.id')
+            ->leftJoin('date as publication_date', 'book.publication_date_id', '=', 'publication_date.id')
             ->leftJoin('tag', 'tag.id', '=', 'book_tag.tag_id')
             ->leftJoin('date as publicationDate', 'book.publication_date_id', '=', 'publicationDate.id')
             ->leftJoin('reading_date', 'reading_date.personal_book_info_id', '=', 'personal_book_info.id')

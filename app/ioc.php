@@ -74,6 +74,7 @@ App::singleton('BookFilterManager', function () {
     $sqlHandlers = array(
         FilterType::BOOK_TITLE=>new SqlStringFilterHandler('book.title'),
         FilterType::BOOK_TAG=>new SqlOptionsFilterHandler('tag.id'),
+        FilterType::BOOK_RETAIL_PRICE=>new SqlEqualsFilterHandler('book.retail_price'),
         FilterType::BOOK_COUNTRY=>new SqlOptionsFilterHandler('book.publisher_country_id'),
         FilterType::BOOK_LANGUAGE=>new SqlOptionsFilterHandler('book.language_id'),
         FilterType::BOOK_RATING=>new SqlOptionsFilterHandler('reading_date.rating'),

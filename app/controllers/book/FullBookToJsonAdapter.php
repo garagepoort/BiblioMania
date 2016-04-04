@@ -66,7 +66,7 @@ class FullBookToJsonAdapter
         $this->currency = $book->currency;
         $this->summary = $book->summary;
         $this->genre = $book->genre->name;
-        $this->retailPrice = $book->retail_price;
+        $this->retailPrice = new PriceToJsonAdapter($book->retail_price, $book->currency);
         $this->publisherSerie = $book->publisher_serie == null ? null : $book->publisher_serie->name;
         $this->serie = $book->serie == null ? null : $book->serie->name;
         $this->authors = array_map(function($author){ return new AuthorToJsonAdapter($author); }, $book->authors->all());
@@ -110,7 +110,7 @@ class FullBookToJsonAdapter
             "country" => $this->country,
             "language" => $this->language,
             "currency" => $this->currency,
-            "retailPrice" => $this->retailPrice,
+            "retailPrice" => $this->retailPrice->mapToJson(),
             "pages" => $this->pages,
             "print" => $this->print,
             "translator" => $this->translator,

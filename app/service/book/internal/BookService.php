@@ -284,6 +284,9 @@ class BookService
             $book->number_of_pages = $createBookRequest->getPages();
             $book->summary = $createBookRequest->getSummary();
 
+            $book->retail_price = $createBookRequest->getRetailPrice()->getAmount();
+            $book->currency = $createBookRequest->getRetailPrice()->getCurrency();
+
             if (!StringUtils::isEmpty($createBookRequest->getImageUrl())) {
                 $book->coverImage = $this->imageService->saveBookImageFromUrl($createBookRequest->getImageUrl(), $book);
             }

@@ -61,6 +61,8 @@ class CreateBookFromJsonAdapter implements BaseBookRequest
     /** @var string */
     private $summary;
 
+    /** @var PriceFromJsonAdapter */
+    private $retailPrice;
 
     /**
      * @param string $title
@@ -333,5 +335,22 @@ class CreateBookFromJsonAdapter implements BaseBookRequest
     {
         $this->summary = $summary;
     }
+
+    /**
+     * @return PriceFromJsonAdapter
+     */
+    public function getRetailPrice()
+    {
+        return $this->retailPrice;
+    }
+
+    /**
+     * @param PriceFromJsonAdapter $retailPrice
+     */
+    public function setRetailPrice($retailPrice)
+    {
+        $this->retailPrice = $retailPrice;
+    }
+
 
 }

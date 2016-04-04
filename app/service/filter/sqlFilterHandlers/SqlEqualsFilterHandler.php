@@ -23,6 +23,6 @@ class SqlEqualsFilterHandler implements FilterHandler
     public function handleFilter(FilterValue $filter, $queryBuilder = null)
     {
         /** @var QueryBuilder $queryBuilder */
-        return $queryBuilder->where($this->tableName, '=', $filter->getValue());
+        return $queryBuilder->where($this->tableName, FilterOperator::getDatabaseOperator($filter->getOperator()), $filter->getValue());
     }
 }
