@@ -28,13 +28,16 @@ class ChartConfigurationController extends BaseController
 
     public function getXProperties(){
         return array(
-            XPropertiesToJsonAdapter::createXProperty("genre", ChartConfigurationXProperty::GENRE),
-            XPropertiesToJsonAdapter::createXProperty("tag", ChartConfigurationXProperty::TAG),
-            XPropertiesToJsonAdapter::createXProperty("Leesjaar", ChartConfigurationXProperty::READING_DATE_YEAR),
-            XPropertiesToJsonAdapter::createXProperty("PublicatieJaar", ChartConfigurationXProperty::PUBLICATION_YEAR),
-            XPropertiesToJsonAdapter::createXProperty("Gift jaar", ChartConfigurationXProperty::GIFT_YEAR),
             XPropertiesToJsonAdapter::createXProperty("Aankoopjaar", ChartConfigurationXProperty::BUY_YEAR),
-            XPropertiesToJsonAdapter::createXProperty("Gekregen van", ChartConfigurationXProperty::GIFT_FROM)
+            XPropertiesToJsonAdapter::createXProperty("Gekregen van", ChartConfigurationXProperty::GIFT_FROM),
+            XPropertiesToJsonAdapter::createXProperty("Genre", ChartConfigurationXProperty::GENRE),
+            XPropertiesToJsonAdapter::createXProperty("Gift jaar", ChartConfigurationXProperty::GIFT_YEAR),
+            XPropertiesToJsonAdapter::createXProperty("Leesjaar", ChartConfigurationXProperty::READING_DATE_YEAR),
+            XPropertiesToJsonAdapter::createXProperty("Origineel land", ChartConfigurationXProperty::ORIGINAL_COUNTRY),
+            XPropertiesToJsonAdapter::createXProperty("Origineel publicatiejaar", ChartConfigurationXProperty::ORIGINAL_PUBLICATION_YEAR),
+            XPropertiesToJsonAdapter::createXProperty("PublicatieJaar", ChartConfigurationXProperty::PUBLICATION_YEAR),
+            XPropertiesToJsonAdapter::createXProperty("Tag", ChartConfigurationXProperty::TAG),
+            XPropertiesToJsonAdapter::createXProperty("Winkel", ChartConfigurationXProperty::SHOP)
         );
     }
 
