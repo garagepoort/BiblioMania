@@ -75,4 +75,8 @@ class ChartConfigurationController extends BaseController
         $chartDataToJsonAdapter = new ChartDataToJsonAdapter($chartData);
         return $chartDataToJsonAdapter->mapToJson();
     }
+
+    public function deleteChartConfiguration($id){
+        $this->chartConfigurationService->deleteChartConfiguration($id);
+    }
 }

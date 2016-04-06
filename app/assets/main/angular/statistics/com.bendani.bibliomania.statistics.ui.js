@@ -29,5 +29,10 @@ angular.module('com.bendani.bibliomania.statistics.ui', [
 
             $scope.chartConfigurations = ChartConfiguration.query(function(){}, ErrorContainer.handleRestError);
 
+
+            $scope.onDeleteChart = function(){
+                $scope.chartConfigurations = ChartConfiguration.query(function(){}, ErrorContainer.handleRestError);
+            };
+
             init();
         }]);

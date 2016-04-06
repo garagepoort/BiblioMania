@@ -61,4 +61,10 @@ class ChartConfigurationService
         Ensure::objectNotNull('chartConfiguration', $chartConfiguration);
         return $chartConfiguration;
     }
+
+    public function deleteChartConfiguration($id)
+    {
+        $chartConfig = $this->getById($id);
+        $this->chartConfigurationRepository->delete($chartConfig);
+    }
 }
