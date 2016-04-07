@@ -18,6 +18,7 @@ class FilterType extends BasicEnum
     const BOOK_COUNTRY = "book-country";
     const BOOK_BUY_PRICE = "personal-buy_price";
     const BOOK_BUY_DATE = "personal-buy_date";
+    const BOOK_RETRIEVE_DATE = "personal-retrieve_date";
     const BOOK_AUTHOR = "book-author";
     const BOOK_BUY_GIFT_FROM = "buy-gift-from";
 }

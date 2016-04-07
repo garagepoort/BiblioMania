@@ -78,6 +78,7 @@ App::singleton('BookFilterManager', function () {
         FilterType::BOOK_LANGUAGE=>new SqlOptionsFilterHandler('book.language_id'),
         FilterType::BOOK_RATING=>new SqlOptionsFilterHandler('reading_date.rating'),
         FilterType::BOOK_READ=>new SqlReadFilterHandler(),
+        FilterType::BOOK_RETRIEVE_DATE=>new SqlDateRangeOrFilterHandler('buy_info.buy_date', 'gift_info.receipt_date'),
         FilterType::BOOK_READING_DATE=>new SqlDateRangeFilterHandler('reading_date.date'),
         FilterType::BOOK_AUTHOR=>new SqlOptionsFilterHandler('author.id'),
         FilterType::BOOK_BUY_DATE=>new SqlFullDateRangeFilterHandler('buy_info.buy_date'),

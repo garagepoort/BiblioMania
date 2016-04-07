@@ -22,6 +22,7 @@ class BookFilterManager extends FilterManager
             new BookReadingDateFilter(),
             new BookBuyPriceFilter(),
             new BookBuyDateFilter(),
+            new BookRetrieveDateFilter(),
             new BookGiftFromFilter(),
             new BookAuthorFilter(),
             new BookIsPersonalFilter(),
@@ -44,5 +45,4 @@ class BookFilterManager extends FilterManager
         }
         return $result;
     }
-
 }

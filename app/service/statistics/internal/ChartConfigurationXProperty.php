@@ -15,4 +15,5 @@ class ChartConfigurationXProperty extends BasicEnum{
     const SHOP = "buy_info.shop";
     const ORIGINAL_PUBLICATION_YEAR = "first_print_info_date.year";
     const ORIGINAL_COUNTRY = "first_print_info_country.name";
+    const YEAR_RETRIEVED = "CASE WHEN buy_info.buy_date is not null THEN YEAR(buy_info.buy_date) ELSE YEAR(gift_info.receipt_date) END";
 }

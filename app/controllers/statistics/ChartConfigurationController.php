@@ -14,6 +14,8 @@ class ChartConfigurationController extends BaseController
     private $chartConfigurationRepository;
     /** @var  JsonMappingService */
     private $jsonMappingService;
+    /** @var  BookFilterManager */
+    private $bookFilterManager;
 
     /**
      * ChartConfigurationController constructor.
@@ -24,6 +26,7 @@ class ChartConfigurationController extends BaseController
         $this->chartConfigurationService = App::make('ChartConfigurationService');
         $this->chartConfigurationRepository = App::make('ChartConfigurationRepository');
         $this->jsonMappingService = App::make('JsonMappingService');
+        $this->bookFilterManager = App::make('BookFilterManager');
     }
 
     public function getXProperties(){
@@ -36,6 +39,7 @@ class ChartConfigurationController extends BaseController
             XPropertiesToJsonAdapter::createXProperty("Origineel land", ChartConfigurationXProperty::ORIGINAL_COUNTRY),
             XPropertiesToJsonAdapter::createXProperty("Origineel publicatiejaar", ChartConfigurationXProperty::ORIGINAL_PUBLICATION_YEAR),
             XPropertiesToJsonAdapter::createXProperty("PublicatieJaar", ChartConfigurationXProperty::PUBLICATION_YEAR),
+            XPropertiesToJsonAdapter::createXProperty("Verkregen jaar", ChartConfigurationXProperty::YEAR_RETRIEVED),
             XPropertiesToJsonAdapter::createXProperty("Tag", ChartConfigurationXProperty::TAG),
             XPropertiesToJsonAdapter::createXProperty("Winkel", ChartConfigurationXProperty::SHOP)
         );
