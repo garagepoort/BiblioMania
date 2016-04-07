@@ -2,7 +2,7 @@
 
 angular.module('com.bendani.bibliomania.create.chart.ui', [
         'com.bendani.php.common.filterservice',
-        'com.bendani.bibliomania.book.filter.model'
+        'com.bendani.bibliomania.chart.filter.model'
     ])
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/create-chart', {
@@ -42,8 +42,8 @@ angular.module('com.bendani.bibliomania.create.chart.ui', [
             }
         });
     }])
-    .controller('CreateChartController', ['$scope', '$location', 'ChartConfiguration', 'ErrorContainer', 'growl', 'FilterService', 'BookFilter', 'onSave', 'chartModel',
-        function($scope, $location, ChartConfiguration, ErrorContainer, growl, FilterService, BookFilter, onSave, chartModel){
+    .controller('CreateChartController', ['$scope', '$location', 'ChartConfiguration', 'ErrorContainer', 'growl', 'FilterService', 'ChartFilter', 'onSave', 'chartModel',
+        function($scope, $location, ChartConfiguration, ErrorContainer, growl, FilterService, ChartFilter, onSave, chartModel){
 
 
         $scope.filterServiceId = "chartFilters";
@@ -64,7 +64,7 @@ angular.module('com.bendani.bibliomania.create.chart.ui', [
         };
 
         function getFilters() {
-            BookFilter.query(function (filters) {
+            ChartFilter.query(function (filters) {
                 for (var i = 0; i < filters.length; i++) {
                     var filter = filters[i];
                     if (filter.supportedOperators) {

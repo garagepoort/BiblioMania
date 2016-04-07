@@ -35,7 +35,6 @@ class ChartDataService
         $builder = $this->join($builder);
         $builder =  $builder->where('personal_book_info.user_id', '=', $userId);
         $builder =  $builder->whereNotNull(DB::raw($chartConfiguration->xProperty));
-//        $builder =  $builder->where(DB::raw($chartConfiguration->xProperty . " <> ''"));
 
         $adapter = new AllFilterValuesFromJsonAdapter(json_decode($chartConfiguration->filters, true));
         $filterValues = $adapter->getFilters();

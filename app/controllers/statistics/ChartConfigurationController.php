@@ -83,4 +83,12 @@ class ChartConfigurationController extends BaseController
     public function deleteChartConfiguration($id){
         $this->chartConfigurationService->deleteChartConfiguration($id);
     }
+
+    public function getFilters()
+    {
+        return array_map(function($item){
+            $adapter = new FilterToJsonAdapter($item);
+            return $adapter->mapToJson();
+        }, $this->bookFilterManager->getChartFilters());
+    }
 }
