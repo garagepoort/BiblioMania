@@ -52,6 +52,7 @@ angular.module('com.bendani.bibliomania.create.chart.ui', [
         $scope.model = chartModel;
 
         $scope.data = {};
+        $scope.data.showFilterRefreshButton = false;
         $scope.data.xproperties = ChartConfiguration.xproperties(function(){}, ErrorContainer.handleRestError);
 
         getFilters();

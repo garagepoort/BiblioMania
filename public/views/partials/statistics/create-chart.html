@@ -48,7 +48,7 @@
                          ng-class="{'has-error has-feedback' : chartCreationForm.xProperty.$invalid && (chartCreationForm.xProperty.$dirty || submitAttempted)}">
                         <label class="control-label">Y as</label>
 
-                        <filters-directive filter-service-id="filterServiceId" on-filter="filterBooks(selectedFilters)" control="filterControl">
+                        <filters-directive show-refresh="data.showFilterRefreshButton" filter-service-id="filterServiceId" on-filter="filterBooks(selectedFilters)" control="filterControl">
                     </div>
                 </div>
 
