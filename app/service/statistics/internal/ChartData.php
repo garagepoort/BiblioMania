@@ -3,6 +3,7 @@
 class ChartData
 {
     private $title;
+    private $xLabel;
     private $type;
     private $labels;
     private $data;
@@ -15,9 +16,10 @@ class ChartData
      * @param $data
      * @param $series
      */
-    public function __construct($title, $type, $labels, $data)
+    public function __construct($title, $xLabel, $type, $labels, $data)
     {
         $this->title = $title;
+        $this->xLabel = $xLabel;
         $this->labels = $labels;
         $this->data = $data;
         $this->type = $type;
@@ -47,6 +49,9 @@ class ChartData
         return $this->data;
     }
 
-
+    public function getXLabel()
+    {
+        return $this->xLabel;
+    }
 
 }

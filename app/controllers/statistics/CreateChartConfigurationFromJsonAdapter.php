@@ -13,6 +13,10 @@ class CreateChartConfigurationFromJsonAdapter implements CreateChartConfiguratio
     /** @required */
     private $xProperty;
 
+    /** @var string */
+    /** @required */
+    private $xLabel;
+
     /** @required */
     private $filters;
 
@@ -53,6 +57,16 @@ class CreateChartConfigurationFromJsonAdapter implements CreateChartConfiguratio
     public function setFilters($filters)
     {
         $this->filters = $filters;
+    }
+
+    public function getXLabel()
+    {
+        return $this->xLabel;
+    }
+
+    public function setXLabel($xLabel)
+    {
+        $this->xLabel = $xLabel;
     }
 
 }

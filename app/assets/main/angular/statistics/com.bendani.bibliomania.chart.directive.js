@@ -11,7 +11,9 @@ angular
             controller: ['$scope', '$location', 'ChartData', 'ErrorContainer', 'ConfirmationModalService', 'ChartConfiguration', 'growl', function($scope, $location, ChartData, ErrorContainer, ConfirmationModalService, ChartConfiguration, growl){
 
                 function init(){
-                    $scope.chartData = ChartData.get({ id: $scope.chartConfigurationId }, function(){}, ErrorContainer.handleRestError);
+                    $scope.chartData = ChartData.get({ id: $scope.chartConfigurationId }, function(){
+                        $scope.series = [$scope.chartData.xLabel];
+                    }, ErrorContainer.handleRestError);
                 }
 
                 $scope.editChart = function(){

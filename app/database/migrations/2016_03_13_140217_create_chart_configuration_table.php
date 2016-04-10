@@ -19,6 +19,7 @@ class CreateChartConfigurationTable extends Migration {
 			$table->unsignedInteger('user_id');
 			$table->string('type');
 			$table->string('xProperty');
+			$table->string('xLabel');
 			$table->string('yProperty');
 			$table->string('filters', 2000);
 			$table->date('created_at');

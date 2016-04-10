@@ -24,6 +24,7 @@ class ChartConfigurationService
             $chart->type = "BAR";
             $chart->title = $chartConfigurationRequest->getTitle();
             $chart->xProperty = $chartConfigurationRequest->getXProperty();
+            $chart->xLabel = $chartConfigurationRequest->getXLabel();
             $chart->filters = json_encode($chartConfigurationRequest->getFilters());
             $chart->save();
             return $chart;
@@ -31,12 +32,14 @@ class ChartConfigurationService
     }
 
     public function updateChartConfiguration($userId, UpdateChartConfigurationFromJsonAdapter $chartConfigurationRequest){
+        /** @var ChartConfiguration $chart */
         $chart = $this->getById($chartConfigurationRequest->getId());
 
         return DB::transaction(function() use ($userId, $chartConfigurationRequest, $chart){
             $chart->type = "BAR";
             $chart->title = $chartConfigurationRequest->getTitle();
             $chart->xProperty = $chartConfigurationRequest->getXProperty();
+            $chart->xLabel = $chartConfigurationRequest->getXLabel();
             $chart->filters = json_encode($chartConfigurationRequest->getFilters());
             $chart->save();
             return $chart;

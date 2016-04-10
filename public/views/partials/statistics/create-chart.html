@@ -10,7 +10,7 @@
                 <errorcontainer></errorcontainer>
 
                 <div class="form-content col-md-12">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group required"
                              ng-class="{'has-error has-feedback' : chartCreationForm.title.$invalid && (chartCreationForm.title.$dirty || submitAttempted)}">
                             <label id="title" class="control-label">Titel </label>
@@ -20,6 +20,17 @@
                                     <span ng-show="chartCreationForm.title.$invalid && (chartCreationForm.title.$dirty || submitAttempted)"
                                           class="form-error-message help-inline"><i
                                             class="fa fa-exclamation-circle"></i> Titel is verplicht</span>
+                            </div>
+                        </div>
+                        <div class="form-group required"
+                             ng-class="{'has-error has-feedback' : chartCreationForm.xLabel.$invalid && (chartCreationForm.xLabel.$dirty || submitAttempted)}">
+                            <label id="xLabel" class="control-label">Legende label </label>
+                            <div>
+                                <input type="text" class="form-control" ng-model="model.xLabel" name="xLabel"
+                                       required="true"/>
+                                    <span ng-show="chartCreationForm.xLabel.$invalid && (chartCreationForm.xLabel.$dirty || submitAttempted)"
+                                          class="form-error-message help-inline"><i
+                                            class="fa fa-exclamation-circle"></i> Legende label is verplicht</span>
                             </div>
                         </div>
                         <div class="form-group"

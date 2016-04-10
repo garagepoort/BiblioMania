@@ -189,9 +189,14 @@ class BookElasticIndexer
         $personalBookInfos = array_map(function ($personalBookInfo) {
             $giftInfo = null;
             $buyInfo = null;
+            $retrieveDate = null;
 
             if ($personalBookInfo->gift_info) {
-                $giftInfo = ['from' => $personalBookInfo->gift_info->from];
+                $giftInfo = [
+                    'from' => $personalBookInfo->gift_info->from,
+                    'gift_date' =>$personalBookInfo->gift_info->receipt_date
+                ];
+                $retrieveDate =$personalBookInfo->gift_info->receipt_date;
             }
 
             if ($personalBookInfo->buy_info) {
@@ -205,6 +210,7 @@ class BookElasticIndexer
                 }
                 $buyInfo['price'] = $personalBookInfo->buy_info->price_payed;
                 $buyInfo['buy_date'] = $personalBookInfo->buy_info->buy_date;
+                $retrieveDate = $personalBookInfo->buy_info->buy_date;
             }
 
             /** @var ReadingDate $date */
@@ -222,6 +228,7 @@ class BookElasticIndexer
                 'reasonNotInCollection' => $personalBookInfo->reasonNotInCollection,
                 'giftInfo' => $giftInfo,
                 'buyInfo' => $buyInfo,
+                'retrieveDate' => $retrieveDate,
                 'readingDates' => $readingDates
             ];
         }, $book->personal_book_infos->all());

@@ -6,6 +6,8 @@
  * @property integer xProperty
  * @property string  type
  * @property string title
+ * @property string xLabel
+ * @property integer user_id
  */
 class ChartConfiguration extends Eloquent
 {
@@ -18,6 +20,7 @@ class ChartConfiguration extends Eloquent
         'user_id',
         'type',
         'xProperty',
+        'xLabel',
         'yProperty',
         'filters'
     );

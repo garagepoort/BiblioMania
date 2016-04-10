@@ -63,6 +63,7 @@ App::singleton('BookFilterManager', function () {
         FilterType::BOOK_READING_DATE=>new BookReadingDateFilterHandler(),
         FilterType::BOOK_AUTHOR=>new ElasticOptionsFilterHandler('authors.id'),
         FilterType::BOOK_BUY_DATE=>new ElasticDateFilterHandler('personalBookInfos.buyInfo.buy_date'),
+        FilterType::BOOK_RETRIEVE_DATE=>new ElasticDateFilterHandler('personalBookInfos.retrieveDate'),
         FilterType::BOOK_BUY_PRICE=>new ElasticNumberFilterHandler('personalBookInfos.buyInfo.price'),
         FilterType::BOOK_IS_PERSONAL=>new BookIsPersonalFilterHandler(),
         FilterType::BOOK_OWNED=>new ElasticBooleanFilterHandler('personalBookInfos.inCollection'),

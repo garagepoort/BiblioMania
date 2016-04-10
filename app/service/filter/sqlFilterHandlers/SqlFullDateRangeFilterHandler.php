@@ -35,7 +35,9 @@ class SqlFullDateRangeFilterHandler implements FilterHandler
         if($filterDateRequest->getTo() !== null){
             Ensure::objectIsInstanceOf('date to', $filterDateRequest->getTo(), 'DateRequest');
             $dateTo = $this->dateFormatter->dateRequestToFormattedDate($filterDateRequest->getTo());
-            return $queryBuilder->where($this->field, '>=', $dateFrom)
+            return $queryBuilder
+                ->whereNotNull($this->field)
+                ->where($this->field, '>=', $dateFrom)
                 ->where($this->field, '<=', $dateTo);
         }
         return $queryBuilder->where($this->field, '>', $dateFrom);

@@ -4,7 +4,7 @@ class ChartDataToJsonAdapter
 {
     private $labels;
     private $data;
-    private $series;
+    private $xLabel;
     private $title;
 
     /**
@@ -13,6 +13,7 @@ class ChartDataToJsonAdapter
     public function __construct(ChartData $chartData)
     {
         $this->title = $chartData->getTitle();
+        $this->xLabel = $chartData->getXLabel();
         $this->labels = $chartData->getLabels();
         $this->data = $chartData->getData();
     }
@@ -20,6 +21,7 @@ class ChartDataToJsonAdapter
     public function mapToJson(){
         return array(
             "title"=>$this->title,
+            "xLabel"=>$this->xLabel,
             "labels"=>$this->labels,
             "data"=>$this->data
         );

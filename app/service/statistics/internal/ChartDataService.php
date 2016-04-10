@@ -31,7 +31,7 @@ class ChartDataService
         $labels = array();
 
         /** @var \Illuminate\Database\Query\Builder $builder */
-        $builder = DB::table('book')->select(DB::raw($chartConfiguration->xProperty . ' as xProperty'), DB::raw("count(*) as total"));
+        $builder = DB::table('book')->select(DB::raw($chartConfiguration->xProperty . ' as xProperty'), DB::raw("count(distinct book.id) as total"));
         $builder = $this->join($builder);
         $builder =  $builder->where('personal_book_info.user_id', '=', $userId);
         $builder =  $builder->whereNotNull(DB::raw($chartConfiguration->xProperty));
@@ -43,11 +43,13 @@ class ChartDataService
             $builder =  $this->bookFilterManager->handle(FilterHandlerGroup::SQL, $filterValue, $builder);
         }
 
-        $results = $builder->groupBy(DB::raw($chartConfiguration->xProperty))->get();
+        $builder = $builder->groupBy('xProperty');
+        $this->logger->info($builder->toSql());
+        $results = $builder->get();
 
         list($data, $labels) = $this->createChartDataFromResult($results, $labels);
 
-        $chartData = new ChartData($chartConfiguration->title, $chartConfiguration->type, $labels, $data);
+        $chartData = new ChartData($chartConfiguration->title, $chartConfiguration->xLabel, $chartConfiguration->type, $labels, $data);
         return $chartData;
     }
 
