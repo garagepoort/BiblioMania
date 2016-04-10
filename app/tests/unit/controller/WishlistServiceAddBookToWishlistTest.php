@@ -58,7 +58,7 @@ class WishlistServiceAddBookToWishlistTest extends TestCase
     }
 
     /**
-     * @expectedException ServiceException
+     * @expectedException Bendani\PhpCommon\Utils\Exception\ServiceException
      * @expectedExceptionMessage Object user can not be null.
      */
     public function test_shouldThrowExceptionWhenUserDoesNotExist(){
@@ -68,7 +68,7 @@ class WishlistServiceAddBookToWishlistTest extends TestCase
     }
 
     /**
-     * @expectedException ServiceException
+     * @expectedException Bendani\PhpCommon\Utils\Exception\ServiceException
      * @expectedExceptionMessage Object book can not be null.
      */
     public function test_shouldThrowExceptionWhenBookDoesNotExist(){
@@ -78,7 +78,7 @@ class WishlistServiceAddBookToWishlistTest extends TestCase
     }
 
     /**
-     * @expectedException ServiceException
+     * @expectedException Bendani\PhpCommon\Utils\Exception\ServiceException
      * @expectedExceptionMessage This wishlist already contains this book. Can not add.
      */
     public function test_shouldThrowExceptionWhenBookIsAlreadyAddedToWishlist(){

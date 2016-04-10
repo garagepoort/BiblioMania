@@ -1,5 +1,7 @@
 <?php
 
+use Bendani\PhpCommon\Utils\Ensure;
+
 class PersonalBookInfoController extends BaseController
 {
     /** @var  PersonalBookInfoService */

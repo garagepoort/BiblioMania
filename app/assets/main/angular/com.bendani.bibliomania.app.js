@@ -2,6 +2,7 @@ angular.module('BiblioMania', ['ngRoute',
     'ui.bootstrap',
     'ui.bootstrap.tpls',
     'ui.validate',
+    'chart.js',
     'angular-growl',
     'com.bendani.bibliomania.book.controller',
     'com.bendani.bibliomania.login.controller',
@@ -20,6 +21,8 @@ angular.module('BiblioMania', ['ngRoute',
     'com.bendani.bibliomania.publisher.overview.ui',
     'com.bendani.bibliomania.series.overview.ui',
     'com.bendani.bibliomania.header.controller',
+    'com.bendani.bibliomania.statistics.ui',
+    'com.bendani.bibliomania.create.chart.ui',
     'com.bendani.bibliomania.title.panel'])
     .config(['$routeProvider', 'growlProvider', function ($routeProvider, growlProvider) {
         $routeProvider

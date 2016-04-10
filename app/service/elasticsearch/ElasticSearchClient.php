@@ -99,7 +99,8 @@ class ElasticSearchClient
                                 "properties" => [
                                     'giftInfo' => [
                                         'properties' => [
-                                            'from' => ['type'=>'string', 'analyzer'=>'analyzer_keyword']
+                                            'from' => ['type'=>'string', 'analyzer'=>'analyzer_keyword'],
+                                            'gift_date' => ['type'=>'date', 'format'=>'yyyy-MM-dd']
                                         ]
                                     ],
                                     'buyInfo' => [
@@ -112,7 +113,8 @@ class ElasticSearchClient
                                             'rating' => [ 'type' => 'integer' ],
                                             'date' => ['type'=>'date', 'format'=>'yyyy-MM-dd']
                                         ]
-                                    ]
+                                    ],
+                                    'retrieveDate' => ['type'=>'date', 'format'=>'yyyy-MM-dd']
                                 ]
                             ]
                         ]

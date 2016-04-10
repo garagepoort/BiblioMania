@@ -1,5 +1,8 @@
 <?php
 
+use Bendani\PhpCommon\Utils\Ensure;
+use Bendani\PhpCommon\Utils\Exception\ServiceException;
+
 class OeuvreService
 {
     /** @var  BookFromAuthorRepository */

@@ -51,7 +51,7 @@ class WishlistServiceRemoveBookFromWishlistTest extends TestCase
     }
 
     /**
-     * @expectedException ServiceException
+     * @expectedException Bendani\PhpCommon\Utils\Exception\ServiceException
      * @expectedExceptionMessage Object user can not be null.
      */
     public function test_shouldThrowExceptionWhenUserDoesNotExist(){
@@ -61,7 +61,7 @@ class WishlistServiceRemoveBookFromWishlistTest extends TestCase
     }
 
     /**
-     * @expectedException ServiceException
+     * @expectedException Bendani\PhpCommon\Utils\Exception\ServiceException
      * @expectedExceptionMessage Object book can not be null.
      */
     public function test_shouldThrowExceptionWhenBookDoesNotExist(){
@@ -71,7 +71,7 @@ class WishlistServiceRemoveBookFromWishlistTest extends TestCase
     }
 
     /**
-     * @expectedException ServiceException
+     * @expectedException Bendani\PhpCommon\Utils\Exception\ServiceException
      * @expectedExceptionMessage This user does not have the given book on his wishlist. Can not remove book.
      */
     public function test_shouldThrowExceptionWhenBookIsNotInToWishlist(){

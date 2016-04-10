@@ -1,5 +1,7 @@
 <?php
 
+use Bendani\PhpCommon\Utils\Ensure;
+
 class AuthorController extends BaseController
 {
 

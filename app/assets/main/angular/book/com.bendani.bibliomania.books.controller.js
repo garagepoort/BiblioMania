@@ -18,7 +18,11 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
             var otherBooks = {key: 'Andere boeken', value: 'otherBooks', searchBooks: Book.searchOtherBooks};
             var wishlist = {key: 'Wishlist', value: 'wishlist', searchBooks: Book.searchWishlist};
 
+
             function init() {
+                $scope.filterServiceId = "bookOverviewFilters";
+                FilterService.registerFilterService($scope.filterServiceId);
+
                 TitlePanelService.setTitle('Boeken');
                 TitlePanelService.setShowPreviousButton(false);
                 setRightTitlePanel();
@@ -38,7 +42,7 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
                 $scope.viewableFilters = { selected: personalBooks, all: [allBooks, otherBooks, personalBooks, personalBooksNotInCollection, wishlist] };
 
                 $scope.selectViewableFilter = function(){
-                    FilterService.filter($scope.filterBooks);
+                    FilterService.filter($scope.filterServiceId, $scope.filterBooks);
                 };
 
                 $scope.$watch('viewableBooks', function(){
@@ -48,7 +52,7 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
                 });
 
                 getFilters();
-                FilterService.filter($scope.filterBooks);
+                FilterService.filter($scope.filterServiceId, $scope.filterBooks);
             }
 
             $scope.search = function (item) {
@@ -130,7 +134,7 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
                         }
                         filter.value = "";
                     }
-                    FilterService.setAllFilters(filters);
+                    FilterService.setAllFilters($scope.filterServiceId, filters);
                 }, ErrorContainer.handleRestError);
             }
 

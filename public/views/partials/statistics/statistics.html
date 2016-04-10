@@ -1,0 +1,13 @@
+<div class="books-container">
+    <div class="contentPanel">
+
+        <errorcontainer></errorcontainer>
+        <div class="top-book-panel">
+            <button class="btn btn-default btn-sm" ng-click="goToCreateChart()">Add Chart</button>
+        </div>
+        <div class="row col-md-12">
+            <chart on-delete="onDeleteChart()" ng-repeat="chartConfig in chartConfigurations" chart-configuration-id="chartConfig.id">
+            </chart>
+        </div>
+    </div>
+</div>

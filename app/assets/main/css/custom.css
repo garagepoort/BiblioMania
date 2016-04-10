@@ -169,6 +169,9 @@ a:hover {
 .datepicker .multidatepicker {
   color: #FFFFFF;
 }
+.popover {
+  z-index: 1030;
+}
 .float-right {
   float: right;
 }
@@ -1020,4 +1023,11 @@ a.editable-click:hover {
 }
 .dl-text-align-left dt {
   text-align: left;
+}
+.chart-heading-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+  max-width: 50%;
 }

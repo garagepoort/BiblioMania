@@ -16,6 +16,10 @@ App::singleton('ImageService', function () {
     return new ImageService;
 });
 
+App::singleton('ChartConfigurationService', function () {
+    return new ChartConfigurationService();
+});
+
 App::singleton('GenreService', function () {
     return new GenreService();
 });
@@ -49,7 +53,46 @@ App::singleton('CurrencyService', function () {
 });
 
 App::singleton('BookFilterManager', function () {
-    return new BookFilterManager();
+    $elasticHandlers = array(
+        FilterType::BOOK_TITLE=>new ElasticStringFilterHandler('title'),
+        FilterType::BOOK_TAG=>new ElasticOptionsFilterHandler('tags.id'),
+        FilterType::BOOK_RETAIL_PRICE=>new ElasticNumberFilterHandler('retailPrice.amount'),
+        FilterType::BOOK_LANGUAGE=>new ElasticOptionsFilterHandler('language'),
+        FilterType::BOOK_RATING=>new ElasticOptionsFilterHandler('personalBookInfos.readingDates.rating'),
+        FilterType::BOOK_READ=>new BookReadFilterHandler(),
+        FilterType::BOOK_READING_DATE=>new BookReadingDateFilterHandler(),
+        FilterType::BOOK_AUTHOR=>new ElasticOptionsFilterHandler('authors.id'),
+        FilterType::BOOK_BUY_DATE=>new ElasticDateFilterHandler('personalBookInfos.buyInfo.buy_date'),
+        FilterType::BOOK_RETRIEVE_DATE=>new ElasticDateFilterHandler('personalBookInfos.retrieveDate'),
+        FilterType::BOOK_BUY_PRICE=>new ElasticNumberFilterHandler('personalBookInfos.buyInfo.price'),
+        FilterType::BOOK_IS_PERSONAL=>new BookIsPersonalFilterHandler(),
+        FilterType::BOOK_OWNED=>new ElasticBooleanFilterHandler('personalBookInfos.inCollection'),
+        FilterType::BOOK_PUBLISHER=>new ElasticOptionsFilterHandler('publisher'),
+        FilterType::BOOK_COUNTRY=>new ElasticOptionsFilterHandler('country'),
+        FilterType::BOOK_GENRE=>new ElasticOptionsFilterHandler('genre'),
+        FilterType::BOOK_BUY_GIFT_FROM=>new ElasticOptionsFilterHandler('personalBookInfos.giftInfo.from'),
+    );
+    $sqlHandlers = array(
+        FilterType::BOOK_TITLE=>new SqlStringFilterHandler('book.title'),
+        FilterType::BOOK_TAG=>new SqlOptionsFilterHandler('tag.id'),
+        FilterType::BOOK_RETAIL_PRICE=>new SqlEqualsFilterHandler('book.retail_price'),
+        FilterType::BOOK_LANGUAGE=>new SqlOptionsFilterHandler('book.language_id'),
+        FilterType::BOOK_RATING=>new SqlOptionsFilterHandler('reading_date.rating'),
+        FilterType::BOOK_READ=>new SqlReadFilterHandler(),
+        FilterType::BOOK_RETRIEVE_DATE=>new SqlDateRangeOrFilterHandler('buy_info.buy_date', 'gift_info.receipt_date'),
+        FilterType::BOOK_READING_DATE=>new SqlDateRangeFilterHandler('reading_date.date'),
+        FilterType::BOOK_AUTHOR=>new SqlOptionsFilterHandler('author.id'),
+        FilterType::BOOK_BUY_DATE=>new SqlFullDateRangeFilterHandler('buy_info.buy_date'),
+        FilterType::BOOK_BUY_PRICE=>new SqlEqualsFilterHandler('buy_info.price_payed'),
+        FilterType::BOOK_PUBLISHER=>new SqlOptionsFilterHandler('publisher.id'),
+        FilterType::BOOK_COUNTRY=>new SqlOptionsFilterHandler('book.publisher_country_id'),
+        FilterType::BOOK_GENRE=>new SqlOptionsFilterHandler('genre.id'),
+        FilterType::BOOK_BUY_GIFT_FROM=>new SqlOptionsFilterHandler('gift_info.from'),
+    );
+    $bookFilterManager = new BookFilterManager();
+    $bookFilterManager->registerHandlers(FilterHandlerGroup::ELASTIC, $elasticHandlers);
+    $bookFilterManager->registerHandlers(FilterHandlerGroup::SQL, $sqlHandlers);
+    return $bookFilterManager;
 });
 
 App::singleton('ApiAuthenticationService', function () {
