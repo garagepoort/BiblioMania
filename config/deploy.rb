@@ -64,7 +64,14 @@ namespace :deploy do
   desc 'update composer'
   task :restart do
     on roles(:app) do
-      execute "cd /home/myApps/BiblioMania/current && cp ../.env.php . && php composer.phar update && cd public && rm -rf bookImages && ln -s /home/myApps/BiblioMania/bookImages && rm -rf authorImages && ln -s /home/myApps/BiblioMania/authorImages"
+      execute "rm /home/myApps/BiblioMania/current/public/bookImages"
+      execute "rm /home/myApps/BiblioMania/current/public/authorImages"
+      execute "ln -s /home/myApps/BiblioMania/bookImages /home/myApps/BiblioMania/current/public/bookImages"
+      execute "ln -s /home/myApps/BiblioMania/authorImages /home/myApps/BiblioMania/current/public/authorImages"
+      execute "cd /home/myApps/BiblioMania/current && cp ../.env.php ."
+      execute "cd /home/myApps/BiblioMania/current && php composer.phar update && php artisan migrate --force"
+      execute :sudo, "chown -R apache:apache /home/myApps/BiblioMania/current/public"
+      execute :sudo, "chown -R apache:apache /home/myApps/BiblioMania/current/app/storage"
     end
       # Your restart mechanism here, for example:
       # execute :touch, release_path.join('tmp/restart.txt')

@@ -14,6 +14,7 @@ class CreateChartConfigurationTable extends Migration {
 	{
 		Schema::create('chart_configuration', function($table)
 		{
+			$table->engine = 'InnoDB';
 			$table->increments('id');
 			$table->string('title');
 			$table->unsignedInteger('user_id');
