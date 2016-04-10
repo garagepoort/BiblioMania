@@ -19,6 +19,14 @@ Route::group(array('before' => 'auth'), function () {
     Route::post('users/{id}/wishlist', 'WishlistController@addBookToWishlist');
     Route::put('users/{id}/wishlist/remove-book', 'WishlistController@removeBookFromWishlist');
 
+    Route::get('chart-configurations/xproperties', 'ChartConfigurationController@getXProperties');
+    Route::get('chart-configurations', 'ChartConfigurationController@getChartConfigurations');
+    Route::get('chart-configurations/{id}', 'ChartConfigurationController@getChartConfiguration');
+    Route::post('chart-configurations', 'ChartConfigurationController@createChartConfiguration');
+    Route::put('chart-configurations', 'ChartConfigurationController@updateChartConfiguration');
+    Route::delete('chart-configurations/{id}', 'ChartConfigurationController@deleteChartConfiguration');
+    Route::get('chart-data/{configurationId}', 'ChartConfigurationController@getChartData');
+
     Route::get('books', 'BookController@getBooks');
     Route::post('books', 'BookController@createBook');
     Route::put('books', 'BookController@updateBook');
@@ -32,6 +40,7 @@ Route::group(array('before' => 'auth'), function () {
     Route::put('books/{id}/unlink-author', 'BookController@unlinkAuthorFromBook');
 
     Route::get('bookFilters', 'BookController@getFilters');
+    Route::get('chartFilters', 'ChartConfigurationController@getFilters');
     Route::get('mostUsedBookFilters', 'BookController@getMostUsedFilters');
     Route::get('tags', 'TagController@getTags');
     Route::get('countries', 'CountryController@getCountries');
@@ -85,7 +94,6 @@ Route::group(array('before' => 'auth'), function () {
 
     Route::get('genres', 'GenreController@getGenres');
 
-//  BOOKS
     Route::get('getBooksList', 'BookController@getBooksList');
     Route::get('getDraftBooksList', 'BookController@getDraftBooksList');
     Route::get('getFullBook', 'BookController@getFullBook');

@@ -37,4 +37,7 @@ interface BaseBookRequest
     function getTranslator();
 
     function getSummary();
+
+    /** @return PriceRequest */
+    function getRetailPrice();
 }

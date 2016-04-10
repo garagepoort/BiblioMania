@@ -1,5 +1,7 @@
 <?php
 
+use Bendani\PhpCommon\Utils\Exception\ServiceException;
+
 class BookSerieServiceremoveBookFromSerieTest extends TestCase
 {
     const SERIE_ID = 123;
@@ -49,7 +51,7 @@ class BookSerieServiceremoveBookFromSerieTest extends TestCase
     }
 
     /**
-     * @expectedException ServiceException
+     * @expectedException Bendani\PhpCommon\Utils\Exception\ServiceException
      * @expectedExceptionMessage Serie does not exist
      */
     public function test_shouldThrowExceptionWhenSerieToUpdateDoesNotExists(){
@@ -60,7 +62,7 @@ class BookSerieServiceremoveBookFromSerieTest extends TestCase
 
 
     /**
-     * @expectedException ServiceException
+     * @expectedException Bendani\PhpCommon\Utils\Exception\ServiceException
      * @expectedExceptionMessage Book does not exist
      */
     public function test_shouldThrowExceptionWhenBookDoesNotExists(){
@@ -72,7 +74,7 @@ class BookSerieServiceremoveBookFromSerieTest extends TestCase
 
 
     /**
-     * @expectedException ServiceException
+     * @expectedException Bendani\PhpCommon\Utils\Exception\ServiceException
      * @expectedExceptionMessage Trying to remove book from serie but book is not a part of the given serie
      */
     public function test_shouldThrowExceptionWhenBookIsNotInSeriegGiven(){

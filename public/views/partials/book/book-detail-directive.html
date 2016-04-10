@@ -37,8 +37,8 @@
                                 <dd ng-show="selectedBook.serie">{{selectedBook.serie}}</dd>
                                 <dt ng-show="selectedBook.publisherSerie">Uitgeverreeks:</dt>
                                 <dd ng-show="selectedBook.publisherSerie">{{selectedBook.publisherSerie}}</dd>
-                                <dt ng-show="selectedBook.retailPrice">Cover prijs:</dt>
-                                <dd ng-show="selectedBook.retailPrice">{{ getCurrencyViewValue(selectedBook.currency) }} {{ selectedBook.retailPrice | numberFormatFilter}}</dd>
+                                <dt ng-show="selectedBook.retailPrice">Cover prijs: </dt>
+                                <dd ng-show="selectedBook.retailPrice">{{ getCurrencyViewValue(selectedBook.retailPrice.currency) }} {{ selectedBook.retailPrice.amount | numberFormatFilter}}</dd>
                                 <dt ng-show="selectedBook.pages">Pagina's:</dt>
                                 <dd ng-show="selectedBook.pages">{{selectedBook.pages}}</dd>
                                 <dt ng-show="selectedBook.print">Druk:</dt>

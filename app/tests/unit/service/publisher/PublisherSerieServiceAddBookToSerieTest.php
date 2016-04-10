@@ -1,5 +1,7 @@
 <?php
 
+use Bendani\PhpCommon\Utils\Exception\ServiceException;
+
 class PublisherSerieServiceAddBookToSerieTest extends TestCase
 {
     const PUBLISHER_SERIE_ID = 123;
@@ -48,7 +50,7 @@ class PublisherSerieServiceAddBookToSerieTest extends TestCase
     }
 
     /**
-     * @expectedException ServiceException
+     * @expectedException Bendani\PhpCommon\Utils\Exception\ServiceException
      * @expectedExceptionMessage Serie does not exist
      */
     public function test_shouldThrowExceptionWhenSerieToUpdateDoesNotExists(){
@@ -59,7 +61,7 @@ class PublisherSerieServiceAddBookToSerieTest extends TestCase
 
 
     /**
-     * @expectedException ServiceException
+     * @expectedException Bendani\PhpCommon\Utils\Exception\ServiceException
      * @expectedExceptionMessage Book does not exist
      */
     public function test_shouldThrowExceptionWhenBookDoesNotExists(){

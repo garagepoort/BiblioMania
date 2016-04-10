@@ -1,5 +1,7 @@
 <?php
 
+use Bendani\PhpCommon\Utils\Exception\ServiceException;
+
 class BookNotFoundException extends ServiceException {
     public function __construct($message, $code = 0, Exception $previous = null)
     {

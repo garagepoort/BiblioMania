@@ -11,6 +11,7 @@
     "grunt-remove": "^0.1.0"
   },
   "dependencies": {
+    "chart.js": "^1.0.2",
     "ng-tags-input": "^3.0.0"
   }
 }

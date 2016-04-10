@@ -1,5 +1,7 @@
 <?php
 
+use Bendani\PhpCommon\Utils\Exception\ServiceException;
+
 class AuthorServiceCreateTest extends TestCase {
     const DATE_OF_BIRTH_ID = 12;
     const DATE_OF_DEATH_ID = 13;
@@ -69,7 +71,7 @@ class AuthorServiceCreateTest extends TestCase {
     }
 
     /**
-     * @expectedException ServiceException
+     * @expectedException Bendani\PhpCommon\Utils\Exception\ServiceException
      * @expectedExceptionMessage Object author create request name can not be null.
      */
     public function test_shouldThrowExceptionWhenNameIsNull(){

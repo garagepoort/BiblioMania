@@ -1,6 +1,6 @@
 <?php
 
-use Bendani\PhpCommon\Utils\Model\StringUtils;
+use Bendani\PhpCommon\Utils\StringUtils;
 
 class StatisticsController extends BaseController
 {

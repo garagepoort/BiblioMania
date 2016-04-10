@@ -11,6 +11,8 @@
 |
 */
 
+use Bendani\PhpCommon\Utils\Exception\JsonException;
+
 ClassLoader::addDirectories(array(
 
 	app_path().'/commands',
@@ -49,10 +51,12 @@ Log::useFiles(storage_path().'/logs/laravel.log');
 App::error(function(Exception $exception, $code)
 {
 	Log::error($exception);
+	return ResponseCreator::createInternalExceptionResponse($exception, $code);
 });
 
 App::error(function(JsonException $exception)
 {
+	Log::error($exception);
 	return ResponseCreator::createExceptionResponse($exception);
 });
 

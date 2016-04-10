@@ -1,6 +1,7 @@
 <?php
 
-use Bendani\PhpCommon\Utils\Model\StringUtils;
+use Bendani\PhpCommon\Utils\Ensure;
+use Bendani\PhpCommon\Utils\Exception\ServiceException;
 
 class BookController extends BaseController
 {
@@ -108,7 +109,7 @@ class BookController extends BaseController
         $filtersInJson = Input::get();
         Ensure::objectIsArray('filters', $filtersInJson);
 
-        $allFiltersFromJsonAdapter = new AllFiltersFromJsonAdapter($filtersInJson);
+        $allFiltersFromJsonAdapter = new AllFilterValuesFromJsonAdapter($filtersInJson);
         $allFilters = $allFiltersFromJsonAdapter->getFilters();
         return $allFilters;
     }

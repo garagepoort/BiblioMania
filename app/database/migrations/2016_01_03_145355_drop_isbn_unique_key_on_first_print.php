@@ -12,10 +12,10 @@ class DropIsbnUniqueKeyOnFirstPrint extends Migration {
 	 */
 	public function up()
 	{
-		Schema::table('first_print_info', function($table)
-		{
-			$table->dropUnique('first_print_info_isbn_unique');
-		});
+//		Schema::table('first_print_info', function($table)
+//		{
+//			$table->dropUnique('first_print_info_isbn_unique');
+//		});
 	}
 
 	/**

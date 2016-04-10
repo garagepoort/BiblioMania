@@ -1,6 +1,6 @@
 <?php
 
-use Bendani\PhpCommon\FilterService\Model\FilterHandler;
+use Bendani\PhpCommon\FilterService\Model\Filter;
 
 class FilterToJsonAdapter
 {
@@ -14,17 +14,17 @@ class FilterToJsonAdapter
 
     /**
      * FilterToJsonAdapter constructor.
-     * @param FilterHandler $filterHandler
+     * @param Filter $filter
      */
-    public function __construct(FilterHandler $filterHandler)
+    public function __construct(Filter $filter)
     {
-        $this->id = $filterHandler->getFilterId();
-        $this->key = $filterHandler->getField();
-        $this->type = $filterHandler->getType();
-        $this->group = $filterHandler->getGroup();
-        $this->supportedOperators = $filterHandler->getSupportedOperators();
+        $this->id = $filter->getFilterId();
+        $this->key = $filter->getField();
+        $this->type = $filter->getType();
+        $this->group = $filter->getGroup();
+        $this->supportedOperators = $filter->getSupportedOperators();
 
-        $this->options = method_exists($filterHandler, "getOptions") ? $filterHandler->getOptions() : null;
+        $this->options = method_exists($filter, "getOptions") ? $filter->getOptions() : null;
     }
 
     public function mapToJson(){

@@ -2,9 +2,10 @@
 
 use Bendani\PhpCommon\FilterService\Model\Filter;
 use Bendani\PhpCommon\FilterService\Model\FilterBuilder;
-use Bendani\PhpCommon\FilterService\Model\FilterHandler;
-use Bendani\PhpCommon\FilterService\Model\FilterRequest;
-use Bendani\PhpCommon\Utils\Model\StringUtils;
+use Bendani\PhpCommon\FilterService\Model\FilterValue;
+use Bendani\PhpCommon\Utils\Ensure;
+use Bendani\PhpCommon\Utils\Exception\ServiceException;
+use Bendani\PhpCommon\Utils\StringUtils;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 
@@ -283,6 +284,9 @@ class BookService
             $book->number_of_pages = $createBookRequest->getPages();
             $book->summary = $createBookRequest->getSummary();
 
+            $book->retail_price = $createBookRequest->getRetailPrice()->getAmount();
+            $book->currency = $createBookRequest->getRetailPrice()->getCurrency();
+
             if (!StringUtils::isEmpty($createBookRequest->getImageUrl())) {
                 $book->coverImage = $this->imageService->saveBookImageFromUrl($createBookRequest->getImageUrl(), $book);
             }
@@ -330,18 +334,17 @@ class BookService
      */
     private function filtersToFilterHandlers($filters)
     {
-
         $personalFiltersForSearch = [];
         $filtersForSearch = [];
-        /** @var Filter $filter */
-        foreach ($filters as $filter) {
-            /** @var FilterHandler $filterHandler */
-            $filterHandler = $this->bookFilterManager->getFilter($filter->getId());
+        /** @var FilterValue $filterValue */
+        foreach ($filters as $filterValue) {
+            /** @var Filter $filter */
+            $filter = $this->bookFilterManager->getFilter($filterValue->getId());
 
-            if ($filterHandler->getGroup() === 'personal') {
-                array_push($personalFiltersForSearch, $this->bookFilterManager->handle($filter));
+            if ($filter->getGroup() === 'personal') {
+                array_push($personalFiltersForSearch, $this->bookFilterManager->handle(FilterHandlerGroup::ELASTIC, $filterValue));
             } else {
-                array_push($filtersForSearch, $this->bookFilterManager->handle($filter));
+                array_push($filtersForSearch, $this->bookFilterManager->handle(FilterHandlerGroup::ELASTIC, $filterValue));
             }
         }
         return array($personalFiltersForSearch, $filtersForSearch);

@@ -50,7 +50,7 @@ class OeuvreServiceLinkBookToOeuvreItemTest extends TestCase
     }
 
     /**
-     * @expectedException ServiceException
+     * @expectedException Bendani\PhpCommon\Utils\Exception\ServiceException
      * @expectedExceptionMessage Object oeuvre item can not be null.
      */
     public function test_shouldThrowExceptionWhenOeuvreItemNotFound(){
@@ -61,7 +61,7 @@ class OeuvreServiceLinkBookToOeuvreItemTest extends TestCase
 
 
     /**
-     * @expectedException ServiceException
+     * @expectedException Bendani\PhpCommon\Utils\Exception\ServiceException
      * @expectedExceptionMessage Object book can not be null.
      */
     public function test_shouldThrowExceptionWhenBookNotFound(){

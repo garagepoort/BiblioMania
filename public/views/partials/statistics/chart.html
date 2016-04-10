@@ -1,0 +1,21 @@
+<div class="{{ getColumnClass() }}">
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <div class="chart-heading-title">
+                {{ chartData.title }}
+            </div>
+            <button ng-click="deleteChart()" class="float-right btn btn-sm btn-danger margin-left-5">Verwijder</button>
+            <button ng-click="editChart()" class="float-right btn btn-sm btn-default">Wijzig</button>
+        </div>
+        <div class="panel-body">
+            <div class="chart-container">
+                <canvas id="bar" class="chart chart-bar"
+                        chart-series="series"
+                        chart-data="chartData.data"
+                        chart-labels="chartData.labels"
+                        chart-legend="true"
+                        chart-options="{animation: false }"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
