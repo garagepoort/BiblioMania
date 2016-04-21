@@ -6,6 +6,7 @@ php:
 
 before_script:
   - composer update
+  - composer install --prefer-source --no-interaction --dev
   - npm install karma
   - npm install jasmine-core
   - npm install karma-jasmine --save-dev
