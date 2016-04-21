@@ -39,7 +39,8 @@
       "app/service",
       "app/database/migrations",
       "app/database/seeds",
-      "app/tests"
+      "app/tests",
+      "vendor/bendani"
     ]
   },
   "scripts": {
