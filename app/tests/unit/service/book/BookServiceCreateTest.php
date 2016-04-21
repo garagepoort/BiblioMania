@@ -129,6 +129,8 @@ class BookServiceCreateTest extends TestCase
         $this->assertEquals($createdBook->translator, $this->createBookRequestImpl->getTranslator());
         $this->assertEquals($createdBook->print, $this->createBookRequestImpl->getPrint());
         $this->assertEquals($createdBook->number_of_pages, $this->createBookRequestImpl->getPages());
+        $this->assertEquals($createdBook->retail_price, $this->createBookRequestImpl->getRetailPrice()->getAmount());
+        $this->assertEquals($createdBook->currency, $this->createBookRequestImpl->getRetailPrice()->getCurrency());
         $this->assertNull($createdBook->coverImage);
         $this->assertNull($createdBook->serie_id);
         $this->assertNull($createdBook->publisher_serie_id);

@@ -11,6 +11,8 @@ class BookControllerCreateTest extends TestCase
     const PREFERRED_AUTHOR_ID = 213;
     const PUBLICATION_DATE_DAY = 31;
     const PUBLICATION_DATE_MONTH = 12;
+    const CURRENCY = 'USD';
+    const RETAIL_PRICE = 12.23;
     const PUBLICATION_DATE_YEAR = 2015;
     const SUMMARY = 'my summary';
     const TRANSLATOR = 'translator';
@@ -49,6 +51,7 @@ class BookControllerCreateTest extends TestCase
             'imagUrl' => self::IMAGE_URL,
             'serie' => self::SERIE,
             'publisherSerie' => self::PUBLISHER_SERIE,
+            'retailPrice'=> array('amount'=>self::RETAIL_PRICE, 'currency' => self::CURRENCY),
             'preferredAuthorId' => self::PREFERRED_AUTHOR_ID,
             'publicationDate' => array('day'=> self::PUBLICATION_DATE_DAY, 'month'=> self::PUBLICATION_DATE_MONTH, 'year'=> self::PUBLICATION_DATE_YEAR),
             'tags' => array(
@@ -72,6 +75,8 @@ class BookControllerCreateTest extends TestCase
             $this->assertEquals(self::_PRINT, $baseBookRequest->getPrint());
             $this->assertEquals(self::PAGES, $baseBookRequest->getPages());
             $this->assertEquals(self::SERIE, $baseBookRequest->getSerie());
+            $this->assertEquals(self::CURRENCY, $baseBookRequest->getRetailPrice()->getCurrency());
+            $this->assertEquals(self::RETAIL_PRICE, $baseBookRequest->getRetailPrice()->getAmount());
             $this->assertEquals(self::PUBLISHER_SERIE, $baseBookRequest->getPublisherSerie());
 
             $publicationDate = $baseBookRequest->getPublicationDate();

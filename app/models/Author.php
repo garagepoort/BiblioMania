@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Class Author
+ *
+ * @property string name
+ */
 class Author extends Eloquent {
     protected $table = 'author';
 
