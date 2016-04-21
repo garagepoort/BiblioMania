@@ -27,7 +27,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group required">
+                        <div ng-show="model.inCollection" class="form-group required">
                             <label class="control-label">Verkregen </label>
 
                             <div class="btn-group" data-toggle="buttons" style="display: block">
@@ -38,8 +38,8 @@
                     </div>
                 </div>
 
-                <div class="animated fadeIn" ng-show="model.acquirement === 'BUY'" ng-include="'../BiblioMania/views/partials/personalbookinfo/buy-info.html'"></div>
-                <div class="animated fadeIn" ng-show="model.acquirement === 'GIFT'" ng-include="'../BiblioMania/views/partials/personalbookinfo/gift-info.html'"></div>
+                <div ng-if="model.inCollection && model.acquirement === 'BUY'" class="animated fadeIn" ng-include="'../BiblioMania/views/partials/personalbookinfo/buy-info.html'"></div>
+                <div ng-if="model.inCollection && model.acquirement === 'GIFT'" class="animated fadeIn" ng-include="'../BiblioMania/views/partials/personalbookinfo/gift-info.html'"></div>
 
                 <div class="col-md-12">
                     <button class="btn btn-primary">Save</button>

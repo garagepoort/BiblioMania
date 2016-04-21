@@ -1,0 +1,19 @@
+<div class="form-subtitle">
+    <div>Auteurs</div>
+    <button class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="showSelectAuthorDialog()"><i class="fa fa-plus"> Auteur toevoegen</i></button>
+</div>
+<div class="form-content detail-panel">
+    <table class="table table-striped">
+        <tbody>
+        <tr ng-repeat="author in book.authors">
+            <td>{{ author.name.firstname + " " + author.name.lastname }}</td>
+
+            <td class="text-align-right">
+                <span ng-show="author.preferred" style="top: 3px;" class="glyphicon glyphicon-ok-sign"></span>
+                <button ng-click="goToEditAuthor(author);" type="button" class="btn btn-default btn-xs"><span class="fa fa-pencil"></span></button>
+                <button ng-click="unlinkAuthorFromBook(author);" ng-hide="author.preferred" type="button" class="btn btn-sm btn-default btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

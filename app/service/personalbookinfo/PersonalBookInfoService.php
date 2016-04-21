@@ -45,23 +45,14 @@ class PersonalBookInfoService
             $personalBookInfo = $this->personalBookInfoRepository->findByBook($createRequest->getBookId());
             Ensure::objectNull('personBookInformation', $personalBookInfo, 'The book given already has a personal book information. Cannot create a new one.');
 
-            if($createRequest->getBuyInfo() == null && $createRequest->getGiftInfo() == null){
-                throw new ServiceException('No buy or gift information given');
-            }
-
-            if($createRequest->getBuyInfo() != null && $createRequest->getGiftInfo() != null){
-                throw new ServiceException('Both buy and gift information are given. Only one can be chosen');
-            }
-
-            $wishlistItem = $this->wishlistRepository->findByUserAndBook($user_id, $book->id);
-            if($wishlistItem !== null){
-                $this->wishlistRepository->delete($wishlistItem);
-            }
 
             $personalBookInfo = new PersonalBookInfo();
             $personalBookInfo->book_id = $createRequest->getBookId();
             $personalBookInfo->user_id = $user_id;
-            return $this->updatePersonalBookInfo($personalBookInfo, $createRequest);
+
+            $updatePersonalBookInfoId = $this->updatePersonalBookInfo($personalBookInfo, $createRequest);
+            $this->removeBookFromWishlist($user_id, $book);
+            return $updatePersonalBookInfoId;
         });
     }
 
@@ -69,13 +60,6 @@ class PersonalBookInfoService
         return DB::transaction(function() use ($updateRequest){
             $personalBookInfo = $this->personalBookInfoRepository->find($updateRequest->getId());
             Ensure::objectNotNull('personalBookInfo', $personalBookInfo);
-
-            if($updateRequest->getBuyInfo() == null && $updateRequest->getGiftInfo() == null){
-                throw new ServiceException('No buy or gift information given');
-            }
-            if($updateRequest->getBuyInfo() != null && $updateRequest->getGiftInfo() != null){
-                throw new ServiceException('Both buy and gift information are given. Only one can be chosen');
-            }
 
             return $this->updatePersonalBookInfo($personalBookInfo, $updateRequest);
         });
@@ -85,19 +69,40 @@ class PersonalBookInfoService
         $personalBookInfo->set_owned($request->isInCollection());
         if(!$request->isInCollection()){
             $personalBookInfo->reason_not_owned = $request->getReasonNotInCollection();
-        }
+            $this->giftInfoService->delete($personalBookInfo->id);
+            $this->buyInfoService->delete($personalBookInfo->id);
+        }else{
+            if($request->getBuyInfo() == null && $request->getGiftInfo() == null){
+                throw new ServiceException('Buy or gift information is not given');
+            }
+            if($request->getBuyInfo() != null && $request->getGiftInfo() != null){
+                throw new ServiceException('Both buy and gift information are given. Only one can be chosen');
+            }
 
+            if($request->getBuyInfo() != null){
+                $this->giftInfoService->delete($personalBookInfo->id);
+                $this->buyInfoService->createOrUpdate($personalBookInfo->id, $request->getBuyInfo());
+            }
+            else{
+                $this->buyInfoService->delete($personalBookInfo->id);
+                $this->giftInfoService->createOrUpdate($personalBookInfo->id, $request->getGiftInfo());
+            }
+        }
         $personalBookInfo->save();
 
-        if($request->getBuyInfo() != null){
-            $this->giftInfoService->delete($personalBookInfo->id);
-            $this->buyInfoService->createOrUpdate($personalBookInfo->id, $request->getBuyInfo());
-        }
-        else{
-            $this->buyInfoService->delete($personalBookInfo->id);
-            $this->giftInfoService->createOrUpdate($personalBookInfo->id, $request->getGiftInfo());
-        }
         $this->bookElasticIndexer->indexBook($personalBookInfo->book);
         return $personalBookInfo->id;
+    }
+
+    /**
+     * @param $user_id
+     * @param $book
+     */
+    function removeBookFromWishlist($user_id, $book)
+    {
+        $wishlistItem = $this->wishlistRepository->findByUserAndBook($user_id, $book->id);
+        if ($wishlistItem !== null) {
+            $this->wishlistRepository->delete($wishlistItem);
+        }
     }
 }

@@ -76,32 +76,7 @@
                     <div class="material-card">
                         <div class="material-card-title">Persoonlijk</div>
                         <div class="material-card-content">
-                            <dl ng-show="selectedBook.personalBookInfo.buyInfo" class="dl-horizontal dl-text-align-left dl-book-detail-directive">
-                                <dt ng-show="selectedBook.personalBookInfo.buyInfo.buyDate">Aanschafdatum:</dt>
-                                <dd ng-show="selectedBook.personalBookInfo.buyInfo.buyDate">{{dateToString(selectedBook.personalBookInfo.buyInfo.buyDate)}}</dd>
-                                <dt ng-show="selectedBook.personalBookInfo.buyInfo.buyPrice.amount">Aankoopprijs:</dt>
-                                <dd ng-show="selectedBook.personalBookInfo.buyInfo.buyPrice.amount">{{ getCurrencyViewValue(selectedBook.personalBookInfo.buyInfo.buyPrice.currency)}} {{selectedBook.personalBookInfo.buyInfo.buyPrice.amount | numberFormatFilter }}</dd>
-                                <dt ng-show="selectedBook.personalBookInfo.buyInfo.shop">Winkel:</dt>
-                                <dd ng-show="selectedBook.personalBookInfo.buyInfo.shop">{{selectedBook.personalBookInfo.buyInfo.shop}}</dd>
-                                <dt ng-show="selectedBook.personalBookInfo.buyInfo.cityShop">Stad winkel:</dt>
-                                <dd ng-show="selectedBook.personalBookInfo.buyInfo.cityShop">{{selectedBook.personalBookInfo.buyInfo.cityShop}}</dd>
-                                <dt ng-show="selectedBook.personalBookInfo.buyInfo.reason">Reden:</dt>
-                                <dd ng-show="selectedBook.personalBookInfo.buyInfo.reason">{{selectedBook.personalBookInfo.buyInfo.reason}}</dd>
-                                <dt ng-show="selectedBook.personalBookInfo.buyInfo.countryShop">Land gekocht:</dt>
-                                <dd ng-show="selectedBook.personalBookInfo.buyInfo.countryShop">{{selectedBook.personalBookInfo.buyInfo.countryShop}}</dd>
-                            </dl>
-
-                            <!--GIFT-->
-                            <dl ng-show="selectedBook.personalBookInfo.giftInfo" class="dl-horizontal dl-text-align-left dl-book-detail-directive">
-                                <dt ng-show="selectedBook.personalBookInfo.giftInfo.giftDate">Ontvangstdatum:</dt>
-                                <dd ng-show="selectedBook.personalBookInfo.giftInfo.giftDate">{{dateToString(selectedBook.personalBookInfo.giftInfo.giftDate)}}</dd>
-                                <dt ng-show="selectedBook.personalBookInfo.giftInfo.from">Gekregen van:</dt>
-                                <dd ng-show="selectedBook.personalBookInfo.giftInfo.from">{{selectedBook.personalBookInfo.giftInfo.from}}</dd>
-                                <dt ng-show="selectedBook.personalBookInfo.giftInfo.occasion">Gelegenheid:</dt>
-                                <dd ng-show="selectedBook.personalBookInfo.giftInfo.occasion">{{selectedBook.personalBookInfo.giftInfo.occasion}}</dd>
-                                <dt ng-show="selectedBook.personalBookInfo.giftInfo.reason">Reden:</dt>
-                                <dd ng-show="selectedBook.personalBookInfo.giftInfo.reason">{{selectedBook.personalBookInfo.giftInfo.reason}}</dd>
-                            </dl>
+                            <personal-book-info-detail personal-book-info="selectedBook.personalBookInfo"></personal-book-info-detail>
                         </div>
                     </div>
                 </div>

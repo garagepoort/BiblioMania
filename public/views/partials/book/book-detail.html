@@ -86,50 +86,20 @@
 
     <div class="container-fluid row">
         <div class="col-md-6">
-            <div class="form-subtitle">
-                <div>Auteurs</div>
-                <button class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="showSelectAuthorDialog()"><i class="fa fa-plus"> Auteur toevoegen</i></button>
-            </div>
-            <div class="form-content detail-panel">
-                <table class="table table-striped">
-                    <tbody>
-                        <tr ng-repeat="author in book.authors">
-                            <td>{{ author.name.firstname + " " + author.name.lastname }}</td>
-
-                            <td class="text-align-right">
-                                <span ng-show="author.preferred" style="top: 3px;" class="glyphicon glyphicon-ok-sign"></span>
-                                <button ng-click="goToEditAuthor(author);" type="button" class="btn btn-default btn-xs"><span class="fa fa-pencil"></span></button>
-                                <button ng-click="unlinkAuthorFromBook(author);" ng-hide="author.preferred" type="button" class="btn btn-sm btn-default btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div class="col-md-6" ng-show="book.firstPrintInfo === undefined">
-            <div class="form-subtitle">
-                <div>Eerste druk informatie</div>
-                <button class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="showSelectFirstPrintDialog()"><i class="fa fa-search"> Selecteer</i>
-                </button>
-                <button class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="createFirstPrintInfo()"><i class="fa fa-plus"> Maak aan</i>
-                </button>
-            </div>
-            <div class="form-content detail-panel">
-                <div class="alert alert-warning">Er is nog geen eerste druk informatie voor dit boek.</div>
-            </div>
+           <book-detail-authors book="book"></book-detail-authors>
         </div>
 
         <div class="col-md-6" ng-show="book.firstPrintInfo">
             <div class="form-subtitle">
                 <div>Eerste druk informatie</div>
-                <button class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="showSelectFirstPrintDialog()"><i class="fa fa-search"> Selecteer</i>
-                </button>
-                <button class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="editFirstPrintInfo()"><i class="fa fa-pencil"> Editeer</i>
-                </button>
+                <button class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="showSelectFirstPrintDialog()"><i class="fa fa-search"> Selecteer</i></button>
+                <button ng-if="book.firstPrintInfo" class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="editFirstPrintInfo()"><i class="fa fa-pencil"> Editeer</i></button>
+                <button ng-if="!book.firstPrintInfo" class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="createFirstPrintInfo()"><i class="fa fa-plus"> Maak aan</i></button>
             </div>
             <div class="form-content detail-panel">
-                <dl class="dl-horizontal">
+                <div ng-if="!book.firstPrintInfo" class="alert alert-warning">Er is nog geen eerste druk informatie voor dit boek.</div>
+
+                <dl ng-if="book.firstPrintInfo" class="dl-horizontal">
                     <dt>Titel</dt>
                     <dd>{{book.firstPrintInfo.title}}</dd>
                     <dt ng-show="book.firstPrintInfo.subtitle">Ondertitel</dt>
@@ -168,44 +138,13 @@
 
     <div class="container-fluid row" ng-show="book.personalBookInfo">
 
-        <div class="col-md-6" ng-show="book.personalBookInfo.buyInfo">
+        <div class="col-md-6">
             <div class="form-subtitle">
-                <div>Koop informatie</div>
+                <div>Persoonlijke informatie</div>
                 <button class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="editPersonalBookInfo()"><i class="fa fa-pencil"> Editeer</i></button>
             </div>
             <div class="form-content detail-panel">
-                <dl class="dl-horizontal">
-                    <dt ng-show="book.personalBookInfo.buyInfo.buyPrice !== null">prijs</dt>
-                    <dd ng-show="book.personalBookInfo.buyInfo.buyPrice !== null">{{getCurrencyViewValue(book.personalBookInfo.buyInfo.buyPrice.currency) }} {{ book.personalBookInfo.buyInfo.buyPrice.amount | numberFormatFilter}}</dd>
-                    <dt ng-show="book.personalBookInfo.buyInfo.buyDate !== null">datum</dt>
-                    <dd ng-show="book.personalBookInfo.buyInfo.buyDate">{{convertDate(book.personalBookInfo.buyInfo.buyDate)}}</dd>
-                    <dt ng-show="book.personalBookInfo.buyInfo.shop">winkel</dt>
-                    <dd ng-show="book.personalBookInfo.buyInfo.shop">{{book.personalBookInfo.buyInfo.shop}}</dd>
-                    <dt ng-show="book.personalBookInfo.buyInfo.reason">reden</dt>
-                    <dd ng-show="book.personalBookInfo.buyInfo.reason">{{book.personalBookInfo.buyInfo.reason}}</dd>
-                    <dt ng-show="book.personalBookInfo.buyInfo.cityShop">stad</dt>
-                    <dd ng-show="book.personalBookInfo.buyInfo.cityShop">{{book.personalBookInfo.buyInfo.cityShop}}</dd>
-                    <dt ng-show="book.personalBookInfo.buyInfo.countryShop">land</dt>
-                    <dd ng-show="book.personalBookInfo.buyInfo.countryShop">{{book.personalBookInfo.buyInfo.countryShop}}</dd>
-                </dl>
-            </div>
-        </div>
-        <div class="col-md-6" ng-show="book.personalBookInfo.giftInfo">
-            <div class="form-subtitle">
-                <div>Gift informatie</div>
-                <button class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="editPersonalBookInfo()"><i class="fa fa-pencil"> Wijzig</i></button>
-            </div>
-            <div class="form-content detail-panel">
-                <dl class="dl-horizontal">
-                    <dt>gekregen van</dt>
-                    <dd>{{book.personalBookInfo.giftInfo.from}}</dd>
-                    <dt>gelegenheid</dt>
-                    <dd>{{book.personalBookInfo.giftInfo.occasion}}</dd>
-                    <dt>reden</dt>
-                    <dd>{{book.personalBookInfo.giftInfo.reason}}</dd>
-                    <dt>datum</dt>
-                    <dd ng-show="book.personalBookInfo.giftInfo.giftDate">{{convertDate(book.personalBookInfo.giftInfo.giftDate)}}</dd>
-                </dl>
+                <personal-book-info-detail personal-book-info="book.personalBookInfo"></personal-book-info-detail>
             </div>
         </div>
         <div class="col-md-6" ng-show="book.personalBookInfo">
