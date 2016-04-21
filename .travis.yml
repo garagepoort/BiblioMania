@@ -8,6 +8,7 @@ before_script:
   - composer update
   - npm install karma
   - npm install jasmine-core
+  - npm install karma-jasmine --save-dev
 
 script:
   - php -d display_errors=On vendor/bin/phpunit --configuration phpunit.xml --testsuite unit --exclude-group ignore
