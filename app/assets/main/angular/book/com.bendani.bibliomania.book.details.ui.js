@@ -2,13 +2,12 @@ angular.module('com.bendani.bibliomania.book.details.ui', ['com.bendani.biblioma
     'com.bendani.bibliomania.title.panel',
     'com.bendani.bibliomania.date.selection.modal.service',
     'com.bendani.bibliomania.personal.book.info.model',
-    'com.bendani.bibliomania.reading.date.model',
     'com.bendani.bibliomania.oeuvre.model',
     'com.bendani.bibliomania.personal.book.info.detail.directive',
     'com.bendani.bibliomania.book.detail.authors.directive',
     'com.bendani.bibliomania.book.detail.first.print.info.directive',
+    'com.bendani.bibliomania.book.detail.reading.dates.directive',
     'com.bendani.bibliomania.confirmation.modal.service',
-    'com.bendani.bibliomania.reading.date.modal.service',
     'com.bendani.bibliomania.oeuvre.item.selection.modal.service',
     'com.bendani.bibliomania.wishlist.model',
     'angular-growl'])
@@ -19,10 +18,10 @@ angular.module('com.bendani.bibliomania.book.details.ui', ['com.bendani.biblioma
                 controller: 'BookDetailsController'
             });
     }])
-    .controller('BookDetailsController', ['$scope', '$rootScope', '$routeParams', 'Book', 'PersonalBookInfo', 'ReadingDate', 'ErrorContainer','DateService', 'DateSelectionModalService','TitlePanelService',
-        'ConfirmationModalService', 'growl', '$compile', '$location', 'OeuvreItemSelectionModalService', 'Oeuvre', 'ReadingDateModalService', 'Wishlist',
-        function($scope, $rootScope, $routeParams, Book, PersonalBookInfo, ReadingDate, ErrorContainer, DateService,
-                 DateSelectionModalService, TitlePanelService, ConfirmationModalService, growl, $compile, $location, OeuvreItemSelectionModalService, Oeuvre, ReadingDateModalService, Wishlist){
+    .controller('BookDetailsController', ['$scope', '$rootScope', '$routeParams', 'Book', 'PersonalBookInfo', 'ErrorContainer','DateService', 'DateSelectionModalService','TitlePanelService',
+        'ConfirmationModalService', 'growl', '$compile', '$location', 'OeuvreItemSelectionModalService', 'Oeuvre', 'Wishlist',
+        function($scope, $rootScope, $routeParams, Book, PersonalBookInfo, ErrorContainer, DateService,
+                 DateSelectionModalService, TitlePanelService, ConfirmationModalService, growl, $compile, $location, OeuvreItemSelectionModalService, Oeuvre, Wishlist){
 
             function init(){
                 TitlePanelService.setTitle("Boek detail");
@@ -30,35 +29,6 @@ angular.module('com.bendani.bibliomania.book.details.ui', ['com.bendani.biblioma
 
                 loadBook();
             }
-
-            $scope.addTodayAsReadingDate = function(){
-                var date = {
-                    date: DateService.dateToJsonDate(new Date())
-                };
-                ReadingDateModalService.show($scope.book.personalBookInfo.id, function(){
-                    retrieveReadingDates();
-                }, date);
-            };
-
-            $scope.openEditReadingDateModal = function(date){
-                if(!date){
-                    date = {};
-                }
-                ReadingDateModalService.show($scope.book.personalBookInfo.id, function(){
-                    retrieveReadingDates();
-                }, date);
-            };
-
-            $scope.removeReadingDate= function (date){
-                var message = 'Wilt u deze datum verwijderen: ' + $scope.convertDate(date.date);
-
-                ConfirmationModalService.show(message, function(){
-                    ReadingDate.delete({id: date.id}, function(){
-                        retrieveReadingDates();
-                        growl.addSuccessMessage('LeesDatum verwijderd');
-                    }, ErrorContainer.handleRestError);
-                });
-            };
 
             $scope.convertDate = function(date){
                 return DateService.dateToString(date);
@@ -150,11 +120,6 @@ angular.module('com.bendani.bibliomania.book.details.ui', ['com.bendani.biblioma
                     '</div></div>');
                 $compile(titlePanelRight)($scope);
                 TitlePanelService.setRightPanel(titlePanelRight);
-            }
-
-            function retrieveReadingDates() {
-                $scope.book.personalBookInfo.readingDates = PersonalBookInfo.readingDates({id: $scope.book.personalBookInfo.id}, function () {
-                }, ErrorContainer.handleRestError);
             }
 
             init();
