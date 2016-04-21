@@ -8,7 +8,9 @@
     "grunt-contrib-cssmin": "^0.14.0",
     "grunt-contrib-uglify": "~0.2.4",
     "grunt-contrib-watch": "~0.5.3",
-    "grunt-remove": "^0.1.0"
+    "grunt-remove": "^0.1.0",
+    "karma-chrome-launcher": "^0.2.3",
+    "karma-jasmine": "^0.3.8"
   },
   "dependencies": {
     "chart.js": "^1.0.2",

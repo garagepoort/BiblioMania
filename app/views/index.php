@@ -18,15 +18,10 @@
         <link href="packages/bendani/php-common/uiframework/uiframework.min.css" rel="stylesheet"/>
 
         <link href="assets/main.min.css" rel="stylesheet">
-        <script type="text/javascript" src="assets/js/border_sliding_panel.js"></script>
 
         <!-- RATY -->
         <script type="text/javascript" src="assets/lib/raty-2.7.0/lib/jquery.raty.js"></script>
         <link href="assets/lib/raty-2.7.0/lib/jquery.raty.css">
-
-        <!--ABN TREE-->
-        <link href="assets/lib/abntree/abn-tree.css" rel="stylesheet">
-        <script type="text/javascript" src="assets/lib/abntree/abn-tree-directive.js"></script>
 
         <script type="text/javascript">
             $('.collapse').on('shown.bs.collapse', function (e) {
