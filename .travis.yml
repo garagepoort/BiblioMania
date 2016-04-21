@@ -9,7 +9,9 @@ before_script:
   - npm install karma
   - npm install jasmine-core
   - npm install karma-jasmine --save-dev
+  - npm install phantomjs-prebuilt
+  - npm install karma-phantomjs-launcher --save-dev
 
 script:
   - php -d display_errors=On vendor/bin/phpunit --configuration phpunit.xml --testsuite unit --exclude-group ignore
-  - karma start --single-run --browsers Chrome karma.conf.js
+  - karma start --single-run --browsers PhantomJS karma.conf.js

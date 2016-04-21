@@ -10,7 +10,8 @@
     "grunt-contrib-watch": "~0.5.3",
     "grunt-remove": "^0.1.0",
     "karma-chrome-launcher": "^0.2.3",
-    "karma-jasmine": "^0.3.8"
+    "karma-jasmine": "^0.3.8",
+    "karma-phantomjs-launcher": "^1.0.0"
   },
   "dependencies": {
     "chart.js": "^1.0.2",
