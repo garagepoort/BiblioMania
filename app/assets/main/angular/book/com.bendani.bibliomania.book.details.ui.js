@@ -1,14 +1,14 @@
-angular.module('com.bendani.bibliomania.book.details.ui', ['com.bendani.bibliomania.book.model',
+angular.module('com.bendani.bibliomania.book.details.ui', [
+    'com.bendani.bibliomania.book.model',
     'com.bendani.bibliomania.title.panel',
     'com.bendani.bibliomania.date.selection.modal.service',
     'com.bendani.bibliomania.personal.book.info.model',
-    'com.bendani.bibliomania.oeuvre.model',
     'com.bendani.bibliomania.personal.book.info.detail.directive',
     'com.bendani.bibliomania.book.detail.authors.directive',
     'com.bendani.bibliomania.book.detail.first.print.info.directive',
     'com.bendani.bibliomania.book.detail.reading.dates.directive',
+    'com.bendani.bibliomania.book.detail.oeuvre.items.directive',
     'com.bendani.bibliomania.confirmation.modal.service',
-    'com.bendani.bibliomania.oeuvre.item.selection.modal.service',
     'com.bendani.bibliomania.wishlist.model',
     'angular-growl'])
     .config(['$routeProvider', function ($routeProvider) {
@@ -18,10 +18,11 @@ angular.module('com.bendani.bibliomania.book.details.ui', ['com.bendani.biblioma
                 controller: 'BookDetailsController'
             });
     }])
-    .controller('BookDetailsController', ['$scope', '$rootScope', '$routeParams', 'Book', 'PersonalBookInfo', 'ErrorContainer','DateService', 'DateSelectionModalService','TitlePanelService',
-        'ConfirmationModalService', 'growl', '$compile', '$location', 'OeuvreItemSelectionModalService', 'Oeuvre', 'Wishlist',
+    .controller('BookDetailsController', ['$scope', '$rootScope', '$routeParams', 'Book', 'PersonalBookInfo',
+        'ErrorContainer','DateService', 'DateSelectionModalService','TitlePanelService',
+        'ConfirmationModalService', 'growl', '$compile', '$location', 'Wishlist',
         function($scope, $rootScope, $routeParams, Book, PersonalBookInfo, ErrorContainer, DateService,
-                 DateSelectionModalService, TitlePanelService, ConfirmationModalService, growl, $compile, $location, OeuvreItemSelectionModalService, Oeuvre, Wishlist){
+                 DateSelectionModalService, TitlePanelService, ConfirmationModalService, growl, $compile, $location, Wishlist){
 
             function init(){
                 TitlePanelService.setTitle("Boek detail");
@@ -46,10 +47,6 @@ angular.module('com.bendani.bibliomania.book.details.ui', ['com.bendani.biblioma
                 $location.path('/create-personal-book-info/'+ $scope.book.id);
             };
 
-            $scope.goToEditOeuvreItem = function(oeuvreItem){
-                $location.path('/edit-oeuvre-item/' + oeuvreItem.id);
-            };
-
             $scope.addToWishlist = function(){
                 Wishlist.addBook({id: $rootScope.loggedInUser.id}, {bookId: $scope.book.id}, function(){
                     growl.addSuccessMessage('Toegevoegd aan wishlist');
@@ -62,35 +59,6 @@ angular.module('com.bendani.bibliomania.book.details.ui', ['com.bendani.biblioma
                     growl.addSuccessMessage('Verwijderd van wishlist');
                     $scope.book.onWishlist = false;
                 }, ErrorContainer.handleRestError);
-            };
-
-
-            $scope.openSelectOeuvreItemDialog = function(){
-                OeuvreItemSelectionModalService.show($scope.book.authors, function(oeuvreItem){
-                    var shouldAdd = true;
-                    for(var i = 0; i < $scope.book.oeuvreItems.length; i++){
-                        if($scope.book.oeuvreItems[i].id === oeuvreItem.id){
-                            shouldAdd = false;
-                        }
-                    }
-
-                    if(shouldAdd){
-                        Oeuvre.linkBook({id: oeuvreItem.id}, {bookId: $scope.book.id}, function () {
-                            loadBook();
-                            growl.addSuccessMessage("Oeuvre gewijzigd");
-                        }, ErrorContainer.handleRestError);
-                    }
-                });
-            };
-
-            $scope.removeBookFromOeuvreItem = function(oeuvreItem){
-                var message = 'Zeker dat je deze link wilt verwijderen: ' + oeuvreItem.title;
-                ConfirmationModalService.show(message, function(){
-                    Oeuvre.unlinkBook({id: oeuvreItem.id}, {bookId: $scope.book.id}, function () {
-                        loadBook();
-                        growl.addSuccessMessage("Oeuvre gewijzigd");
-                    }, ErrorContainer.handleRestError);
-                });
             };
 
             $scope.deleteBook = function(){
