@@ -1,0 +1,26 @@
+<div class="form-subtitle">
+    <div>Eerste druk informatie</div>
+    <button class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="showSelectFirstPrintDialog()"><i class="fa fa-search"> Selecteer</i></button>
+    <button ng-if="book.firstPrintInfo" class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="editFirstPrintInfo()"><i class="fa fa-pencil"> Editeer</i></button>
+    <button ng-if="!book.firstPrintInfo" class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="createFirstPrintInfo()"><i class="fa fa-plus"> Maak aan</i></button>
+</div>
+<div class="form-content detail-panel">
+    <div ng-if="!book.firstPrintInfo" class="alert alert-warning">Er is nog geen eerste druk informatie voor dit boek.</div>
+
+    <dl ng-if="book.firstPrintInfo" class="dl-horizontal">
+        <dt>Titel</dt>
+        <dd>{{book.firstPrintInfo.title}}</dd>
+        <dt ng-show="book.firstPrintInfo.subtitle">Ondertitel</dt>
+        <dd ng-show="book.firstPrintInfo.subtitle">{{book.firstPrintInfo.subtitle}}</dd>
+        <dt ng-show="book.firstPrintInfo.isbn">isbn</dt>
+        <dd ng-show="book.firstPrintInfo.isbn">{{book.firstPrintInfo.isbn}}</dd>
+        <dt ng-show="book.firstPrintInfo.publisher">uitgever</dt>
+        <dd ng-show="book.firstPrintInfo.publisher">{{book.firstPrintInfo.publisher}}</dd>
+        <dt ng-show="book.firstPrintInfo.publicationDate">Uitgave datum</dt>
+        <dd ng-show="book.firstPrintInfo.publicationDate">{{ convertDate(book.firstPrintInfo.publicationDate) }}</dd>
+        <dt ng-show="book.firstPrintInfo.language">taal</dt>
+        <dd ng-show="book.firstPrintInfo.language">{{book.firstPrintInfo.language}}</dd>
+        <dt ng-show="book.firstPrintInfo.country">land</dt>
+        <dd ng-show="book.firstPrintInfo.country">{{book.firstPrintInfo.country}}</dd>
+    </dl>
+</div>
