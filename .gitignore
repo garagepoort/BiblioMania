@@ -3,7 +3,8 @@
 /app/tests/ui/screenshots
 /public/packages
 composer.lock
-.env.*.php
+.env.local.php
+.env.local_linux_mint.php
 .env.php
 .DS_Store
 Thumbs.db
