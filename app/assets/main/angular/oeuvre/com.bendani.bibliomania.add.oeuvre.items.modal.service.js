@@ -1,5 +1,30 @@
-angular.module('com.bendani.bibliomania.add.oeuvre.items.modal', ['com.bendani.bibliomania.oeuvre.model', 'angular-growl'])
-    .controller('AddOeuvreItemsController', ['$scope', 'Oeuvre', 'ErrorContainer', 'growl', function($scope, Oeuvre, ErrorContainer, growl){
+angular.module('com.bendani.bibliomania.add.oeuvre.items.modal.service', ['com.bendani.bibliomania.oeuvre.model', 'angular-growl'])
+    .provider('AddOeuvreItemsModalService', function AddOeuvreItemsModalServiceProvider(){
+        function AddOeuvreItemsModalService($uibModal) {
+            var service = {
+                show: function(authorId, onSuccessFunction) {
+
+                    var modalInstance = $uibModal.open({
+                        templateUrl: '../BiblioMania/views/partials/oeuvre/add-oeuvre-items-modal.html',
+                        controller: 'AddOeuvreItemsController',
+                        resolve: {
+                            authorId: function(){
+                                return authorId;
+                            }
+                        }
+                    });
+
+                    modalInstance.result.then(onSuccessFunction);
+                }
+            };
+            return service;
+        }
+
+        this.$get = ['$uibModal', function ($uibModal) {
+            return new AddOeuvreItemsModalService($uibModal);
+        }];
+    })
+    .controller('AddOeuvreItemsController', ['$scope', 'Oeuvre', 'authorId', 'ErrorContainer', 'growl', function($scope, Oeuvre, authorId, ErrorContainer, growl){
 
         $scope.addOeuvreItems = function(){
             var itemsToAdd = [];
@@ -15,7 +40,7 @@ angular.module('com.bendani.bibliomania.add.oeuvre.items.modal', ['com.bendani.b
                     itemsToAdd.push({
                         publicationYear: publicationYear,
                         title: title,
-                        authorId: $scope.model.id
+                        authorId: authorId
                     });
                 }
             }

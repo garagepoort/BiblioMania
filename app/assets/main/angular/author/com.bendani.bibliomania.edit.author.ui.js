@@ -4,8 +4,7 @@ angular.module('com.bendani.bibliomania.edit.author.ui',
     ['com.bendani.bibliomania.author.model', 'com.bendani.bibliomania.oeuvre.model',
         'com.bendani.bibliomania.name.directive', 'php.common.uiframework.date',
         'php.common.uiframework.google.image.search',
-        'angular-growl',
-        'com.bendani.bibliomania.add.oeuvre.items.modal',
+        'com.bendani.bibliomania.add.oeuvre.items.modal.service',
         'com.bendani.bibliomania.confirmation.modal.service',
         'com.bendani.bibliomania.book.list.directive'
     ])
@@ -15,7 +14,7 @@ angular.module('com.bendani.bibliomania.edit.author.ui',
             controller: 'EditAuthorController'
         });
     }])
-    .controller('EditAuthorController', ['$scope', '$location', 'Author', 'Oeuvre', 'ErrorContainer', 'growl', '$routeParams', '$uibModal', 'ConfirmationModalService', function ($scope, $location, Author, Oeuvre, ErrorContainer, growl, $routeParams, $uibModal, ConfirmationModalService) {
+    .controller('EditAuthorController', ['$scope', '$location', 'Author', 'Oeuvre', 'ErrorContainer', 'growl', '$routeParams', 'AddOeuvreItemsModalService', 'ConfirmationModalService', function ($scope, $location, Author, Oeuvre, ErrorContainer, growl, $routeParams, AddOeuvreItemsModalService, ConfirmationModalService) {
 
         $scope.$parent.title = "Auteur";
         $scope.model = Author.get({ id: $routeParams.id }, function(){}, ErrorContainer.handleRestError);
@@ -28,13 +27,11 @@ angular.module('com.bendani.bibliomania.edit.author.ui',
             }
         };
 
-
         $scope.oeuvreConfig = {
             orderValues: [
                 {key: 'Titel', predicate: 'title', width: '70'},
                 {key: 'Jaar', predicate: 'publicationYear', width: '10'},
                 {key: 'Status', predicate: 'state', width: '10'}
-                //{key: '', predicate: '', width: '10'}
             ],
             predicate: 'publicationYear',
             reverseOrder: false
@@ -64,12 +61,7 @@ angular.module('com.bendani.bibliomania.edit.author.ui',
         };
 
         $scope.showAddOeuvreItemsDialog = function () {
-            var modalInstance = $uibModal.open({
-                templateUrl: '../BiblioMania/views/partials/oeuvre/add-oeuvre-items-modal.html',
-                scope: $scope
-            });
-
-            modalInstance.result.then(function () {
+            AddOeuvreItemsModalService.show($scope.model.id, function(){
                 $scope.oeuvre = Author.oeuvre({ id: $routeParams.id });
             });
         };
