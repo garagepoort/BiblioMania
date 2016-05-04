@@ -22,7 +22,7 @@ angular.module('com.bendani.bibliomania.edit.author.ui',
         $scope.oeuvre = Author.oeuvre({ id: $routeParams.id }, function(){}, ErrorContainer.handleRestError);
 
         $scope.searchAuthorImage = function () {
-            if ($scope.model !== undefined) {
+            if ($scope.model !== undefined && $scope.model.name !== undefined) {
                 $scope.authorImageQuery = $scope.model.name.firstname + " " + $scope.model.name.lastname;
             }
         };

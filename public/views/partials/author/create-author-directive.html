@@ -4,17 +4,21 @@
         <fieldset style="text-align: left;width: 900px;">
             <div class="row">
                 <div class="col-md-3">
-                    <button type="button" class="btn btn-sm round-corners btn-default margin-bottom-15" ng-click="openSelectImageDialog()">Selecteer afbeelding</button>
-                    <img class="max-width-100 max-height-100" src-with-fallback="{{ model.image }}"/>
+                    <button type="button" class="btn btn-sm round-corners btn-default margin-bottom-15"
+                            ng-click="vm.openSelectImageDialog()">Selecteer afbeelding
+                    </button>
+                    <img class="max-width-100 max-height-100" src-with-fallback="{{ vm.model.image }}"/>
                 </div>
                 <div class="col-md-9">
-                    <name ng-model="model.name" submit-attempted="submitAttempted"></name>
-                    <date label="Geboorte jaar" ng-model="model.dateOfBirth" submit-attempted="submitAttempted"></date>
-                    <date label="Sterfte jaar" ng-model="model.dateOfDeath" submit-attempted="submitAttempted"></date>
+                    <name ng-model="vm.model.name" submit-attempted="vm.submitAttempted"></name>
+                    <date label="Geboorte jaar" ng-model="vm.model.dateOfBirth"
+                          submit-attempted="vm.submitAttempted"></date>
+                    <date label="Sterfte jaar" ng-model="vm.model.dateOfDeath"
+                          submit-attempted="vm.submitAttempted"></date>
                 </div>
             </div>
             <div class="row col-md-12" style="margin-top: 30px">
-                    <button class="btn btn-primary" ng-click="submitForm(authorForm.$valid)">Save</button>
+                <button class="btn btn-primary" ng-click="vm.submitForm(authorForm.$valid)">Save</button>
             </div>
         </fieldset>
     </ng-form>
