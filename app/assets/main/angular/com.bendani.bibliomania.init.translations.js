@@ -2,6 +2,7 @@ angular.module('BiblioMania')
     .config(['$translateProvider', function ($translateProvider) {
         $translateProvider.translations('nl', {
             'translation.author': 'Auteur',
+            'translation.authors': 'Auteurs',
             'translation.author.saved': 'Auteur opgeslagen',
             'translation.in.collection':'In collectie',
             'translation.no':'Nee',
@@ -15,6 +16,7 @@ angular.module('BiblioMania')
 
         $translateProvider.translations('en', {
             'translation.author': 'Author',
+            'translation.authors': 'Authors',
             'translation.author.saved': 'Author saved',
             'translation.in.collection':'In collection',
             'translation.no':'No',

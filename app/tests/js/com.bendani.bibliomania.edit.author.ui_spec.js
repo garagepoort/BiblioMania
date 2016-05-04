@@ -1,4 +1,4 @@
-describe('com.bendani.bibliomania.edit.author.ui', function(){
+describe('com.bendani.bibliomania.edit.author.ui', function () {
 
     var AUTHOR_ID = 123;
     var AUTHOR = {
@@ -14,17 +14,17 @@ describe('com.bendani.bibliomania.edit.author.ui', function(){
     };
 
     var BOOKS = [];
-    var OEUVRE = [ "oeuvre1", "oeuvre2" ];
-    var $routeParams = { id: AUTHOR_ID };
+    var OEUVRE = ["oeuvre1", "oeuvre2"];
+    var $routeParams = {id: AUTHOR_ID};
 
     var confirmationModalServiceMock = {
-        show: function(title, successCallback){
+        show: function (title, successCallback) {
             successCallback();
         }
     };
 
     var addOeuvreItemsModalServiceMock = {
-        show: function(authorId, successCallback){
+        show: function (authorId, successCallback) {
             successCallback();
         }
     };
@@ -61,7 +61,7 @@ describe('com.bendani.bibliomania.edit.author.ui', function(){
             $httpBackend.expectGET('../BiblioMania/authors/' + AUTHOR_ID + '/books').respond(200, BOOKS);
             $httpBackend.expectGET('../BiblioMania/authors/' + AUTHOR_ID + '/oeuvre').respond(200, OEUVRE);
 
-            $scope = { $parent: {} };
+            $scope = {$parent: {}};
             $controller('EditAuthorController', {
                 $scope: $scope,
                 $location: $location
@@ -70,7 +70,7 @@ describe('com.bendani.bibliomania.edit.author.ui', function(){
             $httpBackend.flush();
         }
 
-        describe('init', function(){
+        describe('init', function () {
             it('initializes correct values', function () {
                 _createController();
                 expect($scope.model).toEqual(jasmine.objectContaining(AUTHOR));
@@ -79,8 +79,8 @@ describe('com.bendani.bibliomania.edit.author.ui', function(){
             });
         });
 
-        describe('searchAuthorImage', function(){
-            it('sets authorImageQuery correct if author defined', function(){
+        describe('searchAuthorImage', function () {
+            it('sets authorImageQuery correct if author defined', function () {
                 _createController();
 
                 $scope.searchAuthorImage();
@@ -88,7 +88,7 @@ describe('com.bendani.bibliomania.edit.author.ui', function(){
                 expect($scope.authorImageQuery).toEqual('firstname lastname');
             });
 
-            it('does not set authorImageQuery if author undefined', function(){
+            it('does not set authorImageQuery if author undefined', function () {
                 _createController();
                 $scope.model = undefined;
 
@@ -98,9 +98,9 @@ describe('com.bendani.bibliomania.edit.author.ui', function(){
             });
         });
 
-        describe('linkLabel', function(){
+        describe('linkLabel', function () {
 
-            it('returns success label if oeuvre item has linked books', function(){
+            it('returns success label if oeuvre item has linked books', function () {
                 _createController();
 
                 var label = $scope.linkLabel(OEUVRE_ITEM);
@@ -108,18 +108,18 @@ describe('com.bendani.bibliomania.edit.author.ui', function(){
                 expect(label).toEqual('label-success');
             });
 
-            it('returns danger label if oeuvre item has no linked books', function(){
+            it('returns danger label if oeuvre item has no linked books', function () {
                 _createController();
 
-                var label = $scope.linkLabel({ linkedBooks: [] });
+                var label = $scope.linkLabel({linkedBooks: []});
 
                 expect(label).toEqual('label-danger');
             });
         });
 
-        describe('deleteOeuvreItem', function(){
-            it('should open confirmationModal and delete oeuvre item', function(){
-                var oeuvre = [ 'this', 'that' ];
+        describe('deleteOeuvreItem', function () {
+            it('should open confirmationModal and delete oeuvre item', function () {
+                var oeuvre = ['this', 'that'];
 
                 _createController();
                 $httpBackend.expectDELETE('../BiblioMania/oeuvre/' + OEUVRE_ITEM.id).respond(200);
@@ -135,9 +135,9 @@ describe('com.bendani.bibliomania.edit.author.ui', function(){
 
         });
 
-        describe('showAddOeuvreItemsDialog', function(){
-            it('opens add oeuvre dialog and retrieves new oeuvreItems', function(){
-                var oeuvre = [ 'this', 'that' ];
+        describe('showAddOeuvreItemsDialog', function () {
+            it('opens add oeuvre dialog and retrieves new oeuvreItems', function () {
+                var oeuvre = ['this', 'that'];
 
                 _createController();
                 $httpBackend.expectGET('../BiblioMania/authors/' + AUTHOR_ID + '/oeuvre').respond(200, oeuvre);
@@ -150,8 +150,8 @@ describe('com.bendani.bibliomania.edit.author.ui', function(){
             });
         });
 
-        describe('goToOeuvreItem', function() {
-            it('should navigate to edit oeuvre item', function() {
+        describe('goToOeuvreItem', function () {
+            it('should navigate to edit oeuvre item', function () {
                 spyOn($location, 'path');
                 _createController();
 
@@ -161,10 +161,10 @@ describe('com.bendani.bibliomania.edit.author.ui', function(){
             });
         });
 
-        describe('goToBook', function() {
-            var book = { id: 12345 };
+        describe('goToBook', function () {
+            var book = {id: 12345};
 
-            it('should navigate to book overview', function() {
+            it('should navigate to book overview', function () {
                 spyOn($location, 'path');
                 _createController();
 
