@@ -8,14 +8,6 @@
                     <div>Boek informatie</div>
                     <button type="button" class="btn btn-sm round-corners btn-default form-subtitle-button" ng-click="openSelectImageDialog()">Selecteer cover</button>
                 </div>
-
-                <ul>
-                    <li ng-repeat="(key, errors) in createBookForm.$error track by $index"> <strong>{{ key }}</strong> errors
-                        <ul>
-                            <li ng-repeat="e in errors">{{ e.$name }} has an error: <strong>{{ key }}</strong>.</li>
-                        </ul>
-                    </li>
-                </ul>
                 <div class="form-content col-md-12">
                     <div class="col-md-6">
                         <img style="margin-bottom: 20px;" src-with-fallback="{{ model.image }}" />
