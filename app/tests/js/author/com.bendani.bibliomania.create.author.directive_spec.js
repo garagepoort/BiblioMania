@@ -125,7 +125,7 @@ describe('com.bendani.bibliomania.create.author.directive', function () {
 
                 $httpBackend.flush();
 
-                expect(growlMock.addSuccessMessage).toHaveBeenCalledWith('translation.author.saved');
+                expect(growlMock.addSuccessMessage).toHaveBeenCalledWith('Auteur opgeslagen');
                 expect(vm.onSave).toHaveBeenCalledWith({authorId: AUTHOR_ID});
             });
 
@@ -161,7 +161,7 @@ describe('com.bendani.bibliomania.create.author.directive', function () {
 
                 $httpBackend.flush();
 
-                expect(growlMock.addSuccessMessage).toHaveBeenCalledWith('translation.author.saved');
+                expect(growlMock.addSuccessMessage).toHaveBeenCalledWith('Auteur opgeslagen');
                 expect(vm.onSave).toHaveBeenCalledWith({authorId: AUTHOR_ID});
             });
 

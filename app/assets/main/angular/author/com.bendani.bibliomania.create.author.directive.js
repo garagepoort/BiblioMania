@@ -65,12 +65,12 @@
             if (formValid) {
                 if (vm.model.id) {
                     Author.update(vm.model, function (response) {
-                        growl.addSuccessMessage('translation.author.saved');
+                        growl.addSuccessMessage('Auteur opgeslagen');
                         vm.onSave({authorId: response.id});
                     }, ErrorContainer.handleRestError);
                 } else {
                     Author.save(vm.model, function (response) {
-                        growl.addSuccessMessage('translation.author.saved');
+                        growl.addSuccessMessage('Auteur opgeslagen');
                         vm.onSave({authorId: response.id});
                     }, ErrorContainer.handleRestError);
                 }

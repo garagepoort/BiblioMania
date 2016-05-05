@@ -3,6 +3,7 @@ angular.module('BiblioMania')
         $translateProvider.translations('nl', {
             'translation.author': 'Auteur',
             'translation.authors': 'Auteurs',
+            'translation.add.author': 'Auteur toevoegen',
             'translation.author.saved': 'Auteur opgeslagen',
             'translation.in.collection':'In collectie',
             'translation.no':'Nee',
@@ -17,6 +18,7 @@ angular.module('BiblioMania')
         $translateProvider.translations('en', {
             'translation.author': 'Author',
             'translation.authors': 'Authors',
+            'translation.add.author': 'Add author',
             'translation.author.saved': 'Author saved',
             'translation.in.collection':'In collection',
             'translation.no':'No',
