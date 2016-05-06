@@ -9,14 +9,15 @@ angular
             restrict: "E",
             templateUrl: "../BiblioMania/views/partials/book/book-detail-directive.html",
             controller: ['$scope', 'BookOverviewService', 'DateService', 'Book', 'CurrencyService', 'ErrorContainer', function($scope, BookOverviewService, DateService, Book, CurrencyService, ErrorContainer){
+                var vm = this;
+                vm.closeBookDetailPanel = closeBookDetailPanel;
 
                 var selectBookHandler = function (book) {
-                    if ($scope.bookDetailPanelOpen && $scope.selectedBook.id === book.id) {
-                        $scope.bookDetailPanelOpen = false;
+                    if (vm.bookDetailPanelOpen && vm.selectedBook.id === book.id) {
+                        vm.bookDetailPanelOpen = false;
                     } else {
-                        $scope.selectedBook = Book.get({id: book.id}, function () {
-                        }, ErrorContainer.handleRestError);
-                        $scope.bookDetailPanelOpen = true;
+                        vm.selectedBook = Book.get({id: book.id}, function () {}, ErrorContainer.handleRestError);
+                        vm.bookDetailPanelOpen = true;
                     }
                 };
 
@@ -26,15 +27,16 @@ angular
                         BookOverviewService.deregisterHandler(selectBookHandler);
                     });
 
-                    $scope.getCurrencyViewValue = CurrencyService.getCurrencyViewValue;
-                    $scope.dateToString = DateService.dateToString;
+                    vm.getCurrencyViewValue = CurrencyService.getCurrencyViewValue;
+                    vm.dateToString = DateService.dateToString;
                 }
 
-                $scope.closeBookDetailPanel = function () {
-                    $scope.bookDetailPanelOpen = false;
-                };
+                function closeBookDetailPanel() {
+                    vm.bookDetailPanelOpen = false;
+                }
 
                 init();
-            }]
+            }],
+            controllerAs: 'vm'
         };
     });
