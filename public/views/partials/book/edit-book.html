@@ -15,28 +15,28 @@
                         <!-- TITLE -->
                         <div class="form-group required col-md-12" ng-class="{'has-error has-feedback' : createBookForm.title.$invalid && (createBookForm.title.$dirty || submitAttempted)}">
                             <label class="control-label ">Titel </label>
-                            <input name="title" type="text" class="form-control input-width-md" placeholder="titel" required="true" ng-model="model.title"/>
+                            <input id="book-title" name="title" type="text" class="form-control input-width-md" placeholder="titel" required="true" ng-model="model.title"/>
                             <span ng-show="createBookForm.title.$invalid && (createBookForm.title.$dirty || submitAttempted)" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Titel is verplicht</span>
                         </div>
 
                         <!-- SUBTITLE -->
                         <div class="form-group col-md-12">
                             <label class="control-label">Ondertitel</label>
-                            <input name="subtitle" type="text" class="form-control input-width-md" placeholder="ondertitel" ng-model="model.subtitle"/>
+                            <input id="book-subtitle" name="subtitle" type="text" class="form-control input-width-md" placeholder="ondertitel" ng-model="model.subtitle"/>
                         </div>
 
                         <!-- ISBN -->
                         <div class="form-group required col-md-12" ng-class="{'has-error has-feedback' : createBookForm.isbn.$invalid && (createBookForm.isbn.$dirty || submitAttempted)}">
                             <label class="control-label" >ISBN </label>
 
-                            <input name="isbn" type="text" class="form-control input-width-sm" placeholder="isbn" ng-model="model.isbn" required="true" ng-pattern="/^[0-9]{13}$/"/>
+                            <input id="book-isbn" name="isbn" type="text" class="form-control input-width-sm" placeholder="isbn" ng-model="model.isbn" required="true" ng-pattern="/^[0-9]{13}$/"/>
                             <span ng-show="createBookForm.isbn.$error.required && (createBookForm.isbn.$dirty || submitAttempted)" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Isbn is verplicht</span>
                             <span ng-show="createBookForm.isbn.$error.pattern && (createBookForm.isbn.$dirty || submitAttempted)" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Isbn moet exact 13 nummers zijn</span>
                         </div>
-                        <!-- ISBN -->
+                        <!-- SUMMARY -->
                         <div class="form-group col-md-12">
                             <label class="control-label" >Omschrijving </label>
-                            <textarea class="form-control" rows="10" name="review" ng-model="model.summary"></textarea>
+                            <textarea id="book-summary" class="form-control" rows="10" name="review" ng-model="model.summary"></textarea>
                         </div>
                     </div>
                      <div class="col-md-6" ng-include="'../BiblioMania/views/partials/book/google-book-detail.html'"></div>
@@ -44,7 +44,7 @@
 
                 <div class="form-subtitle">
                     <div>Auteur</div>
-                    <button type="button" class="btn-default btn btn-sm form-subtitle-button round-corners" ng-click="showSelectAuthorDialog()">Auteur selecteren</button>
+                    <button id="book-select-author" type="button" class="btn-default btn btn-sm form-subtitle-button round-corners" ng-click="showSelectAuthorDialog()">Auteur selecteren</button>
                     <button type="button" class="btn-default btn btn-sm form-subtitle-button round-corners" ng-click="showCreateAuthorDialog()">Auteur aanmaken</button>
                 </div>
                 <div class="form-content">
@@ -159,7 +159,7 @@
                 </div>
 
             </div>
-            <button class="btn btn-primary">Save</button>
+            <button id="book-save-button" class="btn btn-primary">Save</button>
 
         </fieldset>
     </form>

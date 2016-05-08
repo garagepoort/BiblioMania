@@ -127,6 +127,8 @@ Route::group(array('before' => 'localCallOnly'), function () {
     Route::get('importBooks', 'BookImportController@importBooks');
     Route::get('search/populate', 'ElasticSearchController@index');
     Route::get('search/clear', 'ElasticSearchController@clear');
+    Route::get('dataset/reset', 'DatasetController@resetDatabase');
+    Route::get('dataset/{datasetId}', 'DatasetController@executeDataset');
 });
 
 
