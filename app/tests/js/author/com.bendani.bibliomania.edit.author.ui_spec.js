@@ -17,26 +17,21 @@ describe('com.bendani.bibliomania.edit.author.ui', function () {
     var OEUVRE = ["oeuvre1", "oeuvre2"];
     var $routeParams = {id: AUTHOR_ID};
 
-    var confirmationModalServiceMock = {
-        show: function (title, successCallback) {
-            successCallback();
-        }
-    };
-
-    var addOeuvreItemsModalServiceMock = {
-        show: function (authorId, successCallback) {
-            successCallback();
-        }
-    };
+    var confirmationModalServiceMock, addOeuvreItemsModalServiceMock;
+    var confirmationModalServiceMockShow = function (title, successCallback) {successCallback();};
+    var addOeuvreItemsModalServiceMockShow = function (authorId, successCallback) { successCallback(); };
 
     describe('EditAuthorController', function () {
 
         var $scope, $httpBackend, $controller, errorContainerMock, modal, $location;
 
         beforeEach(function () {
-            spyOn(confirmationModalServiceMock, 'show').and.callThrough();
-            spyOn(addOeuvreItemsModalServiceMock, 'show').and.callThrough();
             errorContainerMock = jasmine.createSpyObj('errorContainerMock', ['handleRestError']);
+            confirmationModalServiceMock = jasmine.createSpyObj('confirmationModalServiceMock', ['show']);
+            addOeuvreItemsModalServiceMock = jasmine.createSpyObj('addOeuvreItemsModalServiceMock', ['show']);
+
+            confirmationModalServiceMock.show.and.callFake(confirmationModalServiceMockShow);
+            addOeuvreItemsModalServiceMock.show.and.callFake(addOeuvreItemsModalServiceMockShow);
 
             module('ngRoute');
             module('ngResource');

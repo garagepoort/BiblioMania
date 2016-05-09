@@ -30,7 +30,8 @@ exports.doRequest = function(url, method) {
             expect(message.statusCode).toBeLessThan(400);
             deferred.reject(new Error('message statuscode is greater than 400'));
         } else {
-            deferred.resolve(body);
+            var val = body ? JSON.parse(body) : undefined;
+            deferred.resolve(val);
         }
     });
 

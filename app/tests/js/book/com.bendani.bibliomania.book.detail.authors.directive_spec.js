@@ -8,23 +8,20 @@ describe('com.bendani.bibliomania.book.detail.authors.directive', function () {
 
         var vm, html, $compile, $httpBackend, $scope;
         var errorContainerMock, growlMock, locationMock;
-        var confirmationModalServiceMock = {
-            show: function (message, callback) {
-                callback();
-            }
-        };
-        var modalServiceMock = {
-            show: function (callback) {
-                callback(CREATED_AUTHOR);
-            }
-        };
+
+        var confirmationModalServiceMock, modalServiceMock;
+        var confirmationModalServiceMockShow = function (message, successCallback) {successCallback();};
+        var modalServiceMockShow = function (successCallback) { successCallback(CREATED_AUTHOR); };
 
         beforeEach(function () {
             errorContainerMock = jasmine.createSpyObj('errorContainerMock', ['handleRestError', 'setErrorCode']);
             locationMock = jasmine.createSpyObj('locationMock', ['path']);
             growlMock = jasmine.createSpyObj('growlMock', ['addSuccessMessage']);
-            spyOn(modalServiceMock, 'show').and.callThrough();
-            spyOn(confirmationModalServiceMock, 'show').and.callThrough();
+            confirmationModalServiceMock = jasmine.createSpyObj('confirmationModalServiceMock', ['show']);
+            modalServiceMock = jasmine.createSpyObj('modalServiceMock', ['show']);
+
+            confirmationModalServiceMock.show.and.callFake(confirmationModalServiceMockShow);
+            modalServiceMock.show.and.callFake(modalServiceMockShow);
 
             html = '<book-detail-authors book="book"></book-detail-authors>';
 

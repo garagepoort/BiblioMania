@@ -10,21 +10,18 @@ describe('com.bendani.bibliomania.book.detail.first.print.info.directive', funct
 
         var NEW_FIRST_PRINT = {id: 987};
 
-        var vm, html, $httpBackend, $compile, $scope, errorContainerMock, dateServiceMock;
-        var growlMock, locationMock;
+        var vm, html, $httpBackend, $compile, $scope;
+        var growlMock, locationMock, errorContainerMock, dateServiceMock, firstPrintSelectionModalServiceMock;
 
-        var firstPrintSelectionModalServiceMock = {
-            show: function (callback) {
-                callback(NEW_FIRST_PRINT);
-            }
-        };
+        var firstPrintSelectionModalServiceMockShow = function (callback) { callback(NEW_FIRST_PRINT);}
 
         beforeEach(function () {
             errorContainerMock = jasmine.createSpyObj('errorContainerMock', ['handleRestError', 'setErrorCode']);
             locationMock = jasmine.createSpyObj('locationMock', ['path']);
             growlMock = jasmine.createSpyObj('growlMock', ['addSuccessMessage']);
             dateServiceMock = jasmine.createSpyObj('dateServiceMock', ['dateToString']);
-            spyOn(firstPrintSelectionModalServiceMock, ['show']).and.callThrough();
+            firstPrintSelectionModalServiceMock = jasmine.createSpyObj('firstPrintSelectionModalServiceMock', ['show']);
+            firstPrintSelectionModalServiceMock.show.and.callFake(firstPrintSelectionModalServiceMockShow);
 
             html = '<book-detail-first-print-info book="book"></book-detail-first-print-info>';
 

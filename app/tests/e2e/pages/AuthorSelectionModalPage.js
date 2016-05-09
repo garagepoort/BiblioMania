@@ -12,4 +12,9 @@ AuthorSelectionModalPage.assertNotOnModal = function () {
     return this;
 };
 
+AuthorSelectionModalPage.selectAuthor = function (authorId) {
+    element(by.id('author-select-' + authorId)).click();
+    return this;
+};
+
 module.exports = AuthorSelectionModalPage;

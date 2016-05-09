@@ -4,17 +4,15 @@ describe('com.bendani.bibliomania.author.overview.ui', function () {
 
         var $scope, $httpBackend, $controller, vm;
         var errorContainerMock, titlePanelServiceMock, authorCreationModalServiceMock, locationMock;
-        var authorCreationModalServiceMock = {
-            show: function (successFunction) {
-                successFunction();
-            }
-        };
+        var authorCreationModalServiceMockShow = function (successFunction) { successFunction(); };
 
         beforeEach(function () {
             errorContainerMock = jasmine.createSpyObj('errorContainerMock', ['handleRestError', 'setErrorCode']);
             titlePanelServiceMock = jasmine.createSpyObj('titlePanelServiceMock', ['setTitle', 'setShowPreviousButton', 'setRightPanel']);
             locationMock = jasmine.createSpyObj('locationMock', ['path']);
-            spyOn(authorCreationModalServiceMock, ['show']).and.callThrough();
+
+            authorCreationModalServiceMock = jasmine.createSpyObj('authorCreationModalServiceMock', ['show']);
+            authorCreationModalServiceMock.show.and.callFake(authorCreationModalServiceMockShow);
 
             module('ngRoute');
             module('ngResource');

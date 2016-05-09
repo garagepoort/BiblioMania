@@ -48,7 +48,7 @@
                     <button type="button" class="btn-default btn btn-sm form-subtitle-button round-corners" ng-click="showCreateAuthorDialog()">Auteur aanmaken</button>
                 </div>
                 <div class="form-content">
-                    <h2>{{ data.selectedAuthor.name.firstname + " " + data.selectedAuthor.name.lastname}}</h2>
+                    <h2 id="book-author-name-label">{{ data.selectedAuthor.name.firstname + " " + data.selectedAuthor.name.lastname}}</h2>
                     <img src-with-fallback="{{ data.selectedAuthorImage }}" style="margin-bottom: 20px;"/>
                 </div>
 
@@ -57,7 +57,7 @@
                     <div class="form-group required col-md-12" ng-class="{'has-error has-feedback' : createBookForm.publisher.$invalid && (createBookForm.publisher.$dirty || submitAttempted)}">
                         <label class="control-label">Uitgever </label>
 
-                        <input name="publisher" ng-model="model.publisher" type="text" placeholder="uitgever" class="form-control input-width-lg"
+                        <input id="book-publisher" name="publisher" ng-model="model.publisher" type="text" placeholder="uitgever" class="form-control input-width-lg"
                                required="true"
                                uib-typeahead="publisher.name as publisher.name for publisher in data.publishers | filter:$viewValue | limitTo:8"
                                class="form-control">

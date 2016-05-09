@@ -35,8 +35,31 @@ BookCreationPage.setSummary = function (summary) {
     return this;
 };
 
+BookCreationPage.setPublisher = function (publisher) {
+    element(by.id('book-publisher')).clear().sendKeys(publisher);
+    return this;
+};
+
+BookCreationPage.setCountry = function (country) {
+    element(by.model('model.country')).clear().sendKeys(country);
+    return this;
+};
+
+BookCreationPage.setPublicationDate = function (day, month, year) {
+    var publicationDir = element(by.model('model.publicationDate'));
+    publicationDir.element(by.model('dateModel.day')).clear().sendKeys(day);
+    publicationDir.element(by.model('dateModel.month')).clear().sendKeys(month);
+    publicationDir.element(by.model('dateModel.year')).clear().sendKeys(year);
+    return this;
+};
+
 BookCreationPage.openSelectAuthor = function () {
     element(by.id('book-select-author')).click();
+    return this;
+};
+
+BookCreationPage.assertAuthorName = function (firstname, lastname) {
+    expect(element(by.id('book-author-name-label')).getText()).toEqual(firstname + ' ' + lastname);
     return this;
 };
 

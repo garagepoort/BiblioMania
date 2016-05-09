@@ -28,7 +28,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="author in authorSelectionModal.data.authors | filter: search | orderBy:authorSelectionModal.predicate:authorSelectionModal.reverse" ng-click="selectAuthor(author)" style="cursor: pointer">
+                <tr id="author-select-{{author.id}}" ng-repeat="author in authorSelectionModal.data.authors | filter: search | orderBy:authorSelectionModal.predicate:authorSelectionModal.reverse" ng-click="selectAuthor(author)" style="cursor: pointer">
                     <td>{{ author.name.firstname }}</td>
                     <td>{{ author.name.infix }}</td>
                     <td>{{ author.name.lastname }}</td>

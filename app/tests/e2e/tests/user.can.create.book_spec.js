@@ -9,9 +9,10 @@ describe('create.book.e2e.test', function () {
     var data;
 
     function initializeData() {
-        dataSetService.initialise('user.can.create.book').then(function (body) {
+        return dataSetService.initialise('user.can.create.book').then(function (body) {
             datasetInitialized = true;
             data = body;
+            console.log('data: ' + data);
         });
     }
 
@@ -34,7 +35,16 @@ describe('create.book.e2e.test', function () {
             .setSummary('summary')
             .openSelectAuthor();
 
-        authorSelectionModalPage.assertOnModal();
+        authorSelectionModalPage.assertOnModal()
+            .selectAuthor(data.authorId)
+            .assertNotOnModal();
+
+        bookCreationPage
+            .assertAuthorName('first', 'last')
+            .setPublisher('publisher')
+            .setPublicationDate(4, 3, 2000)
+            .setCountry('Frankrijk');
+
     });
 
 });

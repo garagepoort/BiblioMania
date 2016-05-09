@@ -10,18 +10,16 @@ describe('com.bendani.bibliomania.create.author.directive', function () {
     };
     var IMAGE = 'image';
 
-    var vm, html, $httpBackend, $compile, $scope, errorContainerMock, growlMock, titlePanelServiceMock;
-    var imageSelectionModalServiceMock = {
-        show: function (searchQuery, successCallback) {
-            successCallback(IMAGE);
-        }
-    };
+    var vm, html, $httpBackend, $compile, $scope, errorContainerMock, growlMock, titlePanelServiceMock, imageSelectionModalServiceMock;
+    var imageSelectionModalServiceMockShow = function (searchQuery, successCallback) { successCallback(IMAGE); };
 
     beforeEach(function () {
         errorContainerMock = jasmine.createSpyObj('errorContainerMock', ['handleRestError', 'setErrorCode']);
         titlePanelServiceMock = jasmine.createSpyObj('titlePanelServiceMock', ['setTitle']);
         growlMock = jasmine.createSpyObj('growlMock', ['addSuccessMessage']);
-        spyOn(imageSelectionModalServiceMock, 'show').and.callThrough();
+
+        imageSelectionModalServiceMock = jasmine.createSpyObj('imageSelectionModalServiceMock', ['show']);
+        imageSelectionModalServiceMock.show.and.callFake(imageSelectionModalServiceMockShow);
 
         html = '<create-author author-model="author" on-save="onSave"></create-author>';
 
@@ -49,7 +47,8 @@ describe('com.bendani.bibliomania.create.author.directive', function () {
         vm = directive.controller('createAuthor');
 
         vm.model = AUTHOR;
-        vm.onSave = function () {};
+        vm.onSave = function () {
+        };
 
         spyOn(vm, 'onSave');
     }
@@ -150,8 +149,8 @@ describe('com.bendani.bibliomania.create.author.directive', function () {
                 }
             };
 
-            beforeEach(function(){
-               vm.model = authorForCreation;
+            beforeEach(function () {
+                vm.model = authorForCreation;
             });
 
             it('saves author when model has no id', function () {
