@@ -1,5 +1,3 @@
-var screenshot = require('../../utils/Screenshot.js');
-
 //@Deprecated
 exports.selectOptionByValue = function (elementId, desiredValue) {
     findCombobox(by.id(elementId)).selectOptionByValue(desiredValue);
@@ -23,12 +21,6 @@ exports.getSelectedOptionValue = function (elementId) {
     return findCombobox(by.id(elementId)).getSelectedOptionValue();
 };
 
-function takeScreenshotWhenOptionIsUndefined(option) {
-    if (option === undefined) {
-        screenshot.writeScreenshot('option--in-combobox-is-undefined.png');
-    }
-}
-
 function findCombobox(locator, parentElement) {
     var combobox = {};
     var el = getElement();
@@ -42,7 +34,6 @@ function findCombobox(locator, parentElement) {
 //When a value was selected before, the empty value is only present when explicitly added.
     combobox.selectOptionByIndex = function (desiredIndex) {
         el.all(by.tagName('option')).then(function (options) {
-            takeScreenshotWhenOptionIsUndefined(options[desiredIndex]);
             options[desiredIndex].click();
         });
     };

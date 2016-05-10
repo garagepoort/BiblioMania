@@ -6,7 +6,7 @@
     <table class="table table-striped">
         <tbody>
         <tr ng-repeat="author in vm.book.authors">
-            <td>{{ author.name.firstname + " " + author.name.lastname }}</td>
+            <td id="author-name-label-{{vm.book.id}}-{{author.id}}">{{ author.name.firstname + " " + author.name.lastname }}</td>
 
             <td class="text-align-right">
                 <span ng-show="author.preferred" style="top: 3px;" class="glyphicon glyphicon-ok-sign"></span>

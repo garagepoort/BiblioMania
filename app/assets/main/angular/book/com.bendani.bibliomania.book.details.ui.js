@@ -1,6 +1,7 @@
 angular.module('com.bendani.bibliomania.book.details.ui', [
     'com.bendani.bibliomania.book.model',
     'com.bendani.bibliomania.title.panel',
+    'com.bendani.bibliomania.currency.service',
     'com.bendani.bibliomania.date.selection.modal.service',
     'com.bendani.bibliomania.personal.book.info.model',
     'com.bendani.bibliomania.personal.book.info.detail.directive',
@@ -19,9 +20,9 @@ angular.module('com.bendani.bibliomania.book.details.ui', [
             });
     }])
     .controller('BookDetailsController', ['$scope', '$rootScope', '$routeParams', 'Book', 'PersonalBookInfo',
-        'ErrorContainer','DateService', 'DateSelectionModalService','TitlePanelService',
+        'ErrorContainer','DateService', 'CurrencyService', 'DateSelectionModalService','TitlePanelService',
         'ConfirmationModalService', 'growl', '$compile', '$location', 'Wishlist',
-        function($scope, $rootScope, $routeParams, Book, PersonalBookInfo, ErrorContainer, DateService,
+        function($scope, $rootScope, $routeParams, Book, PersonalBookInfo, ErrorContainer, DateService, CurrencyService,
                  DateSelectionModalService, TitlePanelService, ConfirmationModalService, growl, $compile, $location, Wishlist){
 
             function init(){
@@ -33,6 +34,10 @@ angular.module('com.bendani.bibliomania.book.details.ui', [
 
             $scope.convertDate = function(date){
                 return DateService.dateToString(date);
+            };
+
+            $scope.getCurrencyViewValue = function(currency){
+                return CurrencyService.getCurrencyViewValue(currency);
             };
 
             $scope.editPersonalBookInfo = function(){
@@ -83,7 +88,7 @@ angular.module('com.bendani.bibliomania.book.details.ui', [
             function setRightTitlePanel(){
                 var titlePanelRight = angular.element('<div class="book-detail-title-panel"><div class="float-right">' +
                     '<i ng-show="book.onWishlist" class="fa fa-heart margin-right-10"></i>' +
-                    '<label class="label label-warning">{{ book.genre }}</label>' +
+                    '<label id="book-genre-label" class="label label-warning">{{ book.genre }}</label>' +
                     '<button ng-click="deleteBook()" class="margin-left-15 btn btn-danger btn-sm no-round-corners">DELETE</button>' +
                     '</div></div>');
                 $compile(titlePanelRight)($scope);

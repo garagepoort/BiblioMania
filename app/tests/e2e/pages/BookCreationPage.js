@@ -1,4 +1,5 @@
 var Navigator = require('../Navigator');
+var ComboBoxComponent = require('../ComboBoxComponent');
 
 var BookCreationPage = {
     url: '/#/create-book'
@@ -18,7 +19,6 @@ BookCreationPage.setTitle = function (title) {
     element(by.id('book-title')).clear().sendKeys(title);
     return this;
 };
-
 
 BookCreationPage.setSubtitle = function (subtitle) {
     element(by.id('book-subtitle')).clear().sendKeys(subtitle);
@@ -45,6 +45,52 @@ BookCreationPage.setCountry = function (country) {
     return this;
 };
 
+BookCreationPage.setPrint = function (print) {
+    element(by.model('model.print')).clear().sendKeys(print);
+    return this;
+};
+
+BookCreationPage.setPages = function (pages) {
+    element(by.model('model.pages')).clear().sendKeys(pages);
+    return this;
+};
+
+BookCreationPage.setTranslator = function (translator) {
+    element(by.model('model.translator')).clear().sendKeys(translator);
+    return this;
+};
+
+BookCreationPage.setBookSerie = function (serie) {
+    element(by.model('model.serie')).clear().sendKeys(serie);
+    return this;
+};
+
+BookCreationPage.setPublisherSerie = function (serie) {
+    element(by.model('model.publisherSerie')).clear().sendKeys(serie);
+    return this;
+};
+
+BookCreationPage.setRetailPrice = function (currency, amount) {
+    ComboBoxComponent.selectOptionByIndex('book-retail-price-currency', currency);
+    element(by.model('model.retailPrice.amount')).clear().sendKeys(amount);
+    return this;
+};
+
+BookCreationPage.selectLanguage = function (languageIndex) {
+    ComboBoxComponent.selectOptionByIndex('book-language', languageIndex);
+    return this;
+};
+
+BookCreationPage.openGenreBranch = function (genre) {
+    element(by.id('branch-click-' + genre)).click();
+    return this;
+};
+
+BookCreationPage.selectGenre = function (genre) {
+    element(by.id(genre)).click();
+    return this;
+};
+
 BookCreationPage.setPublicationDate = function (day, month, year) {
     var publicationDir = element(by.model('model.publicationDate'));
     publicationDir.element(by.model('dateModel.day')).clear().sendKeys(day);
@@ -63,7 +109,7 @@ BookCreationPage.assertAuthorName = function (firstname, lastname) {
     return this;
 };
 
-BookCreationPage.saveBook = function (summary) {
+BookCreationPage.saveBook = function () {
     element(by.id('book-save-button')).click();
     return this;
 };

@@ -10,36 +10,37 @@
                     <div class="form-subtitle">
                         <div>Boek informatie</div>
                         <button class="btn btn-sm btn-default round-corners form-subtitle-button" ng-click="editBookInformation()"><i class="fa fa-pencil"> Editeer</i></button>
-                        <!--<label class="label label-warning form-subtitle-label">{{book.genre}}</label>-->
                     </div>
                     <div class="form-content detail-panel">
                         <dl class="dl-horizontal dl-text-align-left">
                             <dt>Titel</dt>
-                            <dd>{{book.title}}</dd>
+                            <dd id="book-title-label">{{book.title}}</dd>
                             <dt ng-show="book.subtitle">Ondertitel</dt>
-                            <dd ng-show="book.subtitle">{{book.subtitle}}</dd>
+                            <dd id="book-subtitle-label" ng-show="book.subtitle">{{book.subtitle}}</dd>
                             <dt>isbn</dt>
-                            <dd>{{book.isbn}}</dd>
+                            <dd id="book-isbn-label">{{book.isbn}}</dd>
                             <dt>uitgever</dt>
-                            <dd>{{book.publisher}}</dd>
+                            <dd id="book-publisher-label">{{book.publisher}}</dd>
                             <dt ng-show="book.publicationDate">Uitgave datum</dt>
-                            <dd ng-show="book.publicationDate">{{ convertDate(book.publicationDate) }}</dd>
+                            <dd id="book-publication-date-label" ng-show="book.publicationDate">{{ convertDate(book.publicationDate) }}</dd>
                             <dt ng-show="book.language">taal</dt>
-                            <dd ng-show="book.language">{{book.language}}</dd>
+                            <dd id="book-language-label" ng-show="book.language">{{book.language}}</dd>
                             <dt ng-show="book.country">land</dt>
-                            <dd ng-show="book.country">{{book.country}}</dd>
+                            <dd id="book-country-label" ng-show="book.country">{{book.country}}</dd>
                             <dt ng-show="book.pages">Pagina's</dt>
-                            <dd ng-show="book.pages">{{book.pages}}</dd>
+                            <dd id="book-pages-label" ng-show="book.pages">{{book.pages}}</dd>
                             <dt ng-show="book.print">Druk</dt>
-                            <dd ng-show="book.print">{{book.print}}</dd>
+                            <dd id="book-print-label" ng-show="book.print">{{book.print}}</dd>
                             <dt ng-show="book.serie">Boeken reeks</dt>
-                            <dd ng-show="book.serie" ng-show="book.serie">{{book.serie}}</dd>
+                            <dd id="book-serie-label" ng-show="book.serie" ng-show="book.serie">{{book.serie}}</dd>
                             <dt ng-show="book.publisherSerie">Uitgever reeks</dt>
-                            <dd ng-show="book.publisherSerie">{{book.publisherSerie}}</dd>
+                            <dd id="book-publisher-serie-label" ng-show="book.publisherSerie">{{book.publisherSerie}}</dd>
                             <dt ng-show="book.translator">Vertaler</dt>
-                            <dd ng-show="book.translator">{{book.translator}}</dd>
+                            <dd id="book-translator-label" ng-show="book.translator">{{book.translator}}</dd>
+                            <dt ng-show="book.retailPrice.amount">Cover prijs</dt>
+                            <dd id="book-retail-price-label" ng-show="book.retailPrice.amount">{{getCurrencyViewValue(book.retailPrice.currency) + ' ' +  book.retailPrice.amount}}</dd>
                             <dt ng-show="book.tags">Tags</dt>
-                            <dd ng-show="book.tags"><label class="label label-success margin-right-10" ng-repeat="tag in book.tags">{{tag.text}}</label></dd>
+                            <dd id="book-tags-label" ng-show="book.tags"><label class="label label-success margin-right-10" ng-repeat="tag in book.tags">{{tag.text}}</label></dd>
                         </dl>
                     </div>
                 </div>
@@ -58,7 +59,7 @@
                 <div>Samenvatting</div>
             </div>
             <div class="form-content detail-panel">
-                <p>{{ book.summary }}</p>
+                <p id="book-summary-label">{{ book.summary }}</p>
             </div>
         </div>
     </div>

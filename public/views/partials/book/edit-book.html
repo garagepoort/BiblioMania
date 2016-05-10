@@ -81,7 +81,7 @@
                         <div class="col-md-4" ng-class="{'has-error has-feedback' : createBookForm.language.$invalid && (createBookForm.language.$dirty || submitAttempted)}">
                             <label class="control-label">Taal </label>
 
-                            <select name="language" class="input-sm form-control" ng-model="model.language"
+                            <select id="book-language" name="language" class="input-sm form-control" ng-model="model.language"
                                     ng-options="language.name as language.name for language in data.languages"></select>
                             <span ng-show="createBookForm.language.$invalid && (createBookForm.language.$dirty || submitAttempted)" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i>Taal is verplicht</span>
                         </div>
@@ -123,7 +123,7 @@
                     <div class="form-group col-md-6">
                         <label class="control-label">Cover prijs </label>
                         <div>
-                            <select style="margin-right: 10px;" class="form-control col-md-2 input-width-xsm" ng-model="model.retailPrice.currency" ng-options="currency.value as currency.name for currency in data.currencies"></select>
+                            <select id="book-retail-price-currency" style="margin-right: 10px;" class="form-control col-md-2 input-width-xsm" ng-model="model.retailPrice.currency" ng-options="currency.value as currency.name for currency in data.currencies"></select>
                                 <input type="text" name="retailPriceAmount" price-formatter class="form-control col-md-4 input-width-sm" ng-model="model.retailPrice.amount" ng-pattern="/^\d+(\,\d{1,2})?$/"/>
                             <span ng-show="createBookForm.retailPriceAmount.$error.pattern && createBookForm.retailPriceAmount.$dirty" class="form-error-message help-inline vertical-align"><i class="fa fa-exclamation-circle"> Prijs is niet het juiste formaat.</i></span>
                         </div>

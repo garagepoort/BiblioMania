@@ -8,6 +8,24 @@ describe('create.book.e2e.test', function () {
     var datasetInitialized = false;
     var data;
 
+    var TITLE = 'title';
+    var SUBTITLE = 'subtitle';
+    var ISBN = '1234567890123';
+    var SUMMARY = 'summary';
+    var PUBLISHER = 'publisher';
+    var COUNTRY = 'Frankrijk';
+    var GENRE = 'Contemporary';
+    var AUTHOR_FIRSTNAME = 'first';
+    var AUTHOR_LASTNAME = 'last';
+    var PUBLICATION_DATE = '4-3-2000';
+    var LANGUAGE = 'Engels';
+    var TRANSLATOR = 'translator';
+    var PAGES = '100';
+    var PRINT = '12';
+    var SERIE = "bookSerie";
+    var PUBLISHER_SERIE = "publisherSerie";
+    var RETAIL_PRICE_AMOUNT = '321';
+
     function initializeData() {
         return dataSetService.initialise('user.can.create.book').then(function (body) {
             datasetInitialized = true;
@@ -29,10 +47,10 @@ describe('create.book.e2e.test', function () {
         loginPage.login();
         bookCreationPage
             .navigateTo()
-            .setTitle('title')
-            .setSubtitle('subtitle')
-            .setIsbn('1234567890123')
-            .setSummary('summary')
+            .setTitle(TITLE)
+            .setSubtitle(SUBTITLE)
+            .setIsbn(ISBN)
+            .setSummary(SUMMARY)
             .openSelectAuthor();
 
         authorSelectionModalPage.assertOnModal()
@@ -40,11 +58,37 @@ describe('create.book.e2e.test', function () {
             .assertNotOnModal();
 
         bookCreationPage
-            .assertAuthorName('first', 'last')
-            .setPublisher('publisher')
+            .assertAuthorName(AUTHOR_FIRSTNAME, AUTHOR_LASTNAME)
+            .setPublisher(PUBLISHER)
             .setPublicationDate(4, 3, 2000)
-            .setCountry('Frankrijk');
+            .setCountry(COUNTRY)
+            .selectLanguage(1)
+            .openGenreBranch('YA')
+            .selectGenre(GENRE)
+            .setPrint(PRINT)
+            .setPages(PAGES)
+            .setTranslator(TRANSLATOR)
+            .setBookSerie(SERIE)
+            .setPublisherSerie(PUBLISHER_SERIE)
+            .setRetailPrice(1, RETAIL_PRICE_AMOUNT)
+            .saveBook();
 
+        bookDetailsPage
+            .assertOnPage(1)
+            .assertTitle(TITLE)
+            .assertSubtitle(SUBTITLE)
+            .assertIsbn(ISBN)
+            .assertLanguage(LANGUAGE)
+            .assertPublicationDate(PUBLICATION_DATE)
+            .assertPublisher(PUBLISHER)
+            .assertGenre(GENRE)
+            .assertContainsAuthor(1, data.authorId, AUTHOR_FIRSTNAME, AUTHOR_LASTNAME)
+            .assertPrint(PRINT)
+            .assertPages(PAGES)
+            .assertBookSerie(SERIE)
+            .assertPublisherSerie(PUBLISHER_SERIE)
+            .assertTranslator(TRANSLATOR)
+            .assertRetailPrice('$ ' + RETAIL_PRICE_AMOUNT);
     });
 
 });
