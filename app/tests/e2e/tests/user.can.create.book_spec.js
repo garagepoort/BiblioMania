@@ -4,6 +4,7 @@ describe('create.book.e2e.test', function () {
     var bookDetailsPage = require('../pages/BookDetailsPage');
     var loginPage = require('../pages/LoginPage');
     var authorSelectionModalPage = require('../pages/AuthorSelectionModalPage');
+    var authorCreationModalPage = require('../pages/AuthorCreationModalPage');
 
     var datasetInitialized = false;
     var data;
@@ -43,7 +44,7 @@ describe('create.book.e2e.test', function () {
     });
 
 
-    it('creates book correctly and redirects to book overview page', function () {
+    it('creates book correctly with selected author and redirects to book overview page', function () {
         loginPage.login();
         bookCreationPage
             .navigateTo()
@@ -83,6 +84,57 @@ describe('create.book.e2e.test', function () {
             .assertPublisher(PUBLISHER)
             .assertGenre(GENRE)
             .assertContainsAuthor(1, data.authorId, AUTHOR_FIRSTNAME, AUTHOR_LASTNAME)
+            .assertPrint(PRINT)
+            .assertPages(PAGES)
+            .assertBookSerie(SERIE)
+            .assertPublisherSerie(PUBLISHER_SERIE)
+            .assertTranslator(TRANSLATOR)
+            .assertRetailPrice('$ ' + RETAIL_PRICE_AMOUNT);
+    });
+
+    fit('creates book correctly with newly created author and redirects to book overview page', function () {
+        loginPage.login();
+        bookCreationPage
+            .navigateTo()
+            .setTitle(TITLE)
+            .setSubtitle(SUBTITLE)
+            .setIsbn(ISBN)
+            .setSummary(SUMMARY)
+            .openCreateAuthor();
+
+        authorCreationModalPage.assertOnModal()
+            .setFirstname('newFirstname')
+            .setInfix('newInfix')
+            .setLastname('newLastname')
+            .clickCreateAuthorButton()
+            .assertNotOnModal();
+
+        bookCreationPage
+            .assertAuthorName(AUTHOR_FIRSTNAME, AUTHOR_LASTNAME)
+            .setPublisher(PUBLISHER)
+            .setPublicationDate(4, 3, 2000)
+            .setCountry(COUNTRY)
+            .selectLanguage(1)
+            .openGenreBranch('YA')
+            .selectGenre(GENRE)
+            .setPrint(PRINT)
+            .setPages(PAGES)
+            .setTranslator(TRANSLATOR)
+            .setBookSerie(SERIE)
+            .setPublisherSerie(PUBLISHER_SERIE)
+            .setRetailPrice(1, RETAIL_PRICE_AMOUNT)
+            .saveBook();
+
+        bookDetailsPage
+            .assertOnPage(1)
+            .assertTitle(TITLE)
+            .assertSubtitle(SUBTITLE)
+            .assertIsbn(ISBN)
+            .assertLanguage(LANGUAGE)
+            .assertPublicationDate(PUBLICATION_DATE)
+            .assertPublisher(PUBLISHER)
+            .assertGenre(GENRE)
+            .assertContainsAuthor(1, 2, "newFirstname", "newLastname")
             .assertPrint(PRINT)
             .assertPages(PAGES)
             .assertBookSerie(SERIE)

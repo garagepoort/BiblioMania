@@ -103,6 +103,10 @@ BookCreationPage.openSelectAuthor = function () {
     element(by.id('book-select-author')).click();
     return this;
 };
+BookCreationPage.openCreateAuthor = function () {
+    element(by.id('book-create-author')).click();
+    return this;
+};
 
 BookCreationPage.assertAuthorName = function (firstname, lastname) {
     expect(element(by.id('book-author-name-label')).getText()).toEqual(firstname + ' ' + lastname);
