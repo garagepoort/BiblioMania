@@ -73,16 +73,16 @@ class BookService
         return $this->bookRepository->allWith(array('personal_book_infos', 'authors', 'book_from_authors'));
     }
 
-    public function create(BaseBookRequest $createBookRequest){
+    public function create($userId, BaseBookRequest $createBookRequest){
         $book = new Book();
-        return $this->saveBook($createBookRequest, $book);
+        return $this->saveBook($userId, $createBookRequest, $book);
     }
 
-    public function update(UpdateBookRequest $updateBookRequest){
+    public function update($userId, UpdateBookRequest $updateBookRequest){
         $book = $this->bookRepository->find($updateBookRequest->getId());
         Ensure::objectNotNull('book', $book);
 
-        return $this->saveBook($updateBookRequest, $book);
+        return $this->saveBook($userId, $updateBookRequest, $book);
     }
 
     public function getBooksByAuthor($authorId){
@@ -235,9 +235,9 @@ class BookService
      * @param $book
      * @return mixed
      */
-    private function saveBook(BaseBookRequest $createBookRequest, $book)
+    private function saveBook($userId, BaseBookRequest $createBookRequest, $book)
     {
-        return DB::transaction(function () use ($book, $createBookRequest) {
+        return DB::transaction(function () use ($userId, $book, $createBookRequest) {
             $genre = $this->genreService->getGenreByName($createBookRequest->getGenre());
             $author = $this->authorService->find($createBookRequest->getPreferredAuthorId());
 
@@ -252,7 +252,7 @@ class BookService
             Ensure::stringNotBlank("Publisher", $createBookRequest->getPublisher());
             Ensure::stringNotBlank("Country", $createBookRequest->getCountry());
 
-            $bookPublisher = $this->publisherService->findOrCreate($createBookRequest->getPublisher());
+            $bookPublisher = $this->publisherService->findOrCreate($userId, $createBookRequest->getPublisher());
             $country = $this->countryService->findOrCreate($createBookRequest->getCountry());
 
             $book->serie_id = null;

@@ -38,7 +38,7 @@ class FirstPrintController extends BaseController
 
     public function createFirstPrintInfo(){
         $createFirstPrint = $this->jsonMappingService->mapInputToJson(Input::get(), new CreateFirstPrintFromJsonAdapter());
-        $id = $this->firstPrintInfoService->createFirstPrintInfo($createFirstPrint);
+        $id = $this->firstPrintInfoService->createFirstPrintInfo(Auth::user()->id, $createFirstPrint)->id;
         return Response::json(array('success' => true, 'id' => $id), 200);
     }
 
@@ -48,8 +48,9 @@ class FirstPrintController extends BaseController
     }
 
     public function updateFirstPrintInfo(){
+        /** @var UpdateFirstPrintInfoRequest $updateFirstPrint */
         $updateFirstPrint = $this->jsonMappingService->mapInputToJson(Input::get(), new UpdateFirstPrintFromJsonAdapter());
-        $id =  $this->firstPrintInfoService->updateFirstPrintInfo($updateFirstPrint);
+        $id = $this->firstPrintInfoService->updateFirstPrintInfo(Auth::user()->id, $updateFirstPrint)->id;
         return Response::json(array('success' => true, 'id' => $id), 200);
     }
 

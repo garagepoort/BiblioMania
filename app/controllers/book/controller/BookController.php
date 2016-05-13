@@ -44,11 +44,11 @@ class BookController extends BaseController
     }
 
     public function createBook(){
-        return $this->bookService->create($this->jsonMappingService->mapInputToJson(Input::get(), new CreateBookFromJsonAdapter()));
+        return $this->bookService->create(Auth::user()->id, $this->jsonMappingService->mapInputToJson(Input::get(), new CreateBookFromJsonAdapter()));
     }
 
     public function updateBook(){
-        return $this->bookService->update($this->jsonMappingService->mapInputToJson(Input::get(), new UpdateBookFromJsonAdapter()));
+        return $this->bookService->update(Auth::user()->id, $this->jsonMappingService->mapInputToJson(Input::get(), new UpdateBookFromJsonAdapter()));
     }
 
     public function deleteBook($bookId)

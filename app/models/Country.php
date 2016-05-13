@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @property integer id
+ * @property string name
+ * @property string code
+ */
 class Country extends Eloquent {
     protected $table = 'country';
 

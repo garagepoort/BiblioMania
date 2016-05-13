@@ -4,6 +4,7 @@ use Bendani\PhpCommon\Utils\Exception\ServiceException;
 
 class BookServiceCreateTest extends TestCase
 {
+    const USER_ID = 3231;
     const BOOK_ID = 123;
     const GENRE_ID = 5432;
     const PUBLICATION_DATE_ID = 837;
@@ -96,7 +97,7 @@ class BookServiceCreateTest extends TestCase
             ->with($this->createBookRequestImpl->getPreferredAuthorId())
             ->andReturn($this->author)->byDefault();
 
-        $this->publisherService->shouldReceive('findOrCreate')->with($this->createBookRequestImpl->getPublisher())->andReturn($this->publisher);
+        $this->publisherService->shouldReceive('findOrCreate')->with(self::USER_ID, $this->createBookRequestImpl->getPublisher())->andReturn($this->publisher);
         $this->countryService->shouldReceive('findOrCreate')->with($this->createBookRequestImpl->getCountry())->andReturn($this->country);
         $this->languageService->shouldReceive('findOrCreate')->with($this->createBookRequestImpl->getLanguage())->andReturn($this->language);
         $this->dateService->shouldReceive('create')->with($this->createBookRequestImpl->getPublicationDate())->andReturn($this->publicationDate);
@@ -116,7 +117,7 @@ class BookServiceCreateTest extends TestCase
         $this->bookRepository->shouldReceive('save')->once()->with(Mockery::any());
         $this->bookElasticIndexer->shouldReceive('indexBook')->once()->with(Mockery::any());
 
-        $createdBook = $this->bookService->create($this->createBookRequestImpl);
+        $createdBook = $this->bookService->create(self::USER_ID, $this->createBookRequestImpl);
 
 
         $this->assertEquals($createdBook->title, $this->createBookRequestImpl->getTitle());
@@ -144,7 +145,7 @@ class BookServiceCreateTest extends TestCase
         $this->createBookRequestImpl->setSerie($serieString);
         $this->bookSerieService->shouldReceive('findOrSave')->once()->with($serieString)->andReturn($serie);
 
-        $createdBook = $this->bookService->create($this->createBookRequestImpl);
+        $createdBook = $this->bookService->create(self::USER_ID, $this->createBookRequestImpl);
 
         $this->assertEquals($createdBook->serie_id, $serieId);
     }
@@ -157,7 +158,7 @@ class BookServiceCreateTest extends TestCase
         $this->createBookRequestImpl->setSerie($serieString);
         $this->bookSerieService->shouldReceive('findOrSave')->never();
 
-        $createdBook = $this->bookService->create($this->createBookRequestImpl);
+        $createdBook = $this->bookService->create(self::USER_ID, $this->createBookRequestImpl);
 
         $this->assertNull($createdBook->serie_id);
     }
@@ -171,7 +172,7 @@ class BookServiceCreateTest extends TestCase
         $this->createBookRequestImpl->setPublisherSerie($serieString);
         $this->publisherSerieService->shouldReceive('findOrSave')->once()->with($serieString, self::PUBLISHER_ID)->andReturn($serie);
 
-        $createdBook = $this->bookService->create($this->createBookRequestImpl);
+        $createdBook = $this->bookService->create(self::USER_ID, $this->createBookRequestImpl);
 
         $this->assertEquals($createdBook->publisher_serie_id, $serieId);
     }
@@ -184,7 +185,7 @@ class BookServiceCreateTest extends TestCase
         $this->createBookRequestImpl->setPublisherSerie($serieString);
         $this->publisherSerieService->shouldReceive('findOrSave')->never();
 
-        $createdBook = $this->bookService->create($this->createBookRequestImpl);
+        $createdBook = $this->bookService->create(self::USER_ID, $this->createBookRequestImpl);
 
         $this->assertNull($createdBook->publisher_serie_id);
     }
@@ -195,7 +196,7 @@ class BookServiceCreateTest extends TestCase
         $this->createBookRequestImpl->setImageUrl($imageUrl);
         $this->imageService->shouldReceive('saveBookImageFromUrl')->once()->with($imageUrl, Mockery::any())->andReturn($savedImage);
 
-        $createdBook = $this->bookService->create($this->createBookRequestImpl);
+        $createdBook = $this->bookService->create(self::USER_ID, $this->createBookRequestImpl);
 
         $this->assertEquals($createdBook->coverImage, $savedImage);
     }
@@ -205,7 +206,7 @@ class BookServiceCreateTest extends TestCase
         $this->createBookRequestImpl->setImageUrl($imageUrl);
         $this->imageService->shouldReceive('saveBookImageFromUrl')->never();
 
-        $createdBook = $this->bookService->create($this->createBookRequestImpl);
+        $createdBook = $this->bookService->create(self::USER_ID, $this->createBookRequestImpl);
 
         $this->assertNull($createdBook->coverImage);
     }
@@ -220,7 +221,7 @@ class BookServiceCreateTest extends TestCase
             ->with($this->createBookRequestImpl->getGenre())
             ->andReturn(null);
 
-        $this->bookService->create($this->createBookRequestImpl);
+        $this->bookService->create(self::USER_ID, $this->createBookRequestImpl);
     }
 
     /**
@@ -233,7 +234,7 @@ class BookServiceCreateTest extends TestCase
             ->with($this->createBookRequestImpl->getPreferredAuthorId())
             ->andReturn(null);
 
-        $this->bookService->create($this->createBookRequestImpl);
+        $this->bookService->create(self::USER_ID, $this->createBookRequestImpl);
     }
 
     /**
@@ -244,7 +245,7 @@ class BookServiceCreateTest extends TestCase
     {
         $this->createBookRequestImpl->setPublicationDate(null);
 
-        $this->bookService->create($this->createBookRequestImpl);
+        $this->bookService->create(self::USER_ID, $this->createBookRequestImpl);
     }
     /**
      * @expectedException Bendani\PhpCommon\Utils\Exception\ServiceException
@@ -256,7 +257,7 @@ class BookServiceCreateTest extends TestCase
         $publicationDate->setYear('');
         $this->createBookRequestImpl->setPublicationDate($publicationDate);
 
-        $this->bookService->create($this->createBookRequestImpl);
+        $this->bookService->create(self::USER_ID, $this->createBookRequestImpl);
     }
 
     /**
@@ -269,7 +270,7 @@ class BookServiceCreateTest extends TestCase
         $publicationDate->setYear(null);
         $this->createBookRequestImpl->setPublicationDate($publicationDate);
 
-        $this->bookService->create($this->createBookRequestImpl);
+        $this->bookService->create(self::USER_ID, $this->createBookRequestImpl);
     }
 
     /**
@@ -280,7 +281,7 @@ class BookServiceCreateTest extends TestCase
     {
         $this->createBookRequestImpl->setLanguage(null);
 
-        $this->bookService->create($this->createBookRequestImpl);
+        $this->bookService->create(self::USER_ID, $this->createBookRequestImpl);
     }
 
     /**
@@ -291,7 +292,7 @@ class BookServiceCreateTest extends TestCase
     {
         $this->createBookRequestImpl->setLanguage('  ');
 
-        $this->bookService->create($this->createBookRequestImpl);
+        $this->bookService->create(self::USER_ID, $this->createBookRequestImpl);
     }
 
     /**
@@ -302,7 +303,7 @@ class BookServiceCreateTest extends TestCase
     {
         $this->createBookRequestImpl->setTitle(null);
 
-        $this->bookService->create($this->createBookRequestImpl);
+        $this->bookService->create(self::USER_ID, $this->createBookRequestImpl);
     }
 
     /**
@@ -313,7 +314,7 @@ class BookServiceCreateTest extends TestCase
     {
         $this->createBookRequestImpl->setTitle('  ');
 
-        $this->bookService->create($this->createBookRequestImpl);
+        $this->bookService->create(self::USER_ID, $this->createBookRequestImpl);
     }
 
     /**
@@ -324,7 +325,7 @@ class BookServiceCreateTest extends TestCase
     {
         $this->createBookRequestImpl->setPublisher(null);
 
-        $this->bookService->create($this->createBookRequestImpl);
+        $this->bookService->create(self::USER_ID, $this->createBookRequestImpl);
     }
 
     /**
@@ -335,7 +336,7 @@ class BookServiceCreateTest extends TestCase
     {
         $this->createBookRequestImpl->setPublisher('  ');
 
-        $this->bookService->create($this->createBookRequestImpl);
+        $this->bookService->create(self::USER_ID, $this->createBookRequestImpl);
     }
 
     /**
@@ -346,7 +347,7 @@ class BookServiceCreateTest extends TestCase
     {
         $this->createBookRequestImpl->setCountry(null);
 
-        $this->bookService->create($this->createBookRequestImpl);
+        $this->bookService->create(self::USER_ID, $this->createBookRequestImpl);
     }
 
     /**
@@ -357,7 +358,7 @@ class BookServiceCreateTest extends TestCase
     {
         $this->createBookRequestImpl->setCountry('  ');
 
-        $this->bookService->create($this->createBookRequestImpl);
+        $this->bookService->create(self::USER_ID, $this->createBookRequestImpl);
     }
 
 

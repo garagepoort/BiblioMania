@@ -25,6 +25,7 @@ class BookControllerCreateTest extends TestCase
     const TAG_1 = 'tag1';
     const TAG_2 = 'tag2';
     const TAG_3 = 'tag3';
+    const USER_ID = 123;
 
     /** @var  BookService */
     private $bookService;
@@ -33,6 +34,9 @@ class BookControllerCreateTest extends TestCase
     {
         parent::setUp();
         $this->bookService = $this->mock('BookService');
+
+        $user = new User(array('username' => 'John', 'id' => self::USER_ID));
+        $this->be($user);
     }
 
     public function test_shouldCallJsonMappingAndService(){
@@ -61,7 +65,7 @@ class BookControllerCreateTest extends TestCase
             )
         );
 
-        $this->bookService->shouldReceive('create')->once()->with(Mockery::on(function(BaseBookRequest $baseBookRequest){
+        $this->bookService->shouldReceive('create')->once()->with(self::USER_ID, Mockery::on(function(BaseBookRequest $baseBookRequest){
             $this->assertEquals(self::TITLE, $baseBookRequest->getTitle());
             $this->assertEquals(self::ISBN, $baseBookRequest->getIsbn());
             $this->assertEquals(self::SUBTITLE, $baseBookRequest->getSubtitle());
