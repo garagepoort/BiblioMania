@@ -9,18 +9,8 @@ BookDetailsPage.navigateTo = function (bookId) {
     return this;
 };
 
-BookDetailsPage.clickOnCreateFirstPrintInfo = function (bookId) {
-    element(by.id('create-first-print-info-button')).click();
-    return this;
-};
-
 BookDetailsPage.assertOnPage = function (bookId) {
     Navigator.assertOnPage(BookDetailsPage.url + '/' + bookId);
-    return this;
-};
-
-BookDetailsPage.assertNoFirstPrintInfoMessagePresent = function (present) {
-    expect(element(by.id('no-first-print-info-message')).isPresent()).toBe(present);
     return this;
 };
 

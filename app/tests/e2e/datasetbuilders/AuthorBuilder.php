@@ -89,6 +89,14 @@ class AuthorBuilder implements \CreateAuthorRequest
         $this->imageUrl = $imageUrl;
         return $this;
     }
-    
+
+    public static function buildDefault(){
+        $author = new AuthorBuilder();
+        $author
+            ->withName('first', 'in', 'last')
+            ->withDateOfBirth(1, 1, 1992)
+            ->withDateOfDeath(1, 1, 2016);
+        return $author;
+    }
     
 }

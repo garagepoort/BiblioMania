@@ -1,6 +1,6 @@
 <div class="form-subtitle">
     <div>Eerste druk informatie</div>
-    <button class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="vm.showSelectFirstPrintDialog()"><i class="fa fa-search"> Selecteer</i></button>
+    <button id="select-first-print-info-button" class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="vm.showSelectFirstPrintDialog()"><i class="fa fa-search"> Selecteer</i></button>
     <button ng-if="vm.book.firstPrintInfo" class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="vm.editFirstPrintInfo()"><i class="fa fa-pencil"> Editeer</i></button>
     <button id="create-first-print-info-button" ng-if="!vm.book.firstPrintInfo" class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="vm.createFirstPrintInfo()"><i class="fa fa-plus"> Maak aan</i></button>
 </div>

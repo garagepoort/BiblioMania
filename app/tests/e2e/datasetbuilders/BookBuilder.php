@@ -342,5 +342,19 @@ class BookBuilder implements \BaseBookRequest
         return $this;
     }
 
+    public static function buildDefault($authorId){
+        $book = new BookBuilder();
+        $book->withTitle('title')
+            ->withCountry("België")
+            ->withLanguage("Nederlands")
+            ->withPublisher("Uitgever")
+            ->withPublicationDate(1,1,2011)
+            ->withGenre("YA")
+            ->withIsbn("1234567890123")
+            ->withPages(12)
+            ->withPreferredAuthorId($authorId)
+            ->withRetailPrice(new PriceBuilder(123, 'EUR'));
+        return $book;
+    }
 
 }

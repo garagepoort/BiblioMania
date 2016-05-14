@@ -4,10 +4,21 @@ var FirstPrintInfoDetails = {
     url: '/#/first-print-info-details'
 };
 
-FirstPrintInfoDetails.clickOnCreateFirstPrintInfo = function (bookId) {
+FirstPrintInfoDetails.clickOnCreateFirstPrintInfo = function () {
     element(by.id('create-first-print-info-button')).click();
     return this;
 };
+
+FirstPrintInfoDetails.clickOnSelectFirstPrintInfo = function () {
+    element(by.id('select-first-print-info-button')).click();
+    return this;
+};
+
+FirstPrintInfoDetails.assertNoFirstPrintInfoMessagePresent = function (present) {
+    expect(element(by.id('no-first-print-info-message')).isPresent()).toBe(present);
+    return this;
+};
+
 
 FirstPrintInfoDetails.assertTitle = function (title) {
     expect(element(by.id('first-print-info-title-label')).getText()).toEqual(title);

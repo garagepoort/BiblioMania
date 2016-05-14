@@ -40,7 +40,9 @@ describe('user.can.create.first.print.info', function () {
         loginPage.login();
 
         bookDetailsPage
-            .navigateTo(data.bookId)
+            .navigateTo(data.bookId);
+
+        firstPrintInfoDetails
             .assertNoFirstPrintInfoMessagePresent(true)
             .clickOnCreateFirstPrintInfo();
 
