@@ -19,7 +19,6 @@ class BookRepository implements Repository{
         $this->find($id)->delete();
     }
 
-
     public function all()
     {
         return Book::all();

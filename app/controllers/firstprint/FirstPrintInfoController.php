@@ -3,7 +3,7 @@
 use Bendani\PhpCommon\Utils\Ensure;
 use Bendani\PhpCommon\Utils\Exception\ServiceException;
 
-class FirstPrintController extends BaseController
+class FirstPrintInfoController extends BaseController
 {
     /** @var  BookService */
     private $bookService;

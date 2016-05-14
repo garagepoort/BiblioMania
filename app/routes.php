@@ -56,11 +56,11 @@ Route::group(array('before' => 'auth'), function () {
     Route::post('series/{id}/books', 'SerieController@addBookToSerie');
     Route::put('series/{id}/remove-book', 'SerieController@removeBookFromSerie');
 
-    Route::get('firstprints', 'FirstPrintController@getAllFirstPrintInfos');
-    Route::put('firstprints', 'FirstPrintController@updateFirstPrintInfo');
-    Route::post('firstprints', 'FirstPrintController@createFirstPrintInfo');
-    Route::get('firstprints/{id}', 'FirstPrintController@getFirstPrintInfo');
-    Route::post('firstprints/{id}/books', 'FirstPrintController@linkBookToFirstPrintInfo');
+    Route::get('firstprints', 'FirstPrintInfoController@getAllFirstPrintInfos');
+    Route::put('firstprints', 'FirstPrintInfoController@updateFirstPrintInfo');
+    Route::post('firstprints', 'FirstPrintInfoController@createFirstPrintInfo');
+    Route::get('firstprints/{id}', 'FirstPrintInfoController@getFirstPrintInfo');
+    Route::post('firstprints/{id}/books', 'FirstPrintInfoController@linkBookToFirstPrintInfo');
 
     Route::put('oeuvre', 'OeuvreController@updateOeuvreItem');
     Route::get('oeuvre/{id}', 'OeuvreController@getOeuvreItem');
