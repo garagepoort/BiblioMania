@@ -1,4 +1,4 @@
-describe('create.book.e2e.test', function () {
+describe('user.can.create.book', function () {
     var dataSetService = require('../DataSetService');
     var bookCreationPage = require('../pages/BookCreationPage');
     var bookDetailsPage = require('../pages/BookDetailsPage');
@@ -43,9 +43,14 @@ describe('create.book.e2e.test', function () {
         }
     });
 
+    afterEach(function(){
+        loginPage.logout();
+    });
+
 
     it('creates book correctly with selected author and redirects to book overview page', function () {
         loginPage.login();
+
         bookCreationPage
             .navigateTo()
             .setTitle(TITLE)
@@ -80,6 +85,7 @@ describe('create.book.e2e.test', function () {
             .assertSubtitle(SUBTITLE)
             .assertIsbn(ISBN)
             .assertLanguage(LANGUAGE)
+            .assertCountry(COUNTRY)
             .assertPublicationDate(PUBLICATION_DATE)
             .assertPublisher(PUBLISHER)
             .assertGenre(GENRE)
@@ -92,8 +98,9 @@ describe('create.book.e2e.test', function () {
             .assertRetailPrice('$ ' + RETAIL_PRICE_AMOUNT);
     });
 
-    fit('creates book correctly with newly created author and redirects to book overview page', function () {
+    it('creates book correctly with newly created author and redirects to book overview page', function () {
         loginPage.login();
+
         bookCreationPage
             .navigateTo()
             .setTitle(TITLE)
@@ -110,7 +117,7 @@ describe('create.book.e2e.test', function () {
             .assertNotOnModal();
 
         bookCreationPage
-            .assertAuthorName(AUTHOR_FIRSTNAME, AUTHOR_LASTNAME)
+            .assertAuthorName('newFirstname', 'newLastname')
             .setPublisher(PUBLISHER)
             .setPublicationDate(4, 3, 2000)
             .setCountry(COUNTRY)
@@ -126,7 +133,7 @@ describe('create.book.e2e.test', function () {
             .saveBook();
 
         bookDetailsPage
-            .assertOnPage(1)
+            .assertOnPage(2)
             .assertTitle(TITLE)
             .assertSubtitle(SUBTITLE)
             .assertIsbn(ISBN)
@@ -134,7 +141,7 @@ describe('create.book.e2e.test', function () {
             .assertPublicationDate(PUBLICATION_DATE)
             .assertPublisher(PUBLISHER)
             .assertGenre(GENRE)
-            .assertContainsAuthor(1, 2, "newFirstname", "newLastname")
+            .assertContainsAuthor(2, 2, "newFirstname", "newLastname")
             .assertPrint(PRINT)
             .assertPages(PAGES)
             .assertBookSerie(SERIE)

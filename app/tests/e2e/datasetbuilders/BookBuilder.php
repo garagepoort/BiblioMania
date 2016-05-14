@@ -39,7 +39,6 @@ class BookBuilder implements \BaseBookRequest
 
     /**
      * @param mixed $title
-     * @return $this
      */
     public function withTitle($title)
     {
@@ -57,7 +56,6 @@ class BookBuilder implements \BaseBookRequest
 
     /**
      * @param mixed $subtitle
-     * @return $this
      */
     public function withSubtitle($subtitle)
     {
@@ -93,7 +91,6 @@ class BookBuilder implements \BaseBookRequest
 
     /**
      * @param mixed $genre
-     * @return $this
      */
     public function withGenre($genre)
     {
@@ -111,7 +108,6 @@ class BookBuilder implements \BaseBookRequest
 
     /**
      * @param mixed $publisher
-     * @return $this
      */
     public function withPublisher($publisher)
     {
@@ -129,7 +125,6 @@ class BookBuilder implements \BaseBookRequest
 
     /**
      * @param mixed $country
-     * @return $this
      */
     public function withCountry($country)
     {
@@ -147,7 +142,6 @@ class BookBuilder implements \BaseBookRequest
 
     /**
      * @param mixed $language
-     * @return $this
      */
     public function withLanguage($language)
     {
@@ -165,7 +159,6 @@ class BookBuilder implements \BaseBookRequest
 
     /**
      * @param mixed $tags
-     * @return $this
      */
     public function withTags($tags)
     {
@@ -183,7 +176,6 @@ class BookBuilder implements \BaseBookRequest
 
     /**
      * @param DateRequest $publicationDate
-     * @return $this
      */
     public function withPublicationDate($day, $month, $year)
     {
@@ -207,7 +199,6 @@ class BookBuilder implements \BaseBookRequest
 
     /**
      * @param mixed $preferredAuthorId
-     * @return $this
      */
     public function withPreferredAuthorId($preferredAuthorId)
     {
@@ -225,7 +216,6 @@ class BookBuilder implements \BaseBookRequest
 
     /**
      * @param mixed $imageUrl
-     * @return $this
      */
     public function withImageUrl($imageUrl)
     {
@@ -243,7 +233,6 @@ class BookBuilder implements \BaseBookRequest
 
     /**
      * @param mixed $pages
-     * @return $this
      */
     public function withPages($pages)
     {
@@ -261,7 +250,6 @@ class BookBuilder implements \BaseBookRequest
 
     /**
      * @param mixed $print
-     * @return $this
      */
     public function withPrint($print)
     {
@@ -279,7 +267,6 @@ class BookBuilder implements \BaseBookRequest
 
     /**
      * @param mixed $serie
-     * @return $this
      */
     public function withSerie($serie)
     {
@@ -297,7 +284,6 @@ class BookBuilder implements \BaseBookRequest
 
     /**
      * @param mixed $publisherSerie
-     * @return $this
      */
     public function withPublisherSerie($publisherSerie)
     {
@@ -315,7 +301,6 @@ class BookBuilder implements \BaseBookRequest
 
     /**
      * @param mixed $translator
-     * @return $this
      */
     public function withTranslator($translator)
     {
@@ -333,7 +318,6 @@ class BookBuilder implements \BaseBookRequest
 
     /**
      * @param mixed $summary
-     * @return $this
      */
     public function withSummary($summary)
     {
@@ -351,7 +335,6 @@ class BookBuilder implements \BaseBookRequest
 
     /**
      * @param PriceRequest $retailPrice
-     * @return $this
      */
     public function withRetailPrice($retailPrice)
     {

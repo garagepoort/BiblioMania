@@ -52,7 +52,11 @@
                         <li ng-class="{ active: isActive('/publisherseries')}"><a href="#/publisherseries">Uitgever reeksen</a></li>
                         <li ng-class="{ active: isActive('/statistics')}"><a href="#/statistics">Statistieken</a></li>
                     </ul>
+                    <div ng-if="loggedInUser" style="float: right; margin-right: 20px; margin-top: 10px;">
+                        <button ng-click="logOut()" id="logout-button" class="btn btn-warning btn-sm">Log out</button>
+                    </div>
                 </div>
+
             </nav>
 
             <div class="contentContainer">
