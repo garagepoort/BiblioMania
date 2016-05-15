@@ -1,6 +1,6 @@
 <?php
 
-interface UnlinkAuthorToBookRequest
+interface UnlinkAuthorFromBookRequest
 {
 
     public function getAuthorId();

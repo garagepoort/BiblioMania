@@ -30,6 +30,8 @@ class BookService
     private $languageService;
     /** @var  AuthorService */
     private $authorService;
+    /** @var AuthorRepository $authorRepository */
+    private $authorRepository;
     /** @var  PublisherService */
     private $publisherService;
     /** @var  CountryService */
@@ -62,6 +64,7 @@ class BookService
         $this->filterHistoryService = App::make('FilterHistoryService');
         $this->dateService = App::make('DateService');
         $this->bookElasticIndexer = App::make('BookElasticIndexer');
+        $this->authorRepository = App::make('AuthorRepository');
     }
 
     public function find($id, $with = array())
@@ -93,24 +96,24 @@ class BookService
         /** @var Book $book */
         $book = $this->find($bookId);
         Ensure::objectNotNull('book', $book);
-        $author = $this->authorService->find($authorToBookRequest->getAuthorId());
+        $author = $this->authorRepository->find($authorToBookRequest->getAuthorId());
         Ensure::objectNotNull('author', $author);
 
-        $book->authors()->attach($authorToBookRequest->getAuthorId(), ['preferred'=>false]);
+        $this->bookRepository->addAuthorToBook($book, $authorToBookRequest->getAuthorId());
     }
 
-    public function unlinkAuthorFromBook($bookId, UnlinkAuthorToBookRequest $authorToBookRequest){
+    public function unlinkAuthorFromBook($bookId, UnlinkAuthorFromBookRequest $unlinkAuthorFromBookRequest){
         /** @var Book $book */
         $book = $this->find($bookId);
         Ensure::objectNotNull('book', $book);
-        $author = $book->authors->find($authorToBookRequest->getAuthorId());
+        $author = $book->authors->find($unlinkAuthorFromBookRequest->getAuthorId());
         Ensure::objectNotNull('author', $author);
 
         if($author->pivot->preferred){
             throw new ServiceException('Preferred author cannot be unlinked from book.');
         }
 
-        $book->authors()->detach($authorToBookRequest->getAuthorId());
+        $this->bookRepository->removeAuthorFromBook($book, $unlinkAuthorFromBookRequest->getAuthorId());
     }
 
     public function getValueOfLibrary()

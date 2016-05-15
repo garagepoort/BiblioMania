@@ -41,11 +41,7 @@ class FirstPrintInfoService
             $firstPrintInfo = $this->saveFirstPrintInfo($userId, $firstPrintInfoRequest, $firstPrint);
 
             if($firstPrintInfoRequest->getBookIdToLink() !== null){
-                /** @var Book $book */
-                $book = $this->bookRepository->find($firstPrintInfoRequest->getBookIdToLink());
-                Ensure::objectNotNull('book to link', $book);
-                $book->first_print_info_id = $firstPrintInfo->id;
-                $this->bookRepository->save($book);
+                $this->linkFirstPrintInfoToBook($firstPrintInfo->id, $firstPrintInfoRequest->getBookIdToLink());
             }
 
             return $firstPrintInfo;
@@ -69,12 +65,7 @@ class FirstPrintInfoService
     public function linkBook($id, LinkBookToFirstPrintInfoRequest $linkBookToFirstPrintInfoRequest){
         $firstPrintInfo = $this->firstPrintInfoRepository->find($id);
         Ensure::objectNotNull('first print info to link', $firstPrintInfo);
-        /** @var Book $book */
-        $book = $this->bookRepository->find($linkBookToFirstPrintInfoRequest->getBookId());
-        Ensure::objectNotNull('book to link', $book);
-
-        $book->first_print_info_id = $id;
-        $this->bookRepository->save($book);
+        $this->linkFirstPrintInfoToBook($id, $linkBookToFirstPrintInfoRequest->getBookId());
     }
 
     /**
@@ -119,5 +110,19 @@ class FirstPrintInfoService
 
         $this->firstPrintInfoRepository->save($firstPrintInfo);
         return $firstPrintInfo;
+    }
+
+    /**
+     * @param $id
+     * @param LinkBookToFirstPrintInfoRequest $linkBookToFirstPrintInfoRequest
+     * @throws ServiceException
+     */
+    private function linkFirstPrintInfoToBook($id, $bookId)
+    {
+        /** @var Book $book */
+        $book = $this->bookRepository->find($bookId);
+        Ensure::objectNotNull('book to link', $book);
+        $book->first_print_info_id = $id;
+        $this->bookRepository->save($book);
     }
 }

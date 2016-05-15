@@ -58,7 +58,9 @@ describe('user.can.create.first.print.info', function () {
             .saveFirstPrintInfo();
 
         bookDetailsPage
-            .assertOnPage(data.bookId)
+            .assertOnPage(data.bookId);
+
+        firstPrintInfoDetails
             .assertNoFirstPrintInfoMessagePresent(false);
 
         firstPrintInfoDetails

@@ -1,6 +1,7 @@
 <?php
 
-class BookRepository implements Repository{
+class BookRepository implements Repository
+{
 
 
     /**
@@ -15,7 +16,8 @@ class BookRepository implements Repository{
             ->first();
     }
 
-    public function deleteBookById($id){
+    public function deleteBookById($id)
+    {
         $this->find($id)->delete();
     }
 
@@ -47,11 +49,27 @@ class BookRepository implements Repository{
         $entity->delete();
     }
 
-    public function deleteById($id){
+    public function deleteById($id)
+    {
         return Book::find($id)->delete();
     }
 
-    public function setLanguage(Book $book, Language $language = null){
+    public function addAuthorToBook($book, $authorId)
+    {
+        if (!$book->authors->contains($authorId)) {
+            $book->authors()->attach($authorId, ['preferred' => false]);
+        }
+    }
+
+    public function removeAuthorFromBook($book, $authorId)
+    {
+        if ($book->authors->contains($authorId)) {
+            $book->authors()->detach($authorId);
+        }
+    }
+
+    public function setLanguage(Book $book, Language $language = null)
+    {
         if ($language != null) {
             $book->language()->associate($language);
         } else {
@@ -59,7 +77,8 @@ class BookRepository implements Repository{
         }
     }
 
-    public function setPublicationDate(Book $book, Date $publicationDate = null){
+    public function setPublicationDate(Book $book, Date $publicationDate = null)
+    {
         if ($publicationDate != null) {
             $book->publication_date()->associate($publicationDate);
         } else {
@@ -67,7 +86,8 @@ class BookRepository implements Repository{
         }
     }
 
-    public function setPublisherSerie(Book $book, PublisherSerie $publisherSerie = null){
+    public function setPublisherSerie(Book $book, PublisherSerie $publisherSerie = null)
+    {
         if ($publisherSerie != null) {
             $book->publisher_serie()->associate($publisherSerie);
         } else {
@@ -75,7 +95,8 @@ class BookRepository implements Repository{
         }
     }
 
-    public function setBookSerie(Book $book, Serie $serie = null){
+    public function setBookSerie(Book $book, Serie $serie = null)
+    {
         if ($serie != null) {
             $book->serie()->associate($serie);
         } else {
@@ -83,23 +104,27 @@ class BookRepository implements Repository{
         }
     }
 
-    public function getTotalAmountOfBooksOwned(){
+    public function getTotalAmountOfBooksOwned()
+    {
         return Book::join('personal_book_info', 'book_id', '=', 'book.id')
             ->where('personal_book_info.owned', '=', 1)
             ->count();
     }
 
-    public function getTotalAmountOfBooksInLibrary(){
+    public function getTotalAmountOfBooksInLibrary()
+    {
         return DB::table('book')
             ->count();
     }
 
-    public function getValueOfLibrary(){
+    public function getValueOfLibrary()
+    {
         return DB::table('book')
             ->sum('retail_price');
     }
 
-    public function getAllTranslators(){
+    public function getAllTranslators()
+    {
         $books = Book::distinct()->select('translator')->where('translator', '!=', '')->groupBy('translator')->get()->toArray();
         return array_map(function ($object) {
             return $object['translator'];

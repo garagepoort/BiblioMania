@@ -1,9 +1,9 @@
 <?php
 
-class UnlinkAuthorFromBookFromJsonAdapter implements UnlinkAuthorFromBookRequest
+class UnlinkAuthorFromBookRequestTestImpl implements UnlinkAuthorFromBookRequest
 {
-    /** @var  int */
-    private $authorId;
+
+    private $authorId = 4329;
 
     /**
      * @return int
