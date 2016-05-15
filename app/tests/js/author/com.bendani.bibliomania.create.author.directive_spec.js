@@ -30,11 +30,11 @@ describe('com.bendani.bibliomania.create.author.directive', function () {
             $provide.value('TitlePanelService', titlePanelServiceMock);
         });
 
-        inject(['$rootScope', '$httpBackend', '$compile', function (_$rootScope_, _$httpBackend_, _$compile_) {
+        inject(function (_$rootScope_, _$httpBackend_, _$compile_) {
             $scope = _$rootScope_.$new();
             $httpBackend = _$httpBackend_;
             $compile = _$compile_;
-        }]);
+        });
 
         _createController();
     });

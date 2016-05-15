@@ -14,6 +14,21 @@ BookDetailsPage.assertOnPage = function (bookId) {
     return this;
 };
 
+BookDetailsPage.assertBookOnwishlistMessageDisplayed= function(displayed){
+    expect(element(by.id('on-wishlist-message')).isDisplayed()).toBe(displayed);
+    return this;
+};
+
+BookDetailsPage.clickOnAddToWishListButton = function(){
+    element(by.id('add-to-wishlist-button')).click();
+    return this;
+};
+
+BookDetailsPage.clickOnRemoveFromWishListButton = function(){
+    element(by.id('remove-from-wishlist-button')).click();
+    return this;
+};
+
 BookDetailsPage.assertTitle = function (title) {
     expect(element(by.id('book-title-label')).getText()).toEqual(title);
     return this;

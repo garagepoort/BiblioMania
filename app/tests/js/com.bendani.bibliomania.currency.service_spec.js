@@ -10,9 +10,9 @@ describe('com.bendani.bibliomania.currency.service', function () {
         beforeEach(function () {
             module('com.bendani.bibliomania.currency.service');
 
-            inject(['CurrencyService', function (_CurrencyService_) {
+            inject(function (_CurrencyService_) {
                 currencyService = _CurrencyService_;
-            }]);
+            });
         });
 
         describe('getCurrencies', function () {

@@ -18,11 +18,11 @@ describe('com.bendani.bibliomania.author.overview.ui', function () {
             module('ngResource');
             module('com.bendani.bibliomania.author.overview.ui');
 
-            inject(['$rootScope', '$httpBackend', '$controller', function (_$rootScope_, _$httpBackend_, _$controller_) {
+            inject(function (_$rootScope_, _$httpBackend_, _$controller_) {
                 $scope = _$rootScope_.$new();
                 $httpBackend = _$httpBackend_;
                 $controller = _$controller_;
-            }]);
+            });
 
             _createController();
         });

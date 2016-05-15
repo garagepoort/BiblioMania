@@ -1,6 +1,7 @@
 <?php
 
 use Bendani\PhpCommon\Utils\Ensure;
+use e2e\datasetbuilders\UserCanAddAndRemoveBookFromWishlistDataSet;
 use e2e\datasetbuilders\UserCanCreateBookDataSet;
 use e2e\datasetbuilders\UserCanCreateFirstPrintInfoDataSet;
 use e2e\datasetbuilders\UserCanLinkAndUnlinkAuthorToBookDataSet;
@@ -19,7 +20,8 @@ class DatasetController extends BaseController {
 			'user.can.create.book' => new UserCanCreateBookDataSet(),
 			'user.can.create.first.print.info' => new UserCanCreateFirstPrintInfoDataSet(),
 			'user.can.link.existing.first.print.info.to.book' => new UserCanLinkExistingFirstPrintInfoToBookDataSet(),
-			'user.can.link.and.unlink.author.to.book' => new UserCanLinkAndUnlinkAuthorToBookDataSet()
+			'user.can.link.and.unlink.author.to.book' => new UserCanLinkAndUnlinkAuthorToBookDataSet(),
+			'user.can.add.and.remove.book.from.wishlist' => new UserCanAddAndRemoveBookFromWishlistDataSet()
 		];
 	}
 

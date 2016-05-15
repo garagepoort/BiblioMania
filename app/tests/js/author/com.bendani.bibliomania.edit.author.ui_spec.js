@@ -44,11 +44,11 @@ describe('com.bendani.bibliomania.edit.author.ui', function () {
                 $provide.value('$routeParams', $routeParams);
             });
 
-            inject(['$controller', '$httpBackend', '$location', function (_$controller_, _$httpBackend_, _$location_) {
+            inject(function (_$controller_, _$httpBackend_, _$location_) {
                 $httpBackend = _$httpBackend_;
                 $controller = _$controller_;
                 $location = _$location_;
-            }]);
+            });
         });
 
         function _createController() {
