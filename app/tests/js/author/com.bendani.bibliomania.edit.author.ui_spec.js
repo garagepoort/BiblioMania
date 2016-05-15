@@ -34,7 +34,6 @@ describe('com.bendani.bibliomania.edit.author.ui', function () {
             addOeuvreItemsModalServiceMock.show.and.callFake(addOeuvreItemsModalServiceMockShow);
 
             module('ngRoute');
-            module('ngResource');
 
             module('com.bendani.bibliomania.edit.author.ui', function ($provide) {
                 $provide.value('ErrorContainer', errorContainerMock);
