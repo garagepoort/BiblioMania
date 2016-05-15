@@ -106,7 +106,7 @@ class BookService
         /** @var Book $book */
         $book = $this->find($bookId);
         Ensure::objectNotNull('book', $book);
-        $author = $book->authors->find($unlinkAuthorFromBookRequest->getAuthorId());
+        $author = $this->authorRepository->findByBook($book, $unlinkAuthorFromBookRequest->getAuthorId());
         Ensure::objectNotNull('author', $author);
 
         if($author->pivot->preferred){

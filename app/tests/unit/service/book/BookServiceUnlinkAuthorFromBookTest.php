@@ -41,24 +41,24 @@ class BookServiceUnlinkAuthorFromBookTest extends TestCase {
         $this->bookService = App::make('BookService');
 
         $this->bookRepository->shouldReceive('find')->with(self::BOOK_ID, $this->WITH_ARRAY)->andReturn($this->book)->byDefault();
-        $this->authorRepository->shouldReceive('find')->with(self::AUTHOR_ID)->andReturn($this->author)->byDefault();
+        $this->authorRepository->shouldReceive('findByBook')->with($this->book, self::AUTHOR_ID)->andReturn($this->author)->byDefault();
     }
 
-//    public function test_unlinksCorrectly(){
-//        $this->bookRepository->shouldReceive('removeAuthorFromBook')->with($this->book, self::AUTHOR_ID)->once();
-//
-//        $this->bookService->unlinkAuthorFromBook(self::BOOK_ID, $this->unlinkAuthorFromBookRequestTestImpl);
-//    }
-//
-//    /**
-//     * @expectedException Bendani\PhpCommon\Utils\Exception\ServiceException
-//     * @expectedExceptionMessage Preferred author cannot be unlinked from book.
-//     */
-//    public function test_throwsExceptionWhenUnlinkingPreferredAuthor(){
-//        $this->preferredAuthorPivot->preferred = true;
-//
-//        $this->bookService->unlinkAuthorFromBook(self::BOOK_ID, $this->unlinkAuthorFromBookRequestTestImpl);
-//    }
+    public function test_unlinksCorrectly(){
+        $this->bookRepository->shouldReceive('removeAuthorFromBook')->with($this->book, self::AUTHOR_ID)->once();
+
+        $this->bookService->unlinkAuthorFromBook(self::BOOK_ID, $this->unlinkAuthorFromBookRequestTestImpl);
+    }
+
+    /**
+     * @expectedException Bendani\PhpCommon\Utils\Exception\ServiceException
+     * @expectedExceptionMessage Preferred author cannot be unlinked from book.
+     */
+    public function test_throwsExceptionWhenUnlinkingPreferredAuthor(){
+        $this->preferredAuthorPivot->preferred = true;
+
+        $this->bookService->unlinkAuthorFromBook(self::BOOK_ID, $this->unlinkAuthorFromBookRequestTestImpl);
+    }
 
     /**
      * @expectedException Bendani\PhpCommon\Utils\Exception\ServiceException
@@ -70,14 +70,14 @@ class BookServiceUnlinkAuthorFromBookTest extends TestCase {
         $this->bookService->unlinkAuthorFromBook(self::BOOK_ID, $this->unlinkAuthorFromBookRequestTestImpl);
     }
 
-//    /**
-//     * @expectedException Bendani\PhpCommon\Utils\Exception\ServiceException
-//     * @expectedExceptionMessage Object author can not be null.
-//     */
-//    public function test_throwsExceptionWhenAuthorNotFound(){
-//        $this->authorRepository->shouldReceive('find')->once()->with(self::AUTHOR_ID)->andReturn(null)->byDefault();
-//
-//        $this->bookService->unlinkAuthorFromBook(self::BOOK_ID, $this->unlinkAuthorFromBookRequestTestImpl);
-//    }
+    /**
+     * @expectedException Bendani\PhpCommon\Utils\Exception\ServiceException
+     * @expectedExceptionMessage Object author can not be null.
+     */
+    public function test_throwsExceptionWhenAuthorNotFound(){
+        $this->authorRepository->shouldReceive('findByBook')->once()->with($this->book, self::AUTHOR_ID)->andReturn(null)->byDefault();
+
+        $this->bookService->unlinkAuthorFromBook(self::BOOK_ID, $this->unlinkAuthorFromBookRequestTestImpl);
+    }
 
 }
