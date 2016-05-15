@@ -34,7 +34,7 @@ class WishlistServiceAddBookToWishlistTest extends TestCase
         $this->bookElasticIndexer = $this->mock('BookElasticIndexer');
         $this->wishlistRepository = $this->mock('WishlistRepository');
 
-            $this->wishlistItem = $this->mockEloquent('WishlistItem');
+        $this->wishlistItem = $this->mockEloquent('WishlistItem');
         $this->user = $this->mockEloquent('User');
         $this->book = $this->mockEloquent('Book');
 
@@ -46,9 +46,10 @@ class WishlistServiceAddBookToWishlistTest extends TestCase
         $this->wishlistService = App::make('WishlistService');
     }
 
-    public function test_shouldAddCorrectly(){
+    public function test_shouldAddCorrectly()
+    {
         $this->bookElasticIndexer->shouldReceive('indexBook')->once()->with(Mockery::any());
-        $this->wishlistRepository->shouldReceive('save')->with(Mockery::on(function($wishlistItem){
+        $this->wishlistRepository->shouldReceive('save')->with(Mockery::on(function ($wishlistItem) {
             $this->assertEquals(self::USER_ID, $wishlistItem->user_id);
             $this->assertEquals($this->bookIdRequest->getBookId(), $wishlistItem->book_id);
             return true;
@@ -61,7 +62,8 @@ class WishlistServiceAddBookToWishlistTest extends TestCase
      * @expectedException Bendani\PhpCommon\Utils\Exception\ServiceException
      * @expectedExceptionMessage Object user can not be null.
      */
-    public function test_shouldThrowExceptionWhenUserDoesNotExist(){
+    public function test_shouldThrowExceptionWhenUserDoesNotExist()
+    {
         $this->userRepository->shouldReceive('find')->with(self::USER_ID)->andReturn(null);
 
         $this->wishlistService->addBookToWishlist(self::USER_ID, $this->bookIdRequest);
@@ -71,7 +73,8 @@ class WishlistServiceAddBookToWishlistTest extends TestCase
      * @expectedException Bendani\PhpCommon\Utils\Exception\ServiceException
      * @expectedExceptionMessage Object book can not be null.
      */
-    public function test_shouldThrowExceptionWhenBookDoesNotExist(){
+    public function test_shouldThrowExceptionWhenBookDoesNotExist()
+    {
         $this->bookRepository->shouldReceive('find')->with($this->bookIdRequest->getBookId())->andReturn(null);
 
         $this->wishlistService->addBookToWishlist(self::USER_ID, $this->bookIdRequest);
@@ -81,7 +84,8 @@ class WishlistServiceAddBookToWishlistTest extends TestCase
      * @expectedException Bendani\PhpCommon\Utils\Exception\ServiceException
      * @expectedExceptionMessage This wishlist already contains this book. Can not add.
      */
-    public function test_shouldThrowExceptionWhenBookIsAlreadyAddedToWishlist(){
+    public function test_shouldThrowExceptionWhenBookIsAlreadyAddedToWishlist()
+    {
         $this->wishlistRepository->shouldReceive('findByUserAndBook')->with(self::USER_ID, $this->bookIdRequest->getBookId())->andReturn($this->wishlistItem);
 
         $this->wishlistService->addBookToWishlist(self::USER_ID, $this->bookIdRequest);

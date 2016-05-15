@@ -1,8 +1,4 @@
-var Navigator = require('../Navigator');
-
-var FirstPrintInfoDetails = {
-    url: '/#/first-print-info-details'
-};
+var FirstPrintInfoDetails = {};
 
 FirstPrintInfoDetails.clickOnCreateFirstPrintInfo = function () {
     element(by.id('create-first-print-info-button')).click();

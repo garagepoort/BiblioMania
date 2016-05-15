@@ -96,6 +96,12 @@ class BookService
         /** @var Book $book */
         $book = $this->find($bookId);
         Ensure::objectNotNull('book', $book);
+
+        $author = $this->authorRepository->findByBook($book, $authorToBookRequest->getAuthorId());
+        if($author != null){
+            throw new ServiceException("Author is already linked to book");
+        }
+
         $author = $this->authorRepository->find($authorToBookRequest->getAuthorId());
         Ensure::objectNotNull('author', $author);
 

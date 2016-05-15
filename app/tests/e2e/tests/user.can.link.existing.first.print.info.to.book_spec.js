@@ -12,7 +12,6 @@ describe('user.can.link.existing.first.print.info.to.book', function () {
         return dataSetService.initialise('user.can.link.existing.first.print.info.to.book').then(function (body) {
             datasetInitialized = true;
             data = body;
-            console.log('data: ' + data);
         });
     }
 

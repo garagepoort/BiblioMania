@@ -53,14 +53,14 @@ angular.module('com.bendani.bibliomania.book.details.ui', [
             };
 
             $scope.addToWishlist = function(){
-                Wishlist.addBook({id: $rootScope.loggedInUser.id}, {bookId: $scope.book.id}, function(){
+                Wishlist.addBook({bookId: $scope.book.id}, function(){
                     growl.addSuccessMessage('Toegevoegd aan wishlist');
                     $scope.book.onWishlist = true;
                 }, ErrorContainer.handleRestError);
             };
 
             $scope.removeFromWishlist = function(){
-                Wishlist.removeBook({id: $rootScope.loggedInUser.id}, {bookId: $scope.book.id}, function(){
+                Wishlist.removeBook({bookId: $scope.book.id}, function(){
                     growl.addSuccessMessage('Verwijderd van wishlist');
                     $scope.book.onWishlist = false;
                 }, ErrorContainer.handleRestError);

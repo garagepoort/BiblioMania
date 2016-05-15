@@ -2,6 +2,7 @@ describe('user.can.create.book', function () {
     var dataSetService = require('../DataSetService');
     var bookCreationPage = require('../pages/BookCreationPage');
     var bookDetailsPage = require('../pages/BookDetailsPage');
+    var bookAuthorsDetails = require('../pages/BookAuthorsDetails');
     var loginPage = require('../pages/LoginPage');
     var authorSelectionModalPage = require('../pages/AuthorSelectionModalPage');
     var authorCreationModalPage = require('../pages/AuthorCreationModalPage');
@@ -31,7 +32,6 @@ describe('user.can.create.book', function () {
         return dataSetService.initialise('user.can.create.book').then(function (body) {
             datasetInitialized = true;
             data = body;
-            console.log('data: ' + data);
         });
     }
 
@@ -89,13 +89,15 @@ describe('user.can.create.book', function () {
             .assertPublicationDate(PUBLICATION_DATE)
             .assertPublisher(PUBLISHER)
             .assertGenre(GENRE)
-            .assertContainsAuthor(1, data.authorId, AUTHOR_FIRSTNAME, AUTHOR_LASTNAME)
             .assertPrint(PRINT)
             .assertPages(PAGES)
             .assertBookSerie(SERIE)
             .assertPublisherSerie(PUBLISHER_SERIE)
             .assertTranslator(TRANSLATOR)
             .assertRetailPrice('$ ' + RETAIL_PRICE_AMOUNT);
+
+        bookAuthorsDetails
+            .assertContainsAuthor(1, data.authorId, AUTHOR_FIRSTNAME, AUTHOR_LASTNAME);
     });
 
     it('creates book correctly with newly created author and redirects to book overview page', function () {
@@ -141,13 +143,15 @@ describe('user.can.create.book', function () {
             .assertPublicationDate(PUBLICATION_DATE)
             .assertPublisher(PUBLISHER)
             .assertGenre(GENRE)
-            .assertContainsAuthor(2, 2, "newFirstname", "newLastname")
             .assertPrint(PRINT)
             .assertPages(PAGES)
             .assertBookSerie(SERIE)
             .assertPublisherSerie(PUBLISHER_SERIE)
             .assertTranslator(TRANSLATOR)
             .assertRetailPrice('$ ' + RETAIL_PRICE_AMOUNT);
+
+        bookAuthorsDetails
+            .assertContainsAuthor(2, 2, "newFirstname", "newLastname");
     });
 
 });

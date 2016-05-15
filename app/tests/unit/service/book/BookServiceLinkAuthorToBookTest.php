@@ -37,10 +37,21 @@ class BookServiceLinkAuthorToBookTest extends TestCase {
 
         $this->bookRepository->shouldReceive('find')->with(self::BOOK_ID, $this->WITH_ARRAY)->andReturn($this->book)->byDefault();
         $this->authorRepository->shouldReceive('find')->with(self::AUTHOR_ID)->andReturn($this->author)->byDefault();
+        $this->authorRepository->shouldReceive('findByBook')->with($this->book, self::AUTHOR_ID)->andReturn(null)->byDefault();
     }
 
     public function test_linksCorrectly(){
         $this->bookRepository->shouldReceive('addAuthorToBook')->with($this->book, self::AUTHOR_ID)->once();
+
+        $this->bookService->linkAuthorToBook(self::BOOK_ID, $this->linkAuthorToBookRequestTestImpl);
+    }
+
+    /**
+     * @expectedException Bendani\PhpCommon\Utils\Exception\ServiceException
+     * @expectedExceptionMessage Author is already linked to book
+     */
+    public function test_throwsExceptionWhenLinkingAlreadyLinkedAuthor(){
+        $this->authorRepository->shouldReceive('findByBook')->once()->with($this->book, self::AUTHOR_ID)->andReturn($this->author);
 
         $this->bookService->linkAuthorToBook(self::BOOK_ID, $this->linkAuthorToBookRequestTestImpl);
     }

@@ -16,8 +16,8 @@ Route::group(array('before' => 'auth'), function () {
 
     Route::get('loggedInUser', 'UserController@getLoggedInUser');
     Route::get('users/{id}/wishlist', 'WishlistController@getWishListForUser');
-    Route::post('users/{id}/wishlist', 'WishlistController@addBookToWishlist');
-    Route::put('users/{id}/wishlist/remove-book', 'WishlistController@removeBookFromWishlist');
+    Route::post('wishlist', 'WishlistController@addBookToWishlist');
+    Route::put('wishlist/remove-book', 'WishlistController@removeBookFromWishlist');
 
     Route::get('chart-configurations/xproperties', 'ChartConfigurationController@getXProperties');
     Route::get('chart-configurations', 'ChartConfigurationController@getChartConfigurations');

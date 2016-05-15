@@ -84,10 +84,5 @@ BookDetailsPage.assertPublisherSerie = function (publisherSerie) {
     return this;
 };
 
-BookDetailsPage.assertContainsAuthor = function (bookId, authorId, authorFirstname, authorLastname) {
-    expect(element(by.id('author-name-label-' + bookId + '-' + authorId)).getText()).toEqual(authorFirstname + ' ' + authorLastname);
-    return this;
-};
-
 
 module.exports = BookDetailsPage;

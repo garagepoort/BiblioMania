@@ -20,7 +20,6 @@ describe('user.can.create.first.print.info', function () {
         return dataSetService.initialise('user.can.create.first.print.info').then(function (body) {
             datasetInitialized = true;
             data = body;
-            console.log('data: ' + data);
         });
     }
 
