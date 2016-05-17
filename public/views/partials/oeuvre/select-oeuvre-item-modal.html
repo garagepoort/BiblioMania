@@ -1,4 +1,4 @@
-<div>
+<div id="oeuvre-item-selection-modal">
     <div class="modal-header">
         <h3 class="modal-title">Oeuvre item selectie</h3>
     </div>
@@ -13,7 +13,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="author in authors" ng-click="selectAuthor(author)" style="text-align: left; cursor: pointer">
+                    <tr id="author-{{author.id}}" ng-repeat="author in authors" ng-click="selectAuthor(author)" style="text-align: left; cursor: pointer">
                         <td>{{ author.name.firstname + ' ' + author.name.lastname }} <span ng-show="selectedAuthor === author" style="top: 3px;" class="glyphicon glyphicon-ok-sign"></span></td>
                     </tr>
                 </tbody>
@@ -32,7 +32,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="oeuvreItem in oeuvre | filter: search" ng-click="selectOeuvreItem(oeuvreItem)" style="text-align: left; cursor: pointer">
+                <tr id="oeuvre-item-{{oeuvreItem.id}}" ng-repeat="oeuvreItem in oeuvre | filter: search" ng-click="selectOeuvreItem(oeuvreItem)" style="text-align: left; cursor: pointer">
                     <td>{{ oeuvreItem.title }}</td>
                 </tr>
                 </tbody>

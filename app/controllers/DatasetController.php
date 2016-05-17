@@ -5,6 +5,7 @@ use e2e\datasetbuilders\UserCanAddAndRemoveBookFromWishlistDataSet;
 use e2e\datasetbuilders\UserCanCreateBookDataSet;
 use e2e\datasetbuilders\UserCanCreateFirstPrintInfoDataSet;
 use e2e\datasetbuilders\UserCanLinkAndUnlinkAuthorToBookDataSet;
+use e2e\datasetbuilders\UserCanLinkAndUnlinkOeuvreItemToBookDataSet;
 use e2e\datasetbuilders\UserCanLinkExistingFirstPrintInfoToBookDataSet;
 
 class DatasetController extends BaseController {
@@ -21,7 +22,8 @@ class DatasetController extends BaseController {
 			'user.can.create.first.print.info' => new UserCanCreateFirstPrintInfoDataSet(),
 			'user.can.link.existing.first.print.info.to.book' => new UserCanLinkExistingFirstPrintInfoToBookDataSet(),
 			'user.can.link.and.unlink.author.to.book' => new UserCanLinkAndUnlinkAuthorToBookDataSet(),
-			'user.can.add.and.remove.book.from.wishlist' => new UserCanAddAndRemoveBookFromWishlistDataSet()
+			'user.can.add.and.remove.book.from.wishlist' => new UserCanAddAndRemoveBookFromWishlistDataSet(),
+			'user.can.link.and.unlink.oeuvre.item.to.book' => new UserCanLinkAndUnlinkOeuvreItemToBookDataSet()
 		];
 	}
 

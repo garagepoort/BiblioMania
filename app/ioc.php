@@ -271,8 +271,8 @@ App::singleton('AuthorRepository', function () {
     return new AuthorRepository();
 });
 
-App::singleton('BookFromAuthorRepository', function () {
-    return new BookFromAuthorRepository();
+App::singleton('OeuvreItemRepository', function () {
+    return new OeuvreItemRepository();
 });
 
 App::singleton('PublisherRepository', function () {

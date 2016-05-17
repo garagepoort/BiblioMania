@@ -1,6 +1,6 @@
 <?php
 
-class BookFromAuthorRepository implements Repository{
+class OeuvreItemRepository implements Repository{
 
     public function find($id,$with = array())
     {

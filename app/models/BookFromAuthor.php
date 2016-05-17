@@ -1,4 +1,11 @@
 <?php
+
+/**
+ * @property integer id
+ * @property integer author_id
+ * @property string title
+ * @property string publication_year
+ */
 class BookFromAuthor extends Eloquent {
     protected $table = 'book_from_author';
 

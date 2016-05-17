@@ -5,8 +5,8 @@ use Bendani\PhpCommon\Utils\Exception\ServiceException;
 
 class OeuvreService
 {
-    /** @var  BookFromAuthorRepository */
-    private $bookFromAuthorRepository;
+    /** @var  OeuvreItemRepository */
+    private $oeuvreItemRepository;
     /** @var BookRepository */
     private $bookRepository;
     /** @var  AuthorRepository */
@@ -18,7 +18,7 @@ class OeuvreService
 
     function __construct()
     {
-        $this->bookFromAuthorRepository = App::make("BookFromAuthorRepository");
+        $this->oeuvreItemRepository = App::make("OeuvreItemRepository");
         $this->bookRepository = App::make("BookRepository");
         $this->authorRepository = App::make("AuthorRepository");
         $this->oeuvreItemLinkValidator = App::make("OeuvreItemLinkValidator");
@@ -40,7 +40,7 @@ class OeuvreService
 
     public function linkBookToOeuvreItem($oeuvreId, BookIdRequest $bookToOeuvreItemRequest){
         /** @var BookFromAuthor $oeuvreItem */
-        $oeuvreItem = $this->bookFromAuthorRepository->find($oeuvreId);
+        $oeuvreItem = $this->oeuvreItemRepository->find($oeuvreId);
         Ensure::objectNotNull("oeuvre item", $oeuvreItem);
 
         /** @var Book $book */
@@ -49,7 +49,7 @@ class OeuvreService
 
         $this->oeuvreItemLinkValidator->validate($oeuvreItem, $book);
 
-        $this->bookFromAuthorRepository->linkBookToOeuvreItem($oeuvreId, $book);
+        $this->oeuvreItemRepository->linkBookToOeuvreItem($oeuvreId, $book);
         $this->bookElasticIndexer->indexBook($book);
     }
 
@@ -74,7 +74,7 @@ class OeuvreService
                 $bookFromAuthor->author_id = $authorId;
                 $bookFromAuthor->title = $bookFromAuthorParameters->getTitle();
                 $bookFromAuthor->publication_year = $bookFromAuthorParameters->getYear();
-                $this->bookFromAuthorRepository->save($bookFromAuthor);
+                $this->oeuvreItemRepository->save($bookFromAuthor);
             }
         }
     }
@@ -90,12 +90,17 @@ class OeuvreService
                 $foundBookFromAuthor->author_id = $authorId;
                 $foundBookFromAuthor->title = $bookFromAuthorParameters->getTitle();
                 $foundBookFromAuthor->publication_year = $bookFromAuthorParameters->getYear();
-                $this->bookFromAuthorRepository->save($foundBookFromAuthor);
+                $this->oeuvreItemRepository->save($foundBookFromAuthor);
             }
         }
     }
 
-    public function saveOeuvreItem(CreateOeuvreItemRequest $createRequest)
+    /**
+     * @param CreateOeuvreItemRequest $createRequest
+     * @return BookFromAuthor
+     * @throws ServiceException
+     */
+    public function createOeuvreItem(CreateOeuvreItemRequest $createRequest)
     {
         $author = $this->authorRepository->find($createRequest->getAuthorId());
         if($author == null){
@@ -106,12 +111,14 @@ class OeuvreService
         $oeuvreItem->author_id = $createRequest->getAuthorId();
         $oeuvreItem->publication_year = $createRequest->getPublicationYear();
         $oeuvreItem->title = $createRequest->getTitle();
-        $oeuvreItem->save();
+
+        $this->oeuvreItemRepository->save($oeuvreItem);
+        return $oeuvreItem;
     }
 
     public function deleteOeuvreItem($id)
     {
-        $item = $this->bookFromAuthorRepository->find($id);
+        $item = $this->oeuvreItemRepository->find($id);
         Ensure::objectNotNull("Oeuvre item", $item);
         if(count($item->books)>0){
             throw new ServiceException("Not allowed to delete book from author. Still has books linked to it.");
@@ -121,7 +128,7 @@ class OeuvreService
 
     public function updateOeuvreItem(UpdateOeuvreItemRequest $oeuvreItemRequest){
         /** @var BookFromAuthor $oeuvreItem */
-        $oeuvreItem = $this->bookFromAuthorRepository->find($oeuvreItemRequest->getId());
+        $oeuvreItem = $this->oeuvreItemRepository->find($oeuvreItemRequest->getId());
         $author = $this->authorRepository->find($oeuvreItemRequest->getAuthorId());
 
         Ensure::objectNotNull("Oeuvre item", $oeuvreItem);
@@ -136,6 +143,6 @@ class OeuvreService
 
     public function find($id)
     {
-        return $this->bookFromAuthorRepository->find($id);
+        return $this->oeuvreItemRepository->find($id);
     }
 }

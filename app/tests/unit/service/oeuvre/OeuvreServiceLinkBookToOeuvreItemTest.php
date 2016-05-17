@@ -4,8 +4,8 @@ class OeuvreServiceLinkBookToOeuvreItemTest extends TestCase
 {
     const OEUVRE_ID = 123;
 
-    /** @var  BookFromAuthorRepository */
-    private $bookFromAuthorRepository;
+    /** @var  OeuvreItemRepository */
+    private $oeuvreItemRepository;
     /** @var  BookRepository */
     private $bookRepository;
     /** @var  OeuvreItemLinkValidator */
@@ -28,14 +28,14 @@ class OeuvreServiceLinkBookToOeuvreItemTest extends TestCase
         $this->bookIdRequest = new BookIdRequestTestImpl();
 
         $this->oeuvreItemLinkValidator = $this->mock('OeuvreItemLinkValidator');
-        $this->bookFromAuthorRepository = $this->mock('BookFromAuthorRepository');
+        $this->oeuvreItemRepository = $this->mock('OeuvreItemRepository');
         $this->bookRepository = $this->mock('BookRepository');
         $this->bookElasticIndexer = $this->mock('BookElasticIndexer');
 
         $this->oeuvreItem = $this->mockEloquent('BookFromAuthor');
         $this->book = $this->mockEloquent('Book');
 
-        $this->bookFromAuthorRepository->shouldReceive('find')->with(self::OEUVRE_ID)->andReturn($this->oeuvreItem)->byDefault();
+        $this->oeuvreItemRepository->shouldReceive('find')->with(self::OEUVRE_ID)->andReturn($this->oeuvreItem)->byDefault();
         $this->bookRepository->shouldReceive('find')->with($this->bookIdRequest->getBookId(), array('authors', 'book_from_authors'))->andReturn($this->book)->byDefault();
 
         $this->oeuvreService = App::make('OeuvreService');
@@ -43,7 +43,7 @@ class OeuvreServiceLinkBookToOeuvreItemTest extends TestCase
 
     public function test_shouldLinkCorrectly(){
         $this->oeuvreItemLinkValidator->shouldReceive('validate')->with($this->oeuvreItem, $this->book)->once();
-        $this->bookFromAuthorRepository->shouldReceive('linkBookToOeuvreItem')->with(self::OEUVRE_ID, $this->book)->once();
+        $this->oeuvreItemRepository->shouldReceive('linkBookToOeuvreItem')->with(self::OEUVRE_ID, $this->book)->once();
         $this->bookElasticIndexer->shouldReceive('indexBook')->once()->with($this->book);
 
         $this->oeuvreService->linkBookToOeuvreItem(self::OEUVRE_ID, $this->bookIdRequest);
@@ -54,7 +54,7 @@ class OeuvreServiceLinkBookToOeuvreItemTest extends TestCase
      * @expectedExceptionMessage Object oeuvre item can not be null.
      */
     public function test_shouldThrowExceptionWhenOeuvreItemNotFound(){
-        $this->bookFromAuthorRepository->shouldReceive('find')->with(self::OEUVRE_ID)->andReturn(null);
+        $this->oeuvreItemRepository->shouldReceive('find')->with(self::OEUVRE_ID)->andReturn(null);
 
         $this->oeuvreService->linkBookToOeuvreItem(self::OEUVRE_ID, $this->bookIdRequest);
     }
