@@ -23,7 +23,7 @@ class OeuvreItemToJsonAdapter
         $this->id = $bookFromAuthor->id;
         $this->title = $bookFromAuthor->title;
         $this->publicationYear = $bookFromAuthor->publication_year;
-        $this->authorId = $bookFromAuthor->author->id;
+        $this->authorId = $bookFromAuthor->author_id;
         $this->state = count($bookFromAuthor->books) > 0 ? 'LINKED' : 'UNLINKED';
 
         $this->linkedBooks = array_map(function ($item) {
