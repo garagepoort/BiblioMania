@@ -42,16 +42,15 @@ class PersonalBookInfoService
         return DB::transaction(function() use ($user_id, $createRequest){
             $book = $this->bookRepository->find($createRequest->getBookId());
             Ensure::objectNotNull('book', $book);
-            $personalBookInfo = $this->personalBookInfoRepository->findByBook($createRequest->getBookId());
+            $personalBookInfo = $this->personalBookInfoRepository->findByUserAndBook($user_id, $createRequest->getBookId());
             Ensure::objectNull('personBookInformation', $personalBookInfo, 'The book given already has a personal book information. Cannot create a new one.');
-
 
             $personalBookInfo = new PersonalBookInfo();
             $personalBookInfo->book_id = $createRequest->getBookId();
             $personalBookInfo->user_id = $user_id;
 
             $updatePersonalBookInfoId = $this->updatePersonalBookInfo($personalBookInfo, $createRequest);
-            $this->removeBookFromWishlist($user_id, $book);
+            $this->removeBookFromWishlist($user_id, $createRequest->getBookId());
             return $updatePersonalBookInfoId;
         });
     }
@@ -88,19 +87,19 @@ class PersonalBookInfoService
                 $this->giftInfoService->createOrUpdate($personalBookInfo->id, $request->getGiftInfo());
             }
         }
-        $personalBookInfo->save();
 
-        $this->bookElasticIndexer->indexBook($personalBookInfo->book);
+        $this->personalBookInfoRepository->save($personalBookInfo);
+        $this->bookElasticIndexer->indexBookById($personalBookInfo->book_id);
         return $personalBookInfo->id;
     }
 
     /**
-     * @param $user_id
-     * @param $book
+     * @param integer $user_id
+     * @param integer $book_id
      */
-    function removeBookFromWishlist($user_id, $book)
+    function removeBookFromWishlist($user_id, $book_id)
     {
-        $wishlistItem = $this->wishlistRepository->findByUserAndBook($user_id, $book->id);
+        $wishlistItem = $this->wishlistRepository->findByUserAndBook($user_id, $book_id);
         if ($wishlistItem !== null) {
             $this->wishlistRepository->delete($wishlistItem);
         }

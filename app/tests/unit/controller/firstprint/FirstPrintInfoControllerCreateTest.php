@@ -1,6 +1,6 @@
 <?php
 
-class FirstPrintInfoCreateTest extends TestCase
+class FirstPrintInfoControllerCreateTest extends TestCase
 {
     const USER_ID = 123;
     const TITLE = 'title';

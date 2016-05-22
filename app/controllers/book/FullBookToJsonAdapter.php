@@ -86,7 +86,7 @@ class FullBookToJsonAdapter
             $this->publicationDate = new DateToJsonAdapter($book->publication_date);
         }
 
-        $personal_book_info = $this->personalBookInfoRepository->findByBook($book->id);
+        $personal_book_info = $this->personalBookInfoRepository->findByUserAndBook(Auth::user()->id, $book->id);
         if($personal_book_info != null){
             $this->personalBookInfo = new PersonalBookInfoToJsonAdapter($personal_book_info);
         }

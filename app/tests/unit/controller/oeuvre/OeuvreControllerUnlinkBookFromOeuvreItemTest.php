@@ -1,6 +1,6 @@
 <?php
 
-class OeuvreControllerLinkBookToOeuvreItemTest extends TestCase
+class OeuvreControllerUnlinkBookFromOeuvreItemTest extends TestCase
 {
     const USER_ID = 1;
     const OEUVRE_ITEM_ID = 123;

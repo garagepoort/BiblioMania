@@ -2,11 +2,8 @@
 
 class BasePersonalBookInfoFromJsonAdapter implements BasePersonalBookInfoRequest
 {
-    /** @var  int */
-    private $rating = 0;
-    /** @var  string */
-    private $review;
     /** @var  boolean */
+    /** @required */
     private $inCollection;
     /** @var  string */
     private $reasonNotInCollection;
@@ -14,38 +11,6 @@ class BasePersonalBookInfoFromJsonAdapter implements BasePersonalBookInfoRequest
     private $buyInfo;
     /** @var  GiftInfoFromJsonAdapter */
     private $giftInfo;
-
-    /**
-     * @return int
-     */
-    public function getRating()
-    {
-        return $this->rating;
-    }
-
-    /**
-     * @param int $rating
-     */
-    public function setRating($rating)
-    {
-        $this->rating = $rating;
-    }
-
-    /**
-     * @return string
-     */
-    public function getReview()
-    {
-        return $this->review;
-    }
-
-    /**
-     * @param string $review
-     */
-    public function setReview($review)
-    {
-        $this->review = $review;
-    }
 
     /**
      * @return boolean

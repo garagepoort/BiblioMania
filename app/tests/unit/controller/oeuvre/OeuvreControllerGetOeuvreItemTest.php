@@ -1,8 +1,9 @@
 <?php
 
-class OeuvreControllerLinkBookToOeuvreItemTest extends TestCase
+class OeuvreControllerGetOeuvreItemTest extends TestCase
 {
     const USER_ID = 1;
+    const BOOK_ID = 43;
     const OEUVRE_ITEM_ID = 123;
 
     const TITLE = 'title';
@@ -21,6 +22,7 @@ class OeuvreControllerLinkBookToOeuvreItemTest extends TestCase
     public function setUp(){
         parent::setUp();
         $this->book = $this->mockEloquent('Book');
+        $this->book->shouldReceive('getAttribute')->with('id')->andReturn(self::BOOK_ID);
 
         $this->books = $this->mockEloquentCollection();
         $this->books->shouldReceive('all')->andReturn(array($this->book));
@@ -44,6 +46,12 @@ class OeuvreControllerLinkBookToOeuvreItemTest extends TestCase
         $response = $this->action('GET', 'OeuvreController@getOeuvreItem', array("id" => self::OEUVRE_ITEM_ID));
 
         $this->assertResponseOk();
+        $this->assertEquals($response->original['id'], self::OEUVRE_ITEM_ID);
+        $this->assertEquals($response->original['title'], self::TITLE);
+        $this->assertEquals($response->original['publicationYear'], self::PUBLICATION_YEAR);
+        $this->assertEquals($response->original['authorId'], self::AUTHOR_ID);
+        $this->assertEquals($response->original['state'], 'LINKED');
+        $this->assertEquals($response->original['linkedBooks'][0], self::BOOK_ID);
     }
 
 }
