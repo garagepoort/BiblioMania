@@ -13,13 +13,7 @@ before_script:
   - npm install karma-jasmine --save-dev
   - npm install phantomjs-prebuilt
   - npm install karma-phantomjs-launcher --save-dev
-  - npm install protractor -g
-  - npm install request -g
-  - export DISPLAY=:99.0
-  - nohup bash -c "nodemodules/protractor/bin/webdriver-manager start 2>&1 &"
-  - sleep 5
 
 script:
   - php -d memory_limit=2048M -d display_errors=On vendor/bin/phpunit --configuration phpunit.xml --testsuite unit --exclude-group ignore
   - karma start --single-run --browsers PhantomJS karma.conf.js
-  - protractor app/tests/e2e/conf.js
