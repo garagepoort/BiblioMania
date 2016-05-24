@@ -1,5 +1,13 @@
 <?php
 
+namespace tests\unit\controller;
+
+use BookIdRequest;
+use Mockery;
+use TestCase;
+use User;
+use WishlistService;
+
 class WishlistControllerRemoveBookTest extends TestCase
 {
     const USER_ID = 1;

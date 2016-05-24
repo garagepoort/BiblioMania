@@ -1,5 +1,13 @@
 <?php
 
+namespace tests\unit\controller;
+
+use BookService;
+use Mockery;
+use TestCase;
+use UnlinkAuthorFromBookRequest;
+use User;
+
 class BookControllerUnlinkAuthorFromBookTest extends TestCase
 {
     const USER_ID = 1;

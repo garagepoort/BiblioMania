@@ -1,5 +1,13 @@
 <?php
 
+namespace tests\unit\controller;
+
+use BookIdRequest;
+use Mockery;
+use OeuvreService;
+use TestCase;
+use User;
+
 class OeuvreControllerUnlinkBookFromOeuvreItemTest extends TestCase
 {
     const USER_ID = 1;

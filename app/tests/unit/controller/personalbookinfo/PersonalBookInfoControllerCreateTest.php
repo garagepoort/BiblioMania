@@ -1,5 +1,13 @@
 <?php
 
+namespace tests\unit\controller;
+
+use CreatePersonalBookInfoRequest;
+use Mockery;
+use PersonalBookInfo;
+use PersonalBookInfoService;
+use TestCase;
+use User;
 
 class PersonalBookInfoControllerCreateTest extends TestCase
 {

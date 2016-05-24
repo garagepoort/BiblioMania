@@ -1,5 +1,14 @@
 <?php
 
+namespace tests\unit\controller;
+
+use CreateFirstPrintInfoRequest;
+use FirstPrintInfo;
+use FirstPrintInfoService;
+use Mockery;
+use TestCase;
+use User;
+
 class FirstPrintInfoControllerCreateTest extends TestCase
 {
     const USER_ID = 123;

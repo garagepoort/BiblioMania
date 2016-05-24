@@ -1,5 +1,13 @@
 <?php
 
+namespace tests\unit\controller;
+
+use BaseBookRequest;
+use BookService;
+use Mockery;
+use TestCase;
+use User;
+
 class BookControllerCreateTest extends TestCase
 {
     const TITLE = 'title';

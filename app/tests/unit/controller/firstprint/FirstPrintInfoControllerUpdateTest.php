@@ -1,6 +1,15 @@
 <?php
 
-class FirstPrintInfoUpdateTest extends TestCase
+namespace tests\unit\controller;
+
+use FirstPrintInfo;
+use FirstPrintInfoService;
+use Mockery;
+use TestCase;
+use UpdateFirstPrintInfoRequest;
+use User;
+
+class FirstPrintInfoControllerUpdateTest extends TestCase
 {
     const USER_ID = 123;
     const TITLE = 'title';

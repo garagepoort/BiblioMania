@@ -1,5 +1,12 @@
 <?php
 
+namespace tests\unit\controller;
+
+use BookSerieService;
+use Mockery;
+use TestCase;
+use UpdateSerieRequest;
+
 class BookSerieControllerUpdateTest extends TestCase
 {
     const SERIE_ID = 21312;

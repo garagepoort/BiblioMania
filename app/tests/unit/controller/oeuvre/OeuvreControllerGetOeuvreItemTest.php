@@ -1,5 +1,13 @@
 <?php
 
+namespace tests\unit\controller;
+
+use Book;
+use BookFromAuthor;
+use OeuvreService;
+use TestCase;
+use User;
+
 class OeuvreControllerGetOeuvreItemTest extends TestCase
 {
     const USER_ID = 1;
