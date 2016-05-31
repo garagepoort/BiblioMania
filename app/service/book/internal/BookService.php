@@ -122,21 +122,6 @@ class BookService
         $this->bookRepository->removeAuthorFromBook($book, $unlinkAuthorFromBookRequest->getAuthorId());
     }
 
-    public function getValueOfLibrary()
-    {
-        $this->bookRepository->getValueOfLibrary();
-    }
-
-    public function getTotalAmountOfBooksInLibrary()
-    {
-        return $this->bookRepository->getTotalAmountOfBooksInLibrary();
-    }
-
-    public function getTotalAmountOfBooksOwned()
-    {
-        return $this->bookRepository->getTotalAmountOfBooksOwned();
-    }
-
     public function getCompletedBooksWithPersonalBookInfo()
     {
         return $this->bookRepository->allWith(array('personal_book_infos'));
@@ -159,22 +144,22 @@ class BookService
         return $this->bookRepository->find($book_id, $with);
     }
 
-    public function searchAllBooks($filters){
+    public function searchAllBooks($userId, $filters){
         $this->filterHistoryService->addFiltersToHistory($filters);
 
-        list($personalFiltersForSearch, $filtersForSearch) = $this->filtersToFilterHandlers($filters);
+        list($personalFilterHandlersForSearch, $filterHandlersForSearch) = $this->filterValuesToFilterHandlers($filters);
 
-        if(count($personalFiltersForSearch) > 0){
-            array_push($filtersForSearch, FilterBuilder::terms('personalBookInfoUsers', [Auth::user()->id]));
+        if(count($personalFilterHandlersForSearch) > 0){
+            array_push($filterHandlersForSearch, FilterBuilder::terms('personalBookInfoUsers', [$userId]));
         }
 
-        return $this->bookElasticIndexer->search(Auth::user()->id, $filtersForSearch, $personalFiltersForSearch);
+        return $this->bookElasticIndexer->search($userId, $filterHandlersForSearch, $personalFilterHandlersForSearch);
     }
 
     public function searchOtherBooks($filters){
         $this->filterHistoryService->addFiltersToHistory($filters);
 
-        list($personalFiltersForSearch, $filtersForSearch) = $this->filtersToFilterHandlers($filters);
+        list($personalFiltersForSearch, $filtersForSearch) = $this->filterValuesToFilterHandlers($filters);
 
         array_push($filtersForSearch, FilterBuilder::notTerms('personalBookInfoUsers', [Auth::user()->id]));
 
@@ -184,7 +169,7 @@ class BookService
     public function searchMyBooks($filters){
         $this->filterHistoryService->addFiltersToHistory($filters);
 
-        list($personalFiltersForSearch, $filtersForSearch) = $this->filtersToFilterHandlers($filters);
+        list($personalFiltersForSearch, $filtersForSearch) = $this->filterValuesToFilterHandlers($filters);
 
         array_push($filtersForSearch, FilterBuilder::terms('personalBookInfoUsers', [Auth::user()->id]));
 
@@ -194,7 +179,7 @@ class BookService
     public function searchWishlist($filters){
         $this->filterHistoryService->addFiltersToHistory($filters);
 
-        list($personalFiltersForSearch, $filtersForSearch) = $this->filtersToFilterHandlers($filters);
+        list($personalFiltersForSearch, $filtersForSearch) = $this->filterValuesToFilterHandlers($filters);
 
         array_push($filtersForSearch, FilterBuilder::terms('wishlistUsers', [Auth::user()->id]));
 
@@ -213,18 +198,6 @@ class BookService
 
     public function getAllTranslators(){
         return $this->bookRepository->getAllTranslators();
-    }
-
-    /**
-     * @param $books
-     * @return array
-     */
-    public function getCollectionInformation($books)
-    {
-        $totalValue = $books->sum('book.retail_price');
-        $totalAmountOfBooks = $books->count();
-        $totalAmountOfBooksOwned = $books->where('personal_book_info.owned', '=', 1)->count();
-        return array($totalValue, $totalAmountOfBooks, $totalAmountOfBooksOwned);
     }
 
     public function deleteBook($id)
@@ -338,25 +311,25 @@ class BookService
     }
 
     /**
-     * @param $filters
+     * @param $filterValues
      * @return array
      */
-    private function filtersToFilterHandlers($filters)
+    private function filterValuesToFilterHandlers($filterValues)
     {
-        $personalFiltersForSearch = [];
-        $filtersForSearch = [];
+        $personalFilterHandlersForSearch = [];
+        $nonPersonalFilterHandlersForSearch = [];
         /** @var FilterValue $filterValue */
-        foreach ($filters as $filterValue) {
+        foreach ($filterValues as $filterValue) {
             /** @var Filter $filter */
             $filter = $this->bookFilterManager->getFilter($filterValue->getId());
 
             if ($filter->getGroup() === 'personal') {
-                array_push($personalFiltersForSearch, $this->bookFilterManager->handle(FilterHandlerGroup::ELASTIC, $filterValue));
+                array_push($personalFilterHandlersForSearch, $this->bookFilterManager->handle(FilterHandlerGroup::ELASTIC, $filterValue));
             } else {
-                array_push($filtersForSearch, $this->bookFilterManager->handle(FilterHandlerGroup::ELASTIC, $filterValue));
+                array_push($nonPersonalFilterHandlersForSearch, $this->bookFilterManager->handle(FilterHandlerGroup::ELASTIC, $filterValue));
             }
         }
-        return array($personalFiltersForSearch, $filtersForSearch);
+        return array($personalFilterHandlersForSearch, $nonPersonalFilterHandlersForSearch);
     }
 
 }

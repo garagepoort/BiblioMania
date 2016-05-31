@@ -1,6 +1,5 @@
 <?php
 
-use Bendani\PhpCommon\FilterService\Model\FilterOperator;
 use Bendani\PhpCommon\FilterService\Model\FilterValue;
 
 class FilterValueTestImpl implements FilterValue
@@ -8,7 +7,6 @@ class FilterValueTestImpl implements FilterValue
 
     private $id;
     private $value;
-    /** @var  FilterOperator */
     private $operator;
 
     function getId()
@@ -42,9 +40,6 @@ class FilterValueTestImpl implements FilterValue
         $this->value = $value;
     }
 
-    /**
-     * @param FilterOperator $operator
-     */
     public function setOperator($operator)
     {
         $this->operator = $operator;
