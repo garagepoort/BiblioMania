@@ -15,7 +15,7 @@ class FirstPrintInfoRepository implements Repository
 
     public function save($entity)
     {
-        // TODO: Implement save() method.
+        $entity->save();
     }
 
     public function delete($entity)

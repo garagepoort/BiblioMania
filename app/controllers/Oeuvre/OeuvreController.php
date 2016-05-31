@@ -17,8 +17,8 @@ class OeuvreController extends Controller
     private $oeuvreService;
     /** @var  BookFromAuthorService */
     private $bookFromAuthorService;
-    /** @var  BookFromAuthorRepository */
-    private $bookFromAuthorRepository;
+    /** @var  OeuvreItemRepository */
+    private $oeuvreItemRepository;
     /** @var  BookRepository */
     private $bookRepository;
     /** @var  BookService */
@@ -31,14 +31,14 @@ class OeuvreController extends Controller
         $this->oeuvreService = App::make('OeuvreService');
         $this->oeuvreToParameterMapper = App::make('OeuvreToParameterMapper');
         $this->bookFromAuthorService = App::make('BookFromAuthorService');
-        $this->bookFromAuthorRepository = App::make('BookFromAuthorRepository');
+        $this->oeuvreItemRepository = App::make('OeuvreItemRepository');
         $this->bookRepository = App::make('BookRepository');
         $this->bookService = App::make('BookService');
         $this->jsonMappingService = App::make('JsonMappingService');
     }
 
     public function getOeuvreFromAuthor($id){
-        $oeuvre = $this->bookFromAuthorRepository->getFromAuthor($id);
+        $oeuvre = $this->oeuvreItemRepository->getFromAuthor($id);
         if($oeuvre == null){
             throw new ServiceException('Oeuvre from author not found');
         }
@@ -94,7 +94,7 @@ class OeuvreController extends Controller
     public function saveOeuvreItemsToAuthor(){
         $createRequests = $this->jsonMappingService->mapInputArrayToJson(Input::get(), new CreateOeuvreItemFromJsonAdapter());
         foreach($createRequests as $createRequest){
-            $this->oeuvreService->saveOeuvreItem($createRequest);
+            $this->oeuvreService->createOeuvreItem($createRequest);
         }
     }
 

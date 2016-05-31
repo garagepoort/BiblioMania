@@ -1,6 +1,6 @@
 <?php
 
-class UnlinkAuthorToBookFromJsonAdapter implements UnlinkAuthorToBookRequest
+class UnlinkAuthorFromBookFromJsonAdapter implements UnlinkAuthorFromBookRequest
 {
     /** @var  int */
     private $authorId;

@@ -8,14 +8,6 @@
                     <div>Boek informatie</div>
                     <button type="button" class="btn btn-sm round-corners btn-default form-subtitle-button" ng-click="openSelectImageDialog()">Selecteer cover</button>
                 </div>
-
-                <ul>
-                    <li ng-repeat="(key, errors) in createBookForm.$error track by $index"> <strong>{{ key }}</strong> errors
-                        <ul>
-                            <li ng-repeat="e in errors">{{ e.$name }} has an error: <strong>{{ key }}</strong>.</li>
-                        </ul>
-                    </li>
-                </ul>
                 <div class="form-content col-md-12">
                     <div class="col-md-6">
                         <img style="margin-bottom: 20px;" src-with-fallback="{{ model.image }}" />
@@ -23,28 +15,28 @@
                         <!-- TITLE -->
                         <div class="form-group required col-md-12" ng-class="{'has-error has-feedback' : createBookForm.title.$invalid && (createBookForm.title.$dirty || submitAttempted)}">
                             <label class="control-label ">Titel </label>
-                            <input name="title" type="text" class="form-control input-width-md" placeholder="titel" required="true" ng-model="model.title"/>
+                            <input id="book-title" name="title" type="text" class="form-control input-width-md" placeholder="titel" required="true" ng-model="model.title"/>
                             <span ng-show="createBookForm.title.$invalid && (createBookForm.title.$dirty || submitAttempted)" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Titel is verplicht</span>
                         </div>
 
                         <!-- SUBTITLE -->
                         <div class="form-group col-md-12">
                             <label class="control-label">Ondertitel</label>
-                            <input name="subtitle" type="text" class="form-control input-width-md" placeholder="ondertitel" ng-model="model.subtitle"/>
+                            <input id="book-subtitle" name="subtitle" type="text" class="form-control input-width-md" placeholder="ondertitel" ng-model="model.subtitle"/>
                         </div>
 
                         <!-- ISBN -->
                         <div class="form-group required col-md-12" ng-class="{'has-error has-feedback' : createBookForm.isbn.$invalid && (createBookForm.isbn.$dirty || submitAttempted)}">
                             <label class="control-label" >ISBN </label>
 
-                            <input name="isbn" type="text" class="form-control input-width-sm" placeholder="isbn" ng-model="model.isbn" required="true" ng-pattern="/^[0-9]{13}$/"/>
+                            <input id="book-isbn" name="isbn" type="text" class="form-control input-width-sm" placeholder="isbn" ng-model="model.isbn" required="true" ng-pattern="/^[0-9]{13}$/"/>
                             <span ng-show="createBookForm.isbn.$error.required && (createBookForm.isbn.$dirty || submitAttempted)" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Isbn is verplicht</span>
                             <span ng-show="createBookForm.isbn.$error.pattern && (createBookForm.isbn.$dirty || submitAttempted)" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Isbn moet exact 13 nummers zijn</span>
                         </div>
-                        <!-- ISBN -->
+                        <!-- SUMMARY -->
                         <div class="form-group col-md-12">
                             <label class="control-label" >Omschrijving </label>
-                            <textarea class="form-control" rows="10" name="review" ng-model="model.summary"></textarea>
+                            <textarea id="book-summary" class="form-control" rows="10" name="review" ng-model="model.summary"></textarea>
                         </div>
                     </div>
                      <div class="col-md-6" ng-include="'../BiblioMania/views/partials/book/google-book-detail.html'"></div>
@@ -52,11 +44,11 @@
 
                 <div class="form-subtitle">
                     <div>Auteur</div>
-                    <button type="button" class="btn-default btn btn-sm form-subtitle-button round-corners" ng-click="showSelectAuthorDialog()">Auteur selecteren</button>
-                    <button type="button" class="btn-default btn btn-sm form-subtitle-button round-corners" ng-click="showCreateAuthorDialog()">Auteur aanmaken</button>
+                    <button id="book-select-author" type="button" class="btn-default btn btn-sm form-subtitle-button round-corners" ng-click="showSelectAuthorDialog()">Auteur selecteren</button>
+                    <button id="book-create-author" type="button" class="btn-default btn btn-sm form-subtitle-button round-corners" ng-click="showCreateAuthorDialog()">Auteur aanmaken</button>
                 </div>
                 <div class="form-content">
-                    <h2>{{ data.selectedAuthor.name.firstname + " " + data.selectedAuthor.name.lastname}}</h2>
+                    <h2 id="book-author-name-label">{{ data.selectedAuthor.name.firstname + " " + data.selectedAuthor.name.lastname}}</h2>
                     <img src-with-fallback="{{ data.selectedAuthorImage }}" style="margin-bottom: 20px;"/>
                 </div>
 
@@ -65,7 +57,7 @@
                     <div class="form-group required col-md-12" ng-class="{'has-error has-feedback' : createBookForm.publisher.$invalid && (createBookForm.publisher.$dirty || submitAttempted)}">
                         <label class="control-label">Uitgever </label>
 
-                        <input name="publisher" ng-model="model.publisher" type="text" placeholder="uitgever" class="form-control input-width-lg"
+                        <input id="book-publisher" name="publisher" ng-model="model.publisher" type="text" placeholder="uitgever" class="form-control input-width-lg"
                                required="true"
                                uib-typeahead="publisher.name as publisher.name for publisher in data.publishers | filter:$viewValue | limitTo:8"
                                class="form-control">
@@ -89,7 +81,7 @@
                         <div class="col-md-4" ng-class="{'has-error has-feedback' : createBookForm.language.$invalid && (createBookForm.language.$dirty || submitAttempted)}">
                             <label class="control-label">Taal </label>
 
-                            <select name="language" class="input-sm form-control" ng-model="model.language"
+                            <select id="book-language" name="language" class="input-sm form-control" ng-model="model.language"
                                     ng-options="language.name as language.name for language in data.languages"></select>
                             <span ng-show="createBookForm.language.$invalid && (createBookForm.language.$dirty || submitAttempted)" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i>Taal is verplicht</span>
                         </div>
@@ -131,7 +123,7 @@
                     <div class="form-group col-md-6">
                         <label class="control-label">Cover prijs </label>
                         <div>
-                            <select style="margin-right: 10px;" class="form-control col-md-2 input-width-xsm" ng-model="model.retailPrice.currency" ng-options="currency.value as currency.name for currency in data.currencies"></select>
+                            <select id="book-retail-price-currency" style="margin-right: 10px;" class="form-control col-md-2 input-width-xsm" ng-model="model.retailPrice.currency" ng-options="currency.value as currency.name for currency in data.currencies"></select>
                                 <input type="text" name="retailPriceAmount" price-formatter class="form-control col-md-4 input-width-sm" ng-model="model.retailPrice.amount" ng-pattern="/^\d+(\,\d{1,2})?$/"/>
                             <span ng-show="createBookForm.retailPriceAmount.$error.pattern && createBookForm.retailPriceAmount.$dirty" class="form-error-message help-inline vertical-align"><i class="fa fa-exclamation-circle"> Prijs is niet het juiste formaat.</i></span>
                         </div>
@@ -167,7 +159,7 @@
                 </div>
 
             </div>
-            <button class="btn btn-primary">Save</button>
+            <button id="book-save-button" class="btn btn-primary">Save</button>
 
         </fieldset>
     </form>

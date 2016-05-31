@@ -229,4 +229,10 @@ class CreateBookRequestTestImpl implements BaseBookRequest
     {
         return $this->summary;
     }
+
+    /** @return PriceRequest */
+    function getRetailPrice()
+    {
+        return new PriceRequestTestImpl();
+    }
 }

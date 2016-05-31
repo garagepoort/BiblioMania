@@ -13,19 +13,19 @@
                     <!-- TITLE -->
                     <div class="form-group col-md-12" ng-class="{'has-error has-feedback' : firstPrintForm.title.$invalid && firstPrintForm.title.$dirty}">
                         <label class="control-label ">Titel </label>
-                        <input name="title" type="text" class="form-control input-width-md" placeholder="titel" ng-model="model.title"/>
+                        <input id="first-print-info-title" name="title" type="text" class="form-control input-width-md" placeholder="titel" ng-model="model.title"/>
                     </div>
 
                     <!-- SUBTITLE -->
                     <div class="form-group col-md-12">
                         <label class="control-label">Ondertitel</label>
-                        <input name="subtitle" type="text" class="form-control input-width-md" placeholder="ondertitel" ng-model="model.subtitle"/>
+                        <input id="first-print-info-subtitle" name="subtitle" type="text" class="form-control input-width-md" placeholder="ondertitel" ng-model="model.subtitle"/>
                     </div>
                     <!-- ISBN -->
                     <div class="form-group col-md-12">
                         <label class="control-label" >ISBN </label>
 
-                        <input name="isbn" type="text" class="form-control input-width-sm" placeholder="isbn" ng-model="model.isbn" ng-pattern="/^[0-9]{13}$/"
+                        <input id="first-print-info-isbn" name="isbn" type="text" class="form-control input-width-sm" placeholder="isbn" ng-model="model.isbn" ng-pattern="/^[0-9]{13}$/"
                                ng-class="{'has-error has-feedback' : firstPrintForm.isbn.$invalid && firstPrintForm.isbn.$dirty}"/>
                         <span ng-show="firstPrintForm.isbn.$error.pattern && firstPrintForm.isbn.$dirty" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Isbn moet exact 13 nummers zijn</span>
                     </div>
@@ -36,7 +36,7 @@
                     <div class="form-group col-md-12">
                         <label class="control-label">Uitgever </label>
 
-                        <input name="publisher" ng-model="model.publisher" type="text" placeholder="uitgever" class="form-control input-width-lg"
+                        <input id="first-print-info-publisher" name="publisher" ng-model="model.publisher" type="text" placeholder="uitgever" class="form-control input-width-lg"
                                uib-typeahead="publisher.name as publisher.name for publisher in data.publishers | filter:$viewValue | limitTo:8"
                                class="form-control">
                     </div>
@@ -50,21 +50,21 @@
                         <div class="col-md-4">
                             <label class="control-label">Land </label>
 
-                            <input name="country" ng-model="model.country" type="text" placeholder="land" class="form-control input-width-sm"
+                            <input id="first-print-info-country" name="country" ng-model="model.country" type="text" placeholder="land" class="form-control input-width-sm"
                                    uib-typeahead="country.name as country.name for country in data.countries | filter:$viewValue | limitTo:8" class="form-control">
                         </div>
                         <!-- LANGUAGE -->
                         <div class="col-md-4">
                             <label class="control-label">Taal </label>
 
-                            <select name="language" class="input-sm form-control" ng-model="model.language"
+                            <select id="first-print-info-language" name="language" class="input-sm form-control" ng-model="model.language"
                                     ng-options="language.name as language.name for language in data.languages"></select>
                         </div>
                     </div>
                 </div>
 
             </div>
-            <button class="btn btn-primary">Save</button>
+            <button id="first-print-info-save-button" class="btn btn-primary">Save</button>
 
         </fieldset>
     </form>

@@ -14,7 +14,7 @@ angular.module('com.bendani.bibliomania.edit.book.ui', ['ngTagsInput',
         'com.bendani.bibliomania.publisher.serie.model',
         'com.bendani.bibliomania.book.model',
         'com.bendani.bibliomania.author.model',
-        'com.bendani.bibliomania.image.selection.controller',
+        'com.bendani.bibliomania.image.selection.modal.service',
         'com.bendani.bibliomania.language.model'])
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/edit-book/:id', {
@@ -67,8 +67,8 @@ angular.module('com.bendani.bibliomania.edit.book.ui', ['ngTagsInput',
         });
     }])
     .controller('CreateBookController', ['$scope', 'Genre', 'Tag', 'Country', 'Publisher', 'Language', 'Book', 'Author', 'Serie', 'PublisherSerie',
-        'ErrorContainer', '$uibModal', '$location', 'TitlePanelService', 'bookModel', 'onSave', 'initFunction', 'GoogleApiBook', 'CurrencyService',
-        function ($scope, Genre, Tag, Country, Publisher, Language, Book, Author, Serie, PublisherSerie, ErrorContainer, $uibModal, $location, TitlePanelService, bookModel, onSave, initFunction, GoogleApiBook, CurrencyService) {
+        'ErrorContainer', '$uibModal', 'ImageSelectionModalService', '$location', 'TitlePanelService', 'bookModel', 'onSave', 'initFunction', 'GoogleApiBook', 'CurrencyService',
+        function ($scope, Genre, Tag, Country, Publisher, Language, Book, Author, Serie, PublisherSerie, ErrorContainer, $uibModal, ImageSelectionModalService, $location, TitlePanelService, bookModel, onSave, initFunction, GoogleApiBook, CurrencyService) {
 
             function init() {
                 TitlePanelService.setTitle('Boek');
@@ -134,7 +134,6 @@ angular.module('com.bendani.bibliomania.edit.book.ui', ['ngTagsInput',
             };
 
             $scope.openSelectImageDialog = function () {
-                $scope.imageSelectModal = {};
                 var searchQuery = '';
 
                 if ($scope.model.title) {
@@ -147,15 +146,7 @@ angular.module('com.bendani.bibliomania.edit.book.ui', ['ngTagsInput',
                     searchQuery = searchQuery + ' ' + $scope.data.selectedAuthor.name.lastname;
                 }
 
-                $scope.imageSelectModal.searchQuery = searchQuery;
-
-                var modalInstance = $uibModal.open({
-                    templateUrl: '../BiblioMania/views/partials/select-image-modal.html',
-                    scope: $scope,
-                    windowClass: 'select-image-modal'
-                });
-
-                modalInstance.result.then(function (image) {
+                ImageSelectionModalService.show(searchQuery, function(image){
                     $scope.model.imageUrl = image;
                     $scope.model.image = image;
                 });

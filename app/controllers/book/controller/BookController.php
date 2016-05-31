@@ -23,7 +23,7 @@ class BookController extends BaseController
     }
 
     public function getBooks(){
-        return $this->bookService->searchAllBooks(array());
+        return $this->bookService->searchAllBooks(Auth::user()->id, array());
     }
 
     public function getBooksByAuthor($authorId){
@@ -34,21 +34,27 @@ class BookController extends BaseController
     }
 
     public function linkAuthorToBook($bookId){
+        /** @var LinkAuthorToBookRequest $linkAuthorRequest */
         $linkAuthorRequest = $this->jsonMappingService->mapInputToJson(Input::get(), new LinkAuthorToBookFromJsonAdapter());
         $this->bookService->linkAuthorToBook($bookId, $linkAuthorRequest);
     }
 
     public function unlinkAuthorFromBook($bookId){
-        $unlinkAuthorRequest = $this->jsonMappingService->mapInputToJson(Input::get(), new UnlinkAuthorToBookFromJsonAdapter());
+        /** @var UnlinkAuthorFromBookRequest $unlinkAuthorRequest */
+        $unlinkAuthorRequest = $this->jsonMappingService->mapInputToJson(Input::get(), new UnlinkAuthorFromBookFromJsonAdapter());
         $this->bookService->unlinkAuthorFromBook($bookId, $unlinkAuthorRequest);
     }
 
     public function createBook(){
-        return $this->bookService->create($this->jsonMappingService->mapInputToJson(Input::get(), new CreateBookFromJsonAdapter()));
+        /** @var BaseBookRequest  $createBookRequest */
+        $createBookRequest = $this->jsonMappingService->mapInputToJson(Input::get(), new CreateBookFromJsonAdapter());
+        return $this->bookService->create(Auth::user()->id, $createBookRequest);
     }
 
     public function updateBook(){
-        return $this->bookService->update($this->jsonMappingService->mapInputToJson(Input::get(), new UpdateBookFromJsonAdapter()));
+        /** @var UpdateBookRequest $updateBookRequest */
+        $updateBookRequest = $this->jsonMappingService->mapInputToJson(Input::get(), new UpdateBookFromJsonAdapter());
+        return $this->bookService->update(Auth::user()->id, $updateBookRequest);
     }
 
     public function deleteBook($bookId)
@@ -82,7 +88,7 @@ class BookController extends BaseController
 
     public function searchAllBooks()
     {
-        return $this->bookService->searchAllBooks($this->jsonToFilters());
+        return $this->bookService->searchAllBooks(Auth::user()->id, $this->jsonToFilters());
     }
 
     public function searchOtherBooks()

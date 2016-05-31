@@ -10,9 +10,9 @@ class PersonalBookInfoRepository implements Repository{
             ->first();
     }
 
-    public function findByBook($book_id){
+    public function findByUserAndBook($userId, $book_id){
         return PersonalBookInfo::where('book_id', '=', $book_id)
-            ->where('user_id', '=', Auth::user()->id)
+            ->where('user_id', '=', $userId)
             ->first();
     }
 

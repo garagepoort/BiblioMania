@@ -1031,3 +1031,9 @@ a.editable-click:hover {
   display: inline-block;
   max-width: 50%;
 }
+dl.dl-horizontal.dl-personal-book-info-detail-directive dt {
+  width: 180px;
+}
+dl.dl-horizontal.dl-personal-book-info-detail-directive dd {
+  word-break: break-word;
+}

@@ -9,6 +9,10 @@ class DateService
         $this->logger = new Katzgrau\KLogger\Logger(app_path() . '/storage/logs');
     }
 
+    /**
+     * @param DateRequest $dateRequest
+     * @return Date
+     */
     public function create(DateRequest $dateRequest)
     {
         $date = new Date(array(

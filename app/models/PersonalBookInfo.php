@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * @property integer id
+ * @property string reason_not_owned
+ * @property Book book
+ * @property integer book_id
+ * @property integer user_id
+ * @property boolean owned
+ */
 class PersonalBookInfo extends Eloquent {
     protected $table = 'personal_book_info';
 

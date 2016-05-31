@@ -1,0 +1,35 @@
+<!--NOT IN COLLECTION-->
+<dl ng-if="!personalBookInfo.inCollection" class="dl-horizontal dl-text-align-left dl-personal-book-info-detail-directive">
+    <dt>{{ 'translation.in.collection' | translate }}</dt>
+    <dd id="in-collection-label">{{ 'translation.no' | translate }}</dd>
+    <dt>{{ 'translation.reason' | translate }}</dt>
+    <dd id="reason-not-in-collection-label">{{ personalBookInfo.reasonNotInCollection | translate }}</dd>
+</dl>
+
+<!--BUY-->
+<dl ng-if="personalBookInfo.buyInfo" class="dl-horizontal dl-text-align-left dl-personal-book-info-detail-directive">
+    <dt ng-show="personalBookInfo.buyInfo.buyDate">Aanschafdatum:</dt>
+    <dd id="buy-date-label" ng-show="personalBookInfo.buyInfo.buyDate">{{dateToString(personalBookInfo.buyInfo.buyDate)}}</dd>
+    <dt ng-show="personalBookInfo.buyInfo.buyPrice.amount">Aankoopprijs:</dt>
+    <dd id="buy-price-label" ng-show="personalBookInfo.buyInfo.buyPrice.amount">{{ getCurrencyViewValue(personalBookInfo.buyInfo.buyPrice.currency)}} {{personalBookInfo.buyInfo.buyPrice.amount | numberFormatFilter }}</dd>
+    <dt ng-show="personalBookInfo.buyInfo.shop">Winkel:</dt>
+    <dd id="buy-shop-label" ng-show="personalBookInfo.buyInfo.shop">{{personalBookInfo.buyInfo.shop}}</dd>
+    <dt ng-show="personalBookInfo.buyInfo.cityShop">Stad winkel:</dt>
+    <dd id="buy-city-label"  ng-show="personalBookInfo.buyInfo.cityShop">{{personalBookInfo.buyInfo.cityShop}}</dd>
+    <dt ng-show="personalBookInfo.buyInfo.reason">Reden:</dt>
+    <dd id="buy-reason-label" ng-show="personalBookInfo.buyInfo.reason">{{personalBookInfo.buyInfo.reason}}</dd>
+    <dt ng-show="personalBookInfo.buyInfo.countryShop">Land gekocht:</dt>
+    <dd id="buy-country-label" ng-show="personalBookInfo.buyInfo.countryShop">{{personalBookInfo.buyInfo.countryShop}}</dd>
+</dl>
+
+<!--GIFT-->
+<dl ng-if="personalBookInfo.giftInfo" class="dl-horizontal dl-text-align-left dl-personal-book-info-detail-directive">
+    <dt ng-show="personalBookInfo.giftInfo.giftDate">Ontvangstdatum:</dt>
+    <dd id="gift-date-label" ng-show="personalBookInfo.giftInfo.giftDate">{{dateToString(personalBookInfo.giftInfo.giftDate)}}</dd>
+    <dt ng-show="personalBookInfo.giftInfo.from">Gekregen van:</dt>
+    <dd id="gift-from-label" ng-show="personalBookInfo.giftInfo.from">{{personalBookInfo.giftInfo.from}}</dd>
+    <dt ng-show="personalBookInfo.giftInfo.occasion">Gelegenheid:</dt>
+    <dd id="gift-occasion-label" ng-show="personalBookInfo.giftInfo.occasion">{{personalBookInfo.giftInfo.occasion}}</dd>
+    <dt ng-show="personalBookInfo.giftInfo.reason">Reden:</dt>
+    <dd id="gift-reason-label" ng-show="personalBookInfo.giftInfo.reason">{{personalBookInfo.giftInfo.reason}}</dd>
+</dl>

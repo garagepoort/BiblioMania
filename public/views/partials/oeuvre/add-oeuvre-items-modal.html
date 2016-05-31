@@ -2,7 +2,7 @@
     <div class="modal-header">
         <h3 class="modal-title">Voeg oeuvre items toe</h3>
     </div>
-    <div class="modal-body" ng-controller="AddOeuvreItemsController" style="overflow: auto; max-height: 400px;">
+    <div class="modal-body" style="overflow: auto; max-height: 400px;">
         <div ng-form="oeuvreForm">
             <span ng-show="oeuvreForm.addOeuvre.$error.formatError && oeuvreForm.addOeuvre.$dirty" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Fout formaat</span>
               <textarea ng-model="oeuvreItemsToAdd"
