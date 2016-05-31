@@ -27,7 +27,7 @@
                 <table class="table table-striped" style="table-layout: fixed">
                     <thead sort-header sort-options="orderValues" current-predicate="predicate" reverse-order="reverseOrder"></thead>
                 </table>
-                <image-card ng-repeat="author in vm.authors | filter: vm.search | orderBy:predicate:reverseOrder" model="author" on-image-click="vm.goToAuthorDetails(author)" show-edit-button="false" backup-text="{{ author.name.firstname + ' ' + author.name.lastname }}"></image-card>
+                <image-card use-sprite-image="true" ng-repeat="author in vm.authors | filter: vm.search | orderBy:predicate:reverseOrder" model="author" on-image-click="vm.goToAuthorDetails(author)" show-edit-button="false" backup-text="{{ author.name.firstname + ' ' + author.name.lastname }}"></image-card>
             </div>
             <table ng-show="!vm.loading && listView" class="table table-striped table-hover" style="table-layout: fixed">
                 <thead sort-header sort-options="orderValues" current-predicate="predicate" reverse-order="reverseOrder"></thead>
