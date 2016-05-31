@@ -63,4 +63,8 @@ class AuthorRepository implements Repository{
         $author->date_of_birth_id = $date_id;
         $author->save();
     }
+
+    public function findByBook($book, $authorId){
+        return $book->authors->find($authorId);
+    }
 }

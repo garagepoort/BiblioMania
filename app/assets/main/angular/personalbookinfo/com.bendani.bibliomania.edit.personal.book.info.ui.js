@@ -88,10 +88,15 @@ angular.module('com.bendani.bibliomania.edit.personal.book.info.ui', [
             ];
 
             $scope.submitForm = function(model){
-                if(model.acquirement === 'BUY'){
+                if(!model.inCollection){
                     model.giftInfo = undefined;
-                }else{
                     model.buyInfo = undefined;
+                }else{
+                    if(model.acquirement === 'BUY'){
+                        model.giftInfo = undefined;
+                    }else{
+                        model.buyInfo = undefined;
+                    }
                 }
 
                 onSave(model);

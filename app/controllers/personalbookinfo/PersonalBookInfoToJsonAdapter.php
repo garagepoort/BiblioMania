@@ -31,11 +31,9 @@ class PersonalBookInfoToJsonAdapter
         if ($personalBookInfo->buy_info != null) {
             $this->acquirement = 'BUY';
             $this->buyInfo = new BuyInfoToJsonAdapter($personalBookInfo->buy_info);
-        } else {
-            if ($personalBookInfo->gift_info != null) {
-                $this->acquirement = 'GIFT';
-                $this->giftInfo = new GiftInfoToJsonAdapter($personalBookInfo->gift_info);
-            }
+        } else if ($personalBookInfo->gift_info != null) {
+            $this->acquirement = 'GIFT';
+            $this->giftInfo = new GiftInfoToJsonAdapter($personalBookInfo->gift_info);
         }
     }
 

@@ -16,8 +16,8 @@ Route::group(array('before' => 'auth'), function () {
 
     Route::get('loggedInUser', 'UserController@getLoggedInUser');
     Route::get('users/{id}/wishlist', 'WishlistController@getWishListForUser');
-    Route::post('users/{id}/wishlist', 'WishlistController@addBookToWishlist');
-    Route::put('users/{id}/wishlist/remove-book', 'WishlistController@removeBookFromWishlist');
+    Route::post('wishlist', 'WishlistController@addBookToWishlist');
+    Route::put('wishlist/remove-book', 'WishlistController@removeBookFromWishlist');
 
     Route::get('chart-configurations/xproperties', 'ChartConfigurationController@getXProperties');
     Route::get('chart-configurations', 'ChartConfigurationController@getChartConfigurations');
@@ -56,11 +56,11 @@ Route::group(array('before' => 'auth'), function () {
     Route::post('series/{id}/books', 'SerieController@addBookToSerie');
     Route::put('series/{id}/remove-book', 'SerieController@removeBookFromSerie');
 
-    Route::get('firstprints', 'FirstPrintController@getAllFirstPrintInfos');
-    Route::put('firstprints', 'FirstPrintController@updateFirstPrintInfo');
-    Route::post('firstprints', 'FirstPrintController@createFirstPrintInfo');
-    Route::get('firstprints/{id}', 'FirstPrintController@getFirstPrintInfo');
-    Route::post('firstprints/{id}/books', 'FirstPrintController@linkBookToFirstPrintInfo');
+    Route::get('firstprints', 'FirstPrintInfoController@getAllFirstPrintInfos');
+    Route::put('firstprints', 'FirstPrintInfoController@updateFirstPrintInfo');
+    Route::post('firstprints', 'FirstPrintInfoController@createFirstPrintInfo');
+    Route::get('firstprints/{id}', 'FirstPrintInfoController@getFirstPrintInfo');
+    Route::post('firstprints/{id}/books', 'FirstPrintInfoController@linkBookToFirstPrintInfo');
 
     Route::put('oeuvre', 'OeuvreController@updateOeuvreItem');
     Route::get('oeuvre/{id}', 'OeuvreController@getOeuvreItem');
@@ -127,6 +127,8 @@ Route::group(array('before' => 'localCallOnly'), function () {
     Route::get('importBooks', 'BookImportController@importBooks');
     Route::get('search/populate', 'ElasticSearchController@index');
     Route::get('search/clear', 'ElasticSearchController@clear');
+    Route::get('dataset/reset', 'DatasetController@resetDatabase');
+    Route::get('dataset/{datasetId}', 'DatasetController@executeDataset');
 });
 
 

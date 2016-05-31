@@ -6,7 +6,7 @@
             <div class="form-group">
                 <label class="control-label">Datum gift</label>
                 <p class="input-group input-width-sm" style="margin-bottom: 0">
-                    <input type="text" class="form-control" is-open="datepicker.opened"
+                    <input id="gift-date-input" type="text" class="form-control" is-open="datepicker.opened"
                            show-button-bar="false"
                            date-formatter
                            ng-model-options="{ allowInvalid: true }"
@@ -21,19 +21,19 @@
 
             <div class="form-group">
                 <label class="control-label ">Reden </label>
-                <input name="reason" type="text" class="form-control input-width-md" placeholder="reden" ng-model="model.giftInfo.reason"/>
+                <input id="gift-reason-input" tname="reason" type="text" class="form-control input-width-md" placeholder="reden" ng-model="model.giftInfo.reason"/>
             </div>
         </div>
 
         <div class="col-md-6">
             <div class="form-group">
                 <label class="control-label ">Gekregen van </label>
-                <input name="from" type="text" class="form-control input-width-md" placeholder="gekregen van" ng-model="model.giftInfo.from"/>
+                <input id="gift-from-input" tname="from" type="text" class="form-control input-width-md" placeholder="gekregen van" ng-model="model.giftInfo.from"/>
             </div>
 
             <div class="form-group">
                 <label class="control-label ">Gelegenheid </label>
-                <input name="occasion" type="text" class="form-control input-width-md" placeholder="gelegenheid" ng-model="model.giftInfo.occasion"/>
+                <input id="gift-occasion-input" tname="occasion" type="text" class="form-control input-width-md" placeholder="gelegenheid" ng-model="model.giftInfo.occasion"/>
             </div>
         </div>
     </div>

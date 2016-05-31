@@ -34,7 +34,7 @@ angular.module('com.bendani.bibliomania.first.print.selection.modal.service', ['
         };
 
         $scope.search = function(item){
-            if ((item.title.toLowerCase().indexOf($scope.firstPrintSelectionModal.searchFirstPrintQuery) !== -1)){
+            if (item.title && (item.title.toLowerCase().indexOf($scope.firstPrintSelectionModal.searchFirstPrintQuery) !== -1)){
                 return true;
             }
             return false;

@@ -1,4 +1,16 @@
 <?php
+
+/**
+ * @property integer id
+ * @property string title
+ * @property string subtitle
+ * @property string ISBN
+ * @property string cover_image
+ * @property integer country_id
+ * @property integer language_id
+ * @property integer publisher_id
+ * @property integer publication_date_id
+ */
 class FirstPrintInfo extends Eloquent {
     protected $table = 'first_print_info';
 

@@ -16,18 +16,17 @@ class PublisherService
         $this->publisherRepository = App::make('PublisherRepository');
     }
 
-    public function findOrCreate($name){
-        $publisher = Publisher::where('name', '=', $name)
-            ->where("user_id", "=", Auth::user()->id)
-            ->first();
+    public function findOrCreate($userId, $name){
+        $publisher = $this->publisherRepository->findByUserAndName($userId, $name);
 
         if (is_null($publisher)) {
             $publisher = new Publisher(array(
                 'name' => $name
             ));
-            $publisher->user_id = Auth::user()->id;
+            $publisher->user_id = $userId;
+            $this->publisherRepository->save($publisher);
         }
-        $publisher->save();
+
         return $publisher;
     }
 
