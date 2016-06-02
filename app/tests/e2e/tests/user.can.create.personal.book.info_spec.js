@@ -52,7 +52,7 @@ describe('user.can.create.personal.book.info', function () {
             .assertInCollection(false);
     });
 
-    it('creates personalBookInfo with buyInfo correct', function () {
+    it('edits personalBookInfo with buyInfo correct', function () {
         var buyPriceAmount = 45;
         var buyReason= 'reason';
         var buyCity= 'city';
@@ -94,7 +94,7 @@ describe('user.can.create.personal.book.info', function () {
             .assertBuyReason(buyReason);
     });
 
-    it('creates personalBookInfo with giftInfo correct', function () {
+    it('edits personalBookInfo with giftInfo correct', function () {
         var giftReason= 'reason';
         var giftDate= '12-12-2000';
         var giftOccasion= 'occasion';
@@ -121,6 +121,82 @@ describe('user.can.create.personal.book.info', function () {
 
         bookDetailsPage
             .assertOnPage(data.bookId);
+
+        personalBookInfoDetails
+            .assertGiftDate(giftDate)
+            .assertGiftOccasion(giftOccasion)
+            .assertGiftFrom(giftFrom)
+            .assertGiftReason(giftReason);
+    });
+
+    it('creates personalBookInfo with buyInfo correct', function () {
+        var buyPriceAmount = 45;
+        var buyReason= 'reason';
+        var buyCity= 'city';
+        var buyShop = 'shop';
+        var buyCountry= 'country';
+        var buyDate = '12-12-2000';
+
+        loginPage.login();
+
+        bookDetailsPage
+            .navigateTo(data.secondBookId);
+
+        personalBookInfoDetails
+            .clickOnCreatePersonalBookInfo();
+
+        PersonalBookInfoCreationPage
+            .assertOnPage(data.secondBookId)
+            .assertInCollectionPanelVisible(true)
+            .clickOnBuyInfo()
+            .assertBuyInfoPanelVisible(true)
+            .setBuyDate(buyDate)
+            .setBuyPrice(1, buyPriceAmount)
+            .setBuyReason(buyReason)
+            .setBuyCity(buyCity)
+            .setBuyCountry(buyCountry)
+            .setBuyShop(buyShop)
+            .save();
+
+        bookDetailsPage
+            .assertOnPage(data.secondBookId);
+
+        personalBookInfoDetails
+            .assertBuyDate(buyDate)
+            .assertBuyPrice('€', buyPriceAmount)
+            .assertBuyCountry(buyCountry)
+            .assertBuyCity(buyCity)
+            .assertBuyShop(buyShop)
+            .assertBuyReason(buyReason);
+    });
+
+    it('creates personalBookInfo with giftInfo correct', function () {
+        var giftReason= 'reason';
+        var giftDate= '12-12-2000';
+        var giftOccasion= 'occasion';
+        var giftFrom= 'from';
+
+        loginPage.login();
+
+        bookDetailsPage
+            .navigateTo(data.thirdBookId);
+
+        personalBookInfoDetails
+            .clickOnCreatePersonalBookInfo();
+
+        PersonalBookInfoCreationPage
+            .assertOnPage(data.thirdBookId)
+            .assertInCollectionPanelVisible(true)
+            .clickOnGiftInfo()
+            .assertGiftInfoPanelVisible(true)
+            .setGiftDate(giftDate)
+            .setGiftReason(giftReason)
+            .setGiftOccasion(giftOccasion)
+            .setGiftFrom(giftFrom)
+            .save();
+
+        bookDetailsPage
+            .assertOnPage(data.thirdBookId);
 
         personalBookInfoDetails
             .assertGiftDate(giftDate)
