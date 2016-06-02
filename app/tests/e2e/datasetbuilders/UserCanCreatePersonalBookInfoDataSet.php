@@ -31,8 +31,10 @@ class UserCanCreatePersonalBookInfoDataSet implements DataSet
         $userId = $this->createUser();
         $authorId = $this->createAuthor();
         $bookId = $this->createBook($userId, $authorId);
+        $secondBookId = $this->createBook($userId, $authorId);
+        $thirdBookId = $this->createBook($userId, $authorId);
 
-        return ['authorId' => $authorId, 'bookId' => $bookId];
+        return ['authorId' => $authorId, 'bookId' => $bookId, 'secondBookId' => $secondBookId, 'thirdBookId' => $thirdBookId];
     }
 
     function getId()

@@ -70,7 +70,10 @@ class PersonalBookInfoService
             $personalBookInfo->reason_not_owned = $request->getReasonNotInCollection();
             $this->giftInfoService->delete($personalBookInfo->id);
             $this->buyInfoService->delete($personalBookInfo->id);
-        }else{
+        }
+        $this->personalBookInfoRepository->save($personalBookInfo);
+
+        if($request->isInCollection()){
             if($request->getBuyInfo() == null && $request->getGiftInfo() == null){
                 throw new ServiceException('Buy or gift information is not given');
             }
@@ -88,7 +91,6 @@ class PersonalBookInfoService
             }
         }
 
-        $this->personalBookInfoRepository->save($personalBookInfo);
         $this->bookElasticIndexer->indexBookById($personalBookInfo->book_id);
         return $personalBookInfo->id;
     }
