@@ -15,7 +15,7 @@ class ImageToJsonAdapter
 
     public function fromBook(Book $book){
         $baseUrl = URL::to('/');
-        $bookImage = $baseUrl . "/bookImages/" . "sprite.png";
+        $bookImage = $baseUrl . "/bookImages/" . $book->spriteFileLocation;
 
         if ($book->useSpriteImage == false) {
             $bookImage = $baseUrl . "/bookImages/" . $book->coverImage;
@@ -30,7 +30,7 @@ class ImageToJsonAdapter
 
     public function fromAuthor(Author $author){
         $baseUrl = URL::to('/');
-        $authorImage = $baseUrl . "/" . Config::get("properties.authorImagesLocation") . "/sprite.png";
+        $authorImage = $baseUrl . "/" . Config::get("properties.authorImagesLocation") . $author->spriteFileLocation;
 
         if ($author->useSpriteImage == false) {
             $authorImage = $baseUrl . "/". Config::get("properties.authorImagesLocation") . "/" . $author->image;
