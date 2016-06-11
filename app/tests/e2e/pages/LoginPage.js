@@ -6,6 +6,10 @@ var LoginPage = {
 };
 
 LoginPage.login = function () {
+    LoginPage.loginWithUser('elisa', 'xxx');
+};
+
+LoginPage.loginWithUser = function(username, password){
     Navigator.navigateTo(LoginPage.url);
 
     browser.driver.manage().window().maximize();
@@ -14,8 +18,8 @@ LoginPage.login = function () {
     var passwordElm = $('input[type=password]');
     var submitButton = $('input[type=submit]');
 
-    userNameElm.sendKeys('elisa');
-    passwordElm.sendKeys('xxx');
+    userNameElm.sendKeys(username);
+    passwordElm.sendKeys(password);
     submitButton.click();
 };
 

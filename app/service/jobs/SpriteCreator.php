@@ -16,55 +16,90 @@ class SpriteCreator {
 
 
     public function createSpriteForImages($folder, $onImageFound) {
-        list($images, $heightSprite) = self::getImagesFromFolder($folder);
+        $spriteImages = self::getImagesFromFolder($folder);
 
-        $spriteImage = imagecreatetruecolor(self::WIDTH, $heightSprite);
-        imagesavealpha($spriteImage, true);
-        $alpha = imagecolorallocatealpha($spriteImage, 0, 0, 0, 127);
-        imagefill($spriteImage,0,0,$alpha);
+        $counter = 1;
 
-        $imageYPointer = 0;
-        /** @var Image $image */
-        foreach($images as $image) {
-            if(exif_imagetype($folder .'/'. $image->getFile()) === IMAGETYPE_JPEG){
-                $this->logger->info("Found file: " . $image->getFile());
-                $onImageFound($image, $imageYPointer);
-                $tempImage = imagecreatefromjpeg($folder.'/'.$image->getFile());
-                imagecopy($spriteImage, $tempImage, 0, $imageYPointer, 0, 0, $image->getWidth(), $image->getHeight());
-                imagedestroy($tempImage);
-                $imageYPointer = $imageYPointer + $image->getHeight();
-            }else{
-                $this->logger->info("Found file with filetype: " . exif_imagetype($folder .'/'. $image->getFile()) . ". Image: " . $image->getFile());
+        /** @var SpriteImage $spriteImage */
+        foreach($spriteImages as $spriteImage){
+            $imageYPointer = 0;
+            $filename = self::SPRITE . '_' . $counter . '.jpg';
+
+            $concatenatedImage = $this->createSpriteImageToBeFilledIn($spriteImage);
+
+            /** @var Image $image */
+            foreach($spriteImage->getImages() as $image) {
+
+                if(exif_imagetype($folder .'/'. $image->getFile()) === IMAGETYPE_JPEG){
+                    $this->logger->info("Found file: " . $image->getFile());
+                    $tempImage = imagecreatefromjpeg($folder.'/'.$image->getFile());
+                    imagecopy($concatenatedImage, $tempImage, 0, $imageYPointer, 0, 0, $image->getWidth(), $image->getHeight());
+                    imagedestroy($tempImage);
+                    $imageYPointer = $imageYPointer + $image->getHeight();
+                    $onImageFound($image, $imageYPointer, $filename);
+                }else{
+                    $this->logger->info("Found file with filetype: " . exif_imagetype($folder .'/'. $image->getFile()) . ". Image: " . $image->getFile());
+                }
             }
+
+            imagejpeg($concatenatedImage, $folder . '/' . $filename, 80); // Save image to file
+            imagedestroy($concatenatedImage);
+            $counter++;
         }
-        imagepng($spriteImage, $folder . '/' .self::SPRITE.'.png', 9, PNG_ALL_FILTERS); // Save image to file
-        imagedestroy($spriteImage);
     }
 
     private function getImagesFromFolder($folder)
     {
         $fileTypes = array('jpg'=>true);
-        $heightSprite = 0;
-        $images = array();
+        $spriteImages = array();
+        $counter = 0;
         if ($handle = opendir($folder)) {
+            $spriteImage = new SpriteImage();
             while (false !== ($file = readdir($handle))) {
-                $split = explode('.', $file);
-                // Ignore non-matching file extensions
-                if ($file[0] == '.' || !isset($fileTypes[$split[count($split) - 1]]))
-                    continue;
+
+                if ($this->isFileNotACorrectImageFile($file, $fileTypes)) continue;
+
                 // Get image size and ensure it has the correct dimensions
                 $output = getimagesize($folder . '/' . $file);
-
-                // Image will be added to sprite, add to array
-                $this->logger->info("FILE TYPE: " . $output["mime"]);
                 $width = $output[0];
                 $height = $output[1];
-                array_push($images, new Image($width, $height, $file));
-                $heightSprite = $heightSprite + $height;
+                $spriteImage->addImage(new Image($width, $height, $file));
+
+                $counter++;
+                if($counter == 50){
+                    array_push($spriteImages, $spriteImage);
+                    $counter = 0;
+                    $spriteImage = new SpriteImage();
+                }
+
             }
             closedir($handle);
-            return array($images, $heightSprite);
         }
-        return array($images, $heightSprite);
+        return $spriteImages;
+    }
+
+    /**
+     * @param $file
+     * @param $fileTypes
+     * @param $split
+     * @return bool
+     */
+    private function isFileNotACorrectImageFile($file, $fileTypes)
+    {
+        $split = explode('.', $file);
+        return $file[0] == '.' || !isset($fileTypes[$split[count($split) - 1]]) || substr($file, 0, 6) === "sprite";
+    }
+
+    /**
+     * @param $spriteImage
+     * @return resource
+     */
+    private function createSpriteImageToBeFilledIn($spriteImage)
+    {
+        $concatenatedImage = imagecreatetruecolor(self::WIDTH, $spriteImage->getSpriteHeight());
+        imagesavealpha($concatenatedImage, true);
+        $alpha = imagecolorallocatealpha($concatenatedImage, 0, 0, 0, 127);
+        imagefill($concatenatedImage, 0, 0, $alpha);
+        return $concatenatedImage;
     }
 }

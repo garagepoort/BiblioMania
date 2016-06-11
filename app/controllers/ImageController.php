@@ -47,10 +47,11 @@ class ImageController extends BaseController
             $book->save();
         }
         $folder = public_path() . "/" . Config::get("properties.bookImagesLocation");
-        $this->createSprite($folder, function(Image $image, $imageYPointer){
+        $this->createSprite($folder, function(Image $image, $imageYPointer, $filename){
             $book = Book::where('coverImage', '=', $image->getFile())->first();
             if($book != null) {
-                $book->spritePointer = $imageYPointer;
+                $book->spriteFileLocation = $filename;
+                $book->spritePointer = $imageYPointer - $image->getHeight();
                 $book->imageHeight = $image->getHeight();
                 $book->imageWidth = $image->getWidth();
                 $book->useSpriteImage = true;
@@ -72,9 +73,10 @@ class ImageController extends BaseController
             $author->save();
         }
         $folder = public_path() . "/" . Config::get("properties.authorImagesLocation");
-        $this->createSprite($folder, function($image, $imageYPointer){
+        $this->createSprite($folder, function($image, $imageYPointer, $filename){
             $author = Author::where('image', '=', $image->getFile())->first();
             if($author != null){
+                $author->spriteFileLocation = $filename;
                 $author->spritePointer = $imageYPointer;
                 $author->imageHeight = $image->getHeight();
                 $author->imageWidth = $image->getWidth();
