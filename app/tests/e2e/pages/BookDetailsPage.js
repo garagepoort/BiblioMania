@@ -99,5 +99,9 @@ BookDetailsPage.assertPublisherSerie = function (publisherSerie) {
     return this;
 };
 
+BookDetailsPage.assertReadingDatePanelVisible= function(displayed){
+    expect(element(by.id('reading-dates-panel')).isDisplayed()).toBe(displayed);
+    return this;
+};
 
 module.exports = BookDetailsPage;

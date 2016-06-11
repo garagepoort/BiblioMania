@@ -1,17 +1,17 @@
 <div class="form-subtitle">
     <div>Lees data</div>
-    <button type="button" class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="openEditReadingDateModal()"><i class="fa fa-plus"> Leesdatum toevoegen</i></button>
-    <button type="button" class="btn btn-sm form-subtitle-button btn-primary round-corners" ng-click="addTodayAsReadingDate()">Vandaag uitgelezen</button>
+    <button id="add-reading-date-button" type="button" class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="openEditReadingDateModal()"><i class="fa fa-plus"> Leesdatum toevoegen</i></button>
+    <button id="add-reading-date-today-button" type="button" class="btn btn-sm form-subtitle-button btn-primary round-corners" ng-click="addTodayAsReadingDate()">Vandaag uitgelezen</button>
 </div>
 <div class="form-content detail-panel">
     <table class="table table-striped">
         <tbody>
-        <tr ng-repeat-start="date in book.personalBookInfo.readingDates" class="cursor-pointer accordion-toggle" data-toggle="collapse" data-target="{{ '#' + date.id + '_readingDateInformationRow' }}">
-            <td>{{ convertDate(date.date) }}</td>
+        <tr id="reading-date-row-{{$index}}" ng-repeat-start="date in book.personalBookInfo.readingDates" class="cursor-pointer accordion-toggle reading-date-row" data-toggle="collapse" data-target="{{ '#' + date.id + '_readingDateInformationRow' }}">
+            <td id="date-{{$index}}">{{ convertDate(date.date) }}</td>
 
             <td class="text-align-right">
                 <button ng-click="openEditReadingDateModal(date);" type="button" class="btn btn-default btn-xs"><span class="fa fa-pencil"></span></button>
-                <button ng-click="removeReadingDate(date);" type="button" class="btn btn-sm btn-default btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+                <button id="delete-reading-date-button-{{$index}}" ng-click="removeReadingDate(date);" type="button" class="btn btn-sm btn-default btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
             </td>
         </tr>
         <tr ng-repeat-end>
@@ -21,7 +21,7 @@
                         <dt>rating</dt>
                         <dd><uib-rating ng-model="date.rating" max="10" readonly="true" class="book-rating"></uib-rating></dd>
                         <dt>review</dt>
-                        <dd>{{date.review}}</dd>
+                        <dd id="review-{{$index}}">{{date.review}}</dd>
                     </dl>
                 </div>
             </td>

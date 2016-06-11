@@ -8,6 +8,18 @@
 
 class UserController extends BaseController{
 
+    /** @var UserService $userService */
+    private $userService;
+
+    /**
+     * UserController constructor.
+     */
+    public function __construct()
+    {
+        $this->userService = App::make('UserService');
+    }
+
+
     public function goToCreateUser() {
         return View::make('createUser')->with(array('title' => 'Create user'));
     }
@@ -18,17 +30,11 @@ class UserController extends BaseController{
     }
 
     public function createUser() {
-        $userService = App::make('UserService');
-
-        $user = new User();
         $password = Input::get('password');
         $confirmPassword = Input::get('confirmPassword');
 
         if(strcmp ($password, $confirmPassword) == 0){
-            $user->username = Input::get('username');
-            $user->email = Input::get('email');
-            $user->password = Hash::make(Input::get('password'));
-            $userService->saveUser($user);
+            $this->userService->createUser(Input::get('username'), Input::get('email'), Input::get('password'));
             return Redirect::to('login');
         }else{
             return Redirect::to('createUser')->with('message', 'Passwords aren\'t equal.');
