@@ -21,16 +21,23 @@ class PublisherSerieController extends BaseController
         }, $this->publisherSerieService->getPublisherSeries()->all());
     }
 
+    public function deleteSerie($id){
+        $this->publisherSerieService->deleteSerie($id);
+    }
+
     public function updateSerie(){
         $this->publisherSerieService->update($this->jsonMappingService->mapInputToJson(Input::get(), new UpdateSerieFromJsonAdapter()));
     }
 
     public function addBookToSerie($serieId){
-        $mapInputToJson = $this->jsonMappingService->mapInputToJson(Input::get(), new BookIdFromJsonAdapter());
-        $this->publisherSerieService->addBookToSerie($serieId, $mapInputToJson);
+        /** @var BookIdFromJsonAdapter $bookIdFromJsonAdapter */
+        $bookIdFromJsonAdapter = $this->jsonMappingService->mapInputToJson(Input::get(), new BookIdFromJsonAdapter());
+        $this->publisherSerieService->addBookToSerie($serieId, $bookIdFromJsonAdapter);
     }
+
     public function removeBookFromSerie($serieId){
-        $mapInputToJson = $this->jsonMappingService->mapInputToJson(Input::get(), new BookIdFromJsonAdapter());
-        $this->publisherSerieService->removeBookFromSerie($serieId, $mapInputToJson);
+        /** @var BookIdFromJsonAdapter $bookIdFromJsonAdapter */
+        $bookIdFromJsonAdapter = $this->jsonMappingService->mapInputToJson(Input::get(), new BookIdFromJsonAdapter());
+        $this->publisherSerieService->removeBookFromSerie($serieId, $bookIdFromJsonAdapter);
     }
 }
