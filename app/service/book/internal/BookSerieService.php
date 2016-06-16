@@ -20,6 +20,10 @@ class BookSerieService
         $this->bookRepository = App::make('BookRepository');
     }
 
+    /**
+     * @param $name
+     * @return Serie
+     */
     public function findOrSave($name)
     {
         $serie = Serie::where(array('name' => $name))->first();

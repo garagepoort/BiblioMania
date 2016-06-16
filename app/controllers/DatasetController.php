@@ -9,6 +9,7 @@ use e2e\datasetbuilders\UserCanCreatePersonalBookInfoDataSet;
 use e2e\datasetbuilders\UserCanLinkAndUnlinkAuthorToBookDataSet;
 use e2e\datasetbuilders\UserCanLinkAndUnlinkOeuvreItemToBookDataSet;
 use e2e\datasetbuilders\UserCanLinkExistingFirstPrintInfoToBookDataSet;
+use e2e\datasetbuilders\UserCanRemoveBookSerieDataSet;
 
 class DatasetController extends BaseController {
 
@@ -27,7 +28,8 @@ class DatasetController extends BaseController {
 			'user.can.add.and.remove.book.from.wishlist' => new UserCanAddAndRemoveBookFromWishlistDataSet(),
 			'user.can.link.and.unlink.oeuvre.item.to.book' => new UserCanLinkAndUnlinkOeuvreItemToBookDataSet(),
 			'user.can.create.personal.book.info' => new UserCanCreatePersonalBookInfoDataSet(),
-			'user.can.add.and.remove.reading.date' => new UserCanAddAndRemoveReadingDateDataSet()
+			'user.can.add.and.remove.reading.date' => new UserCanAddAndRemoveReadingDateDataSet(),
+			'user.can.remove.book.serie' => new UserCanRemoveBookSerieDataSet()
 		];
 	}
 
@@ -35,7 +37,7 @@ class DatasetController extends BaseController {
 	public function executeDataset($datasetId){
 		/** @var DataSet $dataset */
 		$dataset = $this->datasets[$datasetId];
-		Ensure::objectNotNull('dataset', $dataset);
+		Ensure::objectNotNull('dataset', $dataset, 'Dataset with id '. $datasetId .' not found!');
 
 		return $dataset->run();
 	}

@@ -49,7 +49,6 @@
         vm.editSerie = editSerie;
         vm.onEditBook = onEditBook;
         vm.deleteSerie = deleteSerie;
-        vm.setListView = setListView;
 
         var selectBookHandler = function (book) {
             if (vm.bookDetailPanelOpen && vm.selectedBook.id === book.id) {
@@ -108,10 +107,6 @@
 
         function onEditBook(book) {
             $location.path('/book-details/' + book.id);
-        }
-
-        function setListView(value) {
-            vm.listView = value;
         }
 
         function loadSeries() {
