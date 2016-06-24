@@ -7,8 +7,6 @@
             'com.bendani.bibliomania.author.model',
             'com.bendani.bibliomania.image.selection.modal.service',
             'com.bendani.bibliomania.name.directive',
-            'php.common.uiframework.date',
-            'php.common.uiframework.google.image.search',
             'com.bendani.bibliomania.title.panel'
         ])
         .directive( 'createAuthor', function () {
