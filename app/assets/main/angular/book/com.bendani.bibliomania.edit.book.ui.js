@@ -2,7 +2,6 @@
 
 angular.module('com.bendani.bibliomania.edit.book.ui', ['ngTagsInput',
         'angularBootstrapNavTree',
-        'php.common.uiframework.date',
         'com.bendani.bibliomania.image.fallback',
         'com.bendani.bibliomania.genre.model',
         'com.bendani.bibliomania.tag.model',

@@ -75,4 +75,13 @@ class PublisherSerieService
         $book->publisher_serie_id = null;
         $this->bookRepository->save($book);
     }
+
+    public function deleteSerie($id)
+    {
+        $serieToDelete = $this->publisherSerieRepository->find($id);
+        Ensure::objectNotNull('Serie to update', $serieToDelete, 'Serie does not exist');
+        Ensure::arrayHasLength('books from serie', $serieToDelete->books->all(), 0, 'Serie can not be deleted when it is not empty');
+
+        $this->publisherSerieRepository->delete($serieToDelete);
+    }
 }

@@ -46,13 +46,16 @@ Route::group(array('before' => 'auth'), function () {
     Route::get('countries', 'CountryController@getCountries');
     Route::get('shops', 'ShopController@getShops');
     Route::get('languages', 'LanguageController@getLanguages');
+
     Route::get('publisher-series', 'PublisherSerieController@getPublisherSeries');
     Route::put('publisher-series', 'PublisherSerieController@updateSerie');
+    Route::delete('publisher-series/{id}', 'PublisherSerieController@deleteSerie');
     Route::post('publisher-series/{id}/books', 'PublisherSerieController@addBookToSerie');
     Route::put('publisher-series/{id}/remove-book', 'PublisherSerieController@removeBookFromSerie');
 
     Route::get('series', 'SerieController@getSeries');
     Route::put('series', 'SerieController@updateSerie');
+    Route::delete('series/{id}', 'SerieController@deleteSerie');
     Route::post('series/{id}/books', 'SerieController@addBookToSerie');
     Route::put('series/{id}/remove-book', 'SerieController@removeBookFromSerie');
 

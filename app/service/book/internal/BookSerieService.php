@@ -20,6 +20,10 @@ class BookSerieService
         $this->bookRepository = App::make('BookRepository');
     }
 
+    /**
+     * @param $name
+     * @return Serie
+     */
     public function findOrSave($name)
     {
         $serie = Serie::where(array('name' => $name))->first();
@@ -74,6 +78,15 @@ class BookSerieService
 
         $book->serie_id = null;
         $this->bookRepository->save($book);
+    }
+
+    public function deleteSerie($id)
+    {
+        $serieToDelete = $this->bookSerieRepository->find($id);
+        Ensure::objectNotNull('Serie to update', $serieToDelete, 'Serie does not exist');
+        Ensure::arrayHasLength('books from serie', $serieToDelete->books->all(), 0, 'Serie can not be deleted when it is not empty');
+
+        $this->bookSerieRepository->delete($serieToDelete);
     }
 
 }

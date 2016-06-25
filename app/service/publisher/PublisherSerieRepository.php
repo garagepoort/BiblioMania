@@ -26,7 +26,7 @@ class PublisherSerieRepository implements Repository
 
     public function delete($entity)
     {
-        // TODO: Implement delete() method.
+        $entity->delete();
     }
 
     public function deleteById($id)
