@@ -8,6 +8,7 @@ describe('com.bendani.bibliomania.create.author.directive', function () {
             lastname: 'lastname'
         }
     };
+    var AUTHORS = ['author1', 'author2'];
     var IMAGE = 'image';
 
     var vm, html, $httpBackend, $compile, $scope, errorContainerMock, growlMock, titlePanelServiceMock, imageSelectionModalServiceMock;
@@ -41,6 +42,7 @@ describe('com.bendani.bibliomania.create.author.directive', function () {
 
     function _createController() {
         $httpBackend.expectGET('../BiblioMania/views/partials/author/create-author-directive.html').respond(200, 'somehtml');
+        $httpBackend.expectGET('../BiblioMania/authors').respond(200, AUTHORS);
         var directive = $compile(html)($scope);
         $scope.$digest();
         $httpBackend.flush();
@@ -57,6 +59,7 @@ describe('com.bendani.bibliomania.create.author.directive', function () {
         it('set vm variables correctly', function () {
             expect(titlePanelServiceMock.setTitle).toHaveBeenCalledWith('translation.author');
             expect(vm.submitAttempted).toBe(false);
+            expect(vm.authors).toEqual(jasmine.objectContaining(AUTHORS));
         });
     });
 
@@ -174,6 +177,40 @@ describe('com.bendani.bibliomania.create.author.directive', function () {
                 expect(errorContainerMock.handleRestError).toHaveBeenCalled();
             });
         });
+
+        describe('searchAuthors', function () {
+            it('returns false when model lastname has less then 3 letters', function () {
+                var author = { name: {lastname: 'bedrock'}};
+
+                vm.model.name.lastname = 'be';
+
+                expect(vm.searchAuthors(author)).toBe(false);
+            });
+
+            it('returns false when model name is undefined', function () {
+                var author = { name: {lastname: 'bedrock'}};
+                vm.model.name = undefined;
+
+                expect(vm.searchAuthors(author)).toBe(false);
+            });
+
+            it('returns false when model lastname has error', function () {
+                var author = { name: {lastname: 'bedrock'}};
+                vm.model.name = { lastname: {
+                    $error: 'some error'
+                }};
+
+                expect(vm.searchAuthors(author)).toBe(false);
+            });
+
+            it('returns true when item contains model name', function () {
+                var author = { name: {lastname: 'bedrock'}};
+                vm.model.name = { lastname: 'edro'};
+
+                expect(vm.searchAuthors(author)).toBe(true);
+            });
+        });
+
 
     });
 

@@ -11,6 +11,18 @@
                 </div>
                 <div class="col-md-9">
                     <name ng-model="vm.model.name" submit-attempted="vm.submitAttempted"></name>
+                    <div class="text-warning" ng-show="filteredAuthors.length">
+                        <i class="fa fa-exclamation-circle"></i> {{ 'translation.existing.authors.found' | translate }}
+                    </div>
+                    <table ng-show="filteredAuthors.length" class="table table-striped" style="table-layout: fixed">
+                        <tbody style="text-align: left">
+                        <tr ng-repeat="author in vm.authors | filter: vm.searchAuthors as filteredAuthors">
+                            <td>{{ author.name.firstname }}</td>
+                            <td>{{ author.name.infix }}</td>
+                            <td>{{ author.name.lastname }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
                     <date label="Geboorte jaar" ng-model="vm.model.dateOfBirth"
                           submit-attempted="vm.submitAttempted"></date>
                     <date label="Sterfte jaar" ng-model="vm.model.dateOfDeath"
