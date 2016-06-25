@@ -1,6 +1,7 @@
 <?php
 
 use Bendani\PhpCommon\Utils\Ensure;
+use Bendani\PhpCommon\Utils\Exception\ServiceException;
 use Bendani\PhpCommon\Utils\StringUtils;
 
 class AuthorService
@@ -25,6 +26,12 @@ class AuthorService
 
     public function create(CreateAuthorRequest $createAuthorRequest){
         $author_model = new Author();
+        if(!is_null($createAuthorRequest->getName())){
+            $author = $this->authorRepository->getAuthorByFullName($createAuthorRequest->getName()->getLastname(), $createAuthorRequest->getName()->getFirstname(), $createAuthorRequest->getName()->getInfix());
+            if(!is_null($author)){
+                throw new ServiceException('error.author.can.not.be.created.author.already.exists.with.same.name');
+            }
+        }
         return $this->saveAuthor($author_model, $createAuthorRequest);
     }
 

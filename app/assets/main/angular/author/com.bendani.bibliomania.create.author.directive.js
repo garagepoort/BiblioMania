@@ -9,7 +9,7 @@
             'com.bendani.bibliomania.name.directive',
             'com.bendani.bibliomania.title.panel'
         ])
-        .directive( 'createAuthor', function () {
+        .directive('createAuthor', function () {
             return {
                 scope: {
                     onSave: "&",
@@ -29,14 +29,26 @@
         vm.searchAuthorImage = searchAuthorImage;
         vm.submitForm = submitForm;
         vm.openSelectImageDialog = openSelectImageDialog;
+        vm.searchAuthors = searchAuthors;
 
-        function init(){
+        function init() {
             TitlePanelService.setTitle('translation.author');
             vm.submitAttempted = false;
+            vm.authors = Author.query(function () {
+            }, ErrorContainer.handleRestError);
 
             if (!vm.model) {
                 vm.model = {};
             }
+        }
+
+        function searchAuthors(item) {
+            return !!(
+            vm.model.name &&
+            vm.model.name.lastname && !vm.model.name.lastname.$error &&
+            vm.model.name.lastname.length > 2 &&
+            item.name.lastname.toLowerCase().indexOf(vm.model.name.lastname.toLowerCase()) !== -1);
+
         }
 
         function searchAuthorImage() {
