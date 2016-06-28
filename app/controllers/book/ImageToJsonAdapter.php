@@ -30,7 +30,7 @@ class ImageToJsonAdapter
 
     public function fromAuthor(Author $author){
         $baseUrl = URL::to('/');
-        $authorImage = $baseUrl . "/" . Config::get("properties.authorImagesLocation") . $author->spriteFileLocation;
+        $authorImage = $baseUrl . "/" . Config::get("properties.authorImagesLocation") . "/" . $author->spriteFileLocation;
 
         if ($author->useSpriteImage == false) {
             $authorImage = $baseUrl . "/". Config::get("properties.authorImagesLocation") . "/" . $author->image;
