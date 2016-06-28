@@ -13,7 +13,8 @@
             return {
                 scope: {
                     onSave: "&",
-                    model: '=authorModel'
+                    model: '=authorModel',
+                    showAuthorExistsWarning: '='
                 },
                 restrict: "E",
                 templateUrl: "../BiblioMania/views/partials/author/create-author-directive.html",
@@ -40,6 +41,7 @@
             if (!vm.model) {
                 vm.model = {};
             }
+            vm.showAuthorExistsWarning = !!vm.showAuthorExistsWarning;
         }
 
         function searchAuthors(item) {
