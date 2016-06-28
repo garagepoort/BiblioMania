@@ -77,7 +77,7 @@ class ImageController extends BaseController
             $author = Author::where('image', '=', $image->getFile())->first();
             if($author != null){
                 $author->spriteFileLocation = $filename;
-                $author->spritePointer = $imageYPointer;
+                $author->spritePointer = $imageYPointer - $image->getHeight();
                 $author->imageHeight = $image->getHeight();
                 $author->imageWidth = $image->getWidth();
                 $author->useSpriteImage = true;
