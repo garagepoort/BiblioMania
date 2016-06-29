@@ -35,8 +35,8 @@ class SpriteCreator {
                     $tempImage = imagecreatefromjpeg($folder.'/'.$image->getFile());
                     imagecopy($concatenatedImage, $tempImage, 0, $imageYPointer, 0, 0, $image->getWidth(), $image->getHeight());
                     imagedestroy($tempImage);
-                    $imageYPointer = $imageYPointer + $image->getHeight();
                     $onImageFound($image, $imageYPointer, $filename);
+                    $imageYPointer = $imageYPointer + $image->getHeight();
                 }else{
                     $this->logger->info("Found file with filetype: " . exif_imagetype($folder .'/'. $image->getFile()) . ". Image: " . $image->getFile());
                 }
@@ -46,6 +46,19 @@ class SpriteCreator {
             imagedestroy($concatenatedImage);
             $counter++;
         }
+    }
+
+    public function getAllImageFileNamesFromFolder($folder){
+        $fileTypes = array('jpg'=>true);
+        $images = array();
+        if ($handle = opendir($folder)) {
+            while (false !== ($file = readdir($handle))) {
+                if ($this->isFileNotACorrectImageFile($file, $fileTypes)) continue;
+                array_push($images, $file);
+            }
+            closedir($handle);
+        }
+        return $images;
     }
 
     private function getImagesFromFolder($folder)
@@ -73,6 +86,9 @@ class SpriteCreator {
                 }
 
             }
+            if($counter !== 0){
+                array_push($spriteImages, $spriteImage);
+            }
             closedir($handle);
         }
         return $spriteImages;
@@ -91,10 +107,10 @@ class SpriteCreator {
     }
 
     /**
-     * @param $spriteImage
+     * @param SpriteImage $spriteImage
      * @return resource
      */
-    private function createSpriteImageToBeFilledIn($spriteImage)
+    private function createSpriteImageToBeFilledIn(SpriteImage $spriteImage)
     {
         $concatenatedImage = imagecreatetruecolor(self::WIDTH, $spriteImage->getSpriteHeight());
         imagesavealpha($concatenatedImage, true);

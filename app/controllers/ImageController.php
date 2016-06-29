@@ -42,16 +42,23 @@ class ImageController extends BaseController
     {
         ini_set('max_execution_time', 1000);
         ini_set('memory_limit', '-1');
+        $folder = public_path() . "/" . Config::get("properties.bookImagesLocation");
+        $images = $this->spriteCreator->getAllImageFileNamesFromFolder($folder);
+
         foreach($this->bookService->allBooks() as $book){
+            if(!in_array($book->coverImage, $images, true)){
+                $book->coverImage = null;
+            }
             $book->useSpriteImage = false;
+            $book->spritePointer = 0;
             $book->save();
         }
-        $folder = public_path() . "/" . Config::get("properties.bookImagesLocation");
+
         $this->createSprite($folder, function(Image $image, $imageYPointer, $filename){
             $book = Book::where('coverImage', '=', $image->getFile())->first();
             if($book != null) {
                 $book->spriteFileLocation = $filename;
-                $book->spritePointer = $imageYPointer - $image->getHeight();
+                $book->spritePointer = $imageYPointer;
                 $book->imageHeight = $image->getHeight();
                 $book->imageWidth = $image->getWidth();
                 $book->useSpriteImage = true;
@@ -68,16 +75,23 @@ class ImageController extends BaseController
     {
         ini_set('max_execution_time', 1000);
         ini_set('memory_limit', '-1');
+        $folder = public_path() . "/" . Config::get("properties.authorImagesLocation");
+        $images = $this->spriteCreator->getAllImageFileNamesFromFolder($folder);
+
         foreach($this->authorService->getAllAuthors() as $author){
+            if(!in_array($author->image, $images, true)){
+                $author->image = null;
+            }
             $author->useSpriteImage = false;
+            $author->spritePointer = 0;
             $author->save();
         }
-        $folder = public_path() . "/" . Config::get("properties.authorImagesLocation");
+
         $this->createSprite($folder, function($image, $imageYPointer, $filename){
             $author = Author::where('image', '=', $image->getFile())->first();
             if($author != null){
                 $author->spriteFileLocation = $filename;
-                $author->spritePointer = $imageYPointer - $image->getHeight();
+                $author->spritePointer = $imageYPointer;
                 $author->imageHeight = $image->getHeight();
                 $author->imageWidth = $image->getWidth();
                 $author->useSpriteImage = true;

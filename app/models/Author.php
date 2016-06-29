@@ -4,6 +4,8 @@
  * Class Author
  *
  * @property string name
+ * @property string image
+ * @property boolean useSpriteImage
  */
 class Author extends Eloquent {
     protected $table = 'author';
