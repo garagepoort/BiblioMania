@@ -5,6 +5,7 @@ use Bendani\PhpCommon\Utils\Exception\ServiceException;
 class PublisherSerieServiceAddBookToSerieTest extends TestCase
 {
     const PUBLISHER_SERIE_ID = 123;
+    const PUBLISHER_ID = 12;
     /** @var  PublisherSerieService */
     private $publisherSerieService;
 
@@ -29,10 +30,16 @@ class PublisherSerieServiceAddBookToSerieTest extends TestCase
         $this->bookRepository = $this->mock('BookRepository');
 
         $this->serie = $this->mockEloquent('PublisherSerie');
-        $this->serie->shouldReceive('getAttribute')->with("id")->andReturn(self::PUBLISHER_SERIE_ID);
+        $this->serie->shouldReceive('getAttribute')->with("id")->andReturn(self::PUBLISHER_SERIE_ID)->byDefault();
+        $this->serie->shouldReceive('getAttribute')->with("publisher_id")->andReturn(self::PUBLISHER_ID)->byDefault();
 
         $this->book = $this->mockEloquent('Book');
-        $this->book->shouldReceive('getAttribute')->with("id")->andReturn($this->bookIdRequest->getBookId());
+        $this->book->shouldReceive('getAttribute')->with("publisher_id")->andReturn(self::PUBLISHER_ID)->byDefault();
+        $this->book->shouldReceive('getAttribute')->with("id")->andReturn($this->bookIdRequest->getBookId())->byDefault();
+
+
+        $this->publisherSerieRepository->shouldReceive('find')->with(self::PUBLISHER_SERIE_ID)->andReturn($this->serie)->byDefault();
+        $this->bookRepository->shouldReceive('find')->with($this->bookIdRequest->getBookId())->andReturn($this->book)->byDefault();
 
         $this->publisherSerieService = App::make('PublisherSerieService');
     }
@@ -40,11 +47,8 @@ class PublisherSerieServiceAddBookToSerieTest extends TestCase
 
 
     public function test_addsCorrectly(){
-        $this->publisherSerieRepository->shouldReceive('find')->with(self::PUBLISHER_SERIE_ID)->andReturn($this->serie);
-        $this->bookRepository->shouldReceive('find')->with($this->bookIdRequest->getBookId())->andReturn($this->book);
-
         $this->book->shouldReceive('setAttribute')->with("publisher_serie_id", $this->bookIdRequest->getBookId());
-        $this->bookRepository->shouldReceive('save')->with($this->book);
+        $this->bookRepository->shouldReceive('save')->once()->with($this->book);
 
         $this->publisherSerieService->addBookToSerie(self::PUBLISHER_SERIE_ID, $this->bookIdRequest);
     }
@@ -59,14 +63,22 @@ class PublisherSerieServiceAddBookToSerieTest extends TestCase
         $this->publisherSerieService->addBookToSerie(self::PUBLISHER_SERIE_ID, $this->bookIdRequest);
     }
 
-
     /**
      * @expectedException Bendani\PhpCommon\Utils\Exception\ServiceException
      * @expectedExceptionMessage Book does not exist
      */
     public function test_shouldThrowExceptionWhenBookDoesNotExists(){
-        $this->publisherSerieRepository->shouldReceive('find')->with(self::PUBLISHER_SERIE_ID)->andReturn($this->serie);
         $this->bookRepository->shouldReceive('find')->with($this->bookIdRequest->getBookId())->andReturn(null);
+
+        $this->publisherSerieService->addBookToSerie(self::PUBLISHER_SERIE_ID, $this->bookIdRequest);
+    }
+
+    /**
+     * @expectedException Bendani\PhpCommon\Utils\Exception\ServiceException
+     * @expectedExceptionMessage Book does not have same publisher as Publisher Serie
+     */
+    public function test_shouldThrowExceptionWhenBookPublisherAndSeriePublisherDoNotMatch(){
+        $this->book->shouldReceive('getAttribute')->with("publisher_id")->andReturn(211);
 
         $this->publisherSerieService->addBookToSerie(self::PUBLISHER_SERIE_ID, $this->bookIdRequest);
     }

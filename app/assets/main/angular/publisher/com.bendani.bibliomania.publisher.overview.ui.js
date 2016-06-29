@@ -29,7 +29,10 @@ angular.module('com.bendani.bibliomania.publisher.overview.ui', [
             }
 
             $scope.search = function (item) {
-                if ((item.name.toLowerCase().indexOf($scope.searchSeriesQuery) !== -1)) {
+                if(!$scope.searchPublisherQuery){
+                    return true;
+                }
+                if ((item.name.toLowerCase().indexOf($scope.searchPublisherQuery.toLowerCase()) !== -1)) {
                     return true;
                 }
                 return false;

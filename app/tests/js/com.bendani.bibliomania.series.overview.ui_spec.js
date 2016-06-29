@@ -3,6 +3,7 @@ describe('com.bendani.bibliomania.series.overview.ui', function () {
         var BOOK_ID = 12;
         var OTHER_BOOK_ID = 13;
         var SERIE_ID = 123;
+        var PUBLISHER_ID = 456;
 
         var TITLE = 'some title';
         var BOOK = {
@@ -22,7 +23,8 @@ describe('com.bendani.bibliomania.series.overview.ui', function () {
 
         var SERIE = {
             id: SERIE_ID,
-            name: 'serie'
+            name: 'serie',
+            publisherId: PUBLISHER_ID
         };
         var SERIES = [SERIE];
 
@@ -63,11 +65,9 @@ describe('com.bendani.bibliomania.series.overview.ui', function () {
                 $controller = _$controller_;
                 Serie = _Serie_;
             });
-
-            _createController();
         });
 
-        function _createController() {
+        function _createController(type) {
             $httpBackend.expectGET('../BiblioMania/series').respond(200, SERIES);
 
             vm = $controller('SeriesOverviewController', {
@@ -79,13 +79,19 @@ describe('com.bendani.bibliomania.series.overview.ui', function () {
                 EditSerieModalService: editSerieModalServiceMock,
                 ConfirmationModalService: confirmationModalServiceMock,
                 client: Serie,
-                title: TITLE
+                title: TITLE,
+                type: type
             });
 
             $httpBackend.flush();
         }
 
         describe('init', function () {
+
+            beforeEach(function(){
+                _createController('SERIE');
+            });
+
             it('calls title panel service with title and sets show previous button to false', function () {
                 expect(titlePanelServiceMock.setTitle).toHaveBeenCalledWith(TITLE);
                 expect(titlePanelServiceMock.setShowPreviousButton).toHaveBeenCalledWith(false);
@@ -110,6 +116,11 @@ describe('com.bendani.bibliomania.series.overview.ui', function () {
         });
 
         describe('on book selected', function () {
+
+            beforeEach(function(){
+                _createController('SERIE');
+            });
+
             it('opens book detail panel with selected book when no book selected', function () {
                 $httpBackend.expectGET('../BiblioMania/books/' + BOOK_ID).respond(200, FULL_BOOK);
 
@@ -146,6 +157,11 @@ describe('com.bendani.bibliomania.series.overview.ui', function () {
         });
 
         describe('search', function () {
+
+            beforeEach(function(){
+                _createController('SERIE');
+            });
+
             it('returns true when searchSeriesQuery part of itemName', function () {
                 vm.searchSeriesQuery = 'bla';
 
@@ -160,6 +176,11 @@ describe('com.bendani.bibliomania.series.overview.ui', function () {
         });
 
         describe('onImageClickBook', function () {
+
+            beforeEach(function(){
+                _createController('SERIE');
+            });
+
             it('calls bookOverviewService', function () {
                 vm.onImageClickBook(BOOK);
 
@@ -168,14 +189,29 @@ describe('com.bendani.bibliomania.series.overview.ui', function () {
         });
 
         describe('editSerie', function () {
-            it('calls EditSerieModalService correctly', function () {
+            it('calls EditSerieModalService with empty filters when type BOOK', function () {
+                _createController('SERIE');
+
                 vm.editSerie(SERIE);
 
-                expect(editSerieModalServiceMock.show).toHaveBeenCalledWith(SERIE, Serie, jasmine.any(Function));
+                expect(editSerieModalServiceMock.show).toHaveBeenCalledWith(SERIE, [], Serie, jasmine.any(Function));
+            });
+
+            it('calls EditSerieModalService with correct filters when type PUBLISHER', function () {
+                _createController('PUBLISHER');
+
+                vm.editSerie(SERIE);
+
+                expect(editSerieModalServiceMock.show).toHaveBeenCalledWith(SERIE, [{id: "book-publisher", value: [{value: PUBLISHER_ID}]}], Serie, jasmine.any(Function));
             });
         });
 
         describe('onEditBook', function () {
+
+            beforeEach(function(){
+                _createController('SERIE');
+            });
+
             it('redirects to edit book', function () {
                 vm.onEditBook(BOOK);
 
@@ -184,6 +220,11 @@ describe('com.bendani.bibliomania.series.overview.ui', function () {
         });
 
         describe('deleteSerie', function () {
+
+            beforeEach(function(){
+                _createController('SERIE');
+            });
+
             it('calls confirmationModalService and deletes', function () {
                 $httpBackend.expectDELETE('../BiblioMania/series/' + SERIE_ID).respond(204);
 

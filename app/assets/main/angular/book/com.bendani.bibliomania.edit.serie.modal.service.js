@@ -5,7 +5,7 @@ angular.module('com.bendani.bibliomania.edit.serie.modal.service', [
     .provider('EditSerieModalService', function EditSerieModalServiceProvider(){
         function EditSerieModalService($uibModal) {
             var service = {
-                show: function(serie, client, onResultFunction) {
+                show: function(serie, filters, client, onResultFunction) {
 
                     var modalInstance = $uibModal.open({
                         templateUrl: '../BiblioMania/views/partials/book/edit-serie-modal.html',
@@ -17,6 +17,9 @@ angular.module('com.bendani.bibliomania.edit.serie.modal.service', [
                             },
                             client: function(){
                                 return client;
+                            },
+                            filters: function(){
+                                return filters;
                             }
                         }
                     });
@@ -31,7 +34,7 @@ angular.module('com.bendani.bibliomania.edit.serie.modal.service', [
             return new EditSerieModalService($uibModal);
         }];
     })
-    .controller('EditSerieModalController', ['$scope', 'ErrorContainer', 'serieModel', 'growl', 'Book', 'client', function($scope, ErrorContainer, serieModel, growl, Book, client){
+    .controller('EditSerieModalController', ['$scope', 'ErrorContainer', 'serieModel', 'growl', 'Book', 'client', 'filters', function($scope, ErrorContainer, serieModel, growl, Book, client, filters){
         function init(){
             $scope.model = serieModel;
             $scope.data = {};
@@ -39,7 +42,7 @@ angular.module('com.bendani.bibliomania.edit.serie.modal.service', [
             $scope.searchAllBooksQuery = '';
             $scope.searchModelBooksQuery = '';
 
-            Book.query(function(books){
+            Book.searchAllBooks(filters, function(books){
                 $scope.data.books = books;
             }, ErrorContainer.handleRestError);
         }

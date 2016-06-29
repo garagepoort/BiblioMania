@@ -18,7 +18,6 @@ class PublisherSerieService
 
     public function findOrSave($name, $publisher_id)
     {
-
         $serie = PublisherSerie::where(array('name' => $name))
             ->where('publisher_id', '=', $publisher_id)
             ->first();
@@ -57,6 +56,10 @@ class PublisherSerieService
         Ensure::objectNotNull('Serie to update', $serieToUpdate, 'Serie does not exist');
         $book = $this->bookRepository->find($bookIdRequest->getBookId());
         Ensure::objectNotNull('Book to update', $book, 'Book does not exist');
+
+        if($serieToUpdate->publisher_id != $book->publisher_id){
+            throw new ServiceException('Book does not have same publisher as Publisher Serie');
+        }
 
         $book->publisher_serie_id = $serieId;
         $this->bookRepository->save($book);
