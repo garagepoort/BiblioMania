@@ -22,7 +22,6 @@ class SerieToJsonAdapter
         }, $serie->books->all());
     }
 
-
     public function mapToJson(){
         return array(
             'id'=>$this->id,

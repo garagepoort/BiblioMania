@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: david
- * Date: 11/04/15
- * Time: 09:50
- */
 
 class PublisherRepository implements Repository{
 
@@ -19,6 +13,13 @@ class PublisherRepository implements Repository{
     public function findByUserAndName($userId, $name){
         return Publisher::where('name', '=', $name)
             ->where("user_id", "=", $userId)
+            ->first();
+    }
+
+    public function findByUserAndId($userId, $id, $with = array()){
+        return Publisher::with($with)
+            ->where('id', '=', $id)
+            ->where('user_id', '=', $userId)
             ->first();
     }
 

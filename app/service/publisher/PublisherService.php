@@ -43,17 +43,14 @@ class PublisherService
         }
     }
 
-    public function deletePublisher($publisherId){
-        $publisher = Publisher::with('books', 'first_print_infos')
-            ->where('user_id' , '=', Auth::user()->id)
-            ->where('id', '=', $publisherId)
-            ->first();
+    public function deletePublisher($userId, $publisherId){
+        $publisher = $this->publisherRepository->findByUserAndId($userId, $publisherId, array('books', 'first_print_infos'));
 
-        if($publisher != null && count($publisher->books) == 0 && count($publisher->first_print_infos) == 0){
-            $publisher->delete();
-        }else{
-            throw new ServiceException('Een uitgever met boeken mag niet verwijdert worden.');
-        }
+        Ensure::objectNotNull('publisher', $publisher, 'translation.error.publisher.not.found');
+        Ensure::arrayHasLength('publisher books', $publisher->books->all(), 0, 'translation.error.publisher.linked.to.books.can.not.be.deleted');
+        Ensure::arrayHasLength('publisher first print', $publisher->first_print_infos->all(), 0, 'translation.error.publisher.linked.to.first.print.infos.can.not.be.deleted');
+
+        $this->publisherRepository->delete($publisher);
     }
 
     public function getPublishers(){
@@ -62,16 +59,16 @@ class PublisherService
             ->orderBy('name', 'asc')->get();
     }
 
-    public function getPublisherSeries($publisherId){
+    public function getPublisherSeries($userId, $publisherId){
         /** @var Publisher $publisher */
-        $publisher = $this->publisherRepository->find($publisherId, array('series'));
+        $publisher = $this->publisherRepository->findByUserAndId($userId, $publisherId, array('series'));
         Ensure::objectNotNull('publisher', $publisher);
         return $publisher->series;
     }
 
-    public function getPublisherBooks($publisherId){
+    public function getPublisherBooks($userId, $publisherId){
         /** @var Publisher $publisher */
-        $publisher = $this->publisherRepository->find($publisherId, array('books'));
+        $publisher = $this->publisherRepository->findByUserAndId($userId, $publisherId, array('books'));
         Ensure::objectNotNull('publisher', $publisher);
         return $publisher->books;
     }
