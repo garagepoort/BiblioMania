@@ -29,7 +29,7 @@
                         <td colspan="12">
                             <div class="accordian-body collapse" id="{{ serie.id + '_booksRow' }}">
                                 <!--<img ng-repeat="book in serie.books" src-with-fallback="{{ book.image }}" class="margin-10">-->
-                                <image-card ng-repeat="book in serie.books" model="book" warnings="book.warnings" on-image-click="onImageClickBook(book)" show-edit-button="false" backup-text="{{ book.title }}"></image-card>
+                                <image-card ng-repeat="book in serie.books" model="book" warnings="book.warnings" on-image-click="vm.onImageClickBook(book)" show-edit-button="false" backup-text="{{ book.title }}"></image-card>
                             </div>
                         </td>
                     </tr>
