@@ -254,10 +254,11 @@ class BookElasticIndexer
     private function indexAuthors($book)
     {
         $authors = array_map(function ($author) {
+            /** @var Author $author */
             return [
                 'id' => intval($author->id),
                 'firstname' => $author->firstname,
-                'lastname' => $author->lastname
+                'lastname' => $author->name
             ];
         }, $book->authors->all());
         return $authors;

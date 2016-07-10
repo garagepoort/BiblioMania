@@ -14,11 +14,11 @@ class BookApiController extends BaseController
     }
 
     public function index(){
-        $user = $this->apiAuthenticationService->checkUserAuthenticated();
-        if($user != null){
-            return $user;
+        $error = $this->apiAuthenticationService->checkUserAuthenticated();
+        if($error != null){
+            return $error;
         }else{
-            return $this->bookService->getAllCompletedFullBooks();
+            return $this->bookService->searchAllBooks(Auth::user()->id, array());
         }
     }
 

@@ -7,7 +7,10 @@
  */
 
 class ApiAuthenticationService {
-    
+
+    /**
+     * @return null
+     */
     public function checkUserAuthenticated()
     {
         try {
