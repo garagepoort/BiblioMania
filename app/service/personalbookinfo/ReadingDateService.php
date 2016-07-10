@@ -53,7 +53,7 @@ class ReadingDateService
 
         Ensure::objectNotNull('date of reading date', $updateReadingDateRequest->getDate());
 
-        $dateString = $updateReadingDateRequest->getDate()->getDay() . "-" . +$updateReadingDateRequest->getDate()->getMonth() . "-" . $updateReadingDateRequest->getDate()->getYear();
+        $dateString = $updateReadingDateRequest->getDate()->getDay() . "-" . $updateReadingDateRequest->getDate()->getMonth() . "-" . $updateReadingDateRequest->getDate()->getYear();
         $datetime = DateTime::createFromFormat('d-m-Y', $dateString);
 
         $readingDate->rating = $updateReadingDateRequest->getRating();
