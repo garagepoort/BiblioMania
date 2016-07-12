@@ -8,6 +8,10 @@
 
 class ApiAuthenticationService {
 
+
+    public function getUser(){
+        return JWTAuth::parseToken()->authenticate();
+    }
     /**
      * @return null
      */
