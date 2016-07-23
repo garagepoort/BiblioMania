@@ -72,14 +72,11 @@ class FullBookToJsonAdapter
         $this->authors = array_map(function($author){ return new AuthorToJsonAdapter($author); }, $book->authors->all());
         $this->oeuvreItems = array_map(function ($item) { return new OeuvreItemToJsonAdapter($item); }, $book->book_from_authors->all());
         $this->tags = array_map(function ($item) { return new TagToJsonAdapter($item); }, $book->tags->all());
+        $this->onWishlist = $this->wishlistService->isBookInWishlistOfUser(Auth::user()->id, $book->id);
 
         if(!StringUtils::isEmpty($book->coverImage)){
             $baseUrl = URL::to('/');
             $this->image = $baseUrl . "/bookImages/" . $book->coverImage;
-        }
-
-        if($this->wishlistService->isBookInWishlistOfUser(Auth::user()->id, $book->id)){
-            $this->onWishlist = true;
         }
 
         if($book->publication_date != null){
