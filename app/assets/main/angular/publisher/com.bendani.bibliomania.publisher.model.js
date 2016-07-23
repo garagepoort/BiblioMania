@@ -1,4 +1,6 @@
 angular.module('com.bendani.bibliomania.publisher.model', [ 'ngResource' ])
     .factory('Publisher', ['$resource', function ($resource) {
-        return $resource('../BiblioMania/publishers', {});
+        return $resource('../BiblioMania/publishers/:id', {}, {
+            delete: { method : 'DELETE' }
+        });
     } ]);

@@ -1,11 +1,5 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: david
- * Date: 23/01/15
- * Time: 20:42
- */
 class PublisherController extends BaseController
 {
 
@@ -30,17 +24,17 @@ class PublisherController extends BaseController
     public function getPublisherSeries($publisherId)
     {
         $result = array();
-        foreach($this->publisherService->getPublisherSeries($publisherId) as $serie){
+        foreach($this->publisherService->getPublisherSeries(Auth::user()->id, $publisherId) as $serie){
             $publisherSerieToJson = new PublisherSerieToJsonAdapter($serie);
             array_push($result, $publisherSerieToJson->mapToJson());
         }
         return $result;
     }
 
-    public function getPublisherBooks($publisherId)
+    public function getPublisherBooks($userId, $publisherId)
     {
         $result = array();
-        foreach($this->publisherService->getPublisherBooks($publisherId) as $book){
+        foreach($this->publisherService->getPublisherBooks(Auth::user()->id, $publisherId) as $book){
             $bookToJson = new BookToJsonAdapter($book);
             array_push($result, $bookToJson->mapToJson());
         }
@@ -57,6 +51,11 @@ class PublisherController extends BaseController
         ));
     }
 
+    public function deletePublisher($id)
+    {
+       $this->publisherService->deletePublisher(Auth::user()->id, $id);
+    }
+
     public function getPublishersList()
     {
         $publishers = $this->publisherService->getPublishers();
@@ -64,12 +63,6 @@ class PublisherController extends BaseController
             'title' => 'Editeer uitgevers',
             'publishers' => $publishers
         ));
-    }
-
-    public function deletePublisher()
-    {
-        $id = Input::get('publisherId');
-        $this->publisherService->deletePublisher($id);
     }
 
     public function editPublisher()

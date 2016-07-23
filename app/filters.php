@@ -45,11 +45,11 @@ Route::filter('admin', function()
 {
 	if (Auth::guest())
 	{
-		return Redirect::guest('login');
+		return Response::make('Unauthorized', 401);
 	}
 
 	if(Auth::user()->admin == false){
-		return Redirect::to('getBooks');
+		return Response::make('Unauthorized', 401);
 	}
 });
 

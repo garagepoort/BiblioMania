@@ -92,6 +92,7 @@ Route::group(array('before' => 'auth'), function () {
     Route::get('personalbookinfos/{id}/readingdates', 'PersonalBookInfoController@getReadingDates');
 
     Route::get('publishers', 'PublisherController@getPublishers');
+    Route::delete('publishers/{id}', 'PublisherController@deletePublisher');
     Route::get('publishers/{id}/series', 'PublisherController@getPublisherSeries');
     Route::get('publishers/{id}/books', 'PublisherController@getPublisherBooks');
 

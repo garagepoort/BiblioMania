@@ -1,54 +1,73 @@
-'use strict';
+(function () {
+    'use strict';
 
-angular.module('com.bendani.bibliomania.publisher.overview.ui', [
-    'com.bendani.bibliomania.publisher.model',
-    'com.bendani.bibliomania.title.panel'])
-    .config(['$routeProvider',function ($routeProvider) {
-        $routeProvider.when('/publishers', {
-            templateUrl: '../BiblioMania/views/partials/publisher/publishers-overview.html',
-            controller: 'PublishersOverviewController'
-        });
-    }])
-    .controller('PublishersOverviewController', ['$scope', 'Publisher', 'ErrorContainer', 'TitlePanelService', '$location',
-        function ($scope, Publisher, ErrorContainer, TitlePanelService, $location) {
+    angular.module('com.bendani.bibliomania.publisher.overview.ui', [
+            'com.bendani.bibliomania.publisher.model',
+            'com.bendani.bibliomania.title.panel',
+            'com.bendani.bibliomania.confirmation.modal.service'])
+        .config(['$routeProvider', function ($routeProvider) {
+            $routeProvider.when('/publishers', {
+                templateUrl: '../BiblioMania/views/partials/publisher/publishers-overview.html',
+                controller: 'PublishersOverviewController',
+                controllerAs: 'vm'
+            });
+        }])
+        .controller('PublishersOverviewController', ['Publisher', 'ErrorContainer', 'TitlePanelService', 'ConfirmationModalService', PublishersOverviewController]);
 
-            function init() {
-                TitlePanelService.setTitle('Uitgevers');
-                TitlePanelService.setShowPreviousButton(false);
+    function PublishersOverviewController(Publisher, ErrorContainer, TitlePanelService, ConfirmationModalService) {
 
-                $scope.searchSeriesQuery = "";
-                $scope.predicate = "name";
-                $scope.reverseOrder = false;
+        var vm = this;
 
-                $scope.orderValues = [
-                    {key: 'Naam', predicate: 'name', width: '50'}
-                ];
+        vm.search = search;
+        vm.setListView = setListView;
+        vm.deletePublisher = deletePublisher;
 
-                loadPublishers();
+        function init() {
+            TitlePanelService.setTitle('translation.publishers');
+            TitlePanelService.setShowPreviousButton(false);
 
+            vm.searchSeriesQuery = "";
+            vm.predicate = "name";
+            vm.reverseOrder = false;
+
+            vm.orderValues = [
+                {key: 'Naam', predicate: 'name', width: '50'}
+            ];
+
+            loadPublishers();
+
+        }
+
+        function search(item) {
+            if (!vm.searchPublisherQuery) {
+                return true;
             }
+            return (item.name.toLowerCase().indexOf(vm.searchPublisherQuery.toLowerCase()) !== -1);
 
-            $scope.search = function (item) {
-                if ((item.name.toLowerCase().indexOf($scope.searchSeriesQuery) !== -1)) {
-                    return true;
-                }
-                return false;
-            };
+        }
 
-            $scope.goToPublisherDetails = function (publisher) {
-                $location.path('/edit-publisher/' + publisher.id);
-            };
+        function setListView(value) {
+            vm.listView = value;
+        }
 
-            $scope.setListView = function (value) {
-                $scope.listView = value;
-            };
-
-            function loadPublishers() {
-                $scope.loading = true;
-                $scope.publishers = Publisher.query(function () {
-                    $scope.loading = false;
+        function deletePublisher(publisher){
+            ConfirmationModalService.show('Bent u zeker dat u deze uitgever wilt verwijderen?', function() {
+                Publisher.delete({id: publisher.id}, function () {
+                    var index = vm.publishers.indexOf(publisher);
+                    if (index > -1) {
+                        vm.publishers.splice(index, 1);
+                    }
                 }, ErrorContainer.handleRestError);
-            }
+            });
+        }
 
-            init();
-        }]);
+        function loadPublishers() {
+            vm.loading = true;
+            vm.publishers = Publisher.query(function () {
+                vm.loading = false;
+            }, ErrorContainer.handleRestError);
+        }
+
+        init();
+    }
+}());

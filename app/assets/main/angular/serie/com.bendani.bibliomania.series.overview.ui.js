@@ -21,7 +21,10 @@
                     },
                     client: ['Serie', function (Serie) {
                         return Serie;
-                    }]
+                    }],
+                    type: function () {
+                        return 'BOOK';
+                    }
                 }
             });
             $routeProvider.when('/publisherseries', {
@@ -34,13 +37,16 @@
                     },
                     client: ['PublisherSerie', function (PublisherSerie) {
                         return PublisherSerie;
-                    }]
+                    }],
+                    type: function () {
+                        return 'PUBLISHER';
+                    }
                 }
             });
         }])
-        .controller('SeriesOverviewController', ['$scope', 'ErrorContainer', 'TitlePanelService', 'BookOverviewService', 'Book', '$location', 'EditSerieModalService', 'ConfirmationModalService', 'title', 'client', SeriesOverviewController]);
+        .controller('SeriesOverviewController', ['$scope', 'ErrorContainer', 'TitlePanelService', 'BookOverviewService', 'Book', '$location', 'EditSerieModalService', 'ConfirmationModalService', 'title', 'client', 'type', SeriesOverviewController]);
 
-    function SeriesOverviewController($scope, ErrorContainer, TitlePanelService, BookOverviewService, Book, $location, EditSerieModalService, ConfirmationModalService, title, client) {
+    function SeriesOverviewController($scope, ErrorContainer, TitlePanelService, BookOverviewService, Book, $location, EditSerieModalService, ConfirmationModalService, title, client, type) {
 
         var vm = this;
 
@@ -91,7 +97,8 @@
         }
 
         function editSerie(serie) {
-            EditSerieModalService.show(serie, client, function () {});
+            var filters = type === 'PUBLISHER' ? [{id: "book-publisher", value: [{value: serie.publisherId}]}] : [];
+            EditSerieModalService.show(serie, filters, client, function () {});
         }
 
         function deleteSerie(serie){

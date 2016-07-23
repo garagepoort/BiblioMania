@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @property integer id
+ * @property string name
+ * @property Illuminate\Database\Eloquent\Collection books
+ * @property Illuminate\Database\Eloquent\Collection first_print_infos
+ */
 class Publisher extends Eloquent {
     protected $table = 'publisher';
 
