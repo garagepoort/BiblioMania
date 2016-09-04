@@ -8,6 +8,7 @@
  * @property string title
  * @property string xLabel
  * @property integer user_id
+ * @property integer yProperty
  */
 class ChartConfiguration extends Eloquent
 {

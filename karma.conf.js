@@ -20,7 +20,7 @@ module.exports = function(config) {
       'public/packages/bendani/php-common/filter-service/**/*.js',
       'public/packages/bendani/php-common/login-service/**/*.js',
       'public/assets/main.min.js',
-      'app/tests/js/**/*.js'
+      'tests/js/**/*.js'
     ],
 
 
