@@ -36,7 +36,7 @@
         "classmap": [
             "database",
             "app/Http/Controllers",
-            "app/Models",
+            "app/models",
             "app/service",
             "app/repository",
             "tests",
