@@ -4,6 +4,7 @@
 Homestead.json
 Homestead.yaml
 *.env
+!.travis.env
 /bootstrap/compiled.php
 /public/packages
 .DS_Store
