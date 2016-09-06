@@ -288,7 +288,7 @@ class AppServiceProvider extends ServiceProvider
 
 
         //logger
-        $this->app->singleton(Logger::class, function () {
+        $this->app->singleton('Logger', function () {
             return new Logger(storage_path().'/logs');
         });
 

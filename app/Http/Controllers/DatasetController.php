@@ -44,7 +44,7 @@ class DatasetController extends Controller {
 
 	public function resetDatabase()
 	{
-		$mysqli = new mysqli("localhost", $_ENV['DATABASE_USERNAME'], $_ENV['DATABASE_PASSWORD'], $_ENV['DATABASE_NAME']);
+		$mysqli = new mysqli($_ENV['DB_HOST'], $_ENV['DB_USERNAME'], $_ENV['DB_PASSWORD'], $_ENV['DB_DATABASE']);
 		$mysqli->query('SET foreign_key_checks = 0');
 		if ($result = $mysqli->query("SHOW TABLES"))
 		{
@@ -56,7 +56,7 @@ class DatasetController extends Controller {
 		$mysqli->query('SET foreign_key_checks = 1');
 		$mysqli->close();
 
-		Artisan::call('migrate', ['--path'     => "app/database/migrations"]);
+		Artisan::call('migrate', ['--path' => "database/migrations"]);
 		Artisan::call('db:seed');
 	}
 
