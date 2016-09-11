@@ -68,7 +68,7 @@ namespace :deploy do
       execute "rm /home/myApps/BiblioMania/current/public/authorImages"
       execute "ln -s /home/myApps/BiblioMania/bookImages /home/myApps/BiblioMania/current/public/bookImages"
       execute "ln -s /home/myApps/BiblioMania/authorImages /home/myApps/BiblioMania/current/public/authorImages"
-      execute "cd /home/myApps/BiblioMania/current && cp ../.env.php ."
+      execute "cd /home/myApps/BiblioMania/current && cp ../.env ."
       execute "cd /home/myApps/BiblioMania/current && php composer.phar update && php artisan migrate --force"
       execute :sudo, "chown -R apache:apache /home/myApps/BiblioMania/current/public"
       execute :sudo, "chown -R apache:apache /home/myApps/BiblioMania/current/storage"
