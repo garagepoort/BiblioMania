@@ -3,13 +3,13 @@ module.exports = function (grunt) {
 
         concat: {
             js: {
-                src: ['app/assets/main/angular/angular-charts/Chart.min.js','app/assets/main/angular/angular-charts/angular-chart.min.js', 'app/assets/main/**/*.js'],
-                dest: 'app/assets/concatMain.js'
+                src: ['resources/assets/main/angular/angular-charts/Chart.min.js','resources/assets/main/angular/angular-charts/angular-chart.min.js', 'resources/assets/main/**/*.js'],
+                dest: 'resources/assets/concatMain.js'
             }
         },
         uglify: {
             js: {
-                src: 'app/assets/concatMain.js',
+                src: 'resources/assets/concatMain.js',
                 dest: 'public/assets/main.min.js'
             }
         },
@@ -20,11 +20,11 @@ module.exports = function (grunt) {
             },
             target: {
                 files: {
-                    'public/assets/main.min.css': ['app/assets/main/**/*.css']
+                    'public/assets/main.min.css': ['resources/assets/main/**/*.css']
                 }
             }
         },
-        clean: ['app/assets/concatMain.js']
+        clean: ['resources/assets/concatMain.js']
     });
 
 // load plugins
