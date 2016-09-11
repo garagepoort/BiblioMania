@@ -6,11 +6,13 @@ use BookSerieService;
 use Mockery;
 use TestCase;
 use UpdateSerieRequest;
+use User;
 
 class BookSerieControllerUpdateTest extends TestCase
 {
     const SERIE_ID = 21312;
     const NAME = 'een serie';
+    const USER_ID = 123;
 
     /** @var  BookSerieService */
     private $bookSerieService;
@@ -19,6 +21,9 @@ class BookSerieControllerUpdateTest extends TestCase
     {
         parent::setUp();
         $this->bookSerieService = $this->mock('BookSerieService');
+
+        $user = new User(array('username' => 'John', 'id' => self::USER_ID));
+        $this->be($user);
     }
 
     public function test_shouldCallJsonMappingAndService(){

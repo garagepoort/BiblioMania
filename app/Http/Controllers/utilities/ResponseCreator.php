@@ -24,4 +24,8 @@ class ResponseCreator {
             'message'   =>  "User is not logged in."
         ), 401);
     }
+
+    public static function createIdResponse($id){
+        return Response::json(array('success' => true, 'id' => $id), 200);
+    }
 }

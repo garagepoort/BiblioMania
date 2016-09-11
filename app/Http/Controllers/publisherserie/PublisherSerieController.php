@@ -28,7 +28,8 @@ class PublisherSerieController extends Controller
     public function updateSerie(){
         /** @var UpdateSerieRequest $updateSerieRequest */
         $updateSerieRequest = $this->jsonMappingService->mapInputToJson(Input::get(), new UpdateSerieFromJsonAdapter());
-        $this->publisherSerieService->update($updateSerieRequest);
+        $id = $this->publisherSerieService->update($updateSerieRequest)->id;
+        return ResponseCreator::createIdResponse($id);
     }
 
     public function addBookToSerie($serieId){
