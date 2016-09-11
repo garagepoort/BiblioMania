@@ -48,10 +48,8 @@ class CountryService
         $this->countryRepository->save($country);
     }
 
-    public function deleteCountry(){
-        $id = Input::get('countryId');
-
-        $country = $this->countryRepository->findFull($id);
+    public function deleteCountry($countryId){
+        $country = $this->countryRepository->findFull($countryId);
 
         if($country == null) {
             throw new ServiceException("country.error.notfound");
