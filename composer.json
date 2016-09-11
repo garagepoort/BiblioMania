@@ -26,10 +26,10 @@
         "elasticsearch/elasticsearch": "~2.0@beta",
         "monolog/monolog": "~1.0",
 
-        "bendani/php-common/login-service": "dev-feature/upgrade_laravel",
-        "bendani/php-common/uiframework": "dev-feature/upgrade_laravel",
-        "bendani/php-common/filter-service": "dev-feature/upgrade_laravel",
-        "bendani/php-common/utils": "dev-feature/upgrade_laravel"
+        "bendani/php-common/login-service": "v4.0.*",
+        "bendani/php-common/uiframework": "v2.0.*",
+        "bendani/php-common/filter-service": "v6.0.*",
+        "bendani/php-common/utils": "v3.0.*"
     },
     "minimum-stability": "stable",
     "autoload": {
