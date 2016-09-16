@@ -15,7 +15,6 @@ class Country extends Eloquent {
         return $this->hasMany('Book', 'publisher_country_id');
     }
 
-
     public function authors(){
         return $this->hasMany('Author', 'country_id');
     }
