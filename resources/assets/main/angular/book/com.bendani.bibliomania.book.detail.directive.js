@@ -8,15 +8,19 @@ angular
             scope: {},
             restrict: "E",
             templateUrl: "../BiblioMania/views/partials/book/book-detail-directive.html",
-            controller: ['$scope', 'BookOverviewService', 'DateService', 'Book', 'CurrencyService', 'ErrorContainer', function($scope, BookOverviewService, DateService, Book, CurrencyService, ErrorContainer){
+            controller: ['$scope', '$location', 'BookOverviewService', 'DateService', 'Book', 'CurrencyService', 'ErrorContainer', function($scope, $location, BookOverviewService, DateService, Book, CurrencyService, ErrorContainer){
                 var vm = this;
                 vm.closeBookDetailPanel = closeBookDetailPanel;
+                vm.goToEditBook = goToEditBook;
 
                 var selectBookHandler = function (book) {
                     if (vm.bookDetailPanelOpen && vm.selectedBook.id === book.id) {
                         vm.bookDetailPanelOpen = false;
                     } else {
-                        vm.selectedBook = Book.get({id: book.id}, function () {}, ErrorContainer.handleRestError);
+                        vm.loading = true;
+                        vm.selectedBook = Book.get({id: book.id}, function () {
+                            vm.loading = false;
+                        }, ErrorContainer.handleRestError);
                         vm.bookDetailPanelOpen = true;
                     }
                 };
@@ -33,6 +37,10 @@ angular
 
                 function closeBookDetailPanel() {
                     vm.bookDetailPanelOpen = false;
+                }
+
+                function goToEditBook(){
+                    $location.path('/book-details/' + vm.selectedBook.id);
                 }
 
                 init();

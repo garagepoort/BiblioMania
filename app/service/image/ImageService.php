@@ -1,9 +1,21 @@
 <?php
 
 use Bendani\PhpCommon\Utils\StringUtils;
+use Katzgrau\KLogger\Logger;
 
 class ImageService
 {
+    const IMAGE_MAX_WIDTH = '142';
+    const IMAGE_MAX_HEIGHT = '226';
+
+    /** @var Logger $logger */
+    private $logger;
+
+    public function __construct()
+    {
+        $this->logger = App::make('Logger');
+    }
+
 
     public function saveUploadImageForAuthor($image, Author $author)
     {
@@ -72,9 +84,9 @@ class ImageService
 
     function resizeAndSaveImage($location, $image)
     {
-        $newwidth = '142';
-        $newheight = '226';
-        $newImage = $this->resize_image_max($image, $newwidth, $newheight);
+        $newwidth = self::IMAGE_MAX_WIDTH;
+        $newheight = self::IMAGE_MAX_HEIGHT;
+        $newImage = $this->resizeToMaxWidthOrHeightDependingOnRatio($image, $newwidth, $newheight);
         $w = imagesx($newImage); //current width
         $h = imagesy($newImage);
         imagejpeg($newImage, $location); //save image as jpg
@@ -102,7 +114,7 @@ class ImageService
         }
     }
 
-    function resize_image_max($image, $max_width, $max_height)
+    function resizeToMaxWidthOrHeightDependingOnRatio($image, $max_width, $max_height)
     {
         $w = imagesx($image); //current width
         $h = imagesy($image); //current height
@@ -110,10 +122,6 @@ class ImageService
             $GLOBALS['errors'][] = 'Image couldn\'t be resized because it wasn\'t a valid image.';
             return false;
         }
-
-        if (($w <= $max_width) && ($h <= $max_height)) {
-            return $image;
-        } //no resizing needed
 
         //try max height first...
         $ratio = $max_height / $h;
@@ -127,6 +135,7 @@ class ImageService
             $new_h = $h * $ratio;
         }
 
+        $this->logger->info("Creating image width: " . $new_w . " height: " . $new_h);
         $new_image = imagecreatetruecolor($new_w, $new_h);
         imagecopyresampled($new_image, $image, 0, 0, 0, 0, $new_w, $new_h, $w, $h);
         return $new_image;
