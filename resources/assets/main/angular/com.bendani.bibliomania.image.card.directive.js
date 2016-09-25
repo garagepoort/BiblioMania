@@ -32,8 +32,6 @@ angular
                 $scope.imageStyle = "width: 142px; height: 226px; background-position:  0px -0px; margin-bottom: 0px;";
                 $scope.overlayStyle = "width: 142px; height: 226px;";
 
-
-
                 if(isSpriteImage() || $scope.model.image){
                     var imageWidth = $scope.model.spriteImage.imageWidth;
                     var imageHeight = $scope.model.spriteImage.imageHeight;
