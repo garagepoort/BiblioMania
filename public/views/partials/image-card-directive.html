@@ -1,21 +1,20 @@
-<div class="card-wrapper">
-    <div class="material-card imageLinkWrapper ic_container" style="{{ model.something }}">
-        <div ng-hide="::model.spriteImage" class="material-card-content image-not-found-card" ng-click="onImageClick(model); $event.stopPropagation();">
-            <p class="vertical-align">{{ ::backupText }}</p>
-            <img data-toggle="tooltip" data-placement="top"
-                 ng-repeat="warning in warnings" ng-click="warning.handle()"
-                 title="{{ ::warning.message }}"
-                 ng-src="{{ ::warning.icon }}" class="warning-icon clickableImage" style="top: {{ $index * 25 + 5}}px;">
-        </div>
-        <div ng-show="::model.spriteImage" class="material-card-content" ng-click="onImageClick(model); $event.stopPropagation();" style="{{ imageStyle }}">
-            <img data-toggle="tooltip" data-placement="top"
-                 ng-repeat="warning in warnings" ng-click="warning.handle()"
-                 title="{{ ::warning.message }}"
-                 ng-src="{{ ::warning.icon }}" class="warning-icon clickableImage" style="top: {{ $index * 25 + 5}}px;">
-        </div>
-        <div ng-show="showEditButton === 'true'" class="ic_caption editBookPanel">
-            <p ng-click="onEditClick(model)" class="ic_category">Edit<i class="fa fa-pencil editImagePencilIcon"></i></p>
-        </div>
+<div class="card-wrapper" style="{{ wrapperStyle }}">
+    <div ng-hide="::model.spriteImage" class="material-card-content image-not-found-card"
+         ng-click="onClick(); $event.stopPropagation();">
+        <p class="vertical-align">{{ ::backupText }}</p>
+        <img data-toggle="tooltip" data-placement="top"
+             ng-repeat="warning in warnings" ng-click="warning.handle()"
+             title="{{ ::warning.message }}"
+             ng-src="{{ ::warning.icon }}" class="warning-icon clickableImage" style="top: {{ $index * 25 + 5}}px;">
+    </div>
+    <div ng-show="::model.spriteImage" class="material-card-content"
+         ng-click="onClick(); $event.stopPropagation();" style="{{ imageStyle }}">
+        <img data-toggle="tooltip" data-placement="top"
+             ng-repeat="warning in warnings" ng-click="warning.handle()"
+             title="{{ ::warning.message }}"
+             ng-src="{{ ::warning.icon }}" class="warning-icon clickableImage" style="top: {{ $index * 25 + 5}}px;">
+    </div>
+    <div ng-show="showOverlayButton() == true" class="edit-card" ng-click="onEditClick(model); $event.stopPropagation();" style="{{ overlayStyle }}">
     </div>
 </div>
 

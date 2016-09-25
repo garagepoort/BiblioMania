@@ -674,6 +674,12 @@ table.book-detail-info-table td {
   z-index: 999;
 }
 
+.book-detail-edit-button {
+  float: right;
+  margin-top: 20px;
+  margin-right: 20px;
+}
+
 .book-sliding-panel-image {
   margin-left: auto;
   margin-right: auto;
@@ -715,20 +721,8 @@ table.book-detail-info-table td {
   max-height: 210px;
 }
 
-.ic_container.imageLinkWrapper {
-  cursor: pointer;
-  width: 142px;
-  max-height: 245px;
-  vertical-align: middle;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-  margin: 0px;
-  bottom: 0px;
-  position: absolute;
-//  transform:scale(1.1,1.1) translate3d(0,0,0);
-}
-
 .material-card-content.image-not-found-card, .image-not-found-card {
-  height: 214px;
+  height: 226px;
   width: 142px;
   background-color: black;
   color: white;
@@ -737,7 +731,7 @@ table.book-detail-info-table td {
 }
 
 .material-card-content.add-book-card {
-  height: 214px;
+  height: 226px;
   width: 142px;
   background-color: grey;
   color: black;
@@ -745,12 +739,26 @@ table.book-detail-info-table td {
 }
 
 .card-wrapper {
-  width: 142px;
-  height: 245px;
+  cursor: pointer;
   margin: 8px;
   display: inline-block;
   vertical-align: bottom;
   position: relative;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+}
+
+.card-wrapper:hover {
+  box-shadow: 0 25px 50px 0 rgba(0, 0, 0, 0.26);
+  transform:scale(1.05,1.05) translate3d(0,0,0);
+}
+
+.edit-card {
+  position: absolute;
+  top:0;
+  left:0;
+  background-color: black;
+  opacity: 0;
+  z-index: 99999;
 }
 
 .warning-icon {
@@ -765,11 +773,6 @@ table.book-detail-info-table td {
   width: 20px;
   height: 20px;
   margin-left: 10px;
-}
-
-.imageLinkWrapper:hover {
-  box-shadow: 0 25px 50px 0 rgba(0, 0, 0, 0.26);
-  transform:scale(1.05,1.05) translate3d(0,0,0);
 }
 
 .authorCoverLink {

@@ -1,17 +1,25 @@
 <pageslide ps-open="vm.bookDetailPanelOpen" ps-class="book-detail-pageslide" ps-size="720px"
            ps-push="true" ps-key-listener="true" ps-auto-close="true">
     <div click-anywhere-but-here="closeBookDetailPanel()">
-        <div>
+        <div ng-hide="vm.loading">
             <div class="book-detail-close">
-                <h3 class="book-sliding-panel-title">{{vm.selectedBook.title}} <span
-                        class="glyphicon glyphicon-remove-sign pull-left clickable" style="margin-right: 20px;"
-                        ng-click="vm.closeBookDetailPanel()"></span></h3>
-                <h4 ng-show="vm.selectedBook.subtitle" class="book-sliding-panel-title" id="book-detail-subtitle">
-                    {{vm.selectedBook.subtitle}}</h4>
+                <div style="display: inline-block">
+                    <h3 class="book-sliding-panel-title">{{vm.selectedBook.title}} <span
+                            class="glyphicon glyphicon-remove-sign pull-left clickable" style="margin-right: 20px;"
+                            ng-click="vm.closeBookDetailPanel()"></span></h3>
+                    <h4 ng-show="vm.selectedBook.subtitle" class="book-sliding-panel-title" id="book-detail-subtitle">
+                        {{vm.selectedBook.subtitle}}
+                    </h4>
+                </div>
+                <button ng-click="vm.goToEditBook()" class="book-detail-edit-button btn-success btn btn-sm">{{ 'translation.edit' | translate }}</button>
             </div>
         </div>
 
-        <div class="book-detail-container">
+        <div ng-show="vm.loading" style="margin-top: 50%;">
+            <p>Loading...</p>
+        </div>
+
+        <div ng-hide="vm.loading" class="book-detail-container">
             <div class="row" style="margin-top: 80px;">
                 <div class="col-md-4">
                     <img class="book-sliding-panel-image" src-with-fallback="{{ vm.selectedBook.image }}"/>
