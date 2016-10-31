@@ -38,7 +38,7 @@ angular
 
                     $scope.wrapperStyle = "width: " + imageWidth + "px; height: " + imageHeight + "px;";
                     $scope.overlayStyle = $scope.wrapperStyle;
-                    $scope.imageStyle = $scope.wrapperStyle + "background: url('" + $scope.model.spriteImage.image + "');";
+                    $scope.imageStyle = $scope.wrapperStyle + "background: url('" + $scope.model.image + "');";
 
                     if(isSpriteImage()){
                         $scope.imageStyle = $scope.wrapperStyle + "background: url('" + $scope.model.spriteImage.image + "'); background-position:  0px -" + $scope.model.spriteImage.spritePointer + "px; margin-bottom: 0px;";
