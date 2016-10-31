@@ -62,9 +62,6 @@ button {
   -moz-border-radius: 3px !important;
   border-radius: 3px !important;
 }
-img {
-  background: url('images/questionCover.png') no-repeat;
-}
 input {
   color: #2d6ca2;
 }
