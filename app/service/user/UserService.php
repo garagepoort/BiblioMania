@@ -20,12 +20,12 @@ class UserService
         return $this->userRepository->saveUser($user);
     }
 
-    public function createUser($username, $email, $password)
+    public function createUser(CreateUserRequest $createUserRequest)
     {
         $user = new User();
-        $user->username = $username;
-        $user->password = Hash::make($password);
-        $user->email = $email;
+        $user->username = $createUserRequest->getUsername();
+        $user->password = Hash::make($createUserRequest->getPassword());
+        $user->email = $createUserRequest->getEmail();
         return $this->userRepository->saveUser($user);
     }
 

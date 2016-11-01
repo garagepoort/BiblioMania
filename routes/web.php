@@ -132,7 +132,7 @@ Route::get('login', 'DefaultLoginController@getLoginPage');
 Route::post('login', 'DefaultLoginController@doLogin');
 Route::get('changeLanguage/{lang}', 'LanguageController@changeLanguage');
 
-Route::post('createUser', 'UserController@createUser');
+Route::post('users', 'UserController@createUser');
 Route::get('createUser', 'UserController@goToCreateUser');
 
 //HOME

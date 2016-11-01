@@ -25,7 +25,7 @@ class PublisherControllerDeletePublisherTest extends TestCase
     }
 
     public function test_shouldCallService(){
-        $this->publisherService->shouldReceive('deletePublisher')->once()->with(self::USER_ID, self::PUBLISHER_ID);
+        $this->publisherService->shouldReceive('deletePublisher')->once()->with(self::PUBLISHER_ID);
 
         $this->action('DELETE', 'PublisherController@deletePublisher', array('id' => self::PUBLISHER_ID));
 

@@ -10,9 +10,8 @@ class PublisherRepository implements Repository{
             ->first();
     }
 
-    public function findByUserAndName($userId, $name){
+    public function findByName($name){
         return Publisher::where('name', '=', $name)
-            ->where("user_id", "=", $userId)
             ->first();
     }
 

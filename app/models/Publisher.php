@@ -5,6 +5,7 @@
  * @property string name
  * @property Illuminate\Database\Eloquent\Collection books
  * @property Illuminate\Database\Eloquent\Collection first_print_infos
+ * @property Illuminate\Database\Eloquent\Collection series
  */
 class Publisher extends Eloquent {
     protected $table = 'publisher';

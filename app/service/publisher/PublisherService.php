@@ -16,14 +16,13 @@ class PublisherService
         $this->publisherRepository = App::make('PublisherRepository');
     }
 
-    public function findOrCreate($userId, $name){
-        $publisher = $this->publisherRepository->findByUserAndName($userId, $name);
+    public function findOrCreate($name){
+        $publisher = $this->publisherRepository->findByName($name);
 
         if (is_null($publisher)) {
             $publisher = new Publisher(array(
                 'name' => $name
             ));
-            $publisher->user_id = $userId;
             $this->publisherRepository->save($publisher);
         }
 
@@ -31,9 +30,8 @@ class PublisherService
     }
 
     public function updatePublisher($publisherId, $name){
-        $publisher = Publisher::where('user_id' , '=', Auth::user()->id)
-            ->where('id', '=', $publisherId)
-            ->first();
+        $publisher = $this->publisherRepository->find($publisherId);
+        Ensure::objectNotNull('publisher', $publisher, 'translation.error.publisher.not.found');
 
         if($publisher != null){
             $publisher->name = $name;
@@ -43,8 +41,8 @@ class PublisherService
         }
     }
 
-    public function deletePublisher($userId, $publisherId){
-        $publisher = $this->publisherRepository->findByUserAndId($userId, $publisherId, array('books', 'first_print_infos'));
+    public function deletePublisher($publisherId){
+        $publisher = $this->publisherRepository->find($publisherId, array('books', 'first_print_infos'));
 
         Ensure::objectNotNull('publisher', $publisher, 'translation.error.publisher.not.found');
         Ensure::arrayHasLength('publisher books', $publisher->books->all(), 0, 'translation.error.publisher.linked.to.books.can.not.be.deleted');
@@ -54,21 +52,19 @@ class PublisherService
     }
 
     public function getPublishers(){
-        return Publisher::with('first_print_infos', 'books')
-            ->where('user_id', '=', Auth::user()->id)
-            ->orderBy('name', 'asc')->get();
+        return Publisher::with('first_print_infos', 'books')->orderBy('name', 'asc')->get();
     }
 
-    public function getPublisherSeries($userId, $publisherId){
+    public function getPublisherSeries($publisherId){
         /** @var Publisher $publisher */
-        $publisher = $this->publisherRepository->findByUserAndId($userId, $publisherId, array('series'));
+        $publisher = $this->publisherRepository->find($publisherId, array('series'));
         Ensure::objectNotNull('publisher', $publisher);
         return $publisher->series;
     }
 
-    public function getPublisherBooks($userId, $publisherId){
+    public function getPublisherBooks($publisherId){
         /** @var Publisher $publisher */
-        $publisher = $this->publisherRepository->findByUserAndId($userId, $publisherId, array('books'));
+        $publisher = $this->publisherRepository->find($publisherId, array('books'));
         Ensure::objectNotNull('publisher', $publisher);
         return $publisher->books;
     }

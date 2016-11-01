@@ -1,15 +1,11 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: davidm
- * Date: 28/02/14
- * Time: 21:35
- */
 
 class UserController extends Controller{
 
     /** @var UserService $userService */
     private $userService;
+    /** @var JsonMappingService $jsonMappingService */
+    private $jsonMappingService;
 
     /**
      * UserController constructor.
@@ -17,6 +13,7 @@ class UserController extends Controller{
     public function __construct()
     {
         $this->userService = App::make('UserService');
+        $this->jsonMappingService = App::make('JsonMappingService');
     }
 
 
@@ -30,15 +27,10 @@ class UserController extends Controller{
     }
 
     public function createUser() {
-        $password = Input::get('password');
-        $confirmPassword = Input::get('confirmPassword');
+        /** @var CreateUserFromJsonAdapter $user */
+        $user = $this->jsonMappingService->mapInputToJson(Input::get(), new CreateUserFromJsonAdapter());
 
-        if(strcmp ($password, $confirmPassword) == 0){
-            $this->userService->createUser(Input::get('username'), Input::get('email'), Input::get('password'));
-            return Redirect::to('login');
-        }else{
-            return Redirect::to('createUser')->with('message', 'Passwords aren\'t equal.');
-        }
+        $this->userService->createUser($user);
     }
 
 

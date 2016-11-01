@@ -3,7 +3,6 @@
 class PublisherServiceDeletePublisherTest extends TestCase
 {
     const PUBLISHER_ID = 123;
-    const USER_ID = 123;
 
     /** @var PublisherService $publisherService */
     private $publisherService;
@@ -39,13 +38,13 @@ class PublisherServiceDeletePublisherTest extends TestCase
         $this->publisherRepository = $this->mock('PublisherRepository');
         $this->publisherService = App::make('PublisherService');
 
-        $this->publisherRepository->shouldReceive('findByUserAndId')->with(self::USER_ID, self::PUBLISHER_ID, array('books', 'first_print_infos'))->andReturn($this->publisher)->byDefault();
+        $this->publisherRepository->shouldReceive('find')->with(self::PUBLISHER_ID, array('books', 'first_print_infos'))->andReturn($this->publisher)->byDefault();
     }
 
     public function test_deletesBook(){
         $this->publisherRepository->shouldReceive('delete')->once()->with($this->publisher);
 
-        $this->publisherService->deletePublisher(self::USER_ID, self::PUBLISHER_ID);
+        $this->publisherService->deletePublisher(self::PUBLISHER_ID);
     }
 
     /**
@@ -54,9 +53,9 @@ class PublisherServiceDeletePublisherTest extends TestCase
      */
     public function test_throwsExceptionWhenPublisherNotFound()
     {
-        $this->publisherRepository->shouldReceive('findByUserAndId')->with(self::USER_ID, self::PUBLISHER_ID, array('books', 'first_print_infos'))->andReturn(null);
+        $this->publisherRepository->shouldReceive('find')->with(self::PUBLISHER_ID, array('books', 'first_print_infos'))->andReturn(null);
 
-        $this->publisherService->deletePublisher(self::USER_ID, self::PUBLISHER_ID);
+        $this->publisherService->deletePublisher(self::PUBLISHER_ID);
     }
 
     /**
@@ -67,7 +66,7 @@ class PublisherServiceDeletePublisherTest extends TestCase
     {
         $this->books->shouldReceive('all')->andReturn(array($this->book));
 
-        $this->publisherService->deletePublisher(self::USER_ID, self::PUBLISHER_ID);
+        $this->publisherService->deletePublisher(self::PUBLISHER_ID);
     }
 
     /**
@@ -78,7 +77,7 @@ class PublisherServiceDeletePublisherTest extends TestCase
     {
         $this->firstPrintInfos->shouldReceive('all')->andReturn(array($this->firstPrintInfo));
 
-        $this->publisherService->deletePublisher(self::USER_ID, self::PUBLISHER_ID);
+        $this->publisherService->deletePublisher(self::PUBLISHER_ID);
     }
 
 }

@@ -25,7 +25,8 @@ angular.module('BiblioMania', ['ngRoute',
     'com.bendani.bibliomania.header.controller',
     'com.bendani.bibliomania.statistics.ui',
     'com.bendani.bibliomania.create.chart.ui',
-    'com.bendani.bibliomania.title.panel'])
+    'com.bendani.bibliomania.title.panel',
+    'com.bendani.bibliomania.create.user.ui'])
     .config(['$routeProvider', 'growlProvider', function ($routeProvider, growlProvider) {
         $routeProvider
             .when('/books', {
@@ -34,7 +35,8 @@ angular.module('BiblioMania', ['ngRoute',
             })
             .when('/login', {
                 templateUrl: '../BiblioMania/views/partials/login.html',
-                controller: 'LoginController'
+                controller: 'LoginController',
+                controllerAs: 'vm'
             })
             .otherwise({
                 redirectTo: '/books'
