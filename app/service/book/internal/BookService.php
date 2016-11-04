@@ -156,34 +156,34 @@ class BookService
         return $this->bookElasticIndexer->search($userId, $filterHandlersForSearch, $personalFilterHandlersForSearch);
     }
 
-    public function searchOtherBooks($filters){
+    public function searchOtherBooks($userId, $filters){
         $this->filterHistoryService->addFiltersToHistory($filters);
 
         list($personalFiltersForSearch, $filtersForSearch) = $this->filterValuesToFilterHandlers($filters);
 
-        array_push($filtersForSearch, FilterBuilder::notTerms('personalBookInfoUsers', [Auth::user()->id]));
+        array_push($filtersForSearch, FilterBuilder::notTerms('personalBookInfoUsers', [$userId]));
 
-        return $this->bookElasticIndexer->search(Auth::user()->id, $filtersForSearch, $personalFiltersForSearch);
+        return $this->bookElasticIndexer->search($userId, $filtersForSearch, $personalFiltersForSearch);
     }
 
-    public function searchMyBooks($filters){
+    public function searchMyBooks($userId, $filters){
         $this->filterHistoryService->addFiltersToHistory($filters);
 
         list($personalFiltersForSearch, $filtersForSearch) = $this->filterValuesToFilterHandlers($filters);
 
-        array_push($filtersForSearch, FilterBuilder::terms('personalBookInfoUsers', [Auth::user()->id]));
+        array_push($filtersForSearch, FilterBuilder::terms('personalBookInfoUsers', [$userId]));
 
-        return $this->bookElasticIndexer->search(Auth::user()->id, $filtersForSearch, $personalFiltersForSearch);
+        return $this->bookElasticIndexer->search($userId, $filtersForSearch, $personalFiltersForSearch);
     }
 
-    public function searchWishlist($filters){
+    public function searchWishlist($userId, $filters){
         $this->filterHistoryService->addFiltersToHistory($filters);
 
         list($personalFiltersForSearch, $filtersForSearch) = $this->filterValuesToFilterHandlers($filters);
 
-        array_push($filtersForSearch, FilterBuilder::terms('wishlistUsers', [Auth::user()->id]));
+        array_push($filtersForSearch, FilterBuilder::terms('wishlistUsers', [$userId]));
 
-        return $this->bookElasticIndexer->search(Auth::user()->id, $filtersForSearch, $personalFiltersForSearch);
+        return $this->bookElasticIndexer->search($userId, $filtersForSearch, $personalFiltersForSearch);
     }
 
     public function getTotalAmountOfBooksRead()

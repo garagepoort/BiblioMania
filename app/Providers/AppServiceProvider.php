@@ -71,7 +71,6 @@ use SqlFullDateRangeFilterHandler;
 use SqlOptionsFilterHandler;
 use SqlReadFilterHandler;
 use SqlStringFilterHandler;
-use StatisticsRepository;
 use TagRepository;
 use TagService;
 use UserRepository;
@@ -373,10 +372,5 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton('LanguageRepository', function () {
             return new LanguageRepository();
         });
-
-        $this->app->singleton('StatisticsRepository', function () {
-            return new StatisticsRepository();
-        });
-
     }
 }

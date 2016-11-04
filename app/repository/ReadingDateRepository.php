@@ -8,7 +8,16 @@ class ReadingDateRepository implements Repository
         return ReadingDate::with($with)
             ->select('reading_date.*')
             ->join('personal_book_info', 'personal_book_info_id', '=', 'personal_book_info.id')
-            ->where('user_id', '=', Auth::user()->id)
+            ->where('reading_date.id', '=', $id)
+            ->first();
+    }
+
+    public function findByUserAndId($userId, $id, $with = array())
+    {
+        return ReadingDate::with($with)
+            ->select('reading_date.*')
+            ->join('personal_book_info', 'personal_book_info_id', '=', 'personal_book_info.id')
+            ->where('user_id', '=', $userId)
             ->where('reading_date.id', '=', $id)
             ->first();
     }

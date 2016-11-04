@@ -19,7 +19,7 @@ class PersonalBookInfoController extends Controller
     }
 
     public function get($id){
-        $personalBookInfo = $this->personalBookInfoService->find($id);
+        $personalBookInfo = $this->personalBookInfoService->find(Auth::user()->id, $id);
         Ensure::objectNotNull('personalBookInfo', $personalBookInfo);
 
         $personalBookInfoToJsonAdapter = new PersonalBookInfoToJsonAdapter($personalBookInfo);
@@ -34,14 +34,15 @@ class PersonalBookInfoController extends Controller
     }
 
     public function update(){
+        /** @var UpdatePersonalBookInfoRequest $adapter */
         $adapter = $this->jsonMappingService->mapInputToJson(Input::get(), new UpdatePersonalBookInfoFromJsonAdapter());
-        $id = $this->personalBookInfoService->update($adapter);
+        $id = $this->personalBookInfoService->update(Auth::user()->id, $adapter);
         return Response::json(array('success' => true, 'id' => $id), 200);
     }
 
     public function getReadingDates($personalBookInfoId){
         /** @var PersonalBookInfo $personalBookInfo */
-        $personalBookInfo = $this->personalBookInfoService->find($personalBookInfoId);
+        $personalBookInfo = $this->personalBookInfoService->find(Auth::user()->id, $personalBookInfoId);
         Ensure::objectNotNull('personal book info', $personalBookInfoId);
 
         return array_map(function($date){

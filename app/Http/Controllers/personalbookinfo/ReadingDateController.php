@@ -17,14 +17,14 @@ class ReadingDateController extends Controller
     public function createReadingDate(){
         /** @var BaseReadingDateRequest $date */
         $date = $this->jsonMappingService->mapInputToJson(Input::get(), new ReadingDateFromJsonAdapter());
-        $id = $this->readingDateService->createReadingDate($date);
+        $id = $this->readingDateService->createReadingDate(Auth::user()->id, $date);
         return Response::json(array('success' => true, 'id' => $id), 200);
     }
 
     public function updateReadingDate(){
         /** @var UpdateReadingDateRequest $date */
         $date = $this->jsonMappingService->mapInputToJson(Input::get(), new UpdateReadingDateFromJsonAdapter());
-        $id = $this->readingDateService->updateReadingDate($date);
+        $id = $this->readingDateService->updateReadingDate(Auth::user()->id, $date);
         return Response::json(array('success' => true, 'id' => $id), 200);
     }
 

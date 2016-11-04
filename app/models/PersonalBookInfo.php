@@ -7,6 +7,7 @@
  * @property integer book_id
  * @property integer user_id
  * @property boolean owned
+ * @property \Illuminate\Database\Eloquent\Collection reading_dates
  */
 class PersonalBookInfo extends Eloquent {
     protected $table = 'personal_book_info';
@@ -64,7 +65,4 @@ class PersonalBookInfo extends Eloquent {
         }
     }
 
-    public function scopeCurrentUser($query){
-        $query->where('user_id', '=', Auth::user()->id);
-    }
 }

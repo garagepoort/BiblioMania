@@ -4,6 +4,8 @@ class UserController extends Controller{
 
     /** @var UserService $userService */
     private $userService;
+    /** @var PermissionService $permissionService */
+    private $permissionService;
     /** @var JsonMappingService $jsonMappingService */
     private $jsonMappingService;
 
@@ -13,6 +15,7 @@ class UserController extends Controller{
     public function __construct()
     {
         $this->userService = App::make('UserService');
+        $this->permissionService = App::make('PermissionService');
         $this->jsonMappingService = App::make('JsonMappingService');
     }
 
@@ -22,7 +25,9 @@ class UserController extends Controller{
     }
 
     public function getLoggedInUser(){
-        $userToJsonAdapter = new UserToJsonAdapter(Auth::user());
+        /** @var User $user */
+        $user = Auth::user();
+        $userToJsonAdapter = new UserToJsonAdapter($user, $this->permissionService->getPermissionsForUser($user->id));
         return $userToJsonAdapter->mapToJson();
     }
 

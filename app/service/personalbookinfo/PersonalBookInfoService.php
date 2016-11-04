@@ -32,8 +32,8 @@ class PersonalBookInfoService
         $this->bookElasticIndexer = App::make('BookElasticIndexer');
     }
 
-    public function find($id){
-        return PersonalBookInfo::where('user_id', '=', Auth::user()->id)
+    public function find($userId, $id){
+        return PersonalBookInfo::where('user_id', '=', $userId)
             ->where('id', '=', $id)
             ->first();
     }
@@ -55,9 +55,9 @@ class PersonalBookInfoService
         });
     }
 
-    public function update(UpdatePersonalBookInfoRequest $updateRequest){
-        return DB::transaction(function() use ($updateRequest){
-            $personalBookInfo = $this->personalBookInfoRepository->find($updateRequest->getId());
+    public function update($userId, UpdatePersonalBookInfoRequest $updateRequest){
+        return DB::transaction(function() use ($userId, $updateRequest){
+            $personalBookInfo = $this->personalBookInfoRepository->findByUserAndId($userId, $updateRequest->getId());
             Ensure::objectNotNull('personalBookInfo', $personalBookInfo);
 
             return $this->updatePersonalBookInfo($personalBookInfo, $updateRequest);

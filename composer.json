@@ -25,6 +25,7 @@
         "doctrine/dbal": "~2.3",
         "elasticsearch/elasticsearch": "~2.0@beta",
         "monolog/monolog": "~1.0",
+        "laravelcollective/annotations": "~5.0",
 
         "bendani/php-common/login-service": "^v4.0.0",
         "bendani/php-common/uiframework": "^v2.1.0",

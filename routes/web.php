@@ -18,17 +18,17 @@ Route::group(array('middleware' => ['auth']), function () {
     Route::delete('chart-configurations/{id}', 'ChartConfigurationController@deleteChartConfiguration');
     Route::get('chart-data/{configurationId}', 'ChartConfigurationController@getChartData');
 
-    Route::get('books', 'BookController@getBooks');
-    Route::post('books', 'BookController@createBook');
-    Route::put('books', 'BookController@updateBook');
-    Route::post('books/search-all-books', 'BookController@searchAllBooks');
-    Route::post('books/search-other-books', 'BookController@searchOtherBooks');
-    Route::post('books/search-my-books', 'BookController@searchMyBooks');
-    Route::post('books/search-wishlist', 'BookController@searchWishlist');
-    Route::get('books/{id}', 'BookController@getFullBook');
-    Route::delete('books/{id}', 'BookController@deleteBook');
-    Route::put('books/{id}/authors', 'BookController@linkAuthorToBook');
-    Route::put('books/{id}/unlink-author', 'BookController@unlinkAuthorFromBook');
+    Route::get('books', 'BookController@getBooks')->middleware('permission:READ_BOOKS');
+    Route::post('books', 'BookController@createBook')->middleware('permission:CREATE_BOOK');
+    Route::put('books', 'BookController@updateBook')->middleware('permission:UPDATE_BOOK');
+    Route::delete('books/{id}', 'BookController@deleteBook')->middleware('permission:DELETE_BOOK');
+    Route::post('books/search-all-books', 'BookController@searchAllBooks')->middleware('permission:READ_BOOKS');
+    Route::post('books/search-other-books', 'BookController@searchOtherBooks')->middleware('permission:READ_BOOKS');
+    Route::post('books/search-my-books', 'BookController@searchMyBooks')->middleware('permission:READ_BOOKS');
+    Route::post('books/search-wishlist', 'BookController@searchWishlist')->middleware('permission:READ_BOOKS');
+    Route::get('books/{id}', 'BookController@getFullBook')->middleware('permission:READ_BOOKS');
+    Route::put('books/{id}/authors', 'BookController@linkAuthorToBook')->middleware('permission:UPDATE_BOOK');
+    Route::put('books/{id}/unlink-author', 'BookController@unlinkAuthorFromBook')->middleware('permission:UPDATE_BOOK');
 
     Route::get('bookFilters', 'BookController@getFilters');
     Route::get('chartFilters', 'ChartConfigurationController@getFilters');
@@ -56,14 +56,14 @@ Route::group(array('middleware' => ['auth']), function () {
     Route::get('firstprints/{id}', 'FirstPrintInfoController@getFirstPrintInfo');
     Route::post('firstprints/{id}/books', 'FirstPrintInfoController@linkBookToFirstPrintInfo');
 
-    Route::put('oeuvre', 'OeuvreController@updateOeuvreItem');
-    Route::get('oeuvre/{id}', 'OeuvreController@getOeuvreItem');
-    Route::delete('oeuvre/{id}', 'OeuvreController@deleteOeuvreItem');
-    Route::get('oeuvre/by-book/{id}', 'OeuvreController@getOeuvreByBook');
-    Route::post('oeuvre/create-items', 'OeuvreController@saveOeuvreItemsToAuthor');
-    Route::get('oeuvre/{id}/books', 'OeuvreController@getOeuvreItemLinkedBooks');
-    Route::post('oeuvre/{id}/books', 'OeuvreController@linkBookToOeuvreItem');
-    Route::put('oeuvre/{id}/unlink-book', 'OeuvreController@deleteBookFromOeuvreItem');
+    Route::put('oeuvre', 'OeuvreController@updateOeuvreItem')->middleware('permission:UPDATE_OEUVRE_ITEM');
+    Route::get('oeuvre/{id}', 'OeuvreController@getOeuvreItem')->middleware('permission:READ_OEUVRE_ITEM');
+    Route::delete('oeuvre/{id}', 'OeuvreController@deleteOeuvreItem')->middleware('permission:DELETE_OEUVRE_ITEM');
+    Route::get('oeuvre/by-book/{id}', 'OeuvreController@getOeuvreByBook')->middleware('permission:READ_OEUVRE_ITEM');
+    Route::post('oeuvre/create-items', 'OeuvreController@saveOeuvreItemsToAuthor')->middleware('permission:CREATE_OEUVRE_ITEM');
+    Route::get('oeuvre/{id}/books', 'OeuvreController@getOeuvreItemLinkedBooks')->middleware('permission:READ_OEUVRE_ITEM');
+    Route::post('oeuvre/{id}/books', 'OeuvreController@linkBookToOeuvreItem')->middleware('permission:LINK_OEUVRE_ITEM');
+    Route::put('oeuvre/{id}/unlink-book', 'OeuvreController@deleteBookFromOeuvreItem')->middleware('permission:UNLINK_OEUVRE_ITEM');
 
     Route::post('reading-dates', 'ReadingDateController@createReadingDate');
     Route::put('reading-dates', 'ReadingDateController@updateReadingDate');
@@ -119,7 +119,6 @@ Route::group(array('middleware' => 'localCallOnly'), function () {
     //google API
     Route::get('createSpriteForBooks', 'ImageController@createSpriteForBooks');
     Route::get('createSpriteForAuthors', 'ImageController@createSpriteForAuthors');
-    Route::get('importBooks', 'BookImportController@importBooks');
     Route::get('search/populate', 'ElasticSearchController@index');
     Route::get('search/clear', 'ElasticSearchController@clear');
     Route::get('dataset/reset', 'DatasetController@resetDatabase');

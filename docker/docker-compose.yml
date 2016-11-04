@@ -2,7 +2,7 @@ db-bibliomania:
   image: mysql:5.7
   ports:
    - "3306:3306"
-  command: mysqld --sql_mode=""
+  command: mysqld --sql_mode="" --skip-name-resolve
   environment:
         MYSQL_ROOT_PASSWORD: test
         MYSQL_DATABASE: BiblioMania
