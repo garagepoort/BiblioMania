@@ -1,74 +1,93 @@
-'use strict';
+(function () {
+    'use strict';
 
-angular.module('com.bendani.bibliomania.edit.author.ui',
-    ['com.bendani.bibliomania.author.model', 'com.bendani.bibliomania.oeuvre.model',
-        'com.bendani.bibliomania.name.directive',
-        'com.bendani.bibliomania.add.oeuvre.items.modal.service',
-        'com.bendani.bibliomania.confirmation.modal.service',
-        'com.bendani.bibliomania.book.list.directive'
-    ])
-    .config(['$routeProvider',function ($routeProvider) {
+    angular.module('com.bendani.bibliomania.edit.author.ui',
+        ['com.bendani.bibliomania.author.model', 'com.bendani.bibliomania.oeuvre.model',
+            'com.bendani.bibliomania.name.directive',
+            'com.bendani.bibliomania.add.oeuvre.items.modal.service',
+            'com.bendani.bibliomania.confirmation.modal.service',
+            'com.bendani.bibliomania.book.list.directive'
+        ])
+        .config(['$routeProvider', editAuthorConfig])
+        .controller('EditAuthorController', ['$scope', '$location', 'Author', 'Oeuvre', 'ErrorContainer', 'growl', '$routeParams', 'AddOeuvreItemsModalService', 'ConfirmationModalService', 'PermissionService', EditAuthorController]);
+
+    function editAuthorConfig($routeProvider) {
         $routeProvider.when('/edit-author/:id', {
             templateUrl: '../BiblioMania/views/partials/author/edit-author.html',
-            controller: 'EditAuthorController'
+            controller: 'EditAuthorController',
+            controllerAs: 'vm'
         });
-    }])
-    .controller('EditAuthorController', ['$scope', '$location', 'Author', 'Oeuvre', 'ErrorContainer', 'growl', '$routeParams', 'AddOeuvreItemsModalService', 'ConfirmationModalService', 'PermissionService', 'DateService',
-        function ($scope, $location, Author, Oeuvre, ErrorContainer, growl, $routeParams, AddOeuvreItemsModalService, ConfirmationModalService, PermissionService, DateService) {
+    }
 
-        $scope.dateToString = DateService.dateToString;
-        $scope.$parent.title = "Auteur";
-        $scope.model = Author.get({ id: $routeParams.id }, function(){}, ErrorContainer.handleRestError);
-        $scope.books = Author.books({ id: $routeParams.id }, function(){}, ErrorContainer.handleRestError);
-        $scope.oeuvre = Author.oeuvre({ id: $routeParams.id }, function(){}, ErrorContainer.handleRestError);
+    function EditAuthorController($scope, $location, Author, Oeuvre, ErrorContainer, growl, $routeParams, AddOeuvreItemsModalService, ConfirmationModalService, PermissionService) {
+        var vm = this;
 
-        $scope.searchAuthorImage = function () {
-            if ($scope.model !== undefined && $scope.model.name !== undefined) {
-                $scope.authorImageQuery = $scope.model.name.firstname + " " + $scope.model.name.lastname;
+        vm.searchAuthorImage = searchAuthorImage;
+        vm.userCanEditAuthor = userCanEditAuthor;
+        vm.linkLabel = linkLabel;
+        vm.goToOeuvreItem = goToOeuvreItem;
+        vm.goToBook = goToBook;
+        vm.deleteOeuvreItem = deleteOeuvreItem;
+        vm.showAddOeuvreItemsDialog = showAddOeuvreItemsDialog;
+
+        function init() {
+            $scope.$parent.title = "Auteur";
+
+            Author.get({id: $routeParams.id}).$promise.then(function (author) { vm.model = author; }).catch(ErrorContainer.handleRestError);
+            Author.books({id: $routeParams.id}).$promise.then(function(books){ vm.books = books; }).catch(ErrorContainer.handleRestError);
+            Author.oeuvre({id: $routeParams.id}).$promise.then(function(oeuvre){ vm.oeuvre = oeuvre; }).catch(ErrorContainer.handleRestError);
+
+            vm.oeuvreConfig = {
+                orderValues: [
+                    {key: 'Titel', predicate: 'title', width: '70'},
+                    {key: 'Jaar', predicate: 'publicationYear', width: '10'},
+                    {key: 'Status', predicate: 'state', width: '10'}
+                ],
+                predicate: 'publicationYear',
+                reverseOrder: false
+            };
+        }
+
+        function searchAuthorImage() {
+            if (vm.model !== undefined && vm.model.name !== undefined) {
+                vm.authorImageQuery = vm.model.name.firstname + " " + vm.model.name.lastname;
             }
-        };
+        }
 
-        $scope.oeuvreConfig = {
-            orderValues: [
-                {key: 'Titel', predicate: 'title', width: '70'},
-                {key: 'Jaar', predicate: 'publicationYear', width: '10'},
-                {key: 'Status', predicate: 'state', width: '10'}
-            ],
-            predicate: 'publicationYear',
-            reverseOrder: false
-        };
-
-        $scope.userCanEditAuthor = function(){
+        function userCanEditAuthor() {
             return PermissionService.hasAllowedPermissions(['UPDATE_AUTHOR']);
-        };
+        }
 
-
-        $scope.linkLabel = function(oeuvreItem){
-            if(oeuvreItem.linkedBooks.length > 0){
+        function linkLabel(oeuvreItem) {
+            if (oeuvreItem.linkedBooks.length > 0) {
                 return 'label-success';
             }
             return 'label-danger';
-        };
+        }
 
-        $scope.goToOeuvreItem = function(item){
-            $location.path('/edit-oeuvre-item/'+item.id);
-        };
-        $scope.goToBook = function(book){
-            $location.path('/book-details/'+book.id);
-        };
+        function goToOeuvreItem(item) {
+            $location.path('/edit-oeuvre-item/' + item.id);
+        }
 
-        $scope.deleteOeuvreItem = function(oeuvreItem){
-            ConfirmationModalService.show('Bent u zeker dat u dit item wilt verwijderen: ' + oeuvreItem.title, function(){
-                Oeuvre.delete({ id: oeuvreItem.id}, function(){
-                    $scope.oeuvre = Author.oeuvre({ id: $routeParams.id });
+        function goToBook(book) {
+            $location.path('/book-details/' + book.id);
+        }
+
+        function deleteOeuvreItem(oeuvreItem) {
+            ConfirmationModalService.show('Bent u zeker dat u dit item wilt verwijderen: ' + oeuvreItem.title, function () {
+                Oeuvre.delete({id: oeuvreItem.id}, function () {
+                    vm.oeuvre = Author.oeuvre({id: $routeParams.id});
                     growl.addSuccessMessage("Verwijderen van oeuvre item voltooid");
                 }, ErrorContainer.handleRestError);
             });
-        };
+        }
 
-        $scope.showAddOeuvreItemsDialog = function () {
-            AddOeuvreItemsModalService.show($scope.model.id, function(){
-                $scope.oeuvre = Author.oeuvre({ id: $routeParams.id });
+        function showAddOeuvreItemsDialog() {
+            AddOeuvreItemsModalService.show(vm.model.id, function () {
+                vm.oeuvre = Author.oeuvre({id: $routeParams.id});
             });
-        };
-    }]);
+        }
+
+        init();
+    }
+})();

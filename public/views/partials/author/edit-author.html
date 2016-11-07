@@ -2,24 +2,24 @@
     <errorcontainer></errorcontainer>
 
     <div class="form-subtitle">
-        <div>{{ model.name.firstname + " " + model.name.lastname }}</div>
+        <div>{{ vm.model.name.firstname + " " + vm.model.name.lastname }}</div>
     </div>
 
     <div class="form-content" permission="UPDATE_AUTHOR">
-        <create-author author-model="model"></create-author>
+        <create-author author-model="vm.model"></create-author>
     </div>
 
-    <div class="form-content" ng-hide="userCanEditAuthor()">
+    <div ng-if="vm.model" class="form-content" ng-hide="vm.userCanEditAuthor()">
         <div class="row">
             <div class="col-md-2">
-                <img class="max-width-100 max-height-100" src-with-fallback="{{ model.image }}"/>
+                <img class="max-width-100 max-height-100" src-with-fallback="{{ vm.model.image }}"/>
             </div>
             <div class="col-md-10">
                 <dl class="dl-horizontal dl-text-align-left">
                     <dt>Geboorte datum</dt>
-                    <dd>{{ dateToString(model.dateOfBirth) }}</dd>
+                    <dd><to-date date="vm.model.dateOfBirth"></to-date></dd>
                     <dt>Sterfte datum</dt>
-                    <dd>{{ dateToString(model.dateOfDeath) }}</dd>
+                    <dd><to-date date="vm.model.dateOfDeath" /></dd>
                 </dl>
             </div>
         </div>
@@ -28,14 +28,15 @@
     <div class="form-subtitle">
         <div>Oeuvre</div>
         <button permission="CREATE_OEUVRE_ITEM" type="button" class="btn-default btn btn-sm round-corners form-subtitle-button"
-                ng-click="showAddOeuvreItemsDialog()"><span class="glyphicon glyphicon-plus"></span> Voeg items toe
+                ng-click="vm.showAddOeuvreItemsDialog()"><span class="glyphicon glyphicon-plus"></span> Voeg items toe
         </button>
     </div>
+
     <div permission="READ_OEUVRE_ITEM" class="form-content">
         <table id="author-oeuvre-table" class="table">
-            <thead sort-header sort-options="oeuvreConfig.orderValues" current-predicate="oeuvreConfig.predicate" reverse-order="oeuvreConfig.reverseOrder"></thead>
+            <thead sort-header sort-options="vm.oeuvreConfig.orderValues" current-predicate="vm.oeuvreConfig.predicate" reverse-order="vm.oeuvreConfig.reverseOrder"></thead>
             <tbody>
-            <tr ng-repeat="oeuvreItem in oeuvre | orderBy:oeuvreConfig.predicate:oeuvreConfig.reverseOrder">
+            <tr ng-repeat="oeuvreItem in vm.oeuvre | orderBy:vm.oeuvreConfig.predicate:vm.oeuvreConfig.reverseOrder">
                 <td>
                     {{ oeuvreItem.title }}
                 </td>
@@ -43,15 +44,15 @@
                     {{ oeuvreItem.publicationYear }}
                 </td>
                 <td>
-                    <label class="label" ng-class="linkLabel(oeuvreItem)">{{ oeuvreItem.state}}</label>
+                    <label class="label" ng-class="vm.linkLabel(oeuvreItem)">{{ oeuvreItem.state}}</label>
                 </td>
                 <td style="text-align: center">
-                    <button permission="UPDATE_OEUVRE_ITEM" ng-click="goToOeuvreItem(oeuvreItem)" type="button" class="btn btn-xs btn-default round-corners">
+                    <button permission="UPDATE_OEUVRE_ITEM" ng-click="vm.goToOeuvreItem(oeuvreItem)" type="button" class="btn btn-xs btn-default round-corners">
                         <span class="fa fa-pencil" aria-hidden="true"></span>
                     </button>
-                    <button permission="DELETE_OEUVRE_ITEM" ng-click="deleteOeuvreItem(oeuvreItem)" type="button"
-                            class="btn btn-xs btn-default round-corners"><span class="glyphicon glyphicon-trash"
-                                                                               aria-hidden="true"></span></button>
+                    <button permission="DELETE_OEUVRE_ITEM" ng-click="vm.deleteOeuvreItem(oeuvreItem)" type="button" class="btn btn-xs btn-default round-corners">
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                    </button>
                 </td>
             </tr>
             </tbody>
@@ -60,6 +61,6 @@
 
     <div class="form-subtitle">Boeken</div>
     <div class="form-content">
-        <book-list books="books"></book-list>
+        <book-list books="vm.books"></book-list>
     </div>
 </div>
