@@ -1031,10 +1031,10 @@ a.editable-click:hover {
   display: inline-block;
   max-width: 50%;
 }
-dl.dl-horizontal.dl-personal-book-info-detail-directive dt {
+dl.dl-horizontal dt {
   width: 180px;
 }
-dl.dl-horizontal.dl-personal-book-info-detail-directive dd {
+dl.dl-horizontal dd {
   word-break: break-word;
 }
 .fade-in {

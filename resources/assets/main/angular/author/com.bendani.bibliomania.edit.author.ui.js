@@ -13,8 +13,10 @@ angular.module('com.bendani.bibliomania.edit.author.ui',
             controller: 'EditAuthorController'
         });
     }])
-    .controller('EditAuthorController', ['$scope', '$location', 'Author', 'Oeuvre', 'ErrorContainer', 'growl', '$routeParams', 'AddOeuvreItemsModalService', 'ConfirmationModalService', function ($scope, $location, Author, Oeuvre, ErrorContainer, growl, $routeParams, AddOeuvreItemsModalService, ConfirmationModalService) {
+    .controller('EditAuthorController', ['$scope', '$location', 'Author', 'Oeuvre', 'ErrorContainer', 'growl', '$routeParams', 'AddOeuvreItemsModalService', 'ConfirmationModalService', 'PermissionService', 'DateService',
+        function ($scope, $location, Author, Oeuvre, ErrorContainer, growl, $routeParams, AddOeuvreItemsModalService, ConfirmationModalService, PermissionService, DateService) {
 
+        $scope.dateToString = DateService.dateToString;
         $scope.$parent.title = "Auteur";
         $scope.model = Author.get({ id: $routeParams.id }, function(){}, ErrorContainer.handleRestError);
         $scope.books = Author.books({ id: $routeParams.id }, function(){}, ErrorContainer.handleRestError);
@@ -35,6 +37,11 @@ angular.module('com.bendani.bibliomania.edit.author.ui',
             predicate: 'publicationYear',
             reverseOrder: false
         };
+
+        $scope.userCanEditAuthor = function(){
+            return PermissionService.hasAllowedPermissions(['UPDATE_AUTHOR']);
+        };
+
 
         $scope.linkLabel = function(oeuvreItem){
             if(oeuvreItem.linkedBooks.length > 0){

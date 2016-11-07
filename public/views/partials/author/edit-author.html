@@ -1,20 +1,37 @@
-<div permission="CREATE_AUTHOR,UPDATE_AUTHOR" class="create-book-div">
+<div permission="READ_AUTHOR" class="create-book-div">
     <errorcontainer></errorcontainer>
 
     <div class="form-subtitle">
         <div>{{ model.name.firstname + " " + model.name.lastname }}</div>
     </div>
-    <div class="form-content">
+
+    <div class="form-content" permission="UPDATE_AUTHOR">
         <create-author author-model="model"></create-author>
+    </div>
+
+    <div class="form-content" ng-hide="userCanEditAuthor()">
+        <div class="row">
+            <div class="col-md-2">
+                <img class="max-width-100 max-height-100" src-with-fallback="{{ model.image }}"/>
+            </div>
+            <div class="col-md-10">
+                <dl class="dl-horizontal dl-text-align-left">
+                    <dt>Geboorte datum</dt>
+                    <dd>{{ dateToString(model.dateOfBirth) }}</dd>
+                    <dt>Sterfte datum</dt>
+                    <dd>{{ dateToString(model.dateOfDeath) }}</dd>
+                </dl>
+            </div>
+        </div>
     </div>
 
     <div class="form-subtitle">
         <div>Oeuvre</div>
-        <button type="button" class="btn-default btn btn-sm round-corners form-subtitle-button"
+        <button permission="CREATE_OEUVRE_ITEM" type="button" class="btn-default btn btn-sm round-corners form-subtitle-button"
                 ng-click="showAddOeuvreItemsDialog()"><span class="glyphicon glyphicon-plus"></span> Voeg items toe
         </button>
     </div>
-    <div class="form-content">
+    <div permission="READ_OEUVRE_ITEM" class="form-content">
         <table id="author-oeuvre-table" class="table">
             <thead sort-header sort-options="oeuvreConfig.orderValues" current-predicate="oeuvreConfig.predicate" reverse-order="oeuvreConfig.reverseOrder"></thead>
             <tbody>
@@ -29,10 +46,10 @@
                     <label class="label" ng-class="linkLabel(oeuvreItem)">{{ oeuvreItem.state}}</label>
                 </td>
                 <td style="text-align: center">
-                    <button ng-click="goToOeuvreItem(oeuvreItem)" type="button" class="btn btn-xs btn-default round-corners">
+                    <button permission="UPDATE_OEUVRE_ITEM" ng-click="goToOeuvreItem(oeuvreItem)" type="button" class="btn btn-xs btn-default round-corners">
                         <span class="fa fa-pencil" aria-hidden="true"></span>
                     </button>
-                    <button ng-click="deleteOeuvreItem(oeuvreItem)" type="button"
+                    <button permission="DELETE_OEUVRE_ITEM" ng-click="deleteOeuvreItem(oeuvreItem)" type="button"
                             class="btn btn-xs btn-default round-corners"><span class="glyphicon glyphicon-trash"
                                                                                aria-hidden="true"></span></button>
                 </td>

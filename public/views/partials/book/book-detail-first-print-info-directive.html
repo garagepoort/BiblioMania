@@ -7,7 +7,7 @@
 <div class="form-content detail-panel">
     <div id="no-first-print-info-message" ng-if="!vm.book.firstPrintInfo" class="alert alert-warning">Er is nog geen eerste druk informatie voor dit boek.</div>
 
-    <dl ng-if="vm.book.firstPrintInfo" class="dl-horizontal">
+    <dl ng-if="vm.book.firstPrintInfo" class="dl-horizontal book-detail">
         <dt>Titel</dt>
         <dd id="first-print-info-title-label">{{vm.book.firstPrintInfo.title}}</dd>
         <dt ng-show="vm.book.firstPrintInfo.subtitle">Ondertitel</dt>
