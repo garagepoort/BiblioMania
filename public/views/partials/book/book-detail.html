@@ -79,9 +79,9 @@
         <div class="col-md-12">
             <div class="form-subtitle">
                 <div>Persoonlijke informatie</div>
-                <button id="create-personal-book-info-button" class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="createPersonalBookInfo()"><i class="fa fa-pencil"> Persoonlijke info aanmaken</i></button>
-                <button id="remove-from-wishlist-button" ng-show="book.onWishlist" class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="removeFromWishlist()"><i class="fa fa-heart"> verwijder van wishlist</i></button>
-                <button id="add-to-wishlist-button" ng-show="!book.onWishlist" class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="addToWishlist()"><i class="fa fa-heart"> voeg toe aan wishlist</i></button>
+                <button permission="CREATE_PERSONAL_BOOK_INFO" id="create-personal-book-info-button" class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="createPersonalBookInfo()"><i class="fa fa-pencil"> Persoonlijke info aanmaken</i></button>
+                <button permission="UNLINK_WISHLIST" id="remove-from-wishlist-button" ng-show="book.onWishlist" class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="removeFromWishlist()"><i class="fa fa-heart"> verwijder van wishlist</i></button>
+                <button permission="LINK_WISHLIST" id="add-to-wishlist-button" ng-show="!book.onWishlist" class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="addToWishlist()"><i class="fa fa-heart"> voeg toe aan wishlist</i></button>
             </div>
             <div class="form-content detail-panel">
                 <div id="on-wishlist-message" ng-show="book.onWishlist" class="alert alert-success">Dit boek staat op je wishlist.</div>
@@ -96,7 +96,7 @@
         <div class="col-md-6">
             <div class="form-subtitle">
                 <div>Persoonlijke informatie</div>
-                <button id="edit-personal-book-info-button" class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="editPersonalBookInfo()"><i class="fa fa-pencil"> Editeer</i></button>
+                <button permission="UPDATE_PERSONAL_BOOK_INFO" id="edit-personal-book-info-button" class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="editPersonalBookInfo()"><i class="fa fa-pencil"> Editeer</i></button>
             </div>
             <div class="form-content detail-panel">
                 <personal-book-info-detail personal-book-info="book.personalBookInfo"></personal-book-info-detail>

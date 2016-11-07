@@ -120,7 +120,7 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
             };
 
             function setRightTitlePanel() {
-                var titlePanelRight = angular.element('<button class="btn btn-success no-round-corners" ng-click="goToCreateBook()">Nieuw boek</button>');
+                var titlePanelRight = angular.element('<button permission="CREATE_BOOK" class="btn btn-success no-round-corners" ng-click="goToCreateBook()">Nieuw boek</button>');
                 $compile(titlePanelRight)($scope);
                 TitlePanelService.setRightPanel(titlePanelRight);
             }

@@ -18,7 +18,7 @@ class PermissionService
 		$this->userRepository = App::make('UserRepository');
 		$this->permissions = array(
 			'BOOK_ADMIN' => array(
-				'READ_BOOKS',
+				'READ_BOOK',
 				'CREATE_BOOK',
 				'UPDATE_BOOK',
 				'DELETE_BOOK',
@@ -28,10 +28,57 @@ class PermissionService
 				'DELETE_OEUVRE_ITEM',
 				'CREATE_OEUVRE_ITEM',
 				'LINK_OEUVRE_ITEM',
-				'UNLINK_OEUVRE_ITEM'
+				'UNLINK_OEUVRE_ITEM',
+
+				'READ_AUTHOR',
+				'CREATE_AUTHOR',
+				'UPDATE_AUTHOR',
+				'DELETE_AUTHOR',
+				'LINK_AUTHOR',
+				'UNLINK_AUTHOR',
+
+				'READ_FIRST_PRINT',
+				'CREATE_FIRST_PRINT',
+				'UPDATE_FIRST_PRINT',
+				'DELETE_FIRST_PRINT',
+				'LINK_FIRST_PRINT',
+				'UNLINK_FIRST_PRINT',
+
+				'READ_SERIE',
+				'UPDATE_SERIE',
+				'DELETE_SERIE',
+				'LINK_SERIE',
+				'UNLINK_SERIE',
+
+				'READ_READING_DATE',
+				'CREATE_READING_DATE',
+				'UPDATE_READING_DATE',
+				'DELETE_READING_DATE',
+
+				'READ_PERSONAL_BOOK_INFO',
+				'CREATE_PERSONAL_BOOK_INFO',
+				'UPDATE_PERSONAL_BOOK_INFO',
+
+				'LINK_WISHLIST',
+				'UNLINK_WISHLIST'
 			),
 			'USER' => array(
-				'READ_BOOKS'
+				'READ_BOOK',
+				'READ_AUTHOR',
+				'READ_OEUVRE_ITEM',
+				'READ_SERIE',
+
+				'READ_READING_DATE',
+				'CREATE_READING_DATE',
+				'UPDATE_READING_DATE',
+				'DELETE_READING_DATE',
+
+				'READ_PERSONAL_BOOK_INFO',
+				'CREATE_PERSONAL_BOOK_INFO',
+				'UPDATE_PERSONAL_BOOK_INFO',
+
+				'LINK_WISHLIST',
+				'UNLINK_WISHLIST'
 			)
 		);
 	}

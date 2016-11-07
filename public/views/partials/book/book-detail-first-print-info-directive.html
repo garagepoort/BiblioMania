@@ -1,8 +1,8 @@
 <div class="form-subtitle">
     <div>Eerste druk informatie</div>
-    <button id="select-first-print-info-button" class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="vm.showSelectFirstPrintDialog()"><i class="fa fa-search"> Selecteer</i></button>
-    <button ng-if="vm.book.firstPrintInfo" class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="vm.editFirstPrintInfo()"><i class="fa fa-pencil"> Editeer</i></button>
-    <button id="create-first-print-info-button" ng-if="!vm.book.firstPrintInfo" class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="vm.createFirstPrintInfo()"><i class="fa fa-plus"> Maak aan</i></button>
+    <button permission="LINK_FIRST_PRINT" id="select-first-print-info-button" class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="vm.showSelectFirstPrintDialog()"><i class="fa fa-search"> Selecteer</i></button>
+    <button permission="UPDATE_FIRST_PRINT" ng-if="vm.book.firstPrintInfo" class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="vm.editFirstPrintInfo()"><i class="fa fa-pencil"> Editeer</i></button>
+    <button permission="CREATE_FIRST_PRINT" id="create-first-print-info-button" ng-if="!vm.book.firstPrintInfo" class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="vm.createFirstPrintInfo()"><i class="fa fa-plus"> Maak aan</i></button>
 </div>
 <div class="form-content detail-panel">
     <div id="no-first-print-info-message" ng-if="!vm.book.firstPrintInfo" class="alert alert-warning">Er is nog geen eerste druk informatie voor dit boek.</div>

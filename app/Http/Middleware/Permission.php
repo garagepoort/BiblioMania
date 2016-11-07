@@ -7,6 +7,7 @@ use Illuminate\Auth\AuthenticationException;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use PermissionService;
+use ResponseCreator;
 
 class Permission
 {
@@ -22,6 +23,6 @@ class Permission
             return $next($request);
         }
 
-        throw new AuthenticationException;
+        return ResponseCreator::createUnauthorizedResponse();
     }
 }

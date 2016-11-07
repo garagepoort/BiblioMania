@@ -1,7 +1,7 @@
 <div class="form-subtitle">
     <div>Lees data</div>
-    <button id="add-reading-date-button" type="button" class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="openEditReadingDateModal()"><i class="fa fa-plus"> Leesdatum toevoegen</i></button>
-    <button id="add-reading-date-today-button" type="button" class="btn btn-sm form-subtitle-button btn-primary round-corners" ng-click="addTodayAsReadingDate()">Vandaag uitgelezen</button>
+    <button permission="CREATE_READING_DATE" id="add-reading-date-button" type="button" class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="openEditReadingDateModal()"><i class="fa fa-plus"> Leesdatum toevoegen</i></button>
+    <button permission="CREATE_READING_DATE" id="add-reading-date-today-button" type="button" class="btn btn-sm form-subtitle-button btn-primary round-corners" ng-click="addTodayAsReadingDate()">Vandaag uitgelezen</button>
 </div>
 <div class="form-content detail-panel">
     <table class="table table-striped">
@@ -10,8 +10,8 @@
             <td id="date-{{$index}}">{{ convertDate(date.date) }}</td>
 
             <td class="text-align-right">
-                <button ng-click="openEditReadingDateModal(date);" type="button" class="btn btn-default btn-xs"><span class="fa fa-pencil"></span></button>
-                <button id="delete-reading-date-button-{{$index}}" ng-click="removeReadingDate(date);" type="button" class="btn btn-sm btn-default btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+                <button permission="UPDATE_READING_DATE" ng-click="openEditReadingDateModal(date);" type="button" class="btn btn-default btn-xs"><span class="fa fa-pencil"></span></button>
+                <button permission="DELETE_READING_DATE" id="delete-reading-date-button-{{$index}}" ng-click="removeReadingDate(date);" type="button" class="btn btn-sm btn-default btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
             </td>
         </tr>
         <tr ng-repeat-end>
