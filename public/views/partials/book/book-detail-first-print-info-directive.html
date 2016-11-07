@@ -17,7 +17,7 @@
         <dt ng-show="vm.book.firstPrintInfo.publisher">uitgever</dt>
         <dd id="first-print-info-publisher-label" ng-show="vm.book.firstPrintInfo.publisher">{{vm.book.firstPrintInfo.publisher}}</dd>
         <dt ng-show="vm.book.firstPrintInfo.publicationDate">Uitgave datum</dt>
-        <dd id="first-print-info-publication-date-label" ng-show="vm.book.firstPrintInfo.publicationDate">{{ vm.convertDate(vm.book.firstPrintInfo.publicationDate) }}</dd>
+        <dd id="first-print-info-publication-date-label" ng-show="vm.book.firstPrintInfo.publicationDate"><to-date date="vm.book.firstPrintInfo.publicationDate"></to-date></dd>
         <dt ng-show="vm.book.firstPrintInfo.language">taal</dt>
         <dd id="first-print-info-language-label" ng-show="vm.book.firstPrintInfo.language">{{vm.book.firstPrintInfo.language}}</dd>
         <dt ng-show="vm.book.firstPrintInfo.country">land</dt>

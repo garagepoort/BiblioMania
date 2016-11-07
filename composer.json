@@ -28,7 +28,7 @@
         "laravelcollective/annotations": "~5.0",
 
         "bendani/php-common/login-service": "^v4.0.0",
-        "bendani/php-common/uiframework": "^v2.1.0",
+        "bendani/php-common/uiframework": "^v2.2.0",
         "bendani/php-common/filter-service": "^v6.0.0",
         "bendani/php-common/utils": "^v3.0.0"
     },
