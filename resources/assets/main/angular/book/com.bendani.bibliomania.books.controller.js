@@ -1,19 +1,35 @@
 'use strict';
 
 angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.bibliomania.book.model',
-    'com.bendani.bibliomania.title.panel',
-    'com.bendani.bibliomania.book.filter.model',
-    'com.bendani.php.common.filterservice',
-    'com.bendani.bibliomania.book.overview.service',
-    'com.bendani.bibliomania.image.card.directive',
-    'com.bendani.bibliomania.book.row.directive',
-    'com.bendani.bibliomania.currency.service',
-    'com.bendani.bibliomania.book.detail.directive',
-    'pageslide-directive'])
-    .controller('BookController', ['$scope', 'Book', 'BookFilter', 'ErrorContainer', 'TitlePanelService', '$location', '$compile', 'BookOverviewService', 'CurrencyService', 'DateService', 'ScrollingService', '$timeout', 'FilterService',
-        function ($scope, Book, BookFilter, ErrorContainer, TitlePanelService, $location, $compile, BookOverviewService, CurrencyService, DateService, ScrollingService, $timeout, FilterService) {
-            var personalBooks = {key: 'Mijn boeken in collectie', value: 'personalBooks', searchBooks: Book.searchMyBooks};
-            var personalBooksNotInCollection = {key: 'Mijn boeken niet in collectie', value: 'personalBooksNotInCollection', searchBooks: Book.searchMyBooks};
+        'com.bendani.bibliomania.title.panel',
+        'com.bendani.bibliomania.book.filter.model',
+        'com.bendani.php.common.filterservice',
+        'com.bendani.bibliomania.book.overview.service',
+        'com.bendani.bibliomania.image.card.directive',
+        'com.bendani.bibliomania.book.row.directive',
+        'com.bendani.bibliomania.currency',
+        'com.bendani.bibliomania.book.detail.directive',
+        'pageslide-directive'])
+
+    .config(['$routeProvider', function ($routeProvider) {
+        $routeProvider.when('/books', {
+                templateUrl: '../BiblioMania/views/partials/books.html',
+                controller: 'BookController'
+            }
+        )
+    }])
+    .controller('BookController', ['$scope', 'Book', 'BookFilter', 'ErrorContainer', 'TitlePanelService', '$location', '$compile', 'BookOverviewService', 'ScrollingService', '$timeout', 'FilterService',
+        function ($scope, Book, BookFilter, ErrorContainer, TitlePanelService, $location, $compile, BookOverviewService, ScrollingService, $timeout, FilterService) {
+            var personalBooks = {
+                key: 'Mijn boeken in collectie',
+                value: 'personalBooks',
+                searchBooks: Book.searchMyBooks
+            };
+            var personalBooksNotInCollection = {
+                key: 'Mijn boeken niet in collectie',
+                value: 'personalBooksNotInCollection',
+                searchBooks: Book.searchMyBooks
+            };
             var allBooks = {key: 'Alle boeken', value: 'all', searchBooks: Book.searchAllBooks};
             var otherBooks = {key: 'Andere boeken', value: 'otherBooks', searchBooks: Book.searchOtherBooks};
             var wishlist = {key: 'Wishlist', value: 'wishlist', searchBooks: Book.searchWishlist};
@@ -27,9 +43,6 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
                 TitlePanelService.setShowPreviousButton(false);
                 setRightTitlePanel();
 
-                $scope.getCurrencyViewValue = CurrencyService.getCurrencyViewValue;
-                $scope.dateToString = DateService.dateToString;
-
                 $scope.libraryInformationTemplate = '../BiblioMania/views/partials/book/library-information-template.html';
                 $scope.filterViewableBooksTemplate = '../BiblioMania/views/partials/book/filter-viewable-books-template.html';
 
@@ -39,14 +52,17 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
                 $scope.reverseOrder = false;
                 $scope.setListView(false);
 
-                $scope.viewableFilters = { selected: personalBooks, all: [allBooks, otherBooks, personalBooks, personalBooksNotInCollection, wishlist] };
+                $scope.viewableFilters = {
+                    selected: personalBooks,
+                    all: [allBooks, otherBooks, personalBooks, personalBooksNotInCollection, wishlist]
+                };
 
-                $scope.selectViewableFilter = function(){
+                $scope.selectViewableFilter = function () {
                     FilterService.filter($scope.filterServiceId, $scope.filterBooks);
                 };
 
-                $scope.$watch('viewableBooks', function(){
-                    if($scope.viewableBooks){
+                $scope.$watch('viewableBooks', function () {
+                    if ($scope.viewableBooks) {
                         updateLibraryInformation($scope.viewableBooks);
                     }
                 });
@@ -56,7 +72,7 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
             }
 
             $scope.search = function (item) {
-                if(item.subtitle === undefined || item.subtitle === null){
+                if (item.subtitle === undefined || item.subtitle === null) {
                     item.subtitle = "";
                 }
 
@@ -64,11 +80,11 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
                     || (item.subtitle.toLowerCase().indexOf($scope.searchBooksQuery) !== -1)
                     || (item.mainAuthor.toLowerCase().indexOf($scope.searchBooksQuery) !== -1)) {
 
-                    if($scope.viewableFilters.selected === personalBooks){
+                    if ($scope.viewableFilters.selected === personalBooks) {
                         return item.inCollection;
                     }
 
-                    if($scope.viewableFilters.selected === personalBooksNotInCollection){
+                    if ($scope.viewableFilters.selected === personalBooksNotInCollection) {
                         return !item.inCollection;
                     }
 
@@ -77,7 +93,7 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
                 return false;
             };
 
-            $scope.clearSearch = function(){
+            $scope.clearSearch = function () {
                 $scope.searchBooksQuery = "";
             };
 
@@ -111,11 +127,11 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
                 $location.path('/create-book');
             };
 
-            $scope.onImageClickBook = function(book){
+            $scope.onImageClickBook = function (book) {
                 BookOverviewService.selectBook(book);
             };
 
-            $scope.onEditBook = function(book){
+            $scope.onEditBook = function (book) {
                 $location.path('/book-details/' + book.id);
             };
 
@@ -147,7 +163,7 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
                 $scope.loading = false;
             }
 
-            function updateLibraryInformation(books){
+            function updateLibraryInformation(books) {
                 $scope.libraryInformation = {
                     value: calculateLibraryValue(books),
                     amountOfBooks: books.length

@@ -1,7 +1,7 @@
 angular.module('com.bendani.bibliomania.book.details.ui', [
     'com.bendani.bibliomania.book.model',
     'com.bendani.bibliomania.title.panel',
-    'com.bendani.bibliomania.currency.service',
+    'com.bendani.bibliomania.currency',
     'com.bendani.bibliomania.date.selection.modal.service',
     'com.bendani.bibliomania.personal.book.info.model',
     'com.bendani.bibliomania.personal.book.info.detail.directive',

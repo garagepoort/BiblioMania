@@ -30,10 +30,6 @@ angular.module('BiblioMania', ['ngRoute',
     'com.bendani.bibliomania.create.user.ui'])
     .config(['$routeProvider', 'growlProvider', function ($routeProvider, growlProvider) {
         $routeProvider
-            .when('/books', {
-                templateUrl: '../BiblioMania/views/partials/books.html',
-                controller: 'BookController'
-            })
             .when('/login', {
                 templateUrl: '../BiblioMania/views/partials/login.html',
                 controller: 'LoginController',
