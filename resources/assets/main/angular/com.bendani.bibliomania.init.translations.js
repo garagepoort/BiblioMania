@@ -16,7 +16,9 @@ angular.module('BiblioMania')
             'translation.not.all.fields.have.been.filled.in':'Niet all velden zijn ingevuld',
             'BORROWED': 'Geleend',
             'SOLD': 'Verkocht',
-            'LOST': 'Verloren'
+            'LOST': 'Verloren',
+
+            'user.with.username.exists': 'User met deze username bestaat reeds'
         });
 
         $translateProvider.translations('en', {
@@ -35,7 +37,9 @@ angular.module('BiblioMania')
             'translation.not.all.fields.have.been.filled.in': 'Not all fields have been filled in',
             'BORROWED': 'Borrowed',
             'SOLD': 'Sold',
-            'LOST': 'Lost'
+            'LOST': 'Lost',
+
+            'user.with.username.exists': 'User with username already exists'
         });
 
         $translateProvider.preferredLanguage('nl');

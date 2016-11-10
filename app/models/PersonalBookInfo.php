@@ -8,6 +8,8 @@
  * @property integer user_id
  * @property boolean owned
  * @property \Illuminate\Database\Eloquent\Collection reading_dates
+ * @property GiftInfo gift_info
+ * @property BuyInfo buy_info
  */
 class PersonalBookInfo extends Eloquent {
     protected $table = 'personal_book_info';

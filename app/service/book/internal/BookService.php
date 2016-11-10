@@ -106,6 +106,7 @@ class BookService
         Ensure::objectNotNull('author', $author);
 
         $this->bookRepository->addAuthorToBook($book, $authorToBookRequest->getAuthorId());
+        $this->bookElasticIndexer->indexBook($book);
     }
 
     public function unlinkAuthorFromBook($bookId, UnlinkAuthorFromBookRequest $unlinkAuthorFromBookRequest){
@@ -120,6 +121,7 @@ class BookService
         }
 
         $this->bookRepository->removeAuthorFromBook($book, $unlinkAuthorFromBookRequest->getAuthorId());
+        $this->bookElasticIndexer->indexBook($book);
     }
 
     public function getCompletedBooksWithPersonalBookInfo()

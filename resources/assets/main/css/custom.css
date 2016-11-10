@@ -42,6 +42,11 @@ div.growl {
   -moz-border-radius: 3px !important;
   border-radius: 3px !important;
 }
+.full-round {
+  -webkit-border-radius: 25px !important;
+  -moz-border-radius: 25px !important;
+  border-radius: 25px !important;
+}
 .half-round-corners-left {
   -webkit-border-radius: 3px !important;
   -moz-border-radius: 3px !important;

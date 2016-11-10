@@ -1,6 +1,6 @@
 <td ng-click="openDetails(); $event.stopPropagation();">{{ ::book.title }}</td>
 <td ng-click="openDetails(); $event.stopPropagation();">{{ ::book.subtitle }}</td>
-<td ng-click="openDetails(); $event.stopPropagation();">{{ ::book.author }}</td>
+<td ng-click="openDetails(); $event.stopPropagation();">{{ ::book.author.name.firstname + " " + ::book.author.name.lastname }}</td>
 <td ng-click="openDetails(); $event.stopPropagation();">
     <img data-toggle="tooltip" data-placement="top" title="{{ ::warning.message }}"
           ng-repeat="warning in warnings" ng-click="warning.handle()" ng-src="{{ ::warning.icon }}" class="warning-icon-row clickableImage pull-left">

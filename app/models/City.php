@@ -1,4 +1,9 @@
 <?php
+
+/**
+ * @property integer id
+ * @property string name
+ */
 class City extends Eloquent {
     protected $table = 'city';
 

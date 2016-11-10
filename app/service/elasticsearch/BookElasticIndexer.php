@@ -1,6 +1,7 @@
 <?php
 
 
+use Bendani\PhpCommon\FilterService\Model\FilterBuilder;
 use Bendani\PhpCommon\FilterService\Model\FilterReturnType;
 use Bendani\PhpCommon\Utils\Ensure;
 use Bendani\PhpCommon\Utils\StringUtils;
@@ -13,6 +14,8 @@ class BookElasticIndexer
     private $elasticSearchClient;
     /** @var  BookRepository */
     private $bookRepository;
+    /** @var  BookToElasticMapper $bookToElasticMapper */
+    private $bookToElasticMapper;
 
     /**
      * BookElasticIndexer constructor.
@@ -21,6 +24,7 @@ class BookElasticIndexer
     {
         $this->elasticSearchClient = App::make('ElasticSearchClient');
         $this->bookRepository = App::make('BookRepository');
+        $this->bookToElasticMapper = App::make('BookToElasticMapper');
     }
 
     public function indexBooks()
@@ -57,57 +61,7 @@ class BookElasticIndexer
      */
     public function indexBook($book)
     {
-        $authors = $this->indexAuthors($book);
-        $personalBookInfos = $this->indexPersonalBookInfos($book);
-        $tags = $this->indexTags($book);
-
-        $book->load('wishlists');
-
-        $readUsers = [];
-        /** @var PersonalBookInfo $personalBookInfo */
-        foreach($book->personal_book_infos as $personalBookInfo){
-            if(count($personalBookInfo->reading_dates) > 0){
-                array_push($readUsers, intval($personalBookInfo->user_id));
-            }
-        }
-
-        $bookArray = [
-            'id' => intval($book->id),
-            'title' => $book->title,
-            'subtitle' => $book->subtitle,
-            'isbn' => $book->ISBN,
-            'authors' => $authors,
-            'country' => $book->publisher_country_id,
-            'language' => $book->language_id,
-            'publisher' => $book->publisher_id,
-            'genre' => $book->genre_id,
-            'retailPrice' => ['amount' => $book->retail_price, 'currency' => $book->currency],
-            'wishlistUsers' => array_map(function($item){ return intval($item->user_id); }, $book->wishlists->all()),
-            'personalBookInfoUsers' => array_map(function($item){ return intval($item->user_id); }, $book->personal_book_infos->all()),
-            'readUsers' => $readUsers,
-            'personalBookInfos' => $personalBookInfos,
-            'tags' => $tags
-        ];
-
-        if (!StringUtils::isEmpty($book->coverImage)) {
-            $imageToJsonAdapter = new ImageToJsonAdapter();
-            $imageToJsonAdapter->fromBook($book);
-            $bookArray['spriteImage'] = $imageToJsonAdapter->mapToJson();
-
-            $baseUrl = URL::to('/');
-            $bookArray['image'] = $baseUrl . "/bookImages/" . $book->coverImage;
-        }
-
-        $book->load('book_from_authors');
-
-        if ($book->book_from_authors !== null) {
-            $bookArray['isLinkedToOeuvre'] = count($book->book_from_authors->all()) > 0;
-        }
-
-        if ($book->mainAuthor() != null) {
-            $bookArray['mainAuthor'] = $book->mainAuthor()->name . " " . $book->mainAuthor()->firstname;
-        }
-
+        $bookArray = $this->bookToElasticMapper->map($book);
 
         $params = [
             'index' => $this->elasticSearchClient->getIndexName(),
@@ -122,23 +76,20 @@ class BookElasticIndexer
 
     public function search($userId, $bookFilters, $personalFilters)
     {
+        $filters = array_map(function($item){ return $item->getValue(); }, $bookFilters);
 
-        $filters = array_map(function($item){
-            /** @var FilterReturnType $item */
-            return $item->getValue();
-        }, $bookFilters);
-
-        $personalFilters = array_map(function($item){
-            /** @var FilterReturnType $item */
-            return $item->getValue();
-        }, $personalFilters);
-
-        if(count($personalFilters) > 0){
-            array_push($filters, ['nested' => [
-                'path'=>'personalBookInfos',
-                'filter' => ['bool' => ['must' => $personalFilters]]
-            ]]);
+        if(count($personalFilters) > 0) {
+            array_push($personalFilters, FilterBuilder::term('personalBookInfos.userId', $userId));
+            $personalFilters = array_map(function($item){ return $item->getValue(); }, $personalFilters);
+            if(count($personalFilters) > 0){
+                array_push($filters, ['nested' => [
+                    'path'=>'personalBookInfos',
+                    'filter' => ['bool' => ['must' => $personalFilters]]
+                ]]);
+            }
         }
+
+
 
         $params = [
             'index' => $this->elasticSearchClient->getIndexName(),
@@ -176,92 +127,6 @@ class BookElasticIndexer
 
 
         return $this->elasticSearchClient->search($params);
-    }
-
-    /**
-     * @param $book
-     * @return PersonalBookInfo
-     */
-    private function indexPersonalBookInfos($book)
-    {
-        $book->load('personal_book_infos');
-        /** @var PersonalBookInfo $personalBookInfos */
-        $personalBookInfos = array_map(function ($personalBookInfo) {
-            $giftInfo = null;
-            $buyInfo = null;
-            $retrieveDate = null;
-
-            if ($personalBookInfo->gift_info) {
-                $giftInfo = [
-                    'from' => $personalBookInfo->gift_info->from,
-                    'gift_date' =>$personalBookInfo->gift_info->receipt_date
-                ];
-                $retrieveDate =$personalBookInfo->gift_info->receipt_date;
-            }
-
-            if ($personalBookInfo->buy_info) {
-                $buyInfo = [];
-
-                if($personalBookInfo->buy_info->city){
-                    $buyInfo['city'] = [
-                            'id' => intval($personalBookInfo->buy_info->city->id),
-                            'name' => $personalBookInfo->buy_info->city->name
-                    ];
-                }
-                $buyInfo['price'] = $personalBookInfo->buy_info->price_payed;
-                $buyInfo['buy_date'] = $personalBookInfo->buy_info->buy_date;
-                $retrieveDate = $personalBookInfo->buy_info->buy_date;
-            }
-
-            /** @var ReadingDate $date */
-            $readingDates = array_map(function($date){
-                return [
-                    'date' => $date->date,
-                    'rating' => $date->rating
-                ];
-            }, $personalBookInfo->reading_dates->all());
-
-            return [
-                'id' => intval($personalBookInfo->id),
-                'userId' => intval($personalBookInfo->user_id),
-                'inCollection' => $personalBookInfo->get_owned(),
-                'reasonNotInCollection' => $personalBookInfo->reasonNotInCollection,
-                'giftInfo' => $giftInfo,
-                'buyInfo' => $buyInfo,
-                'retrieveDate' => $retrieveDate,
-                'readingDates' => $readingDates
-            ];
-        }, $book->personal_book_infos->all());
-        return $personalBookInfos;
-    }
-
-    /**
-     * @param $book
-     * @return array
-     */
-    private function indexTags($book)
-    {
-        $tags = array_map(function ($tag) {
-            return ['id' => intval($tag->id), 'name' => $tag->name];
-        }, $book->tags->all());
-        return $tags;
-    }
-
-    /**
-     * @param $book
-     * @return array
-     */
-    private function indexAuthors($book)
-    {
-        $authors = array_map(function ($author) {
-            /** @var Author $author */
-            return [
-                'id' => intval($author->id),
-                'firstname' => $author->firstname,
-                'lastname' => $author->name
-            ];
-        }, $book->authors->all());
-        return $authors;
     }
 
 }
