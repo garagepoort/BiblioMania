@@ -89,8 +89,6 @@ class BookElasticIndexer
             }
         }
 
-
-
         $params = [
             'index' => $this->elasticSearchClient->getIndexName(),
             'type' => self::BOOK,

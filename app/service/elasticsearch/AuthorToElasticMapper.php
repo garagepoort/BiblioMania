@@ -14,7 +14,7 @@ class AuthorToElasticMapper
 	public function mapAuthors($authors)
 	{
 		return array_map(function($author){
-			$this->map($author);
+			return $this->map($author);
 		}, $authors);
 	}
 }

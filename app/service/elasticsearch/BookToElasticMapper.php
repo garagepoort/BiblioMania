@@ -26,6 +26,7 @@ class BookToElasticMapper
 	public function map(Book $book){
 		$book->load('personal_book_infos');
 		$book->load('wishlists');
+		$book->load('authors');
 		$book->load('book_from_authors');
 
 		$authors = $this->authorToElasticMapper->mapAuthors($book->authors->all());

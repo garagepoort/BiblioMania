@@ -57,6 +57,6 @@ class PersonalBookInfoToElasticMapper
 	 */
 	public function mapPersonalBookInfos($personalBookInfos)
 	{
-		return array_map(function ($personalBookInfo) { $this->map($personalBookInfo); }, $personalBookInfos);
+		return array_map(function ($personalBookInfo) { return $this->map($personalBookInfo); }, $personalBookInfos);
 	}
 }
