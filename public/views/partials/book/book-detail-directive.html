@@ -46,7 +46,7 @@
                                 <dt ng-show="vm.selectedBook.publisherSerie">Uitgeverreeks:</dt>
                                 <dd ng-show="vm.selectedBook.publisherSerie">{{vm.selectedBook.publisherSerie}}</dd>
                                 <dt ng-show="vm.selectedBook.retailPrice">Cover prijs: </dt>
-                                <dd ng-show="vm.selectedBook.retailPrice">{{ vm.getCurrencyViewValue(vm.selectedBook.retailPrice.currency) }} {{ vm.selectedBook.retailPrice.amount | numberFormatFilter}}</dd>
+                                <dd ng-show="vm.selectedBook.retailPrice"><currency currency-value="vm.selectedBook.retailPrice.currency"></currency> {{ vm.selectedBook.retailPrice.amount | numberFormatFilter}}</dd>
                                 <dt ng-show="vm.selectedBook.pages">Pagina's:</dt>
                                 <dd ng-show="vm.selectedBook.pages">{{vm.selectedBook.pages}}</dd>
                                 <dt ng-show="vm.selectedBook.print">Druk:</dt>

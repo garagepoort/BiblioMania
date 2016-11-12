@@ -8,7 +8,7 @@ angular
             scope: {},
             restrict: "E",
             templateUrl: "../BiblioMania/views/partials/book/book-detail-directive.html",
-            controller: ['$scope', '$location', 'BookOverviewService', 'Book', 'CurrencyService', 'ErrorContainer', function($scope, $location, BookOverviewService, Book, CurrencyService, ErrorContainer){
+            controller: ['$scope', '$location', 'BookOverviewService', 'Book', 'ErrorContainer', function($scope, $location, BookOverviewService, Book, ErrorContainer){
                 var vm = this;
                 vm.closeBookDetailPanel = closeBookDetailPanel;
                 vm.goToEditBook = goToEditBook;
@@ -31,8 +31,6 @@ angular
                     $scope.$on('$destroy', function () {
                         BookOverviewService.deregisterHandler(selectBookHandler);
                     });
-
-                    vm.getCurrencyViewValue = CurrencyService.getCurrencyViewValue;
                 }
 
                 function closeBookDetailPanel() {

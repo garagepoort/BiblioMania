@@ -6,7 +6,7 @@
         .directive('currency', function() {
             return {
                 scope: {
-                    currency: '='
+                    currencyValue: '='
                 },
                 template: "<span>{{ vm.formattedCurrency }}</span>",
                 controller: ['CurrencyService', CurrencyController],
@@ -17,7 +17,7 @@
 
     function CurrencyController(CurrencyService){
         var vm = this;
-        vm.formattedCurrency = CurrencyService.getCurrencyViewValue(vm.currency);
+        vm.formattedCurrency = CurrencyService.getCurrencyViewValue(vm.currencyValue);
     }
 
     function CurrencyServiceProvider() {
