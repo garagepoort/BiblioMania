@@ -3,7 +3,7 @@
 //USER
 use Illuminate\Support\Facades\Response;
 
-Route::group(array('middleware' => ['auth']), function () {
+Route::group(array('middleware' => ['auth', 'activated']), function () {
 
     Route::get('loggedInUser', 'UserController@getLoggedInUser');
 
@@ -116,7 +116,7 @@ Route::group(array('middleware' => 'localCallOnly'), function () {
 //ALL
 Route::post('login', 'DefaultLoginController@doLogin');
 Route::post('users', 'UserController@createUser');
-Route::get('createUser', 'UserController@goToCreateUser');
+Route::get('users/activate/{token}', 'UserActivationController@activateUser')->name('user.activate');
 
 //HOME
 Route::get('/', 'HomeController@goHome');

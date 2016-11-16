@@ -25,6 +25,13 @@ class DefaultLoginController extends LoginController {
 
         if(Auth::attempt($userdata)){
             $user = Auth::user();
+            if(!$user->activated){
+                return Response::json(array(
+                    'code'      =>  403,
+                    'message'   =>  'User not activated'
+                ), 403);
+            }
+
             $userToJsonAdapter = new UserToJsonAdapter($user, $this->permissionService->getPermissionsForUser($user->id));
             return $userToJsonAdapter->mapToJson();
         }else{

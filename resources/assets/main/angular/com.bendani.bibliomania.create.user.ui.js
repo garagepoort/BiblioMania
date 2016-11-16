@@ -28,7 +28,7 @@
             vm.submitAttempted = true;
             if (formValid) {
                 User.save(vm.model, function (response) {
-                    growl.addSuccessMessage('User aangemaakt');
+                    growl.addSuccessMessage('User aangemaakt, verificatie mail verstuurd');
                     $location.path('/login');
                 }, ErrorContainer.handleRestError);
             }

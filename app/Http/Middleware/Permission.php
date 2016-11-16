@@ -23,6 +23,9 @@ class Permission
             return $next($request);
         }
 
-        return ResponseCreator::createUnauthorizedResponse();
+        return Response::json(array(
+            'code'      =>  403,
+            'message'   =>  'user.does.not.have.right.permissions'
+        ), 403);
     }
 }

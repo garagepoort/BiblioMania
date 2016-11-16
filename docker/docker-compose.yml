@@ -8,3 +8,9 @@ db-bibliomania:
         MYSQL_DATABASE: BiblioMania
         MYSQL_USER: test
         MYSQL_PASSWORD: test
+
+smtp:
+  image: djfarrelly/maildev
+  ports:
+    - "1080:80"
+    - "1025:25"

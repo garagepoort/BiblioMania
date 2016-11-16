@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\Activated;
 use App\Http\Middleware\Admin;
 use App\Http\Middleware\LocalCallOnly;
 use App\Http\Middleware\Permission;
@@ -52,6 +53,7 @@ class Kernel extends HttpKernel
         'admin' => Admin::class,
         'localCallOnly' => LocalCallOnly::class,
         'permission' => Permission::class,
+        'activated' => Activated::class,
         'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,

@@ -9,6 +9,8 @@ class UserService
     private $userRepository;
     /** @var RoleRepository $roleRepository */
     private $roleRepository;
+    /** @var  ActivationService */
+    private $activationService;
 
     /**
      * UserService constructor.
@@ -17,8 +19,8 @@ class UserService
     {
         $this->userRepository = App::make('UserRepository');
         $this->roleRepository = App::make('RoleRepository');
+        $this->activationService = App::make('ActivationService');
     }
-
 
     public function saveUser($user)
     {
@@ -33,6 +35,8 @@ class UserService
 
         $foundUser = $this->userRepository->findByUsername($createUserRequest->getUsername());
         Ensure::objectNull('user', $foundUser, 'user.with.username.exists');
+        $foundUser = $this->userRepository->findByEmail($createUserRequest->getEmail());
+        Ensure::objectNull('user', $foundUser, 'user.with.email.exists');
 
         $user = new User();
         $user->username = $createUserRequest->getUsername();
@@ -44,6 +48,7 @@ class UserService
         $role = $this->roleRepository->findByName(RoleEnum::USER);
         $user->roles()->attach($role);
 
+        $this->activationService->sendActivationMail($user);
         return $user;
     }
 

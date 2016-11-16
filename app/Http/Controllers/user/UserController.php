@@ -17,12 +17,9 @@ class UserController extends Controller{
         $this->userService = App::make('UserService');
         $this->permissionService = App::make('PermissionService');
         $this->jsonMappingService = App::make('JsonMappingService');
+        $this->activationService = App::make('ActivationService');
     }
 
-
-    public function goToCreateUser() {
-        return View::make('createUser')->with(array('title' => 'Create user'));
-    }
 
     public function getLoggedInUser(){
         /** @var User $user */

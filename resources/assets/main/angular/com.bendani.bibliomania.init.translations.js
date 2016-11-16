@@ -1,6 +1,7 @@
 angular.module('BiblioMania')
     .config(['$translateProvider', function ($translateProvider) {
         $translateProvider.translations('nl', {
+            'translation.no.books.found': 'Geen boeken gevonden',
             'translation.author': 'Auteur',
             'translation.authors': 'Auteurs',
             'translation.publishers': 'Uitgevers',
@@ -22,6 +23,7 @@ angular.module('BiblioMania')
         });
 
         $translateProvider.translations('en', {
+            'translation.no.books.found': 'No books found',
             'translation.author': 'Author',
             'translation.authors': 'Authors',
             'translation.publishers': 'Publishers',
