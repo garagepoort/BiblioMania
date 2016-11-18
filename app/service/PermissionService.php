@@ -37,6 +37,9 @@ class PermissionService
 				'LINK_AUTHOR',
 				'UNLINK_AUTHOR',
 
+				'READ_PUBLISHER',
+				'DELETE_PUBLISHER',
+
 				'READ_FIRST_PRINT',
 				'CREATE_FIRST_PRINT',
 				'UPDATE_FIRST_PRINT',
@@ -66,6 +69,7 @@ class PermissionService
 				'READ_BOOK',
 				'READ_AUTHOR',
 				'READ_OEUVRE_ITEM',
+				'READ_PUBLISHER',
 				'READ_SERIE',
 
 				'READ_READING_DATE',

@@ -27,7 +27,7 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 	 */
 	protected $hidden = array('password', 'remember_token');
 
-	protected $fillable = array('id', 'email', 'password', 'username');
+	protected $fillable = array('id', 'email', 'password', 'username', 'activated');
 
 	protected $with = array('roles');
 

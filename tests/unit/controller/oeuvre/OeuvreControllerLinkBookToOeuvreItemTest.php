@@ -5,6 +5,7 @@ namespace tests\unit\controller;
 use BookIdRequest;
 use Mockery;
 use OeuvreService;
+use PermissionService;
 use TestCase;
 use User;
 
@@ -16,16 +17,29 @@ class OeuvreControllerLinkBookToOeuvreItemTest extends TestCase
 
     /** @var OeuvreService $oeuvreService */
     private $oeuvreService;
+    /** @var PermissionService $permissionService */
+    private $permissionService;
 
     public function setUp(){
         parent::setUp();
         $this->oeuvreService = $this->mock('OeuvreService');
+        $this->permissionService = $this->mock('PermissionService');
 
-        $user = new User(array('username' => 'John', 'id' => self::USER_ID));
+        $user = new User(array('username' => 'John', 'id' => self::USER_ID, 'activated' => true));
         $this->be($user);
     }
 
+    public function test_shouldFailsIfUserDoesNotHaveCorrectPermission(){
+        $this->permissionService->shouldReceive('hasUserPermission')->once()->with(self::USER_ID, 'LINK_OEUVRE_ITEM')->andReturn(false);
+
+        $response = $this->action('POST', 'OeuvreController@linkBookToOeuvreItem', array("id" => self::OEUVRE_ITEM_ID), array());
+
+        $this->assertResponseStatus(403);
+        $this->assertEquals($response->getContent(), "{\"code\":403,\"message\":\"user.does.not.have.right.permissions\"}");
+    }
+
     public function test_shouldCallJsonMappingAndService(){
+        $this->permissionService->shouldReceive('hasUserPermission')->once()->with(self::USER_ID, 'LINK_OEUVRE_ITEM')->andReturn(true);
         $postData = array(
             'bookId' => self::BOOK_ID
         );

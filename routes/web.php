@@ -82,10 +82,10 @@ Route::group(array('middleware' => ['auth', 'activated']), function () {
     Route::put('personalbookinfos', 'PersonalBookInfoController@update')->middleware('permission:UPDATE_PERSONAL_BOOK_INFO');
     Route::get('personalbookinfos/{id}/readingdates', 'PersonalBookInfoController@getReadingDates')->middleware('permission:READ_READING_DATE');
 
-    Route::get('publishers', 'PublisherController@getPublishers');
-    Route::delete('publishers/{id}', 'PublisherController@deletePublisher');
-    Route::get('publishers/{id}/series', 'PublisherController@getPublisherSeries');
-    Route::get('publishers/{id}/books', 'PublisherController@getPublisherBooks');
+    Route::get('publishers', 'PublisherController@getPublishers')->middleware('permission:READ_PUBLISHER');
+    Route::delete('publishers/{id}', 'PublisherController@deletePublisher')->middleware('permission:DELETE_PUBLISHER');
+    Route::get('publishers/{id}/series', 'PublisherController@getPublisherSeries')->middleware('permission:READ_PUBLISHER');
+    Route::get('publishers/{id}/books', 'PublisherController@getPublisherBooks')->middleware('permission:READ_PUBLISHER');
 
     Route::get('genres', 'GenreController@getGenres');
 

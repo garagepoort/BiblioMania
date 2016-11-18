@@ -36,7 +36,7 @@ class BookToElasticMapper
 
 		$readUsers = [];
 		/** @var PersonalBookInfo $personalBookInfo */
-		foreach($book->personal_book_infos as $personalBookInfo){
+		foreach($book->personal_book_infos->all() as $personalBookInfo){
 			if(count($personalBookInfo->reading_dates) > 0){
 				array_push($readUsers, intval($personalBookInfo->user_id));
 			}
