@@ -3,6 +3,7 @@
 class FirstPrintInfoServiceUpdateTest extends TestCase
 {
     const USER_ID = 123;
+    const FIRST_PRINT_INFO_ID = 1234;
     const COUNTRY_ID = 43;
     const LANGUAGE_ID = 65;
     const PUBLISHER_ID = 89;
@@ -41,6 +42,7 @@ class FirstPrintInfoServiceUpdateTest extends TestCase
     public function setUp(){
         parent::setUp();
         $this->firstPrintInfo = new FirstPrintInfo();
+        $this->firstPrintInfo->id = self::FIRST_PRINT_INFO_ID;
         $this->firstPrintInfo->title = 'oldTitle';
         $this->firstPrintInfo->subtitle = 'oldSubtitle';
         $this->firstPrintInfo->ISBN = 'oldISBN';
@@ -68,12 +70,12 @@ class FirstPrintInfoServiceUpdateTest extends TestCase
         $this->country->shouldReceive('getAttribute')->with('id')->andReturn(self::COUNTRY_ID);
         $this->language->shouldReceive('getAttribute')->with('id')->andReturn(self::LANGUAGE_ID);
         $this->publicationDate->shouldReceive('getAttribute')->with('id')->andReturn(self::PUBLICATION_DATE_ID);
-        $this->book->shouldReceive('setAttribute')->with('first_print_info_id', Mockery::any());
+        $this->book->shouldReceive('setAttribute')->with('first_print_info_id', self::FIRST_PRINT_INFO_ID)->once();
 
         $this->firstPrintInfoService = App::make('FirstPrintInfoService');
 
         $this->firstPrintInfoRepository->shouldReceive('find')->with($this->updateFirstPrintInfoRequestTestImpl->getId())->andReturn($this->firstPrintInfo)->byDefault();
-        $this->firstPrintInfoRepository->shouldReceive('save')->with(Mockery::type('FirstPrintInfo'))->byDefault();
+        $this->firstPrintInfoRepository->shouldReceive('save')->with($this->firstPrintInfo)->byDefault();
         $this->publisherService->shouldReceive('findOrCreate')->with(self::USER_ID, $this->updateFirstPrintInfoRequestTestImpl->getPublisher())->andReturn($this->publisher)->byDefault();
         $this->languageService->shouldReceive('findOrCreate')->with($this->updateFirstPrintInfoRequestTestImpl->getLanguage())->andReturn($this->language)->byDefault();
         $this->countryService->shouldReceive('findOrCreate')->with($this->updateFirstPrintInfoRequestTestImpl->getCountry())->andReturn($this->country)->byDefault();

@@ -34,7 +34,7 @@ class FirstPrintInfoServiceLinkBookTest extends TestCase
         $this->firstPrintInfoRepository->shouldReceive('find')->once()->with(self::FIRST_PRINT_INFO_ID)->andReturn($this->firstPrintInfo);
         $this->bookRepository->shouldReceive('find')->once()->with($this->linkBookToFirstPrintInfoRequestTestImpl->getBookId())->andReturn($this->book);
         $this->bookRepository->shouldReceive('save')->once()->with($this->book);
-        $this->book->shouldReceive('setAttribute')->with(self::FIRST_PRINT_INFO_ID);
+        $this->book->shouldReceive('setAttribute')->with(self::FIRST_PRINT_INFO_ID)->once();
 
         $this->firstPrintInfoService->linkBook(self::FIRST_PRINT_INFO_ID, $this->linkBookToFirstPrintInfoRequestTestImpl);
     }

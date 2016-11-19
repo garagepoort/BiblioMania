@@ -1,5 +1,6 @@
 <?php
 
+use Bendani\PhpCommon\Utils\Ensure;
 use Bendani\PhpCommon\Utils\Exception\ServiceException;
 use Illuminate\Mail\Mailer;
 use Illuminate\Mail\Message;
@@ -8,61 +9,47 @@ class ActivationService
 {
 
 	/** @var  Mailer $mailer */
-	protected $mailer;
-	/** @var  ActivationRepository $activationRepo */
-	protected $activationRepo;
-
-	protected $resendAfter = 24;
+	private $mailer;
+	/** @var  ActivationRepository $activationRepository */
+	private $activationRepository;
+	/** @var UserRepository $userRepository */
+	private $userRepository;
 
 	public function __construct()
 	{
 		$this->mailer = App::make('Illuminate\Mail\Mailer');
-		$this->activationRepo = App::make('ActivationRepository');
+		$this->activationRepository = App::make('ActivationRepository');
+		$this->userRepository = App::make('UserRepository');
 	}
 
 	public function sendActivationMail($user)
 	{
-
-		if ($user->activated || !$this->shouldSend($user)) {
+		if ($user->activated) {
 			return;
 		}
 
-		$token = $this->activationRepo->createActivation($user->id);
+		$token = $this->activationRepository->createActivation($user->id);
 
 		$link = route('user.activate', $token);
-		$message = sprintf('Activate account <a href="%s">%s</a>', $link, $link);
+		$message = sprintf('Activate your BiblioMania account: <a href="%s">%s</a>', $link, $link);
 
 		$this->mailer->raw($message, function (Message $m) use ($user) {
-			$m->to($user->email)->subject('Activation mail');
+			$m->to($user->email)->subject('BiblioMania activation mail');
 		});
-
-
 	}
 
 	public function activateUser($token)
 	{
-		$activation = $this->activationRepo->getActivationByToken($token);
+		$activation = $this->activationRepository->getActivationByToken($token);
+		Ensure::objectNotNull('activation', $activation, 'Not a valid activation token');
 
-		if ($activation === null) {
-			throw new ServiceException('Not a valid activation token');
-		}
-
-		$user = User::find($activation->user_id);
-
+		$user = $this->userRepository->find($activation->user_id);
 		$user->activated = true;
+		$this->userRepository->saveUser($user);
 
-		$user->save();
-
-		$this->activationRepo->deleteActivation($token);
+		$this->activationRepository->deleteActivation($token);
 
 		return $user;
-
-	}
-
-	private function shouldSend($user)
-	{
-		$activation = $this->activationRepo->getActivation($user->id);
-		return $activation === null || strtotime($activation->created_at) + 60 * 60 * $this->resendAfter < time();
 	}
 
 }

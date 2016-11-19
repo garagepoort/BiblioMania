@@ -43,7 +43,7 @@ class BookSerieServiceAddBookToSerieTest extends TestCase
         $this->bookSerieRepository->shouldReceive('find')->with(self::SERIE_ID)->andReturn($this->serie);
         $this->bookRepository->shouldReceive('find')->with($this->bookIdRequest->getBookId())->andReturn($this->book);
 
-        $this->book->shouldReceive('setAttribute')->with("serie_id", $this->bookIdRequest->getBookId());
+        $this->book->shouldReceive('setAttribute')->with("serie_id", $this->bookIdRequest->getBookId())->once();
         $this->bookRepository->shouldReceive('save')->with($this->book);
 
         $this->bookSerieService->addBookToSerie(self::SERIE_ID, $this->bookIdRequest);

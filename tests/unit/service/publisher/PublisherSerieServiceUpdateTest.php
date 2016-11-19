@@ -27,14 +27,12 @@ class PublisherSerieServiceUpdateTest extends TestCase
         $this->publisherSerieService = App::make('PublisherSerieService');
     }
 
-
-
     public function test_updatesCorrectly(){
         $this->updateRequest->setName('new name for serie');
 
         $this->publisherSerieRepository->shouldReceive('find')->with($this->updateRequest->getId())->andReturn($this->serie);
         $this->publisherSerieRepository->shouldReceive('findByName')->with($this->updateRequest->getName())->andReturn(null);
-        $this->serie->shouldReceive('setAttribute')->with("name", $this->updateRequest->getName());
+        $this->serie->shouldReceive('setAttribute')->with("name", $this->updateRequest->getName())->once();
         $this->publisherSerieRepository->shouldReceive('save')->with($this->serie);
 
         $this->publisherSerieService->update($this->updateRequest);
@@ -43,8 +41,7 @@ class PublisherSerieServiceUpdateTest extends TestCase
     public function test_shouldNotThrowExceptionWhenSameSerieWithSameNameIsFound(){
         $this->publisherSerieRepository->shouldReceive('find')->with($this->updateRequest->getId())->andReturn($this->serie);
         $this->publisherSerieRepository->shouldReceive('findByName')->with($this->updateRequest->getName())->andReturn($this->serie);
-        $this->serie->shouldReceive('setAttribute')->with("name", $this->updateRequest->getName());
-
+        $this->serie->shouldReceive('setAttribute')->with("name", $this->updateRequest->getName())->once();
         $this->publisherSerieRepository->shouldReceive('save')->with($this->serie);
 
         $this->publisherSerieService->update($this->updateRequest);
