@@ -2,9 +2,23 @@ db-bibliomania:
   image: mysql:5.7
   ports:
    - "3306:3306"
-  command: mysqld --sql_mode=""
+  command: mysqld --sql_mode="" --skip-name-resolve
   environment:
         MYSQL_ROOT_PASSWORD: test
         MYSQL_DATABASE: BiblioMania
         MYSQL_USER: test
         MYSQL_PASSWORD: test
+
+smtp:
+  image: djfarrelly/maildev
+  ports:
+    - "1080:80"
+    - "1025:25"
+
+elastic-bibliomania:
+  image: library/elasticsearch:2.3.5
+  ports:
+    - "9200:9200"
+    - "9300:9300"
+  volumes:
+    - config:/usr/share/elasticsearch/config

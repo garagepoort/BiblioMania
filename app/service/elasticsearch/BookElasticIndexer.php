@@ -62,6 +62,7 @@ class BookElasticIndexer
         $tags = $this->indexTags($book);
 
         $book->load('wishlists');
+        $book->load('first_print_info');
 
         $readUsers = [];
         /** @var PersonalBookInfo $personalBookInfo */
@@ -102,6 +103,14 @@ class BookElasticIndexer
 
         if ($book->book_from_authors !== null) {
             $bookArray['isLinkedToOeuvre'] = count($book->book_from_authors->all()) > 0;
+        }
+
+        if ($book->first_print_info !== null && $book->first_print_info->publication_date !== null) {
+            $bookArray['firstPrintPublicationDate'] = [
+                'day' => $book->first_print_info->publication_date->day,
+                'month' => $book->first_print_info->publication_date->month,
+                'year' => $book->first_print_info->publication_date->year
+            ];
         }
 
         if ($book->mainAuthor() != null) {
@@ -145,7 +154,7 @@ class BookElasticIndexer
             'type' => self::BOOK,
             'size' => 10000,
             'body' => [
-                '_source' => ['id', 'title', 'subtitle', 'mainAuthor', 'authors', 'image', 'spriteImage', 'isLinkedToOeuvre', 'retailPrice'],
+                '_source' => ['id', 'title', 'subtitle', 'mainAuthor', 'authors', 'image', 'spriteImage', 'isLinkedToOeuvre', 'retailPrice', 'firstPrintPublicationDate'],
                 'query' => [
                     'filtered' => [
                         'query' => [
