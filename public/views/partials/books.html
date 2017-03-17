@@ -3,7 +3,6 @@
 
         <errorcontainer></errorcontainer>
 
-
         <div class="top-book-panel">
             <filters-directive on-filter="filterBooks(selectedFilters)" filter-service-id="filterServiceId" control="filterControl"></filters-directive>
             <div style="clear: both">
@@ -44,7 +43,7 @@
                     <tbody style="text-align: left">
                         <tr style="cursor: pointer"
                             book-row
-                            ng-repeat="book in books | filter: search | orderBy:[predicate, '!!book.firstPrintPublicationDate', '!!book.firstPrintPublicationDate.day', '!!book.firstPrintPublicationDate.month', 'book.firstPrintPublicationDate.year', predicate]:reverseOrder as viewableBooks track by book.id" book="book"></tr>
+                            ng-repeat="book in books | filter: search | orderBy:[predicate, '!!book.firstPrintPublicationDate', '!!book.firstPrintPublicationDate.day', '!!book.firstPrintPublicationDate.month', 'book.firstPrintPublicationDate.year']:reverseOrder as viewableBooks track by book.id" book="book"></tr>
                     </tbody>
                 </table>
             </div>
