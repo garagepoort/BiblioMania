@@ -32,8 +32,6 @@ class FirstPrintInfoServiceUpdateTest extends TestCase
     private $language;
     /** @var Country $country */
     private $country;
-    /** @var Book $book */
-    private $book;
     /** @var Date $publicationDate */
     private $publicationDate;
     /** @var FirstPrintInfo $firstPrintInfo */
@@ -58,9 +56,7 @@ class FirstPrintInfoServiceUpdateTest extends TestCase
         $this->dateService = $this->mock('DateService');
         $this->languageService = $this->mock('LanguageService');
         $this->countryService = $this->mock('CountryService');
-        $this->bookRepository = $this->mock('BookRepository');
 
-        $this->book = $this->mockEloquent('Book');
         $this->publisher = $this->mockEloquent('Publisher');
         $this->language = $this->mockEloquent('Language');
         $this->country = $this->mockEloquent('Country');
@@ -70,7 +66,6 @@ class FirstPrintInfoServiceUpdateTest extends TestCase
         $this->country->shouldReceive('getAttribute')->with('id')->andReturn(self::COUNTRY_ID);
         $this->language->shouldReceive('getAttribute')->with('id')->andReturn(self::LANGUAGE_ID);
         $this->publicationDate->shouldReceive('getAttribute')->with('id')->andReturn(self::PUBLICATION_DATE_ID);
-        $this->book->shouldReceive('setAttribute')->with('first_print_info_id', self::FIRST_PRINT_INFO_ID)->once();
 
         $this->firstPrintInfoService = App::make('FirstPrintInfoService');
 
