@@ -110,7 +110,7 @@ describe('com.bendani.bibliomania.series.overview.ui', function () {
             });
 
         });
-        
+
         describe('search', function () {
 
             beforeEach(function(){
