@@ -11,15 +11,14 @@ describe('com.bendani.bibliomania.book.detail.first.print.info.directive', funct
         var NEW_FIRST_PRINT = {id: 987};
 
         var vm, html, $httpBackend, $compile, $scope;
-        var growlMock, locationMock, errorContainerMock, dateServiceMock, firstPrintSelectionModalServiceMock;
+        var growlMock, locationMock, errorContainerMock, firstPrintSelectionModalServiceMock;
 
-        var firstPrintSelectionModalServiceMockShow = function (callback) { callback(NEW_FIRST_PRINT);}
+        var firstPrintSelectionModalServiceMockShow = function (callback) { callback(NEW_FIRST_PRINT);};
 
         beforeEach(function () {
             errorContainerMock = jasmine.createSpyObj('errorContainerMock', ['handleRestError', 'setErrorCode']);
             locationMock = jasmine.createSpyObj('locationMock', ['path']);
             growlMock = jasmine.createSpyObj('growlMock', ['addSuccessMessage']);
-            dateServiceMock = jasmine.createSpyObj('dateServiceMock', ['dateToString']);
             firstPrintSelectionModalServiceMock = jasmine.createSpyObj('firstPrintSelectionModalServiceMock', ['show']);
             firstPrintSelectionModalServiceMock.show.and.callFake(firstPrintSelectionModalServiceMockShow);
 
@@ -28,7 +27,6 @@ describe('com.bendani.bibliomania.book.detail.first.print.info.directive', funct
             module('com.bendani.bibliomania.book.detail.first.print.info.directive', function ($provide) {
                 $provide.value('$location', locationMock);
                 $provide.value('ErrorContainer', errorContainerMock);
-                $provide.value('DateService', dateServiceMock);
                 $provide.value('growl', growlMock);
                 $provide.value('FirstPrintSelectionModalService', firstPrintSelectionModalServiceMock);
             });
@@ -111,17 +109,6 @@ describe('com.bendani.bibliomania.book.detail.first.print.info.directive', funct
                 vm.editFirstPrintInfo();
 
                 expect(locationMock.path).toHaveBeenCalledWith('/edit-first-print/' + BOOK.firstPrintInfo.id);
-            });
-        });
-
-        describe('convertDate', function () {
-            it('calls convertDate on DateService', function () {
-                var date = {day: 3, month: 3, year: 2016};
-                _createController();
-
-                vm.convertDate(date);
-
-                expect(dateServiceMock.dateToString).toHaveBeenCalledWith(date);
             });
         });
 

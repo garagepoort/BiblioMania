@@ -6,7 +6,8 @@
             'com.bendani.bibliomania.name.directive',
             'com.bendani.bibliomania.add.oeuvre.items.modal.service',
             'com.bendani.bibliomania.confirmation.modal.service',
-            'com.bendani.bibliomania.book.list.directive'
+            'com.bendani.bibliomania.book.list.directive',
+            'com.bendani.bibliomania.permission'
         ])
         .config(['$routeProvider', editAuthorConfig])
         .controller('EditAuthorController', ['$scope', '$location', 'Author', 'Oeuvre', 'ErrorContainer', 'growl', '$routeParams', 'AddOeuvreItemsModalService', 'ConfirmationModalService', 'PermissionService', EditAuthorController]);

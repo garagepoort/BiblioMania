@@ -97,10 +97,6 @@ describe('com.bendani.bibliomania.series.overview.ui', function () {
                 expect(titlePanelServiceMock.setShowPreviousButton).toHaveBeenCalledWith(false);
             });
 
-            it('registers handler on bookOverviewService', function () {
-                expect(bookOverviewServiceMock.registerHandler).toHaveBeenCalledWith(jasmine.any(Function));
-            });
-
             it('initializes vm correctly', function () {
                 expect(vm.searchSeriesQuery).toEqual('');
                 expect(vm.predicate).toEqual('name');
@@ -114,48 +110,7 @@ describe('com.bendani.bibliomania.series.overview.ui', function () {
             });
 
         });
-
-        describe('on book selected', function () {
-
-            beforeEach(function(){
-                _createController('SERIE');
-            });
-
-            it('opens book detail panel with selected book when no book selected', function () {
-                $httpBackend.expectGET('../BiblioMania/books/' + BOOK_ID).respond(200, FULL_BOOK);
-
-                onBookSelectedHandler(BOOK);
-
-                $httpBackend.flush();
-
-                expect(vm.bookDetailPanelOpen).toBe(true);
-                expect(vm.selectedBook).toEqual(jasmine.objectContaining(FULL_BOOK));
-            });
-
-            it('closes book detail panel when panel already open and same book selected', function () {
-                vm.bookDetailPanelOpen = true;
-                vm.selectedBook = FULL_BOOK;
-
-                onBookSelectedHandler(BOOK);
-
-                expect(vm.bookDetailPanelOpen).toBe(false);
-                expect(vm.selectedBook).toEqual(jasmine.objectContaining(FULL_BOOK));
-            });
-
-            it('retrieves new book when panel already open and other book selected', function () {
-                $httpBackend.expectGET('../BiblioMania/books/' + OTHER_BOOK_ID).respond(200, OTHER_FULL_BOOK);
-                vm.bookDetailPanelOpen = true;
-                vm.selectedBook = FULL_BOOK;
-
-                onBookSelectedHandler(OTHER_BOOK);
-
-                $httpBackend.flush();
-
-                expect(vm.bookDetailPanelOpen).toBe(true);
-                expect(vm.selectedBook).toEqual(jasmine.objectContaining(OTHER_FULL_BOOK));
-            });
-        });
-
+        
         describe('search', function () {
 
             beforeEach(function(){

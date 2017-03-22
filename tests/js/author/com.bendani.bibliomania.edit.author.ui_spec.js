@@ -17,7 +17,8 @@ describe('com.bendani.bibliomania.edit.author.ui', function () {
     var OEUVRE = ["oeuvre1", "oeuvre2"];
     var $routeParams = {id: AUTHOR_ID};
 
-    var confirmationModalServiceMock, addOeuvreItemsModalServiceMock;
+    var vm;
+    var confirmationModalServiceMock, addOeuvreItemsModalServiceMock, permissionServiceMock;
     var confirmationModalServiceMockShow = function (title, successCallback) {successCallback();};
     var addOeuvreItemsModalServiceMockShow = function (authorId, successCallback) { successCallback(); };
 
@@ -28,6 +29,7 @@ describe('com.bendani.bibliomania.edit.author.ui', function () {
         beforeEach(function () {
             errorContainerMock = jasmine.createSpyObj('errorContainerMock', ['handleRestError']);
             confirmationModalServiceMock = jasmine.createSpyObj('confirmationModalServiceMock', ['show']);
+            permissionServiceMock = jasmine.createSpyObj('permissionServiceMock', ['hasAllowedPermissions']);
             addOeuvreItemsModalServiceMock = jasmine.createSpyObj('addOeuvreItemsModalServiceMock', ['show']);
 
             confirmationModalServiceMock.show.and.callFake(confirmationModalServiceMockShow);
@@ -38,8 +40,8 @@ describe('com.bendani.bibliomania.edit.author.ui', function () {
             module('com.bendani.bibliomania.edit.author.ui', function ($provide) {
                 $provide.value('ErrorContainer', errorContainerMock);
                 $provide.value('ConfirmationModalService', confirmationModalServiceMock);
+                $provide.value('PermissionService', permissionServiceMock);
                 $provide.value('AddOeuvreItemsModalService', addOeuvreItemsModalServiceMock);
-                $provide.value('$uibModal', modal);
                 $provide.value('$routeParams', $routeParams);
             });
 
@@ -56,7 +58,7 @@ describe('com.bendani.bibliomania.edit.author.ui', function () {
             $httpBackend.expectGET('../BiblioMania/authors/' + AUTHOR_ID + '/oeuvre').respond(200, OEUVRE);
 
             $scope = {$parent: {}};
-            $controller('EditAuthorController', {
+            vm = $controller('EditAuthorController', {
                 $scope: $scope,
                 $location: $location
             });
@@ -67,9 +69,9 @@ describe('com.bendani.bibliomania.edit.author.ui', function () {
         describe('init', function () {
             it('initializes correct values', function () {
                 _createController();
-                expect($scope.model).toEqual(jasmine.objectContaining(AUTHOR));
-                expect($scope.books).toEqual(jasmine.objectContaining(BOOKS));
-                expect($scope.oeuvre).toEqual(jasmine.objectContaining(OEUVRE));
+                expect(vm.model).toEqual(jasmine.objectContaining(AUTHOR));
+                expect(vm.books).toEqual(jasmine.objectContaining(BOOKS));
+                expect(vm.oeuvre).toEqual(jasmine.objectContaining(OEUVRE));
             });
         });
 
@@ -77,18 +79,18 @@ describe('com.bendani.bibliomania.edit.author.ui', function () {
             it('sets authorImageQuery correct if author defined', function () {
                 _createController();
 
-                $scope.searchAuthorImage();
+                vm.searchAuthorImage();
 
-                expect($scope.authorImageQuery).toEqual('firstname lastname');
+                expect(vm.authorImageQuery).toEqual('firstname lastname');
             });
 
             it('does not set authorImageQuery if author undefined', function () {
                 _createController();
-                $scope.model = undefined;
+                vm.model = undefined;
 
-                $scope.searchAuthorImage();
+                vm.searchAuthorImage();
 
-                expect($scope.authorImageQuery).toBeUndefined();
+                expect(vm.authorImageQuery).toBeUndefined();
             });
         });
 
@@ -97,7 +99,7 @@ describe('com.bendani.bibliomania.edit.author.ui', function () {
             it('returns success label if oeuvre item has linked books', function () {
                 _createController();
 
-                var label = $scope.linkLabel(OEUVRE_ITEM);
+                var label = vm.linkLabel(OEUVRE_ITEM);
 
                 expect(label).toEqual('label-success');
             });
@@ -105,7 +107,7 @@ describe('com.bendani.bibliomania.edit.author.ui', function () {
             it('returns danger label if oeuvre item has no linked books', function () {
                 _createController();
 
-                var label = $scope.linkLabel({linkedBooks: []});
+                var label = vm.linkLabel({linkedBooks: []});
 
                 expect(label).toEqual('label-danger');
             });
@@ -119,12 +121,12 @@ describe('com.bendani.bibliomania.edit.author.ui', function () {
                 $httpBackend.expectDELETE('../BiblioMania/oeuvre/' + OEUVRE_ITEM.id).respond(200);
                 $httpBackend.expectGET('../BiblioMania/authors/' + AUTHOR_ID + '/oeuvre').respond(200, oeuvre);
 
-                $scope.deleteOeuvreItem(OEUVRE_ITEM);
+                vm.deleteOeuvreItem(OEUVRE_ITEM);
 
                 $httpBackend.flush();
 
                 expect(confirmationModalServiceMock.show).toHaveBeenCalledWith('Bent u zeker dat u dit item wilt verwijderen: ' + OEUVRE_ITEM.title, jasmine.any(Function));
-                expect($scope.oeuvre).toEqual(jasmine.objectContaining(oeuvre));
+                expect(vm.oeuvre).toEqual(jasmine.objectContaining(oeuvre));
             });
 
         });
@@ -136,11 +138,11 @@ describe('com.bendani.bibliomania.edit.author.ui', function () {
                 _createController();
                 $httpBackend.expectGET('../BiblioMania/authors/' + AUTHOR_ID + '/oeuvre').respond(200, oeuvre);
 
-                $scope.showAddOeuvreItemsDialog();
+                vm.showAddOeuvreItemsDialog();
 
                 $httpBackend.flush();
 
-                expect($scope.oeuvre).toEqual(jasmine.objectContaining(oeuvre));
+                expect(vm.oeuvre).toEqual(jasmine.objectContaining(oeuvre));
             });
         });
 
@@ -149,7 +151,7 @@ describe('com.bendani.bibliomania.edit.author.ui', function () {
                 spyOn($location, 'path');
                 _createController();
 
-                $scope.goToOeuvreItem(OEUVRE_ITEM);
+                vm.goToOeuvreItem(OEUVRE_ITEM);
 
                 expect($location.path).toHaveBeenCalledWith('/edit-oeuvre-item/' + OEUVRE_ITEM.id);
             });
@@ -162,7 +164,7 @@ describe('com.bendani.bibliomania.edit.author.ui', function () {
                 spyOn($location, 'path');
                 _createController();
 
-                $scope.goToBook(book);
+                vm.goToBook(book);
 
                 expect($location.path).toHaveBeenCalledWith('/book-details/' + book.id);
             });
