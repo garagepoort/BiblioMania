@@ -22,22 +22,12 @@ use CityService;
 use CountryRepository;
 use CountryService;
 use CurrencyService;
-use DateImporter;
 use DateService;
 use ElasticBooleanFilterHandler;
 use ElasticDateFilterHandler;
 use ElasticNumberFilterHandler;
 use ElasticOptionsFilterHandler;
 use ElasticStringFilterHandler;
-use FileToAuthorParametersMapper;
-use FileToBookParametersMapper;
-use FileToBuyInfoParametersMapper;
-use FileToCoverInfoParametersMapper;
-use FileToExtraBookInfoParametersMapper;
-use FileToFirstPrintParametersMapper;
-use FileToGiftInfoParametersMapper;
-use FileToOeuvreParametersMapper;
-use FileToPersonalBookInfoParametersMapper;
 use FilterHandlerGroup;
 use FilterHistoryService;
 use FilterType;
@@ -47,7 +37,6 @@ use GenreService;
 use GiftInfoService;
 use Illuminate\Support\ServiceProvider;
 use ImageService;
-use ImportFileMapper;
 use JsonMappingService;
 use Katzgrau\KLogger\Logger;
 use LanguageRepository;
@@ -269,14 +258,6 @@ class AppServiceProvider extends ServiceProvider
             return new LanguageService;
         });
 
-        $this->app->singleton('DateImporter', function () {
-            return new DateImporter();
-        });
-
-        $this->app->singleton('ImportFileMapper', function () {
-            return new ImportFileMapper();
-        });
-
         $this->app->singleton('SpriteCreator', function () {
             return new SpriteCreator();
         });
@@ -298,43 +279,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton('AuthorFormValidator', function () {
             return new AuthorFormValidator();
         });
-
-        $this->app->singleton('FileToAuthorParametersMapper', function () {
-            return new FileToAuthorParametersMapper();
-        });
-
-        $this->app->singleton('FileToBookParametersMapper', function () {
-            return new FileToBookParametersMapper();
-        });
-
-        $this->app->singleton('FileToFirstPrintParametersMapper', function () {
-            return new FileToFirstPrintParametersMapper();
-        });
-
-        $this->app->singleton('FileToBuyInfoParametersMapper', function () {
-            return new FileToBuyInfoParametersMapper();
-        });
-
-        $this->app->singleton('FileToGiftInfoParametersMapper', function () {
-            return new FileToGiftInfoParametersMapper();
-        });
-
-        $this->app->singleton('FileToExtraBookInfoParametersMapper', function () {
-            return new FileToExtraBookInfoParametersMapper();
-        });
-
-        $this->app->singleton('FileToPersonalBookInfoParametersMapper', function () {
-            return new FileToPersonalBookInfoParametersMapper();
-        });
-
-        $this->app->singleton('FileToCoverInfoParametersMapper', function () {
-            return new FileToCoverInfoParametersMapper();
-        });
-
-        $this->app->singleton('FileToOeuvreParametersMapper', function () {
-            return new FileToOeuvreParametersMapper();
-        });
-
 
 //REPOSITORIES
 

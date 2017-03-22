@@ -29,6 +29,6 @@ class ReadingDateController extends Controller
     }
 
     public function deleteReadingDate($id){
-        $this->readingDateService->deleteReadingDate($id);
+        $this->readingDateService->deleteReadingDate(Auth::user()->id, $id);
     }
 }

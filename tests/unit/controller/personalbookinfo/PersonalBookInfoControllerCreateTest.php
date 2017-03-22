@@ -43,7 +43,7 @@ class PersonalBookInfoControllerCreateTest extends TestCase
         $this->be($user);
     }
 
-    public function test_shouldFailsIfUserDoesNotHaveCorrectPermission(){
+    public function test_shouldFailIfUserDoesNotHaveCorrectPermission(){
         $this->permissionService->shouldReceive('hasUserPermission')->once()->with(self::USER_ID, 'CREATE_PERSONAL_BOOK_INFO')->andReturn(false);
 
         $response = $this->action('POST', 'PersonalBookInfoController@create', array(), array());

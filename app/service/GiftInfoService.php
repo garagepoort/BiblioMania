@@ -22,21 +22,6 @@ class GiftInfoService
         return $giftInfo->id;
     }
 
-    public function findOrCreate(GiftInfoParameters $giftInfoParameters, PersonalBookInfo $personalBookInfo){
-        $giftInfo = GiftInfo::where('personal_book_info_id', '=', $personalBookInfo->id)->first();
-        if ($giftInfo == null) {
-            $giftInfo = new GiftInfo();
-        }
-        $giftInfo->receipt_date = $giftInfoParameters->getDate();
-        $giftInfo->occasion = $giftInfoParameters->getOccasion();
-        $giftInfo->reason = $giftInfoParameters->getReason();
-        $giftInfo->from = $giftInfoParameters->getFrom();
-        $giftInfo->personal_book_info_id = $personalBookInfo->id;
-
-        $giftInfo->save();
-        return $giftInfo;
-    }
-
     public function save($personal_book_info_id, $receipt_date, $occasion, $from, $reason)
     {
         $giftInfo = GiftInfo::where('personal_book_info_id', '=', $personal_book_info_id)->first();
