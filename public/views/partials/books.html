@@ -3,7 +3,6 @@
 
         <errorcontainer></errorcontainer>
 
-
         <div class="top-book-panel">
             <filters-directive on-filter="filterBooks(selectedFilters)" filter-service-id="filterServiceId" control="filterControl"></filters-directive>
             <div style="clear: both">
@@ -33,7 +32,7 @@
                     <image-card
                             class="fade-in"
                             use-sprite-image="true"
-                            ng-show="!loading" ng-repeat="book in books | filter: search | orderBy:predicate:reverseOrder as viewableBooks track by book.id"
+                            ng-show="!loading" ng-repeat="book in books | filter: search | orderBy:[predicate, '!!book.firstPrintPublicationDate', '!!book.firstPrintPublicationDate.day', '!!book.firstPrintPublicationDate.month', 'book.firstPrintPublicationDate.year']:reverseOrder as viewableBooks track by book.id"
                             model="book" warnings="book.warnings"
                             on-edit-click="onEditBook(book)" on-image-click="onImageClickBook(book)"
                             show-edit-button="true" backup-text="{{ ::book.title }}">
@@ -46,13 +45,12 @@
                         <tbody style="text-align: left">
                             <tr style="cursor: pointer"
                                 book-row
-                                ng-repeat="book in books | filter: search | orderBy:predicate:reverseOrder as viewableBooks track by book.id" book="book"></tr>
+                                ng-repeat="book in books | filter: search | orderBy:[predicate, '!!book.firstPrintPublicationDate', '!!book.firstPrintPublicationDate.day', '!!book.firstPrintPublicationDate.month', 'book.firstPrintPublicationDate.year']:reverseOrder as viewableBooks track by book.id" book="book"></tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-
     </div>
 
     <book-detail></book-detail>

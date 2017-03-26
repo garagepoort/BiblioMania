@@ -33,6 +33,8 @@ class BookToElasticMapper
 		$personalBookInfos = $this->personalBookInfoToElasticMapper->mapPersonalBookInfos($book->personal_book_infos->all());
 		$tags = $this->tagToElasticMapper->mapTags($book->tags->all());
 
+		$book->load('wishlists');
+		$book->load('first_print_info');
 
 		$readUsers = [];
 		/** @var PersonalBookInfo $personalBookInfo */
@@ -51,7 +53,6 @@ class BookToElasticMapper
 			'country' => $book->publisher_country_id,
 			'language' => $book->language_id,
 			'publisher' => $book->publisher_id,
-			'mainAuthor' => $book->mainAuthor()->name . " " . $book->mainAuthor()->firstname,
 			'genre' => $book->genre_id,
 			'retailPrice' => ['amount' => $book->retail_price, 'currency' => $book->currency],
 			'wishlistUsers' => array_map(function($item){ return intval($item->user_id); }, $book->wishlists->all()),
@@ -70,8 +71,22 @@ class BookToElasticMapper
 			$bookArray['image'] = $baseUrl . "/" . Config::get("properties.bookImagesLocation") . "/" . $book->coverImage;
 		}
 
+		$book->load('book_from_authors');
+
 		if ($book->book_from_authors !== null) {
 			$bookArray['isLinkedToOeuvre'] = count($book->book_from_authors->all()) > 0;
+		}
+
+		if ($book->first_print_info !== null && $book->first_print_info->publication_date !== null) {
+			$bookArray['firstPrintPublicationDate'] = [
+				'day' => $book->first_print_info->publication_date->day,
+				'month' => $book->first_print_info->publication_date->month,
+				'year' => $book->first_print_info->publication_date->year
+			];
+		}
+
+		if ($book->mainAuthor() != null) {
+			$bookArray['mainAuthor'] = $book->mainAuthor()->name . " " . $book->mainAuthor()->firstname;
 		}
 
 		return $bookArray;

@@ -94,7 +94,7 @@ class BookElasticIndexer
             'type' => self::BOOK,
             'size' => 10000,
             'body' => [
-                '_source' => ['id', 'title', 'subtitle', 'mainAuthor', 'authors', 'image', 'spriteImage', 'isLinkedToOeuvre', 'retailPrice'],
+                '_source' => ['id', 'title', 'subtitle', 'mainAuthor', 'authors', 'image', 'spriteImage', 'isLinkedToOeuvre', 'retailPrice', 'firstPrintPublicationDate'],
                 'query' => [
                     'filtered' => [
                         'query' => [

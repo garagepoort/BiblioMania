@@ -14,3 +14,11 @@ smtp:
   ports:
     - "1080:80"
     - "1025:25"
+
+elastic-bibliomania:
+  image: library/elasticsearch:2.3.5
+  ports:
+    - "9200:9200"
+    - "9300:9300"
+  volumes:
+    - config:/usr/share/elasticsearch/config
