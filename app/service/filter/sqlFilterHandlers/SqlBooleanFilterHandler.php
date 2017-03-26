@@ -5,7 +5,7 @@ use Bendani\PhpCommon\FilterService\Model\FilterOperator;
 use Bendani\PhpCommon\FilterService\Model\FilterValue;
 use Doctrine\DBAL\Query\QueryBuilder;
 
-class SqlEqualsFilterHandler implements FilterHandler
+class SqlBooleanFilterHandler implements FilterHandler
 {
 
     private $tableName;
@@ -18,10 +18,10 @@ class SqlEqualsFilterHandler implements FilterHandler
     {
         $this->tableName = $tableName;
     }
-
+    
     public function handleFilter(FilterValue $filter, $queryBuilder = null)
     {
         /** @var QueryBuilder $queryBuilder */
-        return $queryBuilder->where($this->tableName, FilterOperator::getDatabaseOperator($filter->getOperator()), $filter->getValue());
+        return $queryBuilder->where($this->tableName, '=', $filter->getValue());
     }
 }

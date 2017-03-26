@@ -53,6 +53,7 @@ use PublisherService;
 use ReadingDateRepository;
 use ReadingDateService;
 use SpriteCreator;
+use SqlBooleanFilterHandler;
 use SqlDateRangeFilterHandler;
 use SqlDateRangeOrFilterHandler;
 use SqlEqualsFilterHandler;
@@ -171,6 +172,7 @@ class AppServiceProvider extends ServiceProvider
                 FilterType::BOOK_AUTHOR=>new SqlOptionsFilterHandler('author.id'),
                 FilterType::BOOK_BUY_DATE=>new SqlFullDateRangeFilterHandler('buy_info.buy_date'),
                 FilterType::BOOK_BUY_PRICE=>new SqlEqualsFilterHandler('buy_info.price_payed'),
+                FilterType::BOOK_OWNED=>new SqlBooleanFilterHandler('personal_book_info.owned'),
                 FilterType::BOOK_PUBLISHER=>new SqlOptionsFilterHandler('publisher.id'),
                 FilterType::BOOK_COUNTRY=>new SqlOptionsFilterHandler('book.publisher_country_id'),
                 FilterType::BOOK_GENRE=>new SqlOptionsFilterHandler('genre.id'),
