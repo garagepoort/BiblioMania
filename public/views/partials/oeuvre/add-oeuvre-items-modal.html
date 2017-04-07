@@ -1,4 +1,4 @@
-<div permission="CREATE_OEUVRE_ITEM">
+<div>
     <div class="modal-header">
         <h3 class="modal-title">Voeg oeuvre items toe</h3>
     </div>
@@ -7,7 +7,7 @@
             <span ng-show="oeuvreForm.addOeuvre.$error.formatError && oeuvreForm.addOeuvre.$dirty" class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Fout formaat</span>
               <textarea ng-model="oeuvreItemsToAdd"
                         placeholder="<jaar> - <titel>" id='add-oeuvre-textarea'
-                        name="addOeuvre" cols="80"rows="5"
+                        name="addOeuvre" cols="80" rows="5"
                         ui-validate="{formatError : 'validateOeuvreList($value)'}"
                         style="width: 100%"></textarea>
 
