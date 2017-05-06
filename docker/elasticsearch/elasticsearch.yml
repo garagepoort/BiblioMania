@@ -1,3 +1,4 @@
+network.host: 0.0.0.0
 # ======================== Elasticsearch Configuration =========================
 #
 # NOTE: Elasticsearch comes with reasonable defaults for most settings.
@@ -30,11 +31,11 @@ cluster.name: elasticsearch_davidmaes
 #
 # Path to directory where to store the data (separate multiple locations by comma):
 #
-path.data: /usr/local/var/elasticsearch/
+path.data: /usr/share/elasticsearch/data
 #
 # Path to log files:
 #
-path.logs: /usr/local/var/log/elasticsearch/
+path.logs: /usr/share/elasticsearch/logs
 #
 # ----------------------------------- Memory -----------------------------------
 #
