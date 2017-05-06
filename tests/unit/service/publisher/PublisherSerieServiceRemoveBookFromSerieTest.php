@@ -44,7 +44,7 @@ class PublisherSerieServiceRemoveBookFromSerieTest extends TestCase
         $this->publisherSerieRepository->shouldReceive('find')->with(self::PUBLISHER_SERIE_ID)->andReturn($this->serie);
         $this->bookRepository->shouldReceive('find')->with($this->bookIdRequest->getBookId())->andReturn($this->book);
 
-        $this->book->shouldReceive('setAttribute')->once()->with("publisher_serie_id", null);
+        $this->book->shouldReceive('setAttribute')->once()->with("publisher_serie_id", null)->once();
         $this->bookRepository->shouldReceive('save')->once()->with($this->book);
 
         $this->publisherSerieService->removeBookFromSerie(self::PUBLISHER_SERIE_ID, $this->bookIdRequest);

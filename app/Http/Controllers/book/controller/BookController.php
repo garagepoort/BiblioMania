@@ -93,17 +93,17 @@ class BookController extends Controller
 
     public function searchOtherBooks()
     {
-        return $this->bookService->searchOtherBooks($this->jsonToFilters());
+        return $this->bookService->searchOtherBooks(Auth::user()->id, $this->jsonToFilters());
     }
 
     public function searchMyBooks()
     {
-        return $this->bookService->searchMyBooks($this->jsonToFilters());
+        return $this->bookService->searchMyBooks(Auth::user()->id, $this->jsonToFilters());
     }
 
     public function searchWishlist()
     {
-        return $this->bookService->searchWishlist($this->jsonToFilters());
+        return $this->bookService->searchWishlist(Auth::user()->id, $this->jsonToFilters());
     }
 
     /**

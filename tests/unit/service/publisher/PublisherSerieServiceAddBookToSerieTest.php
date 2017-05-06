@@ -44,10 +44,8 @@ class PublisherSerieServiceAddBookToSerieTest extends TestCase
         $this->publisherSerieService = App::make('PublisherSerieService');
     }
 
-
-
     public function test_addsCorrectly(){
-        $this->book->shouldReceive('setAttribute')->with("publisher_serie_id", $this->bookIdRequest->getBookId());
+        $this->book->shouldReceive('setAttribute')->with("publisher_serie_id", self::PUBLISHER_SERIE_ID)->once();
         $this->bookRepository->shouldReceive('save')->once()->with($this->book);
 
         $this->publisherSerieService->addBookToSerie(self::PUBLISHER_SERIE_ID, $this->bookIdRequest);

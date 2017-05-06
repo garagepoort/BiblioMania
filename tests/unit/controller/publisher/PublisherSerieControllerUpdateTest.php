@@ -3,6 +3,7 @@
 namespace tests\unit\controller;
 
 use Mockery;
+use PermissionService;
 use PublisherSerie;
 use PublisherSerieService;
 use TestCase;
@@ -20,20 +21,33 @@ class PublisherSerieControllerUpdateTest extends TestCase
     private $publisherSerieService;
     /** @var PublisherSerie $publisherSerie */
     private $publisherSerie;
+    /** @var PermissionService $permissionService*/
+    private $permissionService;
 
     public function setUp()
     {
         parent::setUp();
         $this->publisherSerieService = $this->mock('PublisherSerieService');
         $this->publisherSerie = $this->mockEloquent('PublisherSerie');
+        $this->permissionService = $this->mock('PermissionService');
 
-        $this->publisherSerie->shouldReceive('getAttribute')->with('id')->andReturn(self::PUBLISHER_SERIE_ID);
-
-        $user = new User(array('username' => 'John', 'id' => self::USER_ID));
+        $user = new User(array('username' => 'John', 'id' => self::USER_ID, 'activated' => true));
         $this->be($user);
     }
 
+    public function test_shouldFailsIfUserDoesNotHaveCorrectPermission(){
+        $this->permissionService->shouldReceive('hasUserPermission')->once()->with(self::USER_ID, 'UPDATE_SERIE')->andReturn(false);
+
+        $response = $this->action('PUT', 'PublisherSerieController@updateSerie', array(), array());
+
+        $this->assertResponseStatus(403);
+        $this->assertEquals($response->getContent(), "{\"code\":403,\"message\":\"user.does.not.have.right.permissions\"}");
+    }
+
     public function test_shouldCallJsonMappingAndService(){
+        $this->publisherSerie->shouldReceive('getAttribute')->with('id')->andReturn(self::PUBLISHER_SERIE_ID);
+        $this->permissionService->shouldReceive('hasUserPermission')->once()->with(self::USER_ID, 'UPDATE_SERIE')->andReturn(true);
+
         $data = array(
             'id' => self::SERIE_ID,
             'name' => self::NAME
@@ -45,7 +59,7 @@ class PublisherSerieControllerUpdateTest extends TestCase
             return true;
         }))->andReturn($this->publisherSerie);
 
-        $response = $this->action('PUT', 'PublisherSerieController@updateSerie', array(), $data);
+        $this->action('PUT', 'PublisherSerieController@updateSerie', array(), $data);
 
         $this->assertResponseOk();
     }

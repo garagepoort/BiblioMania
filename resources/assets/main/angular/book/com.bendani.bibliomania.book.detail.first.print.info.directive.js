@@ -10,17 +10,16 @@ angular
             },
             restrict: "E",
             templateUrl: "../BiblioMania/views/partials/book/book-detail-first-print-info-directive.html",
-            controller: ['$location','FirstPrintInfo', 'FirstPrintSelectionModalService', 'DateService', 'growl', 'ErrorContainer', BookDetailFirstPrintInfoController],
+            controller: ['$location','FirstPrintInfo', 'FirstPrintSelectionModalService', 'growl', 'ErrorContainer', BookDetailFirstPrintInfoController],
             controllerAs: 'vm',
             bindToController: true
         };
     });
 
-function BookDetailFirstPrintInfoController($location, FirstPrintInfo, FirstPrintSelectionModalService, DateService, growl, ErrorContainer) {
+function BookDetailFirstPrintInfoController($location, FirstPrintInfo, FirstPrintSelectionModalService, growl, ErrorContainer) {
     var vm = this;
 
     vm.showSelectFirstPrintDialog = showSelectFirstPrintDialog;
-    vm.convertDate = convertDate;
     vm.createFirstPrintInfo = createFirstPrintInfo;
     vm.editFirstPrintInfo = editFirstPrintInfo;
 
@@ -39,9 +38,5 @@ function BookDetailFirstPrintInfoController($location, FirstPrintInfo, FirstPrin
 
     function editFirstPrintInfo(){
         $location.path('/edit-first-print/'+ vm.book.firstPrintInfo.id);
-    }
-
-    function convertDate(date){
-        return DateService.dateToString(date);
     }
 }

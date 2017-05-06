@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @property string from
+ * @property DateTime receipt_date
+ */
 class GiftInfo extends Eloquent {
     protected $table = 'gift_info';
 

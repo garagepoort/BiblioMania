@@ -5,6 +5,7 @@ namespace tests\unit\controller;
 use BaseBookRequest;
 use BookService;
 use Mockery;
+use PermissionService;
 use TestCase;
 use User;
 
@@ -37,17 +38,31 @@ class BookControllerCreateTest extends TestCase
 
     /** @var  BookService */
     private $bookService;
+    /** @var  PermissionService */
+    private $permissionService;
 
     public function setUp()
     {
         parent::setUp();
         $this->bookService = $this->mock('BookService');
-
-        $user = new User(array('username' => 'John', 'id' => self::USER_ID));
+        $this->permissionService = $this->mock('PermissionService');
+        $user = new User(array('username' => 'John', 'id' => self::USER_ID, 'activated' => true));
         $this->be($user);
     }
 
-    public function test_shouldCallJsonMappingAndService(){
+    public function test_shouldFailsIfUserDoesNotHaveCorrectPermission(){
+        $this->permissionService->shouldReceive('hasUserPermission')->once()->with(self::USER_ID, 'CREATE_BOOK')->andReturn(false);
+
+        $response = $this->action('POST', 'BookController@createBook', array(), array());
+
+        $this->assertResponseStatus(403);
+        $this->assertEquals($response->getContent(), "{\"code\":403,\"message\":\"user.does.not.have.right.permissions\"}");
+    }
+
+
+    public function test_shouldCallJsonMappingAndServiceWhenUserHasCorrectPermission(){
+        $this->permissionService->shouldReceive('hasUserPermission')->once()->with(self::USER_ID, 'CREATE_BOOK')->andReturn(true);
+
         $postData = array(
             'title' => self::TITLE,
             'isbn' => self::ISBN,

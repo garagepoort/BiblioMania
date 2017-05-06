@@ -1,5 +1,5 @@
 <errorcontainer></errorcontainer>
-<div class="create-book-div">
+<div class="create-book-div" permission="UPDATE_OEUVRE_ITEM,CREATE_OEUVRE_ITEM">
     <form ng-submit="submitForm()" novalidate name="oeuvreForm">
         <fieldset>
             <div class="form-container">
@@ -38,8 +38,8 @@
                 <div class="col-md-12">
                     <div class="form-subtitle">
                         <div>Boeken</div>
-                        <button type="button" class=" btn btn-sm btn-default round-corners form-subtitle-button" ng-click="showSelectBookDialog()"><i
-                                class="fa fa-pencil"></i> Link boek aan oeuvre
+                        <button permission="LINK_OEUVRE_ITEM" type="button" class=" btn btn-sm btn-default round-corners form-subtitle-button" ng-click="showSelectBookDialog()">
+                            <i class="fa fa-pencil"></i> Link boek aan oeuvre
                         </button>
                     </div>
                     <div class="form-content">

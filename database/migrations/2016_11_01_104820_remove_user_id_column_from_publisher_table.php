@@ -14,6 +14,7 @@ class RemoveUserIdColumnFromPublisherTable extends Migration
     public function up()
     {
         Schema::table('publisher', function ($table) {
+            $table->dropForeign('publisher_user_id_foreign');
             $table->dropColumn('user_id');
         });
     }

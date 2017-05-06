@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @property string language
+ */
 class Language extends Eloquent {
     protected $table = 'language';
 

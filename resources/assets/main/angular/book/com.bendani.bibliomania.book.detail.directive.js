@@ -2,13 +2,13 @@ angular
     .module('com.bendani.bibliomania.book.detail.directive', ['com.bendani.bibliomania.book.model',
         'com.bendani.bibliomania.book.overview.service',
         'com.bendani.bibliomania.personal.book.info.detail.directive',
-        'com.bendani.bibliomania.currency.service'])
+        'com.bendani.bibliomania.currency'])
     .directive('bookDetail', function (){
         return {
             scope: {},
             restrict: "E",
             templateUrl: "../BiblioMania/views/partials/book/book-detail-directive.html",
-            controller: ['$scope', '$location', 'BookOverviewService', 'DateService', 'Book', 'CurrencyService', 'ErrorContainer', function($scope, $location, BookOverviewService, DateService, Book, CurrencyService, ErrorContainer){
+            controller: ['$scope', '$location', 'BookOverviewService', 'Book', 'ErrorContainer', function($scope, $location, BookOverviewService, Book, ErrorContainer){
                 var vm = this;
                 vm.closeBookDetailPanel = closeBookDetailPanel;
                 vm.goToEditBook = goToEditBook;
@@ -18,9 +18,10 @@ angular
                         vm.bookDetailPanelOpen = false;
                     } else {
                         vm.loading = true;
-                        vm.selectedBook = Book.get({id: book.id}, function () {
+                        Book.get({id: book.id}).$promise.then(function (book) {
+                            vm.selectedBook = book;
                             vm.loading = false;
-                        }, ErrorContainer.handleRestError);
+                        }).catch(ErrorContainer.handleRestError);
                         vm.bookDetailPanelOpen = true;
                     }
                 };
@@ -30,9 +31,6 @@ angular
                     $scope.$on('$destroy', function () {
                         BookOverviewService.deregisterHandler(selectBookHandler);
                     });
-
-                    vm.getCurrencyViewValue = CurrencyService.getCurrencyViewValue;
-                    vm.dateToString = DateService.dateToString;
                 }
 
                 function closeBookDetailPanel() {

@@ -18,47 +18,47 @@ class BookFromAuthorService
 
     public function save($author_id, $title, $year)
     {
-        $bookFromAuthor = $this->oeuvreItemRepository->findByTitle($author_id, $title);
+        $oeuvreItem = $this->oeuvreItemRepository->findByTitle($author_id, $title);
         $author = $this->authorRepository->find($author_id);
 
-        if($bookFromAuthor != null){
+        if($oeuvreItem != null){
             throw new ServiceException("Oeuvre item met deze titel bestaat al.");
         }
         if($author == null){
             throw new ServiceException("Auteur bestaat niet.");
         }
 
-        $bookFromAuthor = new BookFromAuthor(array(
+        $oeuvreItem = new BookFromAuthor(array(
             'title' => $title,
             'publication_year' => $year,
             'author_id' => $author_id
         ));
 
-        $this->oeuvreItemRepository->save($bookFromAuthor);
-        return $bookFromAuthor;
+        $this->oeuvreItemRepository->save($oeuvreItem);
+        return $oeuvreItem;
     }
 
     public function delete($id)
     {
-        $bookFromAuthor = $this->oeuvreItemRepository->find($id);
-        if(is_null($bookFromAuthor)){
+        $oeuvreItem = $this->oeuvreItemRepository->find($id);
+        if(is_null($oeuvreItem)){
             throw new ServiceException("Book from author not found");
         }
-        if(count($bookFromAuthor->books)>0){
+        if(count($oeuvreItem->books)>0){
             throw new ServiceException("Not allowed to delete book from author. Still has books linked to it.");
         }
-        $bookFromAuthor->delete();
+        $oeuvreItem->delete();
     }
 
     public function edit($id, $title, $year)
     {
-        $bookFromAuthor = $this->oeuvreItemRepository->find($id);
-        if($bookFromAuthor == null){
+        $oeuvreItem = $this->oeuvreItemRepository->find($id);
+        if($oeuvreItem == null){
             throw new ServiceException("Oeuvre item bestaat niet");
         }
-        $bookFromAuthor->title = $title;
-        $bookFromAuthor->publication_year = $year;
-        $bookFromAuthor->save();
+        $oeuvreItem->title = $title;
+        $oeuvreItem->publication_year = $year;
+        $oeuvreItem->save();
     }
 
     public function updateTitle($id, $title)

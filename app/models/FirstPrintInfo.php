@@ -10,6 +10,10 @@
  * @property integer language_id
  * @property integer publisher_id
  * @property integer publication_date_id
+ * @property Date publication_date
+ * @property Publisher publisher
+ * @property Language language
+ * @property Country country
  */
 class FirstPrintInfo extends Eloquent {
     protected $table = 'first_print_info';

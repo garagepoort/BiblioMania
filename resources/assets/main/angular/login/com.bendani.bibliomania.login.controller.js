@@ -1,10 +1,10 @@
 (function(){
     'use strict';
 
-    angular.module('com.bendani.bibliomania.login.controller', [])
-        .controller('LoginController', ['$rootScope','$location', LoginController]);
+    angular.module('com.bendani.bibliomania.login.controller', ['com.bendani.bibliomania.title.panel'])
+        .controller('LoginController', ['$rootScope','$location', 'TitlePanelService', LoginController]);
 
-    function LoginController($rootScope, $location) {
+    function LoginController($rootScope, $location, TitlePanelService) {
         var vm = this;
 
         vm.goToCreateUser = goToCreateUser;
@@ -15,6 +15,8 @@
                     $location.path("/books");
                 }
             });
+
+            TitlePanelService.setShowPreviousButton(false);
         }
 
         function goToCreateUser(){

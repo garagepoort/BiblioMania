@@ -11,7 +11,7 @@
                         {{vm.selectedBook.subtitle}}
                     </h4>
                 </div>
-                <button ng-click="vm.goToEditBook()" class="book-detail-edit-button btn-success btn btn-sm">{{ 'translation.edit' | translate }}</button>
+                <button permission="READ_BOOK" ng-click="vm.goToEditBook()" class="book-detail-edit-button btn-success btn btn-sm">{{ 'translation.details' | translate }}</button>
             </div>
         </div>
 
@@ -19,7 +19,7 @@
             <p>Loading...</p>
         </div>
 
-        <div ng-hide="vm.loading" class="book-detail-container">
+        <div ng-if="vm.selectedBook" ng-hide="vm.loading" class="book-detail-container">
             <div class="row" style="margin-top: 80px;">
                 <div class="col-md-4">
                     <img class="book-sliding-panel-image" src-with-fallback="{{ vm.selectedBook.image }}"/>
@@ -38,7 +38,7 @@
                                 <dt ng-show="vm.selectedBook.language">Taal</dt>
                                 <dd ng-show="vm.selectedBook.language">{{vm.selectedBook.language}}</dd>
                                 <dt ng-show="vm.selectedBook.publicationDate">Publicatiedatum:</dt>
-                                <dd ng-show="vm.selectedBook.publicationDate">{{vm.dateToString(vm.selectedBook.publicationDate)}}</dd>
+                                <dd ng-show="vm.selectedBook.publicationDate"><to-date date="vm.selectedBook.publicationDate"></to-date></dd>
                                 <dt ng-show="vm.selectedBook.genre">Genre:</dt>
                                 <dd ng-show="vm.selectedBook.genre">{{vm.selectedBook.genre}}</dd>
                                 <dt ng-show="vm.selectedBook.serie">Boekenreeks:</dt>
@@ -46,7 +46,7 @@
                                 <dt ng-show="vm.selectedBook.publisherSerie">Uitgeverreeks:</dt>
                                 <dd ng-show="vm.selectedBook.publisherSerie">{{vm.selectedBook.publisherSerie}}</dd>
                                 <dt ng-show="vm.selectedBook.retailPrice">Cover prijs: </dt>
-                                <dd ng-show="vm.selectedBook.retailPrice">{{ vm.getCurrencyViewValue(vm.selectedBook.retailPrice.currency) }} {{ vm.selectedBook.retailPrice.amount | numberFormatFilter}}</dd>
+                                <dd ng-show="vm.selectedBook.retailPrice"><currency currency-value="vm.selectedBook.retailPrice.currency"></currency> {{ vm.selectedBook.retailPrice.amount | numberFormatFilter}}</dd>
                                 <dt ng-show="vm.selectedBook.pages">Pagina's:</dt>
                                 <dd ng-show="vm.selectedBook.pages">{{vm.selectedBook.pages}}</dd>
                                 <dt ng-show="vm.selectedBook.print">Druk:</dt>
@@ -98,7 +98,7 @@
                             <table class="table" width="100%" style="table-layout: fixed">
                                 <tbody style="text-align: left;">
                                 <tr ng-repeat="readingDate in vm.selectedBook.personalBookInfo.readingDates">
-                                    <td style="border: none; width: 110px; vertical-align: top">{{ vm.dateToString(readingDate.date) }}</td>
+                                    <td style="border: none; width: 110px; vertical-align: top"><to-date date="readingDate.date"></to-date></td>
                                     <td style="border: none; vertical-align: top">
                                         <uib-rating ng-model="readingDate.rating" max="10" readonly="true" class="book-rating"></uib-rating>
                                     </td>

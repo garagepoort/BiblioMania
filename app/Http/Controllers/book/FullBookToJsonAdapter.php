@@ -57,15 +57,14 @@ class FullBookToJsonAdapter
         $this->title = $book->title;
         $this->subtitle = $book->subtitle;
         $this->isbn = $book->ISBN;
+        $this->genre = $book->genre->name;
         $this->publisher = $publisher;
-        $this->language = $language;
         $this->country = $country;
+        $this->language = $language;
         $this->translator = $book->translator;
         $this->pages = $book->number_of_pages;
         $this->print = $book->print;
-        $this->currency = $book->currency;
         $this->summary = $book->summary;
-        $this->genre = $book->genre->name;
         $this->retailPrice = new PriceToJsonAdapter($book->retail_price, $book->currency);
         $this->publisherSerie = $book->publisher_serie == null ? null : $book->publisher_serie->name;
         $this->serie = $book->serie == null ? null : $book->serie->name;
@@ -97,22 +96,21 @@ class FullBookToJsonAdapter
         $result = array(
             "id" => $this->id,
             "title" => $this->title,
+            "subtitle" => $this->subtitle,
             "isbn" => $this->isbn,
+            "genre" => $this->genre,
             "authors" => array_map(function($author){ return $author->mapToJson(); }, $this->authors),
             "tags" => array_map(function($tag){ return $tag->mapToJson(); }, $this->tags),
             "oeuvreItems" => array_map(function($item){ return $item->mapToJson(); }, $this->oeuvreItems),
-            "subtitle" => $this->subtitle,
             "publisher" => $this->publisher,
             "summary" => $this->summary,
             "country" => $this->country,
             "language" => $this->language,
-            "currency" => $this->currency,
             "retailPrice" => $this->retailPrice->mapToJson(),
             "pages" => $this->pages,
             "print" => $this->print,
             "translator" => $this->translator,
             "serie" => $this->serie,
-            "genre" => $this->genre,
             "publisherSerie" => $this->publisherSerie,
             "image" => $this->image,
             "onWishlist" => $this->onWishlist

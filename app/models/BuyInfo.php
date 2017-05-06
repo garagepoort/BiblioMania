@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @property City city
+ * @property double price_payed
+ * @property DateTime buy_date
+ */
 class BuyInfo extends Eloquent {
     protected $table = 'buy_info';
 

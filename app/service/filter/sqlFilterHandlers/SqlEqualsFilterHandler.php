@@ -19,7 +19,6 @@ class SqlEqualsFilterHandler implements FilterHandler
         $this->tableName = $tableName;
     }
 
-
     public function handleFilter(FilterValue $filter, $queryBuilder = null)
     {
         /** @var QueryBuilder $queryBuilder */

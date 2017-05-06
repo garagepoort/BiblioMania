@@ -21,4 +21,4 @@ elastic-bibliomania:
     - "9200:9200"
     - "9300:9300"
   volumes:
-    - config:/usr/share/elasticsearch/config
+    - ./elasticsearch:/usr/share/elasticsearch/config

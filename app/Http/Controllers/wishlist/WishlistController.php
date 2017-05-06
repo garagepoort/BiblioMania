@@ -19,15 +19,6 @@ class WishlistController extends Controller
         $this->wishlistService = App::make('WishlistService');
     }
 
-    public function getWishListForUser($user_id){
-        return array_map(
-            function ($item) {
-                $wishlistToJsonAdapter = new WishlistItemToJsonAdapter($item);
-                return $wishlistToJsonAdapter->mapToJson();
-            },
-            $this->wishlistService->getWishlistForUser($user_id));
-    }
-
     public function addBookToWishlist(){
         /** @var BookIdRequest $bookIdRequest */
         $bookIdRequest = $this->jsonMappingService->mapInputToJson(Input::get(), new BookIdFromJsonAdapter());

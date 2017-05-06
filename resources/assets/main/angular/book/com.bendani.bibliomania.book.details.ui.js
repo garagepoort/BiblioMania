@@ -1,7 +1,7 @@
 angular.module('com.bendani.bibliomania.book.details.ui', [
     'com.bendani.bibliomania.book.model',
     'com.bendani.bibliomania.title.panel',
-    'com.bendani.bibliomania.currency.service',
+    'com.bendani.bibliomania.currency',
     'com.bendani.bibliomania.date.selection.modal.service',
     'com.bendani.bibliomania.personal.book.info.model',
     'com.bendani.bibliomania.personal.book.info.detail.directive',
@@ -89,7 +89,7 @@ angular.module('com.bendani.bibliomania.book.details.ui', [
                 var titlePanelRight = angular.element('<div class="book-detail-title-panel"><div class="float-right">' +
                     '<i ng-show="book.onWishlist" class="fa fa-heart margin-right-10"></i>' +
                     '<label id="book-genre-label" class="label label-warning">{{ book.genre }}</label>' +
-                    '<button ng-click="deleteBook()" class="margin-left-15 btn btn-danger btn-sm no-round-corners">DELETE</button>' +
+                    '<button permission="DELETE_BOOK" ng-click="deleteBook()" class="margin-left-15 btn btn-danger btn-sm round-corners">DELETE</button>' +
                     '</div></div>');
                 $compile(titlePanelRight)($scope);
                 TitlePanelService.setRightPanel(titlePanelRight);

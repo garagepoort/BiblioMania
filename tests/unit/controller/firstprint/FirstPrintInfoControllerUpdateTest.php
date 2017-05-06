@@ -5,6 +5,7 @@ namespace tests\unit\controller;
 use FirstPrintInfo;
 use FirstPrintInfoService;
 use Mockery;
+use PermissionService;
 use TestCase;
 use UpdateFirstPrintInfoRequest;
 use User;
@@ -28,19 +29,33 @@ class FirstPrintInfoControllerUpdateTest extends TestCase
 
     /** @var FirstPrintInfo $firstPrintInfo */
     private $firstPrintInfo;
+    /** @var PermissionService $permissionService */
+    private $permissionService;
+
 
     public function setUp(){
         parent::setUp();
 
         $this->firstPrintInfoService = $this->mock('FirstPrintInfoService');
         $this->firstPrintInfo = $this->mockEloquent('FirstPrintInfo');
-        $this->firstPrintInfo->shouldReceive('getAttribute')->once()->with('id')->andReturn(self::FIRST_PRINT_INFO_ID);
+        $this->permissionService = $this->mock('PermissionService');
 
-        $user = new User(array('username' => 'John', 'id' => self::USER_ID));
+        $user = new User(array('username' => 'John', 'id' => self::USER_ID, 'activated' => true));
         $this->be($user);
     }
 
+    public function test_shouldFailsIfUserDoesNotHaveCorrectPermission(){
+        $this->permissionService->shouldReceive('hasUserPermission')->once()->with(self::USER_ID, 'UPDATE_FIRST_PRINT')->andReturn(false);
+
+        $response = $this->action('PUT', 'FirstPrintInfoController@updateFirstPrintInfo', array(), array());
+
+        $this->assertResponseStatus(403);
+        $this->assertEquals($response->getContent(), "{\"code\":403,\"message\":\"user.does.not.have.right.permissions\"}");
+    }
+
     public function test_callsJsonMappingAndService(){
+        $this->permissionService->shouldReceive('hasUserPermission')->with(self::USER_ID, 'UPDATE_FIRST_PRINT')->andReturn(true);
+        $this->firstPrintInfo->shouldReceive('getAttribute')->once()->with('id')->andReturn(self::FIRST_PRINT_INFO_ID);
         $postData = array(
             'title' => self::TITLE,
             'subtitle' => self::SUBTITLE,

@@ -4,6 +4,7 @@ namespace tests\unit\controller;
 
 use CreatePersonalBookInfoRequest;
 use Mockery;
+use PermissionService;
 use PersonalBookInfo;
 use PersonalBookInfoService;
 use TestCase;
@@ -29,20 +30,30 @@ class PersonalBookInfoControllerCreateTest extends TestCase
 
     /** @var PersonalBookInfoService $personalBookInfoService */
     private $personalBookInfoService;
-    /** @var PersonalBookInfo $personalBookInfo */
-    private $personalBookInfo;
-
+    /** @var PermissionService $permissionService */
+    private $permissionService;
 
     public function setUp(){
         parent::setUp();
 
+        $this->permissionService = $this->mock('PermissionService');
         $this->personalBookInfoService = $this->mock('PersonalBookInfoService');
 
-        $user = new User(array('username' => 'John', 'id' => self::USER_ID));
+        $user = new User(array('username' => 'John', 'id' => self::USER_ID, 'activated' => true));
         $this->be($user);
     }
 
+    public function test_shouldFailIfUserDoesNotHaveCorrectPermission(){
+        $this->permissionService->shouldReceive('hasUserPermission')->once()->with(self::USER_ID, 'CREATE_PERSONAL_BOOK_INFO')->andReturn(false);
+
+        $response = $this->action('POST', 'PersonalBookInfoController@create', array(), array());
+
+        $this->assertResponseStatus(403);
+        $this->assertEquals($response->getContent(), "{\"code\":403,\"message\":\"user.does.not.have.right.permissions\"}");
+    }
+
     public function test_creatingNotInCollection(){
+        $this->permissionService->shouldReceive('hasUserPermission')->with(self::USER_ID, 'CREATE_PERSONAL_BOOK_INFO')->andReturn(true);
         $postData = array(
             'inCollection' => false,
             'reasonNotInCollection' => self::REASON_NOT_IN_COLLECTION,
@@ -63,6 +74,8 @@ class PersonalBookInfoControllerCreateTest extends TestCase
     }
 
     public function test_creatingWithBuyInfo(){
+        $this->permissionService->shouldReceive('hasUserPermission')->with(self::USER_ID, 'CREATE_PERSONAL_BOOK_INFO')->andReturn(true);
+
         $postData = array(
             'inCollection' => true,
             'bookId' => self::BOOK_ID,
@@ -98,6 +111,8 @@ class PersonalBookInfoControllerCreateTest extends TestCase
     }
 
     public function test_creatingWithGiftInfo(){
+        $this->permissionService->shouldReceive('hasUserPermission')->with(self::USER_ID, 'CREATE_PERSONAL_BOOK_INFO')->andReturn(true);
+
         $postData = array(
             'inCollection' => true,
             'bookId' => self::BOOK_ID,

@@ -34,7 +34,7 @@ class BookSerieServiceUpdateTest extends TestCase
 
         $this->bookSerieRepository->shouldReceive('find')->with($this->updateRequest->getId())->andReturn($this->serie);
         $this->bookSerieRepository->shouldReceive('findByName')->with($this->updateRequest->getName())->andReturn(null);
-        $this->serie->shouldReceive('setAttribute')->with("name", $this->updateRequest->getName());
+        $this->serie->shouldReceive('setAttribute')->with("name", $this->updateRequest->getName())->once();
         $this->bookSerieRepository->shouldReceive('save')->with($this->serie);
 
         $this->bookSerieService->update($this->updateRequest);
@@ -43,7 +43,7 @@ class BookSerieServiceUpdateTest extends TestCase
     public function test_shouldNotThrowExceptionWhenSameSerieWithSameNameIsFound(){
         $this->bookSerieRepository->shouldReceive('find')->with($this->updateRequest->getId())->andReturn($this->serie);
         $this->bookSerieRepository->shouldReceive('findByName')->with($this->updateRequest->getName())->andReturn($this->serie);
-        $this->serie->shouldReceive('setAttribute')->with("name", $this->updateRequest->getName());
+        $this->serie->shouldReceive('setAttribute')->with("name", $this->updateRequest->getName())->once();
 
         $this->bookSerieRepository->shouldReceive('save')->with($this->serie);
 
