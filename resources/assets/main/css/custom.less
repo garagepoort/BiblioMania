@@ -125,7 +125,7 @@ table.table-hover tbody tr {
 }
 
 .inner-content-container {
-  width: 1000px;
+  width: 100%;
   margin-right: auto;
   margin-left: auto;
   margin-top: 40px;
@@ -250,13 +250,24 @@ a:hover {
 
 
 .title-panel {
-  width: 100%;
   padding-left: 20px;
-  background-color: @primary-color;
-  color: @accent-color;
+  background-color: @accent-color;
+  color: @primary-color;
   font-family: @title-panel-font;
   font-size: 36px;
   height: 58px;
+  width: 94%;
+  padding-top: 12px;
+  margin-left: auto;
+  margin-right: auto;
+  border-bottom: 2px solid #2d6ca2;
+}
+
+.title-panel-back-button {
+  margin-right: 10px;
+  padding: 8px;
+  margin-left: -20px;
+  margin-top: -5px;
 }
 
 .title-panel-buttons {
@@ -324,7 +335,7 @@ table.left-right-align td:nth-child(1) {
   text-align: left;
   display: inline-block;
   margin-top: 100px;
-  width: 1200px;
+  width: 100%;
   background-color: @container-color;
   border: 5px solid @primary-color;
   box-shadow: 0 25px 50px 0 rgba(0, 0, 0, 0.26);
@@ -482,6 +493,7 @@ button.searchButton {
   margin-top: 50px;
   padding-bottom: 20px;
   border-left: 7px solid #2d6ca2;
+  right: -5px !important;
   box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.26);
 }
 
@@ -1284,4 +1296,15 @@ dl.dl-horizontal.dl-personal-book-info-detail-directive dd {
   -webkit-animation-duration:1s;
   -moz-animation-duration:1s;
   animation-duration:1s;
+}
+
+.panel-success {
+  border-color: #ddd;
+}
+
+.panel-success > .panel-heading {
+  color: #333;
+  background-color: #f5f5f5;
+  background-image: none;
+  border-color: #ddd;
 }

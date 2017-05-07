@@ -1,5 +1,5 @@
 <div class="title-panel">
-    <button ng-show="titlePanelService.shouldShowPreviousButton()" class="button btn btn-warning full-round" type="button" style="margin-right: 20px; padding: 12px; margin-left: -10px;" ng-click="titlePanelService.goToPreviousUrl()"><span class="glyphicon glyphicon-chevron-left"></span></button>
+    <button ng-show="titlePanelService.shouldShowPreviousButton()" class="button btn btn-warning full-round title-panel-back-button" type="button"  ng-click="titlePanelService.goToPreviousUrl()"><span class="glyphicon glyphicon-chevron-left"></span></button>
     {{ titlePanelService.getTitle() | translate }}
     <div id="titlePanelRightPanel" class="float-right vertical-align title-panel-buttons">
     </div>
