@@ -1,4 +1,4 @@
-<div class="create-book-div">
+<div class="create-book-div inner-content-panel">
     <ng-form id="userForm" name="vm.userForm" novalidate>
         <errorcontainer></errorcontainer>
         <fieldset style="text-align: left;width: 900px;">
@@ -31,9 +31,7 @@
                 <span ng-show="vm.userForm.confirmPassword.$error.required && (vm.userForm.confirmPassword.$dirty || submitAttempted)"class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Confirmatie verplicht</span>
                 <span ng-show="vm.userForm.confirmPassword.$error.compareTo && (vm.userForm.confirmPassword.$dirty || submitAttempted)"class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Paswoorden komen niet overeen</span>
             </div>
-            <div class="row col-md-12" style="margin-top: 30px">
-                <button id="create-user-save-button" ng-disabled="vm.userForm.$invalid" class="btn btn-primary" ng-click="vm.submitForm(vm.userForm.$valid)">Save</button>
-            </div>
+            <button id="create-user-save-button" ng-disabled="vm.userForm.$invalid" class="btn btn-primary" ng-click="vm.submitForm(vm.userForm.$valid)">Save</button>
 
         </fieldset>
     </ng-form>

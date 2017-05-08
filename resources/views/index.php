@@ -13,10 +13,6 @@
         <script type="text/javascript" src="packages/bendani/php-common/filter-service/filters.min.js"></script>
         <script type="text/javascript" src="packages/bendani/php-common/login-service/loginservice.min.js"></script>
 
-        <script type="text/javascript" src="assets/lib/metisMenu.min.js"></script>
-        <script type="text/javascript" src="assets/lib/metisMenu.min.css"></script>
-
-
         <link href="packages/bendani/php-common/filter-service/filters.min.css" rel="stylesheet"/>
         <link href="packages/bendani/php-common/uiframework/uiframework.min.css" rel="stylesheet"/>
 
@@ -54,7 +50,7 @@
                 <!-- uncomment code for absolute positioning tweek see top comment in css -->
                 <!-- <div class="absolute-wrapper"> </div> -->
                 <!-- Menu -->
-                <div ng-if="loggedInUser" class="side-menu" style="text-align: left; margin-top: 51px;">
+                <div ng-if="loggedInUser" class="side-menu" style="text-align: left; margin-top: 50px;">
 
                     <nav class="navbar navbar-default" role="navigation">
                         <!-- Brand and toggle get grouped for better mobile display -->
@@ -67,13 +63,6 @@
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
                                 </button>
-
-                                <!-- Brand -->
-<!--                                <div class="brand-name-wrapper">-->
-<!--                                    <a class="navbar-brand" href="#">-->
-<!--                                        Bibliomania-->
-<!--                                    </a>-->
-<!--                                </div>-->
                             </div>
 
                         </div>
