@@ -110,7 +110,6 @@ body {
   font-family: @font;
   color: @primary-color;
   font-size: @font-size;
-  background-color: @secondary-color;
   text-align: center;
 }
 
@@ -250,28 +249,21 @@ a:hover {
 
 
 .title-panel {
-  padding-left: 20px;
   background-color: @accent-color;
   color: @primary-color;
   font-family: @title-panel-font;
   font-size: 36px;
-  height: 58px;
+  height: 70px;
   width: 94%;
   padding-top: 12px;
   margin-left: auto;
   margin-right: auto;
-  border-bottom: 2px solid #2d6ca2;
+  border-bottom: 1px solid #2d6ca2;
 }
 
 .title-panel-back-button {
-  margin-right: 10px;
   padding: 8px;
-  margin-left: -20px;
   margin-top: -5px;
-}
-
-.title-panel-buttons {
-  margin-right: 10px;
 }
 
 .book-rating {
@@ -334,23 +326,25 @@ table.left-right-align td:nth-child(1) {
 .contentContainer {
   text-align: left;
   display: inline-block;
-  margin-top: 100px;
+  margin-top: 80px;
   width: 100%;
   background-color: @container-color;
-  border: 5px solid @primary-color;
-  box-shadow: 0 25px 50px 0 rgba(0, 0, 0, 0.26);
 }
 
 .contentPanel {
-  padding-right: 50px;
-  padding-left: 50px;
+  padding-right: 21px;
+  padding-left: 21px;
+}
+
+.contentPanel.form-panel {
+  padding-right: 45px;
+  padding-left: 45px;
 }
 
 /*BOOKS*/
 .top-book-panel {
   margin-top: 10px;
   margin-bottom: 40px;
-  padding: 20px;
 }
 
 .book-panel {
@@ -378,11 +372,13 @@ legend.sub-border {
 }
 
 .create-book-div {
-  width: 1000px;
-  margin-right: auto;
-  margin-left: auto;
   margin-top: 40px;
   margin-bottom: 40px;
+}
+
+.inner-content-panel {
+  padding-left: 25px;
+  padding-right: 25px;
 }
 
 .google-image-search-table tbody tr td {
@@ -492,7 +488,6 @@ button.searchButton {
   background-color: white;
   margin-top: 50px;
   padding-bottom: 20px;
-  border-left: 7px solid #2d6ca2;
   right: -5px !important;
   box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.26);
 }
@@ -933,6 +928,8 @@ table.book-detail-info-table td {
   width: 100%;
   margin-left: auto;
   margin-right: auto;
+  padding-left: 25px;
+  padding-right: 25px;
 }
 
 .form-container .control-label{

@@ -6,7 +6,7 @@ var LoginPage = {
 };
 
 LoginPage.login = function () {
-    LoginPage.loginWithUser('elisa', 'xxx');
+    LoginPage.loginWithUser('testUser', 'test');
 };
 
 LoginPage.loginWithUser = function(username, password){
