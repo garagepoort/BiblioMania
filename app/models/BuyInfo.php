@@ -4,11 +4,12 @@
  * @property City city
  * @property double price_payed
  * @property DateTime buy_date
+ * @property integer country_id
  */
 class BuyInfo extends Eloquent {
     protected $table = 'buy_info';
 
-    protected $fillable = array('buy_date', 'price_payed', 'reason', 'shop', 'city_id');
+    protected $fillable = array('buy_date', 'price_payed', 'reason', 'shop', 'city_id', 'country_id');
 
     protected $with = array('city', 'country');
 

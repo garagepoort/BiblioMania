@@ -27,6 +27,7 @@ class PersonalBookInfoToElasticMapper
 			}
 			$buyInfo['price'] = $personalBookInfo->buy_info->price_payed;
 			$buyInfo['buy_date'] = $personalBookInfo->buy_info->buy_date;
+			$buyInfo['country'] = $personalBookInfo->buy_info->country_id;
 			$retrieveDate = $personalBookInfo->buy_info->buy_date;
 		}
 
