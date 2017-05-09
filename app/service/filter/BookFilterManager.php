@@ -17,6 +17,7 @@ class BookFilterManager extends FilterManager
     private $bookReadingDateFilter;
     private $bookBuyPriceFilter;
     private $bookBuyDateFilter;
+    private $bookBuyCountryFilter;
     private $bookRetrieveDateFilter;
     private $bookGiftFromFilter;
     private $bookAuthorFilter;
@@ -42,6 +43,7 @@ class BookFilterManager extends FilterManager
         $this->bookReadingDateFilter = new BookReadingDateFilter();
         $this->bookBuyPriceFilter = new BookBuyPriceFilter();
         $this->bookBuyDateFilter = new BookBuyDateFilter();
+        $this->bookBuyCountryFilter = new BookBuyCountryFilter();
         $this->bookRetrieveDateFilter = new BookRetrieveDateFilter();
         $this->bookGiftFromFilter = new BookGiftFromFilter();
         $this->bookAuthorFilter = new BookAuthorFilter();
@@ -60,6 +62,7 @@ class BookFilterManager extends FilterManager
             $this->bookReadingDateFilter,
             $this->bookBuyPriceFilter,
             $this->bookBuyDateFilter,
+            $this->bookBuyCountryFilter,
             $this->bookRetrieveDateFilter,
             $this->bookGiftFromFilter,
             $this->bookAuthorFilter,
@@ -79,6 +82,7 @@ class BookFilterManager extends FilterManager
             $this->bookReadingDateFilter,
             $this->bookBuyPriceFilter,
             $this->bookBuyDateFilter,
+            $this->bookBuyCountryFilter,
             $this->bookRetrieveDateFilter,
             $this->bookGiftFromFilter,
             $this->bookAuthorFilter,
