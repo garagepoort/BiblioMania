@@ -221,6 +221,7 @@ class BookService
      */
     private function saveBook($userId, BaseBookRequest $createBookRequest, $book)
     {
+
         return DB::transaction(function () use ($userId, $book, $createBookRequest) {
             $genre = $this->genreService->getGenreByName($createBookRequest->getGenre());
             $author = $this->authorService->find($createBookRequest->getPreferredAuthorId());
@@ -236,7 +237,7 @@ class BookService
             Ensure::stringNotBlank("Publisher", $createBookRequest->getPublisher());
             Ensure::stringNotBlank("Country", $createBookRequest->getCountry());
 
-            $bookPublisher = $this->publisherService->findOrCreate($userId, $createBookRequest->getPublisher());
+            $bookPublisher = $this->publisherService->findOrCreate($createBookRequest->getPublisher());
             $country = $this->countryService->findOrCreate($createBookRequest->getCountry());
 
             $book->serie_id = null;

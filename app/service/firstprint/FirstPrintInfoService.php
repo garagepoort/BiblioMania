@@ -77,7 +77,7 @@ class FirstPrintInfoService
     private function saveFirstPrintInfo($userId, BaseFirstPrintInfoRequest $firstPrintInfoRequest, FirstPrintInfo $firstPrintInfo)
     {
         if(!StringUtils::isEmpty($firstPrintInfoRequest->getPublisher())){
-            $publisher = $this->publisherService->findOrCreate($userId, $firstPrintInfoRequest->getPublisher());
+            $publisher = $this->publisherService->findOrCreate($firstPrintInfoRequest->getPublisher());
             $firstPrintInfo->publisher_id = $publisher->id;
         }else{
             $firstPrintInfo->publisher_id = null;
