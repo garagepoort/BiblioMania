@@ -50,7 +50,7 @@ class UserCanRemoveBookSerieDataSet implements DataSet
     }
 
     function createUser(){
-        $user = $this->userService->createUser(CreateUserRequestBuilder::buildDefault());
+        $user = $this->userService->createActiveUser(CreateUserRequestBuilder::buildDefault());
         return $user->id;
     }
 

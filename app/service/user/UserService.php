@@ -27,6 +27,17 @@ class UserService
         return $this->userRepository->saveUser($user);
     }
 
+    public function createActiveUser(CreateUserRequest $createUserRequest) {
+        $user = $this->createUser($createUserRequest);
+        $user->activated = true;
+        $this->userRepository->saveUser($user);
+        $userRole = $this->roleRepository->findByName(RoleEnum::USER);
+        $adminRole = $this->roleRepository->findByName(RoleEnum::BOOK_ADMIN);
+        $user->roles()->attach($userRole);
+        $user->roles()->attach($adminRole);
+        return $user;
+    }
+
     public function createUser(CreateUserRequest $createUserRequest)
     {
         Ensure::stringNotBlank('username', $createUserRequest->getUsername());
