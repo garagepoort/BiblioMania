@@ -71,7 +71,7 @@ class FirstPrintInfoServiceUpdateTest extends TestCase
 
         $this->firstPrintInfoRepository->shouldReceive('find')->with($this->updateFirstPrintInfoRequestTestImpl->getId())->andReturn($this->firstPrintInfo)->byDefault();
         $this->firstPrintInfoRepository->shouldReceive('save')->with($this->firstPrintInfo)->byDefault();
-        $this->publisherService->shouldReceive('findOrCreate')->with(self::USER_ID, $this->updateFirstPrintInfoRequestTestImpl->getPublisher())->andReturn($this->publisher)->byDefault();
+        $this->publisherService->shouldReceive('findOrCreate')->with($this->updateFirstPrintInfoRequestTestImpl->getPublisher())->andReturn($this->publisher)->byDefault();
         $this->languageService->shouldReceive('findOrCreate')->with($this->updateFirstPrintInfoRequestTestImpl->getLanguage())->andReturn($this->language)->byDefault();
         $this->countryService->shouldReceive('findOrCreate')->with($this->updateFirstPrintInfoRequestTestImpl->getCountry())->andReturn($this->country)->byDefault();
         $this->dateService->shouldReceive('create')->with($this->updateFirstPrintInfoRequestTestImpl->getPublicationDate())->andReturn($this->publicationDate)->byDefault();

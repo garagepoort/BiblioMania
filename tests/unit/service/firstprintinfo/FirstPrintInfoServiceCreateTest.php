@@ -63,7 +63,7 @@ class FirstPrintInfoServiceCreateTest extends TestCase
         $this->firstPrintInfoService = App::make('FirstPrintInfoService');
 
         $this->firstPrintInfoRepository->shouldReceive('save')->with(Mockery::type('FirstPrintInfo'))->byDefault();
-        $this->publisherService->shouldReceive('findOrCreate')->with(self::USER_ID, $this->createFirstPrintInfoRequestTestImpl->getPublisher())->andReturn($this->publisher)->byDefault();
+        $this->publisherService->shouldReceive('findOrCreate')->with($this->createFirstPrintInfoRequestTestImpl->getPublisher())->andReturn($this->publisher)->byDefault();
         $this->languageService->shouldReceive('findOrCreate')->with($this->createFirstPrintInfoRequestTestImpl->getLanguage())->andReturn($this->language)->byDefault();
         $this->countryService->shouldReceive('findOrCreate')->with($this->createFirstPrintInfoRequestTestImpl->getCountry())->andReturn($this->country)->byDefault();
         $this->dateService->shouldReceive('create')->with($this->createFirstPrintInfoRequestTestImpl->getPublicationDate())->andReturn($this->publicationDate)->byDefault();
