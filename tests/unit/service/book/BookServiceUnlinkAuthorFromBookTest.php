@@ -17,7 +17,8 @@ class BookServiceUnlinkAuthorFromBookTest extends TestCase {
     /** @var UnlinkAuthorFromBookRequestTestImpl $unlinkAuthorFromBookRequestTestImpl */
     private $unlinkAuthorFromBookRequestTestImpl;
     /** @var PreferredAuthorPivot $preferredAuthorPivot */
-    private $preferredAuthorPivot;
+    private $preferredAuthorPivot;/** @var BookElasticIndexer $bookElasticIndexer */
+    private $bookElasticIndexer;
 
     private $WITH_ARRAY = array();
 
@@ -31,6 +32,7 @@ class BookServiceUnlinkAuthorFromBookTest extends TestCase {
 
         $this->bookRepository = $this->mock('BookRepository');
         $this->authorRepository = $this->mock('AuthorRepository');
+        $this->bookElasticIndexer = $this->mock('BookElasticIndexer');
 
         $this->book = new Book();
         $this->book->authors = array();
@@ -46,6 +48,7 @@ class BookServiceUnlinkAuthorFromBookTest extends TestCase {
 
     public function test_unlinksCorrectly(){
         $this->bookRepository->shouldReceive('removeAuthorFromBook')->with($this->book, self::AUTHOR_ID)->once();
+        $this->bookElasticIndexer->shouldReceive('indexBook')->once()->with($this->book);
 
         $this->bookService->unlinkAuthorFromBook(self::BOOK_ID, $this->unlinkAuthorFromBookRequestTestImpl);
     }

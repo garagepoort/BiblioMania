@@ -1,15 +1,13 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: davidm
- * Date: 28/02/14
- * Time: 21:35
- */
 
 class UserController extends Controller{
 
     /** @var UserService $userService */
     private $userService;
+    /** @var PermissionService $permissionService */
+    private $permissionService;
+    /** @var JsonMappingService $jsonMappingService */
+    private $jsonMappingService;
 
     /**
      * UserController constructor.
@@ -17,28 +15,24 @@ class UserController extends Controller{
     public function __construct()
     {
         $this->userService = App::make('UserService');
+        $this->permissionService = App::make('PermissionService');
+        $this->jsonMappingService = App::make('JsonMappingService');
+        $this->activationService = App::make('ActivationService');
     }
 
-
-    public function goToCreateUser() {
-        return View::make('createUser')->with(array('title' => 'Create user'));
-    }
 
     public function getLoggedInUser(){
-        $userToJsonAdapter = new UserToJsonAdapter(Auth::user());
+        /** @var User $user */
+        $user = Auth::user();
+        $userToJsonAdapter = new UserToJsonAdapter($user, $this->permissionService->getPermissionsForUser($user->id));
         return $userToJsonAdapter->mapToJson();
     }
 
     public function createUser() {
-        $password = Input::get('password');
-        $confirmPassword = Input::get('confirmPassword');
+        /** @var CreateUserFromJsonAdapter $user */
+        $user = $this->jsonMappingService->mapInputToJson(Input::get(), new CreateUserFromJsonAdapter());
 
-        if(strcmp ($password, $confirmPassword) == 0){
-            $this->userService->createUser(Input::get('username'), Input::get('email'), Input::get('password'));
-            return Redirect::to('login');
-        }else{
-            return Redirect::to('createUser')->with('message', 'Passwords aren\'t equal.');
-        }
+        $this->userService->createUser($user);
     }
 
 

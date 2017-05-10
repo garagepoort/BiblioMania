@@ -1,11 +1,5 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: david
- * Date: 23/01/15
- * Time: 20:42
- */
 class SerieController extends Controller
 {
 
@@ -28,6 +22,7 @@ class SerieController extends Controller
     }
 
     public function updateSerie(){
+        /** @var UpdateSerieRequest $updateSerieRequest */
         $updateSerieRequest = $this->jsonMappingService->mapInputToJson(Input::get(), new UpdateSerieFromJsonAdapter());
         $this->bookSerieService->update($updateSerieRequest);
     }
@@ -37,11 +32,13 @@ class SerieController extends Controller
     }
 
     public function addBookToSerie($serieId){
+        /** @var BookIdRequest $mapInputToJson */
         $mapInputToJson = $this->jsonMappingService->mapInputToJson(Input::get(), new BookIdFromJsonAdapter());
         $this->bookSerieService->addBookToSerie($serieId, $mapInputToJson);
     }
 
     public function removeBookFromSerie($serieId){
+        /** @var BookIdRequest $mapInputToJson */
         $mapInputToJson = $this->jsonMappingService->mapInputToJson(Input::get(), new BookIdFromJsonAdapter());
         $this->bookSerieService->removeBookFromSerie($serieId, $mapInputToJson);
     }

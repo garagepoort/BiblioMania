@@ -59,12 +59,11 @@ class FirstPrintInfoServiceCreateTest extends TestCase
         $this->country->shouldReceive('getAttribute')->with('id')->andReturn(self::COUNTRY_ID);
         $this->language->shouldReceive('getAttribute')->with('id')->andReturn(self::LANGUAGE_ID);
         $this->publicationDate->shouldReceive('getAttribute')->with('id')->andReturn(self::PUBLICATION_DATE_ID);
-        $this->book->shouldReceive('setAttribute')->with('first_print_info_id', Mockery::any());
 
         $this->firstPrintInfoService = App::make('FirstPrintInfoService');
 
         $this->firstPrintInfoRepository->shouldReceive('save')->with(Mockery::type('FirstPrintInfo'))->byDefault();
-        $this->publisherService->shouldReceive('findOrCreate')->with(self::USER_ID, $this->createFirstPrintInfoRequestTestImpl->getPublisher())->andReturn($this->publisher)->byDefault();
+        $this->publisherService->shouldReceive('findOrCreate')->with($this->createFirstPrintInfoRequestTestImpl->getPublisher())->andReturn($this->publisher)->byDefault();
         $this->languageService->shouldReceive('findOrCreate')->with($this->createFirstPrintInfoRequestTestImpl->getLanguage())->andReturn($this->language)->byDefault();
         $this->countryService->shouldReceive('findOrCreate')->with($this->createFirstPrintInfoRequestTestImpl->getCountry())->andReturn($this->country)->byDefault();
         $this->dateService->shouldReceive('create')->with($this->createFirstPrintInfoRequestTestImpl->getPublicationDate())->andReturn($this->publicationDate)->byDefault();
@@ -73,6 +72,7 @@ class FirstPrintInfoServiceCreateTest extends TestCase
     }
 
     public function test_createsFirstPrintInfoCorrectly(){
+        $this->book->shouldReceive('setAttribute')->with('first_print_info_id', Mockery::any())->once();
         $this->firstPrintInfoRepository->shouldReceive('save')->once()->with(Mockery::type('FirstPrintInfo'));
         $this->bookRepository->shouldReceive('save')->once()->with($this->book);
 
@@ -89,6 +89,7 @@ class FirstPrintInfoServiceCreateTest extends TestCase
     }
 
     public function test_doesNotLinkToBookWhenBookIdNotGiven(){
+        $this->book->shouldReceive('setAttribute')->with('first_print_info_id', Mockery::any())->never();
         $this->bookRepository->shouldReceive('find')->never();
         $this->bookRepository->shouldReceive('save')->never();
         $this->createFirstPrintInfoRequestTestImpl->setBookIdToLink(null);

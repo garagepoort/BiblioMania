@@ -145,7 +145,7 @@ angular.module('com.bendani.bibliomania.edit.book.ui', ['ngTagsInput',
                     searchQuery = searchQuery + ' ' + $scope.data.selectedAuthor.name.lastname;
                 }
 
-                ImageSelectionModalService.show(searchQuery, function(image){
+                ImageSelectionModalService.show(searchQuery, function (image) {
                     $scope.model.imageUrl = image;
                     $scope.model.image = image;
                 });

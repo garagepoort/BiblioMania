@@ -1,6 +1,7 @@
 angular.module('BiblioMania')
     .config(['$translateProvider', function ($translateProvider) {
         $translateProvider.translations('nl', {
+            'translation.no.books.found': 'Geen boeken gevonden',
             'translation.author': 'Auteur',
             'translation.authors': 'Auteurs',
             'translation.publishers': 'Uitgevers',
@@ -12,13 +13,17 @@ angular.module('BiblioMania')
             'translation.yes':'Ja',
             'translation.edit':'Wijzig',
             'translation.reason':'Reden',
+            'translation.details':'Detail',
             'translation.not.all.fields.have.been.filled.in':'Niet all velden zijn ingevuld',
             'BORROWED': 'Geleend',
             'SOLD': 'Verkocht',
-            'LOST': 'Verloren'
+            'LOST': 'Verloren',
+
+            'user.with.username.exists': 'User met deze username bestaat reeds'
         });
 
         $translateProvider.translations('en', {
+            'translation.no.books.found': 'No books found',
             'translation.author': 'Author',
             'translation.authors': 'Authors',
             'translation.publishers': 'Publishers',
@@ -30,10 +35,13 @@ angular.module('BiblioMania')
             'translation.yes':'Yes',
             'translation.edit':'Edit',
             'translation.reason':'Reason',
+            'translation.details':'Details',
             'translation.not.all.fields.have.been.filled.in': 'Not all fields have been filled in',
             'BORROWED': 'Borrowed',
             'SOLD': 'Sold',
-            'LOST': 'Lost'
+            'LOST': 'Lost',
+
+            'user.with.username.exists': 'User with username already exists'
         });
 
         $translateProvider.preferredLanguage('nl');

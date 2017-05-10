@@ -1,4 +1,4 @@
-describe('com.bendani.bibliomania.currency.service', function () {
+describe('com.bendani.bibliomania.currency', function () {
 
     var EURO = {name: "€", value: "EUR"};
     var DOLLAR = {name: "$", value: "USD"};
@@ -8,7 +8,7 @@ describe('com.bendani.bibliomania.currency.service', function () {
         var currencyService;
 
         beforeEach(function () {
-            module('com.bendani.bibliomania.currency.service');
+            module('com.bendani.bibliomania.currency');
 
             inject(function (_CurrencyService_) {
                 currencyService = _CurrencyService_;

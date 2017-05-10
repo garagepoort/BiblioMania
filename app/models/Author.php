@@ -3,6 +3,8 @@
 /**
  * Class Author
  *
+ * @property integer id
+ * @property string firstname
  * @property string name
  * @property string image
  * @property boolean useSpriteImage

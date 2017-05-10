@@ -3,6 +3,7 @@
 class FirstPrintInfoServiceUpdateTest extends TestCase
 {
     const USER_ID = 123;
+    const FIRST_PRINT_INFO_ID = 1234;
     const COUNTRY_ID = 43;
     const LANGUAGE_ID = 65;
     const PUBLISHER_ID = 89;
@@ -31,8 +32,6 @@ class FirstPrintInfoServiceUpdateTest extends TestCase
     private $language;
     /** @var Country $country */
     private $country;
-    /** @var Book $book */
-    private $book;
     /** @var Date $publicationDate */
     private $publicationDate;
     /** @var FirstPrintInfo $firstPrintInfo */
@@ -41,6 +40,7 @@ class FirstPrintInfoServiceUpdateTest extends TestCase
     public function setUp(){
         parent::setUp();
         $this->firstPrintInfo = new FirstPrintInfo();
+        $this->firstPrintInfo->id = self::FIRST_PRINT_INFO_ID;
         $this->firstPrintInfo->title = 'oldTitle';
         $this->firstPrintInfo->subtitle = 'oldSubtitle';
         $this->firstPrintInfo->ISBN = 'oldISBN';
@@ -56,9 +56,7 @@ class FirstPrintInfoServiceUpdateTest extends TestCase
         $this->dateService = $this->mock('DateService');
         $this->languageService = $this->mock('LanguageService');
         $this->countryService = $this->mock('CountryService');
-        $this->bookRepository = $this->mock('BookRepository');
 
-        $this->book = $this->mockEloquent('Book');
         $this->publisher = $this->mockEloquent('Publisher');
         $this->language = $this->mockEloquent('Language');
         $this->country = $this->mockEloquent('Country');
@@ -68,13 +66,12 @@ class FirstPrintInfoServiceUpdateTest extends TestCase
         $this->country->shouldReceive('getAttribute')->with('id')->andReturn(self::COUNTRY_ID);
         $this->language->shouldReceive('getAttribute')->with('id')->andReturn(self::LANGUAGE_ID);
         $this->publicationDate->shouldReceive('getAttribute')->with('id')->andReturn(self::PUBLICATION_DATE_ID);
-        $this->book->shouldReceive('setAttribute')->with('first_print_info_id', Mockery::any());
 
         $this->firstPrintInfoService = App::make('FirstPrintInfoService');
 
         $this->firstPrintInfoRepository->shouldReceive('find')->with($this->updateFirstPrintInfoRequestTestImpl->getId())->andReturn($this->firstPrintInfo)->byDefault();
-        $this->firstPrintInfoRepository->shouldReceive('save')->with(Mockery::type('FirstPrintInfo'))->byDefault();
-        $this->publisherService->shouldReceive('findOrCreate')->with(self::USER_ID, $this->updateFirstPrintInfoRequestTestImpl->getPublisher())->andReturn($this->publisher)->byDefault();
+        $this->firstPrintInfoRepository->shouldReceive('save')->with($this->firstPrintInfo)->byDefault();
+        $this->publisherService->shouldReceive('findOrCreate')->with($this->updateFirstPrintInfoRequestTestImpl->getPublisher())->andReturn($this->publisher)->byDefault();
         $this->languageService->shouldReceive('findOrCreate')->with($this->updateFirstPrintInfoRequestTestImpl->getLanguage())->andReturn($this->language)->byDefault();
         $this->countryService->shouldReceive('findOrCreate')->with($this->updateFirstPrintInfoRequestTestImpl->getCountry())->andReturn($this->country)->byDefault();
         $this->dateService->shouldReceive('create')->with($this->updateFirstPrintInfoRequestTestImpl->getPublicationDate())->andReturn($this->publicationDate)->byDefault();

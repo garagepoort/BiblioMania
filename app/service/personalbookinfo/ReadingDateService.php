@@ -1,68 +1,65 @@
 <?php
 
 use Bendani\PhpCommon\Utils\Ensure;
-use Bendani\PhpCommon\Utils\Exception\ServiceException;
 
 class ReadingDateService
 {
-    /** @var  PersonalBookInfoRepository */
-    private $personalBookInfoRepository;
-    /** @var  ReadingDateRepository */
-    private $readingDateRepository;
-    /** @var  BookElasticIndexer */
-    private $bookElasticIndexer;
-    public function __construct()
-    {
-        $this->personalBookInfoRepository = App::make('PersonalBookInfoRepository');
-        $this->readingDateRepository = App::make('ReadingDateRepository');
-        $this->bookElasticIndexer = App::make('BookElasticIndexer');
-    }
+	/** @var  PersonalBookInfoRepository */
+	private $personalBookInfoRepository;
+	/** @var  ReadingDateRepository */
+	private $readingDateRepository;
+	/** @var  BookElasticIndexer */
+	private $bookElasticIndexer;
 
-    public function createReadingDate(BaseReadingDateRequest $updateReadingDateRequest){
-        return $this->fillInReadingDate($updateReadingDateRequest, new ReadingDate());
-    }
+	public function __construct()
+	{
+		$this->personalBookInfoRepository = App::make('PersonalBookInfoRepository');
+		$this->readingDateRepository = App::make('ReadingDateRepository');
+		$this->bookElasticIndexer = App::make('BookElasticIndexer');
+	}
 
-    public function updateReadingDate(UpdateReadingDateRequest $updateReadingDateRequest){
-        $readingDate = $this->readingDateRepository->find($updateReadingDateRequest->getId());
-        Ensure::objectNotNull('reading date', $readingDate);
+	public function createReadingDate($userId, BaseReadingDateRequest $updateReadingDateRequest)
+	{
+		return $this->fillInReadingDate($userId, $updateReadingDateRequest, new ReadingDate());
+	}
 
-        return $this->fillInReadingDate($updateReadingDateRequest, $readingDate);
-    }
+	public function updateReadingDate($userId, UpdateReadingDateRequest $updateReadingDateRequest)
+	{
+		$readingDate = $this->readingDateRepository->findByUserAndId($userId, $updateReadingDateRequest->getId());
+		Ensure::objectNotNull('reading date', $readingDate);
 
-    public function deleteReadingDate($id){
-        $readingDate = $this->readingDateRepository->find($id);
-        Ensure::objectNotNull('reading date', $readingDate);
+		return $this->fillInReadingDate($userId, $updateReadingDateRequest, $readingDate);
+	}
 
-        $readingDate->load('personal_book_info');
-        $book_id = $readingDate->personal_book_info->book_id;
+	public function deleteReadingDate($userId, $id)
+	{
+		$readingDate = $this->readingDateRepository->findByUserAndId($userId, $id);
+		Ensure::objectNotNull('reading date', $readingDate);
 
-        $this->readingDateRepository->deleteById($id);
-        $this->bookElasticIndexer->indexBookById($book_id);
-    }
+		$readingDate->load('personal_book_info');
+		$book_id = $readingDate->personal_book_info->book_id;
 
-    /**
-     * @param BaseReadingDateRequest $updateReadingDateRequest
-     * @param $readingDate
-     * @return mixed
-     * @throws ServiceException
-     */
-    private function fillInReadingDate(BaseReadingDateRequest $updateReadingDateRequest, $readingDate)
-    {
-        $personalBookInfo = $this->personalBookInfoRepository->find($updateReadingDateRequest->getPersonalBookInfoId());
-        Ensure::objectNotNull('personal book info', $personalBookInfo);
+		$this->readingDateRepository->deleteById($id);
+		$this->bookElasticIndexer->indexBookById($book_id);
+	}
 
-        Ensure::objectNotNull('date of reading date', $updateReadingDateRequest->getDate());
+	private function fillInReadingDate($userId, BaseReadingDateRequest $updateReadingDateRequest, $readingDate)
+	{
+		$personalBookInfo = $this->personalBookInfoRepository->findByUserAndId($userId, $updateReadingDateRequest->getPersonalBookInfoId());
+		Ensure::objectNotNull('personal book info', $personalBookInfo);
 
-        $dateString = $updateReadingDateRequest->getDate()->getDay() . "-" . $updateReadingDateRequest->getDate()->getMonth() . "-" . $updateReadingDateRequest->getDate()->getYear();
-        $datetime = DateTime::createFromFormat('d-m-Y', $dateString);
+		Ensure::objectNotNull('date of reading date', $updateReadingDateRequest->getDate());
 
-        $readingDate->rating = $updateReadingDateRequest->getRating();
-        $readingDate->review = $updateReadingDateRequest->getReview();
-        $readingDate->personal_book_info_id = $updateReadingDateRequest->getPersonalBookInfoId();
-        $readingDate->date = $datetime;
+		$dateString = $updateReadingDateRequest->getDate()->getDay() . "-" . $updateReadingDateRequest->getDate()->getMonth() . "-" . $updateReadingDateRequest->getDate()->getYear();
+		$datetime = DateTime::createFromFormat('d-m-Y', $dateString);
 
-        $readingDate->save();
-        $this->bookElasticIndexer->indexBookById($personalBookInfo->book_id);
-        return $readingDate->id;
-    }
+		$readingDate->rating = $updateReadingDateRequest->getRating();
+		$readingDate->review = $updateReadingDateRequest->getReview();
+		$readingDate->personal_book_info_id = $updateReadingDateRequest->getPersonalBookInfoId();
+		$readingDate->date = $datetime;
+
+		$readingDate->save();
+		$this->bookElasticIndexer->indexBookById($personalBookInfo->book_id);
+		return $readingDate->id;
+	}
 }

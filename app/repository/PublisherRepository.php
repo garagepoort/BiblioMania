@@ -6,20 +6,11 @@ class PublisherRepository implements Repository{
     {
         return Publisher::with($with)
             ->where('id', '=', $id)
-            ->where('user_id', '=', Auth::user()->id)
             ->first();
     }
 
-    public function findByUserAndName($userId, $name){
+    public function findByName($name){
         return Publisher::where('name', '=', $name)
-            ->where("user_id", "=", $userId)
-            ->first();
-    }
-
-    public function findByUserAndId($userId, $id, $with = array()){
-        return Publisher::with($with)
-            ->where('id', '=', $id)
-            ->where('user_id', '=', $userId)
             ->first();
     }
 

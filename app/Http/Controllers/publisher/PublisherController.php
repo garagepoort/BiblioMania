@@ -24,17 +24,17 @@ class PublisherController extends Controller
     public function getPublisherSeries($publisherId)
     {
         $result = array();
-        foreach($this->publisherService->getPublisherSeries(Auth::user()->id, $publisherId) as $serie){
+        foreach($this->publisherService->getPublisherSeries($publisherId) as $serie){
             $publisherSerieToJson = new PublisherSerieToJsonAdapter($serie);
             array_push($result, $publisherSerieToJson->mapToJson());
         }
         return $result;
     }
 
-    public function getPublisherBooks($userId, $publisherId)
+    public function getPublisherBooks($publisherId)
     {
         $result = array();
-        foreach($this->publisherService->getPublisherBooks(Auth::user()->id, $publisherId) as $book){
+        foreach($this->publisherService->getPublisherBooks($publisherId) as $book){
             $bookToJson = new BookToJsonAdapter($book);
             array_push($result, $bookToJson->mapToJson());
         }
@@ -53,7 +53,7 @@ class PublisherController extends Controller
 
     public function deletePublisher($id)
     {
-       $this->publisherService->deletePublisher(Auth::user()->id, $id);
+       $this->publisherService->deletePublisher($id);
     }
 
     public function getPublishersList()

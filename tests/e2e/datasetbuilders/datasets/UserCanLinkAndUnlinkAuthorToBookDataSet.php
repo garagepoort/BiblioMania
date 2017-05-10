@@ -44,7 +44,7 @@ class UserCanLinkAndUnlinkAuthorToBookDataSet implements DataSet
     }
 
     function createUser(){
-        $user = $this->userService->createUser('testUser', 'test@test.be', 'test');
+        $user = $this->userService->createActiveUser(CreateUserRequestBuilder::buildDefault());
         return $user->id;
     }
 

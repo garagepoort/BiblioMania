@@ -16,6 +16,8 @@ class BookServiceLinkAuthorToBookTest extends TestCase {
     private $author;
     /** @var LinkAuthorFromBookRequestTestImpl $linkAuthorToBookRequestTestImpl */
     private $linkAuthorToBookRequestTestImpl;
+    /** @var BookElasticIndexer $bookElasticIndexer */
+    private $bookElasticIndexer;
 
 
     private $WITH_ARRAY = array();
@@ -27,6 +29,7 @@ class BookServiceLinkAuthorToBookTest extends TestCase {
 
         $this->bookRepository = $this->mock('BookRepository');
         $this->authorRepository = $this->mock('AuthorRepository');
+        $this->bookElasticIndexer = $this->mock('BookElasticIndexer');
 
         $this->book = new Book();
         $this->book->authors = array();
@@ -42,6 +45,7 @@ class BookServiceLinkAuthorToBookTest extends TestCase {
 
     public function test_linksCorrectly(){
         $this->bookRepository->shouldReceive('addAuthorToBook')->with($this->book, self::AUTHOR_ID)->once();
+        $this->bookElasticIndexer->shouldReceive('indexBook')->once()->with($this->book);
 
         $this->bookService->linkAuthorToBook(self::BOOK_ID, $this->linkAuthorToBookRequestTestImpl);
     }

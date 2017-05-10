@@ -44,9 +44,15 @@
                 }
             });
         }])
-        .controller('SeriesOverviewController', ['$scope', 'ErrorContainer', 'TitlePanelService', 'BookOverviewService', 'Book', '$location', 'EditSerieModalService', 'ConfirmationModalService', 'title', 'client', 'type', SeriesOverviewController]);
+        .controller('SeriesOverviewController', ['ErrorContainer',
+            'TitlePanelService', 'BookOverviewService', '$location',
+            'EditSerieModalService', 'ConfirmationModalService', 'title', 'client',
+            'type', SeriesOverviewController]);
 
-    function SeriesOverviewController($scope, ErrorContainer, TitlePanelService, BookOverviewService, Book, $location, EditSerieModalService, ConfirmationModalService, title, client, type) {
+    function SeriesOverviewController(ErrorContainer,
+                                      TitlePanelService, BookOverviewService,
+                                      $location, EditSerieModalService, ConfirmationModalService,
+                                      title, client, type) {
 
         var vm = this;
 
@@ -55,16 +61,6 @@
         vm.editSerie = editSerie;
         vm.onEditBook = onEditBook;
         vm.deleteSerie = deleteSerie;
-
-        var selectBookHandler = function (book) {
-            if (vm.bookDetailPanelOpen && vm.selectedBook.id === book.id) {
-                vm.bookDetailPanelOpen = false;
-            } else {
-                vm.selectedBook = Book.get({id: book.id}, function () {
-                }, ErrorContainer.handleRestError);
-                vm.bookDetailPanelOpen = true;
-            }
-        };
 
         function init() {
             TitlePanelService.setTitle(title);
@@ -79,17 +75,10 @@
             ];
 
             loadSeries();
-
-            BookOverviewService.registerHandler(selectBookHandler);
-            $scope.$on('$destroy', function () {
-                BookOverviewService.deregisterHandler(selectBookHandler);
-            });
-
         }
 
         function search(item) {
             return (item.name.toLowerCase().indexOf(vm.searchSeriesQuery) !== -1);
-
         }
 
         function onImageClickBook(book) {

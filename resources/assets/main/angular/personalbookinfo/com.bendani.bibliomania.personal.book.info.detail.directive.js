@@ -1,5 +1,5 @@
 angular
-    .module('com.bendani.bibliomania.personal.book.info.detail.directive', ['com.bendani.bibliomania.currency.service'])
+    .module('com.bendani.bibliomania.personal.book.info.detail.directive', ['com.bendani.bibliomania.currency'])
     .directive('personalBookInfoDetail', function (){
         return {
             scope: {

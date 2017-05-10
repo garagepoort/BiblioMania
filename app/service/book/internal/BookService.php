@@ -106,6 +106,7 @@ class BookService
         Ensure::objectNotNull('author', $author);
 
         $this->bookRepository->addAuthorToBook($book, $authorToBookRequest->getAuthorId());
+        $this->bookElasticIndexer->indexBook($book);
     }
 
     public function unlinkAuthorFromBook($bookId, UnlinkAuthorFromBookRequest $unlinkAuthorFromBookRequest){
@@ -120,6 +121,7 @@ class BookService
         }
 
         $this->bookRepository->removeAuthorFromBook($book, $unlinkAuthorFromBookRequest->getAuthorId());
+        $this->bookElasticIndexer->indexBook($book);
     }
 
     public function getCompletedBooksWithPersonalBookInfo()
@@ -156,34 +158,34 @@ class BookService
         return $this->bookElasticIndexer->search($userId, $filterHandlersForSearch, $personalFilterHandlersForSearch);
     }
 
-    public function searchOtherBooks($filters){
+    public function searchOtherBooks($userId, $filters){
         $this->filterHistoryService->addFiltersToHistory($filters);
 
         list($personalFiltersForSearch, $filtersForSearch) = $this->filterValuesToFilterHandlers($filters);
 
-        array_push($filtersForSearch, FilterBuilder::notTerms('personalBookInfoUsers', [Auth::user()->id]));
+        array_push($filtersForSearch, FilterBuilder::notTerms('personalBookInfoUsers', [$userId]));
 
-        return $this->bookElasticIndexer->search(Auth::user()->id, $filtersForSearch, $personalFiltersForSearch);
+        return $this->bookElasticIndexer->search($userId, $filtersForSearch, $personalFiltersForSearch);
     }
 
-    public function searchMyBooks($filters){
+    public function searchMyBooks($userId, $filters){
         $this->filterHistoryService->addFiltersToHistory($filters);
 
         list($personalFiltersForSearch, $filtersForSearch) = $this->filterValuesToFilterHandlers($filters);
 
-        array_push($filtersForSearch, FilterBuilder::terms('personalBookInfoUsers', [Auth::user()->id]));
+        array_push($filtersForSearch, FilterBuilder::terms('personalBookInfoUsers', [$userId]));
 
-        return $this->bookElasticIndexer->search(Auth::user()->id, $filtersForSearch, $personalFiltersForSearch);
+        return $this->bookElasticIndexer->search($userId, $filtersForSearch, $personalFiltersForSearch);
     }
 
-    public function searchWishlist($filters){
+    public function searchWishlist($userId, $filters){
         $this->filterHistoryService->addFiltersToHistory($filters);
 
         list($personalFiltersForSearch, $filtersForSearch) = $this->filterValuesToFilterHandlers($filters);
 
-        array_push($filtersForSearch, FilterBuilder::terms('wishlistUsers', [Auth::user()->id]));
+        array_push($filtersForSearch, FilterBuilder::terms('wishlistUsers', [$userId]));
 
-        return $this->bookElasticIndexer->search(Auth::user()->id, $filtersForSearch, $personalFiltersForSearch);
+        return $this->bookElasticIndexer->search($userId, $filtersForSearch, $personalFiltersForSearch);
     }
 
     public function getTotalAmountOfBooksRead()
@@ -219,6 +221,7 @@ class BookService
      */
     private function saveBook($userId, BaseBookRequest $createBookRequest, $book)
     {
+
         return DB::transaction(function () use ($userId, $book, $createBookRequest) {
             $genre = $this->genreService->getGenreByName($createBookRequest->getGenre());
             $author = $this->authorService->find($createBookRequest->getPreferredAuthorId());
@@ -234,7 +237,7 @@ class BookService
             Ensure::stringNotBlank("Publisher", $createBookRequest->getPublisher());
             Ensure::stringNotBlank("Country", $createBookRequest->getCountry());
 
-            $bookPublisher = $this->publisherService->findOrCreate($userId, $createBookRequest->getPublisher());
+            $bookPublisher = $this->publisherService->findOrCreate($createBookRequest->getPublisher());
             $country = $this->countryService->findOrCreate($createBookRequest->getCountry());
 
             $book->serie_id = null;

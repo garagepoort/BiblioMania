@@ -5,6 +5,7 @@ namespace tests\unit\controller;
 use Book;
 use BookFromAuthor;
 use OeuvreService;
+use PermissionService;
 use TestCase;
 use User;
 
@@ -20,6 +21,8 @@ class OeuvreControllerGetOeuvreItemTest extends TestCase
 
     /** @var OeuvreService $oeuvreService */
     private $oeuvreService;
+    /** @var PermissionService $permissionService */
+    private $permissionService;
     /** @var BookFromAuthor $oeuvreItem */
     private $oeuvreItem;
     /** @var Book $book */
@@ -43,12 +46,23 @@ class OeuvreControllerGetOeuvreItemTest extends TestCase
         $this->oeuvreItem->shouldReceive('getAttribute')->with('author_id')->andReturn(self::AUTHOR_ID);
 
         $this->oeuvreService = $this->mock('OeuvreService');
+        $this->permissionService = $this->mock('PermissionService');
 
-        $user = new User(array('username' => 'John', 'id' => self::USER_ID));
+        $user = new User(array('username' => 'John', 'id' => self::USER_ID, 'activated' => true));
         $this->be($user);
     }
 
+    public function test_shouldFailsIfUserDoesNotHaveCorrectPermission(){
+        $this->permissionService->shouldReceive('hasUserPermission')->once()->with(self::USER_ID, 'READ_OEUVRE_ITEM')->andReturn(false);
+
+        $response = $this->action('GET', 'OeuvreController@getOeuvreItem', array("id" => self::OEUVRE_ITEM_ID));
+
+        $this->assertResponseStatus(403);
+        $this->assertEquals($response->getContent(), "{\"code\":403,\"message\":\"user.does.not.have.right.permissions\"}");
+    }
+
     public function test_shouldCallJsonMappingAndService(){
+        $this->permissionService->shouldReceive('hasUserPermission')->once()->with(self::USER_ID, 'READ_OEUVRE_ITEM')->andReturn(true);
         $this->oeuvreService->shouldReceive('find')->once()->with(self::OEUVRE_ITEM_ID)->andReturn($this->oeuvreItem);
 
         $response = $this->action('GET', 'OeuvreController@getOeuvreItem', array("id" => self::OEUVRE_ITEM_ID));

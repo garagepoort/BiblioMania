@@ -21,7 +21,7 @@ class ResponseCreator {
     public static function createUnauthorizedResponse(){
         return Response::json(array(
             'code'      =>  401,
-            'message'   =>  "User is not logged in."
+            'message'   =>  "User is not authorized."
         ), 401);
     }
 

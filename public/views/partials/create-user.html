@@ -1,0 +1,38 @@
+<div class="create-book-div inner-content-panel">
+    <ng-form id="userForm" name="vm.userForm" novalidate>
+        <errorcontainer></errorcontainer>
+        <fieldset style="text-align: left;width: 900px;">
+            <div class="form-group">
+                <label class="control-label ">Username </label>
+                <input required name="username" ng-model="vm.model.username" type="text" placeholder="username" class="form-control input-width-sm" class="form-control">
+                <span ng-show="vm.userForm.username.$error.required && (vm.userForm.username.$dirty || submitAttempted)"class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Username verplicht</span>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label ">Email </label>
+                <input required name="email" ng-model="vm.model.email" type="email" placeholder="email" class="form-control input-width-sm" class="form-control">
+                <span ng-show="vm.userForm.email.$error.required && (vm.userForm.email.$dirty || submitAttempted)"class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Email verplicht</span>
+                <span ng-show="vm.userForm.email.$error.email && (vm.userForm.email.$dirty || submitAttempted)"class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Geen geldig email adres</span>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label ">Paswoord </label>
+                <input required name="password" ng-model="vm.model.password" type="password" placeholder="password" class="form-control input-width-sm" class="form-control">
+                <span ng-show="vm.userForm.password.$error.required && (vm.userForm.password.$dirty || submitAttempted)"class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Paswoord verplicht</span>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label ">Paswoord confirmatie</label>
+                <input name="confirmPassword"
+                       ng-model="vm.model.confirmPassword" type="password" placeholder="confirm password"
+                       class="form-control input-width-sm" class="form-control"
+                       required
+                       compare-to="vm.model.password" />
+                <span ng-show="vm.userForm.confirmPassword.$error.required && (vm.userForm.confirmPassword.$dirty || submitAttempted)"class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Confirmatie verplicht</span>
+                <span ng-show="vm.userForm.confirmPassword.$error.compareTo && (vm.userForm.confirmPassword.$dirty || submitAttempted)"class="form-error-message help-inline"><i class="fa fa-exclamation-circle"></i> Paswoorden komen niet overeen</span>
+            </div>
+            <button id="create-user-save-button" ng-disabled="vm.userForm.$invalid" class="btn btn-primary" ng-click="vm.submitForm(vm.userForm.$valid)">Save</button>
+
+        </fieldset>
+    </ng-form>
+</div>

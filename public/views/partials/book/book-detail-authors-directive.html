@@ -1,6 +1,6 @@
 <div class="form-subtitle">
     <div>{{ 'translation.authors' | translate }}</div>
-    <button id="link-author-to-book-button-{{vm.book.id}}" class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="vm.showSelectAuthorDialog()"><i class="fa fa-plus"> {{ 'translation.add.author' | translate }}</i></button>
+    <button permission="LINK_AUTHOR" id="link-author-to-book-button-{{vm.book.id}}" class="btn btn-sm form-subtitle-button btn-default round-corners" ng-click="vm.showSelectAuthorDialog()"><i class="fa fa-plus"> {{ 'translation.add.author' | translate }}</i></button>
 </div>
 <div class="form-content detail-panel">
     <table class="table table-striped">
@@ -10,8 +10,8 @@
 
             <td class="text-align-right">
                 <span ng-show="author.preferred" style="top: 3px;" class="glyphicon glyphicon-ok-sign"></span>
-                <button ng-click="vm.goToEditAuthor(author);" type="button" class="btn btn-default btn-xs"><span class="fa fa-pencil"></span></button>
-                <button id="unlink-author-from-book-button-{{vm.book.id}}-{{author.id}}" ng-click="vm.unlinkAuthorFromBook(author);" ng-hide="author.preferred" type="button" class="btn btn-sm btn-default btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+                <button permission="UPDATE_AUTHOR" ng-click="vm.goToEditAuthor(author);" type="button" class="btn btn-default btn-xs"><span class="fa fa-pencil"></span></button>
+                <button permission="UNLINK_AUTHOR" id="unlink-author-from-book-button-{{vm.book.id}}-{{author.id}}" ng-click="vm.unlinkAuthorFromBook(author);" ng-hide="author.preferred" type="button" class="btn btn-sm btn-default btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
             </td>
         </tr>
         </tbody>

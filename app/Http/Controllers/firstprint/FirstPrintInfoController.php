@@ -37,12 +37,14 @@ class FirstPrintInfoController extends Controller
     }
 
     public function createFirstPrintInfo(){
+        /** @var CreateFirstPrintInfoRequest $createFirstPrint */
         $createFirstPrint = $this->jsonMappingService->mapInputToJson(Input::get(), new CreateFirstPrintFromJsonAdapter());
         $id = $this->firstPrintInfoService->createFirstPrintInfo(Auth::user()->id, $createFirstPrint)->id;
         return Response::json(array('success' => true, 'id' => $id), 200);
     }
 
     public function linkBookToFirstPrintInfo($id){
+        /** @var LinkBookToFirstPrintInfoRequest $linkBookRequest */
         $linkBookRequest = $this->jsonMappingService->mapInputToJson(Input::get(), new LinkBookToFirstPrintFromJsonAdapter());
         $this->firstPrintInfoService->linkBook($id, $linkBookRequest);
     }

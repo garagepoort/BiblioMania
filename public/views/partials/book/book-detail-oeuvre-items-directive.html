@@ -1,6 +1,6 @@
 <div class="form-subtitle">
     <div>Oeuvre items</div>
-    <button id="link-oeuvre-item-button" type="button" class="btn btn-sm form-subtitle-button btn-default" ng-click="openSelectOeuvreItemDialog()"><i class="fa fa-search"> Selecteren</i></button>
+    <button permission="LINK_OEUVRE_ITEM" id="link-oeuvre-item-button" type="button" class="btn btn-sm form-subtitle-button btn-default" ng-click="openSelectOeuvreItemDialog()"><i class="fa fa-search"> Selecteren</i></button>
 </div>
 <div class="form-content detail-panel">
     <table class="table table-striped" ng-show="book.oeuvreItems.length > 0">
@@ -9,8 +9,8 @@
             <td>{{ oeuvreItem.title }}</td>
 
             <td class="text-align-right">
-                <button ng-click="goToEditOeuvreItem(oeuvreItem);" type="button" class="btn btn-default btn-xs"><span class="fa fa-pencil"></span></button>
-                <button id="unlink-oeuvre-item-button-{{oeuvreItem.id}}" ng-click="removeBookFromOeuvreItem(oeuvreItem);" type="button" class="btn btn-sm btn-default btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+                <button permission="UPDATE_OEUVRE_ITEM" ng-click="goToEditOeuvreItem(oeuvreItem);" type="button" class="btn btn-default btn-xs"><span class="fa fa-pencil"></span></button>
+                <button permission="UNLINK_OEUVRE_ITEM" id="unlink-oeuvre-item-button-{{oeuvreItem.id}}" ng-click="removeBookFromOeuvreItem(oeuvreItem);" type="button" class="btn btn-sm btn-default btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
             </td>
         </tr>
         </tbody>

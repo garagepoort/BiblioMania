@@ -53,6 +53,12 @@ div.growl {
   border-radius: 3px !important;
 }
 
+.full-round {
+  -webkit-border-radius: 25px !important;
+  -moz-border-radius: 25px !important;
+  border-radius: 25px !important;
+}
+
 .half-round-corners-left {
   -webkit-border-radius: 3px !important;
   -moz-border-radius: 3px !important;
@@ -104,7 +110,6 @@ body {
   font-family: @font;
   color: @primary-color;
   font-size: @font-size;
-  background-color: @secondary-color;
   text-align: center;
 }
 
@@ -119,7 +124,7 @@ table.table-hover tbody tr {
 }
 
 .inner-content-container {
-  width: 1000px;
+  width: 100%;
   margin-right: auto;
   margin-left: auto;
   margin-top: 40px;
@@ -244,17 +249,21 @@ a:hover {
 
 
 .title-panel {
-  width: 100%;
-  padding-left: 20px;
-  background-color: @primary-color;
-  color: @accent-color;
+  background-color: @accent-color;
+  color: @primary-color;
   font-family: @title-panel-font;
   font-size: 36px;
-  height: 58px;
+  height: 70px;
+  width: 94%;
+  padding-top: 12px;
+  margin-left: auto;
+  margin-right: auto;
+  border-bottom: 1px solid #2d6ca2;
 }
 
-.title-panel-buttons {
-  margin-right: 10px;
+.title-panel-back-button {
+  padding: 8px;
+  margin-top: -5px;
 }
 
 .book-rating {
@@ -317,23 +326,25 @@ table.left-right-align td:nth-child(1) {
 .contentContainer {
   text-align: left;
   display: inline-block;
-  margin-top: 100px;
-  width: 1200px;
+  margin-top: 80px;
+  width: 100%;
   background-color: @container-color;
-  border: 5px solid @primary-color;
-  box-shadow: 0 25px 50px 0 rgba(0, 0, 0, 0.26);
 }
 
 .contentPanel {
-  padding-right: 50px;
-  padding-left: 50px;
+  padding-right: 21px;
+  padding-left: 21px;
+}
+
+.contentPanel.form-panel {
+  padding-right: 45px;
+  padding-left: 45px;
 }
 
 /*BOOKS*/
 .top-book-panel {
   margin-top: 10px;
   margin-bottom: 40px;
-  padding: 20px;
 }
 
 .book-panel {
@@ -361,11 +372,13 @@ legend.sub-border {
 }
 
 .create-book-div {
-  width: 1000px;
-  margin-right: auto;
-  margin-left: auto;
   margin-top: 40px;
   margin-bottom: 40px;
+}
+
+.inner-content-panel {
+  padding-left: 25px;
+  padding-right: 25px;
 }
 
 .google-image-search-table tbody tr td {
@@ -475,7 +488,7 @@ button.searchButton {
   background-color: white;
   margin-top: 50px;
   padding-bottom: 20px;
-  border-left: 7px solid #2d6ca2;
+  right: -5px !important;
   box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.26);
 }
 
@@ -915,6 +928,8 @@ table.book-detail-info-table td {
   width: 100%;
   margin-left: auto;
   margin-right: auto;
+  padding-left: 25px;
+  padding-right: 25px;
 }
 
 .form-container .control-label{
@@ -1118,7 +1133,7 @@ table.book-detail-info-table td {
 
 //MATERIAL DESIGN
 .material-card {
-  box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.26);
+  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.26);
   margin: 10px;
 }
 
@@ -1264,7 +1279,7 @@ dl.dl-horizontal.dl-personal-book-info-detail-directive dt {
 dl.dl-horizontal.dl-personal-book-info-detail-directive dd {
   word-break: break-word;
 }
-
+// tests
 .fade-in {
   opacity:0;  /* make things invisible upon start */
   -webkit-animation:fadeIn ease-in 1;  /* call our keyframe named fadeIn, use animattion ease-in and repeat it only 1 time */
@@ -1278,4 +1293,15 @@ dl.dl-horizontal.dl-personal-book-info-detail-directive dd {
   -webkit-animation-duration:1s;
   -moz-animation-duration:1s;
   animation-duration:1s;
+}
+
+.panel-success {
+  border-color: #ddd;
+}
+
+.panel-success > .panel-heading {
+  color: #333;
+  background-color: #f5f5f5;
+  background-image: none;
+  border-color: #ddd;
 }

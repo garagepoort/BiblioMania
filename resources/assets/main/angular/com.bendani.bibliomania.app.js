@@ -1,3 +1,25 @@
+$(function () {
+    $('.navbar-toggle').click(function () {
+        $('.navbar-nav').toggleClass('slide-in');
+        $('.side-body').toggleClass('body-slide-in');
+        $('#search').removeClass('in').addClass('collapse').slideUp(200);
+
+        /// uncomment code for absolute positioning tweek see top comment in css
+        //$('.absolute-wrapper').toggleClass('slide-in');
+
+    });
+
+    // Remove menu for searching
+    $('#search-trigger').click(function () {
+        $('.navbar-nav').removeClass('slide-in');
+        $('.side-body').removeClass('body-slide-in');
+
+        /// uncomment code for absolute positioning tweek see top comment in css
+        //$('.absolute-wrapper').removeClass('slide-in');
+
+    });
+});
+
 angular.module('BiblioMania', ['ngRoute',
     'ui.bootstrap',
     'ui.bootstrap.tpls',
@@ -6,6 +28,7 @@ angular.module('BiblioMania', ['ngRoute',
     'ngSanitize',
     'chart.js',
     'angular-growl',
+    'com.bendani.bibliomania.permission',
     'com.bendani.bibliomania.book.controller',
     'com.bendani.bibliomania.login.controller',
     'com.bendani.bibliomania.main.controller',
@@ -25,16 +48,14 @@ angular.module('BiblioMania', ['ngRoute',
     'com.bendani.bibliomania.header.controller',
     'com.bendani.bibliomania.statistics.ui',
     'com.bendani.bibliomania.create.chart.ui',
-    'com.bendani.bibliomania.title.panel'])
+    'com.bendani.bibliomania.title.panel',
+    'com.bendani.bibliomania.create.user.ui'])
     .config(['$routeProvider', 'growlProvider', function ($routeProvider, growlProvider) {
         $routeProvider
-            .when('/books', {
-                templateUrl: '../BiblioMania/views/partials/books.html',
-                controller: 'BookController'
-            })
             .when('/login', {
                 templateUrl: '../BiblioMania/views/partials/login.html',
-                controller: 'LoginController'
+                controller: 'LoginController',
+                controllerAs: 'vm'
             })
             .otherwise({
                 redirectTo: '/books'
@@ -54,8 +75,6 @@ angular.module('BiblioMania', ['ngRoute',
             var prevUrl = history.length > 1 ? history.splice(-2)[0] : "/";
             $location.path(prevUrl);
         };
-
-        $rootScope.partialsUrl = "../BiblioMania/views/partials/";
 
         User.loggedInUser(function(user){
             $rootScope.loggedInUser = user;

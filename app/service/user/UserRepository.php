@@ -3,18 +3,21 @@
 class UserRepository {
 
     public function saveUser($user){
-        App::make('Logger')->info('Repository: Saving user: '. $user->username);
         $user->save();
-        App::make('Logger')->info('Repository: user saved');
-        return $user;   
+        return $user;
     }
 
-    /**
-     * @param $user_id
-     * @return User
-     */
     public function find($user_id){
         return User::find($user_id);
+    }
+
+    public function findByUsername($username) {
+        return User::where('username', '=', $username)->first();
+    }
+
+    public function findByEmail($email)
+    {
+        return User::where('email', '=', $email)->first();
     }
 
 }

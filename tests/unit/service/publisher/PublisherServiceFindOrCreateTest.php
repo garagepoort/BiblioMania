@@ -3,7 +3,6 @@
 class PublisherServiceFindOrCreateTest extends TestCase
 {
     const NAME = "name";
-    const USER_ID = 123;
 
     /** @var PublisherService $publisherService */
     private $publisherService;
@@ -29,26 +28,24 @@ class PublisherServiceFindOrCreateTest extends TestCase
     }
 
     public function test_createsPublisherWhenNotFound(){
-        $this->publisherRepository->shouldReceive('findByUserAndName')->once()->with(self::USER_ID, self::NAME)->andReturn(null);
+        $this->publisherRepository->shouldReceive('findByName')->once()->with(self::NAME)->andReturn(null);
 
         $this->publisherRepository->shouldReceive('save')->once()
             ->with(Mockery::on(function($publisher){
                 $this->assertEquals($publisher->name, self::NAME);
-                $this->assertEquals($publisher->user_id, self::USER_ID);
                 return true;
             }));
 
-        $foundPublisher = $this->publisherService->findOrCreate(self::USER_ID, self::NAME);
+        $foundPublisher = $this->publisherService->findOrCreate(self::NAME);
 
-        $this->assertEquals($foundPublisher->user_id, self::USER_ID);
         $this->assertEquals($foundPublisher->name, self::NAME);
     }
 
     public function test_retrievesPublisherWhenFound(){
-        $this->publisherRepository->shouldReceive('findByUserAndName')->once()->with(self::USER_ID, self::NAME)->andReturn($this->publisher);
+        $this->publisherRepository->shouldReceive('findByName')->once()->with(self::NAME)->andReturn($this->publisher);
         $this->publisherRepository->shouldReceive('save')->never();
 
-        $foundPublisher = $this->publisherService->findOrCreate(self::USER_ID, self::NAME);
+        $foundPublisher = $this->publisherService->findOrCreate(self::NAME);
 
         $this->assertEquals($foundPublisher, $this->publisher);
     }

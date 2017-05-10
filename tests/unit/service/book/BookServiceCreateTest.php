@@ -97,7 +97,7 @@ class BookServiceCreateTest extends TestCase
             ->with($this->createBookRequestImpl->getPreferredAuthorId())
             ->andReturn($this->author)->byDefault();
 
-        $this->publisherService->shouldReceive('findOrCreate')->with(self::USER_ID, $this->createBookRequestImpl->getPublisher())->andReturn($this->publisher);
+        $this->publisherService->shouldReceive('findOrCreate')->with($this->createBookRequestImpl->getPublisher())->andReturn($this->publisher);
         $this->countryService->shouldReceive('findOrCreate')->with($this->createBookRequestImpl->getCountry())->andReturn($this->country);
         $this->languageService->shouldReceive('findOrCreate')->with($this->createBookRequestImpl->getLanguage())->andReturn($this->language);
         $this->dateService->shouldReceive('create')->with($this->createBookRequestImpl->getPublicationDate())->andReturn($this->publicationDate);
