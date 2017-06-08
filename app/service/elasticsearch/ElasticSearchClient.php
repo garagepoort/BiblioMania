@@ -10,7 +10,7 @@ class ElasticSearchClient
      */
     public function __construct()
     {
-        $elasticHost = env('ELASTIC_HOST', 'localhost');
+        $elasticHost = env('ELASTIC_HOST', 'elastic-bibliomania');
         $elasticPort = env('ELASTIC_PORT', '9200');
         $connection =  $elasticHost.':'.$elasticPort;
         App::make('Logger')->info('ELASTIC CONNECTION: ' . $connection);
