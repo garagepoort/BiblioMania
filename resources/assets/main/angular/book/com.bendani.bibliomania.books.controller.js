@@ -61,9 +61,10 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
                     FilterService.filter($scope.filterServiceId, $scope.filterBooks);
                 };
 
-                $scope.$watch('viewableBooks', function () {
-                    if ($scope.viewableBooks) {
-                        updateLibraryInformation($scope.viewableBooks);
+                $scope.$watch(function () {
+                    var viewableBooks = $scope.$eval("books | filter: search | orderBy:[predicate, '!!book.firstPrintPublicationDate', '!!book.firstPrintPublicationDate.day', '!!book.firstPrintPublicationDate.month', 'book.firstPrintPublicationDate.year']");
+                    if(viewableBooks){
+                        updateLibraryInformation(viewableBooks);
                     }
                 });
 

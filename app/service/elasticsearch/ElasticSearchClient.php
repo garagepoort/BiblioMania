@@ -10,9 +10,13 @@ class ElasticSearchClient
      */
     public function __construct()
     {
+        $elasticHost = env('ELASTIC_HOST', 'localhost');
+        $elasticPort = env('ELASTIC_PORT', '9200');
+        $connection =  $elasticHost.':'.$elasticPort;
+        App::make('Logger')->info('ELASTIC CONNECTION: ' . $connection);
         $params = [
             'hosts' => [
-                'localhost:9200'
+                $connection
             ],
             'retries' => 2,
             'imNotReal' => 5
