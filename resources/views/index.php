@@ -1,26 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="BiblioMania">
     <head>
-        <!--<link rel="icon" type="image/png" sizes="32x32" href="{{ URL::to('/') }}/favicon/favicon-32x32.png">-->
-        <!--<link rel="icon" type="image/png" sizes="96x96" href="{{ URL::to('/') }}favicon/favicon-96x96.png">-->
-        <!--<link rel="icon" type="image/png" sizes="16x16" href="{{ URL::to('/') }}favicon/favicon-16x16.png">-->
 
-        <script type="text/javascript" src="assets/js/jquery.js"></script>
-        <script type="text/javascript" src="assets/js/underscore.js"></script>
-        <script type="text/javascript" src="packages/bendani/php-common/uiframework/uiframework.min.js"></script>
+        <!-- injector:js -->
+        <script src="packages/bendani/php-common/uiframework/jquery.js"></script>
+        <script src="packages/bendani/php-common/uiframework/uiframework.min.js"></script>
+        <script src="assets/js/underscore.js"></script>
+        <script src="assets/lib/raty-2.7.0/lib/jquery.raty.js"></script>
+        <script src="assets/main.min.186e0bb48f.js"></script>
+        <script src="packages/bendani/php-common/filter-service/filters.min.js"></script>
+        <script src="packages/bendani/php-common/login-service/loginservice.min.js"></script>
+        <!-- endinjector -->
 
-        <script type="text/javascript" src="assets/main.min.js"></script>
-        <script type="text/javascript" src="packages/bendani/php-common/filter-service/filters.min.js"></script>
-        <script type="text/javascript" src="packages/bendani/php-common/login-service/loginservice.min.js"></script>
-
-        <link href="packages/bendani/php-common/filter-service/filters.min.css" rel="stylesheet"/>
-        <link href="packages/bendani/php-common/uiframework/uiframework.min.css" rel="stylesheet"/>
-
-        <link href="assets/main.min.css" rel="stylesheet">
-
-        <!-- RATY -->
-        <script type="text/javascript" src="assets/lib/raty-2.7.0/lib/jquery.raty.js"></script>
-        <link href="assets/lib/raty-2.7.0/lib/jquery.raty.css">
+        <!-- injector:css -->
+        <link rel="stylesheet" href="packages/bendani/php-common/filter-service/filters.min.css">
+        <link rel="stylesheet" href="packages/bendani/php-common/uiframework/uiframework.min.css">
+        <link rel="stylesheet" href="assets/lib/raty-2.7.0/lib/jquery.raty.css">
+        <link rel="stylesheet" href="assets/main.min.681f2bf0b0.css">
+        <link rel="stylesheet" href="assets/resources/assets/main.min.681f2bf0b0.css">
+        <!-- endinjector -->
 
         <script type="text/javascript">
             $('.collapse').on('shown.bs.collapse', function (e) {
