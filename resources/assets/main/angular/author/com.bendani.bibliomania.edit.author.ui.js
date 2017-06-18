@@ -30,6 +30,7 @@
         vm.goToBook = goToBook;
         vm.deleteOeuvreItem = deleteOeuvreItem;
         vm.showAddOeuvreItemsDialog = showAddOeuvreItemsDialog;
+        vm.submitAuthor = submitAuthor;
 
         function init() {
             $scope.$parent.title = "Auteur";
@@ -47,6 +48,7 @@
                 predicate: 'publicationYear',
                 reverseOrder: false
             };
+            vm.authorDirectiveControl = {};
         }
 
         function searchAuthorImage() {
@@ -87,6 +89,10 @@
             AddOeuvreItemsModalService.show(vm.model.id, function () {
                 vm.oeuvre = Author.oeuvre({id: $routeParams.id});
             });
+        }
+
+        function submitAuthor() {
+            vm.authorDirectiveControl.submitForm();
         }
 
         init();

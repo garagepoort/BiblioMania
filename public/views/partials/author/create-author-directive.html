@@ -1,5 +1,5 @@
 <div class="create-book-div">
-    <ng-form id="authorForm" name="authorForm" novalidate>
+    <ng-form id="authorForm" name="vm.authorForm" novalidate>
         <errorcontainer></errorcontainer>
         <fieldset style="text-align: left;width: 900px;">
             <div class="row">
@@ -30,9 +30,6 @@
                     <date label="Sterfte jaar" ng-model="vm.model.dateOfDeath"
                           submit-attempted="vm.submitAttempted"></date>
                 </div>
-            </div>
-            <div class="row col-md-12" style="margin-top: 30px">
-                <button id="create-author-save-button" class="btn btn-primary" ng-click="vm.submitForm(authorForm.$valid)">Save</button>
             </div>
         </fieldset>
     </ng-form>

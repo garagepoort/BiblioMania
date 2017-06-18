@@ -23,11 +23,16 @@ angular.module('com.bendani.bibliomania.author.creation.modal.service', ['com.be
 
         function init(){
             $scope.data = {};
+            $scope.authorDirectiveControl = {};
             $scope.data.onSaveAuthor = function(authorId){
                 Author.get({id: authorId}, function(author){
                     $scope.$close(author);
                 }, ErrorContainer.handleRestError);
             };
+
+            $scope.submit = function(){
+                $scope.authorDirectiveControl.submitForm();
+            }
         }
         init();
     }]);

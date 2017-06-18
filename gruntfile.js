@@ -9,7 +9,6 @@ module.exports = function (grunt) {
                 }
             }
         },
-
         concat: {
             js: {
                 src: ['resources/assets/main/angular/angular-charts/Chart.min.js', 'resources/assets/main/angular/angular-charts/angular-chart.min.js', 'resources/assets/main/**/*.js'],
@@ -33,16 +32,10 @@ module.exports = function (grunt) {
                 }
             }
         },
-        //hash: {
-        //    js: {
-        //        src: 'resources/assets/main.min.js',
-        //        dest: 'public/assets/'
-        //    },
-        //    css: {
-        //        src: 'resources/assets/main.min.css',
-        //        dest: 'public/assets/'
-        //    }
-        //},
+        clean: {
+            'public' :['public/assets/main.min.*.js', 'public/assets/main.min.*.css'],
+            'resources': ['resources/assets/main.js', 'resources/assets/main.*.js', 'resources/assets/main.*.css']
+        },
         filehash: {
             your_target: {
                 files: [{
@@ -52,7 +45,6 @@ module.exports = function (grunt) {
                 }]
             }
         },
-        clean: ['resources/assets/main.js', 'resources/assets/main.*.js', 'resources/assets/main.*.css'],
         injector: {
             options: {
                 ignorePath: 'public',
@@ -84,7 +76,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-file-hash');
 
 // register at least this one task
-    grunt.registerTask('default', ['less', 'concat', 'uglify', 'cssmin', 'filehash', 'clean', 'injector']);
+    grunt.registerTask('default', ['clean:public', 'less', 'concat', 'uglify', 'cssmin', 'filehash', 'clean:resources', 'injector']);
 
 
 };

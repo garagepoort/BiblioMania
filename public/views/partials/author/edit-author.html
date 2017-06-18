@@ -6,7 +6,8 @@
     </div>
 
     <div class="form-content" permission="UPDATE_AUTHOR">
-        <create-author author-model="vm.model"></create-author>
+        <create-author author-model="vm.model" control="vm.authorDirectiveControl"></create-author>
+        <button id="save-author-button" class="btn btn-success" type="button" ng-click="vm.submitAuthor()" style="margin-left: 14px;">Opslaan</button>
     </div>
 
     <div ng-if="vm.model" class="form-content" ng-hide="vm.userCanEditAuthor()">

@@ -14,6 +14,7 @@
                 scope: {
                     onSave: "&",
                     model: '=authorModel',
+                    control: '=control',
                     showAuthorExistsWarning: '='
                 },
                 restrict: "E",
@@ -42,6 +43,7 @@
                 vm.model = {};
             }
             vm.showAuthorExistsWarning = !!vm.showAuthorExistsWarning;
+            vm.control.submitForm = submitForm;
         }
 
         function searchAuthors(item) {
@@ -72,9 +74,9 @@
             });
         }
 
-        function submitForm(formValid) {
+        function submitForm() {
             vm.submitAttempted = true;
-            if (formValid) {
+            if (vm.authorForm.$valid) {
                 if (vm.model.id) {
                     Author.update(vm.model, function (response) {
                         growl.addSuccessMessage('Auteur opgeslagen');
