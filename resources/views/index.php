@@ -7,7 +7,7 @@
         <script src="packages/bendani/php-common/uiframework/uiframework.min.js"></script>
         <script src="assets/js/underscore.js"></script>
         <script src="assets/lib/raty-2.7.0/lib/jquery.raty.js"></script>
-        <script src="assets/main.min.c761ad961e.js"></script>
+        <script src="assets/main.min.bb377baf9a.js"></script>
         <script src="packages/bendani/php-common/filter-service/filters.min.js"></script>
         <script src="packages/bendani/php-common/login-service/loginservice.min.js"></script>
         <!-- endinjector -->
@@ -16,7 +16,7 @@
         <link rel="stylesheet" href="packages/bendani/php-common/filter-service/filters.min.css">
         <link rel="stylesheet" href="packages/bendani/php-common/uiframework/uiframework.min.css">
         <link rel="stylesheet" href="assets/lib/raty-2.7.0/lib/jquery.raty.css">
-        <link rel="stylesheet" href="assets/main.min.681f2bf0b0.css">
+        <link rel="stylesheet" href="assets/main.min.b32bbfc1bb.css">
         <link rel="stylesheet" href="assets/resources/assets/main.min.681f2bf0b0.css">
         <!-- endinjector -->
 
@@ -76,7 +76,13 @@
                                 <li ng-class="{ active: isActive('/publisherseries')}"><a href="#/publisherseries"><i class="fa fa-list"></i> Uitgever reeksen</a></li>
                                 <li ng-class="{ active: isActive('/statistics')}"><a href="#/statistics"><i class="fa fa-line-chart"></i> Statistieken</a></li>
                             </ul>
-                        </div><!-- /.navbar-collapse -->
+
+                        </div>
+
+                        <!-- Main Menu -->
+                        <div class="side-menu-container nav navbar-nav" style="margin: 10px">
+                            <random-fact ng-repeat="randomFact in randomFacts" fact="randomFact"></random-fact>
+                        </div>
                     </nav>
 
                 </div>

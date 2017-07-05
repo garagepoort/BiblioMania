@@ -8,9 +8,9 @@ angular.module('com.bendani.bibliomania.main.controller', [
             $rootScope.infoContainer = InfoContainer;
             $rootScope.titlePanelService = TitlePanelService;
 
-
             $scope.logOut = function(){
                 LogOut.logOut(function(){
+                    $rootScope.randomFacts = [];
                     $location.path('#/login');
                 }, ErrorContainer.handleRestError);
             };

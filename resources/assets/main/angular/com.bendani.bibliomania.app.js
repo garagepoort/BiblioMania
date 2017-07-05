@@ -49,6 +49,8 @@ angular.module('BiblioMania', ['ngRoute',
     'com.bendani.bibliomania.statistics.ui',
     'com.bendani.bibliomania.create.chart.ui',
     'com.bendani.bibliomania.title.panel',
+    'com.bendani.bibliomania.random.fact.directive',
+    'com.bendani.bibliomania.random.facts.model',
     'com.bendani.bibliomania.create.user.ui'])
     .config(['$routeProvider', 'growlProvider', function ($routeProvider, growlProvider) {
         $routeProvider
@@ -63,7 +65,7 @@ angular.module('BiblioMania', ['ngRoute',
 
         growlProvider.globalTimeToLive(5000);
     }])
-    .run(['$rootScope', '$location', 'ScrollingService', 'User', 'ErrorContainer', function($rootScope, $location, ScrollingService, User, ErrorContainer) {
+    .run(['$rootScope', '$location', 'ScrollingService', 'User', 'ErrorContainer', 'RandomFacts', function($rootScope, $location, ScrollingService, User, ErrorContainer, RandomFacts) {
         var history = [];
         $rootScope.baseUrl = "../BiblioMania/";
 
@@ -75,6 +77,15 @@ angular.module('BiblioMania', ['ngRoute',
             var prevUrl = history.length > 1 ? history.splice(-2)[0] : "/";
             $location.path(prevUrl);
         };
+
+        $rootScope.$watch('loggedInUser', function(newValue){
+            if(newValue != undefined){
+                RandomFacts.query().$promise.then(function(facts){
+                    $rootScope.randomFacts = facts;
+                }).catch(ErrorContainer.handleRestError);
+                $location.path("/books");
+            }
+        });
 
         User.loggedInUser(function(user){
             $rootScope.loggedInUser = user;

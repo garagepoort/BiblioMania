@@ -67,6 +67,7 @@ use UserRepository;
 use UserService;
 use WishlistRepository;
 use WishlistService;
+use RandomFactsService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -138,6 +139,10 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->singleton('CurrencyService', function () {
             return new CurrencyService();
+        });
+
+        $this->app->singleton('RandomFactsService', function () {
+            return new RandomFactsService();
         });
 
         $this->app->singleton('BookFilterManager', function () {
