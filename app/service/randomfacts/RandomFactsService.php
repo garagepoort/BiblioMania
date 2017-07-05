@@ -108,7 +108,9 @@ class RandomFactsService
 			->join('personal_book_info', 'book_id', '=', 'book.id')
 			->join('gift_info', 'gift_info.personal_book_info_id', '=', 'personal_book_info.id', 'left outer')
 			->join('buy_info', 'buy_info.personal_book_info_id', '=', 'personal_book_info.id', 'left outer')
+			->join('reading_date', 'reading_date.personal_book_info_id', '=', 'personal_book_info.id', 'left outer')
 			->where('user_id', '=', $userId)
+			->whereNull('reading_date.id')
 			->where(function ($query) use ($newtime) {
 				$query->where('gift_info.receipt_date', '<', $newtime)
 					->orWhere('buy_info.buy_date', '<', $newtime);
