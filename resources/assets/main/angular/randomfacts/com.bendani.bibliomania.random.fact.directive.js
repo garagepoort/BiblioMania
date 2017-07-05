@@ -66,6 +66,10 @@ angular
                         return 'Je hebt dit boek 10 jaar geleden verkregen: ' + vm.fact.variables['book'];
                     }
 
+                    if(vm.fact.key == 'book.suggestion') {
+                        return 'Je hebt dit boek meer als 5 jaar geleden gekocht en nog niet gelezen: ' + vm.fact.variables['book'];
+                    }
+
                     if(vm.fact.key == 'author.birthday') {
                         return 'Auteur is jarig! ' + vm.fact.variables['author'];
                     }

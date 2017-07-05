@@ -7,7 +7,7 @@
         <script src="packages/bendani/php-common/uiframework/uiframework.min.js"></script>
         <script src="assets/js/underscore.js"></script>
         <script src="assets/lib/raty-2.7.0/lib/jquery.raty.js"></script>
-        <script src="assets/main.min.bb377baf9a.js"></script>
+        <script src="assets/main.min.49c167c54c.js"></script>
         <script src="packages/bendani/php-common/filter-service/filters.min.js"></script>
         <script src="packages/bendani/php-common/login-service/loginservice.min.js"></script>
         <!-- endinjector -->
@@ -80,7 +80,7 @@
                         </div>
 
                         <!-- Main Menu -->
-                        <div class="side-menu-container nav navbar-nav" style="margin: 10px">
+                        <div class="side-menu-container nav navbar-nav" style="margin-top: 20px; margin-left: 10px; margin-right: 10px">
                             <random-fact ng-repeat="randomFact in randomFacts" fact="randomFact"></random-fact>
                         </div>
                     </nav>

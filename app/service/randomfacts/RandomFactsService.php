@@ -23,6 +23,7 @@ class RandomFactsService
 		array_push($facts, $this->getBooksReleased('book.released.one.year', '-1'));
 		array_push($facts, $this->getBooksReleased('book.released.five.year', '-5'));
 		array_push($facts, $this->getBooksReleased('book.released.ten.year', '-10'));
+		array_push($facts, $this->getBooksSuggestion($userId, 'book.suggestion', '-5'));
 		array_push($facts, $this->birthDayAuthorFact());
 		$facts = array_values(array_filter($facts));
 		if(count($facts) > 3){
@@ -89,6 +90,29 @@ class RandomFactsService
 			->where('date.month', '=', $newtime->format('n'))
 			->where('date.day', '=', $newtime->format('j'))
 			->where('date.year', '=', $newtime->format('Y'))
+			->inRandomOrder()
+			->first();
+
+		if($book != null){
+			return new RandomFact($key, array("book" => $book->title));
+		}
+
+		return null;
+	}
+
+	private function getBooksSuggestion($userId, $key, $years)
+	{
+		$time = new DateTime('now');
+		$newtime = $time->modify($years . ' year');
+		$book = Book::select('book.*')
+			->join('personal_book_info', 'book_id', '=', 'book.id')
+			->join('gift_info', 'gift_info.personal_book_info_id', '=', 'personal_book_info.id', 'left outer')
+			->join('buy_info', 'buy_info.personal_book_info_id', '=', 'personal_book_info.id', 'left outer')
+			->where('user_id', '=', $userId)
+			->where(function ($query) use ($newtime) {
+				$query->where('gift_info.receipt_date', '<', $newtime)
+					->orWhere('buy_info.buy_date', '<', $newtime);
+			})
 			->inRandomOrder()
 			->first();
 
