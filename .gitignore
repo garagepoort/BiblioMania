@@ -15,6 +15,5 @@ Thumbs.db
 config/deploy/production.rb
 composer.lock
 app/storage/logs/*
-storage/framework/sessions/*
 /public/bookImages/*
 /public/authorImages/*
