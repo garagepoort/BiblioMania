@@ -87,7 +87,7 @@ angular
                             stringle = 'Dat is 1 boek minder als vorige maand.';
                         }
                         if(diff < -1) {
-                            stringle = 'Dat zijn ' + diff + ' minder boeken als vorige maand.';
+                            stringle = 'Dat zijn ' + Math.abs(diff) + ' minder boeken als vorige maand.';
                         }
                         if(vm.fact.variables['count'] == 1){
                             return 'Je hebt 1 boek gelezen in ' + monthToString(vm.fact.variables['month']) + ' ' + vm.fact.variables['year'] + '. ' + stringle;
