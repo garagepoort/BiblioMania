@@ -87,6 +87,8 @@ Route::group(array('middleware' => ['auth', 'activated']), function () {
     Route::get('publishers/{id}/series', 'PublisherController@getPublisherSeries')->middleware('permission:READ_PUBLISHER');
     Route::get('publishers/{id}/books', 'PublisherController@getPublisherBooks')->middleware('permission:READ_PUBLISHER');
 
+    Route::get('randomfacts', 'RandomFactsController@getRandomFacts');
+
     Route::get('genres', 'GenreController@getGenres');
 
     Route::get('logOut', 'DefaultLoginController@logOut');

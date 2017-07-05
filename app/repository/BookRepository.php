@@ -138,6 +138,16 @@ class BookRepository implements Repository
             ->count();
     }
 
+    public function getTotalAmountOfBooksReadInMonth($userId, $month, $year)
+    {
+        return Book::join('personal_book_info', 'book_id', '=', 'book.id')
+            ->join('reading_date', 'reading_date.personal_book_info_id', '=', 'personal_book_info.id')
+            ->where('personal_book_info.user_id', '=', $userId)
+            ->whereMonth('reading_date.date', '=', $month)
+            ->whereYear('reading_date.date', '=', $year)
+            ->count();
+    }
+
     public function getTotalAmountOfBooksBought()
     {
         return Book::join('personal_book_info', 'book_id', '=', 'book.id')
