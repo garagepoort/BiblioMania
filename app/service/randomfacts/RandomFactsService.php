@@ -6,6 +6,7 @@ class RandomFactsService
 	/** @var BookRepository $bookRepository */
 	private $bookRepository;
 
+
 	public function __construct()
 	{
 		$this->bookRepository = App::make('BookRepository');
@@ -27,7 +28,8 @@ class RandomFactsService
 		array_push($facts, $this->birthDayAuthorFact());
 		$facts = array_values(array_filter($facts));
 		if(count($facts) > 3){
-			return array_rand($facts, 3);
+			shuffle($facts);
+			return array_slice($facts, 0, 3);
 		}
 		return $facts;
 	}
