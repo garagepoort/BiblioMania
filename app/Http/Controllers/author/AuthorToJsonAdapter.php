@@ -14,6 +14,8 @@ class AuthorToJsonAdapter
     private $dateOfDeath;
     /** @var  string */
     private $image;
+    /** @var  string */
+    private $imageName;
     /** @var  boolean */
     private $preferred;
 
@@ -52,6 +54,7 @@ class AuthorToJsonAdapter
         }
         if(!StringUtils::isEmpty($this->image)){
             $result['image'] = $this->image;
+            $result['imageName'] = $this->imageName;
         }
         return $result;
     }
@@ -61,6 +64,7 @@ class AuthorToJsonAdapter
         $baseUrl = URL::to('/');
         if(!StringUtils::isEmpty($author->image)){
             $this->image = $baseUrl . "/" . Config::get("properties.authorImagesLocation") . "/" . $author->image;
+            $this->imageName = $author->image;
         }
     }
 }

@@ -26,6 +26,7 @@ class FullBookToJsonAdapter
     private $serie;
     private $genre;
     private $image;
+    private $imageName;
     private $onWishlist;
 
     /** @var  OeuvreItemToJsonAdapter */
@@ -76,6 +77,7 @@ class FullBookToJsonAdapter
         if(!StringUtils::isEmpty($book->coverImage)){
             $baseUrl = URL::to('/');
             $this->image = $baseUrl . "/bookImages/" . $book->coverImage;
+            $this->imageName = $book->coverImage;
         }
 
         if($book->publication_date != null){
@@ -113,6 +115,7 @@ class FullBookToJsonAdapter
             "serie" => $this->serie,
             "publisherSerie" => $this->publisherSerie,
             "image" => $this->image,
+            "imageName" => $this->imageName,
             "onWishlist" => $this->onWishlist
         );
 

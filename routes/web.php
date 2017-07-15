@@ -96,11 +96,10 @@ Route::group(array('middleware' => ['auth', 'activated']), function () {
 
 //  API
 Route::group(['prefix' => 'api'], function () {
-    Route::resource('books', 'BookApiController', ['only' => ['index']]);
-    Route::get('image/book/{id}', 'ImageController@getBookImage');
-    Route::resource('authenticate', 'AuthenticateController', ['only' => ['index']]);
+    Route::get('books', 'BookApiController@getBooks')->middleware('bookApiAuth');
+    Route::get('image/book/{id}', 'ImageController@getBookImage')->middleware('bookApiAuth');
+    Route::get('image/author/{id}', 'ImageController@getAuthorImage')->middleware('bookApiAuth');
     Route::post('authenticate', 'AuthenticateController@authenticate');
-    Route::get('users', 'AuthenticateController@users');
 });
 
 //LOCAL

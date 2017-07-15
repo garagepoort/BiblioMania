@@ -5,31 +5,20 @@ class AuthenticateController extends Controller
 
     /** ApiAuthenticationService */
     private $apiAuthenticationService;
+    /** @var \Katzgrau\KLogger\Logger $logger */
+    private $logger;
+
 
     function __construct()
     {
         $this->apiAuthenticationService = App::make('ApiAuthenticationService');
-    }
-
-    public function index()
-    {
-        $response  = $this->apiAuthenticationService->checkUserAuthenticated();
-        if(!$response){
-            return $response;
-        }else{
-            $users = User::all();
-            return $users;
-        }
-    }
-    public function users()
-    {
-        $users = User::all();
-        return $users;
+        $this->logger = App::make('Logger');
     }
 
     public function authenticate()
     {
-        // grab credentials from the request
+        $this->logger->info("authenticate this");
+//        // grab credentials from the request
         $credentials = Input::only('username', 'password');
 
         try {

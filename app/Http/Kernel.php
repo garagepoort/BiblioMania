@@ -5,6 +5,7 @@ namespace App\Http;
 use App\Http\Middleware\Activated;
 use App\Http\Middleware\Admin;
 use App\Http\Middleware\LocalCallOnly;
+use App\Http\Middleware\BookApi;
 use App\Http\Middleware\Permission;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -52,6 +53,7 @@ class Kernel extends HttpKernel
     protected $routeMiddleware = [
         'admin' => Admin::class,
         'localCallOnly' => LocalCallOnly::class,
+        'bookApiAuth' => BookApi::class,
         'permission' => Permission::class,
         'activated' => Activated::class,
         'auth' => \Illuminate\Auth\Middleware\Authenticate::class,

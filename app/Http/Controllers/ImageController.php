@@ -28,14 +28,22 @@ class ImageController extends Controller
 
     public function getBookImage($id)
     {
-        $response = $this->apiAuthenticationService->checkUserAuthenticated();
-        if ($response != null) {
-            return $response;
-        } else {
-            $book = $this->bookService->find($id);
+        $book = $this->bookService->find($id);
+        if(file_exists(public_path() . "/" . Config::get("properties.bookImagesLocation") . "/" . $book->coverImage)){
             $image = file_get_contents(public_path() . "/" . Config::get("properties.bookImagesLocation") . "/" . $book->coverImage);
             return Response::make($image, 200, ['content-type' => 'image/jpg']);
         }
+        return Response::make(202);
+    }
+
+    public function getAuthorImage($id)
+    {
+        $author = $this->authorService->find($id);
+        if(file_exists(public_path() . "/" . Config::get("properties.authorImagesLocation") . "/" . $author->image)){
+            $image = file_get_contents(public_path() . "/" . Config::get("properties.authorImagesLocation") . "/" . $author->image);
+            return Response::make($image, 200, ['content-type' => 'image/jpg']);
+        }
+        return Response::make(202);
     }
 
     public function createSpriteForBooks()
