@@ -3,8 +3,10 @@
 class AuthenticateController extends Controller
 {
 
-    /** ApiAuthenticationService */
+    /** ApiAuthenticationService $apiAuthenticationService */
     private $apiAuthenticationService;
+    /** UserService $userService */
+    private $userService;
     /** @var \Katzgrau\KLogger\Logger $logger */
     private $logger;
 
@@ -12,6 +14,7 @@ class AuthenticateController extends Controller
     function __construct()
     {
         $this->apiAuthenticationService = App::make('ApiAuthenticationService');
+        $this->userService = App::make('UserService');
         $this->logger = App::make('Logger');
     }
 
@@ -31,7 +34,9 @@ class AuthenticateController extends Controller
             return Response::json(['error' => 'could_not_create_token'], 500);
         }
 
+        $user = $this->userService->getUserByUsername($credentials['username']);
+
         // all good so return the token
-        return Response::json(compact('token'));
+        return Response::json(compact(['token', 'user']));
     }
 }

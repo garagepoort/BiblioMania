@@ -22,6 +22,12 @@ class UserService
         $this->activationService = App::make('ActivationService');
     }
 
+    public function getUserByUsername($username){
+        $foundUser = $this->userRepository->findByUsername($username);
+        Ensure::objectNotNull('user', $foundUser, 'user.with.username.does.not.exist');
+        return $foundUser;
+    }
+
     public function saveUser($user)
     {
         return $this->userRepository->saveUser($user);

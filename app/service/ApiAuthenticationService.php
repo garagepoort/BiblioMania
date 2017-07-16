@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: david
- * Date: 25/07/15
- * Time: 23:39
- */
 
 class ApiAuthenticationService {
 
