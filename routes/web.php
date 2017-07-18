@@ -97,6 +97,7 @@ Route::group(array('middleware' => ['auth', 'activated']), function () {
 //  API
 Route::group(['prefix' => 'api'], function () {
     Route::get('books', 'BookApiController@getBooks')->middleware('bookApiAuth');
+    Route::post('reading-dates', 'BookApiController@createReadingDate')->middleware('bookApiAuth');
     Route::get('image/book/{id}', 'ImageController@getBookImage')->middleware('bookApiAuth');
     Route::get('image/author/{id}', 'ImageController@getAuthorImage')->middleware('bookApiAuth');
     Route::post('authenticate', 'AuthenticateController@authenticate');
