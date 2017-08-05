@@ -19,6 +19,7 @@ class FilterType extends BasicEnum
     const BOOK_BUY_PRICE = "personal-buy_price";
     const BOOK_BUY_DATE = "personal-buy_date";
     const BOOK_BUY_COUNTRY = "personal-buy_country";
+    const BOOK_BUY_CITY = "personal-buy_city";
     const BOOK_BUY_SHOP = "personal-buy_shop";
     const BOOK_RETRIEVE_DATE = "personal-retrieve_date";
     const BOOK_AUTHOR = "book-author";

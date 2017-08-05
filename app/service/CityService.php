@@ -3,6 +3,18 @@
 class CityService
 {
 
+    /** @var CityRepository $cityRepository */
+    private $cityRepository;
+
+    /**
+     * CityService constructor.
+     */
+    public function __construct()
+    {
+        $this->cityRepository = App::make('CityRepository');
+    }
+
+
     public function save($cityName, $country_id)
     {
 
@@ -15,5 +27,9 @@ class CityService
             $city->save();
         }
         return $city;
+    }
+
+    public function getCities(){
+        return $this->cityRepository->all();
     }
 }

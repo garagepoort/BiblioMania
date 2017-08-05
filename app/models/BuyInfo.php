@@ -5,6 +5,7 @@
  * @property double price_payed
  * @property DateTime buy_date
  * @property integer country_id
+ * @property integer city_id
  */
 class BuyInfo extends Eloquent {
     protected $table = 'buy_info';
