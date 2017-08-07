@@ -35,6 +35,7 @@ Route::group(array('middleware' => ['auth', 'activated']), function () {
     Route::get('mostUsedBookFilters', 'BookController@getMostUsedFilters');
     Route::get('tags', 'TagController@getTags');
     Route::get('countries', 'CountryController@getCountries');
+    Route::get('cities', 'CityController@getCities');
     Route::get('shops', 'ShopController@getShops');
     Route::get('languages', 'LanguageController@getLanguages');
 

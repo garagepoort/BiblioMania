@@ -7,7 +7,7 @@
         <script src="packages/bendani/php-common/uiframework/uiframework.min.js"></script>
         <script src="assets/js/underscore.js"></script>
         <script src="assets/lib/raty-2.7.0/lib/jquery.raty.js"></script>
-        <script src="assets/main.min.21027e0c46.js"></script>
+        <script src="assets/main.min.12c42eed0f.js"></script>
         <script src="packages/bendani/php-common/filter-service/filters.min.js"></script>
         <script src="packages/bendani/php-common/login-service/loginservice.min.js"></script>
         <!-- endinjector -->

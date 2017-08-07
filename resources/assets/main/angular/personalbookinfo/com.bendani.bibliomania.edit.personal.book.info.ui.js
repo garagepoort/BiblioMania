@@ -4,6 +4,7 @@ angular.module('com.bendani.bibliomania.edit.personal.book.info.ui', [
     'angular-growl',
     'com.bendani.bibliomania.personal.book.info.model',
     'com.bendani.bibliomania.country.model',
+    'com.bendani.bibliomania.city.model',
     'com.bendani.bibliomania.book.model',
     'com.bendani.bibliomania.shop.model',
     'com.bendani.bibliomania.title.panel',
@@ -63,7 +64,7 @@ angular.module('com.bendani.bibliomania.edit.personal.book.info.ui', [
             }
         });
     }])
-    .controller('PersonalBookInfoController', ['$scope', 'ErrorContainer', 'TitlePanelService', 'personalBookInfoModel', 'onSave', 'Country', 'Shop', 'initFunction', function ($scope, ErrorContainer, TitlePanelService, personalBookInfoModel, onSave, Country, Shop, initFunction) {
+    .controller('PersonalBookInfoController', ['$scope', 'ErrorContainer', 'TitlePanelService', 'personalBookInfoModel', 'onSave', 'Country', 'City', 'Shop', 'initFunction', function ($scope, ErrorContainer, TitlePanelService, personalBookInfoModel, onSave, Country, City, Shop, initFunction) {
         function init() {
             TitlePanelService.setTitle('Persoonlijke informatie');
 
@@ -72,6 +73,7 @@ angular.module('com.bendani.bibliomania.edit.personal.book.info.ui', [
 
             $scope.data.countries = Country.query(function(){}, ErrorContainer.handleRestError);
             $scope.data.shops = Shop.query(function(){}, ErrorContainer.handleRestError);
+            $scope.data.cities = City.query(function(){}, ErrorContainer.handleRestError);
             $scope.data.currencies = [
                 {
                     name: "€",
