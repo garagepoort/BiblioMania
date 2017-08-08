@@ -159,7 +159,7 @@ class AppServiceProvider extends ServiceProvider
                 FilterType::BOOK_RETRIEVE_DATE=>new ElasticDateFilterHandler('personalBookInfos.retrieveDate'),
                 FilterType::BOOK_BUY_PRICE=>new ElasticNumberFilterHandler('personalBookInfos.buyInfo.price'),
                 FilterType::BOOK_BUY_COUNTRY=>new ElasticOptionsFilterHandler('personalBookInfos.buyInfo.country'),
-                FilterType::BOOK_BUY_CITY=>new ElasticOptionsFilterHandler('personalBookInfos.buyInfo.city'),
+                FilterType::BOOK_BUY_CITY=>new ElasticOptionsFilterHandler('personalBookInfos.buyInfo.city_id'),
                 FilterType::BOOK_BUY_SHOP=>new ElasticOptionsFilterHandler('personalBookInfos.buyInfo.shop'),
                 FilterType::BOOK_IS_PERSONAL=>new BookIsPersonalFilterHandler(),
                 FilterType::BOOK_OWNED=>new ElasticBooleanFilterHandler('personalBookInfos.inCollection'),
