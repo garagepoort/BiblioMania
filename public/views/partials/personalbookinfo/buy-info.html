@@ -21,7 +21,7 @@
             <div class="form-group">
                 <label class="control-label">Aankoop prijs </label>
                 <div>
-                    <select id="buy-price-currency" style="margin-right: 10px;" class="form-control col-md-2 input-width-xsm" ng-model="model.buyInfo.buyPrice.currency" ng-options="currency.value as currency.name for currency in data.currencies"></select>
+                    <select id="buy-price-currency" style="margin-right: 10px; width: 56px;" class="form-control col-md-2 input-width-xsm" ng-model="model.buyInfo.buyPrice.currency" ng-options="currency.value as currency.name for currency in data.currencies"></select>
                     <input id="buy-price-amount" type="text" name="buyPrice" price-formatter class="form-control col-md-4 input-width-sm" ng-model="model.buyInfo.buyPrice.amount" ng-pattern="/^\d+(\,\d{1,2})?$/"/>
                     <span ng-show="personalBookInfoForm.buyPrice.$error.pattern && personalBookInfoForm.buyPrice.$dirty" class="form-error-message help-inline vertical-align"><i class="fa fa-exclamation-circle"> Prijs is niet het juiste formaat.</i></span>
                 </div>

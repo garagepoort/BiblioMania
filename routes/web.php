@@ -109,11 +109,11 @@ Route::group(array('middleware' => 'localCallOnly'), function () {
     //google API
     Route::get('createSpriteForBooks', 'ImageController@createSpriteForBooks');
     Route::get('createSpriteForAuthors', 'ImageController@createSpriteForAuthors');
-    Route::get('search/populate', 'ElasticSearchController@index');
-    Route::get('search/clear', 'ElasticSearchController@clear');
     Route::get('dataset/reset', 'DatasetController@resetDatabase');
     Route::get('dataset/{datasetId}', 'DatasetController@executeDataset');
 });
+Route::get('search/clear', 'ElasticSearchController@clear');
+    Route::get('search/populate', 'ElasticSearchController@index');
 
 
 //ALL
