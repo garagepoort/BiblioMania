@@ -249,20 +249,34 @@ table.left-right-align td:nth-child(1) {
   color: #FFFFFF;
 }
 /*END PLACEHOLDERS*/
-.contentContainer {
-  text-align: left;
-  display: inline-block;
-  margin-top: 80px;
-  width: 100%;
-  background-color: #fff;
+@media (min-width: 768px) {
+  .contentPanel {
+    padding-right: 21px;
+    padding-left: 21px;
+  }
+  .contentContainer {
+    text-align: left;
+    display: inline-block;
+    margin-top: 80px;
+    width: 100%;
+    background-color: #fff;
+  }
 }
-.contentPanel {
-  padding-right: 21px;
-  padding-left: 21px;
-}
-.contentPanel.form-panel {
-  padding-right: 45px;
-  padding-left: 45px;
+@media (max-width: 768px) {
+  .contentPanel {
+    padding-right: 0px;
+    padding-left: 0px;
+  }
+  .contentContainer {
+    text-align: left;
+    display: inline-block;
+    margin-top: 40px;
+    width: 100%;
+    background-color: #fff;
+  }
+  .container-fluid {
+    padding: 0;
+  }
 }
 /*BOOKS*/
 .top-book-panel {
@@ -1118,4 +1132,10 @@ dl.dl-horizontal.dl-personal-book-info-detail-directive dd {
 }
 .panel-yellow a:hover {
   color: #df8a13;
+}
+@media (max-width: 768px) {
+  .book-row-subtitle,
+  .book-row-warning {
+    display: none;
+  }
 }

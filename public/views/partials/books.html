@@ -4,9 +4,9 @@
         <errorcontainer></errorcontainer>
 
         <div class="top-book-panel">
-            <filters-directive on-filter="filterBooks(selectedFilters)" filter-service-id="filterServiceId" control="filterControl"></filters-directive>
+            <filters-directive ng-if="!mobile" on-filter="filterBooks(selectedFilters)" filter-service-id="filterServiceId" control="filterControl"></filters-directive>
             <div style="clear: both">
-                <div class="btn-group pull-left" role="group">
+                <div class="btn-group pull-left" role="group" ng-show="!mobile">
                     <button ng-class="listView ? 'btn-grey' : 'btn-primary'" type="button" ng-click="setListView(false)" class="btn btn-sm half-round-corners-left"><span class="glyphicon glyphicon-th"></span></button>
                     <button ng-class="listView ? 'btn-primary' : 'btn-grey'" type="button" ng-click="setListView(true)" class="btn btn-sm half-round-corners-right"><span class="glyphicon glyphicon-th-list"></span></button>
                 </div>
@@ -40,7 +40,7 @@
                 </div>
 
                 <div ng-show="listView">
-                    <table ng-show="!loading" class="table table-striped" style="table-layout: fixed">
+                    <table ng-show="!loading" class="table" style="table-layout: fixed">
                         <thead sort-header sort-options="orderValues" current-predicate="predicate" reverse-order="reverseOrder"></thead>
                         <tbody style="text-align: left">
                             <tr style="cursor: pointer"

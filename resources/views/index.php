@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="BiblioMania">
     <head>
-
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- injector:js -->
         <script src="packages/bendani/php-common/uiframework/jquery.js"></script>
         <script src="packages/bendani/php-common/uiframework/uiframework.min.js"></script>
         <script src="assets/js/underscore.js"></script>
+        <script src="assets/lib/match-media.js"></script>
         <script src="assets/lib/raty-2.7.0/lib/jquery.raty.js"></script>
-        <script src="assets/main.min.12c42eed0f.js"></script>
+        <script src="assets/main.min.716b5ac883.js"></script>
         <script src="packages/bendani/php-common/filter-service/filters.min.js"></script>
         <script src="packages/bendani/php-common/login-service/loginservice.min.js"></script>
         <!-- endinjector -->
@@ -16,8 +17,7 @@
         <link rel="stylesheet" href="packages/bendani/php-common/filter-service/filters.min.css">
         <link rel="stylesheet" href="packages/bendani/php-common/uiframework/uiframework.min.css">
         <link rel="stylesheet" href="assets/lib/raty-2.7.0/lib/jquery.raty.css">
-        <link rel="stylesheet" href="assets/main.min.b32bbfc1bb.css">
-        <link rel="stylesheet" href="assets/resources/assets/main.min.681f2bf0b0.css">
+        <link rel="stylesheet" href="assets/main.min.40bbc8051b.css">
         <!-- endinjector -->
 
         <script type="text/javascript">
@@ -55,7 +55,7 @@
                         <div class="navbar-header">
                             <div class="brand-wrapper">
                                 <!-- Hamburger -->
-                                <button type="button" class="navbar-toggle">
+                                <button type="button" class="navbar-toggle" ng-click="toggleSlideIn()">
                                     <span class="sr-only">Toggle navigation</span>
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
@@ -67,21 +67,20 @@
 
                         <!-- Main Menu -->
                         <div class="side-menu-container">
-                            <ul class="nav navbar-nav">
+                            <ul class="nav navbar-nav" ng-class="{'slide-in' : slideInOpen}">
 
-                                <li ng-class="{ active: isActive('/books')}"><a href="#/books"><i class="fa fa-book"></i> Boeken</a></li>
-                                <li ng-class="{ active: isActive('/authors')}"><a href="#/authors"><i class="fa fa-user"></i> Auteurs</a></li>
-                                <li ng-class="{ active: isActive('/publishers')}"><a href="#/publishers"><i class="fa fa-book"></i> Uitgevers</a></li>
-                                <li ng-class="{ active: isActive('/series')}"><a href="#/series"><i class="fa fa-list"></i> Boeken reeksen</a></li>
-                                <li ng-class="{ active: isActive('/publisherseries')}"><a href="#/publisherseries"><i class="fa fa-list"></i> Uitgever reeksen</a></li>
-                                <li ng-class="{ active: isActive('/statistics')}"><a href="#/statistics"><i class="fa fa-line-chart"></i> Statistieken</a></li>
+                                <li ng-class="{ active: isActive('/books')}" ng-click="toggleSlideIn()"><a href="#/books"><i class="fa fa-book"></i> Boeken</a></li>
+                                <li ng-class="{ active: isActive('/authors')}" ng-click="toggleSlideIn()"><a href="#/authors"><i class="fa fa-user"></i> Auteurs</a></li>
+                                <li ng-class="{ active: isActive('/publishers')}" ng-click="toggleSlideIn()"><a href="#/publishers"><i class="fa fa-book"></i> Uitgevers</a></li>
+                                <li ng-class="{ active: isActive('/series')}" ng-click="toggleSlideIn()"><a href="#/series"><i class="fa fa-list"></i> Boeken reeksen</a></li>
+                                <li ng-class="{ active: isActive('/publisherseries')}" ng-click="toggleSlideIn()"><a href="#/publisherseries"><i class="fa fa-list"></i> Uitgever reeksen</a></li>
+                                <li ng-class="{ active: isActive('/statistics')}" ng-click="toggleSlideIn()"><a href="#/statistics"><i class="fa fa-line-chart"></i> Statistieken</a></li>
                             </ul>
 
-                        </div>
-
-                        <!-- Main Menu -->
-                        <div class="side-menu-container nav navbar-nav" style="margin-top: 20px; margin-left: 10px; margin-right: 10px">
-                            <random-fact ng-repeat="randomFact in randomFacts" fact="randomFact"></random-fact>
+                            <!-- Main Menu -->
+                            <div class="side-menu-container nav navbar-nav">
+                                <random-fact ng-repeat="randomFact in randomFacts" fact="randomFact"></random-fact>
+                            </div>
                         </div>
                     </nav>
 

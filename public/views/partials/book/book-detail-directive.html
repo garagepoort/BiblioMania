@@ -1,4 +1,4 @@
-<pageslide ps-open="vm.bookDetailPanelOpen" ps-class="book-detail-pageslide" ps-size="720px"
+<pageslide ps-open="vm.bookDetailPanelOpen" ps-class="book-detail-pageslide" ps-size="{{vm.psSize}}"
            ps-push="true" ps-key-listener="true" ps-auto-close="true">
     <div click-anywhere-but-here="closeBookDetailPanel()">
         <div ng-hide="vm.loading">

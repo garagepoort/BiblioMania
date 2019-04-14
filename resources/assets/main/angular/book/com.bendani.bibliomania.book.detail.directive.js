@@ -8,10 +8,14 @@ angular
             scope: {},
             restrict: "E",
             templateUrl: "../BiblioMania/views/partials/book/book-detail-directive.html",
-            controller: ['$scope', '$location', 'BookOverviewService', 'Book', 'ErrorContainer', function($scope, $location, BookOverviewService, Book, ErrorContainer){
+            controller: ['$scope', 'screenSize', '$location', 'BookOverviewService', 'Book', 'ErrorContainer', function($scope, screenSize, $location, BookOverviewService, Book, ErrorContainer){
                 var vm = this;
                 vm.closeBookDetailPanel = closeBookDetailPanel;
                 vm.goToEditBook = goToEditBook;
+                vm.psSize = '720px';
+                if (screenSize.is('xs, sm')) {
+                    vm.psSize = '100%';
+                }
 
                 var selectBookHandler = function (book) {
                     if (vm.bookDetailPanelOpen && vm.selectedBook.id === book.id) {

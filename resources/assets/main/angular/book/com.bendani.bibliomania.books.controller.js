@@ -18,8 +18,8 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
             }
         )
     }])
-    .controller('BookController', ['$scope', 'Book', 'BookFilter', 'ErrorContainer', 'TitlePanelService', '$location', '$compile', 'BookOverviewService', 'ScrollingService', '$timeout', 'FilterService',
-        function ($scope, Book, BookFilter, ErrorContainer, TitlePanelService, $location, $compile, BookOverviewService, ScrollingService, $timeout, FilterService) {
+    .controller('BookController', ['$scope', '$rootScope', 'Book', 'BookFilter', 'ErrorContainer', 'TitlePanelService', '$location', '$compile', 'BookOverviewService', 'ScrollingService', '$timeout', 'FilterService', 'screenSize',
+        function ($scope, $rootScope, Book, BookFilter, ErrorContainer, TitlePanelService, $location, $compile, BookOverviewService, ScrollingService, $timeout, FilterService, screenSize) {
             var personalBooks = {
                 key: 'Mijn boeken in collectie',
                 value: 'personalBooks',
@@ -50,7 +50,7 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
                 $scope.searchBooksQuery = "";
                 $scope.predicate = "mainAuthor";
                 $scope.reverseOrder = false;
-                $scope.setListView(false);
+                $scope.setListView($rootScope.mobile);
 
                 $scope.viewableFilters = {
                     selected: personalBooks,
@@ -76,10 +76,10 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
                 if (item.subtitle === undefined || item.subtitle === null) {
                     item.subtitle = "";
                 }
-
-                if ((item.title.toLowerCase().indexOf($scope.searchBooksQuery) !== -1)
-                    || (item.subtitle.toLowerCase().indexOf($scope.searchBooksQuery) !== -1)
-                    || (item.mainAuthor.toLowerCase().indexOf($scope.searchBooksQuery) !== -1)) {
+                var searchTerm = $scope.searchBooksQuery.toLowerCase();
+                if ((item.title.toLowerCase().indexOf(searchTerm) !== -1)
+                    || (item.subtitle.toLowerCase().indexOf(searchTerm) !== -1)
+                    || (item.mainAuthor.toLowerCase().indexOf(searchTerm) !== -1)) {
 
                     if ($scope.viewableFilters.selected === personalBooks) {
                         return item.inCollection;
@@ -102,13 +102,21 @@ angular.module('com.bendani.bibliomania.book.controller', ['com.bendani.biblioma
                 $scope.listView = value;
 
                 if ($scope.listView) {
-                    $scope.orderValues = [
-                        {key: 'Titel', predicate: 'title', width: '30'},
-                        {key: 'Ondertitel', predicate: 'subtitle', width: '30'},
-                        {key: 'Auteur', predicate: 'mainAuthor', width: '30'},
-                        {key: 'Gelezen', predicate: 'read', width: '30'},
-                        {key: 'Editeer', predicate: '', width: '10'}
-                    ];
+                    if($rootScope.mobile) {
+                        $scope.orderValues = [
+                            {key: 'Titel', predicate: 'title', width: '30'},
+                            {key: 'Auteur', predicate: 'mainAuthor', width: '30'},
+                            {key: 'Editeer', predicate: '', width: '10'}
+                        ];
+                    }else {
+                        $scope.orderValues = [
+                            {key: 'Titel', predicate: 'title', width: '30'},
+                            {key: 'Ondertitel', predicate: 'subtitle', width: '30'},
+                            {key: 'Auteur', predicate: 'mainAuthor', width: '30'},
+                            {key: 'Gelezen', predicate: 'read', width: '30'},
+                            {key: 'Editeer', predicate: '', width: '10'}
+                        ];
+                    }
                 } else {
                     $scope.orderValues = [
                         {key: 'Titel', predicate: 'title', width: '50'},

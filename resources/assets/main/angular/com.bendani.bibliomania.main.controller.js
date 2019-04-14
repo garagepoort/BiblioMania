@@ -8,6 +8,12 @@ angular.module('com.bendani.bibliomania.main.controller', [
             $rootScope.infoContainer = InfoContainer;
             $rootScope.titlePanelService = TitlePanelService;
 
+            $scope.slideInOpen = false;
+
+            $scope.toggleSlideIn = function() {
+                $scope.slideInOpen = !$scope.slideInOpen;
+            };
+
             $scope.logOut = function(){
                 LogOut.logOut(function(){
                     $rootScope.randomFacts = [];

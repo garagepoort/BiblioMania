@@ -27,6 +27,7 @@ angular.module('BiblioMania', ['ngRoute',
     'pascalprecht.translate',
     'ngSanitize',
     'chart.js',
+    'matchMedia',
     'angular-growl',
     'com.bendani.bibliomania.permission',
     'com.bendani.bibliomania.book.controller',
@@ -65,9 +66,10 @@ angular.module('BiblioMania', ['ngRoute',
 
         growlProvider.globalTimeToLive(5000);
     }])
-    .run(['$rootScope', '$location', 'ScrollingService', 'User', 'ErrorContainer', 'RandomFacts', function($rootScope, $location, ScrollingService, User, ErrorContainer, RandomFacts) {
+    .run(['$rootScope', '$location', 'ScrollingService', 'User', 'ErrorContainer', 'RandomFacts', 'screenSize', function($rootScope, $location, ScrollingService, User, ErrorContainer, RandomFacts, screenSize) {
         var history = [];
         $rootScope.baseUrl = "../BiblioMania/";
+        $rootScope.mobile = screenSize.is('xs, sm');
 
         $rootScope.$on('$routeChangeSuccess', function() {
             history.push($location.$$path);

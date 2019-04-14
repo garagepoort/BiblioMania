@@ -15,7 +15,13 @@ network.host: 0.0.0.0
 #
 # Use a descriptive name for your cluster:
 #
-cluster.name: elasticsearch_davidmaes
+node.name: "BiblioManiaNode"
+cluster.name: BiblioManiaCluster
+index.number_of_shards: 1
+index.number_of_replicas: 0
+script.inline: on
+script.indexed: on
+index.query.bool.max_clause_count: 10240
 #
 # ------------------------------------ Node ------------------------------------
 #
@@ -95,6 +101,3 @@ path.logs: /usr/share/elasticsearch/logs
 # Require explicit names when deleting indices:
 #
 # action.destructive_requires_name: true
-
-script.inline: on
-script.indexed: on
