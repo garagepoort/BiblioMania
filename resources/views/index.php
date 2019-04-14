@@ -3,21 +3,15 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- injector:js -->
-        <script src="packages/bendani/php-common/uiframework/jquery.js"></script>
-        <script src="packages/bendani/php-common/uiframework/uiframework.min.js"></script>
         <script src="assets/js/underscore.js"></script>
         <script src="assets/lib/match-media.js"></script>
         <script src="assets/lib/raty-2.7.0/lib/jquery.raty.js"></script>
         <script src="assets/main.min.716b5ac883.js"></script>
-        <script src="packages/bendani/php-common/filter-service/filters.min.js"></script>
-        <script src="packages/bendani/php-common/login-service/loginservice.min.js"></script>
         <!-- endinjector -->
 
         <!-- injector:css -->
-        <link rel="stylesheet" href="packages/bendani/php-common/filter-service/filters.min.css">
-        <link rel="stylesheet" href="packages/bendani/php-common/uiframework/uiframework.min.css">
         <link rel="stylesheet" href="assets/lib/raty-2.7.0/lib/jquery.raty.css">
-        <link rel="stylesheet" href="assets/main.min.61871e319c.css">
+        <link rel="stylesheet" href="assets/main.min.3f62812f52.css">
         <!-- endinjector -->
 
         <script type="text/javascript">
