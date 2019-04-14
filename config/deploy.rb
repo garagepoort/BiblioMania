@@ -64,15 +64,15 @@ namespace :deploy do
   desc 'update composer'
   task :restart do
     on roles(:app) do
-      execute "rm /home/myApps/BiblioMania/current/public/bookImages"
-      execute "rm /home/myApps/BiblioMania/current/public/authorImages"
-      execute "ln -s /home/myApps/BiblioMania/bookImages /home/myApps/BiblioMania/current/public/bookImages"
-      execute "ln -s /home/myApps/BiblioMania/authorImages /home/myApps/BiblioMania/current/public/authorImages"
-      execute "cd /home/myApps/BiblioMania/current && cp /home/myApps/BiblioMania/.env ."
-      execute "cd /home/myApps/BiblioMania/current && php composer.phar update && php artisan migrate --force"
-      execute :sudo, "chown -R apache:apache /home/myApps/BiblioMania/current/public"
-      execute :sudo, "chown -R apache:apache /home/myApps/BiblioMania/current/storage"
-      execute :sudo, "chown -R apache:apache /home/myApps/BiblioMania/current/app/storage"
+      execute "rm /home/deploy/BiblioMania/current/public/bookImages"
+      execute "rm /home/deploy/BiblioMania/current/public/authorImages"
+      execute "ln -s /home/deploy/BiblioMania/bookImages /home/deploy/BiblioMania/current/public/bookImages"
+      execute "ln -s /home/deploy/BiblioMania/authorImages /home/deploy/BiblioMania/current/public/authorImages"
+      execute "cd /home/deploy/BiblioMania/current && cp /home/deploy/BiblioMania/.env ."
+      execute "cd /home/deploy/BiblioMania/current && php composer.phar update && php artisan migrate --force"
+      execute :sudo, "chown -R apache:apache /home/deploy/BiblioMania/current/public"
+      execute :sudo, "chown -R apache:apache /home/deploy/BiblioMania/current/storage"
+      execute :sudo, "chown -R apache:apache /home/deploy/BiblioMania/current/app/storage"
     end
       # Your restart mechanism here, for example:
       # execute :touch, release_path.join('tmp/restart.txt')
