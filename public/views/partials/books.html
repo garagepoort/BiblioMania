@@ -17,7 +17,7 @@
                     <input id="searchBooksInput" ng-model-options="{ debounce: 200 }" ng-model="searchBooksQuery" type="text" class="form-control half-round-corners-left" placeholder="Search" name="criteria" aria-describedby="basic-addon1">
                     <span ng-click="clearSearch()" class="input-group-addon glyphicon glyphicon-remove cursor-pointer" id="basic-addon"></span>
                 </div>
-                <button popover-elem popover-placement="bottom" uib-popover-template="libraryInformationTemplate" popover-title="Bibliotheek informatie" type="button" class="btn margin-right-10 btn-default exclude pull-right"><span class="glyphicon glyphicon-info-sign popover-elem"></span></button>
+                <button ng-if="!mobile" popover-elem popover-placement="bottom" uib-popover-template="libraryInformationTemplate" popover-title="Bibliotheek informatie" type="button" class="btn margin-right-10 btn-default exclude pull-right"><span class="glyphicon glyphicon-info-sign popover-elem"></span></button>
             </div>
         </div>
 
@@ -41,7 +41,7 @@
 
                 <div ng-show="listView">
                     <table ng-show="!loading" class="table" style="table-layout: fixed">
-                        <thead sort-header sort-options="orderValues" current-predicate="predicate" reverse-order="reverseOrder"></thead>
+                        <!--<thead sort-header sort-options="orderValues" current-predicate="predicate" reverse-order="reverseOrder"></thead>-->
                         <tbody style="text-align: left">
                             <tr style="cursor: pointer"
                                 book-row

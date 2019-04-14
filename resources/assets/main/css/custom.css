@@ -188,17 +188,39 @@ a:hover {
   margin-left: auto;
   margin-right: auto;
 }
-.title-panel {
-  background-color: #FFFFFF;
-  color: #2d6ca2;
-  font-family: "vincent";
-  font-size: 36px;
-  height: 70px;
-  width: 94%;
-  padding-top: 12px;
-  margin-left: auto;
-  margin-right: auto;
-  border-bottom: 1px solid #2d6ca2;
+@media (min-width: 768px) {
+  .title-panel {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 50px;
+    background-color: #FFFFFF;
+    color: #2d6ca2;
+    font-family: "vincent";
+    font-size: 36px;
+    height: 70px;
+    padding: 12px;
+    margin-left: auto;
+    margin-right: auto;
+    border-bottom: 1px solid #2d6ca2;
+    z-index: 999;
+  }
+}
+@media (max-width: 768px) {
+  .title-panel {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 90px;
+    background-color: #FFFFFF;
+    color: #2d6ca2;
+    font-family: "vincent";
+    font-size: 36px;
+    height: 70px;
+    padding: 12px;
+    margin-left: auto;
+    margin-right: auto;
+    border-bottom: 1px solid #2d6ca2;
+    z-index: 999;
+  }
 }
 .title-panel-back-button {
   padding: 8px;
@@ -279,9 +301,27 @@ table.left-right-align td:nth-child(1) {
   }
 }
 /*BOOKS*/
-.top-book-panel {
-  margin-top: 10px;
-  margin-bottom: 40px;
+@media (min-width: 768px) {
+  .top-book-panel {
+    padding-top: 60px;
+    padding-bottom: 40px;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 121px;
+    background: #FFF;
+    z-index: 999;
+  }
+}
+@media (max-width: 768px) {
+  .top-book-panel {
+    padding-top: 10px;
+    padding-bottom: 40px;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 160px;
+    background: #FFF;
+    z-index: 999;
+  }
 }
 .book-panel {
   text-align: center;
@@ -1138,4 +1178,7 @@ dl.dl-horizontal.dl-personal-book-info-detail-directive dd {
   .book-row-warning {
     display: none;
   }
+}
+.book-row-title {
+  font-weight: bold;
 }

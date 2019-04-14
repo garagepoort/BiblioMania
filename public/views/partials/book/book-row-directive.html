@@ -1,8 +1,12 @@
-<td class="book-row-title" ng-click="openDetails(); $event.stopPropagation();">{{ ::book.title }}</td>
-<td class="book-row-subtitle" ng-click="openDetails(); $event.stopPropagation();">{{ ::book.subtitle }}</td>
-<td class="book-row-author" ng-click="openDetails(); $event.stopPropagation();">{{ ::book.mainAuthor }}</td>
+<td ng-click="openDetails(); $event.stopPropagation();">
+    <div>
+        <p class="book-row-title">{{ ::book.title }}</p>
+        <p class="book-row-author">{{ ::book.mainAuthor }}</p>
+    </div>
+</td>
+<td ng-click="openDetails(); $event.stopPropagation();">{{ ::book.subtitle }}</td>
 <td class="book-row-warning" ng-click="openDetails(); $event.stopPropagation();">
     <img data-toggle="tooltip" data-placement="top" title="{{ ::warning.message }}"
           ng-repeat="warning in warnings" ng-click="warning.handle()" ng-src="{{ ::warning.icon }}" class="warning-icon-row clickableImage pull-left">
 </td>
-<td style="width: 60px;" ng-click="openDetails(); $event.stopPropagation();"><button class="btn btn-xs btn-default round-corners book-row-edit-button" ng-click="goToBookDetails()"><i class="fa fa-pencil"></i></button></td>
+<td style="width: 60px;" ng-click="openDetails(); $event.stopPropagation();"><button class="btn btn-default round-corners book-row-edit-button" ng-click="goToBookDetails()"><i class="fa fa-pencil"></i></button></td>
