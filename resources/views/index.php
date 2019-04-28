@@ -17,7 +17,7 @@
         <link rel="stylesheet" href="packages/bendani/php-common/filter-service/filters.min.css">
         <link rel="stylesheet" href="packages/bendani/php-common/uiframework/uiframework.min.css">
         <link rel="stylesheet" href="assets/lib/raty-2.7.0/lib/jquery.raty.css">
-        <link rel="stylesheet" href="assets/main.min.61871e319c.css">
+        <link rel="stylesheet" href="assets/main.min.3f62812f52.css">
         <!-- endinjector -->
 
         <script type="text/javascript">
