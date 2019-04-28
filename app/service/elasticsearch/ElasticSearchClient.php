@@ -80,22 +80,22 @@ class ElasticSearchClient
                         'properties' => [
                             'title' => [
                                 "analyzer" => "analyzer_keyword",
-                                "type" => "string"
+                                "type" => "text"
                             ],
                             'subtitle' => [
                                 "analyzer" => "analyzer_keyword",
-                                "type" => "string"
+                                "type" => "text"
                             ],
                             'authors' => [
                                 "properties" => [
-                                    'firstname' => ['type'=>'string', 'analyzer'=>'analyzer_keyword'],
-                                    'lastname' => ['type'=>'string', 'analyzer'=>'analyzer_keyword']
+                                    'firstname' => ['type'=>'text', 'analyzer'=>'analyzer_keyword'],
+                                    'lastname' => ['type'=>'text', 'analyzer'=>'analyzer_keyword']
                                 ]
                             ],
                             'retailPrice' => [
                                 'properties' => [
                                     'amount' => [ 'type' => 'double' ],
-                                    'currency' => ['type'=>'string']
+                                    'currency' => ['type'=>'text']
                                 ]
                             ],
                             'personalBookInfos' => [
@@ -103,7 +103,7 @@ class ElasticSearchClient
                                 "properties" => [
                                     'giftInfo' => [
                                         'properties' => [
-                                            'from' => ['type'=>'string', 'analyzer'=>'analyzer_keyword'],
+                                            'from' => ['type'=>'text', 'analyzer'=>'analyzer_keyword'],
                                             'gift_date' => ['type'=>'date', 'format'=>'yyyy-MM-dd']
                                         ]
                                     ],

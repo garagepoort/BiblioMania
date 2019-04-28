@@ -23,7 +23,7 @@
         "netresearch/jsonmapper": "^0.10.0",
         "webpatser/laravel-uuid": "2.*",
         "doctrine/dbal": "~2.3",
-        "elasticsearch/elasticsearch": "~2.0@beta",
+        "elasticsearch/elasticsearch": "^6.5",
         "monolog/monolog": "~1.0",
         "laravelcollective/annotations": "~5.0",
 
