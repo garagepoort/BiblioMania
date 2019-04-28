@@ -96,8 +96,8 @@ class BookElasticIndexer
             'body' => [
                 '_source' => ['id', 'title', 'subtitle', 'mainAuthor', 'authors', 'image', 'spriteImage', 'isLinkedToOeuvre', 'retailPrice', 'firstPrintPublicationDate'],
                 'query' => [
-                    'filtered' => [
-                        'query' => [
+                    'bool' => [
+                        'must' => [
                             'match_all' => new \stdClass()
                         ],
                         'filter' => ['bool' => ['must' => $filters]]
