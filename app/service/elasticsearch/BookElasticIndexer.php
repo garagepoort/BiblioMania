@@ -105,19 +105,29 @@ class BookElasticIndexer
                 ],
                 'script_fields' => [
                     'isPersonal' => [
-                        'script' => "_source.personalBookInfoUsers.contains($userId)"
+                        'script' => [
+                            "inline" => "params._source.personalBookInfoUsers.contains($userId)"
+                        ]
                     ],
                     'inCollection' => [
-                        'script' => "_source.personalBookInfos.find{ it.userId == $userId } != null && _source.personalBookInfos.find{ it.userId == $userId }.inCollection"
+                        'script' => [
+                            "inline" => "params._source.personalBookInfos.find(it -> it.userId == $userId) != null && params._source.personalBookInfos.find(it -> it.userId == $userId).inCollection"
+                        ]
                     ],
                     'personalBookInfoId' => [
-                        'script' => "_source.personalBookInfos.find{ it.userId == $userId } == null ? null : _source.personalBookInfos.find{ it.userId == $userId }.id"
+                        'script' => [
+                            "inline" => "params._source.personalBookInfos.find(it -> it.userId == $userId) == null ? null : params._source.personalBookInfos.find(it -> it.userId == $userId).id"
+                        ]
                     ],
                     'onWishlist' => [
-                        'script' => "_source.wishlistUsers.contains($userId)"
+                        'script' => [
+                            "inline" => "params._source.wishlistUsers.contains($userId)"
+                        ]
                     ],
                     'read' => [
-                        'script' => "_source.readUsers.contains($userId)"
+                        'script' => [
+                            "inline" => "params._source.readUsers.contains($userId)"
+                        ]
                     ],
                 ]
             ]
