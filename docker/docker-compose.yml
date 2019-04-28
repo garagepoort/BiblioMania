@@ -18,12 +18,9 @@ services:
       - "1025:25"
 
   elastic-bibliomania:
-    image: library/elasticsearch:2.3.5
-    ports:
-      - "9200:9200"
-      - "9300:9300"
-    volumes:
-      - ./elasticsearch:/usr/share/elasticsearch/config
+    extends:
+      file: elasticsearch.yml
+      service: bibliomania-elasticsearch
 
   apache-bibliomania:
     image: apache
