@@ -4,7 +4,7 @@
         <errorcontainer></errorcontainer>
 
         <div class="top-book-panel">
-            <filters-directive ng-if="!mobile" on-filter="filterBooks(selectedFilters)" filter-service-id="filterServiceId" control="filterControl"></filters-directive>
+            <filters-directive on-filter="filterBooks(selectedFilters)" filter-service-id="filterServiceId" control="filterControl"></filters-directive>
             <div style="clear: both">
                 <div class="btn-group pull-left" role="group" ng-show="!mobile">
                     <button ng-class="listView ? 'btn-grey' : 'btn-primary'" type="button" ng-click="setListView(false)" class="btn btn-sm half-round-corners-left"><span class="glyphicon glyphicon-th"></span></button>
