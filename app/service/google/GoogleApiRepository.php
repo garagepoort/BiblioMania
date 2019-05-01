@@ -3,7 +3,7 @@
 class GoogleApiRepository {
 
     public static function createOrUpdateApiTokenForUser($username, $accessToken, $refreshToken){
-        $logger = new Katzgrau\KLogger\Logger(app_path().'/storage/logs');
+        $logger = App::make('Logger');
 
         $token = GoogleApiToken::where('username', '=', $username)->first();
         

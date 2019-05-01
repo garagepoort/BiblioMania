@@ -6,7 +6,7 @@ class DateService
     private $logger;
 
     public function __construct(){
-        $this->logger = new Katzgrau\KLogger\Logger(app_path() . '/storage/logs');
+        $this->logger = App::make('Logger');
     }
 
     /**

@@ -73,7 +73,7 @@ class PublisherService
         $publisher1 = Publisher::with('first_print_infos', 'books')->find($publisher_id1);
         $publisher2 = Publisher::with('first_print_infos', 'books')->find($publisher_id2);
 
-        $logger = new Katzgrau\KLogger\Logger(app_path() . '/storage/logs');
+        $logger = App::make('Logger');
 
         $logger->info("Merging publisher[$publisher1->id] and [$publisher2->id]");
 
