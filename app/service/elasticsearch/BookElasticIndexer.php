@@ -16,6 +16,8 @@ class BookElasticIndexer
     private $bookRepository;
     /** @var  BookToElasticMapper $bookToElasticMapper */
     private $bookToElasticMapper;
+    /** @var  \Katzgrau\KLogger\Logger */
+    private $logger;
 
     /**
      * BookElasticIndexer constructor.
@@ -25,6 +27,7 @@ class BookElasticIndexer
         $this->elasticSearchClient = App::make('ElasticSearchClient');
         $this->bookRepository = App::make('BookRepository');
         $this->bookToElasticMapper = App::make('BookToElasticMapper');
+        $this->logger = App::make('Logger');
     }
 
     public function indexBooks()
@@ -74,21 +77,28 @@ class BookElasticIndexer
     }
 
 
+    /**
+     * @param FilterReturnType[] $bookFilters
+     */
     public function search($userId, $bookFilters, $personalFilters)
     {
-        $filters = array_map(function($item){ return $item->getValue(); }, $bookFilters);
+        $filters = $this->filtersByClause($bookFilters);
 
         if(count($personalFilters) > 0) {
             array_push($personalFilters, FilterBuilder::term('personalBookInfos.userId', $userId));
-            $personalFilters = array_map(function($item){ return $item->getValue(); }, $personalFilters);
+            $this->logger->info('test personal: ' . json_encode($personalFilters));
             if(count($personalFilters) > 0){
-                array_push($filters, ['nested' => [
+                if (!array_key_exists('must', $filters)) {
+                    $filters['must'] = array();
+                }
+                array_push($filters['must'], ['nested' => [
                     'path'=>'personalBookInfos',
-                    'filter' => ['bool' => ['must' => $personalFilters]]
+                    'query' => ['bool' => $this->filtersByClause($personalFilters)]
                 ]]);
             }
         }
 
+        $this->logger->info('test' . json_encode($filters));
         $params = [
             'index' => $this->elasticSearchClient->getIndexName(),
             'type' => self::BOOK,
@@ -100,7 +110,7 @@ class BookElasticIndexer
                         'must' => [
                             'match_all' => new \stdClass()
                         ],
-                        'filter' => ['bool' => ['must' => $filters]]
+                        'filter' => ['bool' => $filters]
                     ]
                 ],
                 'script_fields' => [
@@ -137,4 +147,18 @@ class BookElasticIndexer
         return $this->elasticSearchClient->search($params);
     }
 
+
+    /**
+     * @param FilterReturnType[] $filters
+     */
+    private function filtersByClause($filters) {
+        $byClause = array();
+        foreach ($filters as $filter) {
+            if (!array_key_exists($filter->getClause(), $byClause)) {
+                $byClause[$filter->getClause()] = array();
+            }
+            array_push($byClause[$filter->getClause()], $filter->getValue());
+        }
+        return $byClause;
+    }
 }
