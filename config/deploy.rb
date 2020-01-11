@@ -70,6 +70,7 @@ namespace :deploy do
       execute "ln -s /home/deploy/BiblioMania/authorImages /home/deploy/BiblioMania/current/public/authorImages"
       execute "cd /home/deploy/BiblioMania/current && cp /home/deploy/BiblioMania/.env ."
       execute "cd /home/deploy/BiblioMania/current && php composer.phar update && php artisan migrate --force"
+      execute "mkdir /home/deploy/BiblioMania/current/storage/framework/sessions"
       execute :sudo, "chown -R apache:apache /home/deploy/BiblioMania/current/public"
       execute :sudo, "chown -R apache:apache /home/deploy/BiblioMania/current/storage"
     end

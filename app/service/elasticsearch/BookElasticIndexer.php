@@ -99,51 +99,58 @@ class BookElasticIndexer
         }
 
         $this->logger->info('test' . json_encode($filters));
+
+        $body = [
+            '_source' => ['id', 'title', 'subtitle', 'mainAuthor', 'authors', 'image', 'spriteImage', 'isLinkedToOeuvre', 'retailPrice', 'firstPrintPublicationDate'],
+            'script_fields' => [
+                'isPersonal' => [
+                    'script' => [
+                        "inline" => "params._source.personalBookInfoUsers.contains($userId)"
+                    ]
+                ],
+                'inCollection' => [
+                    'script' => [
+                        "inline" => "params._source.personalBookInfos.find(it -> it.userId == $userId) != null && params._source.personalBookInfos.find(it -> it.userId == $userId).inCollection"
+                    ]
+                ],
+                'personalBookInfoId' => [
+                    'script' => [
+                        "inline" => "params._source.personalBookInfos.find(it -> it.userId == $userId) == null ? null : params._source.personalBookInfos.find(it -> it.userId == $userId).id"
+                    ]
+                ],
+                'onWishlist' => [
+                    'script' => [
+                        "inline" => "params._source.wishlistUsers.contains($userId)"
+                    ]
+                ],
+                'read' => [
+                    'script' => [
+                        "inline" => "params._source.readUsers.contains($userId)"
+                    ]
+                ],
+            ]
+        ];
+
+        if(sizeof($filters) > 0) {
+            $this->logger->info("ADDING QUERY" );
+            $body['query'] = [
+                'bool' => [
+                    'must' => [
+                        'match_all' => new \stdClass()
+                    ],
+                    'filter' => ['bool' => $filters]
+                ]
+            ];
+        }
+
         $params = [
             'index' => $this->elasticSearchClient->getIndexName(),
             'type' => self::BOOK,
             'size' => 10000,
-            'body' => [
-                '_source' => ['id', 'title', 'subtitle', 'mainAuthor', 'authors', 'image', 'spriteImage', 'isLinkedToOeuvre', 'retailPrice', 'firstPrintPublicationDate'],
-                'query' => [
-                    'bool' => [
-                        'must' => [
-                            'match_all' => new \stdClass()
-                        ],
-                        'filter' => ['bool' => $filters]
-                    ]
-                ],
-                'script_fields' => [
-                    'isPersonal' => [
-                        'script' => [
-                            "inline" => "params._source.personalBookInfoUsers.contains($userId)"
-                        ]
-                    ],
-                    'inCollection' => [
-                        'script' => [
-                            "inline" => "params._source.personalBookInfos.find(it -> it.userId == $userId) != null && params._source.personalBookInfos.find(it -> it.userId == $userId).inCollection"
-                        ]
-                    ],
-                    'personalBookInfoId' => [
-                        'script' => [
-                            "inline" => "params._source.personalBookInfos.find(it -> it.userId == $userId) == null ? null : params._source.personalBookInfos.find(it -> it.userId == $userId).id"
-                        ]
-                    ],
-                    'onWishlist' => [
-                        'script' => [
-                            "inline" => "params._source.wishlistUsers.contains($userId)"
-                        ]
-                    ],
-                    'read' => [
-                        'script' => [
-                            "inline" => "params._source.readUsers.contains($userId)"
-                        ]
-                    ],
-                ]
-            ]
+            'body' => $body
         ];
 
-
+        $this->logger->info("BOOKS SEARCH QUERY: " . json_encode($params));
         return $this->elasticSearchClient->search($params);
     }
 

@@ -29,7 +29,7 @@
 
         "bendani/php-common/login-service": "^v4.0.0",
         "bendani/php-common/uiframework": "^v2.2.0",
-        "bendani/php-common/filter-service": "^v7.0.0",
+        "bendani/php-common/filter-service": "^v7.0.2",
         "bendani/php-common/utils": "^v3.0.0"
     },
     "minimum-stability": "stable",
