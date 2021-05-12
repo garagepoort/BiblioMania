@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "angular-media-queries": "^0.6.1",
-    "chart.js": "^1.0.2",
+    "chart.js": "^2.9.4",
     "metismenu": "^2.7.0",
     "ng-tags-input": "^3.0.0"
   }
